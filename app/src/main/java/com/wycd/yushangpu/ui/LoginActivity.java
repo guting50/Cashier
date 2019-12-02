@@ -104,7 +104,7 @@ public class LoginActivity extends BaseActivity {
 
             }
         });
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         AndPermission.with(this)
                 .requestCode(100)
