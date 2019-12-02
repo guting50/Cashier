@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="result_view">#b0000000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="textcolor">#333</color>
+    <color name="textnumbtt">#535353</color>
+    <color name="textshopinfo">#323232</color>
+    <color name="text34">#343434</color>
+    <color name="text60">#676a6c</color>
+    <color name="text66">#666666</color>
+    <color name="textlittle">#6f6f6f</color>
+    <color name="text99">#aaa</color>
+    <color name="a5a5a5">#a5a5a5</color>
+    <color name="textcc">#cccccc</color>
+    <color name="linecolor">#e6e6e6</color>
+    <color name="text49">#494949</color>
+    <color name="texte5">#e5e5e5</color>
+    <color name="text0050">#80000000</color>
+    <color name="text89">#898989</color>
+    <color name="text80">#808080</color>
+    <color name="textB3">#B3B3B3</color>
+    <color name="text98">#989898</color>
+    <color name="text4C">#4C4C4C</color>
+    <color name="text_yellow">#FE710E</color>
+    <color name="backgroud_color">#eeeeee</color>
+    <color name="title_color">#333333</color>
+    <color name="his_top">#606060</color>
+    <color name="white_loading">#00ffffff</color>
+    <!--//#4C000000-->
+    <color name="white">#ffffff</color>
+    <color name="buychose">#F45B34</color>
+    <color name="frend_yel">#FFD83D</color>
+    <color name="frend">#F96239</color>
+    <color name="theme_color">#FA703C</color>
+    <color name="origecolor">#FF5D4B</color>
+    <color name="tixianyellow">#FFC53D</color>
+    <color name="origef0">#FA703C</color>
+    <color name="color_fa">#FAFAFA</color>
+    <color name="tv_order_D">#ffc83d</color>
+    <color name="view_color">#cccccc</color>
+    <color name="blue">#1197D9</color>
+    <color name="textblue">#5ED1FF</color>
+    <color name="code_color">#ff9f0f</color>
+    <color name="green">#20AC38</color>
+    <color name="login_not">#E5E5E5</color>
+    <color name="view_f0">#F0F0F0</color>
+
+    <color name="button_main">#1296eb</color>
+    <color name="button_dark">#0984db</color>
+
+
+    <color name="shadow_end_color">#00000000</color>
+    <color name="shadow_mid_color">#04000000</color>
+    <color name="shadow_start_color">#08000000</color>
+
+    <color name="textbb">#bbbbbb</color>
+    <color name="textred">#ff0c07</color>
+    <color name="textyellow">#ff9c00</color>
+    <color name="textgray">#2f3541</color>
+    <color name="textef">#efefef</color>
+    <color name="texteb">#ecfcf1</color>
+
+    <color name="viewcb">#cbcbcb</color>
+    <color name="viewc1">#33c179</color>
+    <color name="view68">#ff6865</color>
+    <color name="texty6b">#ff6b00</color>
+    <color name="texty9c">#ff9c00</color>
+
+    <color name="view_gray_line">#e5e6e7</color>
+    <color name="view_green_line">#bfe8cf</color>
+    <color name="yunpu">#f63</color>
+    <color name="graeen_botton">#22cb64</color>
+    <color name="textgreen">#21CA63</color>
+    <color name="red_botton">#fa6663</color>
+    <!--亮灰色半透明的颜色-->
+    <color name="lightgray_transparency">#D3D3D3</color><!--亮灰色 -->
+    <color name="lightgray">#eee</color><!--亮灰色 -->
+    <color name="ysl_gray">#EFEFEF</color>
+    <color name="enablenot">#e0e0e0</color>
+    <color name="moling_true">#FF9900</color>
+    <color name="orange">#fe9f12</color>
+    <color name="nameset">#508DC1</color>
+
+    <color name="background">#f5f5f5</color>
+    <color name="color_main_text_black">#333333</color>
+    <color name="color_device_line_gray">#c6c5c5</color>
+    <color name="yunpu2">#FF85C3FC</color>
+
+</resources>

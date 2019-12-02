@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:background="@drawable/shap_homeviptop">
+
+        <TextView
+            android:id="@+id/keyboard_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_18"
+            android:text="商品搜索"
+            android:textColor="@color/textcolor"
+            android:textSize="@dimen/sp_16" />
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:padding="@dimen/dp_10"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_10"
+            android:src="@drawable/ty_close" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/view_green_line"></View>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/ysl_f_char">
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_toLeftOf="@+id/iv_del"
+            android:background="@null"
+            android:textSize="22sp"
+            android:gravity="left|center_vertical" />
+
+        <ImageView
+            android:id="@+id/iv_del"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="@dimen/dp_8"
+            android:src="@drawable/home_error"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:layout_centerVertical="true"
+            />
+
+    </RelativeLayout>
+
+    <!--数字键盘-->
+    <LinearLayout
+        android:id="@+id/ll_fast_consume_keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_15"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_keyboard_7"
+                    style="@style/NumButton"
+                    android:text="7" />
+
+                <Button
+                    android:id="@+id/btn_keyboard_8"
+                    style="@style/NumButton"
+                    android:text="8" />
+
+                <Button
+                    android:id="@+id/btn_keyboard_9"
+                    style="@style/NumButton"
+                    android:text="9" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_keyboard_4"
+                    style="@style/NumButton"
+                    android:text="4" />
+
+                <Button
+                    android:id="@+id/btn_keyboard_5"
+                    style="@style/NumButton"
+                    android:text="5" />
+
+                <Button
+                    android:id="@+id/btn_keyboard_6"
+                    style="@style/NumButton"
+                    android:text="6" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_keyboard_1"
+                    style="@style/NumButton"
+                    android:text="1" />
+
+                <Button
+                    android:id="@+id/btn_keyboard_2"
+                    style="@style/NumButton"
+                    android:text="2" />
+
+                <Button
+                    android:id="@+id/btn_keyboard_3"
+                    style="@style/NumButton"
+                    android:text="3" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+
+                <Button
+                    android:id="@+id/btn_keyboard_0"
+                    style="@style/NumButton1"
+                    android:text="0" />
+
+                <Button
+                    android:id="@+id/btn_keyboard_00"
+                    style="@style/NumButton"
+                    android:text="00" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/btn_keyboard_delete"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:layout_weight="1"
+                android:background="@drawable/selector_clicked_view">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false">
+
+                    <Button
+                        android:layout_width="40dp"
+                        android:layout_height="30dp"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/cash_ico_backspace"
+                        android:clickable="false"
+                        android:textColor="@color/textcolor"
+                        android:textSize="30sp" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_keyboard_dian"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:background="@drawable/selector_clicked_view"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:text="."
+                android:textColor="@color/textcolor"
+                android:textSize="35sp" />
+
+            <LinearLayout
+                android:id="@+id/ll_keyboard_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:background="@drawable/background_green">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:clickable="false">
+
+                    <TextView
+                        android:id="@+id/btn_keyboard_confirm"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal|bottom"
+                        android:background="@null"
+                        android:text="确认"
+                        android:textColor="@color/white"
+                        android:textSize="22dp" />
+                    
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:layout_margin="@dimen/dp_10"
+                        android:src="@drawable/cash_ico_enter"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

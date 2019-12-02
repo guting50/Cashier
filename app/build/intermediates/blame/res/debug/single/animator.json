@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\animator\\scale_with_alpha.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.youth.banner\\banner\\1.4.10\\res\\animator\\scale_with_alpha.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\animator\\scale_with_alpha.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.youth.banner\\banner\\1.4.10\\res\\animator\\scale_with_alpha.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\animator\\scale_with_alpha.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.youth.banner\\banner\\1.4.10\\res\\animator\\scale_with_alpha.xml"
+    }
+]

@@ -1,0 +1,2870 @@
+[
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_banner.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_banner.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\login_pwd.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\login_pwd.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\textcolor_selector_green.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\textcolor_selector_green.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_coin_active.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_coin_active.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_searchred_2dp.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_searchred_2dp.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_xuxian.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_xuxian.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ty_saoma.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\ty_saoma.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_jifen_not.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\js_jifen_not.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_left_no.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\home_left_no.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\background_green.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\background_green.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_goodsimage.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_goodsimage.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_logo.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\home_logo.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_ball_ahead.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_ball_ahead.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\down_more.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\down_more.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\kuang.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\kuang.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_ball_no.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_ball_no.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_merecharge.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_merecharge.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_login_bg.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_login_bg.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_internal_bg.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_cab_background_internal_bg.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_jiesuanbg.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_jiesuanbg.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_searchgreen_2dp.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_searchgreen_2dp.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_pu.jpg",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\home_pu.jpg"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_tab_indicator_material.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_tab_indicator_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_homesearch.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_homesearch.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_dialog_material_background.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_dialog_material_background.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_right_has.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\home_right_has.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_check_material.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_btn_check_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_jiesunnot.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_jiesunnot.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\emp_not.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\emp_not.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\navigation_empty_icon.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\25.2.0\\res\\drawable\\navigation_empty_icon.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\yhq_jiao.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\yhq_jiao.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_right_has.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\home_right_has.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_minus.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_minus.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ysl_f_char.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\ysl_f_char.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_yue_not.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\js_yue_not.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\background_bule.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\background_bule.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_moling.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_moling.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_del.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\js_del.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_light.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_list_selector_holo_light.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_bumennot.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_bumennot.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\wheel_val.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\wheel_val.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_left_chose.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\home_left_chose.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_error.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\home_error.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\btt_ensure.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\btt_ensure.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_wallet.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_wallet.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_del.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\js_del.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_list_selector_holo_dark.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_ball_bihead.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_ball_bihead.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_light.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_light.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_textfield_background_material.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_spinner_textfield_background_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\check_box_checked.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\check_box_checked.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_thumb_material.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_seekbar_thumb_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\gridview_lin.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\gridview_lin.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\selector_clicked_view.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\selector_clicked_view.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_alljx.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_alljx.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shopinfo_bg.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shopinfo_bg.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_merecharge.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_merecharge.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_tab_indicator_material.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_tab_indicator_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_del.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\js_del.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_jiesuanbg.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_jiesuanbg.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_yhq_ok.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\js_yhq_ok.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_jcdjtime.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_jcdjtime.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shop_pt.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shop_pt.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_small_material.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ratingbar_small_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\moling_true.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\moling_true.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_zhunot.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_zhunot.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\btt_cancel.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\btt_cancel.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_gvline.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\bg_gvline.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_voice_search_api_material.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ic_voice_search_api_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\rember_password.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\rember_password.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_dialog_material_background.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_dialog_material_background.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_dialog_material_background.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_dialog_material_background.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_wechat_active.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_wechat_active.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\background_orange.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\background_orange.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_alipay_active.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_alipay_active.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_alljx.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_alljx.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\btn_background_change.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\btn_background_change.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_minus.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_minus.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_keyboard.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_keyboard.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\emp_chose.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\emp_chose.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_saoma_ok.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\js_saoma_ok.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_alipay_active.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_alipay_active.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_yinlian_ok.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\js_yinlian_ok.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\yhq_search.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\yhq_search.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_search_2dp.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_search_2dp.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_internal_bg.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_cab_background_internal_bg.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear_material.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ic_clear_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_ab_back_material.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ic_ab_back_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\lab_selected.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\lab_selected.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_frend_r.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_frend_r.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_check_material.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_btn_check_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\background_selector_green.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\background_selector_green.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_radio_material.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_btn_radio_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_border_common_stroke.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shape_border_common_stroke.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_plus.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_plus.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_search_api_material.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ic_search_api_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_ll_setting.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\bg_ll_setting.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_other_active.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_other_active.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\yhq_search.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\yhq_search.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_item_background_holo_dark.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_enter.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_enter.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_save.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_save.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\btt_ensure.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\btt_ensure.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\rb_background_uncheck.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\rb_background_uncheck.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_light.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_login.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_login.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_menu_overflow_material.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ic_menu_overflow_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_wechat.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_wechat.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\design_password_eye.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\25.2.0\\res\\drawable\\design_password_eye.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\guige_jiao.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\guige_jiao.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_wechat_active.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_wechat_active.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_edittext_focused.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\bg_edittext_focused.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_jiesuntrue.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_jiesuntrue.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\black_background.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.youth.banner\\banner\\1.4.10\\res\\drawable\\black_background.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_msgnotread.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_msgnotread.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\gray_radius.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.youth.banner\\banner\\1.4.10\\res\\drawable\\gray_radius.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_homeitem.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_homeitem.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_small_material.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ratingbar_small_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_list_selector_holo_dark.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_radio_material.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_btn_radio_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_more.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\home_more.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_msgnum.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_msgnum.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_logo.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\home_logo.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_search_material.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_textfield_search_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_right_has.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\home_right_has.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_qita_ok.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\js_qita_ok.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_jiesunnot.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_jiesunnot.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_alipay_active.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_alipay_active.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\gridview_lin.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\gridview_lin.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\black_background.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.youth.banner\\banner\\1.4.10\\res\\drawable\\black_background.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_thumb_material.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_seekbar_thumb_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\image_select_search.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\image_select_search.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\design_snackbar_background.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\25.2.0\\res\\drawable\\design_snackbar_background.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_home_classchose.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_home_classchose.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_light.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\login_phone.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\login_phone.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_internal_bg.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_cab_background_internal_bg.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_left_no.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\home_left_no.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_union_active.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_union_active.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_changepwd.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_changepwd.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\no_banner.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.youth.banner\\banner\\1.4.10\\res\\drawable\\no_banner.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_text_cursor_material.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_text_cursor_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\login_pwd.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\login_pwd.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\lab_selected.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\lab_selected.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\loadinganimal.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\loadinganimal.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_menu_overflow_material.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ic_menu_overflow_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\background_selector_green.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\background_selector_green.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_ball_nochose.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_ball_nochose.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\wheel_bg.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\wheel_bg.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shop_fu.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shop_fu.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_minus.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_minus.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_del.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\home_del.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_home_heji.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_home_heji.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_ball_down.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_ball_down.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_enable_not.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_enable_not.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_alljx.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_alljx.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_xianjin.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_xianjin.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\navigation_empty_icon.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\25.2.0\\res\\drawable\\navigation_empty_icon.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_textfield_background_material.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_spinner_textfield_background_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_error.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\home_error.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_jifen_ok.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\js_jifen_ok.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\down_more1.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\down_more1.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\yhq_jiao.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\yhq_jiao.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_frend_rule.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_frend_rule.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_voice_search_api_material.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ic_voice_search_api_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_jiesuannum.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_jiesuannum.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_shopdetail_confirm.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_shopdetail_confirm.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\design_bottom_navigation_item_background.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\25.2.0\\res\\drawable\\design_bottom_navigation_item_background.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\image_select_search.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\image_select_search.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_saoma_edit.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_saoma_edit.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_orderdetails.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_orderdetails.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_error.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\home_error.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_colored_material.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_scan_active.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_scan_active.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_stickysearch.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_stickysearch.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_xj_ok.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\js_xj_ok.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\spinner_style.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\spinner_style.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_search_material.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_textfield_search_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_home_buttondown.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_home_buttondown.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_coin.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_coin.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_ball_top.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_ball_top.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_border_common_stroke.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shape_border_common_stroke.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_coupon_active.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_coupon_active.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_keyboard.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_keyboard.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_plus.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_plus.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_home_heji.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_home_heji.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ty_saoma.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\ty_saoma.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_language.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_language.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_hometime.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_hometime.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_go_search_api_material.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ic_go_search_api_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_save.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_save.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_top_material.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_cab_background_top_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_buysearch.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_buysearch.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_other.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_other.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_orderdetails.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_orderdetails.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_exchange.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_exchange.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_tx_bank.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_tx_bank.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shopdel_searsh.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shopdel_searsh.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_login_bg.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_login_bg.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\background_white.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\background_white.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_ball_chose.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_ball_chose.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_more.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\home_more.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_edittext_focused.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\bg_edittext_focused.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_tx_bank.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_tx_bank.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_frend_code.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_frend_code.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_wx_ok.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\js_wx_ok.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\selector_clicked_view.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\selector_clicked_view.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_home_classnot.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_home_classnot.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_coupon_active.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_coupon_active.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_qita_not.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\js_qita_not.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_menu_overflow_material.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ic_menu_overflow_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_frend_r.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_frend_r.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shop_li.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shop_li.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\textcolor_selector_green.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\textcolor_selector_green.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_help.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_help.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\check_box_circle_checked.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\check_box_circle_checked.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_indicator_material.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ratingbar_indicator_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_default_mtrl_shape.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_btn_default_mtrl_shape.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_yinlian_not.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\js_yinlian_not.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\design_fab_background.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\25.2.0\\res\\drawable\\design_fab_background.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\design_snackbar_background.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\25.2.0\\res\\drawable\\design_snackbar_background.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\login_phone.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\login_phone.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_zhunot.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_zhunot.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\moling_true.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\moling_true.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_jiesuannum.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_jiesuannum.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_vector_test.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_vector_test.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_coupon.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_coupon.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_jiesuannum.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_jiesuannum.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_yhqbutton_chose.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_yhqbutton_chose.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shopdel_pu.jpg",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shopdel_pu.jpg"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shopdel_zeng.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shopdel_zeng.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_editbg.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_editbg.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\design_fab_background.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\25.2.0\\res\\drawable\\design_fab_background.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_hometime.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_hometime.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_help.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_help.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\defalut_store.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\defalut_store.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_yhqbutton_chose.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_yhqbutton_chose.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_border_button_radius2.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shape_border_button_radius2.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\rb_background_print_set.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\rb_background_print_set.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ty_close.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\ty_close.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_frend_code.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_frend_code.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\background_selector_green.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\background_selector_green.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_frend_code.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_frend_code.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_enter.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_enter.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_union.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_union.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_ball_down.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_ball_down.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\down_more1.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\down_more1.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_yinlian_ok.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\js_yinlian_ok.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\moling_true.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\moling_true.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_ball_chose.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_ball_chose.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shopdel_zeng.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shopdel_zeng.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_bg_low.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\notification_bg_low.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_small_material.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ratingbar_small_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_material.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ratingbar_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_check_material.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_btn_check_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ysl_delet.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\ysl_delet.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_frend_rule.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_frend_rule.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_backspace.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_backspace.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\design_snackbar_background.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\25.2.0\\res\\drawable\\design_snackbar_background.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_msgnum.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_msgnum.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_home_shoukuan.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_home_shoukuan.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\black_background.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.youth.banner\\banner\\1.4.10\\res\\drawable\\black_background.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_jiesunmoney.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_jiesunmoney.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\rember_password.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\rember_password.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\yhq_jiao.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\yhq_jiao.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\chosevip_shaixuan.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\chosevip_shaixuan.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_shopdetail_confirm.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_shopdetail_confirm.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\check_box_checked.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\check_box_checked.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_close.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_close.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\login_bg.jpg",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\login_bg.jpg"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_check_box_empty.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shape_check_box_empty.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear_material.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ic_clear_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_other.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_other.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_ball_no.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_ball_no.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_colored_material.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_home_classnot.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_home_classnot.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_complete.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\js_complete.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\check_box_circle_checked.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\check_box_circle_checked.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_help.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_help.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\textcolor_selector_green.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\textcolor_selector_green.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_coin_active.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_coin_active.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_gvyhq.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\bg_gvyhq.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_yhq_not.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\js_yhq_not.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\button_selector2.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\button_selector2.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_wechat.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_wechat.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_frend_y.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_frend_y.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\wheel_bg.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\wheel_bg.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_jcdjtime.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_jcdjtime.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shopdel_searsh.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shopdel_searsh.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\kuang.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\kuang.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_bg_low.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\notification_bg_low.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_light.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_list_selector_holo_light.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_gvline.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\bg_gvline.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_frend_y.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_frend_y.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_check_box_square_empty.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shape_check_box_square_empty.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_ball_ahead.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_ball_ahead.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_shopdetail_cancle.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_shopdetail_cancle.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_go_search_api_material.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ic_go_search_api_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_check_box_square_empty.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shape_check_box_square_empty.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_jifen_ok.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\js_jifen_ok.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_wallet.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_wallet.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_alipay.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_alipay.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_home_button.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_home_button.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_border_button_radius_pressed2.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shape_border_button_radius_pressed2.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_yue_ok.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\js_yue_ok.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_del.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\home_del.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_search_2dp.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_search_2dp.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_list_selector_holo_dark.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_left_has.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\home_left_has.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shopdel_zeng.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shopdel_zeng.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_searchred_2dp.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_searchred_2dp.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_searchred_2dp.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_searchred_2dp.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_purse_active.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_purse_active.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_right_chose.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\home_right_chose.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_ball_no.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_ball_no.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_coupon_active.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_coupon_active.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_shopdetail_confirm.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_shopdetail_confirm.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_qita_ok.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\js_qita_ok.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\checkbox_selector.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\checkbox_selector.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_indicator_material.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ratingbar_indicator_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_enter.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_enter.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_edit_text_material.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_edit_text_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_coin.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_coin.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_bumennot.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_bumennot.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_pu.jpg",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\home_pu.jpg"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_searchgreen_2dp.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_searchgreen_2dp.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_ali_not.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\js_ali_not.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_edit_text_material.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_edit_text_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_qita_not.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\js_qita_not.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_yue_not.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\js_yue_not.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_frend_y.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_frend_y.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shop_li.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shop_li.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_goodsimage.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_goodsimage.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\background_white.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\background_white.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_other_active.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_other_active.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_backstage.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_backstage.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_yue_ok.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\js_yue_ok.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_pu.jpg",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\home_pu.jpg"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_light.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_backstage.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_backstage.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_ball_nochose.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_ball_nochose.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_qita_not.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\js_qita_not.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_scan_active.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_scan_active.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_gvyhq.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\bg_gvyhq.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\spiner_selector.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\spiner_selector.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ll_loading_outside.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\ll_loading_outside.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\image_select_search.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\image_select_search.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_switch_thumb_material.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_switch_thumb_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_left_chose.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\home_left_chose.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_ali_ok.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\js_ali_ok.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_home_shoukuan.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_home_shoukuan.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\down_more1.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\down_more1.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_jifen_not.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\js_jifen_not.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_check.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_check.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\design_fab_background.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\25.2.0\\res\\drawable\\design_fab_background.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\down_more.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\down_more.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_add.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\home_add.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ysl_lab_unselected.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\ysl_lab_unselected.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_top_material.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_cab_background_top_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_logo.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\home_logo.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\menu_ico_cash.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\menu_ico_cash.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_material.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ratingbar_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_textfield_background_material.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_spinner_textfield_background_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_purse.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_purse.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_check_box_empty.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shape_check_box_empty.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_stickysearch.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_stickysearch.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_edittext_normal.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\bg_edittext_normal.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_tick_mark_material.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_seekbar_tick_mark_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_wallet_active.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_wallet_active.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shopdel_pu.jpg",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shopdel_pu.jpg"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\background_red.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\background_red.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shop_li.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shop_li.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_union_active.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_union_active.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_yhq_not.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\js_yhq_not.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_search_2dp.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_search_2dp.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_switch_thumb_material.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_switch_thumb_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\rb_background_check.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\rb_background_check.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shadow_kjjl.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shadow_kjjl.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_addzhu.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_addzhu.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_gvline.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\bg_gvline.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\gray_radius.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.youth.banner\\banner\\1.4.10\\res\\drawable\\gray_radius.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\defalut_store.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\defalut_store.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\background_bule.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\background_bule.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\spinner_style.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\spinner_style.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_purse_active.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_purse_active.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_goodsimage.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_goodsimage.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_language.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_language.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\background_bule.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\background_bule.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_check_active.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_check_active.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\rember_password.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\rember_password.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_bumen.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_bumen.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_ball_bihead.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_ball_bihead.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_home_buttondown.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_home_buttondown.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_backspace.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_backspace.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\defalut_store.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\defalut_store.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\gray_radius.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.youth.banner\\banner\\1.4.10\\res\\drawable\\gray_radius.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\btn_background_change.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\btn_background_change.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_qita_ok.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\js_qita_ok.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ysl_lab_unselected.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\ysl_lab_unselected.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_jifen_ok.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\js_jifen_ok.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\gridview_lin.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\gridview_lin.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_light.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_list_selector_holo_light.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shop_ci.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shop_ci.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_track_material.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_seekbar_track_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\design_bottom_navigation_item_background.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\25.2.0\\res\\drawable\\design_bottom_navigation_item_background.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_saoma_ok.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\js_saoma_ok.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\select_edit_green_gray.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\select_edit_green_gray.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\select_edit_green_gray.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\select_edit_green_gray.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\loadinganimal.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\loadinganimal.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shopinfo_bg.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shopinfo_bg.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_homesearch.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_homesearch.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\wheel_val.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\wheel_val.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_tx_bank.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_tx_bank.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_home_shoukuan.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_home_shoukuan.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\chosevip_shaixuan.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\chosevip_shaixuan.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_wallet.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_wallet.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shadow_help.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shadow_help.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_vip.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\home_vip.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_ball_ahead.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_ball_ahead.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_indicator_material.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ratingbar_indicator_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\wheel_val.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\wheel_val.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_tick_mark_material.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_seekbar_tick_mark_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_moling.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_moling.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_yinlian_not.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\js_yinlian_not.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\selector_clicked_view.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\selector_clicked_view.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_edittext_normal.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\bg_edittext_normal.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_hometime.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_hometime.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_wx_ok.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\js_wx_ok.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_frend_r.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_frend_r.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\background_red.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\background_red.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_vip.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\home_vip.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\emp_not.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\emp_not.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\loadinganimal.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\loadinganimal.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_wechat.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_wechat.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\background_green.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\background_green.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ysl_delet.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\ysl_delet.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_xj_ok.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\js_xj_ok.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_yinlian_ok.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\js_yinlian_ok.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_shopdetail_cancle.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_shopdetail_cancle.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\btt_cancel.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\btt_cancel.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\kuang.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\kuang.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_tile_bg.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\notification_tile_bg.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_searchgreen_2dp.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_searchgreen_2dp.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_border_button_radius2.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shape_border_button_radius2.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\background_red.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\background_red.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_vip.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\home_vip.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_stickysearch.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_stickysearch.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_metixian.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_metixian.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_add.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\home_add.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_more.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\home_more.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_wallet_active.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_wallet_active.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\design_bottom_navigation_item_background.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\25.2.0\\res\\drawable\\design_bottom_navigation_item_background.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_check.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_check.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_ali_ok.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\js_ali_ok.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_scan.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_scan.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_alipay.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_alipay.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_purse.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_purse.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_right_chose.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\home_right_chose.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_switch_thumb_material.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_switch_thumb_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_text_cursor_material.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_text_cursor_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ysl_lab_unselected.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\ysl_lab_unselected.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_msgnotread.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_msgnotread.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_home.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_home.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_material.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ratingbar_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_zhunot.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_zhunot.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_coin.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_coin.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_buysearch.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_buysearch.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_tick_mark_material.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_seekbar_tick_mark_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\button_selector2.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\button_selector2.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_saoma_not.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\js_saoma_not.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_coupon.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_coupon.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\lab_selected.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\lab_selected.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ll_loading_outside.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\ll_loading_outside.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\checkbox_selector.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\checkbox_selector.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_check_active.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_check_active.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\emp_chose.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\emp_chose.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_yue_ok.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\js_yue_ok.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_wallet_active.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_wallet_active.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_border_button_radius_pressed2.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shape_border_button_radius_pressed2.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\guige_jiao.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\guige_jiao.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ty_close.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\ty_close.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_top_material.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_cab_background_top_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_left_has.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\home_left_has.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_shop_img.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_shop_img.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_coin_active.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_coin_active.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_orderdetails.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_orderdetails.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_right_chose.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\home_right_chose.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_ali_not.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\js_ali_not.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_login_bg.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_login_bg.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_check_box_empty.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shape_check_box_empty.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_icon_background.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\notification_icon_background.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ll_loading_outside.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\ll_loading_outside.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_gvyhq.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\bg_gvyhq.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_yinlian_not.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\js_yinlian_not.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_edittext_focused.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\bg_edittext_focused.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\wheel_bg.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\wheel_bg.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_yhq_ok.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\js_yhq_ok.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\button_selector2.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\button_selector2.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_homeitem.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_homeitem.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_bumen.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_bumen.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_language.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_language.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\emp_chose.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\emp_chose.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_login.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_login.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\design_password_eye.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\25.2.0\\res\\drawable\\design_password_eye.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\background_orange.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\background_orange.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_merecharge.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_merecharge.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_yhq_ok.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\js_yhq_ok.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\chosevip_search.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\chosevip_search.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_borderless_material.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_btn_borderless_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\white_radius.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.youth.banner\\banner\\1.4.10\\res\\drawable\\white_radius.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_scan.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_scan.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_xianjin.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_xianjin.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_edit_text_material.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_edit_text_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_check.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_check.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_bumennot.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_bumennot.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_bg_low.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\notification_bg_low.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_saoma_not.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\js_saoma_not.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_moling.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_moling.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_home_classchose.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_home_classchose.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_left_has.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\home_left_has.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_jcdjtime.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_jcdjtime.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_border_button_radius_pressed2.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shape_border_button_radius_pressed2.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_vector_test.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_vector_test.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_other_active.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_other_active.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\menu_ico_cash.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\menu_ico_cash.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_yhqbutton_chose.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_yhqbutton_chose.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_left_no.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\home_left_no.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_shopdetail_cancle.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_shopdetail_cancle.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_banner.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_banner.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shopdel_pu.jpg",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shopdel_pu.jpg"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_icon_background.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\notification_icon_background.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_homeviptop.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_homeviptop.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_complete.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\js_complete.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_editbg.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_editbg.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_ball_nochose.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_ball_nochose.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_changepwd.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_changepwd.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_enable_not.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_enable_not.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\guige_jiao.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\guige_jiao.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_saoma_not.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\js_saoma_not.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\chosevip_search.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\chosevip_search.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bg_edittext_normal.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\bg_edittext_normal.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\emp_not.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\emp_not.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_addzhu.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_addzhu.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_xuxian.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_xuxian.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_track_material.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_seekbar_track_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_wx_ok.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\js_wx_ok.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_ball_top.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_ball_top.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_home.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_home.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_union.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_union.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_search_material.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_textfield_search_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\btn_background_change.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\btn_background_change.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_item_background_holo_dark.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_ball_bihead.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_ball_bihead.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_saoma_edit.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_saoma_edit.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_light.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\login_bg.jpg",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\login_bg.jpg"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_xj_not.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\js_xj_not.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_bumen.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_bumen.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_radio_material.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_btn_radio_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_check_active.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_check_active.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\customer_button_selector.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\customer_button_selector.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_item_background_holo_dark.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_ku.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\home_ku.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_close.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_close.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\background_orange.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\background_orange.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_colored_material.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_xianjin.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_xianjin.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_wx_not.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\js_wx_not.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_purse_active.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_purse_active.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\background_green.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\background_green.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shadow_help.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shadow_help.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ysl_delet.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\ysl_delet.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_union_active.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_union_active.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_alipay.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_alipay.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\white_radius.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.youth.banner\\banner\\1.4.10\\res\\drawable\\white_radius.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_ball_chose.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_ball_chose.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_metixian.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_metixian.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_default_mtrl_shape.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_btn_default_mtrl_shape.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_keyboard.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_keyboard.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\no_banner.png",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.youth.banner\\banner\\1.4.10\\res\\drawable\\no_banner.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\background_white.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\background_white.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shop_pt.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shop_pt.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\white_radius.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.youth.banner\\banner\\1.4.10\\res\\drawable\\white_radius.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_home_button.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_home_button.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_saoma_edit.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_saoma_edit.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_home_buttondownnot.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_home_buttondownnot.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_jiesunmoney.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_jiesunmoney.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\navigation_empty_icon.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\25.2.0\\res\\drawable\\navigation_empty_icon.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shadow_help.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shadow_help.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ysl_f_char.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\ysl_f_char.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\btt_ensure.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\btt_ensure.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_login.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_login.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_bg.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\notification_bg.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_backspace.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_backspace.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_wx_not.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\js_wx_not.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\design_password_eye.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\25.2.0\\res\\drawable\\design_password_eye.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_yhq_not.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\js_yhq_not.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ty_close.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\ty_close.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\yhq_search.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\yhq_search.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shop_pt.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shop_pt.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear_material.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ic_clear_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_complete.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\js_complete.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_check_box_square_empty.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shape_check_box_square_empty.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\login_bg.jpg",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\login_bg.jpg"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\chosevip_search.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\chosevip_search.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_jiesuntrue.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_jiesuntrue.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\checkbox_selector.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\checkbox_selector.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_changepwd.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_changepwd.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_search_api_material.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ic_search_api_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_ball_down.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_ball_down.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_bg.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\notification_bg.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_save.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_save.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_ali_not.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\js_ali_not.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_xj_not.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\js_xj_not.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_jifen_not.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\js_jifen_not.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_icon_background.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\notification_icon_background.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_home_buttondownnot.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_home_buttondownnot.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\dot_selector.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\dot_selector.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_wx_not.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\js_wx_not.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_xj_ok.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\js_xj_ok.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_homeviptop.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_homeviptop.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\login_phone.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\login_phone.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_banner.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_banner.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_addzhu.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_addzhu.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_wechat_active.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_wechat_active.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\down_more.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\down_more.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_tile_bg.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\notification_tile_bg.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_ali_ok.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\js_ali_ok.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_shop_img.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_shop_img.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shadow_kjjl.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shadow_kjjl.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_yue_not.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\js_yue_not.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\check_box_circle_checked.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\check_box_circle_checked.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_saoma_ok.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\js_saoma_ok.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_del.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\home_del.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_xuxian.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_xuxian.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shadow_kjjl.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shadow_kjjl.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ysl_f_char.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\ysl_f_char.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_go_search_api_material.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ic_go_search_api_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_exchange.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_exchange.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_msgnum.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_msgnum.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_union.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_union.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_borderless_material.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_btn_borderless_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_other.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_other.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_jiesunmoney.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_jiesunmoney.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_vector_test.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_vector_test.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_borderless_material.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_btn_borderless_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_home_classnot.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_home_classnot.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shop_ci.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shop_ci.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_msgnotread.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_msgnotread.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_scan.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_scan.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_exchange.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_exchange.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_homeviptop.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_homeviptop.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_home_heji.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_home_heji.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\dot_selector.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\dot_selector.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_editbg.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_editbg.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_frend_rule.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_frend_rule.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_backstage.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\cash_ico_backstage.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_ab_back_material.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ic_ab_back_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\dot_selector.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\dot_selector.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_voice_search_api_material.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ic_voice_search_api_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\select_edit_green_gray.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\select_edit_green_gray.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_ball_top.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_ball_top.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_metixian.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_metixian.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_border_button_radius2.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shape_border_button_radius2.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shop_fu.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shop_fu.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_ku.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\home_ku.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shopinfo_bg.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shopinfo_bg.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_home_buttondown.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_home_buttondown.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_plus.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_plus.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_shop_img.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_shop_img.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_text_cursor_material.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_text_cursor_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\menu_ico_cash.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\menu_ico_cash.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_border_common_stroke.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shape_border_common_stroke.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_jiesuntrue.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_jiesuntrue.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shop_fu.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shop_fu.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\js_xj_not.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\js_xj_not.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_close.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_close.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_jiesuanbg.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_jiesuanbg.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\btt_cancel.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\btt_cancel.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shop_ci.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shop_ci.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_buysearch.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_buysearch.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_jiesunnot.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_jiesunnot.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_left_chose.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\home_left_chose.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_enable_not.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_enable_not.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_scan_active.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\cash_ico_scan_active.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_thumb_material.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_seekbar_thumb_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_add.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\home_add.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\check_box_checked.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\check_box_checked.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\login_pwd.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\login_pwd.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_homesearch.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_homesearch.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\chosevip_shaixuan.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\chosevip_shaixuan.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\spinner_style.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\spinner_style.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_tile_bg.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\notification_tile_bg.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_coupon.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_coupon.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_home.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\drawable\\shap_home.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_home_button.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_home_button.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_ab_back_material.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ic_ab_back_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shopdel_searsh.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shopdel_searsh.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_track_material.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_seekbar_track_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cash_ico_purse.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\cash_ico_purse.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_homeitem.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_homeitem.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_default_mtrl_shape.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_btn_default_mtrl_shape.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_home_buttondownnot.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\shap_home_buttondownnot.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_ku.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\drawable\\home_ku.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_tab_indicator_material.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_tab_indicator_material.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shap_home_classchose.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\shap_home_classchose.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\no_banner.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.youth.banner\\banner\\1.4.10\\res\\drawable\\no_banner.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_search_api_material.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ic_search_api_material.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_bg.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\notification_bg.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ty_saoma.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\drawable\\ty_saoma.png"
+    }
+]

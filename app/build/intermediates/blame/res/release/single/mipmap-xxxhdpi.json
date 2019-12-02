@@ -1,0 +1,54 @@
+[
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxxhdpi\\round_true.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xxxhdpi\\round_true.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxxhdpi\\icon_wx.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xxxhdpi\\icon_wx.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxxhdpi\\search_w.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xxxhdpi\\search_w.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxxhdpi\\round_false.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xxxhdpi\\round_false.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxxhdpi\\left_back.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xxxhdpi\\left_back.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxxhdpi\\right_back_b.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xxxhdpi\\right_back_b.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxxhdpi\\search.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xxxhdpi\\search.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxxhdpi\\ic_launcher.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxxhdpi\\gou_chose.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xxxhdpi\\gou_chose.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxxhdpi\\icon_ali.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xxxhdpi\\icon_ali.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxxhdpi\\right_back_c.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xxxhdpi\\right_back_c.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxxhdpi\\error.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xxxhdpi\\error.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxxhdpi\\right_back_s.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xxxhdpi\\right_back_s.png"
+    }
+]

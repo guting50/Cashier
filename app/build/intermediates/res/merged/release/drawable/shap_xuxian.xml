@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingDefaultResource">
+    <!--dashWidth宽度  dashGap间隙 -->
+    <stroke
+        android:color="@color/textcolor"
+        android:dashWidth="2dp"
+        android:dashGap="2dp"></stroke>
+    <size android:height="0.5dp"></size>
+</shape>

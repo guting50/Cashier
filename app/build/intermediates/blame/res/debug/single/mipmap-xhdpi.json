@@ -1,0 +1,446 @@
+[
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\button_down.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\button_down.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\wx.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\wx.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\wx.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\wx.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\round_false.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\round_false.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\bluetooth_connected48.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\bluetooth_connected48.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\welcom.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\welcom.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\ic_launcher.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\ic_launcher.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\split_right_1.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\split_right_1.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\search.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\search.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\left_back.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\left_back.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\close.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\close.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\blue.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\blue.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\device64.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\device64.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\icon_ali.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\icon_ali.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\round_false.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\round_false.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\you_baijiantou.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\you_baijiantou.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\right_back_c.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\right_back_c.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\quan.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\quan.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\button_delete.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\button_delete.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\quan.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\quan.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\button_down.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\button_down.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\error.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\error.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\right_back_s.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\right_back_s.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\wx.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\wx.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\quan.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\quan.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\left_toward.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\left_toward.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\member_head_nohead.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\member_head_nohead.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\delete_key.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\delete_key.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\yellow.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\yellow.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\right_back_s.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\right_back_s.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\button_delete.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\button_delete.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\icon_wx.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\icon_wx.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\blue.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\blue.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\logo.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\logo.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\bluetooth_disconnect48.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\bluetooth_disconnect48.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\right_back_c.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\right_back_c.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\welcom.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\welcom.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\split_1.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\split_1.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\right_toward.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\right_toward.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\split_left_1.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\split_left_1.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\member_head_nohead.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\member_head_nohead.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\logo.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\logo.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\left_toward.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\left_toward.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\split_left_1.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\split_left_1.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\button_down.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\button_down.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\next_button.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\next_button.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\zuo_baijiantou.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\zuo_baijiantou.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\round_false.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\round_false.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\blue.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\blue.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\messge_nourl.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\messge_nourl.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\bluetooth_connected48.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\bluetooth_connected48.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\ic_launcher.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\right_back_b.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\right_back_b.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\wh.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\wh.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\icon_wx.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\icon_wx.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\right_back_c.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\right_back_c.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\round_true.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\round_true.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\search_w.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\search_w.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\button_delete.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\button_delete.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\search.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\search.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\zuo_baijiantou.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\zuo_baijiantou.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\next_button.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\next_button.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\gou_chose.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\gou_chose.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\welcom.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\welcom.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\you_baijiantou.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\you_baijiantou.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\bluetooth_disconnect48.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\bluetooth_disconnect48.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\split_right_1.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\split_right_1.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\close.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\close.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\device64.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\device64.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\zuo_baijiantou.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\zuo_baijiantou.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\icon_ali.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\icon_ali.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\next_button.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\next_button.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\close.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\close.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\right_back_b.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\right_back_b.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\wh.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\wh.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\member_head_nohead.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\member_head_nohead.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\search_w.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\search_w.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\right_back_b.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\right_back_b.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\split_1.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\split_1.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\gou_chose.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\gou_chose.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\wh.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\wh.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\left_back.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\left_back.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\messge_nourl.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\messge_nourl.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\round_true.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\round_true.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\messge_nourl.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\messge_nourl.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\logo.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\logo.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\bluetooth_disconnect48.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\bluetooth_disconnect48.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\bluetooth_connected48.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\bluetooth_connected48.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\delete_key.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\delete_key.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\yellow.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\yellow.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\right_back_s.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\right_back_s.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\you_baijiantou.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\you_baijiantou.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\split_right_1.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\split_right_1.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\search.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\search.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\search_w.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\search_w.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\split_1.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\split_1.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\icon_wx.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\icon_wx.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\split_left_1.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\split_left_1.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\error.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\error.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\device64.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\device64.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\gou_chose.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\gou_chose.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\left_back.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\left_back.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\icon_ali.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\icon_ali.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\right_toward.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\right_toward.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\round_true.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\round_true.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\left_toward.png",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\mipmap-xhdpi\\left_toward.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\yellow.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\yellow.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\right_toward.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\right_toward.png"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\error.png",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\error.png"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\delete_key.png",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\mipmap-xhdpi\\delete_key.png"
+    }
+]

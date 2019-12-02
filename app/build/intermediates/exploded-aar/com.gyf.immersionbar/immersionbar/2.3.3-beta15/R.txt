@@ -1,0 +1,3 @@
+int id immersion_navigation_bar_view 0x7f0c0001
+int id immersion_status_bar_view 0x7f0c0002
+int string app_name 0x7f150001

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.just.agentweb:filechooser:4.1.2@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.just.agentweb/filechooser/4.1.2/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.just.agentweb/filechooser/4.1.2/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.just.agentweb/filechooser/4.1.2/67f0e1e937738c25a5c93374419348d4be425071/filechooser-4.1.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

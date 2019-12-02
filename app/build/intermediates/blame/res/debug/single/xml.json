@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\xml\\web_files_public.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.just.agentweb\\agentweb\\4.1.2\\res\\xml\\web_files_public.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\xml\\util_code_provider_paths.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.blankj\\utilcode\\1.25.9\\res\\xml\\util_code_provider_paths.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\xml\\web_files_public.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.just.agentweb\\agentweb\\4.1.2\\res\\xml\\web_files_public.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\xml\\util_code_provider_paths.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\exploded-aar\\com.blankj\\utilcode\\1.25.9\\res\\xml\\util_code_provider_paths.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\xml\\web_files_public.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\exploded-aar\\com.just.agentweb\\agentweb\\4.1.2\\res\\xml\\web_files_public.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\xml\\util_code_provider_paths.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\exploded-aar\\com.blankj\\utilcode\\1.25.9\\res\\xml\\util_code_provider_paths.xml"
+    }
+]

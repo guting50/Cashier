@@ -1,0 +1,606 @@
+[
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_wxcode.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\activity_wxcode.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_chosevip.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\dialog_chosevip.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_login.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\activity_login.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_shopdetail_yuangong.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\item_shopdetail_yuangong.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_gualist.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\dialog_gualist.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_pop_vip_search.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\item_pop_vip_search.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_home.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\activity_home.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_web.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\activity_web.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_home.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\activity_home.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\title_oneicon_back_md.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\title_oneicon_back_md.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\pop_search_vip_list.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\pop_search_vip_list.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_youhuiquan.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\item_youhuiquan.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\rule_pop_item.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\rule_pop_item.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_pop_vip_search.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\item_pop_vip_search.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\pop_member_info.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\pop_member_info.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\pop_search_vip_list.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\pop_search_vip_list.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_loading.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\dialog_loading.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_jiesuan_new.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\dialog_jiesuan_new.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_jiesuan_new.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\dialog_jiesuan_new.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_guigechose.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\item_guigechose.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_gualist.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\item_gualist.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_youhuiquan.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\dialog_youhuiquan.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\rule_pop_item.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\rule_pop_item.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_web.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\activity_web.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_home_rightshop.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\item_home_rightshop.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_choose_vip.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\dialog_choose_vip.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_change_pwd.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\dialog_change_pwd.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_notice.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\dialog_notice.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\title_twoicon_back.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\title_twoicon_back.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_blue_tooth.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\activity_blue_tooth.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\title_oneicon_back_md.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\title_oneicon_back_md.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_notice.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\dialog_notice.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_home.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\activity_home.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_shop_info.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\dialog_shop_info.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_blue_tooth.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\activity_blue_tooth.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\toast_style.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\toast_style.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_language.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\dialog_language.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_blue_tooth.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\activity_blue_tooth.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_home_class.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\item_home_class.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_shopdetail.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\dialog_shopdetail.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_shopdetail_bumen.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\item_shopdetail_bumen.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\title_twoicon_back_md.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\title_twoicon_back_md.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_spinner.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\item_spinner.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_html.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\activity_html.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\pop_member_info.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\pop_member_info.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_shopdetail.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\dialog_shopdetail.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\layout_sm_goods_rule_pop_item.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\layout_sm_goods_rule_pop_item.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_splash.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\activity_splash.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_choose_vip.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\dialog_choose_vip.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_shopdetail_yuangong.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\item_shopdetail_yuangong.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_language.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\dialog_language.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_home_rightshop.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\item_home_rightshop.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_notice.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\dialog_notice.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_shopdetail_bumen.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\item_shopdetail_bumen.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\pop_search_vip_list.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\pop_search_vip_list.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_wxcode.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\activity_wxcode.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\layout_sm_goods_rule_pop.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\layout_sm_goods_rule_pop.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_print_set.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\activity_print_set.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_print_set.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\activity_print_set.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_loading.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\dialog_loading.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_jiesuan.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\dialog_jiesuan.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\layout_sm_goods_rule_pop_item.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\layout_sm_goods_rule_pop_item.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\title_oneicon_back.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\title_oneicon_back.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_chosevip.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\dialog_chosevip.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\actionbar_trans.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\actionbar_trans.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_chosevip.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\item_chosevip.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\title_twoicon_back_md.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\title_twoicon_back_md.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_html.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\activity_html.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\toast_style.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\toast_style.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_home_left.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\item_home_left.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_guigechose.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\dialog_guigechose.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_gualist.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\dialog_gualist.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_main.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\activity_main.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\title_search.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\title_search.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_html.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\activity_html.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_home_rightshop.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\item_home_rightshop.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_capture.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\activity_capture.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\rule_pop_item.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\rule_pop_item.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_keyborad.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\dialog_keyborad.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\actionbar_trans.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\actionbar_trans.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_choose_vip.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\dialog_choose_vip.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\title_twoicon.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\title_twoicon.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_spinner.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\item_spinner.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_bluetooth.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\item_bluetooth.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_jiesuan.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\dialog_jiesuan.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_home_left.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\item_home_left.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_language.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\dialog_language.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_youhuiquan.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\item_youhuiquan.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_keyborad.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\dialog_keyborad.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_chosevip.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\dialog_chosevip.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_youhuiquan.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\dialog_youhuiquan.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_main.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\activity_main.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\actionbar_trans.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\actionbar_trans.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\layout_sm_goods_rule_pop.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\layout_sm_goods_rule_pop.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_wxcode.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\activity_wxcode.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_main.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\activity_main.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\title_twoicon.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\title_twoicon.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_keyborad.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\dialog_keyborad.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_guigechose.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\item_guigechose.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_print_set.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\activity_print_set.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\title_twoicon_back_md.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\title_twoicon_back_md.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_login.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\activity_login.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_shop_info.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\dialog_shop_info.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_youhuiquan.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\dialog_youhuiquan.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\title_oneicon_back.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\title_oneicon_back.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\title_twoicon.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\title_twoicon.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_splash.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\activity_splash.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\pop_member_info.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\pop_member_info.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_bluetooth.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\item_bluetooth.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\printer_list.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\printer_list.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\layout_sm_goods_rule_pop.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\layout_sm_goods_rule_pop.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\title_oneicon_back.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\title_oneicon_back.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_home_left.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\item_home_left.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_web.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\activity_web.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_chosevip.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\item_chosevip.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_gualist.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\dialog_gualist.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_capture.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\activity_capture.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_guigechose.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\dialog_guigechose.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\toast_style.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\toast_style.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_chosevip.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\item_chosevip.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_gualist.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\item_gualist.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_shopdetail.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\dialog_shopdetail.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_home_class.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\item_home_class.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_pop_vip_search.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\item_pop_vip_search.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_capture.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\activity_capture.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_saomapay.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\dialog_saomapay.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\title_search.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\title_search.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_youhuiquan.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\item_youhuiquan.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_gualist.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\item_gualist.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\title_twoicon_back.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\title_twoicon_back.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_change_pwd.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\dialog_change_pwd.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_guigechose.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\dialog_guigechose.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_jiesuan.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\dialog_jiesuan.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_shopdetail_bumen.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\item_shopdetail_bumen.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_login.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\activity_login.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\title_oneicon_back_md.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\title_oneicon_back_md.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_saomapay.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\dialog_saomapay.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\title_search.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\title_search.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_change_pwd.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\dialog_change_pwd.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_guigechose.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\item_guigechose.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_saomapay.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\dialog_saomapay.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_loading.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\dialog_loading.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_jiesuan_new.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\dialog_jiesuan_new.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\dialog_shop_info.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\dialog_shop_info.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_bluetooth.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\item_bluetooth.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_spinner.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\item_spinner.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_home_class.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\item_home_class.xml"
+    },
+    {
+        "merged": "D:\\project\\GtProject\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\activity_splash.xml",
+        "source": "D:\\project\\GtProject\\Code\\app\\src\\main\\res\\layout-land\\activity_splash.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\item_shopdetail_yuangong.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\item_shopdetail_yuangong.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\title_twoicon_back.xml",
+        "source": "D:\\works\\AndroidTouch\\app\\src\\main\\res\\layout-land\\title_twoicon_back.xml"
+    },
+    {
+        "merged": "D:\\works\\AndroidTouch\\Code\\app\\build\\intermediates\\res\\merged\\debug\\layout-land\\layout_sm_goods_rule_pop_item.xml",
+        "source": "D:\\works\\AndroidTouch\\Code\\app\\src\\main\\res\\layout-land\\layout_sm_goods_rule_pop_item.xml"
+    }
+]

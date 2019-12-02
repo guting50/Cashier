@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="alipaySdk-15.5.9-20181123210601-">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/alipaySdk-15.5.9-20181123210601/res" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/alipaySdk-15.5.9-20181123210601/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

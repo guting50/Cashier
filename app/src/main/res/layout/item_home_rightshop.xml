@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/dp_2"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_80"
+        android:background="@drawable/bg_gvline">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true">
+
+
+            <com.wycd.yushangpu.views.ShapedImageView
+                android:id="@+id/iv_shop"
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="match_parent"
+                android:layout_margin="0.01dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/messge_nourl"
+                android:scaleType="fitXY"
+                app:round_radius="4dp"
+                app:shape_mode="round_rect"
+                app:stroke_color="@color/white"
+                app:stroke_width="0.6dp" />
+
+
+            <!--<com.facebook.drawee.view.SimpleDraweeView-->
+            <!--android:id="@+id/iv_shop"-->
+            <!--android:layout_width="@dimen/dp_80"-->
+            <!--android:layout_height="@dimen/dp_80"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--fresco:actualImageScaleType="centerInside"-->
+                <!--fresco:failureImage="@mipmap/messge_nourl"-->
+                <!--fresco:failureImageScaleType="centerCrop"-->
+                <!--fresco:placeholderImage="@mipmap/messge_nourl"-->
+                <!--fresco:placeholderImageScaleType="centerCrop" />-->
+
+            <TextView
+                android:id="@+id/iv_state"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginLeft="@dimen/dp_3"
+                android:layout_marginTop="@dimen/dp_3"
+                android:gravity="center"
+                android:text="普"
+                android:textSize="@dimen/dp_12"
+                android:textColor="@color/textblue"
+                android:background="@color/white" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_3"
+                android:layout_toRightOf="@id/iv_shop"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="超值小吃拼盘"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/sp_13" />
+
+                <TextView
+                    android:id="@+id/tv_xinghao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:text="M/8寸"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:textColor="@color/text60"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:id="@+id/tv_sanprice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:text="售：8.00"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:textColor="@color/textred"
+                    android:textSize="@dimen/sp_11" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_2">
+
+                    <TextView
+                        android:id="@+id/tv_vipprice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="会：8.00"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:textColor="@color/textred"
+                        android:textSize="@dimen/sp_11" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_kucun"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/dp_5"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/iv_ku"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:text="库"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:background="@drawable/background_bule"
+                            android:textSize="@dimen/dp_12"/>
+
+                        <TextView
+                            android:id="@+id/tv_kunum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="10000"
+                            android:textColor="@color/text60"
+                            android:textSize="@dimen/sp_11" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,764 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="55555" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="426d4ac9-6611-4106-adef-65ceef09a0bc" name="Default Changelist" comment="" />
+    <ignored path=".gradle/" />
+    <ignored path=".idea/" />
+    <ignored path="gradle/" />
+    <ignored path="gradlew" />
+    <ignored path="gradlew.bat" />
+    <ignored path="local.properties" />
+    <ignored path="build.gradle" />
+    <ignored path="build/" />
+    <ignored path="app/app-release.apk" />
+    <ignored path="$PROJECT_DIR$/build/" />
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="X6GNU18308110580" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view />
+      </state>
+    </system>
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="AndroidTouch" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/ui/LoginActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="304">
+              <caret line="148" column="41" selection-start-line="148" selection-start-column="41" selection-end-line="148" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/model/ImpLogin.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1159">
+              <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/model/ImpOnlyVipMsg.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-388">
+              <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/model/ImpOrderPay.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="353">
+              <caret line="85" selection-start-line="85" selection-end-line="86" selection-end-column="94" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/model/ImpEditUsersPwd.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="38">
+              <caret line="25" column="47" selection-start-line="25" selection-start-column="47" selection-end-line="25" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/model/ImpEmplList.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-228">
+              <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/model/ImpGoodsModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-304">
+              <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/model/ImpGroupGoodsList.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="513">
+              <caret line="74" column="45" selection-start-line="74" selection-start-column="45" selection-end-line="74" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/dialog/ChangePwdDialog.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="282">
+              <caret line="138" column="27" selection-start-line="138" selection-start-column="27" selection-end-line="138" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/http/HttpAPI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1197">
+              <caret line="69" column="35" selection-start-line="69" selection-start-column="35" selection-end-line="69" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="resourceFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>结算</find>
+      <find>sp_print_paper</find>
+      <find>vip_message</find>
+      <find>li_jiesuan</find>
+      <find>shortmessage</find>
+      <find>li_shoukuan</find>
+      <find>ConsumeOrder/PaymentConsumOrder&quot;</find>
+      <find>shortMessa</find>
+      <find>dialog.show();</find>
+      <find>数量</find>
+      <find>iv_close</find>
+      <find>gridview</find>
+      <find>@null</find>
+      <find>et_login_account</find>
+      <find>IS_Sms</find>
+      <find>扫码</find>
+      <find>ImpShopInfo</find>
+      <find>555555555</find>
+      <find>SaoBei_State</find>
+      <find>li_yinlian</find>
+      <find>li_saoma</find>
+      <find>jiesuan</find>
+      <find>短信</find>
+      <find>Is_</find>
+      <find>qudan</find>
+      <find>saoma</find>
+      <find>YSLUtils</find>
+      <find>btt_num_exchange</find>
+      <find>sp_goods_order_num</find>
+      <find>layout_bottom</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>14sp</replace>
+      <replace>layout_marginStart=&quot;20dp&quot;</replace>
+      <replace>46dp</replace>
+      <replace>18sp</replace>
+      <replace>layout_marginTop=&quot;2dp&quot;</replace>
+      <replace>mNoticeDialog</replace>
+      <replace>PrintSetActivity.th</replace>
+    </replaceStrings>
+  </component>
+  <component name="GenerateSignedApkSettings">
+    <option name="KEY_STORE_PATH" value="D:\works\AndroidTouch\document\版本发布签名\yun.jks" />
+    <option name="KEY_ALIAS" value="cash" />
+    <option name="REMEMBER_PASSWORDS" value="true" />
+    <option name="BUILD_TARGET_KEY" value="apk" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/bean/ReportMessageBean.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/printutil/Presenter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/item_bluetooth.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/printutil/IPrintSetPresenter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/web/JavascriptInterfaceImpl.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/printutil/CallBack.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/printutil/GetPrintSet.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/ui/BaseActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/printutil/PrinterUtils.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/ui/BlueToothActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/http/HttpAPI.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/bean/SmsSwitch.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/MyApplication.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/model/ImpOrderPay.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/dialog/QudanDialog.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/activity_home.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/spinner_style.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/layout_sm_goods_rule_pop.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_jiesuan_new.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_notice.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_keyborad.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_jiesuan_new.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_choose_vip.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_keyborad.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_sm_goods_rule_pop.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_change_pwd.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_chosevip.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_notice.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_jiesuan.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_jiesuan.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_chosevip.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_change_pwd.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_choose_vip.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_gualist.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_gualist.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/activity_blue_tooth.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/activity_html.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/activity_print_set.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/dialog/JiesuanBDialog.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/ui/HomeActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/ui/PrintSetActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/item_spinner.xml" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/gradle.properties" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/activity_login.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/ui/LoginActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/printutil/YSLUtils.java" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/xml/backup_descriptor.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1066" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Code" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Code" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Code" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+            </path>
+            <path>
+              <item name="Code" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="Code" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="yushangpu" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Code" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="yushangpu" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Code" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+            </path>
+            <path>
+              <item name="Code" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+            <path>
+              <item name="Code" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
+              <item name="activity_login" type="c431d0b8:AndroidResGroupNode" />
+            </path>
+            <path>
+              <item name="Code" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="xml" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+            <path>
+              <item name="Code" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ExportApk.ApkPath" value="D:\works\AndroidTouch\app" />
+    <property name="ExportApk.BuildType" value="release" />
+    <property name="ExportApk.Flavors" value="" />
+    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../DOC/document/版本发布签名/yun.jks" />
+    <property name="not.eligible.for.single.variant.sync" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.updates" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\works\AndroidTouch\app\src\main\res\layout-land" />
+    </key>
+    <key name="android.template.packageName">
+      <recent name="com.wycd.yushangpu.ui" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.wycd.yushangpu.bean" />
+      <recent name="com.wycd.yushangpu.printutil" />
+      <recent name="com.wycd.yushangpu.adapter" />
+      <recent name="com.wycd.yushangpu.views" />
+      <recent name="com.wycd.yushangpu.http" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\works\AndroidTouch\app\src\main\res\drawable" />
+      <recent name="D:\works\AndroidTouch\app\src\main\res\mipmap-hdpi" />
+      <recent name="D:\works\AndroidTouch\app\src\main\res\layout-land" />
+      <recent name="D:\works\AndroidTouch\app\src\main\java\com\wycd\yushangpu\printutil" />
+      <recent name="D:\works\AndroidTouch\app\src\main\res\mipmap-xhdpi" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="TestNGTestDiscovery" factoryName="TestNG Test Discovery" changeList="All">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\Administrator\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="426d4ac9-6611-4106-adef-65ceef09a0bc" name="Default Changelist" comment="" />
+      <created>1572916094459</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1572916094459</updated>
+    </task>
+    <task id="LOCAL-00001">
+      <created>1572946389649</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1572946389649</updated>
+    </task>
+    <task id="LOCAL-00002">
+      <created>1573106286818</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1573106286818</updated>
+    </task>
+    <task id="LOCAL-00003">
+      <created>1573205272751</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1573205272751</updated>
+    </task>
+    <task id="LOCAL-00004">
+      <created>1573464750921</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1573464750922</updated>
+    </task>
+    <task id="LOCAL-00005">
+      <created>1573526794973</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1573526794973</updated>
+    </task>
+    <task id="LOCAL-00006">
+      <created>1573548533476</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1573548533476</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="7" />
+    <editor active="true" />
+    <layout>
+      <window_info x="335" y="430" width="513" height="147" id="Palette " type="FLOATING" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18390192" />
+      <window_info id="Structure" order="1" weight="0.25" />
+      <window_info id="Captures" order="2" side_tool="true" weight="0.25" />
+      <window_info id="Build Variants" order="3" side_tool="true" />
+      <window_info id="Image Layers" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Designer" order="7" />
+      <window_info id="Resources Explorer" order="8" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Android Monitor" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="bottom" id="Gradle Console" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.32998884" />
+      <window_info anchor="bottom" id="Build" order="13" visible="true" weight="0.1607717" />
+      <window_info anchor="bottom" id="Android Profiler" order="14" />
+      <window_info anchor="bottom" id="Logcat" order="15" />
+      <window_info anchor="right" x="909" y="515" width="102" height="19" id="Attributes" type="FLOATING" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Capture Analysis" order="3" />
+      <window_info anchor="right" id="Gradle" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Android Model" order="6" side_tool="true" />
+      <window_info anchor="right" id="Preview" order="7" weight="0.32995737" />
+      <window_info anchor="right" id="Device File Explorer" order="8" side_tool="true" />
+      <window_info anchor="right" id="Palette&#9;" order="9" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LAST_COMMIT_MESSAGE" value="" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/printutil/bean/HYCZ_Success_Bean.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/printutil/bean/Print_HYCZ_Bean.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/printutil/bean/Print_HYCC_Bean.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/printutil/bean/JCXF_Success_Bean.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/printutil/bean/Print_SPTH_Bean.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/printutil/bean/KSJC_Success_Bean.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/printutil/bean/PrintSetBean.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/printutil/bean/PrintParamSetBean.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/printutil/bean/Print_JCXF_Bean.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/ui/HtmlActivity.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/ui/BlueToothActivity.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/bean/PayTypeMsg.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/model/ImpSystemCanshu.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/model/ImpShopInfo.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/bean/ShopInfoBean.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/bean/LoginBean.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/popwindow/ShowStorePopWindow.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/MyApplication.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/dialog/NoticeDialog.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/dialog/QudanDialog.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/shap_enable_not.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/dialog/JiesuanBDialog.java" />
+    <entry file="file://$PROJECT_DIR$/replay_pid7884.log" />
+    <entry file="file://$PROJECT_DIR$/hs_err_pid7884.log" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/background_white.xml" />
+    <entry file="file://$PROJECT_DIR$/document/发布流程.md" />
+    <entry file="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
+    <entry file="file://$PROJECT_DIR$/build.gradle" />
+    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-25/android/view/View.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+    <entry file="file://$PROJECT_DIR$/app/build.gradle" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/ui/HomeActivity.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/ui/PrintSetActivity.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/printutil/YSLUtils.java" />
+    <entry file="file://$PROJECT_DIR$/settings.gradle">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gradle.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="17" column="48" lean-forward="true" selection-start-line="17" selection-start-column="48" selection-end-line="17" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/activity_login.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" column="17" lean-forward="true" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/backup_descriptor.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" column="27" lean-forward="true" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="57" column="18" lean-forward="true" selection-start-line="57" selection-start-column="18" selection-end-line="57" selection-end-column="18" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/ui/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="148" column="41" selection-start-line="148" selection-start-column="41" selection-end-line="148" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/model/ImpLogin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1159">
+          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/model/ImpOnlyVipMsg.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-388">
+          <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/model/ImpOrderPay.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="85" selection-start-line="85" selection-end-line="86" selection-end-column="94" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/http/HttpAPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1197">
+          <caret line="69" column="35" selection-start-line="69" selection-start-column="35" selection-end-line="69" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/dialog/ChangePwdDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="138" column="27" selection-start-line="138" selection-start-column="27" selection-end-line="138" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/model/ImpEditUsersPwd.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="25" column="47" selection-start-line="25" selection-start-column="47" selection-end-line="25" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/model/ImpEmplList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-228">
+          <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/model/ImpGoodsModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-304">
+          <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wycd/yushangpu/model/ImpGroupGoodsList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="74" column="45" selection-start-line="74" selection-start-column="45" selection-end-line="74" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

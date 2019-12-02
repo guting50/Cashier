@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">云会员收银系统</string>
+    <string name="scan_text">请扫描消费者的二维码</string>
+    <string name="code_title">扫码支付</string>
+
+    <string-array name="port">
+        <item>连接打印机</item>
+        <item>标签打印</item>
+        <item>打印设置</item>
+    </string-array>
+
+    <string name="usb_pre_con">显示已接入的Usb设备:</string>
+    <string name="con_success">连接成功</string>
+    <string name="con_failed">连接失败</string>
+    <string name="str_disconnect">断开连接</string>
+    <string name="str_printer_error">打印机出错</string>
+    <string name="str_printer_out_of_paper">打印机缺纸</string>
+    <string name="str_printer_open_cover">打印机开盖</string>
+    <string name="str_state">状态：</string>
+<!--    <string name="str_cpclmode">面单模式</string>-->
+<!--    <string name="str_escmode">票据模式</string>-->
+<!--    <string name="str_tscmode">标签模式</string>-->
+<!--    <string name="default_mode">默认模式，小票模式</string>-->
+<!--    <string name="str_printer_printmode_esc">打印模式:ESC</string>-->
+<!--    <string name="str_printer_printmode_tsc">打印模式:TSC</string>-->
+<!--    <string name="str_printer_printmode_cpcl">打印模式:CPCL</string>-->
+    <string name="str_printer_conn_normal">打印机连接正常</string>
+    <string name="none_ble_device">没有找到设备</string>
+
+    <string name="recharge_successful">充值成功</string>
+    <string name="recharge_cancellation">充值已取消</string>
+    <string name="recharge_failed">充值失败</string>
+    <string name="enter_email_mobile">请输入邮箱或手机号</string>
+    <string name="enter_password">请输入密码</string>
+    <string name="log_in">登录</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="no_account">还没有账号？</string>
+    <string name="sign_up_now">立即注册</string>
+    <string name="bottom">©\t2015-2018\tAll\tRights\tReserved云会员\tV1.0.8</string>
+</resources>
