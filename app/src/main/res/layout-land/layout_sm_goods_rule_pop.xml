@@ -41,7 +41,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/view_green_line"></View>
+            android:background="@color/view_green_line"/>
     </LinearLayout>
 
     <LinearLayout

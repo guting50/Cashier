@@ -1,19 +1,14 @@
 package com.wycd.yushangpu.ui;
 
-import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -53,7 +48,6 @@ import com.wycd.yushangpu.bean.LoginBean;
 import com.wycd.yushangpu.bean.OrderCanshhu;
 import com.wycd.yushangpu.bean.PayTypeMsg;
 import com.wycd.yushangpu.bean.RevokeGuaDanBean;
-import com.wycd.yushangpu.bean.ShopInfoBean;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.bean.SmsSwitch;
 import com.wycd.yushangpu.bean.VipDengjiMsg;
@@ -77,7 +71,6 @@ import com.wycd.yushangpu.model.ImpOnlyVipMsg;
 import com.wycd.yushangpu.model.ImpOutLogin;
 import com.wycd.yushangpu.model.ImpShopClass;
 import com.wycd.yushangpu.model.ImpShopHome;
-import com.wycd.yushangpu.model.ImpShopInfo;
 import com.wycd.yushangpu.model.ImpSubmitOrder;
 import com.wycd.yushangpu.model.ImpSubmitOrder_Guazhang;
 import com.wycd.yushangpu.model.ImpSystemCanshu;
@@ -90,7 +83,6 @@ import com.wycd.yushangpu.printutil.HttpGetPrintContents;
 import com.wycd.yushangpu.printutil.HttpHelper;
 import com.wycd.yushangpu.printutil.YSLUtils;
 import com.wycd.yushangpu.tools.ActivityManager;
-import com.wycd.yushangpu.tools.ActivityStack;
 import com.wycd.yushangpu.tools.CacheData;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.CreateOrder;
@@ -109,25 +101,15 @@ import com.wycd.yushangpu.tools.Utils;
 import com.wycd.yushangpu.views.ClearEditText;
 import com.wycd.yushangpu.web.WebDialog;
 
-import net.posprinter.posprinterface.ProcessData;
 import net.posprinter.posprinterface.TaskCallback;
-import net.posprinter.utils.DataForSendToPrinterTSC;
-import net.posprinter.utils.PosPrinterDev;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.IOException;
-import java.io.OutputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -163,7 +145,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     @Bind(R.id.tv_ordernum)
     TextView tv_ordernum;
     @Bind(R.id.recyclerview_shoplist)
-    ListView mRecyclerviewShoplist;
+    RecyclerView mRecyclerviewShoplist;
     @Bind(R.id.ll_card_list)
     LinearLayout llCardList;
     @Bind(R.id.im_clear)
@@ -266,7 +248,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     private ArrayList<String> GoodsTypeList = new ArrayList<>();//每页显示商品数目
     private List<ClassMsg> mClassMsgList = new ArrayList<>();//分类数据列表
     private String mPT_Gid = "";
-//    private List<ClassMsg> twoClassList;
+    //    private List<ClassMsg> twoClassList;
 //    private Gson mGson;
     private List<ShopMsg> mShopMsgList = new ArrayList<>();
     private LinearLayoutManager linearmanger;
@@ -325,7 +307,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 //    private String mBluetoothName;//已经连接的蓝牙设备名称
 
 
-    private int mButtonGreen[] = new int[]{R.id.btn_home_label,R.id.btt_price_exchange, R.id.btt_dicount_exchange, R.id.btt_dicount_exchange, R.id.btt_money_exchange, R.id.btt_num_exchange,  R.id.btt_royalty, R.id.btt_get_order,  R.id.btt_hung_money};
+    private int mButtonGreen[] = new int[]{R.id.btn_home_label, R.id.btt_price_exchange, R.id.btt_dicount_exchange, R.id.btt_dicount_exchange, R.id.btt_money_exchange, R.id.btt_num_exchange, R.id.btt_royalty, R.id.btt_get_order, R.id.btt_hung_money};
 
     //商品数据修改(修改单价/修改折扣/修改小计/修改数量)
     private int mModifyPrice = 0;
@@ -358,26 +340,26 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
     }
 
-    private void initPrint(){
+    private void initPrint() {
         String ReceiptUSBName = (String) CacheData.restoreObject("ReceiptUSBName");
         if (ReceiptUSBName != null && !"".equals(ReceiptUSBName)) {
-                myBinder.ConnectUsbPort(this, ReceiptUSBName, new TaskCallback() {
-                    @Override
-                    public void OnSucceed() {
-                        ISCONNECT = true;
-                        ISBULETOOTHCONNECT = false;
-                    }
+            myBinder.ConnectUsbPort(this, ReceiptUSBName, new TaskCallback() {
+                @Override
+                public void OnSucceed() {
+                    ISCONNECT = true;
+                    ISBULETOOTHCONNECT = false;
+                }
 
-                    @Override
-                    public void OnFailed() {
-                        ISCONNECT = false;
-                    }
-                } );
-        }else {
+                @Override
+                public void OnFailed() {
+                    ISCONNECT = false;
+                }
+            });
+        } else {
             String BlueToothAddress = (String) CacheData.restoreObject("BlueToothAddress");
-            bluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
+            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             //判断是否打开蓝牙设备
-            if (bluetoothAdapter.isEnabled() && BlueToothAddress != null && !"".equals(BlueToothAddress)){
+            if (bluetoothAdapter.isEnabled() && BlueToothAddress != null && !"".equals(BlueToothAddress)) {
                 myBinder.ConnectBtPort(BlueToothAddress, new TaskCallback() {
                     @Override
                     public void OnSucceed() {
@@ -389,24 +371,24 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     public void OnFailed() {
                         ISBULETOOTHCONNECT = false;
                     }
-                } );
+                });
             }
         }
         String LabelUSBName = (String) CacheData.restoreObject("LabelUSBName");
         if (LabelUSBName != null && !"".equals(LabelUSBName)) {
             UsbDevice usbDevice = Utils.getUsbDeviceFromName(HomeActivity.this, LabelUSBName);
-                new DeviceConnFactoryManager.Build()
-                        .setId(id)
-                        .setConnMethod(DeviceConnFactoryManager.CONN_METHOD.USB)
-                        .setUsbDevice(usbDevice)
-                        .setContext(this)
-                        .build();
-                DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id].openPort();
+            new DeviceConnFactoryManager.Build()
+                    .setId(id)
+                    .setConnMethod(DeviceConnFactoryManager.CONN_METHOD.USB)
+                    .setUsbDevice(usbDevice)
+                    .setContext(this)
+                    .build();
+            DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id].openPort();
         }
     }
 
     /**
-     *注册广播
+     * 注册广播
      * Registration broadcast
      */
     private void initBroadcast() {
@@ -418,7 +400,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         registerReceiver(receiver, filter);
     }
 
-    private BroadcastReceiver receiver = new BroadcastReceiver(){
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -426,13 +408,13 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             switch (action) {
                 //Usb连接断开广播
                 case ACTION_USB_DEVICE_DETACHED:
-                    UsbDevice usbDevice = (UsbDevice)intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                    UsbDevice usbDevice = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
                     String ReceiptUSBName = (String) CacheData.restoreObject("ReceiptUSBName");
-                    if (ReceiptUSBName.equals(usbDevice.getDeviceName())){
+                    if (ReceiptUSBName.equals(usbDevice.getDeviceName())) {
                         ISCONNECT = false;
                     }
                     String LabelUSBName = (String) CacheData.restoreObject("LabelUSBName");
-                    if (LabelUSBName.equals(usbDevice.getDeviceName())){
+                    if (LabelUSBName.equals(usbDevice.getDeviceName())) {
                         ISLABELCONNECT = false;
                     }
                     break;
@@ -442,7 +424,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     switch (state) {
                         case DeviceConnFactoryManager.CONN_STATE_DISCONNECT:
                             if (id == deviceId) {
-                                Log.e(TAG,"connection is lost");
+                                Log.e(TAG, "connection is lost");
                             }
                             break;
                         case DeviceConnFactoryManager.CONN_STATE_CONNECTING:
@@ -519,9 +501,9 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     leftpos = leftpos - 1;
                     mShopLeftAdapter.notifyDataSetChanged();
                     jisuanAllPrice();
-                    if (mShopLeftList.size() > 0){
+                    if (mShopLeftList.size() > 0) {
                         bttGetOrder.setText("挂单");
-                    }else {
+                    } else {
                         bttGetOrder.setText("取单");
                     }
                 }
@@ -539,6 +521,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 mShopLeftAdapter.notifyDataSetChanged();
             }
         });
+        LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mRecyclerviewShoplist.setLayoutManager(llm);
         mRecyclerviewShoplist.setAdapter(mShopLeftAdapter);
 
 
@@ -780,7 +764,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 //            }
 //        }
 //    };
-
     private void initData() {
 
         getproductmodel();
@@ -1003,8 +986,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             @Override
             public void onSuccess(String responseString, Gson gson) {
                 SmsSwitch bean = CommonFun.JsonToObj(responseString, SmsSwitch.class);
-                for (int i=0;i<bean.getData().size();i++){
-                    if (bean.getData().get(i).getST_Code().equals(code)){
+                for (int i = 0; i < bean.getData().size(); i++) {
+                    if (bean.getData().get(i).getST_Code().equals(code)) {
                         if (bean.getData().get(i).getST_State() == null || !bean.getData().get(i).getST_State().equals("1")) {
                             cbMessage.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -1020,6 +1003,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 }
                 CacheData.saveObject("shortmessage", bean);//缓存短信开关到本地
             }
+
             @Override
             public void onFailure(String msg) {
             }
@@ -1264,7 +1248,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         btnHomePrint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (YSLUtils.isFastClick()){
+                if (YSLUtils.isFastClick()) {
                     Intent intents = new Intent(ac, PrintSetActivity.class);
                     startActivity(intents);
                 }
@@ -1320,8 +1304,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
                 ShopMsg shopMsg = (ShopMsg) parent.getItemAtPosition(position);
 
-
-                System.out.println("======shopMsg=========random:" + new Gson().toJson(shopMsg));
                 if (shopMsg.getStock_Number() <= 0 && isZeroStock && shopMsg.getPM_IsService() == 0) {
 //                    ToastUtils.showToast(ac, "当前库存不足");
                     com.blankj.utilcode.util.ToastUtils.showShort("当前库存不足");
@@ -1367,9 +1349,9 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                         leftpos += 1;
                                     }
                                     jisuanShopjisuanPrice(mPD_Discount, mShopLeftList);
-                                    if (mShopLeftList.size() > 0){
+                                    if (mShopLeftList.size() > 0) {
                                         bttGetOrder.setText("挂单");
-                                    }else {
+                                    } else {
                                         bttGetOrder.setText("取单");
                                     }
                                 } else {
@@ -1380,7 +1362,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                     if (sllist.get(0).getGID().equals(mShopLeftList.get(i).getGID()) && !mShopLeftList.get(i).isIsgive()) {
                                         mShopLeftList.get(i).setCheck(true);
                                         leftpos = i;
-                                    }else {
+                                    } else {
                                         mShopLeftList.get(i).setCheck(false);
                                     }
                                 }
@@ -1465,9 +1447,9 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                                     leftpos += 1;
                                                 }
                                                 jisuanShopjisuanPrice(mPD_Discount, mShopLeftList);
-                                                if (mShopLeftList.size() > 0){
+                                                if (mShopLeftList.size() > 0) {
                                                     bttGetOrder.setText("挂单");
-                                                }else {
+                                                } else {
                                                     bttGetOrder.setText("取单");
                                                 }
                                             } else {
@@ -1478,7 +1460,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                                 if (goodsitem.getGID().equals(mShopLeftList.get(i).getGID())) {
                                                     mShopLeftList.get(i).setCheck(true);
                                                     leftpos = i;
-                                                }else {
+                                                } else {
                                                     mShopLeftList.get(i).setCheck(false);
                                                 }
                                             }
@@ -1527,9 +1509,9 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                             leftpos += 1;
                         }
                         jisuanShopjisuanPrice(mPD_Discount, mShopLeftList);
-                        if (mShopLeftList.size() > 0){
+                        if (mShopLeftList.size() > 0) {
                             bttGetOrder.setText("挂单");
-                        }else {
+                        } else {
                             bttGetOrder.setText("取单");
                         }
                     } else {
@@ -1540,7 +1522,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                         if (shopMsg.getGID().equals(mShopLeftList.get(i).getGID()) && !mShopLeftList.get(i).isIsgive()) {
                             mShopLeftList.get(i).setCheck(true);
                             leftpos = i;
-                        }else {
+                        } else {
                             mShopLeftList.get(i).setCheck(false);
                         }
                     }
@@ -1595,9 +1577,9 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 mTvHeji.setText("￥0.00");
                 tvGetIntegral.setText("0");
                 leftpos = -1;
-                if (mShopLeftList.size() > 0){
+                if (mShopLeftList.size() > 0) {
                     bttGetOrder.setText("挂单");
-                }else {
+                } else {
                     bttGetOrder.setText("取单");
                 }
 
@@ -1640,8 +1622,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                         new HttpGetPrintContents().SPXF(ac, gid);
                                     }
 
-                                    if (ISLABELCONNECT && LABELPRINT_IS_OPEN){
-                                        for (int i = 0;i < mShopLeftList.size();i++){
+                                    if (ISLABELCONNECT && LABELPRINT_IS_OPEN) {
+                                        for (int i = 0; i < mShopLeftList.size(); i++) {
                                             labelPrint(mShopLeftList.get(i));
                                         }
                                     }
@@ -1689,7 +1671,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         mRlVip.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
-                System.out.println("=====1364===============random:");
                 VipChooseDialog vipChooseDialog = new VipChooseDialog(HomeActivity.this, new InterfaceBack() {
                     @Override
                     public void onResponse(Object response) {
@@ -1829,7 +1810,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 //                        ToastUtils.showToast(HomeActivity.this, "请选择商品");
                         com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
                     }
-                }else {
+                } else {
                     com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
                 }
 
@@ -1883,7 +1864,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 //                        ToastUtils.showToast(HomeActivity.this, "请选择商品");
                         com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
                     }
-                }else {
+                } else {
                     com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
                 }
 
@@ -1945,7 +1926,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 //                        ToastUtils.showToast(HomeActivity.this, "请选择商品");
                         com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
                     }
-                }else {
+                } else {
                     com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
                 }
 
@@ -1981,7 +1962,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 //                        ToastUtils.showToast(HomeActivity.this, "请选择商品");
                         com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
                     }
-                }else {
+                } else {
                     com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
                 }
 
@@ -1998,16 +1979,16 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                         mShopLeftList.remove(leftpos);
                         leftpos = leftpos - 1;
                         jisuanAllPrice();
-                        if (mShopLeftList.size() > 0){
+                        if (mShopLeftList.size() > 0) {
                             bttGetOrder.setText("挂单");
-                        }else {
+                        } else {
                             bttGetOrder.setText("取单");
                         }
                     } else {
 //                        ToastUtils.showToast(HomeActivity.this, "请选择商品");
                         com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
                     }
-                }else {
+                } else {
                     com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
                 }
             }
@@ -2031,7 +2012,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 //                        ToastUtils.showToast(HomeActivity.this, "请选择商品");
                         com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
                     }
-                }else {
+                } else {
                     com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
                 }
             }
@@ -2086,7 +2067,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 //                        ToastUtils.showToast(HomeActivity.this, "请选择商品");
                         com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
                     }
-                }else {
+                } else {
                     com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
                 }
 
@@ -2261,7 +2242,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                         }
                     });
                     setButtonGreen(R.id.btt_get_order);
-                }else {
+                } else {
                     shortMessage = cbMessage.isChecked();
                     //取单
                     QudanDialog qudanDialog = new QudanDialog(ac, moren, paytypelist, mSmGid, new InterfaceBack() {
@@ -2425,7 +2406,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         int version = (int) (1 + Math.random() * (1000000 - 1 + 1));
 
         webDialog = new WebDialog(ac, mwidth, mheight, MyApplication.BASE_URL + "loginTSCash.html?URL=" + url + "&Name=" + title + "&v=" + String.valueOf(version));
-        System.out.println(title + "====================random:" + MyApplication.BASE_URL + "loginTSCash.html?URL=" + url + "&Name=" + title + "&v=" + String.valueOf(version));
         SystemUIUtils.setStickFullScreen(webDialog.getWindow().getDecorView());
         webDialog.show();
 //        JavascriptInterfaceImpl.startLoading();
@@ -2495,9 +2475,9 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 }
 
                 mShopLeftList.add(newmsg);
-                if (mShopLeftList.size() > 0){
+                if (mShopLeftList.size() > 0) {
                     bttGetOrder.setText("挂单");
-                }else {
+                } else {
                     bttGetOrder.setText("取单");
                 }
             }
@@ -2637,7 +2617,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             public void onResponse(Object response) {
 
                 Gson gson = new Gson();
-                Type listType = new TypeToken<List<ClassMsg>>() {}.getType();
+                Type listType = new TypeToken<List<ClassMsg>>() {
+                }.getType();
                 List<ClassMsg> sllist = gson.fromJson(response.toString(), listType);
                 mClassMsgList.clear();
                 mClassMsgList.addAll(sllist);
@@ -2967,7 +2948,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMemberValueRefresh(HomeButtonColorChangeEvent notifyShopCarEvent) {
         if (notifyShopCarEvent.getMsg().equals("Change_color")) {
-           setButtonGreen(0);
+            setButtonGreen(0);
         }
     }
 
@@ -2976,12 +2957,10 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
      */
     private void setButtonGreen(int viewId) {
         for (int i = 0, len = mButtonGreen.length; i < len; i++) {
-            System.out.println(viewId + "              random   " + mButtonGreen[i]);
-            System.out.println(((viewId == mButtonGreen[i])) + "   v           random   ");
             Button buttonView = (Button) findViewById(mButtonGreen[i]);
             if (viewId == mButtonGreen[i]) {
                 buttonView.setBackgroundResource(R.drawable.background_green);
-            }else {
+            } else {
                 buttonView.setBackgroundResource(R.drawable.background_white);
             }
         }

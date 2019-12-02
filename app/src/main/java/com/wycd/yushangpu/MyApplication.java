@@ -44,7 +44,6 @@ import cz.msebera.android.httpclient.cookie.Cookie;
 
 public class MyApplication extends android.support.multidex.MultiDexApplication {
     public static IWXAPI mWxApi;
-    private static MyApplication sInstances;
     private static Context sContext;
 
     private static MyApplication homeApplication;
@@ -180,8 +179,6 @@ public class MyApplication extends android.support.multidex.MultiDexApplication 
     public static int SPXF_PRINT_TIMES = 1;
     public static int JB_PRINT_TIMES = 1;
 
-    private WebView mWebView ;
-
     public static LoginBean loginBean;//登录数据
 
     public static IMyBinder myBinder;
@@ -212,10 +209,9 @@ public class MyApplication extends android.support.multidex.MultiDexApplication 
     public void onCreate() {
         super.onCreate();
 
-        //提前内核初始化webview
-        mWebView = new WebView(new MutableContextWrapper(this));
-
         homeApplication=this;
+        sContext = this;
+
         mTimesRechargeMap = new HashMap<>();
         mRechargeMap = new HashMap<>();
         mGoodsConsumeMap = new HashMap<>();
@@ -237,8 +233,6 @@ public class MyApplication extends android.support.multidex.MultiDexApplication 
                 .setRequestListeners(requestListeners)
                 .build();
         Fresco.initialize(this, config);
-        sInstances = this;
-        sContext = this;
         onLanguageChange();
         //AppConst.WEIXIN.APP_ID是指你应用在微信开放平台上的AppID，记得替换。
         mWxApi = WXAPIFactory.createWXAPI(this, Constants.APP_ID, false);
@@ -263,11 +257,6 @@ public class MyApplication extends android.support.multidex.MultiDexApplication 
         Intent intent =new Intent(this, PosprinterService.class);
         bindService(intent,mSerconnection,BIND_AUTO_CREATE);
 
-    }
-
-
-    public static MyApplication getInstances() {
-        return sInstances;
     }
 
     public static Context getContext() {
