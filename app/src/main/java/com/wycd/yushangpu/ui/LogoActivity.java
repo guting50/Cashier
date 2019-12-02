@@ -13,13 +13,12 @@ public class LogoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
                 startActivity(new Intent(LogoActivity.this, LoginActivity.class));
                 finish();
             }
-        }, 3000);
+        }, 1000);
     }
 }
