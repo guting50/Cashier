@@ -156,7 +156,7 @@ public class ShopLeftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
             }
         });
-        vh.rl_clck.setOnClickListener(new NoDoubleClickListener() {
+        vh.mRlBg.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
                 back.onThreeResponse(i);
@@ -197,8 +197,6 @@ public class ShopLeftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         View mViewLine;
         @BindView(R.id.rl_bg)
         RelativeLayout mRlBg;
-        @BindView(R.id.rl_clck)
-        RelativeLayout rl_clck;
         @BindView(R.id.tv_staff)
         TextView tvStaff;
 

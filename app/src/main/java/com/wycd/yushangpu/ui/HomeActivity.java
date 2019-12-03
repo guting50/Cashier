@@ -32,6 +32,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.gt.utils.view.BgFrameLayout;
 import com.maimengmami.waveswiperefreshlayout.WaveSwipeRefreshLayout;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
@@ -145,18 +146,14 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     TextView tv_ordernum;
     @BindView(R.id.recyclerview_shoplist)
     RecyclerView mRecyclerviewShoplist;
-    @BindView(R.id.ll_card_list)
-    LinearLayout llCardList;
     @BindView(R.id.im_clear)
     ImageView imClear;
     @BindView(R.id.rl_clear)
-    RelativeLayout mRlClear;
+    TextView mRlClear;
     @BindView(R.id.rl_jifen)
     LinearLayout rlJifen;
     @BindView(R.id.tv_heji)
     TextView mTvHeji;
-    @BindView(R.id.rl_totalmoney)
-    LinearLayout mllTotalMoney;
     @BindView(R.id.iv_viptx)
     CircleImageView mIvViptx;
     @BindView(R.id.tv_vipname)
@@ -165,14 +162,12 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     TextView tvBlance;
     @BindView(R.id.tv_integral)
     TextView tvIntegral;
-    @BindView(R.id.btt_vip)
-    Button mRlVip;
+    @BindView(R.id.member_bg_layout)
+    BgFrameLayout mRlVip;
     @BindView(R.id.delet_vip)
     ImageView deletVip;
     @BindView(R.id.tv_shoukuan)
     TextView tvShoukuan;
-    @BindView(R.id.li_shoukuan)
-    RelativeLayout liShoukuan;
     @BindView(R.id.btt_price_exchange)
     Button bttPriceExchange;
     @BindView(R.id.btt_dicount_exchange)
@@ -227,8 +222,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     TextView tvGetIntegral;
     @BindView(R.id.iv_search)
     ImageView ivSearch;
-    @BindView(R.id.iv_shop)
-    ImageView ivShop;
     @BindView(R.id.cb_short_message)
     CheckBox cbMessage;
     @BindView(R.id.refresh_goods_consume)
@@ -783,7 +776,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         new TimeThread().start();
 
         order = CreateOrder.createOrder("SP");
-        tv_ordernum.setText("销售单号：" + order);
+        tv_ordernum.setText(order);
 
         GoodsTypeList.add("20");
         GoodsTypeList.add("50");
@@ -795,10 +788,10 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         spGoodsOrderNum.setSelection(0);
         if (loginBean != null) {
             mSmGid = loginBean.getData().getShopID();
-            if (loginBean.getData().getAgents().getAG_LogoUrl() != null) {
-                VolleyResponse.instance().getInternetImg(ac, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(loginBean.getData().getShopList().get(0).getSM_Picture()).toString()), ivShop, R.drawable.defalut_store);
-
-            }
+//            if (loginBean.getData().getAgents().getAG_LogoUrl() != null) {
+//                VolleyResponse.instance().getInternetImg(ac, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(loginBean.getData().getShopList().get(0).getSM_Picture()).toString()), ivShop, R.drawable.defalut_store);
+//
+//            }
             if (loginBean.getData().getUM_ChatHead() != null) {
                 VolleyResponse.instance().getInternetImg(ac, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(loginBean.getData().getUM_ChatHead()).toString()), imgHedimg, R.mipmap.member_head_nohead);
             }
@@ -906,10 +899,10 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 case 1:
                     long sysTime = System.currentTimeMillis();
                     CharSequence ordertime2 = DateFormat
-                            .format("yyyy年MM月dd日 HH:mm:ss", sysTime);
+                            .format("MM/dd  HH:mm:ss", sysTime);
                     ordertime = DateFormat
                             .format("yyyy-MM-dd HH:mm:ss", sysTime);
-                    tv_ordertime.setText("销售时间：" + ordertime2);
+                    tv_ordertime.setText("" + ordertime2);
                     break;
                 default:
                     break;
@@ -1570,9 +1563,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 //清空
                 mShopLeftList.clear();
                 mShopLeftAdapter.notifyDataSetChanged();
-                tv_ordertime.setText("销售时间：");
                 order = CreateOrder.createOrder("SP");
-                tv_ordernum.setText("销售单号：" + order);
+                tv_ordernum.setText(order);
                 mTvHeji.setText("￥0.00");
                 tvGetIntegral.setText("0");
                 leftpos = -1;
@@ -1587,7 +1579,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         });
 
 
-        liShoukuan.setOnClickListener(new NoDoubleClickListener() {
+        tvShoukuan.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
                 if (mShopLeftList.size() > 0) {
@@ -1630,7 +1622,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                     mShopLeftList.clear();
                                     mShopLeftAdapter.notifyDataSetChanged();
                                     order = CreateOrder.createOrder("SP");
-                                    tv_ordernum.setText("销售单号：" + order);
+                                    tv_ordernum.setText(order);
                                     mVipMsg = null;
                                     mVipDengjiMsg = null;
                                     PreferenceHelper.write(ac, "yunshangpu", "vip", false);
@@ -2094,7 +2086,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                     mShopLeftList.clear();
                                     mShopLeftAdapter.notifyDataSetChanged();
                                     order = CreateOrder.createOrder("SP");
-                                    tv_ordernum.setText("销售单号：" + order);
+                                    tv_ordernum.setText(order);
                                     mVipMsg = null;
                                     mVipDengjiMsg = null;
                                     VolleyResponse.instance().getInternetImg(ac, "", mIvViptx, R.mipmap.member_head_nohead);
@@ -2153,7 +2145,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                     mShopLeftList.clear();
                                     mShopLeftAdapter.notifyDataSetChanged();
                                     order = CreateOrder.createOrder("SP");
-                                    tv_ordernum.setText("销售单号：" + order);
+                                    tv_ordernum.setText(order);
                                     mVipMsg = null;
                                     mVipDengjiMsg = null;
                                     VolleyResponse.instance().getInternetImg(ac, "", mIvViptx, R.mipmap.member_head_nohead);
@@ -2212,7 +2204,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                     mShopLeftList.clear();
                                     mShopLeftAdapter.notifyDataSetChanged();
                                     order = CreateOrder.createOrder("SP");
-                                    tv_ordernum.setText("销售单号：" + order);
+                                    tv_ordernum.setText(order);
                                     mVipMsg = null;
                                     mVipDengjiMsg = null;
                                     VolleyResponse.instance().getInternetImg(ac, "", mIvViptx, R.mipmap.member_head_nohead);

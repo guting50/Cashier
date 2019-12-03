@@ -51,8 +51,8 @@
         </attr>
         <attr name="round_radius" format="dimension" />
 
-        <attr name="stroke_width" format="dimension" />
-        <attr name="stroke_color" format="color|reference" />
+        <attr name="shaped_stroke_width" format="dimension" />
+        <attr name="shaped_stroke_color" format="color|reference" />
     </declare-styleable>
 
 </resources>

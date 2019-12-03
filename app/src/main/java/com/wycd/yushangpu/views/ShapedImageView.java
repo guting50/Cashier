@@ -70,8 +70,8 @@ public class ShapedImageView extends AppCompatImageView {
             mShapeMode = a.getInt(R.styleable.ShapedImageView_shape_mode, 0);
             mRadius = a.getDimension(R.styleable.ShapedImageView_round_radius, 0);
 
-            mStrokeWidth = a.getDimension(R.styleable.ShapedImageView_stroke_width, 0);
-            mStrokeColor = a.getColor(R.styleable.ShapedImageView_stroke_color, mStrokeColor);
+            mStrokeWidth = a.getDimension(R.styleable.ShapedImageView_shaped_stroke_width, 0);
+            mStrokeColor = a.getColor(R.styleable.ShapedImageView_shaped_stroke_color, mStrokeColor);
             a.recycle();
         }
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);

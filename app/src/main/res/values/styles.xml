@@ -9,8 +9,11 @@
         <item name="android:windowNoTitle">true</item>    <!--无标题-->
         <item name="android:windowFullscreen">true</item>   <!--全屏-->
         <!--<item name="android:windowIsTranslucent">true</item>-->
-        <item name="android:windowBackground">@mipmap/iv_login</item>
 
+    </style>
+
+    <style name="LogoTheme" parent="AppTheme">
+        <item name="android:windowBackground">@mipmap/iv_login</item>
     </style>
 
     <style name="DialogNotitle1" parent="android:style/Theme.Dialog">

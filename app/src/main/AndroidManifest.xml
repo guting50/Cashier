@@ -51,6 +51,7 @@
             android:name=".ui.LogoActivity"
             android:label="@string/app_name"
             android:screenOrientation="landscape"
+            android:theme="@style/LogoTheme"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
