@@ -523,8 +523,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="4dp"
-        android:layout_toRightOf="@+id/scroll_view"
-        android:layout_weight="2"
+        android:layout_toRightOf="@+id/cashier_layout"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -722,6 +721,218 @@
             </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginBottom="@dimen/dp_5"
+        android:layout_toRightOf="@+id/cashier_layout"
+        android:background="@drawable/background_white">
+
+        <TextView
+            android:id="@+id/info_goods_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:text="商品名称" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:padding="15dp"
+            android:text="X" />
+
+        <View
+            android:id="@+id/divider_a"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/info_goods_name"
+            android:layout_marginTop="15dp"
+            android:background="@color/text49" />
+
+        <TextView
+            android:id="@+id/goods_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/divider_a"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:text="条码：123456" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/goods_code"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:text="售价：￥888" />
+
+        <com.gt.utils.view.BgFrameLayout
+            android:id="@+id/info_num"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_35"
+            android:layout_below="@+id/divider_a"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="15dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            app:corners_radius="3dp"
+            app:solid_color="@color/white"
+            app:stroke_color="@color/text49">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="数量" />
+
+        </com.gt.utils.view.BgFrameLayout>
+
+        <com.gt.utils.view.BgFrameLayout
+            android:id="@+id/info_price"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_35"
+            android:layout_below="@+id/divider_a"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/info_num"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            app:corners_radius="3dp"
+            app:solid_color="@color/white"
+            app:stroke_color="@color/text49">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="单价" />
+
+        </com.gt.utils.view.BgFrameLayout>
+
+        <com.gt.utils.view.BgFrameLayout
+            android:id="@+id/info_give"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_35"
+            android:layout_below="@+id/divider_a"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/info_price"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            app:corners_radius="3dp"
+            app:solid_color="@color/white"
+            app:stroke_color="@color/text49">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="赠送" />
+
+        </com.gt.utils.view.BgFrameLayout>
+
+        <com.gt.utils.view.BgFrameLayout
+            android:id="@+id/info_subtotal"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_35"
+            android:layout_below="@+id/info_num"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="15dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            app:corners_radius="3dp"
+            app:solid_color="@color/white"
+            app:stroke_color="@color/text49">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="小计" />
+
+        </com.gt.utils.view.BgFrameLayout>
+
+        <com.gt.utils.view.BgFrameLayout
+            android:id="@+id/info_discount"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_35"
+            android:layout_below="@+id/info_num"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/info_subtotal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            app:corners_radius="3dp"
+            app:solid_color="@color/white"
+            app:stroke_color="@color/text49">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="折扣" />
+
+        </com.gt.utils.view.BgFrameLayout>
+
+        <com.gt.utils.view.BgFrameLayout
+            android:id="@+id/info_royalty"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_35"
+            android:layout_below="@+id/info_num"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/info_discount"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            app:corners_radius="3dp"
+            app:solid_color="@color/white"
+            app:stroke_color="@color/text49">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="提成" />
+
+        </com.gt.utils.view.BgFrameLayout>
+
+        <com.gt.utils.view.BgFrameLayout
+            android:id="@+id/info_dot"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_35"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            app:corners_radius="3dp"
+            app:solid_color="@color/white"
+            app:stroke_color="@color/text49">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="提成" />
+
+        </com.gt.utils.view.BgFrameLayout>
+
+    </RelativeLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
