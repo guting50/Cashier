@@ -7,14 +7,15 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.EditText;
+
+import androidx.appcompat.widget.AppCompatEditText;
 
 /**
  * 自定义带清除内容的EditText
  *
  * @author HDL
  */
-public class ClearEditText extends android.support.v7.widget.AppCompatEditText {
+public class ClearEditText extends AppCompatEditText {
     private Drawable mRightDrawable;
     private boolean isHasFocus;
 

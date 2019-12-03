@@ -1,11 +1,9 @@
 package com.wycd.yushangpu.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,7 +18,8 @@ import com.wycd.yushangpu.tools.StringUtil;
 
 import java.util.List;
 
-import butterknife.Bind;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -176,31 +175,31 @@ public class ShopLeftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.tv_zeng)
+        @BindView(R.id.tv_zeng)
         TextView mTvZeng;
-        @Bind(R.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView mTvName;
-        @Bind(R.id.tv_st)
+        @BindView(R.id.tv_st)
         TextView mTvSt;
-        @Bind(R.id.tv_vipprice)
+        @BindView(R.id.tv_vipprice)
         TextView mTvVipprice;
-        @Bind(R.id.tv_teprice)
+        @BindView(R.id.tv_teprice)
         TextView mTvTeprice;
-        @Bind(R.id.tv_price)
+        @BindView(R.id.tv_price)
         TextView mTvPrice;
-        @Bind(R.id.iv_del)
+        @BindView(R.id.iv_del)
         ImageView mIvDel;
-        @Bind(R.id.tv_num)
+        @BindView(R.id.tv_num)
         TextView mTvNum;
-        @Bind(R.id.iv_add)
+        @BindView(R.id.iv_add)
         ImageView mIvAdd;
-        @Bind(R.id.view_line)
+        @BindView(R.id.view_line)
         View mViewLine;
-        @Bind(R.id.rl_bg)
+        @BindView(R.id.rl_bg)
         RelativeLayout mRlBg;
-        @Bind(R.id.rl_clck)
+        @BindView(R.id.rl_clck)
         RelativeLayout rl_clck;
-        @Bind(R.id.tv_staff)
+        @BindView(R.id.tv_staff)
         TextView tvStaff;
 
         public ViewHolder(View itemView) {

@@ -18,7 +18,7 @@ import com.wycd.yushangpu.tools.StringUtil;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -73,17 +73,17 @@ public class VipListAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
-        @Bind(R.id.tv_vipcard)
+        @BindView(R.id.tv_vipcard)
         TextView mTvVipcard;
-        @Bind(R.id.tv_vipname)
+        @BindView(R.id.tv_vipname)
         TextView mTvVipname;
-        @Bind(R.id.tv_vipdnegji)
+        @BindView(R.id.tv_vipdnegji)
         TextView mTvVipdnegji;
-        @Bind(R.id.tv_vipyue)
+        @BindView(R.id.tv_vipyue)
         TextView mTvVipyue;
-        @Bind(R.id.tv_vipjifen)
+        @BindView(R.id.tv_vipjifen)
         TextView mTvVipjifen;
-        @Bind(R.id.tv_vipnum)
+        @BindView(R.id.tv_vipnum)
         TextView mTvVipnum;
 
         ViewHolder(View view) {

@@ -2,11 +2,12 @@ package com.wycd.yushangpu.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class LogoActivity extends AppCompatActivity {
 

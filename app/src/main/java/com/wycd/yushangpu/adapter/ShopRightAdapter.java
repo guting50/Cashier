@@ -2,17 +2,13 @@ package com.wycd.yushangpu.adapter;
 
 import android.content.Context;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.DrawableRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.http.ImgUrlTools;
@@ -24,7 +20,7 @@ import com.wycd.yushangpu.views.ShapedImageView;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -76,7 +72,7 @@ public class ShopRightAdapter extends BaseAdapter {
 //        if (ts.getPM_Metering() != null) {
 //            vh.mTvKunum.setText(String.valueOf(ts.getCurrtStock_Number()) + ts.getPM_Metering());
 //        } else {
-            vh.mTvKunum.setText(ts.getStock_Number() + "");
+        vh.mTvKunum.setText(ts.getStock_Number() + "");
 //        }
 
 //        vh.mTvKunum.setText(NullUtils.noNullHandle(ts.getPM_Repertory()).toString());
@@ -125,7 +121,7 @@ public class ShopRightAdapter extends BaseAdapter {
             if (!NullUtils.noNullHandle(ts.getPM_SpecialOfferMoney()).toString().equals("0.0") && ts.getPM_SpecialOfferMoney() != -1) {
                 //无最低折扣
                 vh.mTvVipprice.setText("特：" + ts.getPM_SpecialOfferMoney());
-                vh.mTvSanprice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG); //中划线
+                vh.mTvSanprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); //中划线
                 vh.mTvSanprice.setTextColor(context.getResources().getColor(R.color.a5a5a5));
 
             } else if (!NullUtils.noNullHandle(ts.getPM_SpecialOfferValue()).toString().equals("0.0")) {
@@ -142,7 +138,7 @@ public class ShopRightAdapter extends BaseAdapter {
                     }
                 }
                 vh.mTvSanprice.setTextColor(context.getResources().getColor(R.color.a5a5a5));
-                vh.mTvSanprice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG); //中划线
+                vh.mTvSanprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); //中划线
             } else {
                 //无特价折扣
                 if (!NullUtils.noNullHandle(ts.getPM_MemPrice()).toString().equals("")) {
@@ -151,7 +147,7 @@ public class ShopRightAdapter extends BaseAdapter {
                 } else {
                     vh.mTvVipprice.setText("");
                 }
-                vh.mTvSanprice.getPaint().setFlags(0|Paint.ANTI_ALIAS_FLAG); // 取消设置的的划线
+                vh.mTvSanprice.getPaint().setFlags(0 | Paint.ANTI_ALIAS_FLAG); // 取消设置的的划线
                 vh.mTvSanprice.setTextColor(context.getResources().getColor(R.color.textred));
             }
         } else {
@@ -160,7 +156,7 @@ public class ShopRightAdapter extends BaseAdapter {
             } else {
                 vh.mTvVipprice.setText("");
             }
-            vh.mTvSanprice.getPaint().setFlags(0|Paint.ANTI_ALIAS_FLAG); // 取消设置的的划线
+            vh.mTvSanprice.getPaint().setFlags(0 | Paint.ANTI_ALIAS_FLAG); // 取消设置的的划线
             vh.mTvSanprice.setTextColor(context.getResources().getColor(R.color.textred));
         }
         vh.mTvSanprice.setText("售：" + StringUtil.twoNum(NullUtils.noNullHandle(ts.getPM_UnitPrice()).toString()));
@@ -170,23 +166,23 @@ public class ShopRightAdapter extends BaseAdapter {
     static class ViewHolder {
 
 
-        @Bind(R.id.iv_shop)
+        @BindView(R.id.iv_shop)
         ShapedImageView mIvShop;
-        @Bind(R.id.iv_state)
+        @BindView(R.id.iv_state)
         TextView mIvState;
-        @Bind(R.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView mTvName;
-        @Bind(R.id.tv_xinghao)
+        @BindView(R.id.tv_xinghao)
         TextView mTvXinghao;
-        @Bind(R.id.tv_sanprice)
+        @BindView(R.id.tv_sanprice)
         TextView mTvSanprice;
-        @Bind(R.id.tv_vipprice)
+        @BindView(R.id.tv_vipprice)
         TextView mTvVipprice;
-        @Bind(R.id.iv_ku)
+        @BindView(R.id.iv_ku)
         TextView mIvKu;
-        @Bind(R.id.tv_kunum)
+        @BindView(R.id.tv_kunum)
         TextView mTvKunum;
-        @Bind(R.id.ll_kucun)
+        @BindView(R.id.ll_kucun)
         LinearLayout llKucun;
 
         ViewHolder(View view) {

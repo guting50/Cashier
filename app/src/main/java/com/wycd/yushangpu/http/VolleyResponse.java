@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.support.v4.util.LruCache;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,7 +18,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
-import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.ImageLoader.ImageCache;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -29,10 +27,8 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
-import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.tools.LogUtils;
-import com.wycd.yushangpu.tools.ToastUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,6 +41,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.collection.LruCache;
 
 public class VolleyResponse {
     RequestQueue rq;

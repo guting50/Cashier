@@ -1,21 +1,8 @@
 package com.wycd.yushangpu.ui;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.Looper;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -24,53 +11,34 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
-import com.wycd.yushangpu.bean.ClassMsg;
 import com.wycd.yushangpu.bean.LoginBean;
-import com.wycd.yushangpu.db.SaveObjectName;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpLogin;
-import com.wycd.yushangpu.model.ImpShopClass;
-import com.wycd.yushangpu.tools.CacheData;
 import com.wycd.yushangpu.tools.KeyBoardHelper;
-import com.wycd.yushangpu.tools.LogUtils;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
-import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.PreferenceHelper;
-import com.wycd.yushangpu.tools.ScreenUtils;
 import com.wycd.yushangpu.tools.ShadowUtils;
-import com.wycd.yushangpu.tools.ToastUtils;
 import com.wycd.yushangpu.views.ClearEditText;
 import com.yanzhenjie.permission.AndPermission;
 
-import java.io.IOException;
-import java.io.OutputStream;
 import java.io.Serializable;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LoginActivity extends BaseActivity {
-    @Bind(R.id.et_login_account)
+    @BindView(R.id.et_login_account)
     ClearEditText mEtLoginAccount;
-    @Bind(R.id.et_login_password)
+    @BindView(R.id.et_login_password)
     ClearEditText mEtLoginPassword;
-    @Bind(R.id.rl_login)
+    @BindView(R.id.rl_login)
     RelativeLayout mRlLogin;
-    @Bind(R.id.li_bg)
+    @BindView(R.id.li_bg)
     LinearLayout mLiBg;
 
-    @Bind(R.id.login_cb)
+    @BindView(R.id.login_cb)
     CheckBox cb;
     private LoginBean loginBean;
 

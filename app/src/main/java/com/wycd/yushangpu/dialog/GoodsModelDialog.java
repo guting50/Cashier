@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Paint;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,8 +12,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.adapter.ShopRulesAdapter;
 import com.wycd.yushangpu.bean.GoodsModelBean;
@@ -23,14 +21,15 @@ import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.http.VolleyResponse;
-
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.StringUtil;
-import com.wycd.yushangpu.tools.ToastUtils;
 import com.wycd.yushangpu.views.ShapedImageView;
 
 import java.util.List;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by ZPH on 2019-06-28.
@@ -38,11 +37,11 @@ import java.util.List;
 
 public class GoodsModelDialog {
 
-    private static ShapedImageView ivGoodsImage ;
-    private static TextView tvName ;
+    private static ShapedImageView ivGoodsImage;
+    private static TextView tvName;
     private static TextView tvCode;
-    private static TextView tvPrice ;
-    private static TextView tvesPrice ;
+    private static TextView tvPrice;
+    private static TextView tvesPrice;
     private static LinearLayout ll_esprice;
     private static TextView tvStork;
     private static ShopRulesAdapter mShopRulesAdapter;
@@ -64,10 +63,10 @@ public class GoodsModelDialog {
         ImageView ivclose = (ImageView) view.findViewById(R.id.iv_close);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 
-        mShopRulesAdapter = new ShopRulesAdapter(context,modelList, new InterfaceBack() {
+        mShopRulesAdapter = new ShopRulesAdapter(context, modelList, new InterfaceBack() {
             @Override
             public void onResponse(Object response) {
-                modelList  = (List<List<GoodsModelBean>>) response;
+                modelList = (List<List<GoodsModelBean>>) response;
 
                 initpop(context);
             }
@@ -110,11 +109,11 @@ public class GoodsModelDialog {
             public void onClick(View v) {
 
 
-                if (goodsitem != null){
-                    if (isZeroStock && goodsitem.getStock_Number()<=0 && goodsitem.getPM_IsService() == 0){
+                if (goodsitem != null) {
+                    if (isZeroStock && goodsitem.getStock_Number() <= 0 && goodsitem.getPM_IsService() == 0) {
 //                        ToastUtils.showToast(context,"当前库存不足");
                         com.blankj.utilcode.util.ToastUtils.showShort("当前库存不足");
-                    }else {
+                    } else {
                         back.onResponse(goodsitem);
                     }
                 }
@@ -133,7 +132,6 @@ public class GoodsModelDialog {
                 dialog.dismiss();
             }
         });
-
 
 
         switch (showingLocation) {
@@ -164,7 +162,7 @@ public class GoodsModelDialog {
     }
 
 
-    private static void initpop(Activity context){
+    private static void initpop(Activity context) {
         goodsitem = null;
         StringBuilder modelName = new StringBuilder("");
         for (int j = 0; j < modelList.size(); j++) {
@@ -179,19 +177,19 @@ public class GoodsModelDialog {
             str = str.substring(0, str.length() - 1);
         }
 
-        for (int i = 0;i<goodsList.size();i++){
-            if (str.equals(goodsList.get(i).getPM_Modle())){
+        for (int i = 0; i < goodsList.size(); i++) {
+            if (str.equals(goodsList.get(i).getPM_Modle())) {
 
                 goodsitem = goodsList.get(i);
             }
         }
 
-        if (goodsitem!= null){
+        if (goodsitem != null) {
             //头像
             VolleyResponse.instance().getInternetImg(context, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(goodsitem.getPM_BigImg()).toString()), ivGoodsImage, R.mipmap.messge_nourl);
 
-            tvName.setText(goodsitem.getPM_Name()+"");
-            tvCode.setText(goodsitem.getPM_Code()+"");
+            tvName.setText(goodsitem.getPM_Name() + "");
+            tvCode.setText(goodsitem.getPM_Code() + "");
 
 
             if (NullUtils.noNullHandle(goodsitem.getPM_IsDiscount()).toString().equals("1")) {
@@ -199,7 +197,7 @@ public class GoodsModelDialog {
                 if (!NullUtils.noNullHandle(goodsitem.getPM_SpecialOfferMoney()).toString().equals("0.0") && goodsitem.getPM_SpecialOfferMoney() != -1) {
                     //无最低折扣
                     tvesPrice.setText("特：" + goodsitem.getPM_SpecialOfferMoney());
-                    tvPrice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG); //中划线
+                    tvPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); //中划线
                     tvPrice.setTextColor(context.getResources().getColor(R.color.a5a5a5));
 
                 } else if (!NullUtils.noNullHandle(goodsitem.getPM_SpecialOfferValue()).toString().equals("0.0")) {
@@ -216,7 +214,7 @@ public class GoodsModelDialog {
                         }
                     }
                     tvPrice.setTextColor(context.getResources().getColor(R.color.a5a5a5));
-                    tvPrice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG); //中划线
+                    tvPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); //中划线
                 } else {
                     //无特价折扣
                     if (!NullUtils.noNullHandle(goodsitem.getPM_MemPrice()).toString().equals("")) {
@@ -227,7 +225,7 @@ public class GoodsModelDialog {
                         tvesPrice.setText("");
                         ll_esprice.setVisibility(View.GONE);
                     }
-                    tvPrice.getPaint().setFlags(0|Paint.ANTI_ALIAS_FLAG); // 取消设置的的划线
+                    tvPrice.getPaint().setFlags(0 | Paint.ANTI_ALIAS_FLAG); // 取消设置的的划线
                     tvPrice.setTextColor(context.getResources().getColor(R.color.text60));
                 }
             } else {
@@ -238,7 +236,7 @@ public class GoodsModelDialog {
                     tvesPrice.setText("");
                     ll_esprice.setVisibility(View.GONE);
                 }
-                tvPrice.getPaint().setFlags(0|Paint.ANTI_ALIAS_FLAG); // 取消设置的的划线
+                tvPrice.getPaint().setFlags(0 | Paint.ANTI_ALIAS_FLAG); // 取消设置的的划线
                 tvPrice.setTextColor(context.getResources().getColor(R.color.text60));
             }
 
@@ -251,7 +249,7 @@ public class GoodsModelDialog {
             } else {
                 tvStork.setText(goodsitem.getStock_Number() + "");
             }
-        }else {
+        } else {
             ivGoodsImage.setImageResource(R.mipmap.messge_nourl);
             tvName.setText("无此规格商品");
             tvCode.setVisibility(View.GONE);

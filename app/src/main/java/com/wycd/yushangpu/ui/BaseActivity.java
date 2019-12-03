@@ -1,27 +1,17 @@
 package com.wycd.yushangpu.ui;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.Looper;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -33,22 +23,10 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.wycd.yushangpu.dialog.LoadingDialog;
 import com.wycd.yushangpu.http.PermissionListener;
 import com.wycd.yushangpu.tools.ActivityManager;
-import com.wycd.yushangpu.tools.ObtainSystemLanguage;
-import com.wycd.yushangpu.tools.PreferenceHelper;
 import com.wycd.yushangpu.tools.SystemUIUtils;
-import com.wycd.yushangpu.tools.ToastUtils;
-import com.wycd.yushangpu.web.JavascriptInterfaceImpl;
 
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
 
 
 /**

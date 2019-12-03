@@ -23,11 +23,12 @@ import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.Region;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.RestrictTo;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.View;
 
-import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import androidx.annotation.RestrictTo;
+import androidx.core.graphics.drawable.DrawableCompat;
+
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
  * Drawable which delegates all calls to it's wrapped {@link Drawable}.

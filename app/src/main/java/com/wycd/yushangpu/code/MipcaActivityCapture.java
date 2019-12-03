@@ -29,7 +29,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.Vector;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
@@ -50,21 +50,21 @@ import com.wycd.yushangpu.zxing.view.ViewfinderView;
  */
 public class MipcaActivityCapture extends Activity implements Callback {
 
-    @Bind(R.id.img_left)
+    @BindView(R.id.img_left)
     ImageView mImgLeft;
-    @Bind(R.id.rl_left)
+    @BindView(R.id.rl_left)
     RelativeLayout mRlLeft;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView mTvTitle;
-    @Bind(R.id.rl_right)
+    @BindView(R.id.rl_right)
     RelativeLayout mRlRight;
-    @Bind(R.id.preview_view)
+    @BindView(R.id.preview_view)
     SurfaceView mPreviewView;
-    @Bind(R.id.viewfinder_view)
+    @BindView(R.id.viewfinder_view)
     ViewfinderView viewfinderView;
-    @Bind(R.id.tv_money)
+    @BindView(R.id.tv_money)
     TextView mTvMoney;
-    @Bind(R.id.tv_mycode)
+    @BindView(R.id.tv_mycode)
     TextView mTvMycode;
     private CaptureActivityHandler handler;
     private boolean hasSurface;

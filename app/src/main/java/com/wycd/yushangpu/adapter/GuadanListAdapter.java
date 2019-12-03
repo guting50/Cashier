@@ -16,7 +16,7 @@ import com.wycd.yushangpu.tools.StringUtil;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -27,18 +27,19 @@ public class GuadanListAdapter extends BaseAdapter {
     private List<GuadanList> list;
     private Context context;
     private LayoutInflater inflater;
-  private   InterfaceBack mBack;
+    private InterfaceBack mBack;
+
     public GuadanListAdapter(Context context, List<GuadanList> list, InterfaceBack mBack) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
-        this.mBack=mBack;
+        this.mBack = mBack;
 
     }
 
     @Override
     public int getCount() {
-        return list == null?0:list.size();
+        return list == null ? 0 : list.size();
     }
 
     @Override
@@ -65,16 +66,16 @@ public class GuadanListAdapter extends BaseAdapter {
         holder1.tvCode.setText(NullUtils.noNullHandle(vipMsg.getCO_OrderCode()).toString());
         holder1.tvCodetime.setText(NullUtils.noNullHandle(vipMsg.getCO_UpdateTime()).toString());
         holder1.tvCard.setText(NullUtils.noNullHandle(vipMsg.getVIP_Card()).toString());
-        if (!NullUtils.noNullHandle(vipMsg.getVIP_Phone()).toString().equals("")){
-            holder1.tvVipmsg.setText(NullUtils.noNullHandle(vipMsg.getVIP_Name()).toString()+"/"+NullUtils.noNullHandle(vipMsg.getVIP_Phone()).toString());
-        }else {
+        if (!NullUtils.noNullHandle(vipMsg.getVIP_Phone()).toString().equals("")) {
+            holder1.tvVipmsg.setText(NullUtils.noNullHandle(vipMsg.getVIP_Name()).toString() + "/" + NullUtils.noNullHandle(vipMsg.getVIP_Phone()).toString());
+        } else {
             holder1.tvVipmsg.setText(NullUtils.noNullHandle(vipMsg.getVIP_Name()).toString());
         }
         holder1.tvOrdermoney.setText(StringUtil.twoNum(NullUtils.noNullHandle(vipMsg.getCO_TotalPrice()).toString()));
         holder1.tvHandler.setText(NullUtils.noNullHandle(vipMsg.getCO_Creator()).toString());
-        if (vipMsg.getCO_IdentifyingState().equals("1")){
+        if (vipMsg.getCO_IdentifyingState().equals("1")) {
             holder1.tvHandle.setText("解挂");
-        }else if (vipMsg.getCO_IdentifyingState().equals("8")){
+        } else if (vipMsg.getCO_IdentifyingState().equals("8")) {
             holder1.tvHandle.setText("结算");
         }
 
@@ -93,19 +94,19 @@ public class GuadanListAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-        @Bind(R.id.tv_code)
+        @BindView(R.id.tv_code)
         TextView tvCode;
-        @Bind(R.id.tv_codetime)
+        @BindView(R.id.tv_codetime)
         TextView tvCodetime;
-        @Bind(R.id.tv_card)
+        @BindView(R.id.tv_card)
         TextView tvCard;
-        @Bind(R.id.tv_vipmsg)
+        @BindView(R.id.tv_vipmsg)
         TextView tvVipmsg;
-        @Bind(R.id.tv_ordermoney)
+        @BindView(R.id.tv_ordermoney)
         TextView tvOrdermoney;
-        @Bind(R.id.tv_handler)
+        @BindView(R.id.tv_handler)
         TextView tvHandler;
-        @Bind(R.id.tv_handle)
+        @BindView(R.id.tv_handle)
         TextView tvHandle;
 
         ViewHolder(View view) {

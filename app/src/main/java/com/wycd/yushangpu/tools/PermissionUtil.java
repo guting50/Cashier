@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.support.compat.BuildConfig;
 
 
 import java.io.BufferedReader;
@@ -15,6 +14,8 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
+
+import androidx.multidex.BuildConfig;
 
 /**
  * Created by zhengb on 2016/11/17.
@@ -86,9 +87,9 @@ public class PermissionUtil {
     }
 
     /*
-    * 1.0.4.1    1.0.5
-    *
-    * */
+     * 1.0.4.1    1.0.5
+     *
+     * */
     public static boolean compareVersion(String version1, String version2) {
         boolean flag = false;
         try {
@@ -144,8 +145,8 @@ public class PermissionUtil {
                         goSettingView(context);
                         return;
                     }
-                    context. startActivity(intent);
-                }catch (Exception e){
+                    context.startActivity(intent);
+                } catch (Exception e) {
                     goSettingView(context);
                 }
 
@@ -160,7 +161,7 @@ public class PermissionUtil {
                         return;
                     }
                     context.startActivity(intent2);
-                }catch (Exception e){
+                } catch (Exception e) {
                     goSettingView(context);
                 }
 
@@ -178,7 +179,7 @@ public class PermissionUtil {
                         return;
                     }
                     context.startActivity(intent3);
-                }catch (Exception e){
+                } catch (Exception e) {
                     goSettingView(context);
                 }
 

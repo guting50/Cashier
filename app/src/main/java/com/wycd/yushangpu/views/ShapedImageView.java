@@ -1,6 +1,5 @@
 package com.wycd.yushangpu.views;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -20,18 +19,19 @@ import com.wycd.yushangpu.R;
 
 import java.util.Arrays;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.AppCompatImageView;
+
 /**
  * 自定义ImageView实现图片圆角化处理
  * 作者：罗咏哲 on 2017/8/18 11:37.
  * 邮箱：137615198@qq.com
  */
 
-public class ShapedImageView extends android.support.v7.widget.AppCompatImageView {
+public class ShapedImageView extends AppCompatImageView {
 
     public static final int SHAPE_MODE_ROUND_RECT = 1;
     public static final int SHAPE_MODE_CIRCLE = 2;
-
-    private static final int LAYER_FLAGS = Canvas.MATRIX_SAVE_FLAG | Canvas.CLIP_SAVE_FLAG | Canvas.HAS_ALPHA_LAYER_SAVE_FLAG | Canvas.FULL_COLOR_LAYER_SAVE_FLAG | Canvas.CLIP_TO_LAYER_SAVE_FLAG;
 
     private int mShapeMode = 0;
     private float mRadius = 0;
@@ -126,12 +126,13 @@ public class ShapedImageView extends android.support.v7.widget.AppCompatImageVie
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
         if (mStrokeWidth > 0 && mStrokeShape != null && mStrokeBitmap != null) {
-            @SuppressLint("WrongConstant") int i = canvas.saveLayer(0, 0, getMeasuredWidth(), getMeasuredHeight(), null, LAYER_FLAGS);
+            int i = canvas.saveLayer(0, 0, getMeasuredWidth(), getMeasuredHeight(), null);
             mStrokePaint.setXfermode(null);
             canvas.drawBitmap(mStrokeBitmap, 0, 0, mStrokePaint);
             canvas.translate(mStrokeWidth, mStrokeWidth);

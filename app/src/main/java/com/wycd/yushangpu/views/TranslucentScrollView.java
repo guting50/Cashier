@@ -4,8 +4,6 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Color;
-import android.support.annotation.ColorInt;
-import android.support.v4.graphics.ColorUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -16,6 +14,9 @@ import android.widget.ScrollView;
 
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.tools.SizeUtils;
+
+import androidx.annotation.ColorInt;
+import androidx.core.graphics.ColorUtils;
 
 
 /**

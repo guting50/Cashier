@@ -12,10 +12,10 @@ import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.ValiRuleMsg;
 import com.wycd.yushangpu.tools.NullUtils;
 
-import java.util.List;
-
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import java.util.List;
 
 /**
  * Created by songxiaotao on 2017/8/16.
@@ -69,9 +69,9 @@ public class BumenAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
-        @Bind(R.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView tv_name;
-        @Bind(R.id.li_bg)
+        @BindView(R.id.li_bg)
         LinearLayout li_bg;
 
         ViewHolder(View view) {

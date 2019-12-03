@@ -22,7 +22,7 @@ public class CodeUtils {
     /**
      * 生成二维码Bitmap
      *
-     * @param logoBm  二维码中心的Logo图标（可以为null）
+     * @param logoBm 二维码中心的Logo图标（可以为null）
      * @return 合成后的bitmap
      */
     public static Bitmap createQRImage(Context context, String data, Bitmap logoBm) {
@@ -39,7 +39,7 @@ public class CodeUtils {
             int heightPix = widthPix;
 
             //配置参数
-            Hashtable <EncodeHintType, Object> hints = new Hashtable<>();
+            Hashtable<EncodeHintType, Object> hints = new Hashtable<>();
             hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
             //容错级别
             hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
@@ -114,7 +114,7 @@ public class CodeUtils {
             canvas.scale(scaleFactor, scaleFactor, srcWidth / 2, srcHeight / 2);
             canvas.drawBitmap(logo, (srcWidth - logoWidth) / 2, (srcHeight - logoHeight) / 2, null);
 
-            canvas.save(Canvas.ALL_SAVE_FLAG);
+            canvas.save();
             canvas.restore();
         } catch (Exception e) {
             bitmap = null;

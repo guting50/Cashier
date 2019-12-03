@@ -39,7 +39,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
@@ -48,23 +48,23 @@ import butterknife.ButterKnife;
  */
 
 public class QudanDialog extends Dialog {
-    @Bind(R.id.tv_code)
+    @BindView(R.id.tv_code)
     TextView tvCode;
-    @Bind(R.id.tv_card)
+    @BindView(R.id.tv_card)
     TextView tvCard;
-    @Bind(R.id.tv_vipmsg)
+    @BindView(R.id.tv_vipmsg)
     TextView tvVipmsg;
-    @Bind(R.id.tv_ordermoney)
+    @BindView(R.id.tv_ordermoney)
     TextView tvOrdermoney;
-    @Bind(R.id.tv_handler)
+    @BindView(R.id.tv_handler)
     TextView tvHandler;
-    @Bind(R.id.tv_handle)
+    @BindView(R.id.tv_handle)
     TextView tvHandle;
-    @Bind(R.id.listview)
+    @BindView(R.id.listview)
     ListView listview;
-    @Bind(R.id.iv_close)
+    @BindView(R.id.iv_close)
     ImageView ivClose;
-    @Bind(R.id.srl_freshmanage_activity)
+    @BindView(R.id.srl_freshmanage_activity)
     WaveSwipeRefreshLayout mRefresh;
     private InterfaceBack back;
     private List<GuadanList> list;

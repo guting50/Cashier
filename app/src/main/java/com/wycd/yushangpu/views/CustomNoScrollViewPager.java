@@ -1,10 +1,11 @@
 package com.wycd.yushangpu.views;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
+import androidx.viewpager.widget.ViewPager;
 
 public class CustomNoScrollViewPager extends ViewPager {
 
@@ -23,7 +24,7 @@ public class CustomNoScrollViewPager extends ViewPager {
 
         int viewHeight = 0;
         View childView = getChildAt(getCurrentItem());
-        if(childView!=null){
+        if (childView != null) {
             childView.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
             viewHeight = childView.getMeasuredHeight();
             heightMeasureSpec = MeasureSpec.makeMeasureSpec(viewHeight, MeasureSpec.EXACTLY);

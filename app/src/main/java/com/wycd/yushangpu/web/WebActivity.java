@@ -1,51 +1,30 @@
 package com.wycd.yushangpu.web;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.hardware.usb.UsbDeviceConnection;
-import android.hardware.usb.UsbEndpoint;
-import android.hardware.usb.UsbInterface;
-import android.hardware.usb.UsbManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.webkit.JavascriptInterface;
-import android.webkit.WebChromeClient;
-
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import com.tencent.smtt.sdk.ValueCallback;
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
-import com.wycd.yushangpu.bean.LoginBean;
 import com.wycd.yushangpu.dialog.LoadingDialog;
-import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.http.VolleyResponse;
 import com.wycd.yushangpu.model.ImpOutLogin;
 import com.wycd.yushangpu.tools.ActivityManager;
-import com.wycd.yushangpu.tools.SystemUIUtils;
-import com.wycd.yushangpu.tools.ToastUtils;
 import com.wycd.yushangpu.ui.BaseActivity;
 import com.wycd.yushangpu.ui.LoginActivity;
-
-import java.util.List;
 
 
 /**
@@ -86,7 +65,7 @@ public class WebActivity extends BaseActivity {
 
         dialog = LoadingDialog.loadingDialog(ac, 1);
 
-        Button btn=(Button)findViewById(R.id.btn_close);
+        Button btn = (Button) findViewById(R.id.btn_close);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,7 +103,6 @@ public class WebActivity extends BaseActivity {
         webSetting.setPluginState(WebSettings.PluginState.ON_DEMAND);
         // webSetting.setRenderPriority(WebSettings.RenderPriority.HIGH);
         webSetting.setCacheMode(WebSettings.LOAD_NO_CACHE);
-
 
 
         webView.loadUrl(versionDownURL);
@@ -200,12 +178,12 @@ public class WebActivity extends BaseActivity {
         return (int) (dipValue * scale + 0.5f);
     }
 
-    public static void close(){
+    public static void close() {
         ac.finish();
     }
 
 
-    public static void loginOut(){
+    public static void loginOut() {
 
         handler.sendEmptyMessage(1);
 

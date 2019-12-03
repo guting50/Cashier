@@ -3,3 +3,4 @@ Cashier.iml
 app/build/
 .gradle/
 app/app.iml
+local.properties

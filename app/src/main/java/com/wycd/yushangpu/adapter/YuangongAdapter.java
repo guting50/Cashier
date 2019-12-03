@@ -16,7 +16,7 @@ import com.wycd.yushangpu.tools.StringUtil;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -73,13 +73,13 @@ public class YuangongAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
-        @Bind(R.id.tv_ygname)
+        @BindView(R.id.tv_ygname)
         TextView tv_ygname;
-        @Bind(R.id.tv_ygcode)
+        @BindView(R.id.tv_ygcode)
         TextView tv_ygcode;
-        @Bind(R.id.tv_ygsex)
+        @BindView(R.id.tv_ygsex)
         TextView tv_ygsex;
-        @Bind(R.id.iv_chose)
+        @BindView(R.id.iv_chose)
         ImageView iv_chose;
 
         ViewHolder(View view) {

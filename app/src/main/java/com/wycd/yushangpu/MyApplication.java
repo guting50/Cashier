@@ -36,13 +36,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import androidx.multidex.MultiDexApplication;
 import cz.msebera.android.httpclient.cookie.Cookie;
 
 /**
  * Created by songxiaotao on 2018/5/28.
  */
 
-public class MyApplication extends android.support.multidex.MultiDexApplication {
+public class MyApplication extends MultiDexApplication {
     public static IWXAPI mWxApi;
     private static Context sContext;
 

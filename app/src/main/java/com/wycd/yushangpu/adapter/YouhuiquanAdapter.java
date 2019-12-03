@@ -16,7 +16,7 @@ import com.wycd.yushangpu.tools.NullUtils;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -113,31 +113,31 @@ public class YouhuiquanAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-        @Bind(R.id.tv_type)
+        @BindView(R.id.tv_type)
         TextView tv_type;
-        @Bind(R.id.view_line)
+        @BindView(R.id.view_line)
         View view_line;
-        @Bind(R.id.tv_money)
+        @BindView(R.id.tv_money)
         TextView mTvMoney;
-        @Bind(R.id.li_mo)
+        @BindView(R.id.li_mo)
         LinearLayout mLiMo;
-        @Bind(R.id.tv_yhqmsg)
+        @BindView(R.id.tv_yhqmsg)
         TextView mTvYhqmsg;
-        @Bind(R.id.rl_state)
+        @BindView(R.id.rl_state)
         RelativeLayout mRlState;
-        @Bind(R.id.rl_xiaofei)
+        @BindView(R.id.rl_xiaofei)
         RelativeLayout mRlXiaofei;
-        @Bind(R.id.tv_action)
+        @BindView(R.id.tv_action)
         TextView mTvAction;
-        @Bind(R.id.tv_youxiao)
+        @BindView(R.id.tv_youxiao)
         TextView mTvYouxiao;
-        @Bind(R.id.tv_allshop)
+        @BindView(R.id.tv_allshop)
         TextView mTvAllshop;
-        @Bind(R.id.tv_diejia)
+        @BindView(R.id.tv_diejia)
         TextView mTvDiejia;
-        @Bind(R.id.iv_chose)
+        @BindView(R.id.iv_chose)
         ImageView mIvChose;
-        @Bind(R.id.rl_bg)
+        @BindView(R.id.rl_bg)
         RelativeLayout mRlBg;
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

@@ -41,7 +41,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/view_green_line"></View>
+            android:background="@color/view_green_line"/>
     </LinearLayout>
 
     <LinearLayout
@@ -180,23 +180,21 @@
         android:layout_height="1dp"
         android:layout_below="@+id/ll_body"
         android:layout_marginTop="@dimen/dp_4"
-        android:background="@color/view_gray_line"></View>
+        android:background="@color/view_gray_line"/>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/ll_bottom"
         android:layout_below="@+id/ll_body"
-        android:layout_marginTop="@dimen/dp_6">
-
-    </android.support.v7.widget.RecyclerView>
+        android:layout_marginTop="@dimen/dp_6"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@+id/recycler_view"
-        android:background="@color/view_gray_line"></View>
+        android:background="@color/view_gray_line"/>
 
     <LinearLayout
         android:id="@+id/ll_bottom"

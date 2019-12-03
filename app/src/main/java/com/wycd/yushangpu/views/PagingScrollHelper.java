@@ -3,10 +3,11 @@ package com.wycd.yushangpu.views;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 实现RecycleView分页滚动的工具类
@@ -82,13 +83,12 @@ public class PagingScrollHelper {
             if (mOrientation == ORIENTATION.VERTICAL && mRecyclerView.computeVerticalScrollExtent() != 0) {
                 return mRecyclerView.computeVerticalScrollRange() / mRecyclerView.computeVerticalScrollExtent();
             } else if (mRecyclerView.computeHorizontalScrollExtent() != 0) {
-                Log.i("zzz","rang="+mRecyclerView.computeHorizontalScrollRange()+" extent="+mRecyclerView.computeHorizontalScrollExtent());
+                Log.i("zzz", "rang=" + mRecyclerView.computeHorizontalScrollRange() + " extent=" + mRecyclerView.computeHorizontalScrollExtent());
                 return mRecyclerView.computeHorizontalScrollRange() / mRecyclerView.computeHorizontalScrollExtent();
             }
         }
         return 0;
     }
-
 
 
     ValueAnimator mAnimator = null;

@@ -5,22 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wycd.yushangpu.R;
-import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.bean.VipDengjiMsg;
-import com.wycd.yushangpu.http.InterfaceThreeBack;
-import com.wycd.yushangpu.tools.CommonUtils;
-import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.NullUtils;
-import com.wycd.yushangpu.tools.StringUtil;
 
-import java.util.List;
-
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -66,18 +57,18 @@ public class SearchVipPopAdapter extends BaseAdapter {
         }
         final VipDengjiMsg.DataBean ts = list.getData().get(i);
 
-        vh.tvName.setText(NullUtils.noNullHandle(ts.getVIP_Name())+"");
-        vh.tvCardnum.setText(NullUtils.noNullHandle(ts.getVCH_Card())+"");
-        vh.tvPhone.setText(NullUtils.noNullHandle(ts.getVIP_CellPhone())+"");
+        vh.tvName.setText(NullUtils.noNullHandle(ts.getVIP_Name()) + "");
+        vh.tvCardnum.setText(NullUtils.noNullHandle(ts.getVCH_Card()) + "");
+        vh.tvPhone.setText(NullUtils.noNullHandle(ts.getVIP_CellPhone()) + "");
         return view;
     }
 
     static class ViewHolder {
-        @Bind(R.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView tvName;
-        @Bind(R.id.tv_cardnum)
+        @BindView(R.id.tv_cardnum)
         TextView tvCardnum;
-        @Bind(R.id.tv_phone)
+        @BindView(R.id.tv_phone)
         TextView tvPhone;
 
         ViewHolder(View view) {

@@ -35,10 +35,10 @@
 
     <item name="about_version_code" type="id"/>
     <item name="split" type="id"/>
-    <item name="li_right" type="id">aaa</item>
+  <!--  <item name="li_right" type="id">aaa</item>
     <item name="li_mo" type="id">limo</item>
     <item name="rl_state" type="id">rlstate</item>
-    <item name="rl_xiaofei" type="id">rl_xiaofei</item>
+    <item name="rl_xiaofei" type="id">rl_xiaofei</item>-->
 
 
 </resources>

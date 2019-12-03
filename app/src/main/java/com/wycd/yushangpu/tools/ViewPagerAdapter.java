@@ -1,12 +1,13 @@
 package com.wycd.yushangpu.tools;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
@@ -16,7 +17,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
-        this.fm=fm;
+        this.fm = fm;
     }
 
 
@@ -39,6 +40,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         fragments.add(fragment);
         titles.add(title);
     }
+
     @Override
     public Fragment instantiateItem(ViewGroup container, int position) {
         Fragment fragment = (Fragment) super.instantiateItem(container,

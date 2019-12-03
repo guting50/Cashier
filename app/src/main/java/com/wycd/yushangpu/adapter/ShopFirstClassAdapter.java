@@ -1,7 +1,6 @@
 package com.wycd.yushangpu.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,8 @@ import com.wycd.yushangpu.tools.NullUtils;
 
 import java.util.List;
 
-import butterknife.Bind;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
@@ -64,9 +64,9 @@ public class ShopFirstClassAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
 
     public class LinkHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView mTvName;
-        @Bind(R.id.rl_bg)
+        @BindView(R.id.rl_bg)
         RelativeLayout mRlBg;
 
         public LinkHolder(View itemView) {

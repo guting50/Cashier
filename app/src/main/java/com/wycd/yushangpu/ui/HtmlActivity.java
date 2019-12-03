@@ -2,8 +2,6 @@ package com.wycd.yushangpu.ui;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -14,6 +12,8 @@ import com.just.agentweb.DefaultWebClient;
 import com.just.agentweb.WebChromeClient;
 import com.just.agentweb.WebViewClient;
 import com.wycd.yushangpu.R;
+
+import androidx.annotation.Nullable;
 
 public class HtmlActivity extends BaseActivity {
 

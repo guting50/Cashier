@@ -4,17 +4,19 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.view.ViewCompat;
 
 /**
  * After kitkat add fake status bar
@@ -102,7 +104,7 @@ class StatusBarCompatKitKat {
 
     /**
      * set StatusBarColor
-     *
+     * <p>
      * 1. set Window Flag : WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
      * 2. removeFakeStatusBarViewIfExist
      * 3. addFakeStatusBarView
@@ -128,7 +130,7 @@ class StatusBarCompatKitKat {
 
     /**
      * translucentStatusBar
-     *
+     * <p>
      * 1. set Window Flag : WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
      * 2. removeFakeStatusBarViewIfExist
      * 3. removeMarginTopOfContentChild
@@ -150,7 +152,7 @@ class StatusBarCompatKitKat {
 
     /**
      * compat for CollapsingToolbarLayout
-     *
+     * <p>
      * 1. set Window Flag : WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
      * 2. set FitsSystemWindows for views.
      * 3. add Toolbar's height, let it layout from top, then add paddingTop to layout normal.
