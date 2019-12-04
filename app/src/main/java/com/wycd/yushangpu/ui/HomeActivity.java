@@ -840,6 +840,11 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         allmoney = StringUtil.twoNum(allprice + "");
         mTvHeji.setText(allmoney);
         tvNumTotal.setText(num + "");
+        if (num != 0) {
+            tvShoukuan.setTag(1);
+            ((TextView) tvShoukuan.getChildAt(0)).setText("结账[Enter]");
+        }
+
         tvGetIntegral.setText(mPoint + "");
 
         mShopLeftAdapter.notifyDataSetChanged();
@@ -1158,6 +1163,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 order = CreateOrder.createOrder("SP");
                 tv_ordernum.setText(order);
                 mTvHeji.setText("0.00");
+                tvShoukuan.setTag(0);
+                ((TextView) tvShoukuan.getChildAt(0)).setText("快速收银[Enter]");
                 tvNumTotal.setText("0");
                 tvGetIntegral.setText("0");
                 leftpos = -1;
@@ -1228,8 +1235,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                         }
                     });
                 } else {
-//                    ToastUtils.showToast(ac, "请选择商品");
-                    com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
+                    com.blankj.utilcode.util.ToastUtils.showShort("快速收银");
                 }
             }
         });
@@ -1881,6 +1887,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         tvBlance.setText("0.00");
         tvIntegral.setText("0");
         mTvHeji.setText("0.00");
+        tvShoukuan.setTag(0);
+        ((TextView) tvShoukuan.getChildAt(0)).setText("快速收银[Enter]");
         tvNumTotal.setText("0");
         tvGetIntegral.setText("0");
 

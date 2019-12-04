@@ -375,6 +375,7 @@
             android:layout_toRightOf="@+id/btt_hung_order"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
+            android:tag="0"
             app:corners_radius="3dp"
             app:solid_color="@color/textgreen">
 
@@ -382,7 +383,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="结  算"
+                android:text="快速收银[Enter]"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_18"
                 android:textStyle="bold" />
