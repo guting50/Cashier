@@ -14,33 +14,22 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.gt.utils.view.BgFrameLayout;
-import com.maimengmami.waveswiperefreshlayout.WaveSwipeRefreshLayout;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
-import com.wycd.yushangpu.adapter.ShopFirstClassAdapter;
 import com.wycd.yushangpu.adapter.ShopLeftAdapter;
-import com.wycd.yushangpu.adapter.ShopRightAdapter;
-import com.wycd.yushangpu.bean.ClassMsg;
-import com.wycd.yushangpu.bean.EmplMsg;
 import com.wycd.yushangpu.bean.GoodsModelBean;
 import com.wycd.yushangpu.bean.LoginBean;
 import com.wycd.yushangpu.bean.OrderCanshhu;
@@ -56,7 +45,6 @@ import com.wycd.yushangpu.dialog.JiesuanBDialog;
 import com.wycd.yushangpu.dialog.KeyboardDialog;
 import com.wycd.yushangpu.dialog.NoticeDialog;
 import com.wycd.yushangpu.dialog.QudanDialog;
-import com.wycd.yushangpu.dialog.ShopDetailDialog;
 import com.wycd.yushangpu.dialog.VipChooseDialog;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.ImgUrlTools;
@@ -67,8 +55,6 @@ import com.wycd.yushangpu.model.ImpGoodsModel;
 import com.wycd.yushangpu.model.ImpGroupGoodsList;
 import com.wycd.yushangpu.model.ImpOnlyVipMsg;
 import com.wycd.yushangpu.model.ImpOutLogin;
-import com.wycd.yushangpu.model.ImpShopClass;
-import com.wycd.yushangpu.model.ImpShopHome;
 import com.wycd.yushangpu.model.ImpSubmitOrder;
 import com.wycd.yushangpu.model.ImpSubmitOrder_Guazhang;
 import com.wycd.yushangpu.model.ImpSystemCanshu;
@@ -90,12 +76,13 @@ import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.PreferenceHelper;
 import com.wycd.yushangpu.tools.PrintContent;
 import com.wycd.yushangpu.tools.PrinterCommand;
-import com.wycd.yushangpu.tools.RecycleViewUtiles;
 import com.wycd.yushangpu.tools.SignUtils;
 import com.wycd.yushangpu.tools.StringUtil;
 import com.wycd.yushangpu.tools.SystemUIUtils;
 import com.wycd.yushangpu.tools.ThreadPool;
 import com.wycd.yushangpu.tools.Utils;
+import com.wycd.yushangpu.ui.fragment.EditCashierGoodsFragment;
+import com.wycd.yushangpu.ui.fragment.GoodsListFragment;
 import com.wycd.yushangpu.views.ClearEditText;
 import com.wycd.yushangpu.web.WebDialog;
 
@@ -105,10 +92,10 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -139,7 +126,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     @BindView(R.id.rl_out)
     RelativeLayout rlOut;
     @BindView(R.id.et_login_account)
-    ClearEditText mEtLoginAccount;
+    public ClearEditText mEtLoginAccount;
     @BindView(R.id.tv_ordertime)
     TextView tv_ordertime;
     @BindView(R.id.tv_ordernum)
@@ -152,6 +139,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     TextView mRlClear;
     @BindView(R.id.rl_jifen)
     LinearLayout rlJifen;
+    @BindView(R.id.tv_num_total)
+    TextView tvNumTotal;
     @BindView(R.id.tv_heji)
     TextView mTvHeji;
     @BindView(R.id.iv_viptx)
@@ -167,25 +156,11 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     @BindView(R.id.delet_vip)
     ImageView deletVip;
     @BindView(R.id.tv_shoukuan)
-    TextView tvShoukuan;
-    @BindView(R.id.btt_price_exchange)
-    Button bttPriceExchange;
-    @BindView(R.id.btt_dicount_exchange)
-    Button bttDicountExchange;
-    @BindView(R.id.btt_money_exchange)
-    Button bttMoneyExchange;
-    @BindView(R.id.btt_num_exchange)
-    Button bttNumExchange;
-    @BindView(R.id.btt_delte)
-    Button bttDelte;
-    @BindView(R.id.btt_give)
-    Button bttGive;
-    @BindView(R.id.btt_royalty)
-    Button bttRoyalty;
+    BgFrameLayout tvShoukuan;
     @BindView(R.id.btt_get_order)
     Button bttGetOrder;
     @BindView(R.id.btt_hung_order)
-    Button bttHungOrder;
+    BgFrameLayout bttHungOrder;
     @BindView(R.id.btt_hung_money)
     Button bttHungMoney;
     @BindView(R.id.btt_reture_goods)
@@ -196,26 +171,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     Button bttVipMember;
     @BindView(R.id.btt_business)
     Button bttBusiness;
-    @BindView(R.id.iv_top_left)
-    ImageView ivTopLeft;
-    @BindView(R.id.iv_top_right)
-    ImageView ivTopRight;
-    @BindView(R.id.recyclerview_firstclass)
-    RecyclerView mRecyclerviewFirstclass;
-    @BindView(R.id.gridview)
-    GridView mGridview;
-    @BindView(R.id.tv_front_page)
-    TextView tvFrontPage;
-    @BindView(R.id.tv_page)
-    TextView tvPage;
-    @BindView(R.id.tv_total_page)
-    TextView tvTotalPage;
-    @BindView(R.id.im_next_page)
-    TextView imNextPage;
-    @BindView(R.id.sp_goods_order_num)
-    Spinner spGoodsOrderNum;
-    @BindView(R.id.tv_tatol_num)
-    TextView tvTatolNum;
     @BindView(R.id.vip_message)
     LinearLayout vipMessage;
     @BindView(R.id.tv_get_integral)
@@ -224,34 +179,20 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     ImageView ivSearch;
     @BindView(R.id.cb_short_message)
     CheckBox cbMessage;
-    @BindView(R.id.refresh_goods_consume)
-    WaveSwipeRefreshLayout mRefreshLayout;//刷新布局
     @BindView(R.id.btn_home_print_set)
     Button btnHomePrint;
     @BindView(R.id.btn_home_label)
     Button btnHomeLabel;
 
-    private int PageIndex = 1;
-    private int PageSize = 20;
     private static int totalPage;
     private static int totalCount;
     private static CircleImageView imgHedimg;
-    private ArrayAdapter<String> mSpinnerAdapter;
-    private ArrayList<String> GoodsTypeList = new ArrayList<>();//每页显示商品数目
-    private List<ClassMsg> mClassMsgList = new ArrayList<>();//分类数据列表
-    private String mPT_Gid = "";
     //    private List<ClassMsg> twoClassList;
 //    private Gson mGson;
-    private List<ShopMsg> mShopMsgList = new ArrayList<>();
-    private LinearLayoutManager linearmanger;
-    private ShopFirstClassAdapter mFirstClassAdapter;
-    private ShopLeftAdapter mShopLeftAdapter;
+    public ShopLeftAdapter mShopLeftAdapter;
     private List<ShopMsg> mShopLeftList = new ArrayList<>();
-    private List<EmplMsg> mEmplMsgList2;
-    private ShopRightAdapter mShopRightAdapter;
-    private VipDengjiMsg.DataBean mVipMsg;
+    public VipDengjiMsg.DataBean mVipMsg;
     private VipDengjiMsg mVipDengjiMsg;
-    //    private List<GoodOrdeList> goodOrdeLists = new ArrayList<>();
     private CharSequence ordertime;
     private String order;
     private List<PayTypeMsg> paytypelist = new ArrayList<>();
@@ -281,6 +222,10 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     private static final int PRINTER_COMMAND_ERROR = 0x008;//使用打印机指令错误
     private int id = 0;
 
+    private FragmentManager fragmentManager;
+    EditCashierGoodsFragment editCashierGoodsFragment;
+    GoodsListFragment goodsListFragment;
+
     private BluetoothAdapter bluetoothAdapter;
 //    private static BluetoothAdapter mBluetoothAdapter;//蓝牙适配器
 //    private static final UUID BLUETOOTH_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");//串口全局唯一标识符
@@ -298,17 +243,14 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 //    private static Map<String, String> map_bluedevice = new HashMap<>();//蓝牙名称、mac地址集合
 //    private String mBluetoothName;//已经连接的蓝牙设备名称
 
-
-    private int mButtonGreen[] = new int[]{R.id.btn_home_label, R.id.btt_price_exchange, R.id.btt_dicount_exchange, R.id.btt_dicount_exchange, R.id.btt_money_exchange, R.id.btt_num_exchange, R.id.btt_royalty, R.id.btt_get_order, R.id.btt_hung_money};
-
     //商品数据修改(修改单价/修改折扣/修改小计/修改数量)
-    private int mModifyPrice = 0;
+    public int mModifyPrice = 0;
     //修改改价
-    private int mChangePrice = 0;
+    public int mChangePrice = 0;
     //修改折扣
-    private int mChangeDiscount = 0;
+    public int mChangeDiscount = 0;
     //修改小计
-    private int mChangeSubtotal = 0;
+    public int mChangeSubtotal = 0;
 
 //    public HomeActivity() {
 //        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -436,24 +378,12 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     };
 
     protected void initView() {
+        fragmentManager = getSupportFragmentManager();
+        editCashierGoodsFragment = (EditCashierGoodsFragment) fragmentManager.findFragmentById(R.id.edit_cashier_goods_fragment);
+        goodsListFragment = (GoodsListFragment) fragmentManager.findFragmentById(R.id.goods_list_fragment);
+        fragmentManager.beginTransaction().hide(editCashierGoodsFragment).commit();
+
         imgHedimg = (CircleImageView) findViewById(R.id.img_hedimg);
-        linearmanger = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        mRecyclerviewFirstclass.setLayoutManager(linearmanger);
-        mFirstClassAdapter = new ShopFirstClassAdapter(ac, mClassMsgList);
-        mRecyclerviewFirstclass.setAdapter(mFirstClassAdapter);
-
-
-        mShopRightAdapter = new ShopRightAdapter(ac, mShopMsgList);
-
-        WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
-        width = wm.getDefaultDisplay().getWidth();
-        height = wm.getDefaultDisplay().getHeight();
-        if (width > 1600) {
-            mGridview.setNumColumns(5);
-        } else if (width < 1300) {
-            mGridview.setNumColumns(3);
-        }
-        mGridview.setAdapter(mShopRightAdapter);
 
         mShopLeftAdapter = new ShopLeftAdapter(ac, mShopLeftList, new InterfaceThreeBack() {
 
@@ -462,16 +392,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             public void onResponse(Object response) {
                 ShopMsg shopMsg = (ShopMsg) response;
                 mShopLeftList.set(shopMsg.getChosePosion(), shopMsg);
-//                if (mShopMsgList.size() > 0) {
-//                    for (int i = 0; i < mShopLeftList.size(); i++) {
-//                        for (int j = 0; j < mShopMsgList.size(); j++) {
-//                            if (mShopLeftList.get(i).getGID().equals(mShopMsgList.get(j).getGID())) {
-//                                mShopMsgList.get(j).setCurrtStock_Number(mShopMsgList.get(j).getStock_Number() - mShopLeftList.get(i).getNum());
-//                            }
-//                        }
-//                    }
-//                }
-                mShopRightAdapter.notifyDataSetChanged();
                 jisuanAllPrice();
             }
 
@@ -480,14 +400,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             public void onErrorResponse(Object msg) {
                 int po = (int) msg;
                 if (mShopLeftList.size() > 0) {
-//                    if (mShopMsgList.size() > 0) {
-//                        for (int j = 0; j < mShopMsgList.size(); j++) {
-//                            if (mShopLeftList.get(po).getGID().equals(mShopMsgList.get(j).getGID())) {
-//                                mShopMsgList.get(j).setCurrtStock_Number(mShopMsgList.get(j).getStock_Number());
-//                            }
-//                        }
-//                    }
-                    mShopRightAdapter.notifyDataSetChanged();
 
                     mShopLeftList.remove(po);
                     leftpos = leftpos - 1;
@@ -511,255 +423,21 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 }
                 mShopLeftList.get(i).setCheck(true);
                 mShopLeftAdapter.notifyDataSetChanged();
+
+                editCashierGoodsFragment.setData(mShopLeftList.get(i));
+                fragmentManager.beginTransaction().show(editCashierGoodsFragment).commit();
             }
         });
         LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerviewShoplist.setLayoutManager(llm);
         mRecyclerviewShoplist.setAdapter(mShopLeftAdapter);
 
-
-        mFirstClassAdapter.setOnItemClickListener(new ShopFirstClassAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int tag) {
-                ClassMsg classMsg1 = mClassMsgList.get(tag);
-                for (ClassMsg c : mClassMsgList) {
-                    c.setChose(false);
-                }
-                mClassMsgList.get(tag).setChose(true);
-                mFirstClassAdapter.notifyDataSetChanged();
-                mPT_Gid = classMsg1.getGID();
-                PageIndex = 1;
-                obtainHomeShop(mPT_Gid, mEtLoginAccount.getText().toString());
-            }
-        });
-
         mEtLoginAccount.requestFocus();
-
-//        mSharedPreferences = getSharedPreferences("bluetooth_address", MODE_PRIVATE);
-//        mEditor = mSharedPreferences.edit();
-
-//        try {
-//            IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-//            IntentFilter filter1 = new IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED);
-//            IntentFilter filter2 = new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
-//            IntentFilter filter3 = new IntentFilter(BluetoothDevice.ACTION_ACL_DISCONNECTED);
-//            this.registerReceiver(receiver, filter);
-//            this.registerReceiver(receiver, filter1);
-//            this.registerReceiver(receiver, filter2);
-//            this.registerReceiver(receiver, filter3);
-//            mRegisterTag = true;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        getBlueToothList();
     }
 
-
-    /**
-     * 检查设备是否支持蓝牙
-     */
-//    @SuppressLint("WrongConstant")
-//    private static void checkBlueToothSupportSwitch(Context context) {
-//        System.out.println("========checkBlueToothSupportSwitch=====random:" + mBluetoothAdapter);
-//        if (mBluetoothAdapter != null) {
-//            blueToothIsSwitch();
-//        } else {
-////            ToastUtils.showToast(context, "该设备不支持蓝牙");
-//            com.blankj.utilcode.util.ToastUtils.showShort("该设备不支持蓝牙");
-//        }
-//    }
-
-    /**
-     * 判断蓝牙开关是否打开
-     */
-//    private static void blueToothIsSwitch() {
-//        if (!mBluetoothAdapter.isEnabled()) {
-//            mBluetoothAdapter.enable();
-//            getBoundedDevices();
-//        } else {
-//            getBoundedDevices();
-//        }
-//    }
-
-
-    /**
-     * 获得已配对的蓝牙设备信息并保存
-     */
-//    private static void getBoundedDevices() {
-//        Set<BluetoothDevice> devices_set = mBluetoothAdapter.getBondedDevices();
-//        System.out.println("======getBoundedDevices=======random:" + devices_set.size());
-//        map_bluedevice.clear();
-//        list_bluedevice.clear();
-//        list_device_name.clear();
-//        if (devices_set.size() > 0) {
-//            for (BluetoothDevice device : devices_set) {
-//                System.out.println(device.getAddress() + "======getBoundedDevices=======random:" + device.getName());
-//                map_bluedevice.put(device.getName(), device.getAddress());
-//                list_bluedevice.add(map_bluedevice);
-//                list_device_name.add(device.getName());
-//            }
-//            MyApplication.mPrintList = list_device_name;
-//        }
-//    }
-
-
-//    public static void getBlueToothList() {
-//
-//        checkBlueToothSupportSwitch(ac);
-//
-//        if (!mBluetoothAdapter.isEnabled()) {
-//            return;
-//        }
-//        //判断是否正在扫描
-//        if (!mBluetoothAdapter.isDiscovering()) {
-//            Log.i(TAG, "getBlueToothList:开始扫描蓝牙 ");
-//            mBluetoothAdapter.startDiscovery();
-//        }
-//    }
-
-
-//    public static void printConnect(final Context context, final String mBluetoothName) {
-//
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                Looper.prepare();
-//                try {
-//                    if (mBluetoothAdapter.isDiscovering()) {
-//                        mBluetoothAdapter.cancelDiscovery();
-//                    }
-//
-//                    if (list_device_name.size() > 0) {
-////                        for (int i = 0;i<list_device_name.size();i++){
-////                            if ( list_device_name.get(i).equals(mBluetoothName)){
-//                        mDevice = mBluetoothAdapter.getRemoteDevice(map_bluedevice.get(list_device_name.get(0)));
-//                        mBluetoothSocket = mDevice.createRfcommSocketToServiceRecord(BLUETOOTH_UUID);
-//                        if (mBluetoothSocket != null) {
-//                            mBluetoothSocket.connect();
-//                        }
-//                        mEditor.putString("address", map_bluedevice.get(list_device_name.get(0)));
-//                        mEditor.commit();
-////                    mBluetoothName = list_device_name.get(i);
-////                                ToastUtils.showToast(context, "蓝牙连接成功");
-//                        com.blankj.utilcode.util.ToastUtils.showShort("蓝牙连接成功");
-////                                break;
-////                            }else if (i == list_device_name.size()-1){
-////                                ToastUtils.showToast(context, "设置的蓝牙名称不存在，请到后台更新打印设置");
-////                            }
-////                        }
-//                    }
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                    mBluetoothSocket = null;
-//                    mDevice = null;
-////                    ToastUtils.showToast(context, "蓝牙连接失败");
-//                    com.blankj.utilcode.util.ToastUtils.showShort("蓝牙连接失败");
-//
-//                }
-//                Looper.loop();// 进入loop中的循环，查看消息队列
-//            }
-//        }).start();
-//    }
-
-//    private Runnable mRunnable = new Runnable() {
-//        @SuppressLint("WrongConstant")
-//        @Override
-//        public void run() {
-//            for (int i = 1; i <= recepits_num; i++) {
-//                try {
-//                    mOutputStream = mBluetoothSocket.getOutputStream();
-//                    mOutputStream.write(mData, 0, mData.length);
-//                    mOutputStream.flush();
-//                    Thread.sleep(3000);
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//    };
-
-    /**
-     * 发送数据
-     */
-//    @SuppressLint("WrongConstant")
-//    public void send(byte[] data, int recepits_num, SharedPreferences preferences) {
-//        if (recepits_num == 0) {
-//            this.recepits_num = 0;
-//        } else {
-//            this.recepits_num = recepits_num;
-//        }
-//
-//        try {
-//            if (preferences == null || preferences.getString("address", "").equals("")) {
-//                return;
-//            }
-//            mDevice = mBluetoothAdapter.getRemoteDevice(preferences.getString("address", ""));
-//            mBluetoothSocket = mDevice.createRfcommSocketToServiceRecord(BLUETOOTH_UUID);
-//            mBluetoothSocket.connect();
-//            mData = data;
-//            new Thread(mRunnable).start();
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return;
-//            //            CustomToast.makeText(BlueToothActivity.this, "连接异常", Toast.LENGTH_SHORT).show();
-//        }
-//    }
-
-//    private final BroadcastReceiver receiver = new BroadcastReceiver() {
-//        @SuppressLint("WrongConstant")
-//        @Override
-//        public void onReceive(Context context, Intent intent) {
-//            String action = intent.getAction();
-//
-//            if (BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)) {
-//                Log.d(TAG, "ACTION_ACL_CONNECTED: ");
-//                mBluetoothAdapter.getState();
-//            }
-//
-//            if (BluetoothDevice.ACTION_BOND_STATE_CHANGED.equals(action)) {
-//                Log.d(TAG, "ACTION_BOND_STATE_CHANGED: ");
-//            }
-//
-//            if (BluetoothDevice.ACTION_ACL_DISCONNECTED.equals(action)) {
-//                Log.d(TAG, "ACTION_ACL_DISCONNECTED: ");
-//            }
-//
-//            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-//                Log.i(TAG, "onReceive: 蓝牙扫描结束");
-//                ac.unregisterReceiver(receiver);//注销广播
-//                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-//
-//                //判断该device的状态是否是已绑定的设备
-//                if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
-//                    list_device_name.clear();
-//
-//                    map_bluedevice.put(device.getName(), device.getAddress());
-//
-//                    Set<String> key = map_bluedevice.keySet();
-//                    Iterator<String> device_name = key.iterator();
-//                    while (device_name.hasNext()) {
-//                        list_device_name.add(device_name.next());
-//                    }
-//                    if (list_device_name.get(0) == null) {
-//                        list_device_name.remove(0);
-//
-//                    }
-//                    list_bluedevice.add(map_bluedevice);
-//                    mBluetoothAdapter.cancelDiscovery();
-//
-//                    MyApplication.mPrintList = list_device_name;
-////                    printConnect(ac,list_device_name.get(0));
-//                }
-//            }
-//        }
-//    };
     private void initData() {
 
         getproductmodel();
-        obtainShopClass();
         obtainSystemCanshu();
         GetPrintSet.getPrintSet();
         setCbShortMessage("011");
@@ -778,14 +456,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         order = CreateOrder.createOrder("SP");
         tv_ordernum.setText(order);
 
-        GoodsTypeList.add("20");
-        GoodsTypeList.add("50");
-        GoodsTypeList.add("100");
-
-        mSpinnerAdapter = new ArrayAdapter<String>(HomeActivity.this,
-                R.layout.item_spinner, R.id.tv_item_spinner, GoodsTypeList);
-        spGoodsOrderNum.setAdapter(mSpinnerAdapter);
-        spGoodsOrderNum.setSelection(0);
         if (loginBean != null) {
             mSmGid = loginBean.getData().getShopID();
 //            if (loginBean.getData().getAgents().getAG_LogoUrl() != null) {
@@ -1090,8 +760,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         }
     }
 
-    private void jisuanAllPrice() {
-
+    public void jisuanAllPrice() {
         if (mVipDengjiMsg != null) {
             //商品积分计算
             for (int k = 0; k < mShopLeftList.size(); k++) {
@@ -1132,82 +801,275 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         }
 
 //        goodOrdeLists.clear();
-        if (PreferenceHelper.readBoolean(ac, "yunshangpu", "vip", false)) {
-            double allprice = 0;
-            double onepoint = 0;
-            for (int i = 0; i < mShopLeftList.size(); i++) {
-                ShopMsg ts = mShopLeftList.get(i);
-                double xiaoji = Double.parseDouble(CommonUtils.multiply(CommonUtils.multiply
-                        (NullUtils.noNullHandle(ts.getJisuanPrice()).toString(), ts.getNum() + ""), ts.getPD_Discount() + ""));
-                allprice = allprice + xiaoji;
-                onepoint += mShopLeftList.get(i).getEachPoint() * mShopLeftList.get(i).getNum();
+        double allprice = 0;
+        double onepoint = 0;
+        double num = 0;
+        for (int i = 0; i < mShopLeftList.size(); i++) {
+            ShopMsg ts = mShopLeftList.get(i);
+            double xiaoji = Double.parseDouble(CommonUtils.multiply(CommonUtils.multiply
+                    (NullUtils.noNullHandle(ts.getJisuanPrice()).toString(), ts.getNum() + ""), ts.getPD_Discount() + ""));
+            allprice = allprice + xiaoji;
+            onepoint += mShopLeftList.get(i).getEachPoint() * mShopLeftList.get(i).getNum();
+            num += mShopLeftList.get(i).getNum();
 
-
-                int type = 0;
-                switch (NullUtils.noNullHandle(ts.getPM_IsService()).toString()) {
-                    case "0":
-                        type = 0;
-                        break;
-                    case "1":
-                        type = 0;
-                        break;
-                    case "2":
-                        type = 0;
-                        break;
-                    case "3":
-                        type = 1;
-                        break;
-                    case "4":
-                        type = 1;
-                        break;
-                }
-                mShopLeftList.get(i).setType(type);
-                mShopLeftList.get(i).setAllprice(xiaoji);
+            int type = 0;
+            switch (NullUtils.noNullHandle(ts.getPM_IsService()).toString()) {
+                case "0":
+                    type = 0;
+                    break;
+                case "1":
+                    type = 0;
+                    break;
+                case "2":
+                    type = 0;
+                    break;
+                case "3":
+                    type = 1;
+                    break;
+                case "4":
+                    type = 1;
+                    break;
             }
-
-            mPoint = Double.parseDouble(StringUtil.twoNum(onepoint + ""));
-            allmoney = StringUtil.twoNum(allprice + "");
-            mTvHeji.setText("￥ " + allmoney);
-            tvGetIntegral.setText(mPoint + "");
-
-
-        } else {
-            double allprice = 0;
-            for (int i = 0; i < mShopLeftList.size(); i++) {
-                ShopMsg ts = mShopLeftList.get(i);
-                double xiaoji = Double.parseDouble(CommonUtils.multiply(CommonUtils.multiply
-                        (NullUtils.noNullHandle(ts.getJisuanPrice()).toString(), ts.getNum() + ""), ts.getPD_Discount() + ""));
-                allprice = allprice + xiaoji;
-
-                int type = 0;
-                switch (NullUtils.noNullHandle(ts.getPM_IsService()).toString()) {
-                    case "0":
-                        type = 0;
-                        break;
-                    case "1":
-                        type = 0;
-                        break;
-                    case "2":
-                        type = 0;
-                        break;
-                    case "3":
-                        type = 1;
-                        break;
-                    case "4":
-                        type = 1;
-                        break;
-                }
-
-                mShopLeftList.get(i).setType(type);
-                mShopLeftList.get(i).setAllprice(xiaoji);
-            }
-            allmoney = StringUtil.twoNum(allprice + "");
-            mTvHeji.setText("￥" + allmoney);
-            tvGetIntegral.setText("0");
+            mShopLeftList.get(i).setType(type);
+            mShopLeftList.get(i).setAllprice(xiaoji);
         }
+        if (!PreferenceHelper.readBoolean(ac, "yunshangpu", "vip", false)) {
+            mPoint = 0;
+        }
+        mPoint = Double.parseDouble(StringUtil.twoNum(onepoint + ""));
+        allmoney = StringUtil.twoNum(allprice + "");
+        mTvHeji.setText(allmoney);
+        tvNumTotal.setText(num + "");
+        tvGetIntegral.setText(mPoint + "");
+
         mShopLeftAdapter.notifyDataSetChanged();
     }
 
+    public void addCashierList(ShopMsg shopMsg) {
+        if (shopMsg.getStock_Number() <= 0 && isZeroStock && shopMsg.getPM_IsService() == 0) {
+//                    ToastUtils.showToast(ac, "当前库存不足");
+            com.blankj.utilcode.util.ToastUtils.showShort("当前库存不足");
+            return;
+        }
+        double addnum = 1;
+        if (isZeroStock && shopMsg.getPM_IsService() == 0) {//禁止0库存销售的普通商品
+            if (shopMsg.getStock_Number() - 1 >= 0) { //库存大于等于1
+//                        shopMsg.setCurrtStock_Number(shopMsg.getCurrtStock_Number() - 1);
+                addnum = 1;
+            } else {//库存大于0小于1
+//                        shopMsg.setCurrtStock_Number(0);
+                addnum = shopMsg.getStock_Number();
+            }
+        } else {
+//                    shopMsg.setCurrtStock_Number(shopMsg.getCurrtStock_Number() - 1);
+            addnum = 1;
+        }
+
+        if (shopMsg.getPM_GroupGID() != null && !shopMsg.getPM_GroupGID().equals("")) {
+            ImpGroupGoodsList impGroupGoodsList = new ImpGroupGoodsList();
+            final double finalAddnum = addnum;
+            impGroupGoodsList.getGroupGoodsList(ac, shopMsg.getPM_GroupGID(), new InterfaceBack() {
+                @Override
+                public void onResponse(Object response) {
+                    List<ShopMsg> sllist = (List<ShopMsg>) response;
+                    if (sllist.size() == 1) {
+                        double num = 0;
+                        int pos = 0;
+
+                        for (int j = 0; j < mShopLeftList.size(); j++) {
+                            if (sllist.get(0).getGID().equals(mShopLeftList.get(j).getGID()) && !mShopLeftList.get(j).isIsgive()) {
+                                num = mShopLeftList.get(j).getNum();
+                                pos = j;
+                            }
+                        }
+
+                        sllist.get(0).setNum(num + finalAddnum);
+                        if (num == 0) {
+                            sllist.get(0).setCheck(false);
+                            mShopLeftList.add(0, sllist.get(0));
+                            if (leftpos != -1) {
+                                leftpos += 1;
+                            }
+                            jisuanShopjisuanPrice(mPD_Discount, mShopLeftList);
+                            if (mShopLeftList.size() > 0) {
+                                bttGetOrder.setText("挂单");
+                            } else {
+                                bttGetOrder.setText("取单");
+                            }
+                        } else {
+                            mShopLeftList.get(pos).setNum(num + finalAddnum);
+                            jisuanAllPrice();
+                        }
+                        for (int i = 0; i < mShopLeftList.size(); i++) {
+                            if (sllist.get(0).getGID().equals(mShopLeftList.get(i).getGID()) && !mShopLeftList.get(i).isIsgive()) {
+                                mShopLeftList.get(i).setCheck(true);
+                                leftpos = i;
+                            } else {
+                                mShopLeftList.get(i).setCheck(false);
+                            }
+                        }
+                        mShopLeftAdapter.notifyDataSetChanged();
+
+                    } else {
+                        if (ModelList != null) {
+                            //初始化
+                            for (int i = 0; i < ModelList.size(); i++) {
+                                ModelList.get(i).setChecked(false);
+                                ModelList.get(i).setEnable(false);
+                            }
+                            //将商品有的规格设置成可点击
+                            for (int i = 0; i < sllist.size(); i++) {
+                                if (sllist.get(i).getPM_Modle() != null && !sllist.get(i).getPM_Modle().equals("")) {
+                                    List<String> list = SignUtils.getStringForlist(sllist.get(i).getPM_Modle());
+                                    for (int j = 0; j < list.size(); j++) {
+                                        for (int k = 0; k < ModelList.size(); k++) {
+                                            if (list.get(j).equals(ModelList.get(k).getPM_Properties())) {
+                                                ModelList.get(k).setEnable(true);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            modelList.clear();
+
+                            //组装规格数据
+                            if (ModelList != null && ModelList.size() > 1) {
+                                for (int i = 0; i < ModelList.size(); i++) {
+                                    if (ModelList.get(i).getPM_Type() == 0) {
+                                        List<GoodsModelBean> list = new ArrayList<>();
+                                        list.add(ModelList.get(i));
+                                        modelList.add(list);
+                                    } else {
+                                        for (int j = 0; j < modelList.size(); j++) {
+                                            if (modelList.get(j).get(0).getPM_Name().equals(ModelList.get(i).getPM_Name())) {
+                                                modelList.get(j).add(ModelList.get(i));
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            //设置第一个默认选中
+                            for (int i = 0; i < modelList.size(); i++) {
+                                int num = 0;
+                                for (int j = 0; j < modelList.get(i).size(); j++) {
+                                    if (modelList.get(i).get(j).isEnable() && modelList.get(i).get(j).getPM_Type() != 0) {
+                                        modelList.get(i).get(j).setChecked(true);
+                                        num++;
+                                        break;
+                                    }
+                                }
+                                if (num == 0) {
+                                    modelList.remove(i);
+                                    i--;
+                                } else {
+                                    modelList.get(i).remove(0);
+                                }
+                            }
+
+                            GoodsModelDialog.goodsModelDialog(ac, 1, modelList, sllist, isZeroStock, new InterfaceBack() {
+                                @Override
+                                public void onResponse(Object response) {
+                                    ShopMsg goodsitem = (ShopMsg) response;
+
+                                    double num = 0;
+                                    int pos = 0;
+                                    for (int j = 0; j < mShopLeftList.size(); j++) {
+                                        if (goodsitem.getGID().equals(mShopLeftList.get(j).getGID())) {
+                                            num = mShopLeftList.get(j).getNum();
+                                            pos = j;
+                                        }
+                                    }
+
+                                    goodsitem.setNum(num + finalAddnum);
+                                    if (num == 0) {
+                                        goodsitem.setCheck(false);
+                                        mShopLeftList.add(0, goodsitem);
+                                        if (leftpos != -1) {
+                                            leftpos += 1;
+                                        }
+                                        jisuanShopjisuanPrice(mPD_Discount, mShopLeftList);
+                                        if (mShopLeftList.size() > 0) {
+                                            bttGetOrder.setText("挂单");
+                                        } else {
+                                            bttGetOrder.setText("取单");
+                                        }
+                                    } else {
+                                        mShopLeftList.get(pos).setNum(num + finalAddnum);
+                                        jisuanAllPrice();
+                                    }
+                                    for (int i = 0; i < mShopLeftList.size(); i++) {
+                                        if (goodsitem.getGID().equals(mShopLeftList.get(i).getGID())) {
+                                            mShopLeftList.get(i).setCheck(true);
+                                            leftpos = i;
+                                        } else {
+                                            mShopLeftList.get(i).setCheck(false);
+                                        }
+                                    }
+                                    mShopLeftAdapter.notifyDataSetChanged();
+
+                                }
+
+                                @Override
+                                public void onErrorResponse(Object msg) {
+
+                                }
+                            });
+
+                        } else {
+//                                    ToastUtils.showToast(ac, "没有获取到规格列表，请稍后再尝试");
+                            com.blankj.utilcode.util.ToastUtils.showShort("没有获取到规格列表，请稍后再尝试");
+                            getproductmodel();
+                        }
+                    }
+                }
+
+                @Override
+                public void onErrorResponse(Object msg) {
+
+                }
+            });
+        } else {
+            double num = 0;
+            int pos = 0;
+
+            for (int j = 0; j < mShopLeftList.size(); j++) {
+                if (shopMsg.getGID().equals(mShopLeftList.get(j).getGID()) && !mShopLeftList.get(j).isIsgive()) {
+                    num = mShopLeftList.get(j).getNum();
+                    pos = j;
+//                        return;
+                }
+//                    mShopLeftList.get(j).setCheck(false);
+            }
+//                shopMsg.setCheck(true);
+            shopMsg.setNum(num + addnum);
+            if (num == 0) {
+                shopMsg.setCheck(false);
+                mShopLeftList.add(0, shopMsg);
+                if (leftpos != -1) {
+                    leftpos += 1;
+                }
+                jisuanShopjisuanPrice(mPD_Discount, mShopLeftList);
+                if (mShopLeftList.size() > 0) {
+                    bttGetOrder.setText("挂单");
+                } else {
+                    bttGetOrder.setText("取单");
+                }
+            } else {
+                mShopLeftList.get(pos).setNum(num + addnum);
+                jisuanAllPrice();
+            }
+            for (int i = 0; i < mShopLeftList.size(); i++) {
+                if (shopMsg.getGID().equals(mShopLeftList.get(i).getGID()) && !mShopLeftList.get(i).isIsgive()) {
+                    mShopLeftList.get(i).setCheck(true);
+                    leftpos = i;
+                } else {
+                    mShopLeftList.get(i).setCheck(false);
+                }
+            }
+            mShopLeftAdapter.notifyDataSetChanged();
+        }
+
+    }
 
     private void initEvent() {
         mEtLoginAccount.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -1219,9 +1081,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     if (imm.isActive()) {//如果开启
                         imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_NOT_ALWAYS);//关闭软键盘，开启方法相同，这个方法是切换开启与关闭状态的
                     }
-                    PageIndex = 1;
-                    obtainHomeShop("", mEtLoginAccount.getText().toString());
-
+                    goodsListFragment.obtainHomeShop("", mEtLoginAccount.getText().toString());
                 }
                 return false;
             }
@@ -1277,8 +1137,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     @Override
                     public void onResponse(Object response) {
                         String search = (String) response;
-                        obtainHomeShop("", search + "");
-                        mEtLoginAccount.setText("");
+                        goodsListFragment.obtainHomeShop("", search + "");
                     }
 
                     @Override
@@ -1289,283 +1148,17 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             }
         });
 
-
-        mGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                ShopMsg shopMsg = (ShopMsg) parent.getItemAtPosition(position);
-
-                if (shopMsg.getStock_Number() <= 0 && isZeroStock && shopMsg.getPM_IsService() == 0) {
-//                    ToastUtils.showToast(ac, "当前库存不足");
-                    com.blankj.utilcode.util.ToastUtils.showShort("当前库存不足");
-                    return;
-                }
-                double addnum = 1;
-                if (isZeroStock && shopMsg.getPM_IsService() == 0) {//禁止0库存销售的普通商品
-                    if (shopMsg.getStock_Number() - 1 >= 0) { //库存大于等于1
-//                        shopMsg.setCurrtStock_Number(shopMsg.getCurrtStock_Number() - 1);
-                        addnum = 1;
-                    } else {//库存大于0小于1
-//                        shopMsg.setCurrtStock_Number(0);
-                        addnum = shopMsg.getStock_Number();
-                    }
-                } else {
-//                    shopMsg.setCurrtStock_Number(shopMsg.getCurrtStock_Number() - 1);
-                    addnum = 1;
-                }
-
-                if (shopMsg.getPM_GroupGID() != null && !shopMsg.getPM_GroupGID().equals("")) {
-                    ImpGroupGoodsList impGroupGoodsList = new ImpGroupGoodsList();
-                    final double finalAddnum = addnum;
-                    impGroupGoodsList.getGroupGoodsList(ac, shopMsg.getPM_GroupGID(), new InterfaceBack() {
-                        @Override
-                        public void onResponse(Object response) {
-                            List<ShopMsg> sllist = (List<ShopMsg>) response;
-                            if (sllist.size() == 1) {
-                                double num = 0;
-                                int pos = 0;
-
-                                for (int j = 0; j < mShopLeftList.size(); j++) {
-                                    if (sllist.get(0).getGID().equals(mShopLeftList.get(j).getGID()) && !mShopLeftList.get(j).isIsgive()) {
-                                        num = mShopLeftList.get(j).getNum();
-                                        pos = j;
-                                    }
-                                }
-
-                                sllist.get(0).setNum(num + finalAddnum);
-                                if (num == 0) {
-                                    sllist.get(0).setCheck(false);
-                                    mShopLeftList.add(0, sllist.get(0));
-                                    if (leftpos != -1) {
-                                        leftpos += 1;
-                                    }
-                                    jisuanShopjisuanPrice(mPD_Discount, mShopLeftList);
-                                    if (mShopLeftList.size() > 0) {
-                                        bttGetOrder.setText("挂单");
-                                    } else {
-                                        bttGetOrder.setText("取单");
-                                    }
-                                } else {
-                                    mShopLeftList.get(pos).setNum(num + finalAddnum);
-                                    jisuanAllPrice();
-                                }
-                                for (int i = 0; i < mShopLeftList.size(); i++) {
-                                    if (sllist.get(0).getGID().equals(mShopLeftList.get(i).getGID()) && !mShopLeftList.get(i).isIsgive()) {
-                                        mShopLeftList.get(i).setCheck(true);
-                                        leftpos = i;
-                                    } else {
-                                        mShopLeftList.get(i).setCheck(false);
-                                    }
-                                }
-                                mShopRightAdapter.notifyDataSetChanged();
-                                mShopLeftAdapter.notifyDataSetChanged();
-
-                            } else {
-                                if (ModelList != null) {
-                                    //初始化
-                                    for (int i = 0; i < ModelList.size(); i++) {
-                                        ModelList.get(i).setChecked(false);
-                                        ModelList.get(i).setEnable(false);
-                                    }
-                                    //将商品有的规格设置成可点击
-                                    for (int i = 0; i < sllist.size(); i++) {
-                                        if (sllist.get(i).getPM_Modle() != null && !sllist.get(i).getPM_Modle().equals("")) {
-                                            List<String> list = SignUtils.getStringForlist(sllist.get(i).getPM_Modle());
-                                            for (int j = 0; j < list.size(); j++) {
-                                                for (int k = 0; k < ModelList.size(); k++) {
-                                                    if (list.get(j).equals(ModelList.get(k).getPM_Properties())) {
-                                                        ModelList.get(k).setEnable(true);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                    modelList.clear();
-
-                                    //组装规格数据
-                                    if (ModelList != null && ModelList.size() > 1) {
-                                        for (int i = 0; i < ModelList.size(); i++) {
-                                            if (ModelList.get(i).getPM_Type() == 0) {
-                                                List<GoodsModelBean> list = new ArrayList<>();
-                                                list.add(ModelList.get(i));
-                                                modelList.add(list);
-                                            } else {
-                                                for (int j = 0; j < modelList.size(); j++) {
-                                                    if (modelList.get(j).get(0).getPM_Name().equals(ModelList.get(i).getPM_Name())) {
-                                                        modelList.get(j).add(ModelList.get(i));
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                    //设置第一个默认选中
-                                    for (int i = 0; i < modelList.size(); i++) {
-                                        int num = 0;
-                                        for (int j = 0; j < modelList.get(i).size(); j++) {
-                                            if (modelList.get(i).get(j).isEnable() && modelList.get(i).get(j).getPM_Type() != 0) {
-                                                modelList.get(i).get(j).setChecked(true);
-                                                num++;
-                                                break;
-                                            }
-                                        }
-                                        if (num == 0) {
-                                            modelList.remove(i);
-                                            i--;
-                                        } else {
-                                            modelList.get(i).remove(0);
-                                        }
-                                    }
-
-                                    GoodsModelDialog.goodsModelDialog(ac, 1, modelList, sllist, isZeroStock, new InterfaceBack() {
-                                        @Override
-                                        public void onResponse(Object response) {
-                                            ShopMsg goodsitem = (ShopMsg) response;
-
-                                            double num = 0;
-                                            int pos = 0;
-                                            for (int j = 0; j < mShopLeftList.size(); j++) {
-                                                if (goodsitem.getGID().equals(mShopLeftList.get(j).getGID())) {
-                                                    num = mShopLeftList.get(j).getNum();
-                                                    pos = j;
-                                                }
-                                            }
-
-                                            goodsitem.setNum(num + finalAddnum);
-                                            if (num == 0) {
-                                                goodsitem.setCheck(false);
-                                                mShopLeftList.add(0, goodsitem);
-                                                if (leftpos != -1) {
-                                                    leftpos += 1;
-                                                }
-                                                jisuanShopjisuanPrice(mPD_Discount, mShopLeftList);
-                                                if (mShopLeftList.size() > 0) {
-                                                    bttGetOrder.setText("挂单");
-                                                } else {
-                                                    bttGetOrder.setText("取单");
-                                                }
-                                            } else {
-                                                mShopLeftList.get(pos).setNum(num + finalAddnum);
-                                                jisuanAllPrice();
-                                            }
-                                            for (int i = 0; i < mShopLeftList.size(); i++) {
-                                                if (goodsitem.getGID().equals(mShopLeftList.get(i).getGID())) {
-                                                    mShopLeftList.get(i).setCheck(true);
-                                                    leftpos = i;
-                                                } else {
-                                                    mShopLeftList.get(i).setCheck(false);
-                                                }
-                                            }
-                                            mShopRightAdapter.notifyDataSetChanged();
-                                            mShopLeftAdapter.notifyDataSetChanged();
-
-                                        }
-
-                                        @Override
-                                        public void onErrorResponse(Object msg) {
-
-                                        }
-                                    });
-
-                                } else {
-//                                    ToastUtils.showToast(ac, "没有获取到规格列表，请稍后再尝试");
-                                    com.blankj.utilcode.util.ToastUtils.showShort("没有获取到规格列表，请稍后再尝试");
-                                    getproductmodel();
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onErrorResponse(Object msg) {
-
-                        }
-                    });
-                } else {
-                    double num = 0;
-                    int pos = 0;
-
-                    for (int j = 0; j < mShopLeftList.size(); j++) {
-                        if (shopMsg.getGID().equals(mShopLeftList.get(j).getGID()) && !mShopLeftList.get(j).isIsgive()) {
-                            num = mShopLeftList.get(j).getNum();
-                            pos = j;
-//                        return;
-                        }
-//                    mShopLeftList.get(j).setCheck(false);
-                    }
-//                shopMsg.setCheck(true);
-                    shopMsg.setNum(num + addnum);
-                    if (num == 0) {
-                        shopMsg.setCheck(false);
-                        mShopLeftList.add(0, shopMsg);
-                        if (leftpos != -1) {
-                            leftpos += 1;
-                        }
-                        jisuanShopjisuanPrice(mPD_Discount, mShopLeftList);
-                        if (mShopLeftList.size() > 0) {
-                            bttGetOrder.setText("挂单");
-                        } else {
-                            bttGetOrder.setText("取单");
-                        }
-                    } else {
-                        mShopLeftList.get(pos).setNum(num + addnum);
-                        jisuanAllPrice();
-                    }
-                    for (int i = 0; i < mShopLeftList.size(); i++) {
-                        if (shopMsg.getGID().equals(mShopLeftList.get(i).getGID()) && !mShopLeftList.get(i).isIsgive()) {
-                            mShopLeftList.get(i).setCheck(true);
-                            leftpos = i;
-                        } else {
-                            mShopLeftList.get(i).setCheck(false);
-                        }
-                    }
-                    mShopRightAdapter.notifyDataSetChanged();
-                    mShopLeftAdapter.notifyDataSetChanged();
-                }
-
-            }
-
-        });
-
-        //刷新或加载更多
-        mRefreshLayout.setOnRefreshListener(new WaveSwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                obtainShopClass();
-                obtainHomeShop("", mEtLoginAccount.getText().toString());
-                mRefreshLayout.setRefreshing(false);
-            }
-
-            @Override
-            public void onLoad() {
-            }
-
-            @Override
-            public boolean canLoadMore() {
-                return false;
-            }
-
-            @Override
-            public boolean canRefresh() {
-                return true;
-            }
-        });
-
-
         mRlClear.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
 
-                //库存显示设置
-//                for (int j = 0; j < mShopMsgList.size(); j++) {
-//                    mShopMsgList.get(j).setCurrtStock_Number(mShopMsgList.get(j).getStock_Number());
-//                }
-                mShopRightAdapter.notifyDataSetChanged();
                 //清空
                 mShopLeftList.clear();
                 mShopLeftAdapter.notifyDataSetChanged();
                 order = CreateOrder.createOrder("SP");
                 tv_ordernum.setText(order);
-                mTvHeji.setText("￥0.00");
+                mTvHeji.setText("0.00");
+                tvNumTotal.setText("0");
                 tvGetIntegral.setText("0");
                 leftpos = -1;
                 if (mShopLeftList.size() > 0) {
@@ -1574,7 +1167,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     bttGetOrder.setText("取单");
                 }
 
-//                mTvShoukuan.setText("收 款  ￥ 0.00");
+                fragmentManager.beginTransaction().hide(editCashierGoodsFragment).commit();
             }
         });
 
@@ -1619,25 +1212,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                         }
                                     }
 
-                                    mShopLeftList.clear();
-                                    mShopLeftAdapter.notifyDataSetChanged();
-                                    order = CreateOrder.createOrder("SP");
-                                    tv_ordernum.setText(order);
-                                    mVipMsg = null;
-                                    mVipDengjiMsg = null;
-                                    PreferenceHelper.write(ac, "yunshangpu", "vip", false);
-                                    VolleyResponse.instance().getInternetImg(ac, "", mIvViptx, R.mipmap.member_head_nohead);
-                                    deletVip.setVisibility(View.GONE);
-                                    mRlVip.setVisibility(View.VISIBLE);
-                                    vipMessage.setVisibility(View.GONE);
-                                    mTvVipname.setText("散客");
-                                    tvBlance.setText("0.00");
-                                    tvIntegral.setText("0");
-                                    mTvHeji.setText("￥0.00");
-                                    tvGetIntegral.setText("0");
-//                                    mTvShoukuan.setText("收 款  ￥ 0.00");
-
-
+                                    resetCashier();
                                 }
 
                                 @Override
@@ -1742,329 +1317,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             }
         });
 
-        //改单价
-        bttPriceExchange.setOnClickListener(new NoDoubleClickListener() {
-            @Override
-            protected void onNoDoubleClick(View view) {
-                if (mModifyPrice == 0) {
-                    com.blankj.utilcode.util.ToastUtils.showShort("请开启 商品消费改单价 后再操作");
-                    return;
-                } else {
-                    if (mChangePrice == 0) {
-                        com.blankj.utilcode.util.ToastUtils.showShort("请开启 商品消费改单价 后再操作");
-                        return;
-                    }
-                }
-                if (mShopLeftList.size() > 0) {
-                    if (leftpos != -1) {
-                        if (NullUtils.noNullHandle(mShopLeftList.get(leftpos).getPM_IsService()).toString().equals("3")) {
-//                            ToastUtils.showToast(HomeActivity.this, "套餐不能修改单价");
-                            com.blankj.utilcode.util.ToastUtils.showShort("套餐不能修改单价");
-                        } else {
-                            KeyboardDialog.numchangeDialog(HomeActivity.this, "改单价", mShopLeftList.get(leftpos).getJisuanPrice() + "", null, 1, new InterfaceBack() {
-
-                                @Override
-                                public void onResponse(Object response) {
-
-                                    double price = Double.parseDouble((String) response);
-                                    mShopLeftList.get(leftpos).setIschanged(true);
-                                    if (mShopLeftList.get(leftpos).getPM_IsDiscount() == 1 && mShopLeftList.get(leftpos).getPM_SpecialOfferMoney() != -1) {
-                                        mShopLeftList.get(leftpos).setPD_Discount(mShopLeftList.get(leftpos).getPM_SpecialOfferMoney() / price);
-                                        mShopLeftList.get(leftpos).setJisuanPrice(price);
-                                    } else {
-                                        mShopLeftList.get(leftpos).setJisuanPrice(price);
-                                    }
-//                                    if (price>mShopLeftList.get(leftpos).getJisuanPrice()*mShopLeftList.get(leftpos).getPD_Discount()){
-//
-//                                        mShopLeftList.get(leftpos).setPD_Discount(Double.parseDouble(CommonUtils.multiply
-//                                                (mShopLeftList.get(leftpos).getJisuanPrice()+"",mShopLeftList.get(leftpos).getPD_Discount()+""))/price);
-//                                        mShopLeftList.get(leftpos).setJisuanPrice(price);
-//                                    }else {
-//                                        mShopLeftList.get(leftpos).setPD_Discount(1);
-//                                        mShopLeftList.get(leftpos).setJisuanPrice(price);
-//                                    }
-                                    mShopLeftList.get(leftpos).setPM_UnitPrice(price);
-//                                    mShopLeftList.get(leftpos).setJisuanPrice(price);
-                                    mShopLeftAdapter.notifyDataSetChanged();
-                                    jisuanAllPrice();
-
-                                }
-
-                                @Override
-                                public void onErrorResponse(Object msg) {
-
-                                }
-                            });
-                        }
-                        setButtonGreen(R.id.btt_price_exchange);
-                    } else {
-//                        ToastUtils.showToast(HomeActivity.this, "请选择商品");
-                        com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
-                    }
-                } else {
-                    com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
-                }
-
-
-            }
-        });
-
-
-        //改折扣
-        bttDicountExchange.setOnClickListener(new NoDoubleClickListener() {
-            @Override
-            protected void onNoDoubleClick(View view) {
-                if (mModifyPrice == 0) {
-                    com.blankj.utilcode.util.ToastUtils.showShort("请开启 商品消费改折扣 后再操作");
-                    return;
-                } else {
-                    if (mChangeDiscount == 0) {
-                        com.blankj.utilcode.util.ToastUtils.showShort("请开启 商品消费改折扣 后再操作");
-                        return;
-                    }
-                }
-                setButtonGreen(R.id.btt_dicount_exchange);
-                if (mShopLeftList.size() > 0) {
-                    if (leftpos != -1) {
-                        if (!mShopLeftList.get(leftpos).isIsgive()) {
-                            KeyboardDialog.numchangeDialog(HomeActivity.this, "改折扣", mShopLeftList.get(leftpos).getPD_Discount() + "", null, 1, new InterfaceBack() {
-
-                                @Override
-                                public void onResponse(Object response) {
-                                    double discount = Double.parseDouble((String) response);
-                                    mShopLeftList.get(leftpos).setIschanged(true);
-                                    mShopLeftList.get(leftpos).setPD_Discount(discount);
-//                                    mShopLeftList.get(leftpos).setJisuanPrice(Double.parseDouble(CommonUtils.multiply(mShopLeftList.get(leftpos).getJisuanPrice() + "", discount + "")));
-                                    double xiaoji = Double.parseDouble(
-                                            CommonUtils.multiply(NullUtils.noNullHandle(mShopLeftList.get(leftpos).getJisuanPrice() * discount).toString(), mShopLeftList.get(leftpos).getNum() + ""));
-                                    mShopLeftList.get(leftpos).setAllprice(xiaoji);
-                                    mShopLeftAdapter.notifyDataSetChanged();
-                                    jisuanAllPrice();
-                                }
-
-                                @Override
-                                public void onErrorResponse(Object msg) {
-
-                                }
-                            });
-                        } else {
-//                            ToastUtils.showToast(HomeActivity.this, "赠送商品不能改折扣");
-                            com.blankj.utilcode.util.ToastUtils.showShort("赠送商品不能改折扣");
-                        }
-                    } else {
-//                        ToastUtils.showToast(HomeActivity.this, "请选择商品");
-                        com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
-                    }
-                } else {
-                    com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
-                }
-
-            }
-        });
-
-        //改小计
-        bttMoneyExchange.setOnClickListener(new NoDoubleClickListener() {
-            @Override
-            protected void onNoDoubleClick(View view) {
-                if (mModifyPrice == 0) {
-                    com.blankj.utilcode.util.ToastUtils.showShort("请开启 商品消费改小计 后再操作");
-                    return;
-                } else {
-                    if (mChangeSubtotal == 0) {
-                        com.blankj.utilcode.util.ToastUtils.showShort("请开启 商品消费改小计 后再操作");
-                        return;
-                    }
-                }
-                setButtonGreen(R.id.btt_money_exchange);
-                if (mShopLeftList.size() > 0) {
-                    if (leftpos != -1) {
-                        if (!mShopLeftList.get(leftpos).isIsgive()) {
-                            KeyboardDialog.numchangeDialog(HomeActivity.this, "改小计",
-                                    CommonUtils.multiply(NullUtils.noNullHandle(mShopLeftList.get(leftpos).getJisuanPrice() * mShopLeftList.get(leftpos).getPD_Discount()).toString(), NullUtils.noNullHandle(mShopLeftList.get(leftpos).getNum()).toString()),
-                                    null, 1, new InterfaceBack() {
-
-                                        @Override
-                                        public void onResponse(Object response) {
-                                            double price = Double.parseDouble((String) response);
-                                            double dicount = price / (mShopLeftList.get(leftpos).getNum() * mShopLeftList.get(leftpos).getJisuanPrice());
-                                            if (0 <= dicount && dicount < 1) {
-                                                mShopLeftList.get(leftpos).setIschanged(true);
-
-                                                mShopLeftList.get(leftpos).setPD_Discount(dicount);
-//                                            mShopLeftList.get(leftpos).setJisuanPrice(Double.parseDouble(CommonUtils.multiply(mShopLeftList.get(leftpos).getPM_UnitPrice() + "", dicount + "")));
-
-//                                            double xiaoji = Double.parseDouble(CommonUtils.multiply(mShopLeftList.get(leftpos).getNum() + "", mShopLeftList.get(leftpos).getJisuanPrice() + ""));
-                                                mShopLeftList.get(leftpos).setAllprice(price);
-
-                                                mShopLeftAdapter.notifyDataSetChanged();
-                                                jisuanAllPrice();
-                                            }
-
-                                        }
-
-                                        @Override
-                                        public void onErrorResponse(Object msg) {
-
-                                        }
-                                    });
-                        } else {
-//                            ToastUtils.showToast(HomeActivity.this, "赠送商品不能改小计");
-                            com.blankj.utilcode.util.ToastUtils.showShort("赠送商品不能改小计");
-                        }
-
-
-                    } else {
-//                        ToastUtils.showToast(HomeActivity.this, "请选择商品");
-                        com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
-                    }
-                } else {
-                    com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
-                }
-
-            }
-        });
-
-        //改数量
-        bttNumExchange.setOnClickListener(new NoDoubleClickListener() {
-            @Override
-            protected void onNoDoubleClick(View view) {
-                if (mShopLeftList.size() > 0) {
-                    if (leftpos != -1) {
-                        KeyboardDialog.numchangeDialog(HomeActivity.this, "改数量", mShopLeftList.get(leftpos).getNum() + "", mShopLeftList.get(leftpos), 1, new InterfaceBack() {
-
-                            @Override
-                            public void onResponse(Object response) {
-                                double num = Double.parseDouble((String) response);
-//                                double kucun = mShopMsgList.get
-//                                mShopLeftList.get(leftpos).getNum();
-
-                                mShopLeftList.get(leftpos).setNum(num);
-                                mShopLeftAdapter.notifyDataSetChanged();
-                                jisuanAllPrice();
-                            }
-
-                            @Override
-                            public void onErrorResponse(Object msg) {
-
-                            }
-                        });
-                        setButtonGreen(R.id.btt_num_exchange);
-                    } else {
-//                        ToastUtils.showToast(HomeActivity.this, "请选择商品");
-                        com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
-                    }
-                } else {
-                    com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
-                }
-
-            }
-        });
-
-        //删除商品
-        bttDelte.setOnClickListener(new NoDoubleClickListener() {
-            @Override
-            protected void onNoDoubleClick(View view) {
-
-                if (mShopLeftList.size() > 0) {
-                    if (leftpos != -1) {
-                        mShopLeftList.remove(leftpos);
-                        leftpos = leftpos - 1;
-                        jisuanAllPrice();
-                        if (mShopLeftList.size() > 0) {
-                            bttGetOrder.setText("挂单");
-                        } else {
-                            bttGetOrder.setText("取单");
-                        }
-                    } else {
-//                        ToastUtils.showToast(HomeActivity.this, "请选择商品");
-                        com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
-                    }
-                } else {
-                    com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
-                }
-            }
-        });
-
-        bttGive.setOnClickListener(new NoDoubleClickListener() {
-            @Override
-            protected void onNoDoubleClick(View view) {
-                double discount = 0;
-                if (mShopLeftList.size() > 0) {
-                    if (leftpos != -1) {
-                        mShopLeftList.get(leftpos).setIschanged(true);
-                        mShopLeftList.get(leftpos).setIsgive(true);
-                        mShopLeftList.get(leftpos).setPD_Discount(discount);
-//                        mShopLeftList.get(leftpos).setJisuanPrice(0);
-                        double xiaoji = 0;
-                        mShopLeftList.get(leftpos).setAllprice(xiaoji);
-                        mShopLeftAdapter.notifyDataSetChanged();
-                        jisuanAllPrice();
-                    } else {
-//                        ToastUtils.showToast(HomeActivity.this, "请选择商品");
-                        com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
-                    }
-                } else {
-                    com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
-                }
-            }
-        });
-
-
-        bttRoyalty.setOnClickListener(new NoDoubleClickListener() {
-            @Override
-            protected void onNoDoubleClick(View view) {
-                if (mShopLeftList.size() > 0) {
-                    if (leftpos != -1) {
-                        ShopMsg shopMsg = mShopLeftList.get(leftpos);
-//                        GoodOrdeList good = goodOrdeLists.get(leftpos);
-                        //提成员工
-                        ShopDetailDialog.shopdetailDialog(HomeActivity.this, shopMsg, null == mVipMsg ? "" : mVipMsg.getVG_GID(), mShopLeftList.get(leftpos).getEM_GIDList(), mSmGid, 1, new InterfaceBack() {
-                            @Override
-                            public void onResponse(Object response) {
-
-                                mEmplMsgList2 = (List<EmplMsg>) response;
-
-                                StringBuilder mStaffName = new StringBuilder("");//提成员工姓名
-                                List<String> tcGID = new ArrayList<>();
-                                for (int i = 0; i < mEmplMsgList2.size(); i++) {
-                                    if (mEmplMsgList2.get(i).isIschose()) {
-                                        tcGID.add(mEmplMsgList2.get(i).getGID());
-                                        if (i == mEmplMsgList2.size() - 1) {
-                                            mStaffName.append(mEmplMsgList2.get(i).getEM_Name());
-                                        } else {
-                                            mStaffName.append(mEmplMsgList2.get(i).getEM_Name() + "、");
-                                        }
-                                    }
-                                }
-
-                                mShopLeftList.get(leftpos).setEM_GIDList(tcGID);
-                                mShopLeftList.get(leftpos).setEM_NameList(mStaffName.toString());
-
-//                                GoodOrdeList good = (GoodOrdeList) response;
-//                                LogUtils.d("xxg", mGson.toJson(good));
-//                                goodOrdeLists.set(leftpos, good);
-//                                jisuanAllPrice();
-
-                                mShopLeftAdapter.notifyDataSetChanged();
-                            }
-
-                            @Override
-                            public void onErrorResponse(Object msg) {
-
-                            }
-                        });
-                        setButtonGreen(R.id.btt_royalty);
-                    } else {
-//                        ToastUtils.showToast(HomeActivity.this, "请选择商品");
-                        com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
-                    }
-                } else {
-                    com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
-                }
-
-            }
-        });
-
         bttHungOrder.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
@@ -2083,22 +1335,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                     dialog.dismiss();
 //                                    ToastUtils.showToast(ac, "挂单成功");
                                     com.blankj.utilcode.util.ToastUtils.showShort("挂单成功");
-                                    mShopLeftList.clear();
-                                    mShopLeftAdapter.notifyDataSetChanged();
-                                    order = CreateOrder.createOrder("SP");
-                                    tv_ordernum.setText(order);
-                                    mVipMsg = null;
-                                    mVipDengjiMsg = null;
-                                    VolleyResponse.instance().getInternetImg(ac, "", mIvViptx, R.mipmap.member_head_nohead);
-                                    deletVip.setVisibility(View.GONE);
-                                    mRlVip.setVisibility(View.VISIBLE);
-                                    vipMessage.setVisibility(View.GONE);
-                                    PreferenceHelper.write(ac, "yunshangpu", "vip", false);
-                                    mTvVipname.setText("散客");
-                                    tvBlance.setText("0.00");
-                                    tvIntegral.setText("0");
-                                    mTvHeji.setText("￥0.00");
-                                    tvGetIntegral.setText("0");
+
+                                    resetCashier();
                                 }
 
                                 @Override
@@ -2114,7 +1352,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
                         }
                     });
-                    setButtonGreen(R.id.btt_hung_order);
                 } else {
 //                    ToastUtils.showToast(HomeActivity.this, "请选择商品");
                     com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
@@ -2142,25 +1379,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                     dialog.dismiss();
 //                                    ToastUtils.showToast(ac, "挂账成功");
                                     com.blankj.utilcode.util.ToastUtils.showShort("挂账成功");
-                                    mShopLeftList.clear();
-                                    mShopLeftAdapter.notifyDataSetChanged();
-                                    order = CreateOrder.createOrder("SP");
-                                    tv_ordernum.setText(order);
-                                    mVipMsg = null;
-                                    mVipDengjiMsg = null;
-                                    VolleyResponse.instance().getInternetImg(ac, "", mIvViptx, R.mipmap.member_head_nohead);
 
-                                    deletVip.setVisibility(View.GONE);
-                                    mRlVip.setVisibility(View.VISIBLE);
-                                    vipMessage.setVisibility(View.GONE);
-                                    PreferenceHelper.write(ac, "yunshangpu", "vip", false);
-                                    mTvVipname.setText("散客");
-                                    tvBlance.setText("0.00");
-                                    tvIntegral.setText("0");
-                                    mTvHeji.setText("￥0.00");
-                                    tvGetIntegral.setText("0");
-
-
+                                    resetCashier();
                                 }
 
                                 @Override
@@ -2175,7 +1395,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
                         }
                     });
-                    setButtonGreen(R.id.btt_hung_money);
                 } else {
 //                    ToastUtils.showToast(HomeActivity.this, "请选择商品");
                     com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
@@ -2201,22 +1420,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                     dialog.dismiss();
 //                                    ToastUtils.showToast(ac, "挂单成功");
                                     com.blankj.utilcode.util.ToastUtils.showShort("挂单成功");
-                                    mShopLeftList.clear();
-                                    mShopLeftAdapter.notifyDataSetChanged();
-                                    order = CreateOrder.createOrder("SP");
-                                    tv_ordernum.setText(order);
-                                    mVipMsg = null;
-                                    mVipDengjiMsg = null;
-                                    VolleyResponse.instance().getInternetImg(ac, "", mIvViptx, R.mipmap.member_head_nohead);
-                                    deletVip.setVisibility(View.GONE);
-                                    mRlVip.setVisibility(View.VISIBLE);
-                                    vipMessage.setVisibility(View.GONE);
-                                    PreferenceHelper.write(ac, "yunshangpu", "vip", false);
-                                    mTvVipname.setText("散客");
-                                    tvBlance.setText("0.00");
-                                    tvIntegral.setText("0");
-                                    mTvHeji.setText("￥0.00");
-                                    tvGetIntegral.setText("0");
+
+                                    resetCashier();
                                 }
 
                                 @Override
@@ -2232,7 +1437,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
                         }
                     });
-                    setButtonGreen(R.id.btt_get_order);
                 } else {
                     shortMessage = cbMessage.isChecked();
                     //取单
@@ -2259,7 +1463,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                         }
                     });
                     qudanDialog.show();
-                    setButtonGreen(R.id.btt_get_order);
                 }
             }
 
@@ -2324,69 +1527,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             @Override
             protected void onNoDoubleClick(View view) {
                 showWebDialog("交易", MyApplication.BASE_URL + "/WebUI/CashierDesk/ConsumeOrder.html", width * 9 / 10, 680);
-            }
-        });
-
-        ivTopLeft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RecycleViewUtiles.MoveToPosition(linearmanger, mRecyclerviewFirstclass, mClassMsgList.size(), true);
-            }
-
-        });
-
-        ivTopRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RecycleViewUtiles.MoveToPosition(linearmanger, mRecyclerviewFirstclass, mClassMsgList.size(), false);
-            }
-
-        });
-
-
-        spGoodsOrderNum.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0) {
-                    PageSize = 20;
-                } else if (position == 1) {
-                    PageSize = 50;
-                } else if (position == 2) {
-                    PageSize = 100;
-                }
-                PageIndex = 1;
-                obtainHomeShop(mPT_Gid, mEtLoginAccount.getText().toString());
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        tvFrontPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (PageIndex > 1) {
-                    PageIndex -= 1;
-
-                    obtainHomeShop(mPT_Gid, mEtLoginAccount.getText().toString());
-                }
-            }
-        });
-
-        imNextPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (PageIndex < totalPage) {
-                    PageIndex += 1;
-
-                    obtainHomeShop(mPT_Gid, mEtLoginAccount.getText().toString());
-                } else {
-//                    ToastUtils.showToast(ac, "已经是最后一页了");
-                    com.blankj.utilcode.util.ToastUtils.showShort("已经是最后一页了");
-                }
             }
         });
 
@@ -2600,96 +1740,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         return PD_Discount;
     }
 
-
-    private void obtainShopClass() {
-        ImpShopClass shopClass = new ImpShopClass();
-        shopClass.shopclass(ac, new InterfaceBack() {//获取商品列表
-            @Override
-            public void onResponse(Object response) {
-
-                Gson gson = new Gson();
-                Type listType = new TypeToken<List<ClassMsg>>() {
-                }.getType();
-                List<ClassMsg> sllist = gson.fromJson(response.toString(), listType);
-                mClassMsgList.clear();
-                mClassMsgList.addAll(sllist);
-                for (ClassMsg classMsg : sllist) {
-                    if (!NullUtils.noNullHandle(classMsg.getPT_Parent()).toString().equals("")) {
-                        for (int i = 0; i < mClassMsgList.size(); i++) {
-                            if (NullUtils.noNullHandle(classMsg.getPT_Parent()).toString().equals(NullUtils.noNullHandle(mClassMsgList.get(i).getGID()).toString())) {
-                                mClassMsgList.get(i).setTwolist(classMsg);
-                            }
-                        }
-                    }
-                }
-
-                ClassMsg classMsg = new ClassMsg();
-                classMsg.setChose(true);
-                classMsg.setPT_Name("全部");
-                mClassMsgList.add(0, classMsg);
-
-                ClassMsg classMsg1 = new ClassMsg();
-                classMsg1.setChose(false);
-                classMsg1.setPT_Name("套餐");
-                classMsg1.setGID("combo");
-                mClassMsgList.add(1, classMsg1);
-
-                mFirstClassAdapter.notifyDataSetChanged();
-
-            }
-
-            @Override
-            public void onErrorResponse(Object msg) {
-                dialog.dismiss();
-            }
-        });
-
-    }
-
-    private void obtainHomeShop(String PT_GID, String PM_CodeOrNameOrSimpleCode) {
-//        dialog.show();
-        ImpShopHome shopHome = new ImpShopHome();
-        shopHome.shoplist(ac, PageIndex, PageSize, PT_GID, PM_CodeOrNameOrSimpleCode, new InterfaceBack() {
-            @Override
-            public void onResponse(Object response) {
-                dialog.dismiss();
-                List<ShopMsg> sllist = (List<ShopMsg>) response;
-                mEtLoginAccount.setText("");
-                tvPage.setText(PageIndex + "");
-                tvTotalPage.setText(totalPage + "");
-                tvTatolNum.setText(totalCount + "");
-                mShopMsgList.clear();
-                mShopMsgList.addAll(sllist);
-//                 int  0  表示普通商品    1表示服务商品  2表示礼品   3普通套餐   4充次套餐
-                for (ShopMsg msg : sllist) {
-                    if (NullUtils.noNullHandle(msg.getPM_IsService()).toString().equals("2")) {
-                        mShopMsgList.remove(msg);
-                    }
-                }
-
-                //库存显示设置
-//                for (int j = 0; j < mShopMsgList.size(); j++) {
-//                    mShopMsgList.get(j).setCurrtStock_Number(mShopMsgList.get(j).getStock_Number());
-//                    if (mShopLeftList.size() > 0) {
-//                        for (int i = 0; i < mShopLeftList.size(); i++) {
-//                            if (mShopMsgList.get(j).getGID().equals(mShopLeftList.get(i).getGID())) {
-//                                mShopMsgList.get(j).setCurrtStock_Number(mShopMsgList.get(j).getStock_Number() - mShopLeftList.get(i).getNum());
-//                            }
-//                        }
-//                    }
-//                }
-                mShopRightAdapter.notifyDataSetChanged();
-
-            }
-
-            @Override
-            public void onErrorResponse(Object msg) {
-                dialog.dismiss();
-            }
-        });
-
-    }
-
     private void getproductmodel() {
 
         ImpGoodsModel impGoodsModel = new ImpGoodsModel();
@@ -2806,155 +1856,35 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //取消蓝牙搜索
-//        mBluetoothAdapter.cancelDiscovery();
-//        if (receiver.getDebugUnregister()) {
-//            ac.unregisterReceiver(receiver);
-//            mRegisterTag = false;
-//        }
         EventBus.getDefault().unregister(this);
     }
-
-    //    private void addGoods(ShopMsg shopMsg){
-//
-//
-//        if (mShopMsgList!=null &&mShopMsgList.size()>0){
-//
-//            if (mShopMsgList.size() ==1){
-//                double numgoods = 0;
-//                if (mShopLeftList.size() > 0 && mShopMsgList.size()>0) {
-//                    for (int i = 0; i < mShopMsgList.size(); i++) {
-//                        for (int j = 0; j < mShopLeftList.size(); j++) {
-//                            if (mShopMsgList.get(i).getGID().equals(mShopLeftList.get(j).getGID())) {
-//                                numgoods = mShopLeftList.get(j).getNum();
-//                                mShopLeftList.remove(j);
-//                            }
-//                        }
-//                    }
-//                }
-//
-//                mShopMsgList.get(0).setNum(numgoods+1);
-//                mShopLeftList.add(mShopMsgList.get(0));
-//                countGoodsNum();
-//                setRightAdapter();
-//
-//                mTvHaveChossed.setText(mGoodsNum + "");
-//                mTvTotalMoney.setText(Decima2KeeplUtil.stringToDecimal(mTotalMoney + ""));
-//                continuePreview();
-//                try {
-//                    Thread.currentThread().sleep(1500);
-//                }catch (Exception e){
-//
-//                }
-//            } else {
-//                if (ModelList != null) {
-//                    //初始化
-//                    for (int i = 0;i<ModelList.getData().size();i++){
-//                        ModelList.getData().get(i).setChecked(false);
-//                        ModelList.getData().get(i).setEnable(false);
-//                    }
-//                    //将商品有的规格设置成可点击
-//                    for (int i = 0; i < mShopMsgList.size(); i++) {
-//                        if (mShopMsgList.get(i).getPM_Modle() != null && !mShopMsgList.get(i).getPM_Modle().equals("")) {
-//                            List<String> list = DateUtil.getStringForlist(mShopMsgList.get(i).getPM_Modle());
-//                            for (int j = 0; j < list.size(); j++) {
-//                                for (int k = 0; k < ModelList.getData().size(); k++) {
-//                                    if (list.get(j).equals(ModelList.getData().get(k).getPM_Properties())){
-//                                        ModelList.getData().get(k).setEnable(true);
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-////                            for (int i= 0;i<ModelList.getData().size();i++){
-////                                if (!ModelList.getData().get(i).isEnable() &&ModelList.getData().get(i).getPM_Type() !=0){
-////                                    ModelList.getData().get(i).remove();
-////                                }
-////                            }
-//                    modelList.clear();
-//
-//                    //组装规格数据
-//                    if (ModelList!=null &&ModelList.getData().size()>1){
-//                        for (int i = 0;i<ModelList.getData().size();i++) {
-//                            if (ModelList.getData().get(i).getPM_Type() ==0){
-//                                List<GoodsModelListBean.DataBean> list = new ArrayList<>();
-//                                list.add(ModelList.getData().get(i));
-//                                modelList.add(list);
-//                            }else {
-//                                for (int j = 0;j<modelList.size();j++){
-//                                    if (modelList.get(j).get(0).getPM_Name().equals(ModelList.getData().get(i).getPM_Name())){
-//                                        modelList.get(j).add(ModelList.getData().get(i));
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                    //设置第一个默认选中
-//                    for (int i = 0;i<modelList.size();i++){
-//                        int num = 0;
-//                        for (int j = 0;j<modelList.get(i).size();j++){
-//                            if (modelList.get(i).get(j).isEnable()&&modelList.get(i).get(j).getPM_Type()!=0){
-//                                modelList.get(i).get(j).setChecked(true);
-//                                num++;
-//                                break;
-//                            }
-//                        }
-//                        if (num ==0){
-//                            modelList.remove(i);
-//                            i--;
-//                        }else {
-//                            modelList.get(i).remove(0);
-//                        }
-//                    }
-//                    showRulePop();
-//                } else {
-//                    CustomToast.makeText(CaptureActivity.this, "没有获取到规格列表，请刷新后尝试", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//        } else if (mShopMsgList != null && mShopMsgList.size() == 0) {
-//            mSweetAlertDialog = new SweetAlertDialog(CaptureActivity.this, SweetAlertDialog.WARNING_TYPE);
-//            mSweetAlertDialog.setTitleText("没有该商品");
-//            mSweetAlertDialog.setConfirmText("新增");
-//            mSweetAlertDialog.setCancelText("关闭");
-//            mSweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-//                @Override
-//                public void onClick(SweetAlertDialog sweetAlertDialog) {
-//                    mSweetAlertDialog.dismiss();
-//                    Intent intent = new Intent(CaptureActivity.this, YSLAddGoodsActivity.class);
-//                    intent.putExtra("Searchcontetnt",Searchcontetnt);
-//                    startActivity(intent);
-//                }
-//            });
-//            mSweetAlertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-//                @Override
-//                public void onDismiss(DialogInterface dialog) {
-//                    continuePreview();
-//                }
-//            });
-//            mSweetAlertDialog.show();
-//        }
-//    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMemberValueRefresh(HomeButtonColorChangeEvent notifyShopCarEvent) {
         if (notifyShopCarEvent.getMsg().equals("Change_color")) {
-            setButtonGreen(0);
         }
     }
 
-    /**
-     * 竖排按钮变颜色
-     */
-    private void setButtonGreen(int viewId) {
-        for (int i = 0, len = mButtonGreen.length; i < len; i++) {
-            Button buttonView = (Button) findViewById(mButtonGreen[i]);
-            if (viewId == mButtonGreen[i]) {
-                buttonView.setBackgroundResource(R.drawable.background_green);
-            } else {
-                buttonView.setBackgroundResource(R.drawable.background_white);
-            }
-        }
+    private void resetCashier() {
+        mShopLeftList.clear();
+        mShopLeftAdapter.notifyDataSetChanged();
+        order = CreateOrder.createOrder("SP");
+        tv_ordernum.setText(order);
+        mVipMsg = null;
+        mVipDengjiMsg = null;
+        PreferenceHelper.write(ac, "yunshangpu", "vip", false);
+        VolleyResponse.instance().getInternetImg(ac, "", mIvViptx, R.mipmap.member_head_nohead);
+        deletVip.setVisibility(View.GONE);
+        mRlVip.setVisibility(View.VISIBLE);
+        vipMessage.setVisibility(View.GONE);
+        mTvVipname.setText("散客");
+        tvBlance.setText("0.00");
+        tvIntegral.setText("0");
+        mTvHeji.setText("0.00");
+        tvNumTotal.setText("0");
+        tvGetIntegral.setText("0");
+
+        fragmentManager.beginTransaction().hide(editCashierGoodsFragment).commit();
     }
 
 }

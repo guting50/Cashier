@@ -4,14 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.gt.utils.view.OnNoDoubleClickListener;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.http.InterfaceThreeBack;
-import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.StringUtil;
@@ -49,7 +48,7 @@ public class ShopLeftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int i) {
         final ViewHolder vh = (ViewHolder) holder;
         final ShopMsg ts = list.get(i);
-        vh.mTvNum.setText(ts.getNum() + "");
+        vh.mTvNum.setText("x " + (int) ts.getNum() + "");
         vh.mTvName.setText(NullUtils.noNullHandle(ts.getPM_Name()).toString() + "  " + NullUtils.noNullHandle(ts.getPM_Modle()).toString());
         if (ts.isCheck()) {
             vh.mRlBg.setBackgroundResource(R.color.enablenot);
@@ -90,14 +89,15 @@ public class ShopLeftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 //        }
 
         if (ts.getPD_Discount() == 1) {
-            vh.mTvTeprice.setVisibility(View.GONE);
+            vh.mTvTeprice.setVisibility(View.INVISIBLE);
         } else {
             vh.mTvTeprice.setVisibility(View.VISIBLE);
             vh.mTvTeprice.setText(StringUtil.twoNum(NullUtils.noNullHandle(ts.getPD_Discount()).toString()) + "折");
         }
 
 
-        vh.mTvVipprice.setText("￥ " + StringUtil.twoNum(NullUtils.noNullHandle(ts.getJisuanPrice()).toString()));
+        vh.mTvVipprice.setText("￥" + StringUtil.twoNum(NullUtils.noNullHandle(ts.getJisuanPrice()).toString()) + "/"
+                + ts.getPM_Metering());
 //        if(PreferenceHelper.readBoolean(context,"yunshangpu","vip",false)){
 //            String  p1=CommonUtils.multiply(NullUtils.noNullHandle(ts.getPM_MemPrice()).toString(),NullUtils.noNullHandle(ts.getPM_IsDiscount()).toString());
 //           String xiaoji= CommonUtils.multiply(p1,vh.mTvNum.getText().toString());
@@ -112,56 +112,32 @@ public class ShopLeftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (ts.isIsgive()) {
             vh.mTvZeng.setVisibility(View.VISIBLE);
         } else {
-            vh.mTvZeng.setVisibility(View.GONE);
+            vh.mTvZeng.setVisibility(View.INVISIBLE);
         }
 
         if (ts.getEM_NameList() != null && !ts.getEM_NameList().equals("")) {
             vh.tvStaff.setVisibility(View.VISIBLE);
             vh.tvStaff.setText(ts.getEM_NameList());
         } else {
-            vh.tvStaff.setVisibility(View.GONE);
+            vh.tvStaff.setVisibility(View.INVISIBLE);
         }
-
-
-        vh.mIvAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                double num = ts.getNum();
-                vh.mTvNum.setText((num + 1) + "");
-                ts.setNum(num + 1);
-                ts.setChosePosion(i);
-                String xiaoji = CommonUtils.multiply(CommonUtils.multiply(NullUtils.noNullHandle
-                        (ts.getJisuanPrice()).toString(), vh.mTvNum.getText().toString()), ts.getPD_Discount() + "");
-                ts.setAllprice(Double.parseDouble(xiaoji));
-                vh.mTvPrice.setText(StringUtil.twoNum(xiaoji));
-                back.onResponse(ts);
-            }
-        });
-        vh.mIvDel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                double num = ts.getNum();
-                if (num <= 1) {
-                    ts.setChosePosion(-1);
-                    back.onErrorResponse(i);
-                } else {
-                    vh.mTvNum.setText((num - 1) + "");
-                    ts.setNum(num - 1);
-                    ts.setChosePosion(i);
-                    String xiaoji = CommonUtils.multiply(CommonUtils.multiply(NullUtils.noNullHandle
-                            (ts.getJisuanPrice()).toString(), vh.mTvNum.getText().toString()), ts.getPD_Discount() + "");
-                    ts.setAllprice(Double.parseDouble(xiaoji));
-                    vh.mTvPrice.setText(StringUtil.twoNum(xiaoji));
-                    back.onResponse(ts);
-                }
-            }
-        });
         vh.mRlBg.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
                 back.onThreeResponse(i);
             }
         });
+
+        vh.btnDel.setOnClickListener(new OnNoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                back.onErrorResponse(i);
+            }
+        });
+
+        vh.mViewLine.setVisibility(View.GONE);
+        if (i < getItemCount())
+            vh.mViewLine.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -187,18 +163,16 @@ public class ShopLeftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         TextView mTvTeprice;
         @BindView(R.id.tv_price)
         TextView mTvPrice;
-        @BindView(R.id.iv_del)
-        ImageView mIvDel;
         @BindView(R.id.tv_num)
         TextView mTvNum;
-        @BindView(R.id.iv_add)
-        ImageView mIvAdd;
         @BindView(R.id.view_line)
         View mViewLine;
         @BindView(R.id.rl_bg)
         RelativeLayout mRlBg;
         @BindView(R.id.tv_staff)
         TextView tvStaff;
+        @BindView(R.id.btn_del)
+        View btnDel;
 
         public ViewHolder(View itemView) {
             super(itemView);

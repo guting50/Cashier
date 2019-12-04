@@ -41,6 +41,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'com.google.android.material:material:1.0.0'
+
     testImplementation 'junit:junit:4.12'
     implementation 'ren.yale.android:cachewebviewlib:1.4.0'
     implementation files('libs/core-3.3.0.jar')
@@ -84,4 +86,5 @@ dependencies {
     implementation 'com.just.agentweb:filechooser:4.1.2'
 
     implementation 'com.github.guting50:GtUtils:1.1.0'
+    implementation 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
 }

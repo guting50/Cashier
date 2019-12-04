@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_white"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabMode="scrollable" />
+
+    </FrameLayout>
+
+    <com.maimengmami.waveswiperefreshlayout.WaveSwipeRefreshLayout
+        android:id="@+id/refresh_goods_consume"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="10dp"
+        app:blow_wave_color="@color/green">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/goods_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.maimengmami.waveswiperefreshlayout.WaveSwipeRefreshLayout>
+</FrameLayout>
