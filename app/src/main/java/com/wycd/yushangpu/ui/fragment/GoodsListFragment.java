@@ -64,7 +64,7 @@ public class GoodsListFragment extends Fragment {
         initView();
         obtainShopClass();
 
-        obtainHomeShop("");
+        obtainHomeShop("", "");
         return view;
     }
 
@@ -130,6 +130,7 @@ public class GoodsListFragment extends Fragment {
                 ClassMsg classMsg = new ClassMsg();
                 classMsg.setChose(true);
                 classMsg.setPT_Name("全部");
+                classMsg.setGID("");
                 mClassMsgList.add(0, classMsg);
 
                 ClassMsg classMsg1 = new ClassMsg();
