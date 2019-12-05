@@ -6,8 +6,8 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 
 import com.wycd.yushangpu.R;
-import com.wycd.yushangpu.views.ShadowDrawableWhiteWrapper;
-import com.wycd.yushangpu.views.ShadowDrawableWrapper;
+import com.wycd.yushangpu.widget.views.ShadowDrawableWhiteWrapper;
+import com.wycd.yushangpu.widget.views.ShadowDrawableWrapper;
 
 public class ShadowUtils {
     public static void setShadowBackgroud(Context ac, Resources res, View view) {

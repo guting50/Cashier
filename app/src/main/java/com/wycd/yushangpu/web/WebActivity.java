@@ -19,7 +19,7 @@ import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
-import com.wycd.yushangpu.dialog.LoadingDialog;
+import com.wycd.yushangpu.widget.dialog.LoadingDialog;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpOutLogin;
 import com.wycd.yushangpu.tools.ActivityManager;

@@ -8,23 +8,12 @@ import android.webkit.JavascriptInterface;
 
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.loopj.android.http.PersistentCookieStore;
 import com.tencent.smtt.sdk.WebView;
 import com.wycd.yushangpu.MyApplication;
-import com.wycd.yushangpu.dialog.LoadingDialog;
+import com.wycd.yushangpu.widget.dialog.LoadingDialog;
 import com.wycd.yushangpu.printutil.GetPrintSet;
 import com.wycd.yushangpu.printutil.HttpGetPrintContents;
-import com.wycd.yushangpu.tools.ToastUtils;
-import com.wycd.yushangpu.ui.BaseActivity;
 import com.wycd.yushangpu.ui.HomeActivity;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.List;
-
-import cz.msebera.android.httpclient.cookie.Cookie;
 
 /**
  * 自定义的Android代码和JavaScript代码之间的桥梁类

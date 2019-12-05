@@ -4,13 +4,19 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.gt.utils.view.OnNoDoubleClickListener;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.VipDengjiMsg;
+import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.tools.NullUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -19,51 +25,60 @@ import butterknife.ButterKnife;
  */
 
 
-public class SearchVipPopAdapter extends BaseAdapter {
-    private VipDengjiMsg list;
+public class SearchVipPopAdapter extends RecyclerView.Adapter {
+    private List<VipDengjiMsg.DataBean> list = new ArrayList<>();
     private Context context;
-    private LayoutInflater inflater;
+    private InterfaceBack back;
 
-    public SearchVipPopAdapter(Context context, VipDengjiMsg list) {
-        this.list = list;
+    public SearchVipPopAdapter(Context context, InterfaceBack back) {
         this.context = context;
-        inflater = LayoutInflater.from(context);
+        this.back = back;
+    }
+
+    public void addList(VipDengjiMsg.DataBean list) {
+        this.list.add(list);
+    }
+
+    public void setList(List<VipDengjiMsg.DataBean> list) {
+        this.list = list;
+    }
+
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_pop_vip_search, null);
+        return new Holder(view);
     }
 
     @Override
-    public int getCount() {
-        return list.getData().size();
-    }
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-    @Override
-    public Object getItem(int i) {
-        return list.getData().get(i);
-    }
+        Holder vh = (Holder) holder;
+        final VipDengjiMsg.DataBean ts = list.get(position);
 
-    @Override
-    public long getItemId(int i) {
-        return i;
-    }
-
-    @Override
-    public View getView(final int i, View view, ViewGroup viewGroup) {
-        final ViewHolder vh;
-        if (view == null) {
-            view = inflater.inflate(R.layout.item_pop_vip_search, null);
-            vh = new ViewHolder(view);
-            view.setTag(vh);
-        } else {
-            vh = (ViewHolder) view.getTag();
-        }
-        final VipDengjiMsg.DataBean ts = list.getData().get(i);
-
+        vh.tvGid.setText(NullUtils.noNullHandle(ts.getGID()) + "");
         vh.tvName.setText(NullUtils.noNullHandle(ts.getVIP_Name()) + "");
-        vh.tvCardnum.setText(NullUtils.noNullHandle(ts.getVCH_Card()) + "");
+        vh.tvCardnum.setText("卡号：" + NullUtils.noNullHandle(ts.getVCH_Card()) + "");
         vh.tvPhone.setText(NullUtils.noNullHandle(ts.getVIP_CellPhone()) + "");
-        return view;
+
+        vh.rootView.setOnClickListener(new OnNoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                back.onResponse(ts);
+            }
+        });
     }
 
-    static class ViewHolder {
+    @Override
+    public int getItemCount() {
+        return list.size();
+    }
+
+    class Holder extends RecyclerView.ViewHolder {
+
+        View rootView;
+        @BindView(R.id.tv_gid)
+        TextView tvGid;
         @BindView(R.id.tv_name)
         TextView tvName;
         @BindView(R.id.tv_cardnum)
@@ -71,8 +86,10 @@ public class SearchVipPopAdapter extends BaseAdapter {
         @BindView(R.id.tv_phone)
         TextView tvPhone;
 
-        ViewHolder(View view) {
-            ButterKnife.bind(this, view);
+        public Holder(@NonNull View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+            rootView = itemView;
         }
     }
 }

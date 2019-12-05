@@ -20,7 +20,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.gyf.barlibrary.ImmersionBar;
-import com.wycd.yushangpu.dialog.LoadingDialog;
+import com.wycd.yushangpu.widget.dialog.LoadingDialog;
 import com.wycd.yushangpu.http.PermissionListener;
 import com.wycd.yushangpu.tools.ActivityManager;
 import com.wycd.yushangpu.tools.SystemUIUtils;

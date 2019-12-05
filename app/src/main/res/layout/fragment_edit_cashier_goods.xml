@@ -190,6 +190,16 @@
 
         </com.gt.utils.view.BgFrameLayout>
 
+        <include
+            android:id="@+id/edit_text_layout_a"
+            layout="@layout/item_edit_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/edit_layout"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="15dp" />
+
         <LinearLayout
             android:id="@+id/edit_layout"
             android:layout_width="match_parent"
@@ -231,22 +241,32 @@
                 app:stroke_color="@color/textgreen"
                 app:stroke_width="1dp">
 
-                <TextView
-                    android:id="@+id/tv_edit_title_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="改数量：" />
-
-                <EditText
-                    android:id="@+id/tv_edit_view"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="right"
-                    android:background="#00000000"
-                    android:gravity="center|right"
-                    android:maxLength="1"
-                    android:maxLines="1" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_edit_title_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="改数量：" />
+
+                    <include
+                        android:id="@+id/edit_text_layout"
+                        layout="@layout/item_edit_layout" />
+
+                    <TextView
+                        android:id="@+id/discount_unit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:text="折" />
+                </LinearLayout>
 
             </com.gt.utils.view.BgFrameLayout>
 
@@ -293,7 +313,6 @@
         </LinearLayout>
 
         <include
-            android:id="@+id/keyboard_layout"
             layout="@layout/item_num_keyboard_layout"
             android:layout_width="match_parent"
             android:layout_height="250dp"

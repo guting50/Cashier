@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="36dp"
@@ -9,57 +10,51 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_gid"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="姓名："
-            android:textSize="15sp"
-            android:textColor="@color/text60"/>
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="ID"
+            android:textColor="@color/text60"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:singleLine="true"
+            android:layout_weight="1"
             android:ellipsize="end"
-            android:text="张三"
-            android:textSize="15sp"
-            android:textColor="@color/text60"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_8"
-            android:text="卡号："
-            android:textSize="15sp"
-            android:textColor="@color/text60"/>
+            android:singleLine="true"
+            android:text="姓名"
+            android:textColor="@color/text60"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/tv_cardnum"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:singleLine="true"
+            android:layout_weight="2"
             android:ellipsize="end"
-            android:text="123456"
-            android:textSize="15sp"
-            android:textColor="@color/text60"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_8"
-            android:text="手机号："
-            android:textSize="15sp"
-            android:textColor="@color/text60"/>
+            android:singleLine="true"
+            android:text="卡号"
+            android:textColor="@color/text60"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/tv_phone"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:singleLine="true"
+            android:layout_weight="2"
             android:ellipsize="end"
-            android:text="1399999999"
-            android:textSize="15sp"
-            android:textColor="@color/text60"/>
+            android:gravity="right"
+            android:singleLine="true"
+            android:text="手机号"
+            android:textColor="@color/text60"
+            android:textSize="15sp" />
 
 
     </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>

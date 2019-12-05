@@ -229,58 +229,62 @@
             android:src="@drawable/cash_ico_keyboard"
             android:visibility="gone" />
 
-        <com.gt.utils.view.BgFrameLayout
-            android:id="@+id/member_bg_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_35"
-            android:layout_below="@+id/tv_ordernum"
-            android:layout_marginLeft="5dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            app:corners_radius="3dp"
-            app:solid_color="@color/textgreen">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="会员[F2]"
-                android:textColor="@color/white" />
-        </com.gt.utils.view.BgFrameLayout>
-
-        <com.gt.utils.view.BgFrameLayout
-            android:id="@+id/account_bg_layout"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/account_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_ordernum"
-            android:layout_marginLeft="@dimen/dp_5"
-            android:layout_marginRight="@dimen/dp_5"
-            android:layout_toRightOf="@+id/member_bg_layout"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            app:corners_radius="3dp"
-            app:stroke_color="@color/textgreen"
-            app:stroke_width="1dp">
+            android:layout_below="@+id/tv_ordernum">
 
-            <com.wycd.yushangpu.views.ClearEditText
-                android:id="@+id/et_login_account"
-                android:layout_width="match_parent"
+            <com.gt.utils.view.BgFrameLayout
+                android:id="@+id/member_bg_layout"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_35"
-                android:background="@null"
-                android:drawableRight="@drawable/home_error"
-                android:hint="请输入商品名称/编码/简码进行查询"
-                android:imeOptions="actionSearch"
-                android:singleLine="true"
-                android:textColor="@color/textcolor"
-                android:textColorHint="@color/textbb"
-                android:textSize="@dimen/sp_14" />
-        </com.gt.utils.view.BgFrameLayout>
+                android:layout_marginLeft="5dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                app:corners_radius="3dp"
+                app:solid_color="@color/textgreen">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="会员[F2]"
+                    android:textColor="@color/white" />
+            </com.gt.utils.view.BgFrameLayout>
+
+            <com.gt.utils.view.BgFrameLayout
+                android:id="@+id/account_bg_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:layout_marginRight="@dimen/dp_5"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                app:corners_radius="3dp"
+                app:stroke_color="@color/textgreen"
+                app:stroke_width="1dp">
+
+                <com.wycd.yushangpu.widget.views.ClearEditText
+                    android:id="@+id/et_login_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_35"
+                    android:background="@null"
+                    android:drawableRight="@drawable/home_error"
+                    android:hint="请输入商品名称/编码/简码进行查询"
+                    android:imeOptions="actionSearch"
+                    android:singleLine="true"
+                    android:textColor="@color/textcolor"
+                    android:textColorHint="@color/textbb"
+                    android:textSize="@dimen/sp_14" />
+            </com.gt.utils.view.BgFrameLayout>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_no_input_goods"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/account_bg_layout"
+            android:layout_below="@+id/account_layout"
             android:layout_marginBottom="@dimen/dp_103"
             android:gravity="center_horizontal"
             android:paddingTop="50dp"
@@ -290,7 +294,7 @@
             android:id="@+id/recyclerview_shoplist"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/account_bg_layout"
+            android:layout_below="@+id/account_layout"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="@dimen/dp_103" />
 
@@ -501,8 +505,13 @@
         android:layout_marginTop="@dimen/dp_5"
         android:layout_marginBottom="@dimen/dp_5"
         android:layout_toRightOf="@+id/cashier_layout"
-        android:background="@drawable/background_white"
-        android:visibility="gone" />
+        android:background="@drawable/background_white" />
+
+    <!-- <fragmentm
+         android:name="com.wycd.yushangpu.ui.fragment.SettlementFragment"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:visibility="gone" />-->
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -510,144 +519,98 @@
         android:background="#d0000000"
         android:visibility="gone">
 
-        <com.gt.utils.view.BgFrameLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="350dp"
-            android:layout_marginTop="@dimen/dp_5"
-            android:layout_marginBottom="@dimen/dp_5"
-            app:corners_radius_left_bottom="3dp"
-            app:corners_radius_left_top="3dp"
-            app:solid_color="@color/white">
+            android:layout_height="@dimen/dp_60"
+            android:gravity="center_vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_60"
-                android:gravity="center_vertical">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_viptx"
+                android:layout_width="@dimen/dp_35"
+                android:layout_height="@dimen/dp_35"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:src="@mipmap/member_head_nohead" />
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/iv_viptx"
-                    android:layout_width="@dimen/dp_35"
-                    android:layout_height="@dimen/dp_35"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/dp_5"
-                    android:src="@mipmap/member_head_nohead" />
-
-                <TextView
-                    android:id="@+id/tv_vipname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/dp_5"
-                    android:layout_toEndOf="@+id/iv_viptx"
-                    android:maxWidth="@dimen/dp_55"
-                    android:text="散客"
-                    android:textColor="@color/text60"
-                    android:textSize="@dimen/dp_17" />
-
-                <LinearLayout
-                    android:id="@+id/vip_message"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_toStartOf="@+id/ll_home_massage"
-                    android:layout_toEndOf="@+id/tv_vipname"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dp_5"
-                        android:text="余额:"
-                        android:textColor="@color/text60"
-                        android:textSize="@dimen/dp_14" />
-
-                    <TextView
-                        android:id="@+id/tv_blance"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="0.00"
-                        android:textColor="@color/textred"
-                        android:textSize="@dimen/dp_14" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dp_5"
-                        android:text="积分:"
-                        android:textColor="@color/text60"
-                        android:textSize="@dimen/dp_14" />
-
-                    <TextView
-                        android:id="@+id/tv_integral"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="0"
-                        android:textColor="@color/textred"
-                        android:textSize="@dimen/dp_14" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_home_massage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="5dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <CheckBox
-                        android:id="@+id/cb_short_message"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:button="@null"
-                        android:drawableLeft="@drawable/rember_password"
-                        android:drawablePadding="5dp"
-                        android:text="短信" />
-
-                    <ImageView
-                        android:id="@+id/delet_vip"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:src="@drawable/home_error"
-                        android:visibility="gone" />
-
-                </LinearLayout>
-
-            </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_vipname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp_5"
+                android:layout_toEndOf="@+id/iv_viptx"
+                android:maxWidth="@dimen/dp_55"
+                android:text="散客"
+                android:textColor="@color/text60"
+                android:textSize="@dimen/dp_17" />
 
             <LinearLayout
-                android:id="@+id/rl_jifen"
+                android:id="@+id/vip_message"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_34"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="@dimen/dp_10"
+                android:layout_height="match_parent"
+                android:layout_toStartOf="@+id/ll_home_massage"
+                android:layout_toEndOf="@+id/tv_vipname"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:text="积分："
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:text="余额:"
                     android:textColor="@color/text60"
-                    android:textSize="@dimen/dp_13" />
+                    android:textSize="@dimen/dp_14" />
 
                 <TextView
-                    android:id="@+id/tv_get_integral"
+                    android:id="@+id/tv_blance"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:text="0"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="0.00"
+                    android:textColor="@color/textred"
+                    android:textSize="@dimen/dp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:text="积分:"
                     android:textColor="@color/text60"
-                    android:textSize="@dimen/dp_13" />
+                    android:textSize="@dimen/dp_14" />
+
+                <TextView
+                    android:id="@+id/tv_integral"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="0"
+                    android:textColor="@color/textred"
+                    android:textSize="@dimen/dp_14" />
             </LinearLayout>
 
-        </com.gt.utils.view.BgFrameLayout>
+            <LinearLayout
+                android:id="@+id/ll_home_massage"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="5dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cb_short_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/rember_password"
+                    android:drawablePadding="5dp"
+                    android:text="短信" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
     </FrameLayout>
 </RelativeLayout>

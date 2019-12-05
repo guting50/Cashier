@@ -83,7 +83,7 @@
 
 
 
-                        <com.wycd.yushangpu.views.ClearEditText
+                        <com.wycd.yushangpu.widget.views.ClearEditText
                             android:id="@+id/et_search"
                             android:layout_width="0dp"
                             android:layout_height="40dp"

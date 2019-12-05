@@ -8,7 +8,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.loopj.android.http.TextHttpResponseHandler;
 import com.wycd.yushangpu.MyApplication;
-import com.wycd.yushangpu.dialog.LoadingDialog;
+import com.wycd.yushangpu.widget.dialog.LoadingDialog;
 import com.wycd.yushangpu.tools.ActivityManager;
 import com.wycd.yushangpu.ui.LoginActivity;
 

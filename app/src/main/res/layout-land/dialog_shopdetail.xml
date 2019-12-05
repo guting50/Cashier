@@ -1,272 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_550"
+        android:layout_marginBottom="@dimen/dp_15"
         android:background="@drawable/shap_homesearch"
         android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:background="@color/texteb">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_18"
+                android:text="选择提成员工"
+                android:textColor="@color/textcolor"
+                android:textSize="@dimen/sp_15" />
+
+            <ImageView
+                android:id="@+id/rl_cancle"
+                android:layout_width="@dimen/dp_25"
+                android:layout_height="@dimen/dp_25"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_10"
+                android:padding="@dimen/dp_4"
+                android:src="@drawable/ty_close" />
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/dp_15"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_40"
-                android:background="@drawable/shap_homeviptop"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/dp_18"
-                    android:text="商品信息"
-                    android:textColor="@color/textcolor"
-                    android:textSize="@dimen/sp_15" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_40"
-                android:background="@color/texteb">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/dp_18"
-                    android:text="选择提成员工"
-                    android:textColor="@color/textcolor"
-                    android:textSize="@dimen/sp_15" />
-
-                <ImageView
-                    android:id="@+id/rl_cancle"
-                    android:layout_width="@dimen/dp_25"
-                    android:layout_height="@dimen/dp_25"
-                    android:padding="@dimen/dp_4"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/dp_10"
-                    android:src="@drawable/ty_close" />
-            </RelativeLayout>
+            android:layout_marginTop="40dp"
+            android:orientation="horizontal"
+            android:padding="15dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_weight="2.5"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2.5"
-                    android:orientation="vertical">
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_46"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_46"
-                        android:layout_marginLeft="@dimen/dp_15"
-                        android:layout_marginRight="@dimen/dp_50"
-                        android:layout_marginTop="@dimen/dp_20"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-
-
-                        <com.wycd.yushangpu.views.ClearEditText
-                            android:id="@+id/et_search"
-                            android:layout_width="0dp"
-                            android:layout_height="40dp"
-                            android:layout_marginRight="@dimen/dp_5"
-                            android:paddingLeft="@dimen/dp_15"
-                            android:layout_weight="3"
-                            android:background="@drawable/lab_selected"
-                            android:hint="请输入员工姓名"
-                            android:textColor="@color/textcolor"
-                            android:textColorHint="@color/textbb"
-                            android:textSize="@dimen/sp_13" />
-
-                        <LinearLayout
-                            android:id="@+id/li_search"
-                            android:layout_width="@dimen/dp_70"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/background_selector_green"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/image_select_search" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/dp_2"
-                                android:text="查询"
-                                android:textColor="@drawable/textcolor_selector_green"
-                                android:textSize="@dimen/sp_15" />
-                        </LinearLayout>
-
-                        <RelativeLayout
-                            android:id="@+id/rl_confirm"
-                            android:layout_width="@dimen/dp_80"
-                            android:layout_height="@dimen/dp_40"
-                            android:layout_marginLeft="@dimen/dp_10"
-                            android:background="@drawable/shap_shopdetail_confirm">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:layout_centerVertical="true"
-                                android:text="确定"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/sp_15" />
-
-                        </RelativeLayout>
-                        <RelativeLayout
-                            android:layout_width="@dimen/dp_80"
-                            android:layout_height="@dimen/dp_35"
-                            android:background="@null"
-                            >
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <com.gt.utils.view.BgFrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/dp_15"
-                        android:layout_marginRight="60dp"
-                        android:background="@drawable/shap_homesearch"
-                        android:orientation="vertical">
+                        android:layout_weight="1"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        app:corners_radius_left_bottom="2dp"
+                        app:corners_radius_left_top="2dp"
+                        app:stroke_color="@color/textgreen"
+                        app:stroke_width="1dp">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dp_35"
-                            android:background="@drawable/shap_homeviptop"
-                            android:orientation="horizontal">
+                        <include
+                            android:id="@+id/edit_text_layout"
+                            layout="@layout/item_edit_layout" />
 
-                            <ImageView
-                                android:id="@+id/iv_chose_all"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical|left"
-                                android:layout_marginLeft="@dimen/dp_15"
-                                android:background="@drawable/emp_not" />
+                    </com.gt.utils.view.BgFrameLayout>
 
-                            <TextView
-                                android:id="@+id/tv_ygname"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1.1"
-                                android:gravity="center_vertical"
-                                android:paddingLeft="@dimen/dp_15"
-                                android:text="员工名称"
-                                android:textColor="@color/textcolor"
-                                android:textSize="@dimen/sp_14" />
+                    <com.gt.utils.view.BgFrameLayout
+                        android:id="@+id/li_search"
+                        android:layout_width="@dimen/dp_70"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="-1dp"
+                        android:layout_marginTop="0.5dp"
+                        android:layout_marginBottom="0.5dp"
+                        app:corners_radius_right_bottom="2dp"
+                        app:corners_radius_right_top="2dp"
+                        app:solid_color="@color/textgreen">
 
-                            <TextView
-                                android:id="@+id/tv_ygcode"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center_vertical"
-                                android:paddingLeft="@dimen/dp_15"
-                                android:text="员工编号"
-                                android:textColor="@color/textcolor"
-                                android:textSize="@dimen/sp_14" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/search_w" />
 
-                            <TextView
-                                android:id="@+id/tv_ygsex"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center_vertical"
-                                android:paddingLeft="@dimen/dp_15"
-                                android:text="员工性别"
-                                android:textColor="@color/textcolor"
-                                android:textSize="@dimen/sp_14" />
-                        </LinearLayout>
-
-                        <ListView
-                            android:id="@+id/listview"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:cacheColorHint="#00000000"
-                            android:divider="@color/view_color"
-                            android:dividerHeight="0.5dp"
-                            android:scrollbars="none"></ListView>
-                    </LinearLayout>
+                    </com.gt.utils.view.BgFrameLayout>
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <ListView
+                    android:id="@+id/listview"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:cacheColorHint="#00000000"
+                    android:divider="@color/view_color"
+                    android:dividerHeight="0.5dp"
+                    android:scrollbars="none" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="@dimen/dp_15"
-                        android:layout_marginRight="@dimen/dp_15"
-                        android:background="@drawable/shap_homesearch"
-                        android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="14dp"
+                    android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:id="@+id/li_allbumen"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dp_35"
-                            android:background="@drawable/shap_bumen"
-                            android:orientation="horizontal">
+                    <com.gt.utils.view.BgFrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_40"
+                        android:layout_below="@+id/tv_ordernum"
+                        android:layout_marginRight="15dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        app:corners_radius="3dp"
+                        app:solid_color="@color/text0050">
 
-                            <TextView
-                                android:id="@+id/tv_allbumen"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="全部部门"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/sp_14" />
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:background="@color/view_color"></View>
-
-                        <ListView
-                            android:id="@+id/bumenlistview"
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:cacheColorHint="#00000000"
-                            android:divider="@color/view_color"
-                            android:dividerHeight="0.5dp"
-                            android:layout_marginLeft="0.5dp"
-                            android:layout_marginRight="0.5dp"
-                            android:scrollbars="none"></ListView>
-                    </LinearLayout>
+                            android:gravity="center"
+                            android:text="清除"
+                            android:textColor="@color/white" />
+                    </com.gt.utils.view.BgFrameLayout>
 
+                    <com.gt.utils.view.BgFrameLayout
+                        android:id="@+id/rl_confirm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_40"
+                        android:layout_below="@+id/tv_ordernum"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        app:corners_radius="3dp"
+                        app:solid_color="@color/textgreen">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="确认"
+                            android:textColor="@color/white" />
+                    </com.gt.utils.view.BgFrameLayout>
                 </LinearLayout>
 
             </LinearLayout>
+
+            <include
+                layout="@layout/item_num_keyboard_layout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1" />
+
         </LinearLayout>
 
-
     </RelativeLayout>
-</LinearLayout>
+</FrameLayout>

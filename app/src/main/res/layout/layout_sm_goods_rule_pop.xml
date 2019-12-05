@@ -59,7 +59,7 @@
             android:background="@drawable/shap_goodsimage"
             android:padding="1.5dp">
 
-            <com.wycd.yushangpu.views.ShapedImageView
+            <com.wycd.yushangpu.widget.views.ShapedImageView
                 android:id="@+id/iv_item_goods"
                 android:layout_width="150dp"
                 android:layout_height="150dp"

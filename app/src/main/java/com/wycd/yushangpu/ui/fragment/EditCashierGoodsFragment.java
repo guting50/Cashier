@@ -2,13 +2,10 @@ package com.wycd.yushangpu.ui.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,16 +14,16 @@ import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.EmplMsg;
 import com.wycd.yushangpu.bean.ShopMsg;
-import com.wycd.yushangpu.dialog.ShopDetailDialog;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.NullUtils;
+import com.wycd.yushangpu.tools.StringUtil;
 import com.wycd.yushangpu.ui.HomeActivity;
+import com.wycd.yushangpu.widget.NumKeyboardUtils;
+import com.wycd.yushangpu.widget.dialog.ShopDetailDialog;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,7 +31,6 @@ import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnTouch;
 
 public class EditCashierGoodsFragment extends Fragment {
     @BindView(R.id.info_goods_name)
@@ -53,10 +49,10 @@ public class EditCashierGoodsFragment extends Fragment {
     BgFrameLayout bnEditSubtotal;
     @BindView(R.id.bn_edit_discount)
     BgFrameLayout bnEditDiscount;
+    @BindView(R.id.discount_unit)
+    TextView discountUnit;
     @BindView(R.id.bn_edit_royalty)
     BgFrameLayout bnEditRoyalty;
-    @BindView(R.id.tv_edit_view)
-    EditText editView;
     @BindView(R.id.tv_edit_title_view)
     TextView tvEditTitleView;
     @BindView(R.id.edit_layout)
@@ -67,19 +63,22 @@ public class EditCashierGoodsFragment extends Fragment {
     BgFrameLayout ediNumAdd;
     @BindView(R.id.edit_layout_place)
     View editLayoutPlace;
-
+    @BindView(R.id.keyboard_layout)
+    View keyboardLayout;
     HomeActivity homeActivity;
-    ShopMsg shopBean;
 
+    ShopMsg shopBean;
+    NumKeyboardUtils numKeyboardUtils;
+    View rootView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_edit_cashier_goods, null);
+        rootView = inflater.inflate(R.layout.fragment_edit_cashier_goods, null);
         ButterKnife.bind(this, rootView);
 
         homeActivity = (HomeActivity) getActivity();
 
-        editView.setInputType(InputType.TYPE_NULL);
+        numKeyboardUtils = new NumKeyboardUtils(getActivity(), rootView, rootView.findViewById(R.id.edit_text_layout));
 
         return rootView;
     }
@@ -89,7 +88,21 @@ public class EditCashierGoodsFragment extends Fragment {
         infoGoodsName.setText(shopBean.getPM_Name());
         goodsCode.setText("条码：" + shopBean.getPM_Code());
         tvPrice.setText("售价：￥" + shopBean.getPM_UnitPrice() + "");
+        bnEditNum.performClick();
     }
+
+    @OnClick({R.id.edit_layout, R.id.edit_text_layout_a})
+    public void aaa(View view) {
+        switch (view.getId()) {
+            case R.id.edit_layout:
+                numKeyboardUtils.setEditView( rootView.findViewById(R.id.edit_text_layout), "aaa");
+                break;
+            case R.id.edit_text_layout_a:
+                numKeyboardUtils.setEditView(view, "bbb");
+                break;
+        }
+    }
+
 
     @OnClick({R.id.info_goods_layout, R.id.close})
     public void onViewClicked(View view) {
@@ -116,8 +129,8 @@ public class EditCashierGoodsFragment extends Fragment {
                 editNumDel.setVisibility(View.VISIBLE);
                 ediNumAdd.setVisibility(View.VISIBLE);
                 editLayoutPlace.setVisibility(View.GONE);
-                editView.setText(shopBean.getNum() + "");
-                editViewSelectAll();
+                numKeyboardUtils.setText(shopBean.getNum() + "");
+                numKeyboardUtils.editViewSelectAll();
                 break;
             case R.id.bn_edit_price:
                 if (homeActivity.mModifyPrice == 0 || homeActivity.mChangePrice == 0) {
@@ -131,8 +144,8 @@ public class EditCashierGoodsFragment extends Fragment {
                 resetBnEdit(view);
                 tvEditTitleView.setText("改单价");
                 editLayout.setVisibility(View.VISIBLE);
-                editView.setText(shopBean.getJisuanPrice() + "");
-                editViewSelectAll();
+                numKeyboardUtils.setText(shopBean.getJisuanPrice() + "");
+                numKeyboardUtils.editViewSelectAll();
                 break;
             case R.id.bn_edit_subtotal:
                 if (homeActivity.mModifyPrice == 0 || homeActivity.mChangeSubtotal == 0) {
@@ -146,10 +159,10 @@ public class EditCashierGoodsFragment extends Fragment {
                 resetBnEdit(view);
                 tvEditTitleView.setText("改小计");
                 editLayout.setVisibility(View.VISIBLE);
-                editView.setText(CommonUtils.multiply(NullUtils.noNullHandle(
+                numKeyboardUtils.setText(CommonUtils.multiply(NullUtils.noNullHandle(
                         shopBean.getJisuanPrice() * shopBean.getPD_Discount()).toString(),
                         NullUtils.noNullHandle(shopBean.getNum()).toString()));
-                editViewSelectAll();
+                numKeyboardUtils.editViewSelectAll();
                 break;
             case R.id.bn_edit_discount:
                 if (homeActivity.mModifyPrice == 0 || homeActivity.mChangeDiscount == 0) {
@@ -161,10 +174,11 @@ public class EditCashierGoodsFragment extends Fragment {
                     return;
                 }
                 resetBnEdit(view);
+                discountUnit.setVisibility(View.VISIBLE);
                 tvEditTitleView.setText("改折扣");
                 editLayout.setVisibility(View.VISIBLE);
-                editView.setText(shopBean.getPD_Discount() + "");
-                editViewSelectAll();
+                numKeyboardUtils.setText(shopBean.getPD_Discount() + "");
+                numKeyboardUtils.editViewSelectAll();
                 break;
             case R.id.bn_edit_give:
                 resetBnEdit(view);
@@ -216,60 +230,69 @@ public class EditCashierGoodsFragment extends Fragment {
         }
     }
 
-    @OnClick({R.id.tv_edit_view, R.id.edit_num_add, R.id.edit_num_del, R.id.edit_confirm})
+    @OnClick({R.id.edit_num_add, R.id.edit_num_del, R.id.edit_confirm})
     public void onViewClickedEditBn(View view) {
         switch (view.getId()) {
-            case R.id.tv_edit_view:
-                if (view.getTag() == null)
-                    editViewSelectAll();
-                else
-                    setEditViewText(editView.getText() != null ? editView.getText().toString() : "");
-                break;
             case R.id.edit_num_del:
-                if (!TextUtils.isEmpty(editView.getText())) {
-                    double num = Double.parseDouble(editView.getText().toString());
+                if (!TextUtils.isEmpty(numKeyboardUtils.getText())) {
+                    double num = Double.parseDouble(numKeyboardUtils.getText().toString());
                     if (num > 0)
-                        editView.setText(num - 1 + "");
+                        numKeyboardUtils.setText(num - 1 + "");
                 }
                 break;
             case R.id.edit_num_add:
                 double num = 0;
-                if (!TextUtils.isEmpty(editView.getText())) {
-                    num = Double.parseDouble(editView.getText().toString());
+                if (!TextUtils.isEmpty(numKeyboardUtils.getText())) {
+                    num = Double.parseDouble(numKeyboardUtils.getText().toString());
                 }
-                editView.setText(num + 1 + "");
+                numKeyboardUtils.setText(num + 1 + "");
                 break;
             case R.id.edit_confirm:
+                if (numKeyboardUtils.getText().toString().equals("") || "0.0".equals(numKeyboardUtils.getText().toString())) {
+                    com.blankj.utilcode.util.ToastUtils.showShort("请输入数字");
+                    return;
+                }
+                if (!StringUtil.isTwoPoint(numKeyboardUtils.getText().toString())) {
+                    com.blankj.utilcode.util.ToastUtils.showShort("只能输入两位小数");
+                    return;
+                }
                 if (currentSelectedBn != null) {
+                    double editValue = Double.parseDouble(numKeyboardUtils.getText().toString());
                     switch (currentSelectedBn.getId()) {
                         case R.id.bn_edit_num:
-                            shopBean.setNum(Double.parseDouble(editView.getText().toString()));
+                            if (shopBean != null && (shopBean.getPM_IsService() == 1 || shopBean.getPM_IsService() == 3)
+                                    && numKeyboardUtils.getText().toString().contains(".")) {
+                                com.blankj.utilcode.util.ToastUtils.showShort("服务或套餐的数量不能为小数");
+                                return;
+                            }
+                            shopBean.setNum(editValue);
                             break;
                         case R.id.bn_edit_price:
-                            double price = Double.parseDouble(editView.getText().toString());
                             if (shopBean.getPM_IsDiscount() == 1 && shopBean.getPM_SpecialOfferMoney() != -1) {
-                                shopBean.setPD_Discount(shopBean.getPM_SpecialOfferMoney() / price);
-                                shopBean.setJisuanPrice(price);
+                                shopBean.setPD_Discount(shopBean.getPM_SpecialOfferMoney() / editValue);
+                                shopBean.setJisuanPrice(editValue);
                             } else {
-                                shopBean.setJisuanPrice(price);
+                                shopBean.setJisuanPrice(editValue);
                             }
-                            shopBean.setPM_UnitPrice(price);
+                            shopBean.setPM_UnitPrice(editValue);
                             break;
                         case R.id.bn_edit_subtotal:
-                            double price1 = Double.parseDouble(editView.getText().toString());
-                            double dicount = price1 / (shopBean.getNum() * shopBean.getJisuanPrice());
+                            double dicount = editValue / (shopBean.getNum() * shopBean.getJisuanPrice());
                             if (0 <= dicount && dicount < 1) {
                                 shopBean.setIschanged(true);
                                 shopBean.setPD_Discount(dicount);
-                                shopBean.setAllprice(price1);
+                                shopBean.setAllprice(editValue);
                             }
                             break;
                         case R.id.bn_edit_discount:
-                            double discount = Double.parseDouble(editView.getText().toString());
+                            if (editValue > 1) {
+                                com.blankj.utilcode.util.ToastUtils.showShort("输入数字不正确");
+                                return;
+                            }
                             shopBean.setIschanged(true);
-                            shopBean.setPD_Discount(discount);
+                            shopBean.setPD_Discount(editValue);
                             double xiaoji = Double.parseDouble(
-                                    CommonUtils.multiply(NullUtils.noNullHandle(shopBean.getJisuanPrice() * discount).toString(), shopBean.getNum() + ""));
+                                    CommonUtils.multiply(NullUtils.noNullHandle(shopBean.getJisuanPrice() * editValue).toString(), shopBean.getNum() + ""));
                             shopBean.setAllprice(xiaoji);
                             break;
                     }
@@ -314,111 +337,10 @@ public class EditCashierGoodsFragment extends Fragment {
         editNumDel.setVisibility(View.INVISIBLE);
         ediNumAdd.setVisibility(View.GONE);
         editLayoutPlace.setVisibility(View.VISIBLE);
+        discountUnit.setVisibility(View.GONE);
     }
 
-    @OnTouch({R.id.num_keyboard_7, R.id.num_keyboard_8, R.id.num_keyboard_9, R.id.num_keyboard_4,
-            R.id.num_keyboard_5, R.id.num_keyboard_6, R.id.num_keyboard_1, R.id.num_keyboard_2,
-            R.id.num_keyboard_3, R.id.num_keyboard_0, R.id.num_keyboard_dot, R.id.num_keyboard_delete})
-    public boolean onViewTouchKeyboard(View view, MotionEvent event) {
-        if (view.getId() == R.id.num_keyboard_delete) {
-            Timer timer = (Timer) view.getTag();
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    if (timer == null) {
-                        timer = new Timer();
-                        view.setTag(timer);
-                        timer.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                homeActivity.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        if (!TextUtils.isEmpty(editView.getText())) {
-                                            if (editView.getTag() == null) {
-                                                String content = editView.getText().toString();
-                                                editView.setText(content.substring(0, content.length() - 1));
-                                            } else {
-                                                setEditViewText("");
-                                            }
-                                        }
-                                    }
-                                });
-                            }
-                        }, 0, 80);
-                    }
-                    break;
-                case MotionEvent.ACTION_UP:
-                    if (timer != null) {
-                        timer.cancel();
-                        view.setTag(null);
-                    }
-                    break;
-            }
-        }
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                view.setBackgroundResource(R.color.text0050);
-                break;
-            case MotionEvent.ACTION_UP:
-                view.setBackgroundResource(R.color.result_view);
-                switch (view.getId()) {
-                    case R.id.num_keyboard_7:
-                        setEditViewText("7");
-                        break;
-                    case R.id.num_keyboard_8:
-                        setEditViewText("8");
-                        break;
-                    case R.id.num_keyboard_9:
-                        setEditViewText("9");
-                        break;
-                    case R.id.num_keyboard_4:
-                        setEditViewText("4");
-                        break;
-                    case R.id.num_keyboard_5:
-                        setEditViewText("5");
-                        break;
-                    case R.id.num_keyboard_6:
-                        setEditViewText("6");
-                        break;
-                    case R.id.num_keyboard_1:
-                        setEditViewText("1");
-                        break;
-                    case R.id.num_keyboard_2:
-                        setEditViewText("2");
-                        break;
-                    case R.id.num_keyboard_3:
-                        setEditViewText("3");
-                        break;
-                    case R.id.num_keyboard_0:
-                        setEditViewText("0");
-                        break;
-                    case R.id.num_keyboard_dot:
-                        if (!TextUtils.isEmpty(editView.getText()) && editView.getTag() == null) {
-                            if (!editView.getText().toString().contains("."))
-                                editView.setText(editView.getText() + ".");
-                        } else
-                            setEditViewText("0.");
-                        break;
-                }
-                break;
-        }
-        return true;
-    }
-
-
-    private void editViewSelectAll() {
-        editView.clearFocus();
-        editView.requestFocus();
-        editView.selectAll();
-        editView.setTag(true);
-    }
-
-    private void setEditViewText(String text) {
-        if (editView.getTag() == null) {
-            editView.setText(editView.getText() + text);
-        } else {
-            editView.setText(text);
-            editView.setTag(null);
-        }
+    public ShopMsg getShopBean() {
+        return shopBean;
     }
 }

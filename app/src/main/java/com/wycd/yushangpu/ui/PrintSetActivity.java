@@ -34,7 +34,7 @@ import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.ReportMessageBean;
-import com.wycd.yushangpu.dialog.NoticeDialog;
+import com.wycd.yushangpu.widget.dialog.NoticeDialog;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.printutil.CallBack;

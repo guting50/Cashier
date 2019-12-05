@@ -25,7 +25,7 @@ import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.StringUtil;
 import com.wycd.yushangpu.ui.HomeActivity;
-import com.wycd.yushangpu.views.ShapedImageView;
+import com.wycd.yushangpu.widget.views.ShapedImageView;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -142,6 +142,7 @@ public class GoodsListFragment extends Fragment {
 
                 for (ClassMsg item : mClassMsgList) {
                     TabLayout.Tab tab = tabLayout.newTab();
+//                    tab.getCustomView().setLayoutParams(new FrameLayout.LayoutParams(100, ViewGroup.LayoutParams.MATCH_PARENT));
                     tab.setText(item.getPT_Name());
                     tab.setTag(item.getGID());
                     tabLayout.addTab(tab);

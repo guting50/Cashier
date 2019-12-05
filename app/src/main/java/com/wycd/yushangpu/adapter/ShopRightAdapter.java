@@ -16,7 +16,7 @@ import com.wycd.yushangpu.http.VolleyResponse;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.StringUtil;
-import com.wycd.yushangpu.views.ShapedImageView;
+import com.wycd.yushangpu.widget.views.ShapedImageView;
 
 import java.util.List;
 

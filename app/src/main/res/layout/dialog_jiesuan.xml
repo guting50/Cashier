@@ -147,7 +147,7 @@
                             android:layout_marginRight="@dimen/dp_15"
                             android:background="@drawable/shap_search_2dp">
 
-                            <com.wycd.yushangpu.views.ClearEditText
+                            <com.wycd.yushangpu.widget.views.ClearEditText
                                 android:id="@+id/et_moling"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -189,7 +189,7 @@
                         android:layout_marginRight="@dimen/dp_15"
                         android:background="@drawable/shap_search_2dp">
 
-                        <com.wycd.yushangpu.views.ClearEditText
+                        <com.wycd.yushangpu.widget.views.ClearEditText
                             android:id="@+id/et_xianjin"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -230,7 +230,7 @@
                         android:layout_marginRight="@dimen/dp_15"
                         android:background="@drawable/shap_search_2dp">
 
-                        <com.wycd.yushangpu.views.ClearEditText
+                        <com.wycd.yushangpu.widget.views.ClearEditText
                             android:id="@+id/et_yue"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -271,7 +271,7 @@
                         android:layout_marginRight="@dimen/dp_15"
                         android:background="@drawable/shap_search_2dp">
 
-                        <com.wycd.yushangpu.views.ClearEditText
+                        <com.wycd.yushangpu.widget.views.ClearEditText
                             android:id="@+id/et_yinlian"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -312,7 +312,7 @@
                         android:layout_marginRight="@dimen/dp_15"
                         android:background="@drawable/shap_search_2dp">
 
-                        <com.wycd.yushangpu.views.ClearEditText
+                        <com.wycd.yushangpu.widget.views.ClearEditText
                             android:id="@+id/et_wx"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -353,7 +353,7 @@
                         android:layout_marginRight="@dimen/dp_15"
                         android:background="@drawable/shap_search_2dp">
 
-                        <com.wycd.yushangpu.views.ClearEditText
+                        <com.wycd.yushangpu.widget.views.ClearEditText
                             android:id="@+id/et_ali"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -394,7 +394,7 @@
                         android:layout_marginRight="@dimen/dp_15"
                         android:background="@drawable/shap_search_2dp">
 
-                        <com.wycd.yushangpu.views.ClearEditText
+                        <com.wycd.yushangpu.widget.views.ClearEditText
                             android:id="@+id/et_yhq"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -435,7 +435,7 @@
                         android:layout_marginRight="@dimen/dp_15"
                         android:background="@drawable/shap_search_2dp">
 
-                        <com.wycd.yushangpu.views.ClearEditText
+                        <com.wycd.yushangpu.widget.views.ClearEditText
                             android:id="@+id/et_jifen"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -476,7 +476,7 @@
                         android:layout_marginRight="@dimen/dp_15"
                         android:background="@drawable/shap_search_2dp">
 
-                        <com.wycd.yushangpu.views.ClearEditText
+                        <com.wycd.yushangpu.widget.views.ClearEditText
                             android:id="@+id/et_saoma"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -517,7 +517,7 @@
                         android:layout_marginRight="@dimen/dp_15"
                         android:background="@drawable/shap_search_2dp">
 
-                        <com.wycd.yushangpu.views.ClearEditText
+                        <com.wycd.yushangpu.widget.views.ClearEditText
                             android:id="@+id/et_qita"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"

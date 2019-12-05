@@ -10,6 +10,7 @@ import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -39,13 +40,6 @@ import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.bean.SmsSwitch;
 import com.wycd.yushangpu.bean.VipDengjiMsg;
 import com.wycd.yushangpu.bean.event.HomeButtonColorChangeEvent;
-import com.wycd.yushangpu.dialog.ChangePwdDialog;
-import com.wycd.yushangpu.dialog.GoodsModelDialog;
-import com.wycd.yushangpu.dialog.JiesuanBDialog;
-import com.wycd.yushangpu.dialog.KeyboardDialog;
-import com.wycd.yushangpu.dialog.NoticeDialog;
-import com.wycd.yushangpu.dialog.QudanDialog;
-import com.wycd.yushangpu.dialog.VipChooseDialog;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
@@ -58,8 +52,6 @@ import com.wycd.yushangpu.model.ImpOutLogin;
 import com.wycd.yushangpu.model.ImpSubmitOrder;
 import com.wycd.yushangpu.model.ImpSubmitOrder_Guazhang;
 import com.wycd.yushangpu.model.ImpSystemCanshu;
-import com.wycd.yushangpu.popwindow.ShowMemberPopWindow;
-import com.wycd.yushangpu.popwindow.ShowStorePopWindow;
 import com.wycd.yushangpu.printutil.CallBack;
 import com.wycd.yushangpu.printutil.CommonFun;
 import com.wycd.yushangpu.printutil.GetPrintSet;
@@ -83,8 +75,17 @@ import com.wycd.yushangpu.tools.ThreadPool;
 import com.wycd.yushangpu.tools.Utils;
 import com.wycd.yushangpu.ui.fragment.EditCashierGoodsFragment;
 import com.wycd.yushangpu.ui.fragment.GoodsListFragment;
-import com.wycd.yushangpu.views.ClearEditText;
 import com.wycd.yushangpu.web.WebDialog;
+import com.wycd.yushangpu.widget.dialog.ChangePwdDialog;
+import com.wycd.yushangpu.widget.dialog.GoodsModelDialog;
+import com.wycd.yushangpu.widget.dialog.JiesuanBDialog;
+import com.wycd.yushangpu.widget.dialog.KeyboardDialog;
+import com.wycd.yushangpu.widget.dialog.NoticeDialog;
+import com.wycd.yushangpu.widget.dialog.QudanDialog;
+import com.wycd.yushangpu.widget.dialog.VipChooseDialog;
+import com.wycd.yushangpu.widget.popwindow.ShowMemberPopWindow;
+import com.wycd.yushangpu.widget.popwindow.ShowStorePopWindow;
+import com.wycd.yushangpu.widget.views.ClearEditText;
 
 import net.posprinter.posprinterface.TaskCallback;
 
@@ -137,8 +138,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     ImageView imClear;
     @BindView(R.id.rl_clear)
     TextView mRlClear;
-    @BindView(R.id.rl_jifen)
-    LinearLayout rlJifen;
     @BindView(R.id.tv_num_total)
     TextView tvNumTotal;
     @BindView(R.id.tv_heji)
@@ -153,8 +152,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     TextView tvIntegral;
     @BindView(R.id.member_bg_layout)
     BgFrameLayout mRlVip;
-    @BindView(R.id.delet_vip)
-    ImageView deletVip;
     @BindView(R.id.tv_shoukuan)
     BgFrameLayout tvShoukuan;
     @BindView(R.id.btt_get_order)
@@ -173,8 +170,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     Button bttBusiness;
     @BindView(R.id.vip_message)
     LinearLayout vipMessage;
-    @BindView(R.id.tv_get_integral)
-    TextView tvGetIntegral;
     @BindView(R.id.iv_search)
     ImageView ivSearch;
     @BindView(R.id.cb_short_message)
@@ -198,7 +193,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     private List<PayTypeMsg> paytypelist = new ArrayList<>();
     private PayTypeMsg moren;
     private String allmoney;
-    private double mPoint;
+    private double mPoint;//积分
     private long firstTime = 0;
     private String jifendkbfb, jinfenzfxzbfb;
     //    private double PD_Discount = 0;
@@ -400,6 +395,9 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             public void onErrorResponse(Object msg) {
                 int po = (int) msg;
                 if (mShopLeftList.size() > 0) {
+                    if (TextUtils.equals(mShopLeftList.get(po).getGID(),
+                            editCashierGoodsFragment.getShopBean().getGID()))
+                        fragmentManager.beginTransaction().hide(editCashierGoodsFragment).commit();
 
                     mShopLeftList.remove(po);
                     leftpos = leftpos - 1;
@@ -845,8 +843,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             ((TextView) tvShoukuan.getChildAt(0)).setText("结账[Enter]");
         }
 
-        tvGetIntegral.setText(mPoint + "");
-
         mShopLeftAdapter.notifyDataSetChanged();
     }
 
@@ -1166,7 +1162,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 tvShoukuan.setTag(0);
                 ((TextView) tvShoukuan.getChildAt(0)).setText("快速收银[Enter]");
                 tvNumTotal.setText("0");
-                tvGetIntegral.setText("0");
                 leftpos = -1;
                 if (mShopLeftList.size() > 0) {
                     bttGetOrder.setText("挂单");
@@ -1183,7 +1178,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             @Override
             protected void onNoDoubleClick(View view) {
                 if (mShopLeftList.size() > 0) {
-//                    dialog.show();
+                    dialog.show();
                     ImpSubmitOrder submitOrder = new ImpSubmitOrder();
                     submitOrder.submitOrder(ac, order, ordertime.toString(), null == mVipDengjiMsg ? "00000" : mVipDengjiMsg.getData().get(0).getVCH_Card(), mShopLeftList, false, new InterfaceBack() {
                         @Override
@@ -1243,7 +1238,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         mRlVip.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
-                VipChooseDialog vipChooseDialog = new VipChooseDialog(HomeActivity.this, new InterfaceBack() {
+                VipChooseDialog vipChooseDialog = new VipChooseDialog(HomeActivity.this, mVipMsg, new InterfaceBack() {
                     @Override
                     public void onResponse(Object response) {
                         mVipMsg = (VipDengjiMsg.DataBean) response;
@@ -1253,10 +1248,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                         vipMessage.setVisibility(View.VISIBLE);
                         tvBlance.setText(StringUtil.twoNum(NullUtils.noNullHandle(mVipMsg.getMA_AvailableBalance()).toString()));
                         tvIntegral.setText(Double.parseDouble(NullUtils.noNullHandle(mVipMsg.getMA_AvailableIntegral()).toString()) + "");
-                        mRlVip.setVisibility(View.GONE);
-                        deletVip.setVisibility(View.VISIBLE);
                         PreferenceHelper.write(ac, "yunshangpu", "vip", true);
-
 
                         ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
                         onlyVipMsg.vipMsg(ac, mVipMsg.getVCH_Card(), new InterfaceBack() {
@@ -1276,7 +1268,25 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
                     @Override
                     public void onErrorResponse(Object msg) {
-
+                        vipMessage.setVisibility(View.GONE);
+                        mTvVipname.setText("散客");
+                        mVipMsg = null;
+                        mVipDengjiMsg = null;
+                        PreferenceHelper.write(ac, "yunshangpu", "vip", false);
+                        tvBlance.setText("0.00");
+                        tvIntegral.setText("0");
+                        Glide.with(ac).load(R.mipmap.member_head_nohead).into(mIvViptx);
+                        if (mShopLeftList.size() > 0) {
+                            for (int i = 0; i < mShopLeftList.size(); i++) {
+                                if (mShopLeftList.get(i).isHasvipDiscount()) {
+                                    mShopLeftList.get(i).setHasvipDiscount(false);
+                                    mShopLeftList.get(i).setPD_Discount(1);
+                                    mShopLeftList.get(i).setJisuanPrice(mShopLeftList.get(i).getPM_UnitPrice());
+                                }
+                            }
+                            jisuanAllPrice();
+                            mShopLeftAdapter.notifyDataSetChanged();
+                        }
                     }
                 });
                 vipChooseDialog.show();
@@ -1293,33 +1303,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 //
 //                    }
 //                });
-            }
-        });
-        //删除会员
-        deletVip.setOnClickListener(new NoDoubleClickListener() {
-            @Override
-            protected void onNoDoubleClick(View view) {
-                deletVip.setVisibility(View.GONE);
-                mRlVip.setVisibility(View.VISIBLE);
-                vipMessage.setVisibility(View.GONE);
-                mTvVipname.setText("散客");
-                mVipMsg = null;
-                mVipDengjiMsg = null;
-                PreferenceHelper.write(ac, "yunshangpu", "vip", false);
-                tvBlance.setText("0.00");
-                tvIntegral.setText("0");
-                Glide.with(ac).load(R.mipmap.member_head_nohead).into(mIvViptx);
-                if (mShopLeftList.size() > 0) {
-                    for (int i = 0; i < mShopLeftList.size(); i++) {
-                        if (mShopLeftList.get(i).isHasvipDiscount()) {
-                            mShopLeftList.get(i).setHasvipDiscount(false);
-                            mShopLeftList.get(i).setPD_Discount(1);
-                            mShopLeftList.get(i).setJisuanPrice(mShopLeftList.get(i).getPM_UnitPrice());
-                        }
-                    }
-                    jisuanAllPrice();
-                    mShopLeftAdapter.notifyDataSetChanged();
-                }
             }
         });
 
@@ -1562,8 +1545,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 vipMessage.setVisibility(View.VISIBLE);
                 tvBlance.setText(StringUtil.twoNum(NullUtils.noNullHandle(mVipDengjiMsg.getData().get(0).getMA_AvailableBalance()).toString()));
                 tvIntegral.setText(Double.parseDouble(NullUtils.noNullHandle(mVipDengjiMsg.getData().get(0).getMA_AvailableIntegral()).toString()) + "");
-                mRlVip.setVisibility(View.GONE);
-                deletVip.setVisibility(View.VISIBLE);
                 PreferenceHelper.write(ac, "yunshangpu", "vip", true);
 
 //                mPD_Discount = obtainVipPD_Discount(mVipDengjiMsg.getData().get(0).getVG_GID(), mVipDengjiMsg.getData().get(0).getVGInfo());
@@ -1880,8 +1861,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         mVipDengjiMsg = null;
         PreferenceHelper.write(ac, "yunshangpu", "vip", false);
         VolleyResponse.instance().getInternetImg(ac, "", mIvViptx, R.mipmap.member_head_nohead);
-        deletVip.setVisibility(View.GONE);
-        mRlVip.setVisibility(View.VISIBLE);
         vipMessage.setVisibility(View.GONE);
         mTvVipname.setText("散客");
         tvBlance.setText("0.00");
@@ -1890,7 +1869,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         tvShoukuan.setTag(0);
         ((TextView) tvShoukuan.getChildAt(0)).setText("快速收银[Enter]");
         tvNumTotal.setText("0");
-        tvGetIntegral.setText("0");
 
         fragmentManager.beginTransaction().hide(editCashierGoodsFragment).commit();
     }

@@ -33,7 +33,7 @@
         android:layout_toRightOf="@id/rl_left"
         >
 
-        <com.wycd.yushangpu.views.ClearEditText
+        <com.wycd.yushangpu.widget.views.ClearEditText
             android:id="@+id/et_login_password"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -148,7 +148,7 @@
                     android:padding="@dimen/dp_7"
                     android:src="@drawable/cash_ico_keyboard" />
 
-                <com.wycd.yushangpu.views.ClearEditText
+                <com.wycd.yushangpu.widget.views.ClearEditText
                     android:id="@+id/et_login_account"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

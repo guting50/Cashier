@@ -10,9 +10,7 @@ import android.widget.TextView;
 
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.EmplMsg;
-import com.wycd.yushangpu.bean.VipMsg;
 import com.wycd.yushangpu.tools.NullUtils;
-import com.wycd.yushangpu.tools.StringUtil;
 
 import java.util.List;
 
@@ -63,7 +61,8 @@ public class YuangongAdapter extends BaseAdapter {
         final EmplMsg vipMsg = list.get(i);
         holder1.tv_ygname.setText(NullUtils.noNullHandle(vipMsg.getEM_Name()).toString());
         holder1.tv_ygcode.setText(NullUtils.noNullHandle(vipMsg.getEM_Code()).toString());
-        holder1.tv_ygsex.setText(Integer.parseInt(NullUtils.noNullHandle(vipMsg.getEM_Sex()).toString()) == 1 ? "男" : "女");
+//        holder1.tv_ygsex.setText(Integer.parseInt(NullUtils.noNullHandle(vipMsg.getEM_Sex()).toString()) == 1 ? "男" : "女");
+        holder1.tv_ygsex.setText(NullUtils.noNullHandle(vipMsg.getDM_Name()).toString());
         if (vipMsg.isIschose()) {
             holder1.iv_chose.setBackgroundResource(R.drawable.emp_chose);
         } else {

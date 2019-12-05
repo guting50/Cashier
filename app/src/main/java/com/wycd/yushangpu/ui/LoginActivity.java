@@ -20,7 +20,7 @@ import com.wycd.yushangpu.tools.KeyBoardHelper;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.PreferenceHelper;
 import com.wycd.yushangpu.tools.ShadowUtils;
-import com.wycd.yushangpu.views.ClearEditText;
+import com.wycd.yushangpu.widget.views.ClearEditText;
 import com.yanzhenjie.permission.AndPermission;
 
 import java.io.Serializable;
