@@ -142,7 +142,7 @@ public class NumInputView extends RelativeLayout {
         editView.setTag(null);
     }
 
-    public void setEditViewText(String text) {
+    public void addText(String text) {
         if (!isSelectAll()) {
             editView.setText(editView.getText() + text);
         } else {

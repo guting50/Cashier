@@ -232,7 +232,7 @@ public class EditCashierGoodsFragment extends Fragment {
                 if (!TextUtils.isEmpty(editTextLayout.getText())) {
                     double num = Double.parseDouble(editTextLayout.getText().toString());
                     if (num > 0)
-                        editTextLayout.setEditViewText(num - 1 + "");
+                        editTextLayout.setText(num - 1 + "");
                 }
                 break;
             case R.id.edit_num_add:
@@ -240,7 +240,7 @@ public class EditCashierGoodsFragment extends Fragment {
                 if (!TextUtils.isEmpty(editTextLayout.getText())) {
                     num = Double.parseDouble(editTextLayout.getText().toString());
                 }
-                editTextLayout.setEditViewText(num + 1 + "");
+                editTextLayout.setText(num + 1 + "");
                 break;
             case R.id.edit_confirm:
                 if (editTextLayout.getText().toString().equals("") || "0.0".equals(editTextLayout.getText().toString())) {

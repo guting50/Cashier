@@ -62,7 +62,7 @@ public class NumKeyboardUtils {
                                                 String content = numInputView.getText().toString();
                                                 numInputView.setText(content.substring(0, content.length() - 1));
                                             } else {
-                                                numInputView.setEditViewText("");
+                                                numInputView.setText("");
                                             }
                                         }
                                     }
@@ -87,41 +87,41 @@ public class NumKeyboardUtils {
                 view.setBackgroundResource(R.color.result_view);
                 switch (view.getId()) {
                     case R.id.num_keyboard_7:
-                        numInputView.setEditViewText("7");
+                        numInputView.addText("7");
                         break;
                     case R.id.num_keyboard_8:
-                        numInputView.setEditViewText("8");
+                        numInputView.addText("8");
                         break;
                     case R.id.num_keyboard_9:
-                        numInputView.setEditViewText("9");
+                        numInputView.addText("9");
                         break;
                     case R.id.num_keyboard_4:
-                        numInputView.setEditViewText("4");
+                        numInputView.addText("4");
                         break;
                     case R.id.num_keyboard_5:
-                        numInputView.setEditViewText("5");
+                        numInputView.addText("5");
                         break;
                     case R.id.num_keyboard_6:
-                        numInputView.setEditViewText("6");
+                        numInputView.addText("6");
                         break;
                     case R.id.num_keyboard_1:
-                        numInputView.setEditViewText("1");
+                        numInputView.addText("1");
                         break;
                     case R.id.num_keyboard_2:
-                        numInputView.setEditViewText("2");
+                        numInputView.addText("2");
                         break;
                     case R.id.num_keyboard_3:
-                        numInputView.setEditViewText("3");
+                        numInputView.addText("3");
                         break;
                     case R.id.num_keyboard_0:
-                        numInputView.setEditViewText("0");
+                        numInputView.addText("0");
                         break;
                     case R.id.num_keyboard_dot:
                         if (!TextUtils.isEmpty(numInputView.getText()) && !numInputView.isSelectAll()) {
                             if (!numInputView.getText().toString().contains("."))
                                 numInputView.setText(numInputView.getText() + ".");
                         } else
-                            numInputView.setEditViewText("0.");
+                            numInputView.addText("0.");
                         break;
                 }
                 break;
