@@ -19,6 +19,7 @@ import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.StringUtil;
 import com.wycd.yushangpu.ui.HomeActivity;
+import com.wycd.yushangpu.widget.NumInputView;
 import com.wycd.yushangpu.widget.NumKeyboardUtils;
 import com.wycd.yushangpu.widget.dialog.ShopDetailDialog;
 
@@ -65,11 +66,17 @@ public class EditCashierGoodsFragment extends Fragment {
     View editLayoutPlace;
     @BindView(R.id.keyboard_layout)
     View keyboardLayout;
+    @BindView(R.id.edit_text_layout)
+    NumInputView editTextLayout;
+    @BindView(R.id.edit_text_layout_a)
+    NumInputView editTextLayout_a;
+
+
     HomeActivity homeActivity;
 
     ShopMsg shopBean;
-    NumKeyboardUtils numKeyboardUtils;
     View rootView;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -78,7 +85,8 @@ public class EditCashierGoodsFragment extends Fragment {
 
         homeActivity = (HomeActivity) getActivity();
 
-        numKeyboardUtils = new NumKeyboardUtils(getActivity(), rootView, rootView.findViewById(R.id.edit_text_layout));
+        NumKeyboardUtils numKeyboardUtils = new NumKeyboardUtils(getActivity(), rootView, editTextLayout);
+        numKeyboardUtils.addEditView(editTextLayout_a, "hehehe");
 
         return rootView;
     }
@@ -90,19 +98,6 @@ public class EditCashierGoodsFragment extends Fragment {
         tvPrice.setText("售价：￥" + shopBean.getPM_UnitPrice() + "");
         bnEditNum.performClick();
     }
-
-    @OnClick({R.id.edit_layout, R.id.edit_text_layout_a})
-    public void aaa(View view) {
-        switch (view.getId()) {
-            case R.id.edit_layout:
-                numKeyboardUtils.setEditView( rootView.findViewById(R.id.edit_text_layout), "aaa");
-                break;
-            case R.id.edit_text_layout_a:
-                numKeyboardUtils.setEditView(view, "bbb");
-                break;
-        }
-    }
-
 
     @OnClick({R.id.info_goods_layout, R.id.close})
     public void onViewClicked(View view) {
@@ -129,8 +124,8 @@ public class EditCashierGoodsFragment extends Fragment {
                 editNumDel.setVisibility(View.VISIBLE);
                 ediNumAdd.setVisibility(View.VISIBLE);
                 editLayoutPlace.setVisibility(View.GONE);
-                numKeyboardUtils.setText(shopBean.getNum() + "");
-                numKeyboardUtils.editViewSelectAll();
+                editTextLayout.setText(shopBean.getNum() + "");
+                editTextLayout.selectAll();
                 break;
             case R.id.bn_edit_price:
                 if (homeActivity.mModifyPrice == 0 || homeActivity.mChangePrice == 0) {
@@ -144,8 +139,8 @@ public class EditCashierGoodsFragment extends Fragment {
                 resetBnEdit(view);
                 tvEditTitleView.setText("改单价");
                 editLayout.setVisibility(View.VISIBLE);
-                numKeyboardUtils.setText(shopBean.getJisuanPrice() + "");
-                numKeyboardUtils.editViewSelectAll();
+                editTextLayout.setText(shopBean.getJisuanPrice() + "");
+                editTextLayout.selectAll();
                 break;
             case R.id.bn_edit_subtotal:
                 if (homeActivity.mModifyPrice == 0 || homeActivity.mChangeSubtotal == 0) {
@@ -159,10 +154,10 @@ public class EditCashierGoodsFragment extends Fragment {
                 resetBnEdit(view);
                 tvEditTitleView.setText("改小计");
                 editLayout.setVisibility(View.VISIBLE);
-                numKeyboardUtils.setText(CommonUtils.multiply(NullUtils.noNullHandle(
+                editTextLayout.setText(CommonUtils.multiply(NullUtils.noNullHandle(
                         shopBean.getJisuanPrice() * shopBean.getPD_Discount()).toString(),
                         NullUtils.noNullHandle(shopBean.getNum()).toString()));
-                numKeyboardUtils.editViewSelectAll();
+                editTextLayout.selectAll();
                 break;
             case R.id.bn_edit_discount:
                 if (homeActivity.mModifyPrice == 0 || homeActivity.mChangeDiscount == 0) {
@@ -177,8 +172,8 @@ public class EditCashierGoodsFragment extends Fragment {
                 discountUnit.setVisibility(View.VISIBLE);
                 tvEditTitleView.setText("改折扣");
                 editLayout.setVisibility(View.VISIBLE);
-                numKeyboardUtils.setText(shopBean.getPD_Discount() + "");
-                numKeyboardUtils.editViewSelectAll();
+                editTextLayout.setText(shopBean.getPD_Discount() + "");
+                editTextLayout.selectAll();
                 break;
             case R.id.bn_edit_give:
                 resetBnEdit(view);
@@ -234,34 +229,34 @@ public class EditCashierGoodsFragment extends Fragment {
     public void onViewClickedEditBn(View view) {
         switch (view.getId()) {
             case R.id.edit_num_del:
-                if (!TextUtils.isEmpty(numKeyboardUtils.getText())) {
-                    double num = Double.parseDouble(numKeyboardUtils.getText().toString());
+                if (!TextUtils.isEmpty(editTextLayout.getText())) {
+                    double num = Double.parseDouble(editTextLayout.getText().toString());
                     if (num > 0)
-                        numKeyboardUtils.setText(num - 1 + "");
+                        editTextLayout.setEditViewText(num - 1 + "");
                 }
                 break;
             case R.id.edit_num_add:
                 double num = 0;
-                if (!TextUtils.isEmpty(numKeyboardUtils.getText())) {
-                    num = Double.parseDouble(numKeyboardUtils.getText().toString());
+                if (!TextUtils.isEmpty(editTextLayout.getText())) {
+                    num = Double.parseDouble(editTextLayout.getText().toString());
                 }
-                numKeyboardUtils.setText(num + 1 + "");
+                editTextLayout.setEditViewText(num + 1 + "");
                 break;
             case R.id.edit_confirm:
-                if (numKeyboardUtils.getText().toString().equals("") || "0.0".equals(numKeyboardUtils.getText().toString())) {
+                if (editTextLayout.getText().toString().equals("") || "0.0".equals(editTextLayout.getText().toString())) {
                     com.blankj.utilcode.util.ToastUtils.showShort("请输入数字");
                     return;
                 }
-                if (!StringUtil.isTwoPoint(numKeyboardUtils.getText().toString())) {
+                if (!StringUtil.isTwoPoint(editTextLayout.getText().toString())) {
                     com.blankj.utilcode.util.ToastUtils.showShort("只能输入两位小数");
                     return;
                 }
                 if (currentSelectedBn != null) {
-                    double editValue = Double.parseDouble(numKeyboardUtils.getText().toString());
+                    double editValue = Double.parseDouble(editTextLayout.getText().toString());
                     switch (currentSelectedBn.getId()) {
                         case R.id.bn_edit_num:
                             if (shopBean != null && (shopBean.getPM_IsService() == 1 || shopBean.getPM_IsService() == 3)
-                                    && numKeyboardUtils.getText().toString().contains(".")) {
+                                    && editTextLayout.getText().toString().contains(".")) {
                                 com.blankj.utilcode.util.ToastUtils.showShort("服务或套餐的数量不能为小数");
                                 return;
                             }

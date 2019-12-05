@@ -26,6 +26,7 @@ import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpEmplList;
 import com.wycd.yushangpu.model.ImpValidRule;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
+import com.wycd.yushangpu.widget.NumInputView;
 import com.wycd.yushangpu.widget.NumKeyboardUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -53,10 +54,11 @@ public class ShopDetailDialog {
         TextView iv_state = (TextView) view.findViewById(R.id.iv_state);
         BgFrameLayout rl_confirm = (BgFrameLayout) view.findViewById(R.id.rl_confirm);
         ImageView rl_cancle = (ImageView) view.findViewById(R.id.rl_cancle);
+        NumInputView editTextLayout = (NumInputView) view.findViewById(R.id.edit_text_layout);
 
         BgFrameLayout li_search = (BgFrameLayout) view.findViewById(R.id.li_search);
 
-        NumKeyboardUtils numKeyboardUtils = new NumKeyboardUtils(context, view, view.findViewById(R.id.edit_text_layout), "员工工号/姓名");
+        NumKeyboardUtils numKeyboardUtils = new NumKeyboardUtils(context, view, editTextLayout, "员工工号/姓名");
 
         Dialog loadingdialog = LoadingDialog.loadingDialog(context, 1);
 
@@ -85,10 +87,10 @@ public class ShopDetailDialog {
         li_search.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
-                if (!numKeyboardUtils.getText().toString().equals("")) {
+                if (!editTextLayout.getText().toString().equals("")) {
                     mEmplMsgList.clear();
                     for (EmplMsg emplMsg : emplist) {
-                        if (emplMsg.getEM_Name().contains(numKeyboardUtils.getText().toString())) {
+                        if (emplMsg.getEM_Name().contains(editTextLayout.getText().toString())) {
                             mEmplMsgList.add(emplMsg);
                         }
                     }

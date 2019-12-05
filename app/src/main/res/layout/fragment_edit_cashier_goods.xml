@@ -190,15 +190,13 @@
 
         </com.gt.utils.view.BgFrameLayout>
 
-        <include
+        <com.wycd.yushangpu.widget.NumInputView
             android:id="@+id/edit_text_layout_a"
-            layout="@layout/item_edit_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/edit_layout"
             android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginBottom="15dp" />
+            android:layout_marginRight="50dp" />
 
         <LinearLayout
             android:id="@+id/edit_layout"
@@ -250,14 +248,17 @@
 
                     <TextView
                         android:id="@+id/tv_edit_title_view"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="改数量：" />
 
-                    <include
+                    <com.wycd.yushangpu.widget.NumInputView
                         android:id="@+id/edit_text_layout"
-                        layout="@layout/item_edit_layout" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/edit_layout"
+                        android:layout_weight="1"
+                        android:gravity="right" />
 
                     <TextView
                         android:id="@+id/discount_unit"

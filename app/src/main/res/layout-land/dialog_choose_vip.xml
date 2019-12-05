@@ -67,9 +67,12 @@
                     app:stroke_color="@color/textgreen"
                     app:stroke_width="1dp">
 
-                    <include
+                    <com.wycd.yushangpu.widget.NumInputView
                         android:id="@+id/edit_text_layout"
-                        layout="@layout/item_edit_layout" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/edit_layout"
+                        android:layout_gravity="center" />
 
                 </com.gt.utils.view.BgFrameLayout>
 

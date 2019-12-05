@@ -12,6 +12,7 @@ import com.wycd.yushangpu.adapter.SearchVipPopAdapter;
 import com.wycd.yushangpu.bean.VipDengjiMsg;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpOnlyVipMsg;
+import com.wycd.yushangpu.widget.NumInputView;
 import com.wycd.yushangpu.widget.NumKeyboardUtils;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -38,7 +39,7 @@ public class VipChooseDialog extends Dialog {
     private InterfaceBack back;
     private Dialog dialog;
     private VipDengjiMsg.DataBean mVipDetail;
-    NumKeyboardUtils numKeyboardUtils;
+    NumInputView editTextLayout;
 
     public VipChooseDialog(Activity context, VipDengjiMsg.DataBean vipMsg, final InterfaceBack back) {
         super(context, R.style.ActionSheetDialogStyle);
@@ -66,7 +67,7 @@ public class VipChooseDialog extends Dialog {
         });
         if (mVipDetail != null) {
             searchVipPopAdapter.addList(mVipDetail);
-            numKeyboardUtils.setText(memoryText);
+            editTextLayout.setText(memoryText);
         }
         searchList.setAdapter(searchVipPopAdapter);
     }
@@ -78,9 +79,10 @@ public class VipChooseDialog extends Dialog {
         ButterKnife.bind(this);
         setCancelable(true);
         setCanceledOnTouchOutside(true);
+        editTextLayout = (NumInputView) findViewById(R.id.edit_text_layout);
 
-        numKeyboardUtils = new NumKeyboardUtils(mContext, getWindow().getDecorView(),
-                findViewById(R.id.edit_text_layout), "会员卡号/手机号/卡面号");
+        NumKeyboardUtils numKeyboardUtils = new NumKeyboardUtils(mContext, getWindow().getDecorView(),
+                editTextLayout, "会员卡号/手机号/卡面号");
     }
 
     /**
@@ -102,8 +104,8 @@ public class VipChooseDialog extends Dialog {
                 dismiss();
                 break;
             case R.id.li_search:
-                memoryText = numKeyboardUtils.getText().toString();
-                obtainVipList(mContext, numKeyboardUtils.getText().toString());
+                memoryText = editTextLayout.getText().toString();
+                obtainVipList(mContext, editTextLayout.getText().toString());
                 break;
             case R.id.rl_confirm:
                 if (mVipDetail != null) {
