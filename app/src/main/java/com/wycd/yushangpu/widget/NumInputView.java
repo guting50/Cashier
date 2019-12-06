@@ -164,6 +164,36 @@ public class NumInputView extends RelativeLayout {
         return editView.getText();
     }
 
+    public void popBack() {
+        if (!TextUtils.isEmpty(editView.getText())) {
+            if (!isSelectAll()) {
+                String content = editView.getText().toString();
+                editView.setText(content.substring(0, content.length() - 1));
+            } else {
+                editView.setText("");
+            }
+        }
+    }
+
+    public void addNum() {
+        double num = 0;
+        if (!TextUtils.isEmpty(editView.getText()) && !isSelectAll()) {
+            num = Double.parseDouble(editView.getText().toString());
+        }
+        editView.setText(num + 1 + "");
+    }
+
+    public void subtractNum() {
+        if (!TextUtils.isEmpty(editView.getText()) && !isSelectAll()) {
+            double num = Double.parseDouble(editView.getText().toString());
+            if (num > 0) {
+                editView.setText(num - 1 + "");
+                return;
+            }
+        }
+        editView.setText("");
+    }
+
 //        new Timer().schedule(new TimerTask() {
 //            @Override
 //            public void run() {

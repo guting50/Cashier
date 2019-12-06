@@ -190,14 +190,6 @@
 
         </com.gt.utils.view.BgFrameLayout>
 
-        <com.wycd.yushangpu.widget.NumInputView
-            android:id="@+id/edit_text_layout_a"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/edit_layout"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp" />
-
         <LinearLayout
             android:id="@+id/edit_layout"
             android:layout_width="match_parent"
@@ -206,8 +198,7 @@
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:layout_marginBottom="15dp"
-            android:orientation="horizontal"
-            android:visibility="gone">
+            android:orientation="horizontal">
 
             <com.gt.utils.view.BgFrameLayout
                 android:id="@+id/edit_num_del"
@@ -241,7 +232,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:orientation="horizontal">
@@ -255,10 +246,10 @@
                     <com.wycd.yushangpu.widget.NumInputView
                         android:id="@+id/edit_text_layout"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_above="@+id/edit_layout"
                         android:layout_weight="1"
-                        android:gravity="right" />
+                        android:gravity="center_vertical|right" />
 
                     <TextView
                         android:id="@+id/discount_unit"

@@ -2,7 +2,6 @@ package com.wycd.yushangpu.ui.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,8 +67,6 @@ public class EditCashierGoodsFragment extends Fragment {
     View keyboardLayout;
     @BindView(R.id.edit_text_layout)
     NumInputView editTextLayout;
-    @BindView(R.id.edit_text_layout_a)
-    NumInputView editTextLayout_a;
 
 
     HomeActivity homeActivity;
@@ -85,8 +82,7 @@ public class EditCashierGoodsFragment extends Fragment {
 
         homeActivity = (HomeActivity) getActivity();
 
-        NumKeyboardUtils numKeyboardUtils = new NumKeyboardUtils(getActivity(), rootView, editTextLayout);
-        numKeyboardUtils.addEditView(editTextLayout_a, "hehehe");
+        new NumKeyboardUtils(getActivity(), rootView, editTextLayout);
 
         return rootView;
     }
@@ -229,18 +225,10 @@ public class EditCashierGoodsFragment extends Fragment {
     public void onViewClickedEditBn(View view) {
         switch (view.getId()) {
             case R.id.edit_num_del:
-                if (!TextUtils.isEmpty(editTextLayout.getText())) {
-                    double num = Double.parseDouble(editTextLayout.getText().toString());
-                    if (num > 0)
-                        editTextLayout.setText(num - 1 + "");
-                }
+                editTextLayout.subtractNum();
                 break;
             case R.id.edit_num_add:
-                double num = 0;
-                if (!TextUtils.isEmpty(editTextLayout.getText())) {
-                    num = Double.parseDouble(editTextLayout.getText().toString());
-                }
-                editTextLayout.setText(num + 1 + "");
+                editTextLayout.addNum();
                 break;
             case R.id.edit_confirm:
                 if (editTextLayout.getText().toString().equals("") || "0.0".equals(editTextLayout.getText().toString())) {

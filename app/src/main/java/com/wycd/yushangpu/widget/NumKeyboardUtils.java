@@ -31,6 +31,10 @@ public class NumKeyboardUtils {
         addEditView(editViewLayout, hintStr);
     }
 
+    public void addEditView(NumInputView editViewLayout) {
+        editViewLayout.bindNumKeyboard(this);
+    }
+
     public void addEditView(NumInputView editViewLayout, String hintStr) {
         editViewLayout.bindNumKeyboard(this);
         editViewLayout.setEditTextHint(hintStr);
@@ -38,6 +42,11 @@ public class NumKeyboardUtils {
 
     public void setEditView(NumInputView editViewLayout) {
         numInputView = editViewLayout;
+    }
+
+    public void setEditView(NumInputView editViewLayout, String hintStr) {
+        numInputView = editViewLayout;
+        editViewLayout.setEditTextHint(hintStr);
     }
 
     @OnTouch({R.id.num_keyboard_7, R.id.num_keyboard_8, R.id.num_keyboard_9, R.id.num_keyboard_4,
@@ -57,14 +66,7 @@ public class NumKeyboardUtils {
                                 activity.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        if (!TextUtils.isEmpty(numInputView.getText())) {
-                                            if (!numInputView.isSelectAll()) {
-                                                String content = numInputView.getText().toString();
-                                                numInputView.setText(content.substring(0, content.length() - 1));
-                                            } else {
-                                                numInputView.setText("");
-                                            }
-                                        }
+                                        numInputView.popBack();
                                     }
                                 });
                             }
@@ -119,9 +121,9 @@ public class NumKeyboardUtils {
                     case R.id.num_keyboard_dot:
                         if (!TextUtils.isEmpty(numInputView.getText()) && !numInputView.isSelectAll()) {
                             if (!numInputView.getText().toString().contains("."))
-                                numInputView.setText(numInputView.getText() + ".");
+                                numInputView.addText(".");
                         } else
-                            numInputView.addText("0.");
+                            numInputView.setText("0.");
                         break;
                 }
                 break;
