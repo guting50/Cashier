@@ -75,8 +75,6 @@ public class JiesuanBDialog extends Dialog {
     TextView mEtZhmoney;
     @BindView(R.id.et_yue)
     ClearEditText mEtYue;
-    @BindView(R.id.rl_yue)
-    RelativeLayout mRlYue;
     @BindView(R.id.tv_zhaoling)
     TextView tv_zhaoling;
     @BindView(R.id.tv_payname_1)
@@ -138,7 +136,7 @@ public class JiesuanBDialog extends Dialog {
     @BindView(R.id.tv_yhq)
     TextView mTvYhq;
     @BindView(R.id.li_yhq)
-    LinearLayout mLiYhq;
+    FrameLayout mLiYhq;
     @BindView(R.id.iv_qita)
     ImageView mIvQita;
     @BindView(R.id.tv_qita)
