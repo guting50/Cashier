@@ -116,6 +116,7 @@
                         android:textSize="@dimen/sp_17" />
 
                     <TextView
+                        android:id="@+id/tv_payname_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_bill_count"
@@ -268,10 +269,9 @@
 
                         <com.wycd.yushangpu.widget.NumInputView
                             android:id="@+id/et_moling"
-                            android:layout_width="358dp"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_gravity="center|right"
-                            android:gravity="center_vertical" />
+                            android:gravity="center|right" />
 
                     </FrameLayout>
 
@@ -330,8 +330,7 @@
                             android:id="@+id/et_xianjin"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_gravity="center|right"
-                            android:gravity="center_vertical" />
+                            android:gravity="center|right" />
 
                     </FrameLayout>
 
