@@ -110,7 +110,6 @@ import static com.wycd.yushangpu.MyApplication.ISCONNECT;
 import static com.wycd.yushangpu.MyApplication.ISLABELCONNECT;
 import static com.wycd.yushangpu.MyApplication.LABELPRINT_IS_OPEN;
 import static com.wycd.yushangpu.MyApplication.myBinder;
-import static com.wycd.yushangpu.MyApplication.shortMessage;
 import static com.wycd.yushangpu.tools.Constant.ACTION_USB_PERMISSION;
 
 public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.OnItemClickListener, ShowStorePopWindow.OnItemStoreClickListener {
@@ -142,14 +141,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     TextView tvNumTotal;
     @BindView(R.id.tv_heji)
     TextView mTvHeji;
-    @BindView(R.id.iv_viptx)
-    CircleImageView mIvViptx;
-    @BindView(R.id.tv_vipname)
-    TextView mTvVipname;
-    @BindView(R.id.tv_blance)
-    TextView tvBlance;
-    @BindView(R.id.tv_integral)
-    TextView tvIntegral;
     @BindView(R.id.member_bg_layout)
     BgFrameLayout mRlVip;
     @BindView(R.id.tv_shoukuan)
@@ -168,12 +159,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     Button bttVipMember;
     @BindView(R.id.btt_business)
     Button bttBusiness;
-    @BindView(R.id.vip_message)
-    LinearLayout vipMessage;
     @BindView(R.id.iv_search)
     ImageView ivSearch;
-    @BindView(R.id.cb_short_message)
-    CheckBox cbMessage;
     @BindView(R.id.btn_home_print_set)
     Button btnHomePrint;
     @BindView(R.id.btn_home_label)
@@ -438,7 +425,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         getproductmodel();
         obtainSystemCanshu();
         GetPrintSet.getPrintSet();
-        setCbShortMessage("011");
 
         loginBean = (LoginBean) getIntent().getSerializableExtra("loginBean");
         MyApplication.loginBean = loginBean;
@@ -611,64 +597,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         });
     }
 
-    /**
-     * @param code ,参照SmsSwitch实体类的值
-     *             根据短信发送开关是否打开，设置checkbox
-     */
-    private void setCbShortMessage(String code) {
-        try {
-            SmsSwitch.DataBean smsSwitch = YSLUtils.getSmsSwitch(code);
-            if (smsSwitch != null) {
-                if (smsSwitch.getST_State() == null || !smsSwitch.getST_State().equals("1")) {
-                    cbMessage.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Toast.makeText(HomeActivity.this, "发送短信未开启，请到PC端去开启", Toast.LENGTH_SHORT).show();
-                            cbMessage.setChecked(false);
-                        }
-                    });
-                } else {
-                    cbMessage.setChecked(true);
-                }
-            } else {
-                getSmsSet(code);
-            }
-        } catch (Exception e) {
-            cbMessage.setVisibility(View.INVISIBLE);
-        }
-    }
 
-    /**
-     * 获取短信开关
-     */
-    private void getSmsSet(final String code) {
-        HttpHelper.post(HomeActivity.this, HttpAPI.API().SMS_LIST, new CallBack() {
-            @Override
-            public void onSuccess(String responseString, Gson gson) {
-                SmsSwitch bean = CommonFun.JsonToObj(responseString, SmsSwitch.class);
-                for (int i = 0; i < bean.getData().size(); i++) {
-                    if (bean.getData().get(i).getST_Code().equals(code)) {
-                        if (bean.getData().get(i).getST_State() == null || !bean.getData().get(i).getST_State().equals("1")) {
-                            cbMessage.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Toast.makeText(HomeActivity.this, "发送短信未开启，请到PC端去开启", Toast.LENGTH_SHORT).show();
-                                    cbMessage.setChecked(false);
-                                }
-                            });
-                        } else {
-                            cbMessage.setChecked(true);
-                        }
-                    }
-                }
-                CacheData.saveObject("shortmessage", bean);//缓存短信开关到本地
-            }
-
-            @Override
-            public void onFailure(String msg) {
-            }
-        });
-    }
 
     private void handleSystemc(List<PayTypeMsg> sllist) {
         for (PayTypeMsg p : sllist) {
@@ -869,9 +798,11 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         if (shopMsg.getPM_GroupGID() != null && !shopMsg.getPM_GroupGID().equals("")) {
             ImpGroupGoodsList impGroupGoodsList = new ImpGroupGoodsList();
             final double finalAddnum = addnum;
+            dialog.show();
             impGroupGoodsList.getGroupGoodsList(ac, shopMsg.getPM_GroupGID(), new InterfaceBack() {
                 @Override
                 public void onResponse(Object response) {
+                    dialog.dismiss();
                     List<ShopMsg> sllist = (List<ShopMsg>) response;
                     if (sllist.size() == 1) {
                         double num = 0;
@@ -1026,7 +957,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
                 @Override
                 public void onErrorResponse(Object msg) {
-
+                    dialog.dismiss();
                 }
             });
         } else {
@@ -1185,14 +1116,12 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                         public void onResponse(Object response) {
                             dialog.dismiss();
                             OrderCanshhu jso = (OrderCanshhu) response;
-//                                可抵扣金额= 会员积分/积分抵扣百分比 *积分支付限制百分比
-                            String yue = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableBalance() + "";
                             String jifen = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableIntegral() + "";
-                            double s = CommonUtils.div(Double.parseDouble(CommonUtils.multiply(jifen, jinfenzfxzbfb)), 100, 2);
-                            boolean ismember = null == mVipMsg ? false : true;
-                            double dkmoney = CommonUtils.div(s, Double.parseDouble(jifendkbfb), 2);//可抵扣金额
-                            shortMessage = cbMessage.isChecked();
-                            final JiesuanBDialog jiesuanBDialog = new JiesuanBDialog(HomeActivity.this, allmoney, yue, jifen, mVipDengjiMsg == null ? null : mVipDengjiMsg.getData().get(0), dkmoney + "", ismember, jso.getGID(),
+                            double dkmoney = CommonUtils.div(CommonUtils.div(Double.parseDouble(CommonUtils.multiply(jifen, jinfenzfxzbfb)), 100, 2),
+                                    Double.parseDouble(jifendkbfb), 2);//可抵扣金额
+                            final JiesuanBDialog jiesuanBDialog = new JiesuanBDialog(HomeActivity.this, allmoney, mVipMsg,
+                                    mVipDengjiMsg == null ? null : mVipDengjiMsg.getData().get(0),
+                                    dkmoney + "", jso.getGID(),
                                     jso.getCO_Type(), jso.getCO_OrderCode(), mShopLeftList, moren, paytypelist, false, new InterfaceBack() {
                                 @Override
                                 public void onResponse(Object response) {
@@ -1243,11 +1172,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     public void onResponse(Object response) {
                         mVipMsg = (VipDengjiMsg.DataBean) response;
 
-                        VolleyResponse.instance().getInternetImg(ac, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(mVipMsg.getVIP_HeadImg()).toString()), mIvViptx, R.mipmap.member_head_nohead);
-                        mTvVipname.setText(NullUtils.noNullHandle(mVipMsg.getVIP_Name()).toString());
-                        vipMessage.setVisibility(View.VISIBLE);
-                        tvBlance.setText(StringUtil.twoNum(NullUtils.noNullHandle(mVipMsg.getMA_AvailableBalance()).toString()));
-                        tvIntegral.setText(Double.parseDouble(NullUtils.noNullHandle(mVipMsg.getMA_AvailableIntegral()).toString()) + "");
                         PreferenceHelper.write(ac, "yunshangpu", "vip", true);
 
                         ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
@@ -1268,14 +1192,9 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
                     @Override
                     public void onErrorResponse(Object msg) {
-                        vipMessage.setVisibility(View.GONE);
-                        mTvVipname.setText("散客");
                         mVipMsg = null;
                         mVipDengjiMsg = null;
                         PreferenceHelper.write(ac, "yunshangpu", "vip", false);
-                        tvBlance.setText("0.00");
-                        tvIntegral.setText("0");
-                        Glide.with(ac).load(R.mipmap.member_head_nohead).into(mIvViptx);
                         if (mShopLeftList.size() > 0) {
                             for (int i = 0; i < mShopLeftList.size(); i++) {
                                 if (mShopLeftList.get(i).isHasvipDiscount()) {
@@ -1427,7 +1346,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                         }
                     });
                 } else {
-                    shortMessage = cbMessage.isChecked();
                     //取单
                     QudanDialog qudanDialog = new QudanDialog(ac, moren, paytypelist, mSmGid, new InterfaceBack() {
                         @Override
@@ -1540,11 +1458,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             public void onResponse(Object response) {
                 mVipDengjiMsg = (VipDengjiMsg) response;
 
-                VolleyResponse.instance().getInternetImg(ac, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(mVipDengjiMsg.getData().get(0).getVIP_HeadImg()).toString()), mIvViptx, R.mipmap.member_head_nohead);
-                mTvVipname.setText(NullUtils.noNullHandle(mVipDengjiMsg.getData().get(0).getVIP_Name()).toString());
-                vipMessage.setVisibility(View.VISIBLE);
-                tvBlance.setText(StringUtil.twoNum(NullUtils.noNullHandle(mVipDengjiMsg.getData().get(0).getMA_AvailableBalance()).toString()));
-                tvIntegral.setText(Double.parseDouble(NullUtils.noNullHandle(mVipDengjiMsg.getData().get(0).getMA_AvailableIntegral()).toString()) + "");
                 PreferenceHelper.write(ac, "yunshangpu", "vip", true);
 
 //                mPD_Discount = obtainVipPD_Discount(mVipDengjiMsg.getData().get(0).getVG_GID(), mVipDengjiMsg.getData().get(0).getVGInfo());
@@ -1860,11 +1773,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         mVipMsg = null;
         mVipDengjiMsg = null;
         PreferenceHelper.write(ac, "yunshangpu", "vip", false);
-        VolleyResponse.instance().getInternetImg(ac, "", mIvViptx, R.mipmap.member_head_nohead);
-        vipMessage.setVisibility(View.GONE);
-        mTvVipname.setText("散客");
-        tvBlance.setText("0.00");
-        tvIntegral.setText("0");
         mTvHeji.setText("0.00");
         tvShoukuan.setTag(0);
         ((TextView) tvShoukuan.getChildAt(0)).setText("快速收银[Enter]");

@@ -69,9 +69,7 @@ public class QudanDialog extends Dialog {
     private Activity context;
     public Dialog dialog;
     private GuadanListAdapter guadanListAdapter;
-    private String yue;
     private String jifen;
-    private boolean ismember;
     private double dkmoney;
     private VipDengjiMsg.DataBean mVipMsg;
     private List<ShopMsg> mShopLeftList = new ArrayList<>();
@@ -83,7 +81,7 @@ public class QudanDialog extends Dialog {
     private int mPageTotal;//数据总页数
     private String mSmGid;
 
-    public QudanDialog(Activity context, PayTypeMsg moren, List<PayTypeMsg> paytypelist, String mSmGid ,InterfaceBack back) {
+    public QudanDialog(Activity context, PayTypeMsg moren, List<PayTypeMsg> paytypelist, String mSmGid, InterfaceBack back) {
         super(context, R.style.ActionSheetDialogStyle);
         this.back = back;
         this.context = context;
@@ -141,12 +139,9 @@ public class QudanDialog extends Dialog {
                                 VipDengjiMsg mVipDengjiMsg = (VipDengjiMsg) response;
                                 dialog.dismiss();
                                 mVipMsg = mVipDengjiMsg.getData().get(0);
-                                yue = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableBalance() + "";
                                 jifen = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableIntegral() + "";
-                                String s = CommonUtils.multiply(jifen, jinfenzfxzbfb);
-                                ismember = null == mVipMsg ? false : true;
-                                dkmoney = CommonUtils.div(Double.parseDouble(s), Double.parseDouble(jifendkbfb), 2);//可抵扣金额
-                                jiesuan(guadanList,mVipMsg);
+                                dkmoney = CommonUtils.div(Double.parseDouble(CommonUtils.multiply(jifen, jinfenzfxzbfb)), Double.parseDouble(jifendkbfb), 2);//可抵扣金额
+                                jiesuan(guadanList, mVipMsg);
                                 HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
                                 event.setMsg("Change_color");
                                 EventBus.getDefault().post(event);
@@ -158,12 +153,9 @@ public class QudanDialog extends Dialog {
                             }
                         });
                     } else {
-                        yue = "0.00";
-                        jifen = "0.00";
-                        ismember = false;
                         dkmoney = 0.00;//可抵扣金额
 
-                        jiesuan(guadanList,null);
+                        jiesuan(guadanList, null);
                     }
 
 
@@ -181,8 +173,8 @@ public class QudanDialog extends Dialog {
         obtainGuadanList(1);
     }
 
-    private void jiesuan(GuadanList guadanList,VipDengjiMsg.DataBean mVipMsg) {
-        final JiesuanBDialog jiesuanBDialog = new JiesuanBDialog(context, guadanList.getCO_TotalPrice(), yue, jifen, mVipMsg,dkmoney + "", ismember, guadanList.getGID(),
+    private void jiesuan(GuadanList guadanList, VipDengjiMsg.DataBean mVipMsg) {
+        final JiesuanBDialog jiesuanBDialog = new JiesuanBDialog(context, guadanList.getCO_TotalPrice(), mVipMsg, mVipMsg, dkmoney + "", guadanList.getGID(),
                 guadanList.getCO_Type(), guadanList.getCO_OrderCode(), mShopLeftList, moren, paytypelist, true, new InterfaceBack() {
             @Override
             public void onResponse(Object response) {
@@ -244,7 +236,7 @@ public class QudanDialog extends Dialog {
     private void obtainGuadanList(int index) {
         dialog.show();
         ImpGuadanList shopHome = new ImpGuadanList();
-        shopHome.guadanList(context, index, 20, mSmGid,new InterfaceBack() {
+        shopHome.guadanList(context, index, 20, mSmGid, new InterfaceBack() {
             @Override
             public void onResponse(Object response) {
                 dialog.dismiss();

@@ -10,12 +10,15 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
@@ -23,12 +26,21 @@ import com.wycd.yushangpu.bean.OrderPayResult;
 import com.wycd.yushangpu.bean.PayType;
 import com.wycd.yushangpu.bean.PayTypeMsg;
 import com.wycd.yushangpu.bean.ShopMsg;
+import com.wycd.yushangpu.bean.SmsSwitch;
 import com.wycd.yushangpu.bean.VipDengjiMsg;
 import com.wycd.yushangpu.bean.YhqMsg;
+import com.wycd.yushangpu.http.HttpAPI;
+import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
+import com.wycd.yushangpu.http.VolleyResponse;
 import com.wycd.yushangpu.model.ImpOrderPay;
 import com.wycd.yushangpu.model.ImpSaoma;
+import com.wycd.yushangpu.printutil.CallBack;
+import com.wycd.yushangpu.printutil.CommonFun;
+import com.wycd.yushangpu.printutil.HttpHelper;
+import com.wycd.yushangpu.printutil.YSLUtils;
 import com.wycd.yushangpu.printutil.bean.SPXF_Success_Bean;
+import com.wycd.yushangpu.tools.CacheData;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.LogUtils;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
@@ -44,6 +56,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.wycd.yushangpu.MyApplication.shortMessage;
 
 
 /**
@@ -136,9 +151,19 @@ public class JiesuanBDialog extends Dialog {
     TextView tvUnion;
     @BindView(R.id.li_union)
     LinearLayout liUnion;
+    @BindView(R.id.iv_viptx)
+    CircleImageView mIvViptx;
 
     @BindView(R.id.li_jiesuan)
     FrameLayout li_jiesuan;
+    @BindView(R.id.tv_vipname)
+    TextView mTvVipname;
+    @BindView(R.id.tv_blance)
+    TextView tvBlance;
+    @BindView(R.id.tv_integral)
+    TextView tvIntegral;
+    @BindView(R.id.cb_short_message)
+    CheckBox cbMessage;
 
     private PayTypeMsg moren;//默认支付
     private List<PayTypeMsg> paylist;
@@ -155,24 +180,28 @@ public class JiesuanBDialog extends Dialog {
     private boolean isguazhang;
     private VipDengjiMsg.DataBean mVipDengjiMsg;
     private double moneyFlag;
+    private VipDengjiMsg.DataBean mVipMsg;
 
-    public JiesuanBDialog(Activity context, String money, String yue, String jifen, VipDengjiMsg.DataBean mVipDengjiMsg, String dkmoney, boolean ismember,
-                          String GID, String CO_Type, String CO_OrderCode, final List<ShopMsg> list, PayTypeMsg moren, List<PayTypeMsg> paylist, boolean isguazhang, final InterfaceBack back) {
+    public JiesuanBDialog(Activity context, String money, VipDengjiMsg.DataBean vipMsg, VipDengjiMsg.DataBean mVipDengjiMsg, String dkmoney,
+                          String GID, String CO_Type, String CO_OrderCode, final List<ShopMsg> list, PayTypeMsg moren, List<PayTypeMsg> paylist,
+                          boolean isguazhang, final InterfaceBack back) {
         super(context, R.style.ActionSheetDialogStyle);
+//      可抵扣金额= 会员积分/积分抵扣百分比 *积分支付限制百分比
         this.back = back;
         this.list = list;
         this.context = context;
         this.moren = moren;
         this.paylist = paylist;
         this.money = money;
+        this.mVipMsg = vipMsg;
         this.GID = GID;
         this.CO_OrderCode = CO_OrderCode;
         this.CO_Type = CO_Type;
-        this.jifen = jifen;
-        this.yue = yue;
+        this.jifen = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableIntegral() + "";
+        this.yue = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableBalance() + "";
         this.mVipDengjiMsg = mVipDengjiMsg;
         this.dkmoney = dkmoney;
-        this.isMember = ismember;
+        this.isMember = null == mVipMsg ? false : true;
         this.isguazhang = isguazhang;
         dialog = LoadingDialog.loadingDialog(context, 1);
     }
@@ -202,6 +231,7 @@ public class JiesuanBDialog extends Dialog {
         setView();
         handleZhaoling();
 
+        setCbShortMessage("011");
     }
 
     private void fullScreenImmersive(View view) {
@@ -295,6 +325,26 @@ public class JiesuanBDialog extends Dialog {
 
     private void setView() {
 
+        if (mVipDengjiMsg != null) {
+            VolleyResponse.instance().getInternetImg(context, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(
+                    mVipDengjiMsg.getVIP_HeadImg()).toString()), mIvViptx, R.mipmap.member_head_nohead);
+            mTvVipname.setText(NullUtils.noNullHandle(mVipDengjiMsg.getVIP_Name()).toString());
+            tvBlance.setText("余额:" + StringUtil.twoNum(NullUtils.noNullHandle(mVipDengjiMsg.getMA_AvailableBalance()).toString()));
+            tvIntegral.setText("积分:" + Double.parseDouble(NullUtils.noNullHandle(mVipDengjiMsg.getMA_AvailableIntegral()).toString()) + "");
+        } else if (mVipMsg != null) {
+            VolleyResponse.instance().getInternetImg(context, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(
+                    mVipMsg.getVIP_HeadImg()).toString()), mIvViptx, R.mipmap.member_head_nohead);
+            mTvVipname.setText(NullUtils.noNullHandle(mVipMsg.getVIP_Name()).toString());
+            tvBlance.setText("余额:" + StringUtil.twoNum(NullUtils.noNullHandle(mVipMsg.getMA_AvailableBalance()).toString()));
+            tvIntegral.setText("积分:" + Double.parseDouble(NullUtils.noNullHandle(mVipMsg.getMA_AvailableIntegral()).toString()) + "");
+
+        } else {
+            Glide.with(context).load(R.mipmap.member_head_nohead).into(mIvViptx);
+            mTvVipname.setText("散客");
+            tvBlance.setText("余额:0.00");
+            tvIntegral.setText("积分:0");
+        }
+
         //优惠金额不编辑
         mEtYue.setFocusable(false);
         mEtYue.setFocusableInTouchMode(false);
@@ -365,6 +415,8 @@ public class JiesuanBDialog extends Dialog {
                             obtainOrderPayResult();
                             dialog.show();
                             ImpOrderPay orderPay = new ImpOrderPay();
+
+                            shortMessage = cbMessage.isChecked();
                             orderPay.orderpay(context, GID, result, isguazhang, new InterfaceBack() {
                                 @Override
                                 public void onResponse(Object response) {
@@ -396,6 +448,7 @@ public class JiesuanBDialog extends Dialog {
                             System.out.println("============555=========");
                             dialog.show();
                             ImpOrderPay orderPay = new ImpOrderPay();
+                            shortMessage = cbMessage.isChecked();
                             orderPay.orderpay(context, GID, result, isguazhang, new InterfaceBack() {
                                 @Override
                                 public void onResponse(Object response) {
@@ -1478,5 +1531,64 @@ public class JiesuanBDialog extends Dialog {
 
     }
 
+
+    /**
+     * @param code ,参照SmsSwitch实体类的值
+     *             根据短信发送开关是否打开，设置checkbox
+     */
+    private void setCbShortMessage(String code) {
+        try {
+            SmsSwitch.DataBean smsSwitch = YSLUtils.getSmsSwitch(code);
+            if (smsSwitch != null) {
+                if (smsSwitch.getST_State() == null || !smsSwitch.getST_State().equals("1")) {
+                    cbMessage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(context, "发送短信未开启，请到PC端去开启", Toast.LENGTH_SHORT).show();
+                            cbMessage.setChecked(false);
+                        }
+                    });
+                } else {
+                    cbMessage.setChecked(true);
+                }
+            } else {
+                getSmsSet(code);
+            }
+        } catch (Exception e) {
+            cbMessage.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    /**
+     * 获取短信开关
+     */
+    private void getSmsSet(final String code) {
+        HttpHelper.post(context, HttpAPI.API().SMS_LIST, new CallBack() {
+            @Override
+            public void onSuccess(String responseString, Gson gson) {
+                SmsSwitch bean = CommonFun.JsonToObj(responseString, SmsSwitch.class);
+                for (int i = 0; i < bean.getData().size(); i++) {
+                    if (bean.getData().get(i).getST_Code().equals(code)) {
+                        if (bean.getData().get(i).getST_State() == null || !bean.getData().get(i).getST_State().equals("1")) {
+                            cbMessage.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Toast.makeText(context, "发送短信未开启，请到PC端去开启", Toast.LENGTH_SHORT).show();
+                                    cbMessage.setChecked(false);
+                                }
+                            });
+                        } else {
+                            cbMessage.setChecked(true);
+                        }
+                    }
+                }
+                CacheData.saveObject("shortmessage", bean);//缓存短信开关到本地
+            }
+
+            @Override
+            public void onFailure(String msg) {
+            }
+        });
+    }
 
 }

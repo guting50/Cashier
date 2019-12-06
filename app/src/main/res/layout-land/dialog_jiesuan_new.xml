@@ -11,14 +11,14 @@
     android:orientation="vertical"
     tools:ignore="MissingDefaultResource">
 
+    <!--        android:layout_marginLeft="250dp"-->
     <com.gt.utils.view.BgFrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="250dp"
         android:orientation="vertical"
         app:corners_radius_left_bottom="2dp"
         app:corners_radius_left_top="2dp"
-        app:solid_color="@color/white">
+        app:solid_color="#EBEBF5">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,6 +31,61 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_80"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/shap_jiesunnot"
+                    android:gravity="center_vertical">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_viptx"
+                        android:layout_width="@dimen/dp_60"
+                        android:layout_height="@dimen/dp_60"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:src="@mipmap/member_head_nohead" />
+
+                    <TextView
+                        android:id="@+id/tv_vipname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_15"
+                        android:layout_marginTop="15dp"
+                        android:layout_toEndOf="@+id/iv_viptx"
+                        android:maxWidth="@dimen/dp_55"
+                        android:text="散客"
+                        android:textColor="@color/text60"
+                        android:textSize="@dimen/dp_17" />
+
+                    <TextView
+                        android:id="@+id/tv_blance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_vipname"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dp_15"
+                        android:layout_marginTop="5dp"
+                        android:layout_toEndOf="@+id/iv_viptx"
+                        android:text="余额:0.00"
+                        android:textColor="@color/text60"
+                        android:textSize="@dimen/dp_14" />
+
+                    <TextView
+                        android:id="@+id/tv_integral"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_vipname"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dp_60"
+                        android:layout_marginTop="5dp"
+                        android:layout_toEndOf="@+id/tv_blance"
+                        android:text="积分:0"
+                        android:textColor="@color/text60"
+                        android:textSize="@dimen/dp_14" />
+
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -238,26 +293,6 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_58"
-                    android:layout_marginLeft="@dimen/dp_16"
-                    android:layout_marginTop="@dimen/dp_5"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_58"
-                    android:layout_marginLeft="@dimen/dp_16"
-                    android:layout_marginTop="@dimen/dp_5"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
                     <LinearLayout
                         android:id="@+id/li_yhq"
                         android:layout_width="0dp"
@@ -287,6 +322,16 @@
 
 
                 </LinearLayout>
+
+                <CheckBox
+                    android:id="@+id/cb_short_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/rember_password"
+                    android:drawablePadding="5dp"
+                    android:text="短信" />
 
             </LinearLayout>
 
@@ -479,8 +524,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1.5"
                     android:layout_marginTop="5dp"
+                    android:layout_weight="1.5"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -565,8 +610,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="6"
                     android:layout_marginTop="10dp"
+                    android:layout_weight="6"
                     android:orientation="horizontal">
 
                     <include
