@@ -36,16 +36,19 @@ public class NumKeyboardUtils {
     }
 
     public void addEditView(NumInputView editViewLayout, String hintStr) {
-        editViewLayout.bindNumKeyboard(this);
+        addEditView(editViewLayout);
         editViewLayout.setEditTextHint(hintStr);
     }
 
     public void setEditView(NumInputView editViewLayout) {
+        if (numInputView != null)
+            numInputView.showCursor(false);
         numInputView = editViewLayout;
+        numInputView.showCursor(true);
     }
 
     public void setEditView(NumInputView editViewLayout, String hintStr) {
-        numInputView = editViewLayout;
+        setEditView(editViewLayout);
         editViewLayout.setEditTextHint(hintStr);
     }
 

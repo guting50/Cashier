@@ -19,7 +19,8 @@
         android:layout_height="23dp"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/edit_text"
-        android:background="@color/green" />
+        android:background="@color/green"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/edit_text_hint"

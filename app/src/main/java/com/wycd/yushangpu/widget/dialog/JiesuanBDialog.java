@@ -10,7 +10,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -34,6 +34,8 @@ import com.wycd.yushangpu.tools.LogUtils;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.StringUtil;
+import com.wycd.yushangpu.widget.NumInputView;
+import com.wycd.yushangpu.widget.NumKeyboardUtils;
 import com.wycd.yushangpu.widget.views.ClearEditText;
 
 import java.util.ArrayList;
@@ -56,10 +58,6 @@ public class JiesuanBDialog extends Dialog {
 
     @BindView(R.id.et_zhmoney)
     TextView mEtZhmoney;
-    @BindView(R.id.et_xianjin)
-    ClearEditText mEtXianjin;
-    @BindView(R.id.rl_xianjin)
-    RelativeLayout mRlXianjin;
     @BindView(R.id.et_yue)
     ClearEditText mEtYue;
     @BindView(R.id.rl_yue)
@@ -72,10 +70,9 @@ public class JiesuanBDialog extends Dialog {
     TextView tvPayname2;
 
     @BindView(R.id.et_moling)
-    EditText et_moling;
-
-    @BindView(R.id.li_moling)
-    RelativeLayout mLiMoling;
+    NumInputView et_moling;
+    @BindView(R.id.et_xianjin)
+    NumInputView mEtXianjin;
 
     @BindView(R.id.iv_xianjin)
     ImageView mIvXianjin;
@@ -140,15 +137,15 @@ public class JiesuanBDialog extends Dialog {
     @BindView(R.id.li_union)
     LinearLayout liUnion;
 
-
     @BindView(R.id.li_jiesuan)
-    LinearLayout li_jiesuan;
+    FrameLayout li_jiesuan;
+
     private PayTypeMsg moren;//默认支付
     private List<PayTypeMsg> paylist;
     private Dialog dialog;
     private boolean isMember;
     private boolean isxianjinpay = true, isyuepay = true, isYinlianpay = true, iswxpay = true, isalipay = true, isyhqpay = true, isjfpay = true, issmpay = true, isqtpay = true;
-    private boolean isXianjin = false, isYue = false, isYinlian = false, isWx = false, isAli = false, isYhq = false, isJifen = false, isSaoma = false, isQita = false, isUnion = false, isMoling = false;
+    private boolean isXianjin = false, isYue = false, isYinlian = false, isWx = false, isAli = false, isYhq = false, isJifen = false, isSaoma = false, isQita = false, isUnion = false;
     private String money, CO_OrderCode, CO_Type, GID, jifen, dkmoney, yue;//折扣金额 订单号 订单GID 会员积分  会员积分可抵扣金额   余额
     private OrderPayResult result;
     private String jifendkbfb;
@@ -187,6 +184,10 @@ public class JiesuanBDialog extends Dialog {
         setContentView(R.layout.dialog_jiesuan_new);
         getWindow().setLayout((ViewGroup.LayoutParams.MATCH_PARENT), ViewGroup.LayoutParams.MATCH_PARENT);
         ButterKnife.bind(this);
+
+        NumKeyboardUtils numKeyboardUtils = new NumKeyboardUtils(context, getWindow().getDecorView(), mEtXianjin);
+        numKeyboardUtils.addEditView(et_moling);
+
         setCancelable(true);
         setCanceledOnTouchOutside(true);
         for (PayTypeMsg m : paylist) {
@@ -228,8 +229,7 @@ public class JiesuanBDialog extends Dialog {
                 if (s.toString().contains(".")) {
                     if (s.length() - 1 - s.toString().indexOf(".") > 2) {
                         s = s.toString().subSequence(0, s.toString().indexOf(".") + 3);
-                        mEtXianjin.setText(s);
-                        mEtXianjin.setSelection(s.length());
+                        mEtXianjin.setText(s.toString());
                     }
                 }
             }
@@ -418,6 +418,13 @@ public class JiesuanBDialog extends Dialog {
 
                     }
                 }
+            }
+        });
+
+        findViewById(R.id.li_close).setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            protected void onNoDoubleClick(View view) {
+                dismiss();
             }
         });
     }
@@ -847,18 +854,25 @@ public class JiesuanBDialog extends Dialog {
         }
     }
 
-    @OnClick({R.id.li_xianjin, R.id.li_1, R.id.li_2, R.id.li_3, R.id.li_20, R.id.li_yue, R.id.li_4, R.id.li_5, R.id.li_6, R.id.li_50, R.id.li_yinlian, R.id.li_7, R.id.li_8, R.id.li_9, R.id.li_100, R.id.li_wx, R.id.li_0, R.id.li_dian, R.id.li_c, R.id.li_moling, R.id.li_ali, R.id.li_yhq, R.id.li_jifen, R.id.li_saoma, R.id.li_qita, R.id.li_union})
+    @OnClick({R.id.li_10, R.id.li_20, R.id.li_50, R.id.li_100,
+            R.id.li_xianjin, R.id.li_yue, R.id.li_yinlian,
+            R.id.li_wx, R.id.li_ali, R.id.li_yhq, R.id.li_jifen, R.id.li_saoma, R.id.li_qita, R.id.li_union})
     public void onViewClicked(View view) {
         double molingmoney = et_moling.getText().toString().equals("") ? 0.00 : Double.parseDouble(et_moling.getText().toString());
         switch (view.getId()) {
-            case R.id.li_1:
-                addMoney("1");
-                break;
-            case R.id.li_2:
-                addMoney("2");
-                break;
-            case R.id.li_3:
-                addMoney("3");
+            case R.id.li_10:
+                if (mEtXianjin.getText().toString().equals("")) {
+                    mEtXianjin.setText("10");
+                    return;
+                }
+                moneyFlag = Double.parseDouble(mEtXianjin.getText().toString());
+                int moneyFlag10 = (int) moneyFlag;
+                if (moneyFlag10 != 0) {
+                    moneyFlag = moneyFlag + 10;
+                    etPay(moneyFlag + "");
+                    return;
+                }
+                mEtXianjin.setText("10");
                 break;
             case R.id.li_20:
                 if (mEtXianjin.getText().toString().equals("")) {
@@ -874,15 +888,6 @@ public class JiesuanBDialog extends Dialog {
                 }
                 mEtXianjin.setText("20");
                 break;
-            case R.id.li_4:
-                addMoney("4");
-                break;
-            case R.id.li_5:
-                addMoney("5");
-                break;
-            case R.id.li_6:
-                addMoney("6");
-                break;
             case R.id.li_50:
                 if (mEtXianjin.getText().toString().equals("")) {
                     mEtXianjin.setText("50");
@@ -897,15 +902,6 @@ public class JiesuanBDialog extends Dialog {
                 }
                 mEtXianjin.setText("50");
                 break;
-            case R.id.li_7:
-                addMoney("7");
-                break;
-            case R.id.li_8:
-                addMoney("8");
-                break;
-            case R.id.li_9:
-                addMoney("9");
-                break;
             case R.id.li_100:
                 if (mEtXianjin.getText().toString().equals("")) {
                     mEtXianjin.setText("100");
@@ -919,27 +915,6 @@ public class JiesuanBDialog extends Dialog {
                     return;
                 }
                 mEtXianjin.setText("100");
-                break;
-
-            case R.id.li_0:
-                addMoney("0");
-                break;
-            case R.id.li_dian:
-                addMoneyDian(".");
-                break;
-            case R.id.li_c:
-                delMoney();
-                break;
-
-            case R.id.li_moling:
-                if (isMoling) {
-                    isMoling = false;
-                    mLiMoling.setBackgroundResource(R.drawable.shap_jiesunmoney);
-                } else {
-                    isMoling = true;
-                    mLiMoling.setBackgroundResource(R.drawable.moling_true);
-                }
-
                 break;
             case R.id.li_xianjin:
 //                1开启、0关闭
@@ -1317,68 +1292,6 @@ public class JiesuanBDialog extends Dialog {
     }
 
 
-    private void delMoney() {
-        StringBuffer mon = new StringBuffer();
-        if (isMoling) {
-            String s = et_moling.getText().toString();
-            if (s.length() > 0) {
-                mon.append(s.substring(0, s.length() - 1));
-            } else {
-                mon.append("");
-            }
-            et_moling.setText(mon.toString());
-        } else {
-            String s = mEtXianjin.getText().toString();
-            if (s.length() > 0) {
-                mon.append(s.substring(0, s.length() - 1));
-            } else {
-                mon.append("");
-            }
-            mEtXianjin.setText(mon.toString());
-        }
-
-    }
-
-    private void addMoney(String i) {
-        StringBuffer mon = new StringBuffer();
-
-
-        if (isMoling) {
-            String s = et_moling.getText().toString();
-            if (!s.equals("0")) {
-                mon.append(s);
-            }
-            mon.append(i);
-            et_moling.setText(mon.toString());
-        } else {
-            String s = mEtXianjin.getText().toString();
-            if (!s.equals("0")) {
-                mon.append(s);
-            }
-            mon.append(i);
-            mEtXianjin.setText(mon.toString());
-        }
-    }
-
-    private void addMoneyDian(String i) {
-        StringBuffer mon = new StringBuffer();
-        if (isMoling) {
-            String s = et_moling.getText().toString();
-            mon.append(s);
-            if (!s.equals("") && !s.contains(".")) {
-                mon.append(i);
-            }
-            et_moling.setText(mon.toString());
-        } else {
-            String s = mEtXianjin.getText().toString();
-            mon.append(s);
-            if (!s.equals("") && !s.contains(".")) {
-                mon.append(i);
-            }
-            mEtXianjin.setText(mon.toString());
-        }
-    }
-
     private void resetPayLi() {
         mLiXianjin.setBackgroundResource(R.drawable.shap_jiesunnot);
         mLiYue.setBackgroundResource(R.drawable.shap_jiesunnot);
@@ -1401,7 +1314,6 @@ public class JiesuanBDialog extends Dialog {
         isJifen = false;
         isSaoma = false;
         isQita = false;
-        isMoling = false;
     }
 
     private void resetPayRl(String payWay) {

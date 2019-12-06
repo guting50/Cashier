@@ -30,9 +30,9 @@
     </style>
 
     <declare-styleable name="CircleImageView">
-        <attr name="border_width" format="dimension"/>
-        <attr name="border_color" format="color"/>
-        <attr name="border_overlay" format="boolean"/>
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+        <attr name="border_overlay" format="boolean" />
     </declare-styleable>
 
     <style name="text_white">
@@ -71,6 +71,9 @@
         <item name="android:backgroundDimAmount">0.1</item>
         <!-- Dialog进入及退出动画 -->
         <item name="android:windowAnimationStyle">@style/ActionSheetDialogAnimation</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <!--设置dialog全屏-->

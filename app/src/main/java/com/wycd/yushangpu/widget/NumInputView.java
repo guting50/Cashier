@@ -130,6 +130,14 @@ public class NumInputView extends RelativeLayout {
         setText(editView.getText() != null ? editView.getText().toString() : "");
     }
 
+    public void showCursor(boolean isShow) {
+        if (isShow)
+            textCursor.setVisibility(VISIBLE);
+        else
+            textCursor.setVisibility(INVISIBLE);
+
+    }
+
     public boolean isSelectAll() {
         return editView.getTag() != null;
     }
@@ -192,6 +200,10 @@ public class NumInputView extends RelativeLayout {
             }
         }
         editView.setText("");
+    }
+
+    public void addTextChangedListener(TextWatcher textWatcher) {
+        editView.addTextChangedListener(textWatcher);
     }
 
 //        new Timer().schedule(new TimerTask() {

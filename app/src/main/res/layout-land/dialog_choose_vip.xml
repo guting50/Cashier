@@ -64,7 +64,7 @@
                     android:paddingRight="10dp"
                     app:corners_radius_left_bottom="2dp"
                     app:corners_radius_left_top="2dp"
-                    app:stroke_color="@color/textgreen"
+                    app:stroke_color="@color/colorPrimary"
                     app:stroke_width="1dp">
 
                     <com.wycd.yushangpu.widget.NumInputView
@@ -86,7 +86,7 @@
                     android:layout_marginBottom="0.5dp"
                     app:corners_radius_right_bottom="2dp"
                     app:corners_radius_right_top="2dp"
-                    app:solid_color="@color/textgreen">
+                    app:solid_color="@color/colorPrimary">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -139,7 +139,7 @@
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
                     app:corners_radius="3dp"
-                    app:solid_color="@color/textgreen">
+                    app:solid_color="@color/colorPrimary">
 
                     <TextView
                         android:layout_width="match_parent"
