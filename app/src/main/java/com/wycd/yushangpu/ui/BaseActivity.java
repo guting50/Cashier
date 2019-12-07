@@ -62,7 +62,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 //        initLocaleLanguage();
 //        ImmersionBar.with(this).statusBarDarkFont(true, 0.2f) //原理：如果当前设备支持状态栏字体变色，会设置状态栏字体为黑色，如果当前设备不支持状态栏字体变色，会使当前状态栏加上透明度，否则不执行透明度
 //                .init();
-        dialog = LoadingDialog.loadingDialog(BaseActivity.this, 1);
         init();
         //输入法
         mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
@@ -76,6 +75,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void init() {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ac = this;
+        dialog = LoadingDialog.loadingDialog(BaseActivity.this, 1);
     }
 
     public static void setNavigationBar() {

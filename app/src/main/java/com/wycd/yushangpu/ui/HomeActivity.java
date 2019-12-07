@@ -47,7 +47,6 @@ import com.wycd.yushangpu.model.ImpSubmitOrder;
 import com.wycd.yushangpu.model.ImpSubmitOrder_Guazhang;
 import com.wycd.yushangpu.model.ImpSystemCanshu;
 import com.wycd.yushangpu.printutil.GetPrintSet;
-import com.wycd.yushangpu.printutil.HttpGetPrintContents;
 import com.wycd.yushangpu.printutil.YSLUtils;
 import com.wycd.yushangpu.tools.ActivityManager;
 import com.wycd.yushangpu.tools.CacheData;
@@ -69,7 +68,6 @@ import com.wycd.yushangpu.ui.fragment.GoodsListFragment;
 import com.wycd.yushangpu.web.WebDialog;
 import com.wycd.yushangpu.widget.dialog.ChangePwdDialog;
 import com.wycd.yushangpu.widget.dialog.GoodsModelDialog;
-import com.wycd.yushangpu.widget.dialog.JiesuanBDialog;
 import com.wycd.yushangpu.widget.dialog.KeyboardDialog;
 import com.wycd.yushangpu.widget.dialog.NoticeDialog;
 import com.wycd.yushangpu.widget.dialog.QudanDialog;
@@ -99,7 +97,6 @@ import static android.hardware.usb.UsbManager.ACTION_USB_DEVICE_DETACHED;
 import static com.wycd.yushangpu.MyApplication.ISBULETOOTHCONNECT;
 import static com.wycd.yushangpu.MyApplication.ISCONNECT;
 import static com.wycd.yushangpu.MyApplication.ISLABELCONNECT;
-import static com.wycd.yushangpu.MyApplication.LABELPRINT_IS_OPEN;
 import static com.wycd.yushangpu.MyApplication.myBinder;
 import static com.wycd.yushangpu.tools.Constant.ACTION_USB_PERMISSION;
 
@@ -373,8 +370,9 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             public void onErrorResponse(Object msg) {
                 int po = (int) msg;
                 if (mShopLeftList.size() > 0) {
-                    if (TextUtils.equals(mShopLeftList.get(po).getGID(),
-                            editCashierGoodsFragment.getShopBean().getGID()))
+                    if (editCashierGoodsFragment.getShopBean() != null &&
+                            TextUtils.equals(mShopLeftList.get(po).getGID(),
+                                    editCashierGoodsFragment.getShopBean().getGID()))
                         fragmentManager.beginTransaction().hide(editCashierGoodsFragment).commit();
 
                     mShopLeftList.remove(po);
@@ -1109,38 +1107,41 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                             String jifen = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableIntegral() + "";
                             double dkmoney = CommonUtils.div(CommonUtils.div(Double.parseDouble(CommonUtils.multiply(jifen, jinfenzfxzbfb)), 100, 2),
                                     Double.parseDouble(jifendkbfb), 2);//可抵扣金额
-                            final JiesuanBDialog jiesuanBDialog = new JiesuanBDialog(HomeActivity.this, allmoney, mVipMsg,
-                                    mVipDengjiMsg == null ? null : mVipDengjiMsg.getData().get(0),
-                                    dkmoney + "", jso.getGID(),
-                                    jso.getCO_Type(), jso.getCO_OrderCode(), mShopLeftList, moren, paytypelist, false, new InterfaceBack() {
-                                @Override
-                                public void onResponse(Object response) {
-                                    String gid = (String) response;
-//                                    ToastUtils.showToast(ac, "结算成功");
-                                    com.blankj.utilcode.util.ToastUtils.showShort("结算成功");
 
-                                    //打印小票
-                                    if (MyApplication.PRINT_IS_OPEN) {
-                                        if (MyApplication.mGoodsConsumeMap.isEmpty()) {
-                                            GetPrintSet.getPrintParamSet();
-                                        }
-                                        new HttpGetPrintContents().SPXF(ac, gid);
-                                    }
-
-                                    if (ISLABELCONNECT && LABELPRINT_IS_OPEN) {
-                                        for (int i = 0; i < mShopLeftList.size(); i++) {
-                                            labelPrint(mShopLeftList.get(i));
-                                        }
-                                    }
-
-                                    resetCashier();
-                                }
-
-                                @Override
-                                public void onErrorResponse(Object msg) {
-                                }
-                            });
-                            jiesuanBDialog.show();
+                            Intent intent = new Intent(HomeActivity.this, JiesuanBActibvity.class);
+                            startActivityForResult(intent, 888);
+//                            final JiesuanBDialog jiesuanBDialog = new JiesuanBDialog(HomeActivity.this, allmoney, mVipMsg,
+//                                    mVipDengjiMsg == null ? null : mVipDengjiMsg.getData().get(0),
+//                                    dkmoney + "", jso.getGID(),
+//                                    jso.getCO_Type(), jso.getCO_OrderCode(), mShopLeftList, moren, paytypelist, false, new InterfaceBack() {
+//                                @Override
+//                                public void onResponse(Object response) {
+//                                    String gid = (String) response;
+////                                    ToastUtils.showToast(ac, "结算成功");
+//                                    com.blankj.utilcode.util.ToastUtils.showShort("结算成功");
+//
+//                                    //打印小票
+//                                    if (MyApplication.PRINT_IS_OPEN) {
+//                                        if (MyApplication.mGoodsConsumeMap.isEmpty()) {
+//                                            GetPrintSet.getPrintParamSet();
+//                                        }
+//                                        new HttpGetPrintContents().SPXF(ac, gid);
+//                                    }
+//
+//                                    if (ISLABELCONNECT && LABELPRINT_IS_OPEN) {
+//                                        for (int i = 0; i < mShopLeftList.size(); i++) {
+//                                            labelPrint(mShopLeftList.get(i));
+//                                        }
+//                                    }
+//
+//                                    resetCashier();
+//                                }
+//
+//                                @Override
+//                                public void onErrorResponse(Object msg) {
+//                                }
+//                            });
+//                            jiesuanBDialog.show();
                         }
 
                         @Override
