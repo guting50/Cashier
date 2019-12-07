@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -86,82 +85,40 @@ public class JiesuanBDialog extends Dialog {
     @BindView(R.id.et_xianjin)
     NumInputView mEtXianjin;
 
-    @BindView(R.id.iv_xianjin)
-    ImageView mIvXianjin;
-    @BindView(R.id.tv_xianjin)
-    TextView mTvXianjin;
     @BindView(R.id.li_xianjin)
     LinearLayout mLiXianjin;
-    @BindView(R.id.iv_saoma)
-    ImageView mIvSaoma;
-    @BindView(R.id.tv_saoma)
-    TextView mTvSaoma;
-    @BindView(R.id.li_saoma)
-    LinearLayout mLiSaoma;
-
-    @BindView(R.id.iv_yue)
-    ImageView mIvYue;
-    @BindView(R.id.tv_yue)
-    TextView mTvYue;
     @BindView(R.id.li_yue)
     LinearLayout mLiYue;
-    @BindView(R.id.iv_ali)
-    ImageView mIvAli;
-    @BindView(R.id.tv_ali)
-    TextView mTvAli;
+    @BindView(R.id.li_saoma)
+    LinearLayout mLiSaoma;
     @BindView(R.id.li_ali)
     LinearLayout mLiAli;
-    @BindView(R.id.iv_wx)
-    ImageView mIvWx;
-    @BindView(R.id.tv_wx)
-    TextView mTvWx;
     @BindView(R.id.li_wx)
     LinearLayout mLiWx;
-    @BindView(R.id.iv_yinlian)
-    ImageView mIvYinlian;
-    @BindView(R.id.tv_yinlian)
-    TextView mTvYinlian;
     @BindView(R.id.li_yinlian)
     LinearLayout mLiYinlian;
-
-    @BindView(R.id.iv_jifen)
-    ImageView mIvJifen;
-    @BindView(R.id.tv_jifen)
-    TextView mTvJifen;
     @BindView(R.id.li_jifen)
     LinearLayout mLiJifen;
-    @BindView(R.id.iv_yhq)
-    ImageView mIvYhq;
-    @BindView(R.id.tv_yhq)
-    TextView mTvYhq;
-    @BindView(R.id.li_yhq)
-    FrameLayout mLiYhq;
-    @BindView(R.id.iv_qita)
-    ImageView mIvQita;
-    @BindView(R.id.tv_qita)
-    TextView mTvQita;
-    @BindView(R.id.li_qita)
-    LinearLayout li_qita;
-    @BindView(R.id.iv_union)
-    ImageView ivUnion;
-    @BindView(R.id.tv_union)
-    TextView tvUnion;
     @BindView(R.id.li_union)
     LinearLayout liUnion;
+    @BindView(R.id.li_qita)
+    LinearLayout li_qita;
+
+    @BindView(R.id.li_yhq)
+    FrameLayout mLiYhq;
+
     @BindView(R.id.iv_viptx)
     CircleImageView mIvViptx;
-
-
-    @BindView(R.id.tv_bill_count)
-    TextView tvBillCount;
-    @BindView(R.id.li_jiesuan)
-    FrameLayout li_jiesuan;
     @BindView(R.id.tv_vipname)
     TextView mTvVipname;
     @BindView(R.id.tv_blance)
     TextView tvBlance;
     @BindView(R.id.tv_integral)
     TextView tvIntegral;
+    @BindView(R.id.tv_bill_count)
+    TextView tvBillCount;
+    @BindView(R.id.li_jiesuan)
+    FrameLayout li_jiesuan;
     @BindView(R.id.cb_short_message)
     CheckBox cbMessage;
 
@@ -639,8 +596,6 @@ public class JiesuanBDialog extends Dialog {
                 case "101"://现金
                     if (msg.getSS_State() != 1) {
                         mLiXianjin.setBackgroundResource(R.drawable.shap_enable_not);
-                        mTvXianjin.setTextColor(context.getResources().getColor(R.color.white));
-                        mIvXianjin.setBackgroundResource(R.drawable.cash_ico_wallet_active);
                         mLiXianjin.setEnabled(false);
                         isxianjinpay = false;
                     }
@@ -649,8 +604,6 @@ public class JiesuanBDialog extends Dialog {
                 case "102"://余额
                     if (msg.getSS_State() != 1) {
                         mLiYue.setBackgroundResource(R.drawable.shap_enable_not);
-                        mTvYue.setTextColor(context.getResources().getColor(R.color.white));
-                        mIvYue.setBackgroundResource(R.drawable.cash_ico_purse_active);
                         mLiYue.setEnabled(false);
                         isyuepay = false;
                     }
@@ -658,8 +611,6 @@ public class JiesuanBDialog extends Dialog {
                 case "103"://银联
                     if (msg.getSS_State() != 1) {
                         mLiYinlian.setBackgroundResource(R.drawable.shap_enable_not);
-                        mTvYinlian.setTextColor(context.getResources().getColor(R.color.white));
-                        mIvYinlian.setBackgroundResource(R.drawable.cash_ico_union_active);
                         mLiYinlian.setEnabled(false);
                         isYinlianpay = false;
                     }
@@ -670,8 +621,6 @@ public class JiesuanBDialog extends Dialog {
 
                     if (msg.getSS_State() != 1) {
                         mLiWx.setBackgroundResource(R.drawable.shap_enable_not);
-                        mTvWx.setTextColor(context.getResources().getColor(R.color.white));
-                        mIvWx.setBackgroundResource(R.drawable.cash_ico_wechat_active);
                         mLiWx.setEnabled(false);
                         iswxpay = false;
                     }
@@ -681,8 +630,6 @@ public class JiesuanBDialog extends Dialog {
 
                     if (msg.getSS_State() != 1) {
                         mLiAli.setBackgroundResource(R.drawable.shap_enable_not);
-                        mTvAli.setTextColor(context.getResources().getColor(R.color.white));
-                        mIvAli.setBackgroundResource(R.drawable.cash_ico_alipay_active);
                         mLiAli.setEnabled(false);
                         isalipay = false;
                     }
@@ -691,8 +638,6 @@ public class JiesuanBDialog extends Dialog {
                 case "110"://优惠券
                     if (msg.getSS_State() != 1) {
                         mLiYhq.setBackgroundResource(R.drawable.shap_enable_not);
-                        mTvYhq.setTextColor(context.getResources().getColor(R.color.white));
-                        mIvYhq.setBackgroundResource(R.drawable.cash_ico_coupon_active);
                         mLiYhq.setEnabled(false);
                         isyhqpay = false;
                     }
@@ -701,8 +646,6 @@ public class JiesuanBDialog extends Dialog {
                 case "107"://积分支付
                     if (msg.getSS_State() != 1) {
                         mLiJifen.setBackgroundResource(R.drawable.shap_enable_not);
-                        mTvJifen.setTextColor(context.getResources().getColor(R.color.white));
-                        mIvJifen.setBackgroundResource(R.drawable.cash_ico_coin_active);
                         mLiJifen.setEnabled(false);
                         isjfpay = false;
                     }
@@ -712,8 +655,6 @@ public class JiesuanBDialog extends Dialog {
 
                     if (msg.getSS_State() != 1) {
                         mLiSaoma.setBackgroundResource(R.drawable.shap_enable_not);
-                        mTvSaoma.setTextColor(context.getResources().getColor(R.color.white));
-                        mIvSaoma.setBackgroundResource(R.drawable.cash_ico_scan_active);
                         mLiSaoma.setEnabled(false);
                         issmpay = false;
                     }
@@ -723,8 +664,6 @@ public class JiesuanBDialog extends Dialog {
 
                     if (msg.getSS_State() != 1) {
                         li_qita.setBackgroundResource(R.drawable.shap_enable_not);
-                        mTvQita.setTextColor(context.getResources().getColor(R.color.white));
-                        mIvQita.setBackgroundResource(R.drawable.cash_ico_other_active);
                         li_qita.setEnabled(false);
                         isqtpay = false;
                     }
@@ -743,82 +682,60 @@ public class JiesuanBDialog extends Dialog {
 
         switch (NullUtils.noNullHandle(msg.getSS_Value()).toString()) {
             case "XJZF"://现金
-                mLiXianjin.setBackgroundResource(R.drawable.shap_xianjin);
-                mTvXianjin.setTextColor(context.getResources().getColor(R.color.white));
-                mIvXianjin.setBackgroundResource(R.drawable.cash_ico_wallet_active);
+                mLiXianjin.setBackgroundResource(R.drawable.bg_edittext_focused);
                 tvPayname1.setText("现金支付");
 //                mEtXianjin.setText(money);
 
                 break;
             case "YEZF"://余额
                 if (isMember) {
-                    mLiYue.setBackgroundResource(R.drawable.shap_xianjin);
-                    mTvYue.setTextColor(context.getResources().getColor(R.color.white));
-                    mIvYue.setBackgroundResource(R.drawable.cash_ico_purse_active);
+                    mLiYue.setBackgroundResource(R.drawable.bg_edittext_focused);
                     tvPayname1.setText("余额支付");
 //                    mEtXianjin.setText(money);
                 } else {
                     //默认余额支付时为非会员 改为默认现金支付
                     mLiYue.setBackgroundResource(R.drawable.shap_enable_not);
-                    mTvYue.setTextColor(context.getResources().getColor(R.color.white));
-                    mIvYue.setBackgroundResource(R.drawable.cash_ico_purse_active);
 
-                    mLiXianjin.setBackgroundResource(R.drawable.shap_xianjin);
-                    mTvXianjin.setTextColor(context.getResources().getColor(R.color.white));
-                    mIvXianjin.setBackgroundResource(R.drawable.cash_ico_wallet_active);
+                    mLiXianjin.setBackgroundResource(R.drawable.bg_edittext_focused);
                     tvPayname1.setText("现金支付");
 //                    mEtXianjin.setText(money);
                 }
                 break;
 
             case "YLZF"://银联
-                mLiYinlian.setBackgroundResource(R.drawable.shap_xianjin);
-                mTvYinlian.setTextColor(context.getResources().getColor(R.color.white));
-                mIvYinlian.setBackgroundResource(R.drawable.cash_ico_union_active);
+                mLiYinlian.setBackgroundResource(R.drawable.bg_edittext_focused);
                 tvPayname1.setText("银联支付");
 //                mEtXianjin.setText(money);
 
                 break;
             case "WXJZ"://微信
-                mLiWx.setBackgroundResource(R.drawable.shap_xianjin);
-                mTvWx.setTextColor(context.getResources().getColor(R.color.white));
-                mIvWx.setBackgroundResource(R.drawable.cash_ico_wechat_active);
+                mLiWx.setBackgroundResource(R.drawable.bg_edittext_focused);
                 tvPayname1.setText("微信支付");
 //                mEtXianjin.setText(money);
 
                 break;
             case "ZFBJZ"://支付宝
-                mLiAli.setBackgroundResource(R.drawable.shap_xianjin);
-                mTvAli.setTextColor(context.getResources().getColor(R.color.white));
-                mIvAli.setBackgroundResource(R.drawable.cash_ico_alipay_active);
+                mLiAli.setBackgroundResource(R.drawable.bg_edittext_focused);
                 tvPayname1.setText("支付宝支付");
 //                mEtXianjin.setText(money);
 
                 break;
             case "YHQ"://优惠券
-                mLiYhq.setBackgroundResource(R.drawable.shap_xianjin);
-                mTvYhq.setTextColor(context.getResources().getColor(R.color.white));
-                mIvYhq.setBackgroundResource(R.drawable.cash_ico_coupon_active);
+                mLiYhq.setBackgroundResource(R.drawable.bg_edittext_focused);
                 tvPayname1.setText("优惠金额");
 //                mEtXianjin.setText(money);
 
                 break;
             case "JFZF"://积分支付
                 if (isMember) {
-                    mLiJifen.setBackgroundResource(R.drawable.shap_xianjin);
-                    mTvJifen.setTextColor(context.getResources().getColor(R.color.white));
-                    mIvJifen.setBackgroundResource(R.drawable.cash_ico_coin_active);
+                    mLiJifen.setBackgroundResource(R.drawable.bg_edittext_focused);
                     tvPayname1.setText("积分支付");
 //                    mEtXianjin.setText(money);
                 } else {
                     //默认积分支付时为非会员 改为默认现金支付
                     mLiJifen.setBackgroundResource(R.drawable.shap_enable_not);
-                    mTvJifen.setTextColor(context.getResources().getColor(R.color.white));
-                    mIvJifen.setBackgroundResource(R.drawable.cash_ico_coin_active);
 
-                    mLiXianjin.setBackgroundResource(R.drawable.shap_xianjin);
-                    mTvXianjin.setTextColor(context.getResources().getColor(R.color.white));
-                    mIvXianjin.setBackgroundResource(R.drawable.cash_ico_wallet_active);
+                    mLiXianjin.setBackgroundResource(R.drawable.bg_edittext_focused);
                     tvPayname1.setText("现金支付");
                     mEtXianjin.setText(money);
                 }
@@ -826,17 +743,13 @@ public class JiesuanBDialog extends Dialog {
                 break;
             case "SMZF"://扫码支付
 
-                mLiSaoma.setBackgroundResource(R.drawable.shap_xianjin);
-                mTvSaoma.setTextColor(context.getResources().getColor(R.color.white));
-                mIvSaoma.setBackgroundResource(R.drawable.cash_ico_scan_active);
+                mLiSaoma.setBackgroundResource(R.drawable.bg_edittext_focused);
                 tvPayname1.setText("扫码支付");
 //                mEtXianjin.setText(money);
 
                 break;
             case "QTZF"://其它支付
-                li_qita.setBackgroundResource(R.drawable.shap_xianjin);
-                mTvQita.setTextColor(context.getResources().getColor(R.color.white));
-                mIvQita.setBackgroundResource(R.drawable.cash_ico_other_active);
+                li_qita.setBackgroundResource(R.drawable.bg_edittext_focused);
                 tvPayname1.setText("其它支付");
 //                mEtXianjin.setText(money);
                 break;
@@ -846,15 +759,11 @@ public class JiesuanBDialog extends Dialog {
 
         if (!isMember) {
             mLiJifen.setBackgroundResource(R.drawable.shap_enable_not);
-            mTvJifen.setTextColor(context.getResources().getColor(R.color.white));
-            mIvJifen.setBackgroundResource(R.drawable.cash_ico_coin_active);
             mLiJifen.setEnabled(false);
             isyuepay = false;
             isjfpay = false;
 
             mLiYue.setBackgroundResource(R.drawable.shap_enable_not);
-            mTvYue.setTextColor(context.getResources().getColor(R.color.white));
-            mIvYue.setBackgroundResource(R.drawable.cash_ico_purse_active);
             mLiYue.setEnabled(false);
         }
 
@@ -980,9 +889,7 @@ public class JiesuanBDialog extends Dialog {
                 resetIsPay();
                 isXianjin = true;
 
-                mLiXianjin.setBackgroundResource(R.drawable.shap_xianjin);
-                mTvXianjin.setTextColor(context.getResources().getColor(R.color.white));
-                mIvXianjin.setBackgroundResource(R.drawable.cash_ico_wallet_active);
+                mLiXianjin.setBackgroundResource(R.drawable.bg_edittext_focused);
 
 //                tvPayname1.setText("现金支付");
 //                mEtXianjin.setText("0");
@@ -997,9 +904,7 @@ public class JiesuanBDialog extends Dialog {
                 resetIsPay();
                 isYue = true;
 
-                mLiYue.setBackgroundResource(R.drawable.shap_xianjin);
-                mTvYue.setTextColor(context.getResources().getColor(R.color.white));
-                mIvYue.setBackgroundResource(R.drawable.cash_ico_purse_active);
+                mLiYue.setBackgroundResource(R.drawable.bg_edittext_focused);
 //                tvPayname1.setText("余额支付");
 //                mEtXianjin.setText("0");
                 break;
@@ -1010,9 +915,7 @@ public class JiesuanBDialog extends Dialog {
                 resetPayRl("微信支付");
                 resetIsPay();
                 isWx = true;
-                mLiWx.setBackgroundResource(R.drawable.shap_xianjin);
-                mTvWx.setTextColor(context.getResources().getColor(R.color.white));
-                mIvWx.setBackgroundResource(R.drawable.cash_ico_wechat_active);
+                mLiWx.setBackgroundResource(R.drawable.bg_edittext_focused);
 //                tvPayname1.setText("微信支付");
 //                mEtXianjin.setText("0");
 
@@ -1025,9 +928,7 @@ public class JiesuanBDialog extends Dialog {
                 resetIsPay();
                 isYinlian = true;
 //                tvPayname1.setText("银联支付");
-                mLiYinlian.setBackgroundResource(R.drawable.shap_xianjin);
-                mTvYinlian.setTextColor(context.getResources().getColor(R.color.white));
-                mIvYinlian.setBackgroundResource(R.drawable.cash_ico_union_active);
+                mLiYinlian.setBackgroundResource(R.drawable.bg_edittext_focused);
 
 //                mEtXianjin.setText("0");
 
@@ -1039,9 +940,7 @@ public class JiesuanBDialog extends Dialog {
                 resetPayRl("支付宝支付");
                 resetIsPay();
                 isAli = true;
-                mLiAli.setBackgroundResource(R.drawable.shap_xianjin);
-                mTvAli.setTextColor(context.getResources().getColor(R.color.white));
-                mIvAli.setBackgroundResource(R.drawable.cash_ico_alipay_active);
+                mLiAli.setBackgroundResource(R.drawable.bg_edittext_focused);
 //                tvPayname1.setText("支付宝支付");
 //                mEtXianjin.setText("0");
                 break;
@@ -1087,9 +986,7 @@ public class JiesuanBDialog extends Dialog {
                                 resetPayRl("优惠金额");
                                 resetIsPay();
                                 isYhq = true;
-                                mLiYhq.setBackgroundResource(R.drawable.shap_xianjin);
-                                mTvYhq.setTextColor(context.getResources().getColor(R.color.white));
-                                mIvYhq.setBackgroundResource(R.drawable.cash_ico_coupon_active);
+                                mLiYhq.setBackgroundResource(R.drawable.bg_edittext_focused);
 //                            tvPayname1.setText("优惠金额");
 
                                 for (YhqMsg yhqMsg : yhqMsgs) {
@@ -1133,9 +1030,7 @@ public class JiesuanBDialog extends Dialog {
                 resetPayRl("积分支付");
                 resetIsPay();
                 isJifen = true;
-                mLiJifen.setBackgroundResource(R.drawable.shap_xianjin);
-                mTvJifen.setTextColor(context.getResources().getColor(R.color.white));
-                mIvJifen.setBackgroundResource(R.drawable.cash_ico_coin_active);
+                mLiJifen.setBackgroundResource(R.drawable.bg_edittext_focused);
 
 //                tvPayname1.setText("积分支付");
 //                mEtXianjin.setText("0");
@@ -1167,9 +1062,7 @@ public class JiesuanBDialog extends Dialog {
                 resetPayRl("扫码");
                 resetIsPay();
                 isSaoma = true;
-                mLiSaoma.setBackgroundResource(R.drawable.shap_xianjin);
-                mTvSaoma.setTextColor(context.getResources().getColor(R.color.white));
-                mIvSaoma.setBackgroundResource(R.drawable.cash_ico_scan_active);
+                mLiSaoma.setBackgroundResource(R.drawable.bg_edittext_focused);
 //                tvPayname1.setText("扫码");
 //                mEtXianjin.setText("0");
 
@@ -1210,9 +1103,7 @@ public class JiesuanBDialog extends Dialog {
                 resetPayRl("其他支付");
                 resetIsPay();
                 isQita = true;
-                li_qita.setBackgroundResource(R.drawable.shap_xianjin);
-                mTvQita.setTextColor(context.getResources().getColor(R.color.white));
-                mIvQita.setBackgroundResource(R.drawable.cash_ico_other_active);
+                li_qita.setBackgroundResource(R.drawable.bg_edittext_focused);
 //                tvPayname1.setText("其他支付");
 //                mEtXianjin.setText("0");
 
@@ -1222,73 +1113,49 @@ public class JiesuanBDialog extends Dialog {
                 if (!isUnion) {
                     isUnion = true;
 
-                    liUnion.setBackgroundResource(R.drawable.shap_xianjin);
-                    tvUnion.setTextColor(context.getResources().getColor(R.color.white));
-                    ivUnion.setBackgroundResource(R.drawable.cash_ico_check_active);
+                    liUnion.setBackgroundResource(R.drawable.bg_edittext_focused);
 
                     isYhq = true;
-                    mLiYhq.setBackgroundResource(R.drawable.shap_xianjin);
-                    mTvYhq.setTextColor(context.getResources().getColor(R.color.white));
-                    mIvYhq.setBackgroundResource(R.drawable.cash_ico_coupon_active);
+                    mLiYhq.setBackgroundResource(R.drawable.bg_edittext_focused);
                 } else {
                     isUnion = false;
                     liUnion.setBackgroundResource(R.drawable.shap_jiesunnot);
-                    tvUnion.setTextColor(context.getResources().getColor(R.color.text60));
-                    ivUnion.setBackgroundResource(R.drawable.cash_ico_check);
 
                     switch (tvPayname2.getText().toString()) {
                         case "现金支付"://现金
                             mLiXianjin.setBackgroundResource(R.drawable.shap_jiesunnot);
-                            mTvXianjin.setTextColor(context.getResources().getColor(R.color.text60));
-                            mIvXianjin.setBackgroundResource(R.drawable.cash_ico_wallet);
                             isXianjin = false;
                             break;
                         case "余额支付"://余额
                             mLiYue.setBackgroundResource(R.drawable.shap_jiesunnot);
-                            mTvYue.setTextColor(context.getResources().getColor(R.color.text60));
-                            mIvYue.setBackgroundResource(R.drawable.cash_ico_purse);
                             isYue = false;
                             break;
                         case "银联支付"://银联
                             mLiYinlian.setBackgroundResource(R.drawable.shap_jiesunnot);
-                            mTvYinlian.setTextColor(context.getResources().getColor(R.color.text60));
-                            mIvYinlian.setBackgroundResource(R.drawable.cash_ico_union);
                             isYinlian = false;
                             break;
                         case "微信支付"://微信
                             mLiWx.setBackgroundResource(R.drawable.shap_jiesunnot);
-                            mTvWx.setTextColor(context.getResources().getColor(R.color.text60));
-                            mIvWx.setBackgroundResource(R.drawable.cash_ico_wechat);
                             isWx = false;
                             break;
                         case "支付宝支付"://支付宝
                             mLiAli.setBackgroundResource(R.drawable.shap_jiesunnot);
-                            mTvAli.setTextColor(context.getResources().getColor(R.color.text60));
-                            mIvAli.setBackgroundResource(R.drawable.cash_ico_alipay);
                             isAli = false;
                             break;
                         case "优惠金额"://优惠券
                             mLiYhq.setBackgroundResource(R.drawable.shap_jiesunnot);
-                            mTvYhq.setTextColor(context.getResources().getColor(R.color.text60));
-                            mIvYhq.setBackgroundResource(R.drawable.cash_ico_coupon);
                             isYhq = false;
                             break;
                         case "积分支付"://积分支付
                             mLiJifen.setBackgroundResource(R.drawable.shap_jiesunnot);
-                            mTvJifen.setTextColor(context.getResources().getColor(R.color.text60));
-                            mIvJifen.setBackgroundResource(R.drawable.cash_ico_coin);
                             isJifen = false;
                             break;
                         case "扫码支付"://扫码支付
                             mLiSaoma.setBackgroundResource(R.drawable.shap_jiesunnot);
-                            mTvSaoma.setTextColor(context.getResources().getColor(R.color.text60));
-                            mIvSaoma.setBackgroundResource(R.drawable.cash_ico_scan);
                             isSaoma = false;
                             break;
                         case "其他支付"://其它支付
                             li_qita.setBackgroundResource(R.drawable.shap_jiesunnot);
-                            mTvQita.setTextColor(context.getResources().getColor(R.color.text60));
-                            mIvQita.setBackgroundResource(R.drawable.cash_ico_other);
                             isQita = false;
                             break;
                     }
@@ -1345,19 +1212,6 @@ public class JiesuanBDialog extends Dialog {
         }
     }
 
-
-    private void resetPayLi() {
-        mLiXianjin.setBackgroundResource(R.drawable.shap_jiesunnot);
-        mLiYue.setBackgroundResource(R.drawable.shap_jiesunnot);
-        mLiYinlian.setBackgroundResource(R.drawable.shap_jiesunnot);
-        mLiWx.setBackgroundResource(R.drawable.shap_jiesunnot);
-        mLiAli.setBackgroundResource(R.drawable.shap_jiesunnot);
-        mLiYhq.setBackgroundResource(R.drawable.shap_jiesunnot);
-        mLiJifen.setBackgroundResource(R.drawable.shap_jiesunnot);
-        mLiSaoma.setBackgroundResource(R.drawable.shap_jiesunnot);
-        li_qita.setBackgroundResource(R.drawable.shap_jiesunnot);
-    }
-
     private void resetIsPay() {
         isXianjin = false;
         isYue = false;
@@ -1374,111 +1228,72 @@ public class JiesuanBDialog extends Dialog {
 
         if (isxianjinpay) {
             mLiXianjin.setBackgroundResource(R.drawable.shap_jiesunnot);
-            mTvXianjin.setTextColor(context.getResources().getColor(R.color.text60));
-            mIvXianjin.setBackgroundResource(R.drawable.cash_ico_wallet);
-
         }
         if (issmpay) {
             mLiSaoma.setBackgroundResource(R.drawable.shap_jiesunnot);
-            mTvSaoma.setTextColor(context.getResources().getColor(R.color.text60));
-            mIvSaoma.setBackgroundResource(R.drawable.cash_ico_scan);
         }
         if (isyuepay) {
             mLiYue.setBackgroundResource(R.drawable.shap_jiesunnot);
-            mTvYue.setTextColor(context.getResources().getColor(R.color.text60));
-            mIvYue.setBackgroundResource(R.drawable.cash_ico_purse);
         }
         if (isalipay) {
             mLiAli.setBackgroundResource(R.drawable.shap_jiesunnot);
-            mTvAli.setTextColor(context.getResources().getColor(R.color.text60));
-            mIvAli.setBackgroundResource(R.drawable.cash_ico_alipay);
         }
         if (iswxpay) {
             mLiWx.setBackgroundResource(R.drawable.shap_jiesunnot);
-            mTvWx.setTextColor(context.getResources().getColor(R.color.text60));
-            mIvWx.setBackgroundResource(R.drawable.cash_ico_wechat);
         }
         if (isYinlianpay) {
             mLiYinlian.setBackgroundResource(R.drawable.shap_jiesunnot);
-            mTvYinlian.setTextColor(context.getResources().getColor(R.color.text60));
-            mIvYinlian.setBackgroundResource(R.drawable.cash_ico_union);
         }
         if (isjfpay) {
             mLiJifen.setBackgroundResource(R.drawable.shap_jiesunnot);
-            mTvJifen.setTextColor(context.getResources().getColor(R.color.text60));
-            mIvJifen.setBackgroundResource(R.drawable.cash_ico_coin);
         }
         if (isyhqpay) {
             mLiYhq.setBackgroundResource(R.drawable.shap_jiesunnot);
-            mTvYhq.setTextColor(context.getResources().getColor(R.color.text60));
-            mIvYhq.setBackgroundResource(R.drawable.cash_ico_coupon);
         }
         if (isqtpay) {
             li_qita.setBackgroundResource(R.drawable.shap_jiesunnot);
-            mTvQita.setTextColor(context.getResources().getColor(R.color.text60));
-            mIvQita.setBackgroundResource(R.drawable.cash_ico_other);
         }
 
         if (!isUnion) {
             liUnion.setBackgroundResource(R.drawable.shap_jiesunnot);
-            tvUnion.setTextColor(context.getResources().getColor(R.color.text60));
-            ivUnion.setBackgroundResource(R.drawable.cash_ico_check);
         }
 
         if (isUnion) {
             switch (tvPayname1.getText().toString()) {
                 case "现金支付"://现金
-                    mLiXianjin.setBackgroundResource(R.drawable.shap_xianjin);
-                    mTvXianjin.setTextColor(context.getResources().getColor(R.color.white));
-                    mIvXianjin.setBackgroundResource(R.drawable.cash_ico_wallet_active);
+                    mLiXianjin.setBackgroundResource(R.drawable.bg_edittext_focused);
                     isXianjin = true;
                     break;
                 case "余额支付"://余额
-                    mLiYue.setBackgroundResource(R.drawable.shap_xianjin);
-                    mTvYue.setTextColor(context.getResources().getColor(R.color.white));
-                    mIvYue.setBackgroundResource(R.drawable.cash_ico_purse_active);
+                    mLiYue.setBackgroundResource(R.drawable.bg_edittext_focused);
                     isYue = true;
                     break;
                 case "银联支付"://银联
-                    mLiYinlian.setBackgroundResource(R.drawable.shap_xianjin);
-                    mTvYinlian.setTextColor(context.getResources().getColor(R.color.white));
-                    mIvYinlian.setBackgroundResource(R.drawable.cash_ico_union_active);
+                    mLiYinlian.setBackgroundResource(R.drawable.bg_edittext_focused);
                     isYinlian = true;
                     break;
                 case "微信支付"://微信
-                    mLiWx.setBackgroundResource(R.drawable.shap_xianjin);
-                    mTvWx.setTextColor(context.getResources().getColor(R.color.white));
-                    mIvWx.setBackgroundResource(R.drawable.cash_ico_wechat_active);
+                    mLiWx.setBackgroundResource(R.drawable.bg_edittext_focused);
                     isWx = true;
                     break;
                 case "支付宝支付"://支付宝
-                    mLiAli.setBackgroundResource(R.drawable.shap_xianjin);
-                    mTvAli.setTextColor(context.getResources().getColor(R.color.white));
-                    mIvAli.setBackgroundResource(R.drawable.cash_ico_alipay_active);
+                    mLiAli.setBackgroundResource(R.drawable.bg_edittext_focused);
                     isAli = true;
                     break;
                 case "优惠金额"://优惠券
-                    mLiYhq.setBackgroundResource(R.drawable.shap_xianjin);
-                    mTvYhq.setTextColor(context.getResources().getColor(R.color.white));
-                    mIvYhq.setBackgroundResource(R.drawable.cash_ico_coupon_active);
+                    mLiYhq.setBackgroundResource(R.drawable.bg_edittext_focused);
                     isYhq = true;
                     break;
                 case "积分支付"://积分支付
-                    mLiJifen.setBackgroundResource(R.drawable.shap_xianjin);
-                    mTvJifen.setTextColor(context.getResources().getColor(R.color.white));
-                    mIvJifen.setBackgroundResource(R.drawable.cash_ico_coin_active);
+                    mLiJifen.setBackgroundResource(R.drawable.bg_edittext_focused);
                     isJifen = true;
                     break;
                 case "扫码支付"://扫码支付
-                    mLiSaoma.setBackgroundResource(R.drawable.shap_xianjin);
-                    mTvSaoma.setTextColor(context.getResources().getColor(R.color.white));
-                    mIvSaoma.setBackgroundResource(R.drawable.cash_ico_scan_active);
+                    mLiSaoma.setBackgroundResource(R.drawable.bg_edittext_focused);
                     isSaoma = true;
                     break;
                 case "其他支付"://其它支付
-                    li_qita.setBackgroundResource(R.drawable.shap_xianjin);
-                    mTvQita.setTextColor(context.getResources().getColor(R.color.white));
-                    mIvQita.setBackgroundResource(R.drawable.cash_ico_other_active);
+                    li_qita.setBackgroundResource(R.drawable.bg_edittext_focused);
                     isQita = true;
                     break;
 
