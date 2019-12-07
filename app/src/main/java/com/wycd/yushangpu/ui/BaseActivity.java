@@ -8,10 +8,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.IBinder;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -20,13 +16,17 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.gyf.barlibrary.ImmersionBar;
-import com.wycd.yushangpu.widget.dialog.LoadingDialog;
 import com.wycd.yushangpu.http.PermissionListener;
 import com.wycd.yushangpu.tools.ActivityManager;
 import com.wycd.yushangpu.tools.SystemUIUtils;
+import com.wycd.yushangpu.widget.dialog.LoadingDialog;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 
 /**
@@ -70,25 +70,24 @@ public abstract class BaseActivity extends AppCompatActivity {
         //底部虚拟键始终隐藏，触摸屏幕时也不出现
         Window _window = getWindow();
         WindowManager.LayoutParams params = _window.getAttributes();
-        params.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|View.SYSTEM_UI_FLAG_IMMERSIVE;
+        params.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE;
         _window.setAttributes(params);
     }
 
     protected void init() {
 
     }
-    public static void setNavigationBar(){
+
+    public static void setNavigationBar() {
         View decorView = ac.getWindow().getDecorView();
         //显示NavigationBar
         int option = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                |View.SYSTEM_UI_FLAG_FULLSCREEN
-                |View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                |View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
         decorView.setSystemUiVisibility(option);
 
     }
-
-
 
 
     /*防止系统字体影响到app的字体*/

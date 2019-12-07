@@ -49,8 +49,6 @@ public class LoginActivity extends BaseActivity {
     private KeyBoardHelper boardHelper;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +66,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 //                if (b) {
-                    PreferenceHelper.write(ac, "lottery", "remember", b);
+                PreferenceHelper.write(ac, "lottery", "remember", b);
 
             }
         });
@@ -112,40 +110,40 @@ public class LoginActivity extends BaseActivity {
 //                    ToastUtils.showToast(ac, res.getString(R.string.enter_password));
                     com.blankj.utilcode.util.ToastUtils.showShort(res.getString(R.string.enter_password));
                 } else {
-                dialog.show();
+                    dialog.show();
 //                    17780716425  121121
-                ImpLogin login = new ImpLogin();
-                login.login(ac, mEtLoginAccount.getText().toString(), mEtLoginPassword.getText().toString(), new InterfaceBack() {
+                    ImpLogin login = new ImpLogin();
+                    login.login(ac, mEtLoginAccount.getText().toString(), mEtLoginPassword.getText().toString(), new InterfaceBack() {
 
-                    @Override
-                    public void onResponse(Object response) {
-                        Gson gson = new Gson();
-                        String resultString = (String) response;
-                        loginBean = gson.fromJson(resultString,LoginBean.class);
+                        @Override
+                        public void onResponse(Object response) {
+                            Gson gson = new Gson();
+                            String resultString = (String) response;
+                            loginBean = gson.fromJson(resultString, LoginBean.class);
 
-                        dialog.dismiss();
-                        //保存登录账号密码
-                        PreferenceHelper.write(ac, "lottery", "account", mEtLoginAccount.getText().toString());
-                        PreferenceHelper.write(ac, "lottery", "pwd", mEtLoginPassword.getText().toString());
+//                        dialog.dismiss();
+                            //保存登录账号密码
+                            PreferenceHelper.write(ac, "lottery", "account", mEtLoginAccount.getText().toString());
+                            PreferenceHelper.write(ac, "lottery", "pwd", mEtLoginPassword.getText().toString());
 
-                        if (loginBean.getData().getShopList().get(0).getSM_Type() == 3009){
-                            MyApplication.LABELPRINT_IS_OPEN = true;
-                        }
-                        MyApplication.SHOP_NAME = loginBean.getData().getSM_Name();
+                            if (loginBean.getData().getShopList().get(0).getSM_Type() == 3009) {
+                                MyApplication.LABELPRINT_IS_OPEN = true;
+                            }
+                            MyApplication.SHOP_NAME = loginBean.getData().getSM_Name();
 
-                        Intent intent = new Intent(ac, HomeActivity.class);
+                            Intent intent = new Intent(ac, HomeActivity.class);
 //                        intent.putExtra("class", (Serializable) onelist);
-                        intent.putExtra("loginBean", (Serializable) loginBean);
-                        startActivity(intent);
-                        finish();
+                            intent.putExtra("loginBean", (Serializable) loginBean);
+                            startActivity(intent);
+                            finish();
 
-                    }
+                        }
 
-                    @Override
-                    public void onErrorResponse(Object msg) {
-                        dialog.dismiss();
-                    }
-                });
+                        @Override
+                        public void onErrorResponse(Object msg) {
+                            dialog.dismiss();
+                        }
+                    });
 
                 }
             }
@@ -169,6 +167,7 @@ public class LoginActivity extends BaseActivity {
                 layout_content.setLayoutParams(lp);
             }
         }
+
         @Override
         public void OnKeyBoardClose(int oldKeyBoardheight) {
             if (View.VISIBLE != layout_bottom.getVisibility()) {
@@ -182,6 +181,7 @@ public class LoginActivity extends BaseActivity {
             }
         }
     };
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

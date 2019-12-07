@@ -18,15 +18,11 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
 import com.gt.utils.view.BgFrameLayout;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
@@ -37,10 +33,8 @@ import com.wycd.yushangpu.bean.OrderCanshhu;
 import com.wycd.yushangpu.bean.PayTypeMsg;
 import com.wycd.yushangpu.bean.RevokeGuaDanBean;
 import com.wycd.yushangpu.bean.ShopMsg;
-import com.wycd.yushangpu.bean.SmsSwitch;
 import com.wycd.yushangpu.bean.VipDengjiMsg;
 import com.wycd.yushangpu.bean.event.HomeButtonColorChangeEvent;
-import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.http.InterfaceThreeBack;
@@ -52,11 +46,8 @@ import com.wycd.yushangpu.model.ImpOutLogin;
 import com.wycd.yushangpu.model.ImpSubmitOrder;
 import com.wycd.yushangpu.model.ImpSubmitOrder_Guazhang;
 import com.wycd.yushangpu.model.ImpSystemCanshu;
-import com.wycd.yushangpu.printutil.CallBack;
-import com.wycd.yushangpu.printutil.CommonFun;
 import com.wycd.yushangpu.printutil.GetPrintSet;
 import com.wycd.yushangpu.printutil.HttpGetPrintContents;
-import com.wycd.yushangpu.printutil.HttpHelper;
 import com.wycd.yushangpu.printutil.YSLUtils;
 import com.wycd.yushangpu.tools.ActivityManager;
 import com.wycd.yushangpu.tools.CacheData;
@@ -596,7 +587,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             }
         });
     }
-
 
 
     private void handleSystemc(List<PayTypeMsg> sllist) {

@@ -19,25 +19,16 @@ public class NumKeyboardUtils {
     private Activity activity;
 
     public NumKeyboardUtils(Activity activity, View rootView, NumInputView editViewLayout) {
-        this(activity, rootView, editViewLayout, "");
-    }
-
-    public NumKeyboardUtils(Activity activity, View rootView, NumInputView editViewLayout, String hintStr) {
         View keyboardViewLayout = rootView.findViewById(R.id.keyboard_layout);
         ButterKnife.bind(this, keyboardViewLayout);
         this.activity = activity;
 
         setEditView(editViewLayout);
-        addEditView(editViewLayout, hintStr);
+        addEditView(editViewLayout);
     }
 
     public void addEditView(NumInputView editViewLayout) {
         editViewLayout.bindNumKeyboard(this);
-    }
-
-    public void addEditView(NumInputView editViewLayout, String hintStr) {
-        addEditView(editViewLayout);
-        editViewLayout.setEditTextHint(hintStr);
     }
 
     public void setEditView(NumInputView editViewLayout) {
@@ -45,11 +36,6 @@ public class NumKeyboardUtils {
             numInputView.showCursor(false);
         numInputView = editViewLayout;
         numInputView.showCursor(true);
-    }
-
-    public void setEditView(NumInputView editViewLayout, String hintStr) {
-        setEditView(editViewLayout);
-        editViewLayout.setEditTextHint(hintStr);
     }
 
     @OnTouch({R.id.num_keyboard_7, R.id.num_keyboard_8, R.id.num_keyboard_9, R.id.num_keyboard_4,

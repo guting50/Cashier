@@ -73,7 +73,8 @@
                         android:layout_height="match_parent"
                         android:layout_above="@+id/edit_layout"
                         android:layout_gravity="center"
-                        android:gravity="center_vertical" />
+                        android:gravity="center_vertical"
+                        android:hint="会员卡号/手机号/卡面号" />
 
                 </com.gt.utils.view.BgFrameLayout>
 

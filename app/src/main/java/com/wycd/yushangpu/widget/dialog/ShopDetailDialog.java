@@ -58,7 +58,7 @@ public class ShopDetailDialog {
 
         BgFrameLayout li_search = (BgFrameLayout) view.findViewById(R.id.li_search);
 
-        new NumKeyboardUtils(context, view, editTextLayout, "员工工号/姓名");
+        new NumKeyboardUtils(context, view, editTextLayout);
 
         Dialog loadingdialog = LoadingDialog.loadingDialog(context, 1);
 

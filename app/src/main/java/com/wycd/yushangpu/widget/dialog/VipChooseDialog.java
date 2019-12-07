@@ -81,8 +81,7 @@ public class VipChooseDialog extends Dialog {
         setCanceledOnTouchOutside(true);
         editTextLayout = (NumInputView) findViewById(R.id.edit_text_layout);
 
-        new NumKeyboardUtils(mContext, getWindow().getDecorView(),
-                editTextLayout, "会员卡号/手机号/卡面号");
+        new NumKeyboardUtils(mContext, getWindow().getDecorView(), editTextLayout);
     }
 
     /**
