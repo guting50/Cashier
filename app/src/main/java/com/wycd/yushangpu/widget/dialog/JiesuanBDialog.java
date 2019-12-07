@@ -14,7 +14,6 @@ import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -152,6 +151,9 @@ public class JiesuanBDialog extends Dialog {
     @BindView(R.id.iv_viptx)
     CircleImageView mIvViptx;
 
+
+    @BindView(R.id.tv_bill_count)
+    TextView tvBillCount;
     @BindView(R.id.li_jiesuan)
     FrameLayout li_jiesuan;
     @BindView(R.id.tv_vipname)
@@ -347,6 +349,7 @@ public class JiesuanBDialog extends Dialog {
         mEtYue.setFocusable(false);
         mEtYue.setFocusableInTouchMode(false);
 
+        tvBillCount.setText(StringUtil.twoNum(money));
         mEtZhmoney.setText(StringUtil.twoNum(money));
         LogUtils.d("xxxxxx", new Gson().toJson(moren));
         setPay(paylist);

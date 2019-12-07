@@ -17,6 +17,9 @@ import android.widget.TextView;
 
 import com.wycd.yushangpu.R;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import androidx.annotation.Nullable;
 
 public class NumInputView extends RelativeLayout {
@@ -89,7 +92,7 @@ public class NumInputView extends RelativeLayout {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (!b) {
-                    textCursor.setVisibility(INVISIBLE);
+                    showCursor(false);
                     cleanSelectAll();
                 }
             }
@@ -103,7 +106,7 @@ public class NumInputView extends RelativeLayout {
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                textCursor.setVisibility(VISIBLE);
+                showCursor(true);
                 if (numKeyboardUtils != null)
                     numKeyboardUtils.setEditView(numInputView);
                 if (!isSelectAll()) {
@@ -130,11 +133,34 @@ public class NumInputView extends RelativeLayout {
         setText(editView.getText() != null ? editView.getText().toString() : "");
     }
 
+    Timer timer;
+
     public void showCursor(boolean isShow) {
-        if (isShow)
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+        if (isShow) {
             textCursor.setVisibility(VISIBLE);
-        else
+            timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    textCursor.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (textCursor.getVisibility() == View.VISIBLE) {
+                                textCursor.setVisibility(View.INVISIBLE);
+                            } else {
+                                textCursor.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    });
+                }
+            }, 500, 500);
+        } else {
             textCursor.setVisibility(INVISIBLE);
+        }
 
     }
 
@@ -206,19 +232,4 @@ public class NumInputView extends RelativeLayout {
         editView.addTextChangedListener(textWatcher);
     }
 
-//        new Timer().schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                activity.runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (textCursor.getVisibility() == View.VISIBLE) {
-//                            textCursor.setVisibility(View.INVISIBLE);
-//                        } else {
-//                            textCursor.setVisibility(View.VISIBLE);
-//                        }
-//                    }
-//                });
-//            }
-//        }, 500, 500);
 }
