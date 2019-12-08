@@ -1,11 +1,12 @@
 package com.wycd.yushangpu.bean;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class OrderCanshhu implements Serializable {
-     private String GID;
-    private String   CO_Type;
-    private String      CO_OrderCode;
+public class OrderCanshhu implements Parcelable {
+    private String GID;
+    private String CO_Type;
+    private String CO_OrderCode;
 
     public String getGID() {
         return GID;
@@ -30,4 +31,37 @@ public class OrderCanshhu implements Serializable {
     public void setCO_OrderCode(String CO_OrderCode) {
         this.CO_OrderCode = CO_OrderCode;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.GID);
+        dest.writeString(this.CO_Type);
+        dest.writeString(this.CO_OrderCode);
+    }
+
+    public OrderCanshhu() {
+    }
+
+    protected OrderCanshhu(Parcel in) {
+        this.GID = in.readString();
+        this.CO_Type = in.readString();
+        this.CO_OrderCode = in.readString();
+    }
+
+    public static final Parcelable.Creator<OrderCanshhu> CREATOR = new Parcelable.Creator<OrderCanshhu>() {
+        @Override
+        public OrderCanshhu createFromParcel(Parcel source) {
+            return new OrderCanshhu(source);
+        }
+
+        @Override
+        public OrderCanshhu[] newArray(int size) {
+            return new OrderCanshhu[size];
+        }
+    };
 }

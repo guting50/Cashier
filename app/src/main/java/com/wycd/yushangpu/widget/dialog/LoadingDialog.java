@@ -24,8 +24,8 @@ public class LoadingDialog {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.dialog_loading, null);
         dialog = new Dialog(context, R.style.DialogNotitle1);
-        dialog.setCancelable(false);//是否返回键消失
-        dialog.setCanceledOnTouchOutside(false);//是否点击边缘消失
+        dialog.setCancelable(true);//是否返回键消失
+        dialog.setCanceledOnTouchOutside(true);//是否点击边缘消失
         int screenWidth = ((WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay()
                 .getWidth();

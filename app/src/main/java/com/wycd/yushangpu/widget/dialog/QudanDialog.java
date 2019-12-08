@@ -1,12 +1,9 @@
 package com.wycd.yushangpu.widget.dialog;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,6 +25,8 @@ import com.wycd.yushangpu.model.ImpOnlyVipMsg;
 import com.wycd.yushangpu.model.ImpRevokeGuaDanOrder;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
+import com.wycd.yushangpu.ui.BaseActivity;
+import com.wycd.yushangpu.ui.JiesuanBActibvity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
@@ -37,6 +36,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -45,7 +45,7 @@ import butterknife.ButterKnife;
  * Created by songxiaotao on 2017/12/21.
  */
 
-public class QudanDialog extends Dialog {
+public class QudanDialog extends BaseActivity {
     @BindView(R.id.tv_code)
     TextView tvCode;
     @BindView(R.id.tv_card)
@@ -64,31 +64,30 @@ public class QudanDialog extends Dialog {
     ImageView ivClose;
     @BindView(R.id.srl_freshmanage_activity)
     WaveSwipeRefreshLayout mRefresh;
-    private InterfaceBack back;
+    private static InterfaceBack back;
     private List<GuadanList> list;
     private Activity context;
-    public Dialog dialog;
     private GuadanListAdapter guadanListAdapter;
     private String jifen;
     private double dkmoney;
     private VipDengjiMsg.DataBean mVipMsg;
-    private List<ShopMsg> mShopLeftList = new ArrayList<>();
+    private ArrayList<ShopMsg> mShopLeftList = new ArrayList<>();
     private PayTypeMsg moren;//默认支付
-    private List<PayTypeMsg> paytypelist;
+    private ArrayList<PayTypeMsg> paytypelist;
     private String jifendkbfb, jinfenzfxzbfb;
     private int refreshnum = 2;
     private boolean mIsLoadMore;
     private int mPageTotal;//数据总页数
     private String mSmGid;
 
-    public QudanDialog(Activity context, PayTypeMsg moren, List<PayTypeMsg> paytypelist, String mSmGid, InterfaceBack back) {
-        super(context, R.style.ActionSheetDialogStyle);
-        this.back = back;
-        this.context = context;
-        this.moren = moren;
-        this.mSmGid = mSmGid;
-        this.paytypelist = paytypelist;
-        dialog = LoadingDialog.loadingDialog(context, 1);
+    public static void startQudanDialog(Activity context, PayTypeMsg moren, ArrayList<PayTypeMsg> paytypelist, String mSmGid, InterfaceBack b) {
+        back = b;
+
+        Intent intent = new Intent(context, QudanDialog.class);
+        intent.putExtra("moren", moren);
+        intent.putParcelableArrayListExtra("paytypelist", paytypelist);
+        intent.putExtra("mSmGid", mSmGid);
+        context.startActivity(intent);
     }
 
     @Override
@@ -96,8 +95,12 @@ public class QudanDialog extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_gualist);
         ButterKnife.bind(this);
-        setCancelable(true);
-        setCanceledOnTouchOutside(true);
+
+        this.context = this;
+        this.moren = getIntent().getParcelableExtra("moren");
+        this.paytypelist = getIntent().getParcelableArrayListExtra("paytypelist");
+        this.mSmGid = getIntent().getStringExtra("mSmGid");
+
         list = new ArrayList<>();
         guadanListAdapter = new GuadanListAdapter(context, list, new InterfaceBack() {
             @Override
@@ -111,7 +114,7 @@ public class QudanDialog extends Dialog {
                         @Override
                         public void onResponse(Object response) {
                             dialog.dismiss();
-                            dismiss();
+                            finish();
                             RevokeGuaDanBean guaDanBean = (RevokeGuaDanBean) response;
                             back.onResponse(guaDanBean);
                             HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
@@ -174,22 +177,9 @@ public class QudanDialog extends Dialog {
     }
 
     private void jiesuan(GuadanList guadanList, VipDengjiMsg.DataBean mVipMsg) {
-        final JiesuanBDialog jiesuanBDialog = new JiesuanBDialog(context, guadanList.getCO_TotalPrice(), mVipMsg, mVipMsg, dkmoney + "", guadanList.getGID(),
-                guadanList.getCO_Type(), guadanList.getCO_OrderCode(), mShopLeftList, moren, paytypelist, true, new InterfaceBack() {
-            @Override
-            public void onResponse(Object response) {
-//                ToastUtils.showToast(context, "结算成功");
-                com.blankj.utilcode.util.ToastUtils.showShort("结算成功");
-                mShopLeftList.clear();
-                obtainGuadanList(1);
-//                                    mTvShoukuan.setText("收 款  ￥ 0.00");
-            }
 
-            @Override
-            public void onErrorResponse(Object msg) {
-            }
-        });
-        jiesuanBDialog.show();
+        JiesuanBActibvity.startJiesuanBActibvity(context, guadanList.getCO_TotalPrice(), mVipMsg, mVipMsg, dkmoney + "", guadanList.getGID(),
+                guadanList.getCO_Type(), guadanList.getCO_OrderCode(), mShopLeftList, moren, paytypelist, true);
 
     }
 
@@ -234,12 +224,10 @@ public class QudanDialog extends Dialog {
     }
 
     private void obtainGuadanList(int index) {
-        dialog.show();
         ImpGuadanList shopHome = new ImpGuadanList();
         shopHome.guadanList(context, index, 20, mSmGid, new InterfaceBack() {
             @Override
             public void onResponse(Object response) {
-                dialog.dismiss();
                 HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
                 event.setMsg("Change_color");
                 EventBus.getDefault().post(event);
@@ -276,7 +264,6 @@ public class QudanDialog extends Dialog {
 
             @Override
             public void onErrorResponse(Object msg) {
-                dialog.dismiss();
                 HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
                 event.setMsg("Change_color");
                 EventBus.getDefault().post(event);
@@ -289,7 +276,7 @@ public class QudanDialog extends Dialog {
         ivClose.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
-                dismiss();
+                finish();
                 HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
                 event.setMsg("Change_color");
                 EventBus.getDefault().post(event);
@@ -341,28 +328,19 @@ public class QudanDialog extends Dialog {
 
     }
 
-    @Override
-    public void show() {
-        super.show();
-        /**
-         * 设置宽度全屏，要设置在show的后面
-         */
-        WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
-        layoutParams.gravity = Gravity.CENTER;
-        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-        layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        getWindow().getDecorView().setPadding(0, 0, 0, 0);
-        getWindow().setAttributes(layoutParams);
-    }
 
-    /**
-     * 将dip或dp值转换为px值，保证尺寸大小不变
-     *
-     * @param dipValue （DisplayMetrics类中属性density）
-     * @return
-     */
-    public static int dip2px(Context context, float dipValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dipValue * scale + 0.5f);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 888:
+                if (resultCode == 200) {
+                    com.blankj.utilcode.util.ToastUtils.showShort("结算成功");
+                    mShopLeftList.clear();
+                    obtainGuadanList(1);
+//                                    mTvShoukuan.setText("收 款  ￥ 0.00");
+                }
+                break;
+        }
     }
 }

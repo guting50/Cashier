@@ -1,9 +1,12 @@
 package com.wycd.yushangpu.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.util.List;
 
-public class ShopMsg implements Serializable {
+public class ShopMsg implements Serializable, Parcelable {
 
     private String PM_GroupGID;//	商品组GID
     private String GroupCount;//	组商品数
@@ -388,4 +391,115 @@ public class ShopMsg implements Serializable {
     public void setSP_GID(String SP_GID) {
         this.SP_GID = SP_GID;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.PM_GroupGID);
+        dest.writeString(this.GroupCount);
+        dest.writeString(this.GID);
+        dest.writeString(this.PT_ID);
+        dest.writeString(this.SM_ID);
+        dest.writeString(this.PT_Name);
+        dest.writeString(this.PM_Code);
+        dest.writeString(this.PM_Name);
+        dest.writeString(this.PM_SimpleCode);
+        dest.writeString(this.PM_Metering);
+        dest.writeDouble(this.PM_UnitPrice);
+        dest.writeString(this.PM_BigImg);
+        dest.writeString(this.PM_SmallImg);
+        dest.writeString(this.PM_Description);
+        dest.writeString(this.PM_Modle);
+        dest.writeString(this.PM_Brand);
+        dest.writeDouble(this.PM_Repertory);
+        dest.writeDouble(this.Stock_Number);
+        dest.writeDouble(this.currtStock_Number);
+        dest.writeDouble(this.PM_PurchasePrice);
+        dest.writeString(this.PM_MemPrice);
+        dest.writeInt(this.PM_IsDiscount);
+        dest.writeInt(this.PM_IsPoint);
+        dest.writeInt(this.PM_IsService);
+        dest.writeString(this.SP_GID);
+        dest.writeDouble(this.PM_SpecialOfferMoney);
+        dest.writeDouble(this.PM_SpecialOfferValue);
+        dest.writeDouble(this.PM_MinDisCountValue);
+        dest.writeDouble(this.PM_FixedIntegralValue);
+        dest.writeStringList(this.EM_GIDList);
+        dest.writeString(this.EM_NameList);
+        dest.writeDouble(this.num);
+        dest.writeInt(this.chosePosion);
+        dest.writeDouble(this.allprice);
+        dest.writeDouble(this.PD_Discount);
+        dest.writeDouble(this.jisuanPrice);
+        dest.writeDouble(this.EachPoint);
+        dest.writeByte(this.isCheck ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.hasvipDiscount ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.isgive ? (byte) 1 : (byte) 0);
+        dest.writeInt(this.Type);
+        dest.writeByte(this.ischanged ? (byte) 1 : (byte) 0);
+    }
+
+    public ShopMsg() {
+    }
+
+    protected ShopMsg(Parcel in) {
+        this.PM_GroupGID = in.readString();
+        this.GroupCount = in.readString();
+        this.GID = in.readString();
+        this.PT_ID = in.readString();
+        this.SM_ID = in.readString();
+        this.PT_Name = in.readString();
+        this.PM_Code = in.readString();
+        this.PM_Name = in.readString();
+        this.PM_SimpleCode = in.readString();
+        this.PM_Metering = in.readString();
+        this.PM_UnitPrice = in.readDouble();
+        this.PM_BigImg = in.readString();
+        this.PM_SmallImg = in.readString();
+        this.PM_Description = in.readString();
+        this.PM_Modle = in.readString();
+        this.PM_Brand = in.readString();
+        this.PM_Repertory = in.readDouble();
+        this.Stock_Number = in.readDouble();
+        this.currtStock_Number = in.readDouble();
+        this.PM_PurchasePrice = in.readDouble();
+        this.PM_MemPrice = in.readString();
+        this.PM_IsDiscount = in.readInt();
+        this.PM_IsPoint = in.readInt();
+        this.PM_IsService = in.readInt();
+        this.SP_GID = in.readString();
+        this.PM_SpecialOfferMoney = in.readDouble();
+        this.PM_SpecialOfferValue = in.readDouble();
+        this.PM_MinDisCountValue = in.readDouble();
+        this.PM_FixedIntegralValue = in.readDouble();
+        this.EM_GIDList = in.createStringArrayList();
+        this.EM_NameList = in.readString();
+        this.num = in.readDouble();
+        this.chosePosion = in.readInt();
+        this.allprice = in.readDouble();
+        this.PD_Discount = in.readDouble();
+        this.jisuanPrice = in.readDouble();
+        this.EachPoint = in.readDouble();
+        this.isCheck = in.readByte() != 0;
+        this.hasvipDiscount = in.readByte() != 0;
+        this.isgive = in.readByte() != 0;
+        this.Type = in.readInt();
+        this.ischanged = in.readByte() != 0;
+    }
+
+    public static final Parcelable.Creator<ShopMsg> CREATOR = new Parcelable.Creator<ShopMsg>() {
+        @Override
+        public ShopMsg createFromParcel(Parcel source) {
+            return new ShopMsg(source);
+        }
+
+        @Override
+        public ShopMsg[] newArray(int size) {
+            return new ShopMsg[size];
+        }
+    };
 }

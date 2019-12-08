@@ -1,11 +1,10 @@
-package com.wycd.yushangpu.ui;
+package com.wycd.yushangpu.ui.fragment;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -44,6 +43,7 @@ import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.StringUtil;
 import com.wycd.yushangpu.widget.NumInputView;
 import com.wycd.yushangpu.widget.NumKeyboardUtils;
+import com.wycd.yushangpu.widget.dialog.LoadingDialog;
 import com.wycd.yushangpu.widget.dialog.SaomaDialog;
 import com.wycd.yushangpu.widget.dialog.YouhuiquanDialog;
 import com.wycd.yushangpu.widget.views.ClearEditText;
@@ -51,7 +51,10 @@ import com.wycd.yushangpu.widget.views.ClearEditText;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -59,10 +62,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.wycd.yushangpu.MyApplication.shortMessage;
 
-public class JiesuanBActibvity extends BaseActivity {
+public class JiesuanBFragment extends Fragment {
 
     private List<ShopMsg> list;
-    private Activity context;
+    private AppCompatActivity context;
 
     @BindView(R.id.et_zhmoney)
     TextView mEtZhmoney;
@@ -116,7 +119,10 @@ public class JiesuanBActibvity extends BaseActivity {
     FrameLayout li_jiesuan;
     @BindView(R.id.cb_short_message)
     CheckBox cbMessage;
+    @BindView(R.id.li_close)
+    View liClose;
 
+    private InterfaceBack back;
     private PayTypeMsg moren;//默认支付
     private List<PayTypeMsg> paylist;
     private boolean isMember;
@@ -132,36 +138,18 @@ public class JiesuanBActibvity extends BaseActivity {
     private VipDengjiMsg.DataBean mVipDengjiMsg;
     private double moneyFlag;
     private VipDengjiMsg.DataBean mVipMsg;
+    private Dialog dialog;
 
-    public static void startJiesuanBActibvity(Activity context, String money, VipDengjiMsg.DataBean vipMsg, VipDengjiMsg.DataBean mVipDengjiMsg, String dkmoney,
-                                              String GID, String CO_Type, String CO_OrderCode, ArrayList<ShopMsg> list, PayTypeMsg moren, ArrayList<PayTypeMsg> paylist,
-                                              boolean isguazhang) {
-        Intent intent = new Intent(context, JiesuanBActibvity.class);
-        intent.putExtra("allmoney", money);
-        intent.putExtra("mVipMsg", vipMsg);
-        intent.putExtra("mVipDengjiMsg", mVipDengjiMsg);
-        intent.putExtra("dkmoney", dkmoney + "");
-        intent.putExtra("GID", GID);
-        intent.putExtra("CO_Type", CO_Type);
-        intent.putExtra("CO_OrderCode", CO_OrderCode);
-        intent.putParcelableArrayListExtra("list", list);
-        intent.putExtra("moren", moren);
-        intent.putParcelableArrayListExtra("paylist", paylist);
-        intent.putExtra("isguazhang", false);
-        context.startActivityForResult(intent, 888);
-    }
-
+    @Nullable
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_jiesuan_new);
-        getWindow().setLayout((ViewGroup.LayoutParams.MATCH_PARENT), ViewGroup.LayoutParams.MATCH_PARENT);
-        ButterKnife.bind(this);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.dialog_jiesuan_new, null);
+        ButterKnife.bind(this, view);
 
-        NumKeyboardUtils numKeyboardUtils = new NumKeyboardUtils(this, getWindow().getDecorView(), mEtXianjin);
+        NumKeyboardUtils numKeyboardUtils = new NumKeyboardUtils(getActivity(), view, mEtXianjin);
         numKeyboardUtils.addEditView(et_moling);
 
-        initDate();
+        this.context = (AppCompatActivity) getActivity();
 
         for (PayTypeMsg m : paylist) {
             if (m.getSS_Name().equals("积分支付")) {
@@ -176,26 +164,55 @@ public class JiesuanBActibvity extends BaseActivity {
         handleZhaoling();
 
         setCbShortMessage("011");
+        dialog = LoadingDialog.loadingDialog(context, 1);
+
+        return view;
     }
 
-    private void initDate() {
-//      可抵扣金额= 会员积分/积分抵扣百分比 *积分支付限制百分比
-        this.context = this;
-        this.money = getIntent().getStringExtra("allmoney");
-        this.mVipMsg = getIntent().getParcelableExtra("mVipMsg");
-        this.mVipDengjiMsg = getIntent().getParcelableExtra("mVipDengjiMsg");
-        this.dkmoney = getIntent().getStringExtra("dkmoney");
-        this.GID = getIntent().getStringExtra("GID");
-        this.CO_Type = getIntent().getStringExtra("CO_Type");
-        this.CO_OrderCode = getIntent().getStringExtra("CO_OrderCode");
-        this.list = getIntent().getParcelableArrayListExtra("list");
-        this.moren = getIntent().getParcelableExtra("moren");
-        this.paylist = getIntent().getParcelableArrayListExtra("paylist");
-        this.isguazhang = getIntent().getBooleanExtra("isguazhang", false);
+
+    public void setData(String money, VipDengjiMsg.DataBean vipMsg, VipDengjiMsg.DataBean mVipDengjiMsg, String dkmoney,
+                        String GID, String CO_Type, String CO_OrderCode, ArrayList<ShopMsg> list, PayTypeMsg moren, ArrayList<PayTypeMsg> paylist,
+                        boolean isguazhang) {
+        this.money = money;
+        this.mVipMsg = vipMsg;
+        this.mVipDengjiMsg = mVipDengjiMsg;
+        this.dkmoney = dkmoney;
+        this.GID = GID;
+        this.CO_Type = CO_Type;
+        this.CO_OrderCode = CO_OrderCode;
+        this.list = list;
+        this.moren = moren;
+        this.paylist = paylist;
+        this.isguazhang = isguazhang;
 
         this.jifen = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableIntegral() + "";
         this.yue = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableBalance() + "";
         this.isMember = null == mVipMsg ? false : true;
+
+        if (mVipDengjiMsg != null) {
+            VolleyResponse.instance().getInternetImg(context, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(
+                    mVipDengjiMsg.getVIP_HeadImg()).toString()), mIvViptx, R.mipmap.member_head_nohead);
+            mTvVipname.setText(NullUtils.noNullHandle(mVipDengjiMsg.getVIP_Name()).toString());
+            tvBlance.setText("余额:" + StringUtil.twoNum(NullUtils.noNullHandle(mVipDengjiMsg.getMA_AvailableBalance()).toString()));
+            tvIntegral.setText("积分:" + Double.parseDouble(NullUtils.noNullHandle(mVipDengjiMsg.getMA_AvailableIntegral()).toString()) + "");
+        } else if (mVipMsg != null) {
+            VolleyResponse.instance().getInternetImg(context, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(
+                    mVipMsg.getVIP_HeadImg()).toString()), mIvViptx, R.mipmap.member_head_nohead);
+            mTvVipname.setText(NullUtils.noNullHandle(mVipMsg.getVIP_Name()).toString());
+            tvBlance.setText("余额:" + StringUtil.twoNum(NullUtils.noNullHandle(mVipMsg.getMA_AvailableBalance()).toString()));
+            tvIntegral.setText("积分:" + Double.parseDouble(NullUtils.noNullHandle(mVipMsg.getMA_AvailableIntegral()).toString()) + "");
+
+        } else {
+            Glide.with(context).load(R.mipmap.member_head_nohead).into(mIvViptx);
+            mTvVipname.setText("散客");
+            tvBlance.setText("余额:0.00");
+            tvIntegral.setText("积分:0");
+        }
+
+        tvBillCount.setText(StringUtil.twoNum(money));
+        mEtZhmoney.setText(StringUtil.twoNum(money));
+        LogUtils.d("xxxxxx", new Gson().toJson(moren));
+        setMorenPay(moren);
     }
 
     @OnClick({R.id.li_10, R.id.li_20, R.id.li_50, R.id.li_100,
@@ -465,7 +482,7 @@ public class JiesuanBActibvity extends BaseActivity {
 
                             @Override
                             public void onErrorResponse(Object msg) {
-                                finish();
+                                back.onResponse(msg);
                             }
                         });
                     }
@@ -550,35 +567,10 @@ public class JiesuanBActibvity extends BaseActivity {
 
     private void setView() {
 
-        if (mVipDengjiMsg != null) {
-            VolleyResponse.instance().getInternetImg(context, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(
-                    mVipDengjiMsg.getVIP_HeadImg()).toString()), mIvViptx, R.mipmap.member_head_nohead);
-            mTvVipname.setText(NullUtils.noNullHandle(mVipDengjiMsg.getVIP_Name()).toString());
-            tvBlance.setText("余额:" + StringUtil.twoNum(NullUtils.noNullHandle(mVipDengjiMsg.getMA_AvailableBalance()).toString()));
-            tvIntegral.setText("积分:" + Double.parseDouble(NullUtils.noNullHandle(mVipDengjiMsg.getMA_AvailableIntegral()).toString()) + "");
-        } else if (mVipMsg != null) {
-            VolleyResponse.instance().getInternetImg(context, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(
-                    mVipMsg.getVIP_HeadImg()).toString()), mIvViptx, R.mipmap.member_head_nohead);
-            mTvVipname.setText(NullUtils.noNullHandle(mVipMsg.getVIP_Name()).toString());
-            tvBlance.setText("余额:" + StringUtil.twoNum(NullUtils.noNullHandle(mVipMsg.getMA_AvailableBalance()).toString()));
-            tvIntegral.setText("积分:" + Double.parseDouble(NullUtils.noNullHandle(mVipMsg.getMA_AvailableIntegral()).toString()) + "");
-
-        } else {
-            Glide.with(context).load(R.mipmap.member_head_nohead).into(mIvViptx);
-            mTvVipname.setText("散客");
-            tvBlance.setText("余额:0.00");
-            tvIntegral.setText("积分:0");
-        }
-
         //优惠金额不编辑
         mEtYue.setFocusable(false);
         mEtYue.setFocusableInTouchMode(false);
-
-        tvBillCount.setText(StringUtil.twoNum(money));
-        mEtZhmoney.setText(StringUtil.twoNum(money));
-        LogUtils.d("xxxxxx", new Gson().toJson(moren));
         setPay(paylist);
-        setMorenPay(moren);
 
         li_jiesuan.setOnClickListener(new NoDoubleClickListener() {
             @Override
@@ -647,8 +639,7 @@ public class JiesuanBActibvity extends BaseActivity {
                                 @Override
                                 public void onResponse(Object response) {
                                     dialog.dismiss();
-                                    setResult(200, new Intent().putExtra("GID", "0"));
-                                    finish();
+                                    back.onResponse("0");
                                 }
 
                                 @Override
@@ -684,9 +675,7 @@ public class JiesuanBActibvity extends BaseActivity {
                                     Gson gson = new Gson();
                                     final SPXF_Success_Bean spxf_success_bean = gson.fromJson(responseString, SPXF_Success_Bean.class);
                                     dialog.dismiss();
-                                    setResult(200, new Intent().putExtra("GID",
-                                            spxf_success_bean.getData().getGID()));
-                                    finish();
+                                    back.onResponse(spxf_success_bean.getData().getGID());
                                 }
 
                                 @Override
@@ -701,10 +690,10 @@ public class JiesuanBActibvity extends BaseActivity {
             }
         });
 
-        findViewById(R.id.li_close).setOnClickListener(new NoDoubleClickListener() {
+        liClose.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
-                finish();
+                back.onResponse(null);
             }
         });
     }

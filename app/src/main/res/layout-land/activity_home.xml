@@ -485,7 +485,7 @@
 
     </ScrollView>
 
-    <fragment
+   <fragment
         android:id="@+id/goods_list_fragment"
         android:name="com.wycd.yushangpu.ui.fragment.GoodsListFragment"
         android:layout_width="match_parent"
@@ -493,7 +493,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginTop="@dimen/dp_5"
         android:layout_marginBottom="@dimen/dp_5"
-        android:layout_toRightOf="@+id/cashier_layout"
+        android:layout_toRightOf="@+id/scroll_view"
         android:background="@drawable/background_white" />
 
     <fragment
@@ -504,7 +504,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginTop="@dimen/dp_5"
         android:layout_marginBottom="@dimen/dp_5"
-        android:layout_toRightOf="@+id/cashier_layout"
+        android:layout_toRightOf="@+id/scroll_view"
         android:background="@drawable/background_white" />
 
     <!-- <fragmentm

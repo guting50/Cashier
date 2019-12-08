@@ -47,6 +47,7 @@ import com.wycd.yushangpu.model.ImpSubmitOrder;
 import com.wycd.yushangpu.model.ImpSubmitOrder_Guazhang;
 import com.wycd.yushangpu.model.ImpSystemCanshu;
 import com.wycd.yushangpu.printutil.GetPrintSet;
+import com.wycd.yushangpu.printutil.HttpGetPrintContents;
 import com.wycd.yushangpu.printutil.YSLUtils;
 import com.wycd.yushangpu.tools.ActivityManager;
 import com.wycd.yushangpu.tools.CacheData;
@@ -85,6 +86,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -97,6 +99,7 @@ import static android.hardware.usb.UsbManager.ACTION_USB_DEVICE_DETACHED;
 import static com.wycd.yushangpu.MyApplication.ISBULETOOTHCONNECT;
 import static com.wycd.yushangpu.MyApplication.ISCONNECT;
 import static com.wycd.yushangpu.MyApplication.ISLABELCONNECT;
+import static com.wycd.yushangpu.MyApplication.LABELPRINT_IS_OPEN;
 import static com.wycd.yushangpu.MyApplication.myBinder;
 import static com.wycd.yushangpu.tools.Constant.ACTION_USB_PERMISSION;
 
@@ -160,12 +163,12 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     //    private List<ClassMsg> twoClassList;
 //    private Gson mGson;
     public ShopLeftAdapter mShopLeftAdapter;
-    private List<ShopMsg> mShopLeftList = new ArrayList<>();
+    private ArrayList<ShopMsg> mShopLeftList = new ArrayList<>();
     public VipDengjiMsg.DataBean mVipMsg;
     private VipDengjiMsg mVipDengjiMsg;
     private CharSequence ordertime;
     private String order;
-    private List<PayTypeMsg> paytypelist = new ArrayList<>();
+    private ArrayList<PayTypeMsg> paytypelist = new ArrayList<>();
     private PayTypeMsg moren;
     private String allmoney;
     private double mPoint;//积分
@@ -350,8 +353,9 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     protected void initView() {
         fragmentManager = getSupportFragmentManager();
         editCashierGoodsFragment = (EditCashierGoodsFragment) fragmentManager.findFragmentById(R.id.edit_cashier_goods_fragment);
-        goodsListFragment = (GoodsListFragment) fragmentManager.findFragmentById(R.id.goods_list_fragment);
         fragmentManager.beginTransaction().hide(editCashierGoodsFragment).commit();
+
+        goodsListFragment = (GoodsListFragment) fragmentManager.findFragmentById(R.id.goods_list_fragment);
 
         imgHedimg = (CircleImageView) findViewById(R.id.img_hedimg);
 
@@ -1102,46 +1106,14 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     submitOrder.submitOrder(ac, order, ordertime.toString(), null == mVipDengjiMsg ? "00000" : mVipDengjiMsg.getData().get(0).getVCH_Card(), mShopLeftList, false, new InterfaceBack() {
                         @Override
                         public void onResponse(Object response) {
-                            dialog.dismiss();
                             OrderCanshhu jso = (OrderCanshhu) response;
                             String jifen = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableIntegral() + "";
                             double dkmoney = CommonUtils.div(CommonUtils.div(Double.parseDouble(CommonUtils.multiply(jifen, jinfenzfxzbfb)), 100, 2),
                                     Double.parseDouble(jifendkbfb), 2);//可抵扣金额
-
-                            Intent intent = new Intent(HomeActivity.this, JiesuanBActibvity.class);
-                            startActivityForResult(intent, 888);
-//                            final JiesuanBDialog jiesuanBDialog = new JiesuanBDialog(HomeActivity.this, allmoney, mVipMsg,
-//                                    mVipDengjiMsg == null ? null : mVipDengjiMsg.getData().get(0),
-//                                    dkmoney + "", jso.getGID(),
-//                                    jso.getCO_Type(), jso.getCO_OrderCode(), mShopLeftList, moren, paytypelist, false, new InterfaceBack() {
-//                                @Override
-//                                public void onResponse(Object response) {
-//                                    String gid = (String) response;
-////                                    ToastUtils.showToast(ac, "结算成功");
-//                                    com.blankj.utilcode.util.ToastUtils.showShort("结算成功");
-//
-//                                    //打印小票
-//                                    if (MyApplication.PRINT_IS_OPEN) {
-//                                        if (MyApplication.mGoodsConsumeMap.isEmpty()) {
-//                                            GetPrintSet.getPrintParamSet();
-//                                        }
-//                                        new HttpGetPrintContents().SPXF(ac, gid);
-//                                    }
-//
-//                                    if (ISLABELCONNECT && LABELPRINT_IS_OPEN) {
-//                                        for (int i = 0; i < mShopLeftList.size(); i++) {
-//                                            labelPrint(mShopLeftList.get(i));
-//                                        }
-//                                    }
-//
-//                                    resetCashier();
-//                                }
-//
-//                                @Override
-//                                public void onErrorResponse(Object msg) {
-//                                }
-//                            });
-//                            jiesuanBDialog.show();
+                            JiesuanBActibvity.startJiesuanBActibvity(ac, allmoney, mVipMsg, mVipDengjiMsg == null ? null : mVipDengjiMsg.getData().get(0),
+                                    dkmoney + "", jso.getGID(),jso.getCO_Type(), jso.getCO_OrderCode(),
+                                    mShopLeftList, moren, paytypelist, false);
+                            dialog.dismiss();
                         }
 
                         @Override
@@ -1338,7 +1310,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     });
                 } else {
                     //取单
-                    QudanDialog qudanDialog = new QudanDialog(ac, moren, paytypelist, mSmGid, new InterfaceBack() {
+                    QudanDialog.startQudanDialog(ac, moren, paytypelist, mSmGid, new InterfaceBack() {
                         @Override
                         public void onResponse(Object response) {
                             dialog.dismiss();
@@ -1360,7 +1332,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
                         }
                     });
-                    qudanDialog.show();
                 }
             }
 
@@ -1667,8 +1638,35 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         msg.obj = url;
         msg.what = 1;
         handler.sendMessage(msg);
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 888:
+                if (resultCode == 200) {
+                    String gid = data.getStringExtra("GID");
+                    com.blankj.utilcode.util.ToastUtils.showShort("结算成功");
 
+                    //打印小票
+                    if (MyApplication.PRINT_IS_OPEN) {
+                        if (MyApplication.mGoodsConsumeMap.isEmpty()) {
+                            GetPrintSet.getPrintParamSet();
+                        }
+                        new HttpGetPrintContents().SPXF(ac, gid);
+                    }
+
+                    if (ISLABELCONNECT && LABELPRINT_IS_OPEN) {
+                        for (int i = 0; i < mShopLeftList.size(); i++) {
+                            labelPrint(mShopLeftList.get(i));
+                        }
+                    }
+
+                    resetCashier();
+                }
+                break;
+        }
     }
 
     private static Handler handler = new Handler() {

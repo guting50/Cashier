@@ -1,8 +1,9 @@
 package com.wycd.yushangpu.bean;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class PayTypeMsg implements Serializable {
+public class PayTypeMsg implements Parcelable {
     private String GID;//	开关设置GID	string
     private String SS_Name;//	开关名称	string
     private int SS_Code;//	开关编码	Int32?
@@ -102,4 +103,53 @@ public class PayTypeMsg implements Serializable {
     public void setSS_Value(String SS_Value) {
         this.SS_Value = SS_Value;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.GID);
+        dest.writeString(this.SS_Name);
+        dest.writeInt(this.SS_Code);
+        dest.writeInt(this.SS_State);
+        dest.writeString(this.SS_Remark);
+        dest.writeString(this.SS_Update);
+        dest.writeString(this.SS_UpdateTime);
+        dest.writeString(this.CY_GID);
+        dest.writeInt(this.SS_Sort);
+        dest.writeString(this.SS_Value);
+        dest.writeByte(this.isMoren ? (byte) 1 : (byte) 0);
+    }
+
+    public PayTypeMsg() {
+    }
+
+    protected PayTypeMsg(Parcel in) {
+        this.GID = in.readString();
+        this.SS_Name = in.readString();
+        this.SS_Code = in.readInt();
+        this.SS_State = in.readInt();
+        this.SS_Remark = in.readString();
+        this.SS_Update = in.readString();
+        this.SS_UpdateTime = in.readString();
+        this.CY_GID = in.readString();
+        this.SS_Sort = in.readInt();
+        this.SS_Value = in.readString();
+        this.isMoren = in.readByte() != 0;
+    }
+
+    public static final Parcelable.Creator<PayTypeMsg> CREATOR = new Parcelable.Creator<PayTypeMsg>() {
+        @Override
+        public PayTypeMsg createFromParcel(Parcel source) {
+            return new PayTypeMsg(source);
+        }
+
+        @Override
+        public PayTypeMsg[] newArray(int size) {
+            return new PayTypeMsg[size];
+        }
+    };
 }

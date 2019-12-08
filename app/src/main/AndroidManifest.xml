@@ -96,6 +96,14 @@
             android:screenOrientation="landscape"
             android:theme="@style/AppThemeTranslucent"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+
+        <activity
+            android:name=".widget.dialog.QudanDialog"
+            android:exported="false"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppThemeTranslucent"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <!-- <intent-filter> -->
         <!-- <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" /> -->
         <!-- </intent-filter> -->

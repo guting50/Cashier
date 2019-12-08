@@ -84,6 +84,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         dialog = LoadingDialog.loadingDialog(BaseActivity.this, 1);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        dialog.dismiss();
+    }
+
     public static void setNavigationBar() {
         View decorView = ac.getWindow().getDecorView();
         //显示NavigationBar

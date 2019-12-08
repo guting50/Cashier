@@ -9,7 +9,7 @@ import java.util.TimerTask;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class LogoActivity extends AppCompatActivity {
+public class LogoActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
