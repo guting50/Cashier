@@ -80,20 +80,21 @@ public class QudanFragment extends Fragment {
     private boolean mIsLoadMore;
     private int mPageTotal;//数据总页数
     private String mSmGid;
+    View rootView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_gualist, null);
-        ButterKnife.bind(this, view);
-
-        homeActivity = (HomeActivity) getActivity();
-        return view;
+        rootView = inflater.inflate(R.layout.dialog_gualist, null);
+        return rootView;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        ButterKnife.bind(this, rootView);
+
+        homeActivity = (HomeActivity) getActivity();
 
         list = new ArrayList<>();
         guadanListAdapter = new GuadanListAdapter(homeActivity, list, new InterfaceBack() {

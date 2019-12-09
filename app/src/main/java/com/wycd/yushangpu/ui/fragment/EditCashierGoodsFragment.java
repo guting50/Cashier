@@ -78,13 +78,17 @@ public class EditCashierGoodsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_edit_cashier_goods, null);
+        return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         ButterKnife.bind(this, rootView);
 
         homeActivity = (HomeActivity) getActivity();
 
         new NumKeyboardUtils(getActivity(), rootView, editTextLayout);
-
-        return rootView;
     }
 
     public void setData(ShopMsg shopBean) {

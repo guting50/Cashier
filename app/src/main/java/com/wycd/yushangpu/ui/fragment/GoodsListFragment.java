@@ -54,19 +54,20 @@ public class GoodsListFragment extends Fragment {
 
     HomeActivity homeActivity;
     Adapter adapter;
+    View rootView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_goods_list, null);
-        ButterKnife.bind(this, view);
-        homeActivity = (HomeActivity) getActivity();
-        return view;
+        rootView = inflater.inflate(R.layout.fragment_goods_list, null);
+        return rootView;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        homeActivity = (HomeActivity) getActivity();
 
         initView();
         obtainShopClass();

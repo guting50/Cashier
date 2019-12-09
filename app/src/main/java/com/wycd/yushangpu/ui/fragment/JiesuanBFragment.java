@@ -138,24 +138,25 @@ public class JiesuanBFragment extends Fragment {
     private double moneyFlag;
     private VipDengjiMsg.DataBean mVipMsg;
     private Dialog dialog;
+    View rootView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_jiesuan_new, null);
-        ButterKnife.bind(this, view);
-
-        NumKeyboardUtils numKeyboardUtils = new NumKeyboardUtils(getActivity(), view, mEtXianjin);
-        numKeyboardUtils.addEditView(et_moling);
-
-        this.context = (AppCompatActivity) getActivity();
-
-        return view;
+        rootView = inflater.inflate(R.layout.dialog_jiesuan_new, null);
+        return rootView;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        ButterKnife.bind(this, rootView);
+
+        NumKeyboardUtils numKeyboardUtils = new NumKeyboardUtils(getActivity(), rootView, mEtXianjin);
+        numKeyboardUtils.addEditView(et_moling);
+
+        this.context = (AppCompatActivity) getActivity();
+
         setView();
         handleZhaoling();
 
