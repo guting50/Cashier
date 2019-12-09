@@ -29,6 +29,7 @@ import com.wycd.yushangpu.widget.views.ShapedImageView;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -186,12 +187,11 @@ public class GoodsListFragment extends Fragment {
     }
 
     public void obtainHomeShop(String PT_GID, String PM_CodeOrNameOrSimpleCode) {
-//        dialog.show();
+        homeActivity.dialog.show();
         ImpShopHome shopHome = new ImpShopHome();
         shopHome.shoplist(getActivity(), PageIndex, PageSize, PT_GID, PM_CodeOrNameOrSimpleCode, new InterfaceBack() {
             @Override
             public void onResponse(Object response) {
-//                dialog.dismiss();
                 List<ShopMsg> sllist = (List<ShopMsg>) response;
                 homeActivity.mEtLoginAccount.setText("");
                 adapter.addShopMsgList(sllist);
@@ -202,11 +202,18 @@ public class GoodsListFragment extends Fragment {
                     }
                 }
                 adapter.notifyDataSetChanged();
+                homeActivity.dialog.dismiss();
+                Calendar.getInstance().setTimeInMillis(System.currentTimeMillis());
+                System.out.println(String.format("ღღღღღ GT ღღღღღ [%1$02d:%2$02d:%3$02d] %4$s\n",
+                        Calendar.getInstance().get(Calendar.MINUTE),
+                        Calendar.getInstance().get(Calendar.SECOND),
+                        Calendar.getInstance().get(Calendar.MILLISECOND),
+                        "GoodsListFragment end"));
             }
 
             @Override
             public void onErrorResponse(Object msg) {
-//                dialog.dismiss();
+                homeActivity.dialog.dismiss();
             }
         });
 

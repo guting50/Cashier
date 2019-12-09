@@ -23,7 +23,7 @@ import com.wycd.yushangpu.tools.ShadowUtils;
 import com.wycd.yushangpu.widget.views.ClearEditText;
 import com.yanzhenjie.permission.AndPermission;
 
-import java.io.Serializable;
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,7 +40,6 @@ public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.login_cb)
     CheckBox cb;
-    private LoginBean loginBean;
 
     private int screenHeight;
     private View layout_content;
@@ -119,22 +118,25 @@ public class LoginActivity extends BaseActivity {
                         public void onResponse(Object response) {
                             Gson gson = new Gson();
                             String resultString = (String) response;
-                            loginBean = gson.fromJson(resultString, LoginBean.class);
+                            MyApplication.loginBean = gson.fromJson(resultString, LoginBean.class);
 
 //                        dialog.dismiss();
                             //保存登录账号密码
                             PreferenceHelper.write(ac, "lottery", "account", mEtLoginAccount.getText().toString());
                             PreferenceHelper.write(ac, "lottery", "pwd", mEtLoginPassword.getText().toString());
 
-                            if (loginBean.getData().getShopList().get(0).getSM_Type() == 3009) {
+                            if (MyApplication.loginBean.getData().getShopList().get(0).getSM_Type() == 3009) {
                                 MyApplication.LABELPRINT_IS_OPEN = true;
                             }
-                            MyApplication.SHOP_NAME = loginBean.getData().getSM_Name();
-
-                            Intent intent = new Intent(ac, HomeActivity.class);
-//                        intent.putExtra("class", (Serializable) onelist);
-                            intent.putExtra("loginBean", (Serializable) loginBean);
-                            startActivity(intent);
+                            MyApplication.SHOP_NAME = MyApplication.loginBean.getData().getSM_Name();
+                            Calendar.getInstance().setTimeInMillis(System.currentTimeMillis());
+                            String logString = String.format("ღღღღღ GT ღღღღღ [%1$02d:%2$02d:%3$02d] %4$s\n",
+                                    Calendar.getInstance().get(Calendar.MINUTE),
+                                    Calendar.getInstance().get(Calendar.SECOND),
+                                    Calendar.getInstance().get(Calendar.MILLISECOND),
+                                    "startActivity");
+                            System.out.println(logString);
+                            startActivity(new Intent(ac, HomeActivity.class));
                             finish();
 
                         }

@@ -28,7 +28,6 @@ import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.adapter.ShopLeftAdapter;
 import com.wycd.yushangpu.bean.GoodsModelBean;
-import com.wycd.yushangpu.bean.LoginBean;
 import com.wycd.yushangpu.bean.OrderCanshhu;
 import com.wycd.yushangpu.bean.PayTypeMsg;
 import com.wycd.yushangpu.bean.RevokeGuaDanBean;
@@ -85,6 +84,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import androidx.fragment.app.FragmentManager;
@@ -176,7 +176,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     private String jifendkbfb, jinfenzfxzbfb;
     //    private double PD_Discount = 0;
     private int leftpos = -1;// 购物车选中位子 -1表示没有选中
-    private static LoginBean loginBean;//登录数据
     private String mSmGid;
     private int mPD_Discount = 0;
     private List<GoodsModelBean> ModelList;
@@ -200,6 +199,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     private GoodsListFragment goodsListFragment;
     public JiesuanBFragment jiesuanBFragment;
     QudanFragment qudanFragment;
+    private boolean isFirstLaunch = false;
 
     private BluetoothAdapter bluetoothAdapter;
 //    private static BluetoothAdapter mBluetoothAdapter;//蓝牙适配器
@@ -234,7 +234,20 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Calendar.getInstance().setTimeInMillis(System.currentTimeMillis());
+        System.out.println(String.format("ღღღღღ GT ღღღღღ [%1$02d:%2$02d:%3$02d] %4$s\n",
+                Calendar.getInstance().get(Calendar.MINUTE),
+                Calendar.getInstance().get(Calendar.SECOND),
+                Calendar.getInstance().get(Calendar.MILLISECOND),
+                "setContentView start"));
         setContentView(R.layout.activity_home);
+        isFirstLaunch = true;
+        Calendar.getInstance().setTimeInMillis(System.currentTimeMillis());
+        System.out.println(String.format("ღღღღღ GT ღღღღღ [%1$02d:%2$02d:%3$02d] %4$s\n",
+                Calendar.getInstance().get(Calendar.MINUTE),
+                Calendar.getInstance().get(Calendar.SECOND),
+                Calendar.getInstance().get(Calendar.MILLISECOND),
+                "setContentView end"));
         ButterKnife.bind(this);
 //        ActivityStack.create().addActivity(HomeActivity.this);
         EventBus.getDefault().register(this);
@@ -246,7 +259,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         initEvent();
 
         initPrint();
-
     }
 
     private void initPrint() {
@@ -353,12 +365,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     };
 
     protected void initView() {
-        fragmentManager = getSupportFragmentManager();
-        editCashierGoodsFragment = (EditCashierGoodsFragment) fragmentManager.findFragmentById(R.id.edit_cashier_goods_fragment);
-        fragmentManager.beginTransaction().hide(editCashierGoodsFragment).commit();
-
-        goodsListFragment = (GoodsListFragment) fragmentManager.findFragmentById(R.id.goods_list_fragment);
-
         imgHedimg = (CircleImageView) findViewById(R.id.img_hedimg);
 
         mShopLeftAdapter = new ShopLeftAdapter(ac, mShopLeftList, new InterfaceThreeBack() {
@@ -415,37 +421,55 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         mEtLoginAccount.requestFocus();
     }
 
-    private void initData() {
+    private void initFragment() {
+        fragmentManager = getSupportFragmentManager();
 
+        goodsListFragment = new GoodsListFragment();
+        fragmentManager.beginTransaction().add(R.id.right_fragment_layout, goodsListFragment).commit();
+
+        editCashierGoodsFragment = new EditCashierGoodsFragment();
+        fragmentManager.beginTransaction().add(R.id.right_fragment_layout, editCashierGoodsFragment).hide(editCashierGoodsFragment).commit();
+
+        qudanFragment = new QudanFragment();
+        fragmentManager.beginTransaction().add(R.id.fragment_content, qudanFragment).hide(qudanFragment).commit();
+
+        jiesuanBFragment = new JiesuanBFragment();
+        fragmentManager.beginTransaction().add(R.id.fragment_content, jiesuanBFragment).hide(jiesuanBFragment).commit();
+
+        Calendar.getInstance().setTimeInMillis(System.currentTimeMillis());
+        System.out.println(String.format("ღღღღღ GT ღღღღღ [%1$02d:%2$02d:%3$02d] %4$s\n",
+                Calendar.getInstance().get(Calendar.MINUTE),
+                Calendar.getInstance().get(Calendar.SECOND),
+                Calendar.getInstance().get(Calendar.MILLISECOND),
+                "initFragment end"));
+    }
+
+    private void initData() {
         getproductmodel();
         obtainSystemCanshu();
         GetPrintSet.getPrintSet();
-
-        loginBean = (LoginBean) getIntent().getSerializableExtra("loginBean");
-        MyApplication.loginBean = loginBean;
 
         PreferenceHelper.write(ac, "yunshangpu", "vip", false);
 //        mGson = new Gson();
 //        mClassMsgList = null;//清空分类
 
+        if (MyApplication.loginBean != null) {
+            mSmGid = MyApplication.loginBean.getData().getShopID();
+//            if (MyApplication.loginBean.getData().getAgents().getAG_LogoUrl() != null) {
+//                VolleyResponse.instance().getInternetImg(ac, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(MyApplication.loginBean.getData().getShopList().get(0).getSM_Picture()).toString()), ivShop, R.drawable.defalut_store);
+//
+//            }
+            if (MyApplication.loginBean.getData().getUM_ChatHead() != null) {
+                VolleyResponse.instance().getInternetImg(ac, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(MyApplication.loginBean.getData().getUM_ChatHead()).toString()), imgHedimg, R.mipmap.member_head_nohead);
+            }
+            tvStoreName.setText(MyApplication.loginBean.getData().getUM_Name());
+        }
 
         //更新订单时间
         new TimeThread().start();
 
         order = CreateOrder.createOrder("SP");
         tv_ordernum.setText(order);
-
-        if (loginBean != null) {
-            mSmGid = loginBean.getData().getShopID();
-//            if (loginBean.getData().getAgents().getAG_LogoUrl() != null) {
-//                VolleyResponse.instance().getInternetImg(ac, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(loginBean.getData().getShopList().get(0).getSM_Picture()).toString()), ivShop, R.drawable.defalut_store);
-//
-//            }
-            if (loginBean.getData().getUM_ChatHead() != null) {
-                VolleyResponse.instance().getInternetImg(ac, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(loginBean.getData().getUM_ChatHead()).toString()), imgHedimg, R.mipmap.member_head_nohead);
-            }
-            tvStoreName.setText(loginBean.getData().getUM_Name());
-        }
     }
 
     public static void setTotal(int pageTotal, int Count) {
@@ -459,7 +483,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         switch (v.getId()) {
 
             case R.id.tv_change_pwd:
-                if (loginBean != null) {
+                if (MyApplication.loginBean != null) {
                     mShowMemberPop.dismiss();
                     ChangePwdDialog.numchangeDialog(ac, 1);
                 } else {
@@ -473,7 +497,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     @Override
                     public void onResponse(Object response) {
                         //退出
-//                        dialog.show();
+                        dialog.show();
                         ImpOutLogin outLogin = new ImpOutLogin();
                         outLogin.outLogin(ac, new InterfaceBack() {
                             @Override
@@ -1016,7 +1040,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         rlOut.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
-                mShowMemberPop = new ShowMemberPopWindow(HomeActivity.this, loginBean);
+                mShowMemberPop = new ShowMemberPopWindow(HomeActivity.this, MyApplication.loginBean);
                 mShowMemberPop.setOnItemClickListener(HomeActivity.this);
                 mShowMemberPop.showAsDropDown(HomeActivity.this.findViewById(R.id.rl_out), -10, 0);
 
@@ -1113,12 +1137,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                             double dkmoney = CommonUtils.div(CommonUtils.div(Double.parseDouble(CommonUtils.multiply(jifen, jinfenzfxzbfb)), 100, 2),
                                     Double.parseDouble(jifendkbfb), 2);//可抵扣金额
 
-                            if (jiesuanBFragment == null) {
-                                jiesuanBFragment = new JiesuanBFragment();
-                                fragmentManager.beginTransaction().add(R.id.fragment_content, jiesuanBFragment).commit();
-                            } else
-                                fragmentManager.beginTransaction().show(jiesuanBFragment).commit();
-
+                            fragmentManager.beginTransaction().show(jiesuanBFragment).commit();
                             jiesuanBFragment.setData(allmoney, mVipMsg, mVipDengjiMsg == null ? null : mVipDengjiMsg.getData().get(0),
                                     dkmoney + "", jso.getGID(), jso.getCO_Type(), jso.getCO_OrderCode(),
                                     mShopLeftList, moren, paytypelist, false, new InterfaceBack() {
@@ -1348,15 +1367,12 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     });
                 } else {
                     //取单
-                    if (qudanFragment == null) {
-                        qudanFragment = new QudanFragment();
-                        fragmentManager.beginTransaction().add(R.id.fragment_content, qudanFragment).commit();
-                    } else {
-                        fragmentManager.beginTransaction().show(qudanFragment).commit();
-
-                        qudanFragment.setData(moren, paytypelist, mSmGid, new InterfaceBack() {
-                            @Override
-                            public void onResponse(Object response) {
+                    fragmentManager.beginTransaction().show(qudanFragment).commit();
+                    qudanFragment.setData(moren, paytypelist, mSmGid, new InterfaceBack() {
+                        @Override
+                        public void onResponse(Object response) {
+                            fragmentManager.beginTransaction().hide(qudanFragment).commit();
+                            if (response != null) {
                                 dialog.dismiss();
                                 order = CreateOrder.createOrder("SP");
                                 RevokeGuaDanBean guadanDetail = (RevokeGuaDanBean) response;
@@ -1368,15 +1384,14 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                 }
                                 mShopLeftAdapter.notifyDataSetChanged();
                                 jisuanAllPrice();
-
                             }
+                        }
 
-                            @Override
-                            public void onErrorResponse(Object msg) {
+                        @Override
+                        public void onErrorResponse(Object msg) {
 
-                            }
-                        });
-                    }
+                        }
+                    });
                 }
             }
 
@@ -1696,7 +1711,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 //                        ToastUtils.showToast(ac,"修改头像成功");
                         com.blankj.utilcode.util.ToastUtils.showShort("修改头像成功");
                     }
-                    loginBean.getData().setUM_ChatHead(String.valueOf(msg.obj));
+                    MyApplication.loginBean.getData().setUM_ChatHead(String.valueOf(msg.obj));
                     if (webDialog != null) {
                         webDialog.dismiss();
                         MyApplication.isDialog = "0";
@@ -1756,6 +1771,24 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     protected void onResume() {
         super.onResume();
         ac = HomeActivity.this;
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            if (isFirstLaunch) {
+                isFirstLaunch = false;
+                // TODO 第一次启动界面加载完毕后的操作
+                Calendar.getInstance().setTimeInMillis(System.currentTimeMillis());
+                System.out.println(String.format("ღღღღღ GT ღღღღღ [%1$02d:%2$02d:%3$02d] %4$s\n",
+                        Calendar.getInstance().get(Calendar.MINUTE),
+                        Calendar.getInstance().get(Calendar.SECOND),
+                        Calendar.getInstance().get(Calendar.MILLISECOND),
+                        "onWindowFocusChanged"));
+                initFragment();
+            }
+        }
     }
 
     @Override

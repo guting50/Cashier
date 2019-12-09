@@ -7,7 +7,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 public class LogoActivity extends BaseActivity {
 
@@ -20,6 +19,6 @@ public class LogoActivity extends BaseActivity {
                 startActivity(new Intent(LogoActivity.this, LoginActivity.class));
                 finish();
             }
-        }, 1000);
+        }, 500);
     }
 }
