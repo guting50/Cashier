@@ -61,11 +61,17 @@ public class GoodsListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_goods_list, null);
         ButterKnife.bind(this, view);
         homeActivity = (HomeActivity) getActivity();
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
         initView();
         obtainShopClass();
 
         obtainHomeShop("", "");
-        return view;
     }
 
     private void initView() {

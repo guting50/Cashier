@@ -1,9 +1,9 @@
-package com.wycd.yushangpu.widget.dialog;
+package com.wycd.yushangpu.ui.fragment;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,8 +25,7 @@ import com.wycd.yushangpu.model.ImpOnlyVipMsg;
 import com.wycd.yushangpu.model.ImpRevokeGuaDanOrder;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
-import com.wycd.yushangpu.ui.BaseActivity;
-import com.wycd.yushangpu.ui.JiesuanBActibvity;
+import com.wycd.yushangpu.ui.HomeActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
@@ -36,7 +35,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -45,7 +46,7 @@ import butterknife.ButterKnife;
  * Created by songxiaotao on 2017/12/21.
  */
 
-public class QudanDialog extends BaseActivity {
+public class QudanFragment extends Fragment {
     @BindView(R.id.tv_code)
     TextView tvCode;
     @BindView(R.id.tv_card)
@@ -64,9 +65,9 @@ public class QudanDialog extends BaseActivity {
     ImageView ivClose;
     @BindView(R.id.srl_freshmanage_activity)
     WaveSwipeRefreshLayout mRefresh;
-    private static InterfaceBack back;
+    private InterfaceBack back;
     private List<GuadanList> list;
-    private Activity context;
+    private HomeActivity homeActivity;
     private GuadanListAdapter guadanListAdapter;
     private String jifen;
     private double dkmoney;
@@ -80,41 +81,33 @@ public class QudanDialog extends BaseActivity {
     private int mPageTotal;//数据总页数
     private String mSmGid;
 
-    public static void startQudanDialog(Activity context, PayTypeMsg moren, ArrayList<PayTypeMsg> paytypelist, String mSmGid, InterfaceBack b) {
-        back = b;
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.dialog_gualist, null);
+        ButterKnife.bind(this, view);
 
-        Intent intent = new Intent(context, QudanDialog.class);
-        intent.putExtra("moren", moren);
-        intent.putParcelableArrayListExtra("paytypelist", paytypelist);
-        intent.putExtra("mSmGid", mSmGid);
-        context.startActivity(intent);
+        homeActivity = (HomeActivity) getActivity();
+        return view;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_gualist);
-        ButterKnife.bind(this);
-
-        this.context = this;
-        this.moren = getIntent().getParcelableExtra("moren");
-        this.paytypelist = getIntent().getParcelableArrayListExtra("paytypelist");
-        this.mSmGid = getIntent().getStringExtra("mSmGid");
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         list = new ArrayList<>();
-        guadanListAdapter = new GuadanListAdapter(context, list, new InterfaceBack() {
+        guadanListAdapter = new GuadanListAdapter(homeActivity, list, new InterfaceBack() {
             @Override
             public void onResponse(Object response) {
                 final GuadanList guadanList = (GuadanList) response;
                 if (guadanList.getCO_IdentifyingState().equals("1")) {//挂单
                     //解挂接口
-                    dialog.show();
+                    homeActivity.dialog.show();
                     ImpRevokeGuaDanOrder impRevokeGuaDanOrder = new ImpRevokeGuaDanOrder();
-                    impRevokeGuaDanOrder.revokeGuaDan(context, guadanList.getGID(), new InterfaceBack() {
+                    impRevokeGuaDanOrder.revokeGuaDan(homeActivity, guadanList.getGID(), new InterfaceBack() {
                         @Override
                         public void onResponse(Object response) {
-                            dialog.dismiss();
-                            finish();
+                            homeActivity.dialog.dismiss();
                             RevokeGuaDanBean guaDanBean = (RevokeGuaDanBean) response;
                             back.onResponse(guaDanBean);
                             HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
@@ -124,7 +117,7 @@ public class QudanDialog extends BaseActivity {
 
                         @Override
                         public void onErrorResponse(Object msg) {
-                            dialog.dismiss();
+                            back.onResponse(null);
                             HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
                             event.setMsg("Change_color");
                             EventBus.getDefault().post(event);
@@ -134,13 +127,13 @@ public class QudanDialog extends BaseActivity {
                     initGetOrder(guadanList);
                     //可抵扣金额= 会员积分/积分抵扣百分比 *积分支付限制百分比
                     if (!guadanList.getVIP_Card().equals("00000")) {
-                        dialog.show();
+                        homeActivity.dialog.show();
                         ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
-                        onlyVipMsg.vipMsg(context, guadanList.getVIP_Card(), new InterfaceBack() {
+                        onlyVipMsg.vipMsg(homeActivity, guadanList.getVIP_Card(), new InterfaceBack() {
                             @Override
                             public void onResponse(Object response) {
                                 VipDengjiMsg mVipDengjiMsg = (VipDengjiMsg) response;
-                                dialog.dismiss();
+                                homeActivity.dialog.dismiss();
                                 mVipMsg = mVipDengjiMsg.getData().get(0);
                                 jifen = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableIntegral() + "";
                                 dkmoney = CommonUtils.div(Double.parseDouble(CommonUtils.multiply(jifen, jinfenzfxzbfb)), Double.parseDouble(jifendkbfb), 2);//可抵扣金额
@@ -173,13 +166,52 @@ public class QudanDialog extends BaseActivity {
         });
         listview.setAdapter(guadanListAdapter);
         setView();
+    }
+
+    public void setData(PayTypeMsg moren, ArrayList<PayTypeMsg> paytypelist, String mSmGid, InterfaceBack back) {
+        this.moren = moren;
+        this.paytypelist = paytypelist;
+        this.mSmGid = mSmGid;
+        this.back = back;
+
+        for (PayTypeMsg msg : paytypelist) {
+            if (msg.getSS_Name().equals("积分支付")) {
+                jifendkbfb = msg.getSS_Value();
+            }
+            if (msg.getSS_Name().equals("积分支付限制")) {
+                jinfenzfxzbfb = msg.getSS_Value();
+            }
+
+        }
+
         obtainGuadanList(1);
     }
 
     private void jiesuan(GuadanList guadanList, VipDengjiMsg.DataBean mVipMsg) {
+        if (homeActivity.jiesuanBFragment == null) {
+            homeActivity.jiesuanBFragment = new JiesuanBFragment();
+            homeActivity.getSupportFragmentManager().beginTransaction().add(R.id.fragment_content, homeActivity.jiesuanBFragment).commit();
+        } else
+            homeActivity.getSupportFragmentManager().beginTransaction().show(homeActivity.jiesuanBFragment).commit();
 
-        JiesuanBActibvity.startJiesuanBActibvity(context, guadanList.getCO_TotalPrice(), mVipMsg, mVipMsg, dkmoney + "", guadanList.getGID(),
-                guadanList.getCO_Type(), guadanList.getCO_OrderCode(), mShopLeftList, moren, paytypelist, true);
+        homeActivity.jiesuanBFragment.setData(guadanList.getCO_TotalPrice(), mVipMsg, mVipMsg,
+                dkmoney + "", guadanList.getGID(), guadanList.getCO_Type(), guadanList.getCO_OrderCode(),
+                mShopLeftList, moren, paytypelist, false, new InterfaceBack() {
+                    @Override
+                    public void onResponse(Object response) {
+                        homeActivity.getSupportFragmentManager().beginTransaction().hide(homeActivity.jiesuanBFragment).commit();
+                        if (response != null) {
+                            com.blankj.utilcode.util.ToastUtils.showShort("结算成功");
+                            mShopLeftList.clear();
+                            obtainGuadanList(1);
+                        }
+                    }
+
+                    @Override
+                    public void onErrorResponse(Object msg) {
+                    }
+
+                });
 
     }
 
@@ -225,7 +257,7 @@ public class QudanDialog extends BaseActivity {
 
     private void obtainGuadanList(int index) {
         ImpGuadanList shopHome = new ImpGuadanList();
-        shopHome.guadanList(context, index, 20, mSmGid, new InterfaceBack() {
+        shopHome.guadanList(homeActivity, index, 20, mSmGid, new InterfaceBack() {
             @Override
             public void onResponse(Object response) {
                 HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
@@ -276,7 +308,7 @@ public class QudanDialog extends BaseActivity {
         ivClose.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
-                finish();
+                back.onResponse(null);
                 HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
                 event.setMsg("Change_color");
                 EventBus.getDefault().post(event);
@@ -316,31 +348,5 @@ public class QudanDialog extends BaseActivity {
             }
         });
 
-        for (PayTypeMsg msg : paytypelist) {
-            if (msg.getSS_Name().equals("积分支付")) {
-                jifendkbfb = msg.getSS_Value();
-            }
-            if (msg.getSS_Name().equals("积分支付限制")) {
-                jinfenzfxzbfb = msg.getSS_Value();
-            }
-
-        }
-
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case 888:
-                if (resultCode == 200) {
-                    com.blankj.utilcode.util.ToastUtils.showShort("结算成功");
-                    mShopLeftList.clear();
-                    obtainGuadanList(1);
-//                                    mTvShoukuan.setText("收 款  ￥ 0.00");
-                }
-                break;
-        }
     }
 }

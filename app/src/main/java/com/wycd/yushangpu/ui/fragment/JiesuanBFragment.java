@@ -123,7 +123,6 @@ public class JiesuanBFragment extends Fragment {
     View liClose;
 
     private InterfaceBack back;
-    private PayTypeMsg moren;//默认支付
     private List<PayTypeMsg> paylist;
     private boolean isMember;
     private boolean isxianjinpay = true, isyuepay = true, isYinlianpay = true, iswxpay = true, isalipay = true, isyhqpay = true, isjfpay = true, issmpay = true, isqtpay = true;
@@ -151,28 +150,22 @@ public class JiesuanBFragment extends Fragment {
 
         this.context = (AppCompatActivity) getActivity();
 
-        for (PayTypeMsg m : paylist) {
-            if (m.getSS_Name().equals("积分支付")) {
-                jifendkbfb = NullUtils.noNullHandle(m.getSS_Value()).toString();
-            }
-            if (m.getSS_Name().equals("余额支付")) {
-                yuezfxz = NullUtils.noNullHandle(m.getSS_Value()).toString();
-            }
+        return view;
+    }
 
-        }
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         setView();
         handleZhaoling();
 
         setCbShortMessage("011");
         dialog = LoadingDialog.loadingDialog(context, 1);
-
-        return view;
     }
-
 
     public void setData(String money, VipDengjiMsg.DataBean vipMsg, VipDengjiMsg.DataBean mVipDengjiMsg, String dkmoney,
                         String GID, String CO_Type, String CO_OrderCode, ArrayList<ShopMsg> list, PayTypeMsg moren, ArrayList<PayTypeMsg> paylist,
-                        boolean isguazhang) {
+                        boolean isguazhang, InterfaceBack back) {
         this.money = money;
         this.mVipMsg = vipMsg;
         this.mVipDengjiMsg = mVipDengjiMsg;
@@ -181,13 +174,23 @@ public class JiesuanBFragment extends Fragment {
         this.CO_Type = CO_Type;
         this.CO_OrderCode = CO_OrderCode;
         this.list = list;
-        this.moren = moren;
         this.paylist = paylist;
         this.isguazhang = isguazhang;
+        this.back = back;
 
         this.jifen = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableIntegral() + "";
         this.yue = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableBalance() + "";
         this.isMember = null == mVipMsg ? false : true;
+
+        for (PayTypeMsg m : paylist) {
+            if (m.getSS_Name().equals("积分支付")) {
+                jifendkbfb = NullUtils.noNullHandle(m.getSS_Value()).toString();
+            }
+            if (m.getSS_Name().equals("余额支付")) {
+                yuezfxz = NullUtils.noNullHandle(m.getSS_Value()).toString();
+            }
+        }
+        setPay(paylist);
 
         if (mVipDengjiMsg != null) {
             VolleyResponse.instance().getInternetImg(context, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(
@@ -570,7 +573,6 @@ public class JiesuanBFragment extends Fragment {
         //优惠金额不编辑
         mEtYue.setFocusable(false);
         mEtYue.setFocusableInTouchMode(false);
-        setPay(paylist);
 
         li_jiesuan.setOnClickListener(new NoDoubleClickListener() {
             @Override

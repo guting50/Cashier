@@ -66,12 +66,13 @@ import com.wycd.yushangpu.tools.ThreadPool;
 import com.wycd.yushangpu.tools.Utils;
 import com.wycd.yushangpu.ui.fragment.EditCashierGoodsFragment;
 import com.wycd.yushangpu.ui.fragment.GoodsListFragment;
+import com.wycd.yushangpu.ui.fragment.JiesuanBFragment;
+import com.wycd.yushangpu.ui.fragment.QudanFragment;
 import com.wycd.yushangpu.web.WebDialog;
 import com.wycd.yushangpu.widget.dialog.ChangePwdDialog;
 import com.wycd.yushangpu.widget.dialog.GoodsModelDialog;
 import com.wycd.yushangpu.widget.dialog.KeyboardDialog;
 import com.wycd.yushangpu.widget.dialog.NoticeDialog;
-import com.wycd.yushangpu.widget.dialog.QudanDialog;
 import com.wycd.yushangpu.widget.dialog.VipChooseDialog;
 import com.wycd.yushangpu.widget.popwindow.ShowMemberPopWindow;
 import com.wycd.yushangpu.widget.popwindow.ShowStorePopWindow;
@@ -86,7 +87,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -196,8 +196,10 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     private int id = 0;
 
     private FragmentManager fragmentManager;
-    EditCashierGoodsFragment editCashierGoodsFragment;
-    GoodsListFragment goodsListFragment;
+    private EditCashierGoodsFragment editCashierGoodsFragment;
+    private GoodsListFragment goodsListFragment;
+    public JiesuanBFragment jiesuanBFragment;
+    QudanFragment qudanFragment;
 
     private BluetoothAdapter bluetoothAdapter;
 //    private static BluetoothAdapter mBluetoothAdapter;//蓝牙适配器
@@ -1110,9 +1112,45 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                             String jifen = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableIntegral() + "";
                             double dkmoney = CommonUtils.div(CommonUtils.div(Double.parseDouble(CommonUtils.multiply(jifen, jinfenzfxzbfb)), 100, 2),
                                     Double.parseDouble(jifendkbfb), 2);//可抵扣金额
-                            JiesuanBActibvity.startJiesuanBActibvity(ac, allmoney, mVipMsg, mVipDengjiMsg == null ? null : mVipDengjiMsg.getData().get(0),
-                                    dkmoney + "", jso.getGID(),jso.getCO_Type(), jso.getCO_OrderCode(),
-                                    mShopLeftList, moren, paytypelist, false);
+
+                            if (jiesuanBFragment == null) {
+                                jiesuanBFragment = new JiesuanBFragment();
+                                fragmentManager.beginTransaction().add(R.id.fragment_content, jiesuanBFragment).commit();
+                            } else
+                                fragmentManager.beginTransaction().show(jiesuanBFragment).commit();
+
+                            jiesuanBFragment.setData(allmoney, mVipMsg, mVipDengjiMsg == null ? null : mVipDengjiMsg.getData().get(0),
+                                    dkmoney + "", jso.getGID(), jso.getCO_Type(), jso.getCO_OrderCode(),
+                                    mShopLeftList, moren, paytypelist, false, new InterfaceBack() {
+                                        @Override
+                                        public void onResponse(Object response) {
+                                            fragmentManager.beginTransaction().hide(jiesuanBFragment).commit();
+                                            if (response != null) {
+                                                String gid = (String) response;
+                                                com.blankj.utilcode.util.ToastUtils.showShort("结算成功");
+
+                                                //打印小票
+                                                if (MyApplication.PRINT_IS_OPEN) {
+                                                    if (MyApplication.mGoodsConsumeMap.isEmpty()) {
+                                                        GetPrintSet.getPrintParamSet();
+                                                    }
+                                                    new HttpGetPrintContents().SPXF(ac, gid);
+                                                }
+
+                                                if (ISLABELCONNECT && LABELPRINT_IS_OPEN) {
+                                                    for (int i = 0; i < mShopLeftList.size(); i++) {
+                                                        labelPrint(mShopLeftList.get(i));
+                                                    }
+                                                }
+                                                resetCashier();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onErrorResponse(Object msg) {
+                                        }
+
+                                    });
                             dialog.dismiss();
                         }
 
@@ -1310,28 +1348,35 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     });
                 } else {
                     //取单
-                    QudanDialog.startQudanDialog(ac, moren, paytypelist, mSmGid, new InterfaceBack() {
-                        @Override
-                        public void onResponse(Object response) {
-                            dialog.dismiss();
-                            order = CreateOrder.createOrder("SP");
-                            RevokeGuaDanBean guadanDetail = (RevokeGuaDanBean) response;
-                            initGetOrder(guadanDetail);
-                            if (guadanDetail.getData().getVIP_Card() != null && !guadanDetail.getData().getVIP_Card().equals("00000") && !guadanDetail.getData().getVIP_Card().equals("")) {
-                                initVIP(guadanDetail.getData().getVIP_Card());
-                            } else {
-                                PreferenceHelper.write(ac, "yunshangpu", "vip", false);
+                    if (qudanFragment == null) {
+                        qudanFragment = new QudanFragment();
+                        fragmentManager.beginTransaction().add(R.id.fragment_content, qudanFragment).commit();
+                    } else {
+                        fragmentManager.beginTransaction().show(qudanFragment).commit();
+
+                        qudanFragment.setData(moren, paytypelist, mSmGid, new InterfaceBack() {
+                            @Override
+                            public void onResponse(Object response) {
+                                dialog.dismiss();
+                                order = CreateOrder.createOrder("SP");
+                                RevokeGuaDanBean guadanDetail = (RevokeGuaDanBean) response;
+                                initGetOrder(guadanDetail);
+                                if (guadanDetail.getData().getVIP_Card() != null && !guadanDetail.getData().getVIP_Card().equals("00000") && !guadanDetail.getData().getVIP_Card().equals("")) {
+                                    initVIP(guadanDetail.getData().getVIP_Card());
+                                } else {
+                                    PreferenceHelper.write(ac, "yunshangpu", "vip", false);
+                                }
+                                mShopLeftAdapter.notifyDataSetChanged();
+                                jisuanAllPrice();
+
                             }
-                            mShopLeftAdapter.notifyDataSetChanged();
-                            jisuanAllPrice();
 
-                        }
+                            @Override
+                            public void onErrorResponse(Object msg) {
 
-                        @Override
-                        public void onErrorResponse(Object msg) {
-
-                        }
-                    });
+                            }
+                        });
+                    }
                 }
             }
 
@@ -1638,35 +1683,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         msg.obj = url;
         msg.what = 1;
         handler.sendMessage(msg);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case 888:
-                if (resultCode == 200) {
-                    String gid = data.getStringExtra("GID");
-                    com.blankj.utilcode.util.ToastUtils.showShort("结算成功");
-
-                    //打印小票
-                    if (MyApplication.PRINT_IS_OPEN) {
-                        if (MyApplication.mGoodsConsumeMap.isEmpty()) {
-                            GetPrintSet.getPrintParamSet();
-                        }
-                        new HttpGetPrintContents().SPXF(ac, gid);
-                    }
-
-                    if (ISLABELCONNECT && LABELPRINT_IS_OPEN) {
-                        for (int i = 0; i < mShopLeftList.size(); i++) {
-                            labelPrint(mShopLeftList.get(i));
-                        }
-                    }
-
-                    resetCashier();
-                }
-                break;
-        }
     }
 
     private static Handler handler = new Handler() {

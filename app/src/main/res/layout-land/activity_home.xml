@@ -485,7 +485,7 @@
 
     </ScrollView>
 
-   <fragment
+    <fragment
         android:id="@+id/goods_list_fragment"
         android:name="com.wycd.yushangpu.ui.fragment.GoodsListFragment"
         android:layout_width="match_parent"
@@ -507,10 +507,9 @@
         android:layout_toRightOf="@+id/scroll_view"
         android:background="@drawable/background_white" />
 
-    <!-- <fragmentm
-         android:name="com.wycd.yushangpu.ui.fragment.SettlementFragment"
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:visibility="gone" />-->
+    <FrameLayout
+        android:id="@+id/fragment_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>
