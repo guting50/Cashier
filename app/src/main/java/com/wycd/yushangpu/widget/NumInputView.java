@@ -254,15 +254,18 @@ public class NumInputView extends RelativeLayout {
         return editText.getText();
     }
 
-    public void popBack() {
+    public String popBack() {
         if (!TextUtils.isEmpty(editText.getText())) {
+            String content = editText.getText().toString();
             if (!isSelectAll()) {
-                String content = editText.getText().toString();
                 editText.setText(content.substring(0, content.length() - 1));
+                return content.substring(content.length() - 1);
             } else {
                 editText.setText("");
+                return content;
             }
         }
+        return "";
     }
 
     public void addNum() {

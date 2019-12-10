@@ -17,6 +17,7 @@ public class NumKeyboardUtils {
 
     private NumInputView numInputView;
     private Activity activity;
+    private OnDelClickListener onDelClickListener;
 
     public NumKeyboardUtils(Activity activity, View rootView, NumInputView editViewLayout) {
         View keyboardViewLayout = rootView.findViewById(R.id.keyboard_layout);
@@ -38,6 +39,14 @@ public class NumKeyboardUtils {
         numInputView.showCursor(true);
     }
 
+    public interface OnDelClickListener {
+        void popBack(String str);
+    }
+
+    public void setOnDelClickListener(OnDelClickListener onDelClickListener) {
+        this.onDelClickListener = onDelClickListener;
+    }
+
     @OnTouch({R.id.num_keyboard_7, R.id.num_keyboard_8, R.id.num_keyboard_9, R.id.num_keyboard_4,
             R.id.num_keyboard_5, R.id.num_keyboard_6, R.id.num_keyboard_1, R.id.num_keyboard_2,
             R.id.num_keyboard_3, R.id.num_keyboard_0, R.id.num_keyboard_dot, R.id.num_keyboard_delete})
@@ -55,7 +64,10 @@ public class NumKeyboardUtils {
                                 activity.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        numInputView.popBack();
+                                        String result = numInputView.popBack();
+                                        if (onDelClickListener != null) {
+                                            onDelClickListener.popBack(result);
+                                        }
                                     }
                                 });
                             }

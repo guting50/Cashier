@@ -69,6 +69,7 @@ import com.wycd.yushangpu.ui.fragment.JiesuanBFragment;
 import com.wycd.yushangpu.ui.fragment.QudanFragment;
 import com.wycd.yushangpu.web.WebDialog;
 import com.wycd.yushangpu.widget.dialog.ChangePwdDialog;
+import com.wycd.yushangpu.widget.dialog.FastCashierDialog;
 import com.wycd.yushangpu.widget.dialog.GoodsModelDialog;
 import com.wycd.yushangpu.widget.dialog.KeyboardDialog;
 import com.wycd.yushangpu.widget.dialog.NoticeDialog;
@@ -1162,7 +1163,17 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                         }
                     });
                 } else {
-                    com.blankj.utilcode.util.ToastUtils.showShort("快速收银");
+                    FastCashierDialog.noticeDialog(ac, new InterfaceBack() {
+                        @Override
+                        public void onResponse(Object response) {
+
+                        }
+
+                        @Override
+                        public void onErrorResponse(Object msg) {
+
+                        }
+                    });
                 }
             }
         });
