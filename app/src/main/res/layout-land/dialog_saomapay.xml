@@ -2,18 +2,19 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="600dp"
-        android:layout_height="@dimen/dp_400">
+        android:layout_width="700dp"
+        android:layout_height="@dimen/dp_500"
+        android:background="@drawable/background_white">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="@dimen/dp_15"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:background="@drawable/shap_homeviptop"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
             android:text="扫码支付"
             android:textColor="@color/text60"
             android:textSize="@dimen/sp_15"
@@ -22,11 +23,10 @@
         <ImageView
             android:id="@+id/iv_clone"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/dp_5"
-            android:layout_marginRight="@dimen/dp_15"
-            android:background="@drawable/ty_close" />
+            android:paddingRight="@dimen/dp_15"
+            android:src="@drawable/ty_close" />
 
         <ImageView
             android:id="@+id/iv_s"
@@ -106,38 +106,41 @@
                 android:textSize="@dimen/sp_14" />
 
         </LinearLayout>
-    </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/on_open_saoma"
-        android:layout_width="600dp"
-        android:layout_height="@dimen/dp_400"
-        android:background="@color/white"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:src="@drawable/lab_selected" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp">
+            android:id="@+id/on_open_saoma"
+            android:layout_width="600dp"
+            android:layout_height="@dimen/dp_400"
+            android:layout_marginTop="@dimen/dp_60"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
 
-            <TextView
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/lab_selected" />
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="还没有开通扫码支付，去" />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="开通扫码支付"
-                android:textColor="@color/nameset" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="还没有开通扫码支付，去" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="开通扫码支付"
+                    android:textColor="@color/nameset" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
+
 </FrameLayout>

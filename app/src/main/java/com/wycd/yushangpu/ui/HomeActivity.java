@@ -67,6 +67,7 @@ import com.wycd.yushangpu.ui.fragment.EditCashierGoodsFragment;
 import com.wycd.yushangpu.ui.fragment.GoodsListFragment;
 import com.wycd.yushangpu.ui.fragment.JiesuanBFragment;
 import com.wycd.yushangpu.ui.fragment.QudanFragment;
+import com.wycd.yushangpu.ui.fragment.SettingFragment;
 import com.wycd.yushangpu.web.WebDialog;
 import com.wycd.yushangpu.widget.dialog.ChangePwdDialog;
 import com.wycd.yushangpu.widget.dialog.FastCashierDialog;
@@ -85,7 +86,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import androidx.fragment.app.FragmentManager;
@@ -93,6 +93,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.hardware.usb.UsbManager.ACTION_USB_DEVICE_ATTACHED;
@@ -115,8 +116,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     RelativeLayout mRlJiaoban;
     @BindView(R.id.tv_store_name)
     TextView tvStoreName;
-    @BindView(R.id.rl_out)
-    RelativeLayout rlOut;
     @BindView(R.id.et_login_account)
     public ClearEditText mEtLoginAccount;
     @BindView(R.id.tv_ordertime)
@@ -127,14 +126,10 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     RecyclerView mRecyclerviewShoplist;
     @BindView(R.id.im_clear)
     ImageView imClear;
-    @BindView(R.id.rl_clear)
-    TextView mRlClear;
     @BindView(R.id.tv_num_total)
     TextView tvNumTotal;
     @BindView(R.id.tv_heji)
     TextView mTvHeji;
-    @BindView(R.id.member_bg_layout)
-    BgFrameLayout mRlVip;
     @BindView(R.id.tv_shoukuan)
     BgFrameLayout tvShoukuan;
     @BindView(R.id.btt_get_order)
@@ -151,8 +146,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     Button bttBusiness;
     @BindView(R.id.iv_search)
     ImageView ivSearch;
-    @BindView(R.id.btn_home_print_set)
-    Button btnHomePrint;
     @BindView(R.id.btn_home_label)
     Button btnHomeLabel;
     @BindView(R.id.order_count_layout)
@@ -198,7 +191,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     private EditCashierGoodsFragment editCashierGoodsFragment;
     private GoodsListFragment goodsListFragment;
     public JiesuanBFragment jiesuanBFragment;
-    QudanFragment qudanFragment;
+    private QudanFragment qudanFragment;
+    private SettingFragment settingFragment;
     private boolean isFirstLaunch = false;
 
     private BluetoothAdapter bluetoothAdapter;
@@ -234,20 +228,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Calendar.getInstance().setTimeInMillis(System.currentTimeMillis());
-        System.out.println(String.format("ღღღღღ GT ღღღღღ [%1$02d:%2$02d:%3$02d] %4$s\n",
-                Calendar.getInstance().get(Calendar.MINUTE),
-                Calendar.getInstance().get(Calendar.SECOND),
-                Calendar.getInstance().get(Calendar.MILLISECOND),
-                "setContentView start"));
         setContentView(R.layout.activity_home);
         isFirstLaunch = true;
-        Calendar.getInstance().setTimeInMillis(System.currentTimeMillis());
-        System.out.println(String.format("ღღღღღ GT ღღღღღ [%1$02d:%2$02d:%3$02d] %4$s\n",
-                Calendar.getInstance().get(Calendar.MINUTE),
-                Calendar.getInstance().get(Calendar.SECOND),
-                Calendar.getInstance().get(Calendar.MILLISECOND),
-                "setContentView end"));
         ButterKnife.bind(this);
 //        ActivityStack.create().addActivity(HomeActivity.this);
         EventBus.getDefault().register(this);
@@ -432,13 +414,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
         jiesuanBFragment = new JiesuanBFragment();
         fragmentManager.beginTransaction().add(R.id.fragment_content, jiesuanBFragment).hide(jiesuanBFragment).commit();
-
-        Calendar.getInstance().setTimeInMillis(System.currentTimeMillis());
-        System.out.println(String.format("ღღღღღ GT ღღღღღ [%1$02d:%2$02d:%3$02d] %4$s\n",
-                Calendar.getInstance().get(Calendar.MINUTE),
-                Calendar.getInstance().get(Calendar.SECOND),
-                Calendar.getInstance().get(Calendar.MILLISECOND),
-                "initFragment end"));
     }
 
     private void initData() {
@@ -542,7 +517,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         }
 
     }
-
 
     public class TimeThread extends Thread {
         @Override
@@ -1024,26 +998,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             }
         });
 
-        rlOut.setOnClickListener(new NoDoubleClickListener() {
-            @Override
-            protected void onNoDoubleClick(View view) {
-                mShowMemberPop = new ShowMemberPopWindow(HomeActivity.this, MyApplication.loginBean);
-                mShowMemberPop.setOnItemClickListener(HomeActivity.this);
-                mShowMemberPop.showAsDropDown(HomeActivity.this.findViewById(R.id.rl_out), -10, 0);
-
-            }
-        });
-
-        btnHomePrint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (YSLUtils.isFastClick()) {
-                    Intent intents = new Intent(ac, PrintSetActivity.class);
-                    startActivity(intents);
-                }
-            }
-        });
-
 //        ivShop.setOnClickListener(new NoDoubleClickListener() {
 //            @Override
 //            protected void onNoDoubleClick(View view) {
@@ -1084,28 +1038,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 });
             }
         });
-
-        mRlClear.setOnClickListener(new NoDoubleClickListener() {
-            @Override
-            protected void onNoDoubleClick(View view) {
-
-                //清空
-                mShopLeftList.clear();
-                mShopLeftAdapter.notifyDataSetChanged();
-                order = CreateOrder.createOrder("SP");
-                tv_ordernum.setText(order);
-                mTvHeji.setText("0.00");
-                tvShoukuan.setTag(0);
-                ((TextView) tvShoukuan.getChildAt(0)).setText("快速收银[Enter]");
-                tvNumTotal.setText("0");
-                leftpos = -1;
-
-                updateBttGetOrder();
-
-                fragmentManager.beginTransaction().hide(editCashierGoodsFragment).commit();
-            }
-        });
-
 
         tvShoukuan.setOnClickListener(new NoDoubleClickListener() {
             @Override
@@ -1178,67 +1110,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             }
         });
 
-        mRlVip.setOnClickListener(new NoDoubleClickListener() {
-            @Override
-            protected void onNoDoubleClick(View view) {
-                VipChooseDialog vipChooseDialog = new VipChooseDialog(HomeActivity.this, mVipMsg, new InterfaceBack() {
-                    @Override
-                    public void onResponse(Object response) {
-                        mVipMsg = (VipDengjiMsg.DataBean) response;
-
-                        PreferenceHelper.write(ac, "yunshangpu", "vip", true);
-
-                        ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
-                        onlyVipMsg.vipMsg(ac, mVipMsg.getVCH_Card(), new InterfaceBack() {
-                            @Override
-                            public void onResponse(Object response) {
-                                mVipDengjiMsg = (VipDengjiMsg) response;
-                                mPD_Discount = obtainVipPD_Discount(mVipMsg.getVG_GID(), mVipDengjiMsg.getData().get(0).getVGInfo());
-                                jisuanShopjisuanPrice(mPD_Discount, mShopLeftList);
-                            }
-
-                            @Override
-                            public void onErrorResponse(Object msg) {
-
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onErrorResponse(Object msg) {
-                        mVipMsg = null;
-                        mVipDengjiMsg = null;
-                        PreferenceHelper.write(ac, "yunshangpu", "vip", false);
-                        if (mShopLeftList.size() > 0) {
-                            for (int i = 0; i < mShopLeftList.size(); i++) {
-                                if (mShopLeftList.get(i).isHasvipDiscount()) {
-                                    mShopLeftList.get(i).setHasvipDiscount(false);
-                                    mShopLeftList.get(i).setPD_Discount(1);
-                                    mShopLeftList.get(i).setJisuanPrice(mShopLeftList.get(i).getPM_UnitPrice());
-                                }
-                            }
-                            jisuanAllPrice();
-                            mShopLeftAdapter.notifyDataSetChanged();
-                        }
-                    }
-                });
-                vipChooseDialog.show();
-
-//                VipDialog.languageChoseDialog(HomeActivity.this, 1, vipList, new InterfaceBack() {
-//                    @Override
-//                    public void onResponse(Object response) {
-//
-//
-//                    }
-//
-//                    @Override
-//                    public void onErrorResponse(Object msg) {
-//
-//                    }
-//                });
-            }
-        });
-
         bttHungMoney.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
@@ -1278,7 +1149,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 }
             }
         });
-
 
         bttGetOrder.setOnClickListener(new NoDoubleClickListener() {
             @Override
@@ -1347,9 +1217,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
                 }
             }
-
         });
-
 
         mRlHoutai.setOnClickListener(new NoDoubleClickListener() {
             @Override
@@ -1411,7 +1279,92 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 showWebDialog("交易", MyApplication.BASE_URL + "/WebUI/CashierDesk/ConsumeOrder.html", width * 9 / 10, 680);
             }
         });
+    }
 
+    @OnClick({R.id.btn_Cashier, R.id.btn_home_print_set,R.id.rl_out,R.id.member_bg_layout,R.id.rl_clear})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_Cashier:
+                fragmentManager.beginTransaction().hide(settingFragment).commit();
+                break;
+            case R.id.btn_home_print_set:
+                if (YSLUtils.isFastClick()) {
+//                    Intent intents = new Intent(ac, PrintSetActivity.class);
+//                    startActivity(intents);
+                    if (settingFragment == null) {
+                        settingFragment = new SettingFragment();
+                        fragmentManager.beginTransaction().add(R.id.subsidiary_fragment, settingFragment).commit();
+                    } else {
+                        fragmentManager.beginTransaction().show(settingFragment).commit();
+                    }
+                }
+                break;
+            case R.id.rl_out:
+                mShowMemberPop = new ShowMemberPopWindow(HomeActivity.this, MyApplication.loginBean);
+                mShowMemberPop.setOnItemClickListener(HomeActivity.this);
+                mShowMemberPop.showAsDropDown(HomeActivity.this.findViewById(R.id.rl_out), -10, 0);
+                break;
+            case R.id.member_bg_layout:
+                VipChooseDialog vipChooseDialog = new VipChooseDialog(HomeActivity.this, mVipMsg, new InterfaceBack() {
+                    @Override
+                    public void onResponse(Object response) {
+                        mVipMsg = (VipDengjiMsg.DataBean) response;
+
+                        PreferenceHelper.write(ac, "yunshangpu", "vip", true);
+
+                        ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
+                        onlyVipMsg.vipMsg(ac, mVipMsg.getVCH_Card(), new InterfaceBack() {
+                            @Override
+                            public void onResponse(Object response) {
+                                mVipDengjiMsg = (VipDengjiMsg) response;
+                                mPD_Discount = obtainVipPD_Discount(mVipMsg.getVG_GID(), mVipDengjiMsg.getData().get(0).getVGInfo());
+                                jisuanShopjisuanPrice(mPD_Discount, mShopLeftList);
+                            }
+
+                            @Override
+                            public void onErrorResponse(Object msg) {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onErrorResponse(Object msg) {
+                        mVipMsg = null;
+                        mVipDengjiMsg = null;
+                        PreferenceHelper.write(ac, "yunshangpu", "vip", false);
+                        if (mShopLeftList.size() > 0) {
+                            for (int i = 0; i < mShopLeftList.size(); i++) {
+                                if (mShopLeftList.get(i).isHasvipDiscount()) {
+                                    mShopLeftList.get(i).setHasvipDiscount(false);
+                                    mShopLeftList.get(i).setPD_Discount(1);
+                                    mShopLeftList.get(i).setJisuanPrice(mShopLeftList.get(i).getPM_UnitPrice());
+                                }
+                            }
+                            jisuanAllPrice();
+                            mShopLeftAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+                vipChooseDialog.show();
+                break;
+            case R.id.rl_clear:
+                //清空
+                mShopLeftList.clear();
+                mShopLeftAdapter.notifyDataSetChanged();
+                order = CreateOrder.createOrder("SP");
+                tv_ordernum.setText(order);
+                mTvHeji.setText("0.00");
+                tvShoukuan.setTag(0);
+                ((TextView) tvShoukuan.getChildAt(0)).setText("快速收银[Enter]");
+                tvNumTotal.setText("0");
+                leftpos = -1;
+
+                updateBttGetOrder();
+
+                fragmentManager.beginTransaction().hide(editCashierGoodsFragment).commit();
+                break;
+        }
     }
 
     private void showWebDialog(String title, String url, int mwidth, int mheight) {
@@ -1740,12 +1693,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             if (isFirstLaunch) {
                 isFirstLaunch = false;
                 // TODO 第一次启动界面加载完毕后的操作
-                Calendar.getInstance().setTimeInMillis(System.currentTimeMillis());
-                System.out.println(String.format("ღღღღღ GT ღღღღღ [%1$02d:%2$02d:%3$02d] %4$s\n",
-                        Calendar.getInstance().get(Calendar.MINUTE),
-                        Calendar.getInstance().get(Calendar.SECOND),
-                        Calendar.getInstance().get(Calendar.MILLISECOND),
-                        "onWindowFocusChanged"));
                 initFragment();
             }
         }

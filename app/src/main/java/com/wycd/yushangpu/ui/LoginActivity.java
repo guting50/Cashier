@@ -3,6 +3,7 @@ package com.wycd.yushangpu.ui;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -89,13 +90,13 @@ public class LoginActivity extends BaseActivity {
         boardHelper = new KeyBoardHelper(this);
         boardHelper.onCreate();
         boardHelper.setOnKeyBoardStatusChangeListener(onKeyBoardStatusChangeListener);
-//        layout_bottom.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                bottomHeight = layout_bottom.getHeight();
-//                Log.i("vlog","=================bottomHeight:"+bottomHeight);
-//            }
-//        });
+        layout_content.post(new Runnable() {
+            @Override
+            public void run() {
+                bottomHeight = layout_content.getHeight();
+                Log.i("vlog", "=================bottomHeight:" + bottomHeight);
+            }
+        });
 
         mRlLogin.setOnClickListener(new NoDoubleClickListener() {
             @Override
@@ -129,13 +130,6 @@ public class LoginActivity extends BaseActivity {
                                 MyApplication.LABELPRINT_IS_OPEN = true;
                             }
                             MyApplication.SHOP_NAME = MyApplication.loginBean.getData().getSM_Name();
-                            Calendar.getInstance().setTimeInMillis(System.currentTimeMillis());
-                            String logString = String.format("ღღღღღ GT ღღღღღ [%1$02d:%2$02d:%3$02d] %4$s\n",
-                                    Calendar.getInstance().get(Calendar.MINUTE),
-                                    Calendar.getInstance().get(Calendar.SECOND),
-                                    Calendar.getInstance().get(Calendar.MILLISECOND),
-                                    "startActivity");
-                            System.out.println(logString);
                             startActivity(new Intent(ac, HomeActivity.class));
                             finish();
 

@@ -78,8 +78,7 @@ public class ShopDetailDialog {
         int screenWidth = ((WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay()
                 .getWidth();
-        dialog.setContentView(view, new LinearLayout.LayoutParams(
-                screenWidth - dip2px(context, 250), LinearLayout.LayoutParams.WRAP_CONTENT));
+        dialog.setContentView(view);
         Window window = dialog.getWindow();
         dialog.show();
         obtainBumenList(context, loadingdialog, mShopMsg, VGID, mValiRuleMsgList, mEmplMsgList, yuangongAdapter);

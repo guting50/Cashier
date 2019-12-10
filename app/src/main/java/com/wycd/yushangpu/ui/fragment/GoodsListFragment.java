@@ -206,12 +206,6 @@ public class GoodsListFragment extends Fragment {
                 }
                 adapter.notifyDataSetChanged();
                 homeActivity.dialog.dismiss();
-                Calendar.getInstance().setTimeInMillis(System.currentTimeMillis());
-                System.out.println(String.format("ღღღღღ GT ღღღღღ [%1$02d:%2$02d:%3$02d] %4$s\n",
-                        Calendar.getInstance().get(Calendar.MINUTE),
-                        Calendar.getInstance().get(Calendar.SECOND),
-                        Calendar.getInstance().get(Calendar.MILLISECOND),
-                        "GoodsListFragment end"));
                 emptyStateLayout.setVisibility(View.GONE);
                 if (adapter.getShopMsgList().size() <= 0) {
                     emptyStateLayout.setVisibility(View.VISIBLE);

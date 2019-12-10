@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_margin="10dp"
         android:background="@drawable/bg_edittext_normal">
 
         <TextView
@@ -24,11 +24,11 @@
 
         <com.gt.utils.view.BgFrameLayout
             android:id="@+id/delete_layout"
-            android:layout_width="80dp"
+            android:layout_width="60dp"
             android:layout_height="35dp"
             android:layout_alignParentRight="true"
             android:layout_margin="10dp"
-            app:corners_radius="2dp"
+            app:corners_radius="3dp"
             app:solid_color="@color/textgreen">
 
             <TextView

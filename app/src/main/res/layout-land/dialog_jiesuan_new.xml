@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#d0000000"
+    android:background="#a0000000"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:gravity="center"
@@ -15,7 +15,7 @@
     <com.gt.utils.view.BgFrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="250dp"
+        android:layout_marginLeft="350dp"
         android:orientation="vertical"
         app:corners_radius_left_bottom="5dp"
         app:corners_radius_left_top="5dp"
@@ -36,17 +36,16 @@
                 <RelativeLayout
                     android:id="@+id/user_info_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_92"
                     android:layout_margin="5dp"
                     android:background="@drawable/shap_jiesunnot"
                     android:gravity="center_vertical">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/iv_viptx"
-                        android:layout_width="@dimen/dp_60"
-                        android:layout_height="@dimen/dp_60"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_width="@dimen/dp_70"
+                        android:layout_height="@dimen/dp_70"
+                        android:layout_marginLeft="@dimen/dp_15"
                         android:src="@mipmap/member_head_nohead" />
 
                     <TextView
@@ -54,7 +53,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_15"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="10dp"
                         android:layout_toEndOf="@+id/iv_viptx"
                         android:maxWidth="@dimen/dp_55"
                         android:text="散客"
@@ -80,7 +79,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_vipname"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/dp_80"
+                        android:layout_marginStart="@dimen/dp_150"
                         android:layout_marginTop="5dp"
                         android:layout_toEndOf="@+id/tv_blance"
                         android:text="积分:0"
@@ -93,13 +92,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@+id/user_info_layout"
-                    android:layout_margin="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
                     android:background="@drawable/shap_jiesunnot">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginLeft="@dimen/dp_15"
                         android:layout_marginTop="@dimen/dp_10"
                         android:text="本单合计"
                         android:textColor="@color/title_color"
@@ -111,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginTop="@dimen/dp_10"
-                        android:layout_marginRight="@dimen/dp_10"
+                        android:layout_marginRight="@dimen/dp_15"
                         android:text="0.00"
                         android:textColor="@color/title_color"
                         android:textSize="@dimen/sp_17" />
@@ -121,7 +122,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_bill_count"
-                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginLeft="@dimen/dp_15"
                         android:layout_marginTop="@dimen/dp_15"
                         android:text="优惠金额"
                         android:textColor="@color/title_color"
@@ -135,7 +136,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginLeft="@dimen/dp_10"
                         android:layout_marginTop="@dimen/dp_15"
-                        android:layout_marginRight="@dimen/dp_10"
+                        android:layout_marginRight="@dimen/dp_15"
                         android:background="@null"
                         android:drawablePadding="@dimen/dp_10"
                         android:focusable="false"
@@ -280,7 +281,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/li_moling"
-                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginLeft="@dimen/dp_15"
                         android:layout_marginTop="@dimen/dp_10"
                         android:text="应收"
                         android:textColor="@color/title_color"
@@ -293,7 +294,7 @@
                         android:layout_below="@+id/li_moling"
                         android:layout_alignParentRight="true"
                         android:layout_marginTop="@dimen/dp_10"
-                        android:layout_marginRight="@dimen/dp_10"
+                        android:layout_marginRight="@dimen/dp_15"
                         android:text="0.00"
                         android:textColor="@color/title_color"
                         android:textSize="@dimen/sp_28" />
@@ -311,9 +312,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_below="@+id/v_dividing"
-                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginLeft="@dimen/dp_15"
                         android:layout_marginTop="5dp"
-                        android:layout_marginRight="@dimen/dp_10"
+                        android:layout_marginRight="@dimen/dp_15"
                         android:background="@drawable/shap_jiesunnot"
                         android:paddingLeft="@dimen/dp_10"
                         android:paddingRight="@dimen/dp_10">
@@ -339,7 +340,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_above="@+id/v_dividing_2"
-                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginLeft="@dimen/dp_15"
                         android:layout_marginTop="@dimen/dp_10"
                         android:text="找零"
                         android:textColor="@color/title_color"
@@ -352,7 +353,7 @@
                         android:layout_above="@+id/v_dividing_2"
                         android:layout_alignParentRight="true"
                         android:layout_marginTop="@dimen/dp_10"
-                        android:layout_marginRight="@dimen/dp_10"
+                        android:layout_marginRight="@dimen/dp_15"
                         android:text="0.00"
                         android:textColor="@color/title_color"
                         android:textSize="@dimen/sp_28" />
@@ -430,16 +431,15 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginTop="5dp"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginRight="3dp"
-                    android:layout_weight="1.5"
+                    android:layout_weight="2"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -449,7 +449,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/shap_jiesunnot"
                         android:gravity="center"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -459,10 +459,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_3"
+                            android:layout_marginTop="@dimen/dp_5"
                             android:text="现金支付"
                             android:textColor="@color/text60"
-                            android:textSize="@dimen/sp_11" />
+                            android:textSize="@dimen/sp_17" />
 
                     </LinearLayout>
 
@@ -475,7 +475,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/shap_jiesunnot"
                         android:gravity="center"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -485,10 +485,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_3"
+                            android:layout_marginTop="@dimen/dp_5"
                             android:text="余额支付"
                             android:textColor="@color/text60"
-                            android:textSize="@dimen/sp_11" />
+                            android:textSize="@dimen/sp_17" />
 
                     </LinearLayout>
 
@@ -499,22 +499,20 @@
                         android:layout_weight="1"
                         android:background="@drawable/shap_jiesunnot"
                         android:gravity="center"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/iv_saoma"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/cash_ico_scan" />
 
                         <TextView
-                            android:id="@+id/tv_saoma"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_3"
+                            android:layout_marginTop="@dimen/dp_5"
                             android:text="扫码支付"
                             android:textColor="@color/text60"
-                            android:textSize="@dimen/sp_11" />
+                            android:textSize="@dimen/sp_17" />
 
                     </LinearLayout>
 
@@ -525,7 +523,7 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="3dp"
-                    android:layout_weight="1.5"
+                    android:layout_weight="2"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -535,7 +533,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/shap_jiesunnot"
                         android:gravity="center"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -545,10 +543,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_3"
+                            android:layout_marginTop="@dimen/dp_5"
                             android:text="支付宝"
                             android:textColor="@color/text60"
-                            android:textSize="@dimen/sp_11" />
+                            android:textSize="@dimen/sp_17" />
 
                     </LinearLayout>
 
@@ -561,7 +559,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/shap_jiesunnot"
                         android:gravity="center"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -571,10 +569,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_3"
+                            android:layout_marginTop="@dimen/dp_5"
                             android:text="微信"
                             android:textColor="@color/text60"
-                            android:textSize="@dimen/sp_11" />
+                            android:textSize="@dimen/sp_17" />
 
                     </LinearLayout>
 
@@ -585,7 +583,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/shap_jiesunnot"
                         android:gravity="center"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -595,10 +593,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_3"
+                            android:layout_marginTop="@dimen/dp_5"
                             android:text="银联"
                             android:textColor="@color/text60"
-                            android:textSize="@dimen/sp_11" />
+                            android:textSize="@dimen/sp_17" />
 
                     </LinearLayout>
 
@@ -609,7 +607,7 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="3dp"
-                    android:layout_weight="1.5"
+                    android:layout_weight="2"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -619,7 +617,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/shap_jiesunnot"
                         android:gravity="center"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -629,10 +627,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_3"
+                            android:layout_marginTop="@dimen/dp_5"
                             android:text="积分"
                             android:textColor="@color/text60"
-                            android:textSize="@dimen/sp_11" />
+                            android:textSize="@dimen/sp_17" />
 
                     </LinearLayout>
 
@@ -645,7 +643,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/shap_jiesunnot"
                         android:gravity="center"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -655,10 +653,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_3"
+                            android:layout_marginTop="@dimen/dp_5"
                             android:text="联合"
                             android:textColor="@color/text60"
-                            android:textSize="@dimen/sp_11" />
+                            android:textSize="@dimen/sp_17" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -668,7 +666,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/shap_jiesunnot"
                         android:gravity="center"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -678,10 +676,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_3"
+                            android:layout_marginTop="@dimen/dp_5"
                             android:text="其他"
                             android:textColor="@color/text60"
-                            android:textSize="@dimen/sp_11" />
+                            android:textSize="@dimen/sp_17" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -689,7 +687,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginTop="10dp"
-                    android:layout_weight="6"
+                    android:layout_weight="8"
                     android:orientation="horizontal">
 
                     <include
@@ -831,7 +829,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1.5"
+                    android:layout_weight="2"
                     android:orientation="horizontal">
 
                     <com.gt.utils.view.BgFrameLayout

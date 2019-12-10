@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="36dp"
+        android:layout_height="45dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -13,7 +13,7 @@
             android:id="@+id/tv_gid"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:ellipsize="end"
             android:singleLine="true"
             android:text="ID"
@@ -28,6 +28,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:text="姓名"
+            android:gravity="center"
             android:textColor="@color/text60"
             android:textSize="15sp" />
 
@@ -38,6 +39,7 @@
             android:layout_weight="2"
             android:ellipsize="end"
             android:singleLine="true"
+            android:gravity="center"
             android:text="卡号"
             android:textColor="@color/text60"
             android:textSize="15sp" />
@@ -46,7 +48,7 @@
             android:id="@+id/tv_phone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:ellipsize="end"
             android:gravity="right"
             android:singleLine="true"

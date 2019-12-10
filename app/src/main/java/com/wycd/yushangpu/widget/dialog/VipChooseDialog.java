@@ -84,17 +84,6 @@ public class VipChooseDialog extends Dialog {
         new NumKeyboardUtils(mContext, getWindow().getDecorView(), editTextLayout);
     }
 
-    /**
-     * 将dip或dp值转换为px值，保证尺寸大小不变
-     *
-     * @param dipValue （DisplayMetrics类中属性density）
-     * @return
-     */
-    public static int dip2px(Context context, float dipValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dipValue * scale + 0.5f);
-    }
-
     @OnClick({R.id.iv_close, R.id.li_search, R.id.rl_confirm, R.id.rl_delete})
     public void onViewClicked(View view) {
         KeyboardUtils.hideSoftInput(view);
