@@ -90,4 +90,6 @@
     <color name="color_device_line_gray">#c6c5c5</color>
     <color name="yunpu2">#FF85C3FC</color>
 
+<!--    <color name="mtrl_textinput_default_box_stroke_color">@color/textgreen</color>-->
+
 </resources>

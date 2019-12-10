@@ -8,10 +8,8 @@ import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.http.UrlTools;
 import com.wycd.yushangpu.tools.LogUtils;
 import com.wycd.yushangpu.tools.PreferenceHelper;
-import com.wycd.yushangpu.tools.ToastUtils;
 
 import org.json.JSONObject;
 
@@ -49,17 +47,13 @@ public class ImpLogin {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
 
-                    if (headers == null)
-                    {
+                    if (headers == null) {
                         return;
-                    } else
-                    {
-                        for (int i = 0; i < headers.length; i++)
-                        {
+                    } else {
+                        for (int i = 0; i < headers.length; i++) {
                             String cookie = headers[i].getValue();
                             String[] cookievalues = cookie.split(";");
-                            for (int j = 0; j < cookievalues.length; j++)
-                            {
+                            for (int j = 0; j < cookievalues.length; j++) {
                                 String[] keyPair = cookievalues[j].split("=");
                                 String key = keyPair[0].trim();
                                 String value = keyPair.length > 1 ? keyPair[1].trim() : "";
@@ -91,7 +85,7 @@ public class ImpLogin {
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 //                ToastUtils.showToast(ac, "登录失败，请重新登录");
                 com.blankj.utilcode.util.ToastUtils.showShort("登录失败，请重新登录");
-                LogUtils.d("xxerror", error.getMessage()+"");
+                LogUtils.d("xxerror", error.getMessage() + "");
                 back.onErrorResponse("");
             }
         });
@@ -103,12 +97,10 @@ public class ImpLogin {
      * @param
      */
     @SuppressWarnings("rawtypes")
-    public void AddCookies()
-    {
+    public void AddCookies() {
         StringBuilder sb = new StringBuilder();
         Iterator iter = CookieContiner.entrySet().iterator();
-        while (iter.hasNext())
-        {
+        while (iter.hasNext()) {
             Map.Entry entry = (Map.Entry) iter.next();
             String key = entry.getKey().toString();
             String val = entry.getValue().toString();
@@ -120,7 +112,7 @@ public class ImpLogin {
         cookie = sb.toString();
     }
 
-    private void getSetting(){
+    private void getSetting() {
 
     }
 }

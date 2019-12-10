@@ -8,8 +8,9 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
@@ -20,7 +21,6 @@ import com.wycd.yushangpu.tools.KeyBoardHelper;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.PreferenceHelper;
 import com.wycd.yushangpu.tools.ShadowUtils;
-import com.wycd.yushangpu.widget.views.ClearEditText;
 import com.yanzhenjie.permission.AndPermission;
 
 import java.util.Calendar;
@@ -30,11 +30,11 @@ import butterknife.ButterKnife;
 
 public class LoginActivity extends BaseActivity {
     @BindView(R.id.et_login_account)
-    ClearEditText mEtLoginAccount;
+    TextInputEditText mEtLoginAccount;
     @BindView(R.id.et_login_password)
-    ClearEditText mEtLoginPassword;
+    TextInputEditText mEtLoginPassword;
     @BindView(R.id.rl_login)
-    RelativeLayout mRlLogin;
+    TextView mRlLogin;
     @BindView(R.id.li_bg)
     LinearLayout mLiBg;
 
