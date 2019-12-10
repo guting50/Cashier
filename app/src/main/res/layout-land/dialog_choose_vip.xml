@@ -4,7 +4,7 @@
     android:layout_width="700dp"
     android:layout_height="410dp"
     android:layout_gravity="center_horizontal"
-    android:background="@color/white"
+    android:background="@drawable/background_white"
     android:orientation="vertical">
 
     <RelativeLayout

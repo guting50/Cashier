@@ -11,13 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_550"
         android:layout_marginBottom="@dimen/dp_15"
-        android:background="@drawable/shap_homesearch"
+        android:background="@drawable/background_white"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_40"
-            android:background="@color/texteb">
+            android:background="@drawable/shap_homeviptop">
 
             <TextView
                 android:layout_width="wrap_content"

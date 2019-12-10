@@ -15,9 +15,10 @@
     <com.gt.utils.view.BgFrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="250dp"
         android:orientation="vertical"
-        app:corners_radius_left_bottom="2dp"
-        app:corners_radius_left_top="2dp"
+        app:corners_radius_left_bottom="5dp"
+        app:corners_radius_left_top="5dp"
         app:solid_color="#EBEBF5">
 
         <LinearLayout
@@ -334,11 +335,10 @@
 
                     </FrameLayout>
 
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_above="@+id/cb_short_message"
+                        android:layout_above="@+id/v_dividing_2"
                         android:layout_marginLeft="@dimen/dp_10"
                         android:layout_marginTop="@dimen/dp_10"
                         android:text="找零"
@@ -349,7 +349,7 @@
                         android:id="@+id/tv_zhaoling"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_above="@+id/cb_short_message"
+                        android:layout_above="@+id/v_dividing_2"
                         android:layout_alignParentRight="true"
                         android:layout_marginTop="@dimen/dp_10"
                         android:layout_marginRight="@dimen/dp_10"
@@ -357,14 +357,32 @@
                         android:textColor="@color/title_color"
                         android:textSize="@dimen/sp_28" />
 
+                    <View
+                        android:id="@+id/v_dividing_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_above="@+id/cb_short_message"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/view_gray_line" />
+
+                    <CheckBox
+                        android:id="@+id/cb_small_ticket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_margin="15dp"
+                        android:drawablePadding="5dp"
+                        android:text="小票" />
+
                     <CheckBox
                         android:id="@+id/cb_short_message"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginEnd="5dp"
-                        android:button="@null"
-                        android:drawableLeft="@drawable/rember_password"
+                        android:layout_marginStart="@dimen/dp_180"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_toRightOf="@+id/cb_small_ticket"
                         android:drawablePadding="5dp"
                         android:text="短信" />
                 </RelativeLayout>
@@ -413,14 +431,14 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginRight="3dp"
                     android:layout_weight="1.5"
                     android:orientation="horizontal">
 
@@ -506,6 +524,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginTop="5dp"
+                    android:layout_marginRight="3dp"
                     android:layout_weight="1.5"
                     android:orientation="horizontal">
 
@@ -589,6 +608,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginTop="5dp"
+                    android:layout_marginRight="3dp"
                     android:layout_weight="1.5"
                     android:orientation="horizontal">
 
