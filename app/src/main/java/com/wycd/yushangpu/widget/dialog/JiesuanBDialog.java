@@ -1066,7 +1066,7 @@ public class JiesuanBDialog extends Dialog {
 //                tvPayname1.setText("扫码");
 //                mEtXianjin.setText("0");
 
-                SaomaDialog.saomaDialog(context, 1, new InterfaceBack() {
+                SaomaDialog.saomaDialog(context, money, 1, new InterfaceBack() {
                     @Override
                     public void onResponse(Object response) {
 

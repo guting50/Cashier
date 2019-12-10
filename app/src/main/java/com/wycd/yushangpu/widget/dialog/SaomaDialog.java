@@ -13,9 +13,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.tools.LogUtils;
@@ -27,90 +27,97 @@ import com.wycd.yushangpu.widget.views.ClearEditText;
  */
 
 public class SaomaDialog {
-    public static Dialog saomaDialog(final Activity context, int showingLocation, final InterfaceBack back) {
+    public static Dialog saomaDialog(final Activity context, String money, int showingLocation, final InterfaceBack back) {
         final Dialog dialog;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.dialog_saomapay, null);
         final ClearEditText et_saoma = (ClearEditText) view.findViewById(R.id.et_saoma);
         ImageView iv_clone = (ImageView) view.findViewById(R.id.iv_clone);
+        TextView tv_money = (TextView) view.findViewById(R.id.tv_money);
+        View on_open_saoma = (View) view.findViewById(R.id.on_open_saoma);
         dialog = new Dialog(context, R.style.DialogNotitle1);
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
         int screenWidth = ((WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay()
                 .getWidth();
-        dialog.setContentView(view, new LinearLayout.LayoutParams(
-                screenWidth - dip2px(context, 600), LinearLayout.LayoutParams.WRAP_CONTENT));
+        dialog.setContentView(view);
         Window window = dialog.getWindow();
         dialog.show();
 
-        iv_clone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+        if (MyApplication.loginBean.getData().getShopList().get(0).getSaoBei_State() == 0) {
+            on_open_saoma.setVisibility(View.VISIBLE);
+        } else {
+            on_open_saoma.setVisibility(View.GONE);
+            tv_money.setText("￥" + money);
+            iv_clone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
 
-        et_saoma.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                String s = textView.getText().toString().trim();
-                //拿到数据后做其他操作
-                LogUtils.d("xxsaomiao", s);
-                if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
-                    //扫描到的数据
+            et_saoma.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                    String s = textView.getText().toString().trim();
+                    //拿到数据后做其他操作
+                    LogUtils.d("xxsaomiao", s);
+                    if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
+                        //扫描到的数据
 
+
+                    }
+                    return true;
+                }
+            });
+            et_saoma.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
                 }
-                return true;
-            }
-        });
-        et_saoma.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            }
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
 
-            }
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    if (editable.toString().equals("")) {
 
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (editable.toString().equals("")) {
-
-                } else {
-                    if (editable.toString().length() == 18) {
-                        back.onResponse(editable.toString());
-                        dialog.dismiss();
+                    } else {
+                        if (editable.toString().length() == 18) {
+                            back.onResponse(editable.toString());
+                            dialog.dismiss();
+                        }
                     }
                 }
+            });
+            switch (showingLocation) {
+                case 0:
+                    window.setGravity(Gravity.TOP); // 此处可以设置dialog显示的位置
+                    break;
+                case 1:
+                    window.setGravity(Gravity.CENTER);
+                    break;
+                case 2:
+                    window.setGravity(Gravity.BOTTOM);
+                    break;
+                case 3:
+                    WindowManager.LayoutParams params = window.getAttributes();
+                    dialog.onWindowAttributesChanged(params);
+                    params.x = screenWidth - dip2px(context, 100);// 设置x坐标
+                    params.gravity = Gravity.TOP;
+                    params.y = dip2px(context, 45);// 设置y坐标
+                    Log.d("xx", params.y + "");
+                    window.setGravity(Gravity.TOP);
+                    window.setAttributes(params);
+                    break;
+                default:
+                    window.setGravity(Gravity.CENTER);
+                    break;
             }
-        });
-        switch (showingLocation) {
-            case 0:
-                window.setGravity(Gravity.TOP); // 此处可以设置dialog显示的位置
-                break;
-            case 1:
-                window.setGravity(Gravity.CENTER);
-                break;
-            case 2:
-                window.setGravity(Gravity.BOTTOM);
-                break;
-            case 3:
-                WindowManager.LayoutParams params = window.getAttributes();
-                dialog.onWindowAttributesChanged(params);
-                params.x = screenWidth - dip2px(context, 100);// 设置x坐标
-                params.gravity = Gravity.TOP;
-                params.y = dip2px(context, 45);// 设置y坐标
-                Log.d("xx", params.y + "");
-                window.setGravity(Gravity.TOP);
-                window.setAttributes(params);
-                break;
-            default:
-                window.setGravity(Gravity.CENTER);
-                break;
         }
         return dialog;
     }
