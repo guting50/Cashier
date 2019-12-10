@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wycd.yushangpu.R;
@@ -27,7 +26,7 @@ import org.greenrobot.eventbus.EventBus;
 public class NoticeDialog {
 
     public static Dialog noticeDialog(final Activity context, final String title, String value,
-                                          int showingLocation, final InterfaceBack back) {
+                                      int showingLocation, final InterfaceBack back) {
         final Dialog dialog;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.dialog_notice, null);
@@ -40,7 +39,6 @@ public class NoticeDialog {
         TextView tv_confirm = (TextView) view.findViewById(R.id.tv_sure);
 
 
-
         notice_title.setText(title);
         tv_content.setText(value);
 
@@ -51,8 +49,7 @@ public class NoticeDialog {
                 .getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay()
                 .getWidth();
 
-        dialog.setContentView(view, new LinearLayout.LayoutParams(
-                300, 150));
+        dialog.setContentView(view);
         Window window = dialog.getWindow();
         dialog.show();
 
@@ -118,7 +115,6 @@ public class NoticeDialog {
 
         return dialog;
     }
-
 
 
     /**

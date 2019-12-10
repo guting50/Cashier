@@ -3,16 +3,12 @@ package com.wycd.yushangpu.widget.dialog;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -23,11 +19,13 @@ import com.wycd.yushangpu.bean.YhqMsg;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpYhq;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
-import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.widget.views.ClearEditText;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 /**
@@ -38,42 +36,41 @@ public class YouhuiquanDialog {
     private static List<YhqMsg> choselist;
     private static List<YhqMsg> list = new ArrayList<>();
     private static YouhuiquanAdapter adapter;
-    public static Dialog yhqDialog(final Activity context,final String paymoney,VipDengjiMsg.DataBean mVipDengjiMsg,List<YhqMsg> yhqMsgs,
+
+    public static Dialog yhqDialog(final Activity context, final String paymoney, VipDengjiMsg.DataBean mVipDengjiMsg, List<YhqMsg> yhqMsgs,
                                    int showingLocation, final InterfaceBack back) {
         final Dialog dialog;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.dialog_youhuiquan, null);
         final RelativeLayout rl_confirm = (RelativeLayout) view.findViewById(R.id.rl_confirm);
         final RelativeLayout rl_cancle = (RelativeLayout) view.findViewById(R.id.rl_cancle);
-        final GridView gridview = (GridView) view.findViewById(R.id.gridview);
-        final ClearEditText et_search= (ClearEditText) view.findViewById(R.id.et_search);
+        final RecyclerView gridview = (RecyclerView) view.findViewById(R.id.gridview);
+        final ClearEditText et_search = (ClearEditText) view.findViewById(R.id.et_search);
 
-        LinearLayout li_search= (LinearLayout) view.findViewById(R.id.li_search);
+        LinearLayout li_search = (LinearLayout) view.findViewById(R.id.li_search);
         dialog = new Dialog(context, R.style.DialogNotitle1);
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
         int screenWidth = ((WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay()
                 .getWidth();
-        dialog.setContentView(view, new LinearLayout.LayoutParams(
-                screenWidth - dip2px(context, 600), LinearLayout.LayoutParams.WRAP_CONTENT));
+        dialog.setContentView(view);
         Window window = dialog.getWindow();
         dialog.show();
-        gridview.setSelector(new ColorDrawable(Color.TRANSPARENT));
-        choselist=new ArrayList<>();
+//        gridview.setSelector(new ColorDrawable(Color.TRANSPARENT));
+        choselist = new ArrayList<>();
 
-        if (yhqMsgs != null &&yhqMsgs.size()>0){
+        if (yhqMsgs != null && yhqMsgs.size() > 0) {
             choselist.addAll(yhqMsgs);
         }
 
-      final Dialog loadingdialog = LoadingDialog.loadingDialog(context, 1);
+        final Dialog loadingdialog = LoadingDialog.loadingDialog(context, 1);
 //        loadingdialog.show();
 
         addDate(mVipDengjiMsg);
-        adapter = new YouhuiquanAdapter(context, list,paymoney);
+        adapter = new YouhuiquanAdapter(context, list, paymoney, choselist);
+        gridview.setLayoutManager(new GridLayoutManager(context, 3));
         gridview.setAdapter(adapter);
-
-
 
         rl_cancle.setOnClickListener(new NoDoubleClickListener() {
             @Override
@@ -106,21 +103,21 @@ public class YouhuiquanDialog {
                             loadingdialog.dismiss();
                             YhqMsg slist = (YhqMsg) response;
 
-                            if (list.size()>0){
-                                for (int i = 0;i<list.size();i++){
-                                    if (list.get(i).getGID().equals(slist.getGID())){
+                            if (list.size() > 0) {
+                                for (int i = 0; i < list.size(); i++) {
+                                    if (list.get(i).getGID().equals(slist.getGID())) {
                                         return;
-                                    }else if (i == list.size()-1){
-                                        list.add(0,slist);
+                                    } else if (i == list.size() - 1) {
+                                        list.add(0, slist);
                                         break;
                                     }
                                 }
 
-                            }else {
-                                list.add(0,slist);
+                            } else {
+                                list.add(0, slist);
                             }
 
-                           adapter.notifyDataSetChanged();
+                            adapter.notifyDataSetChanged();
                         }
 
                         @Override
@@ -131,74 +128,7 @@ public class YouhuiquanDialog {
                 }
             }
         });
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                YhqMsg yhqMsg= (YhqMsg) adapterView.getItemAtPosition(i);
-                if(Double.parseDouble(paymoney)<Double.parseDouble(NullUtils.noNullHandle(yhqMsg.getEC_Denomination()).toString())){
-//                    ToastUtils.showToast(context,"未达到使用金额");
-                    com.blankj.utilcode.util.ToastUtils.showShort("未达到使用金额");
-                    return;
-                }
-                if(NullUtils.noNullHandle(yhqMsg.getEC_IsOverlay()).toString().equals("1")){//可叠加使用
-                    if(choselist.size()>0){
-                        for(int j=0;j<choselist.size();j++){
-                            if (choselist.get(j).getGID().equals(yhqMsg.getGID())){
-                                choselist.remove(j);
-                                list.get(i).setChose(false);
-                                adapter.notifyDataSetChanged();
-                                return;
-                            }else  if (j == choselist.size()-1){
-                                list.get(i).setChose(true);
-                                choselist.add(list.get(i));
-                                adapter.notifyDataSetChanged();
-                                return;
-                            }
-                        }
-                    }else {
-                        list.get(i).setChose(true);
-                        choselist.add(list.get(i));
-                        adapter.notifyDataSetChanged();
-                    }
-                }else {
-                    if(choselist.size()>0){
-                        for(int j=0;j<choselist.size();j++){
-                            if (choselist.get(j).getEC_IsOverlay() == 0){
-                                if (choselist.get(j).getGID().equals(yhqMsg.getGID())){
-                                    choselist.remove(j);
-                                    list.get(i).setChose(false);
-                                    adapter.notifyDataSetChanged();
-                                }else {
-//                                    ToastUtils.showToast(context,"一个订单中，不可叠加优惠券只能使用一张");
-                                    com.blankj.utilcode.util.ToastUtils.showShort("一个订单中，不可叠加优惠券只能使用一张");
-                                }
-                                return;
-                            }else if (j == choselist.size()-1){
-                                if(yhqMsg.isChose()){
-                                    choselist.remove(j);
-                                    list.get(i).setChose(false);
-                                    adapter.notifyDataSetChanged();
-                                }else{
-                                    list.get(i).setChose(true);
-                                    choselist.add(list.get(i));
-                                    adapter.notifyDataSetChanged();
-                                }
-                                return;
-                            }
-                        }
 
-                    }else{
-
-                        list.get(i).setChose(true);
-                        choselist.add(list.get(i));
-                        adapter.notifyDataSetChanged();
-                    }
-
-                }
-
-
-            }
-        });
         switch (showingLocation) {
             case 0:
                 window.setGravity(Gravity.TOP); // 此处可以设置dialog显示的位置
@@ -226,10 +156,10 @@ public class YouhuiquanDialog {
         return dialog;
     }
 
-    private static void addDate(VipDengjiMsg.DataBean mVipDengjiMsg){
+    private static void addDate(VipDengjiMsg.DataBean mVipDengjiMsg) {
         list.clear();
-        if (mVipDengjiMsg !=null && mVipDengjiMsg.getCouponsList() !=null){
-            for (VipDengjiMsg.DataBean.CouponsListBean msg : mVipDengjiMsg.getCouponsList()){
+        if (mVipDengjiMsg != null && mVipDengjiMsg.getCouponsList() != null) {
+            for (VipDengjiMsg.DataBean.CouponsListBean msg : mVipDengjiMsg.getCouponsList()) {
                 YhqMsg bean = new YhqMsg();
                 bean.setGID(msg.getGID());
                 bean.setVIP_GID(msg.getVIP_GID());
@@ -251,9 +181,9 @@ public class YouhuiquanDialog {
                 bean.setSM_GID(msg.getSM_GID());
                 bean.setSM_Name(msg.getSM_Name());
 
-                if (choselist.size()>0){
-                    for (int j = 0;j<choselist.size();j++){
-                        if (msg.getGID().equals(choselist.get(j).getGID())){
+                if (choselist.size() > 0) {
+                    for (int j = 0; j < choselist.size(); j++) {
+                        if (msg.getGID().equals(choselist.get(j).getGID())) {
                             bean.setChose(true);
                         }
                     }

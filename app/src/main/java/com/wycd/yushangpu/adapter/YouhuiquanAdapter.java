@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -14,8 +14,11 @@ import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.YhqMsg;
 import com.wycd.yushangpu.tools.NullUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -23,27 +26,145 @@ import butterknife.ButterKnife;
  * Created by songxiaotao on 2017/8/16.
  */
 
-public class YouhuiquanAdapter extends BaseAdapter {
-    private List<YhqMsg> list;
+public class YouhuiquanAdapter extends RecyclerView.Adapter {
+    private List<YhqMsg> list = new ArrayList<>();
+    private List<YhqMsg> choselist;
     private Context context;
-    private LayoutInflater inflater;
     private String pamoney;
+    private AdapterView.OnItemClickListener listener;
 
-    public YouhuiquanAdapter(Context context, List<YhqMsg> list,String pamoney) {
+    public YouhuiquanAdapter(Context context, List<YhqMsg> list, String pamoney, List<YhqMsg> choselist) {
         this.list = list;
         this.context = context;
-        inflater = LayoutInflater.from(context);
-        this.pamoney=pamoney;
+        this.pamoney = pamoney;
+        this.choselist = choselist;
+    }
+
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_youhuiquan, parent, false);
+        return new Holder(view);
     }
 
     @Override
-    public int getCount() {
-        return list.size();
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        final YhqMsg vipMsg = list.get(position);
+        Holder holder1 = (Holder) holder;
+        if (Double.parseDouble(pamoney) >= Double.parseDouble(NullUtils.noNullHandle(vipMsg.getEC_Denomination()).toString())) {
+            holder1.mRlState.setBackgroundColor(context.getResources().getColor(R.color.textyellow));
+        } else {
+            holder1.mRlState.setBackgroundColor(context.getResources().getColor(R.color.viewcb));
+        }
+        holder1.mTvYhqmsg.setText("满" + NullUtils.noNullHandle(vipMsg.getEC_Denomination()).toString() + "元可用");
+
+        holder1.mTvAction.setText(NullUtils.noNullHandle(vipMsg.getEC_Name()).toString());
+
+        holder1.mTvAllshop.setText(NullUtils.noNullHandle(vipMsg.getSM_Name()).toString().equals("") ? "所有店铺可用" : NullUtils.noNullHandle(vipMsg.getSM_Name()).toString());
+
+        holder1.mTvDiejia.setText(NullUtils.noNullHandle(vipMsg.getEC_IsOverlay()).toString().equals("1") ? "可叠加使用" : "不可叠加使用");
+
+        if (vipMsg.getEC_DiscountType() == 1) {
+            holder1.tv_type.setText("代金券");
+            holder1.mTvMoney.setText("¥" + vipMsg.getEC_Discount());
+        } else {
+            holder1.tv_type.setText("折扣券");
+            holder1.mTvMoney.setText((vipMsg.getEC_Discount()) / 10 + "折");
+        }
+
+        holder1.tv_type.setText(NullUtils.noNullHandle(vipMsg.getEC_DiscountType()).toString().equals("1") ? "代金券" : "折扣券");
+
+        switch (NullUtils.noNullHandle(vipMsg.getVCR_IsForver()).toString()) {
+            case "0":
+                holder1.mTvYouxiao.setText(NullUtils.noNullHandle(vipMsg.getVCR_StatrTime()).toString() + "- -" + NullUtils.noNullHandle(vipMsg.getVCR_EndTime()).toString() + "有效");
+                break;
+            case "1":
+                holder1.mTvYouxiao.setText("永久有效");
+                break;
+            case "2":
+                holder1.mTvYouxiao.setText(NullUtils.noNullHandle(vipMsg.getVCR_EndTime()).toString() + "前有效");
+                break;
+        }
+        if (NullUtils.noNullHandle(vipMsg.isChose()).toString().equals("true")) {
+            holder1.mIvChose.setVisibility(View.VISIBLE);
+        } else {
+            holder1.mIvChose.setVisibility(View.GONE);
+        }
+
+        holder1.rootView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                YhqMsg yhqMsg = vipMsg;
+                if (Double.parseDouble(pamoney) < Double.parseDouble(NullUtils.noNullHandle(yhqMsg.getEC_Denomination()).toString())) {
+//                    ToastUtils.showToast(context,"未达到使用金额");
+                    com.blankj.utilcode.util.ToastUtils.showShort("未达到使用金额");
+                    return;
+                }
+                if (NullUtils.noNullHandle(yhqMsg.getEC_IsOverlay()).toString().equals("1")) {//可叠加使用
+                    if (choselist.size() > 0) {
+                        for (int j = 0; j < choselist.size(); j++) {
+                            if (choselist.get(j).getGID().equals(yhqMsg.getGID())) {
+                                choselist.remove(j);
+                                yhqMsg.setChose(false);
+                                notifyDataSetChanged();
+                                return;
+                            } else if (j == choselist.size() - 1) {
+                                yhqMsg.setChose(true);
+                                choselist.add(yhqMsg);
+                                notifyDataSetChanged();
+                                return;
+                            }
+                        }
+                    } else {
+                        yhqMsg.setChose(true);
+                        choselist.add(yhqMsg);
+                        notifyDataSetChanged();
+                    }
+                } else {
+                    if (choselist.size() > 0) {
+                        for (int j = 0; j < choselist.size(); j++) {
+                            if (choselist.get(j).getEC_IsOverlay() == 0) {
+                                if (choselist.get(j).getGID().equals(yhqMsg.getGID())) {
+                                    choselist.remove(j);
+                                    yhqMsg.setChose(false);
+                                    notifyDataSetChanged();
+                                } else {
+//                                    ToastUtils.showToast(context,"一个订单中，不可叠加优惠券只能使用一张");
+                                    com.blankj.utilcode.util.ToastUtils.showShort("一个订单中，不可叠加优惠券只能使用一张");
+                                }
+                                return;
+                            } else if (j == choselist.size() - 1) {
+                                if (yhqMsg.isChose()) {
+                                    choselist.remove(j);
+                                    yhqMsg.setChose(false);
+                                    notifyDataSetChanged();
+                                } else {
+                                    yhqMsg.setChose(true);
+                                    choselist.add(yhqMsg);
+                                    notifyDataSetChanged();
+                                }
+                                return;
+                            }
+                        }
+
+                    } else {
+
+                        yhqMsg.setChose(true);
+                        choselist.add(yhqMsg);
+                        notifyDataSetChanged();
+                    }
+
+                }
+
+
+            }
+        });
+//        holder1.tv_ygcode.setText(NullUtils.noNullHandle(vipMsg.getEM_Code()).toString());
+//        holder1.tv_ygsex.setText(Integer.parseInt(NullUtils.noNullHandle(vipMsg.getEM_Sex()).toString()) == 1 ? "男" : "女");
     }
 
-    @Override
-    public Object getItem(int i) {
-        return list.get(i);
+    public void setOnItemClickListener(AdapterView.OnItemClickListener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -52,71 +173,13 @@ public class YouhuiquanAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int i, View view, ViewGroup viewGroup) {
-        final ViewHolder holder1;
-        if (view == null) {
-            view = inflater.inflate(R.layout.item_youhuiquan, null);
-            holder1 = new ViewHolder(view);
-            view.setTag(holder1);
-        } else {
-            holder1 = (ViewHolder) view.getTag();
-        }
-        final YhqMsg vipMsg = list.get(i);
-        if (i % 2 == 1) {
-            holder1.view_line.setVisibility(View.GONE);
-        } else {
-            holder1.view_line.setVisibility(View.VISIBLE);
-        }
-
-        if(Double.parseDouble(pamoney)>=Double.parseDouble(NullUtils.noNullHandle(vipMsg.getEC_Denomination()).toString())){
-            holder1.mRlState.setBackgroundColor(context.getResources().getColor(R.color.textyellow));
-        }else{
-            holder1.mRlState.setBackgroundColor(context.getResources().getColor(R.color.viewcb));
-        }
-        holder1.mTvYhqmsg.setText("满"+NullUtils.noNullHandle(vipMsg.getEC_Denomination()).toString()+"元可用");
-
-        holder1.mTvAction.setText(NullUtils.noNullHandle(vipMsg.getEC_Name()).toString());
-
-        holder1.mTvAllshop.setText(NullUtils.noNullHandle(vipMsg.getSM_Name()).toString().equals("")?"所有店铺可用":NullUtils.noNullHandle(vipMsg.getSM_Name()).toString());
-
-        holder1.mTvDiejia.setText(NullUtils.noNullHandle(vipMsg.getEC_IsOverlay()).toString().equals("1")?"可叠加使用":"不可叠加使用");
-
-        if (vipMsg.getEC_DiscountType() == 1) {
-            holder1.tv_type.setText("代金券");
-            holder1.mTvMoney.setText("¥" + vipMsg.getEC_Discount());
-        } else  {
-            holder1.tv_type.setText("折扣券");
-            holder1.mTvMoney.setText((vipMsg.getEC_Discount())/10+"折");
-        }
-
-        holder1.tv_type.setText(NullUtils.noNullHandle(vipMsg.getEC_DiscountType()).toString().equals("1")?"代金券":"折扣券");
-
-        switch (NullUtils.noNullHandle(vipMsg.getVCR_IsForver()).toString()){
-            case "0":
-                holder1.mTvYouxiao.setText(NullUtils.noNullHandle(vipMsg.getVCR_StatrTime()).toString()+"- -"+NullUtils.noNullHandle(vipMsg.getVCR_EndTime()).toString()+"有效");
-                break;
-            case "1":
-                holder1.mTvYouxiao.setText("永久有效");
-                break;
-            case "2":
-                holder1.mTvYouxiao.setText(NullUtils.noNullHandle(vipMsg.getVCR_EndTime()).toString()+"前有效");
-                break;
-        }
-        if(NullUtils.noNullHandle(vipMsg.isChose()).toString().equals("true")){
-            holder1.mIvChose.setVisibility(View.VISIBLE);
-        }else{
-            holder1.mIvChose.setVisibility(View.GONE);
-        }
-//        holder1.tv_ygcode.setText(NullUtils.noNullHandle(vipMsg.getEM_Code()).toString());
-//        holder1.tv_ygsex.setText(Integer.parseInt(NullUtils.noNullHandle(vipMsg.getEM_Sex()).toString()) == 1 ? "男" : "女");
-        return view;
+    public int getItemCount() {
+        return list.size();
     }
 
-    static class ViewHolder {
+    static class Holder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_type)
         TextView tv_type;
-        @BindView(R.id.view_line)
-        View view_line;
         @BindView(R.id.tv_money)
         TextView mTvMoney;
         @BindView(R.id.li_mo)
@@ -139,8 +202,13 @@ public class YouhuiquanAdapter extends BaseAdapter {
         ImageView mIvChose;
         @BindView(R.id.rl_bg)
         RelativeLayout mRlBg;
-        ViewHolder(View view) {
+        View rootView;
+
+        public Holder(View view) {
+            super(view);
             ButterKnife.bind(this, view);
+            rootView = view;
+
         }
     }
 

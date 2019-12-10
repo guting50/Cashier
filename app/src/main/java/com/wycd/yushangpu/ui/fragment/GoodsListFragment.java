@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -48,6 +49,8 @@ public class GoodsListFragment extends Fragment {
     WaveSwipeRefreshLayout refreshGoodsConsume;
     @BindView(R.id.goods_list)
     RecyclerView goodsList;
+    @BindView(R.id.empty_state_layout)
+    FrameLayout emptyStateLayout;
 
     private List<ClassMsg> mClassMsgList = new ArrayList<>();//分类数据列表
     private int PageIndex = 1;
@@ -209,6 +212,10 @@ public class GoodsListFragment extends Fragment {
                         Calendar.getInstance().get(Calendar.SECOND),
                         Calendar.getInstance().get(Calendar.MILLISECOND),
                         "GoodsListFragment end"));
+                emptyStateLayout.setVisibility(View.GONE);
+                if (adapter.getShopMsgList().size() <= 0) {
+                    emptyStateLayout.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -317,7 +324,7 @@ public class GoodsListFragment extends Fragment {
                         myHolser.mTvVipprice.setText("");
                     }
                     myHolser.mTvSanprice.getPaint().setFlags(0 | Paint.ANTI_ALIAS_FLAG); // 取消设置的的划线
-                    myHolser.mTvSanprice.setTextColor(getContext().getResources().getColor(R.color.textred));
+//                    myHolser.mTvSanprice.setTextColor(getContext().getResources().getColor(R.color.textred));
                 }
             } else {
                 if (!NullUtils.noNullHandle(ts.getPM_MemPrice()).toString().equals("")) {
@@ -326,7 +333,7 @@ public class GoodsListFragment extends Fragment {
                     myHolser.mTvVipprice.setText("");
                 }
                 myHolser.mTvSanprice.getPaint().setFlags(0 | Paint.ANTI_ALIAS_FLAG); // 取消设置的的划线
-                myHolser.mTvSanprice.setTextColor(getContext().getResources().getColor(R.color.textred));
+//                myHolser.mTvSanprice.setTextColor(getContext().getResources().getColor(R.color.textred));
             }
             myHolser.mTvSanprice.setText("售：" + StringUtil.twoNum(NullUtils.noNullHandle(ts.getPM_UnitPrice()).toString()));
 

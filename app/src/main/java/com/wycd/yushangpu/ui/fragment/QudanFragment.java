@@ -5,12 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.maimengmami.waveswiperefreshlayout.WaveSwipeRefreshLayout;
+import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.adapter.GuadanListAdapter;
 import com.wycd.yushangpu.bean.GuadanList;
@@ -38,6 +38,8 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -60,13 +62,13 @@ public class QudanFragment extends Fragment {
     @BindView(R.id.tv_handle)
     TextView tvHandle;
     @BindView(R.id.listview)
-    ListView listview;
+    RecyclerView listview;
     @BindView(R.id.iv_close)
     ImageView ivClose;
     @BindView(R.id.srl_freshmanage_activity)
     WaveSwipeRefreshLayout mRefresh;
     private InterfaceBack back;
-    private List<GuadanList> list;
+    private List<GuadanList> list = new ArrayList<>();
     private HomeActivity homeActivity;
     private GuadanListAdapter guadanListAdapter;
     private String jifen;
@@ -79,7 +81,6 @@ public class QudanFragment extends Fragment {
     private int refreshnum = 2;
     private boolean mIsLoadMore;
     private int mPageTotal;//数据总页数
-    private String mSmGid;
     View rootView;
 
     @Nullable
@@ -96,7 +97,6 @@ public class QudanFragment extends Fragment {
 
         homeActivity = (HomeActivity) getActivity();
 
-        list = new ArrayList<>();
         guadanListAdapter = new GuadanListAdapter(homeActivity, list, new InterfaceBack() {
             @Override
             public void onResponse(Object response) {
@@ -114,6 +114,7 @@ public class QudanFragment extends Fragment {
                             HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
                             event.setMsg("Change_color");
                             EventBus.getDefault().post(event);
+                            list.remove(guadanList);
                         }
 
                         @Override
@@ -142,6 +143,7 @@ public class QudanFragment extends Fragment {
                                 HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
                                 event.setMsg("Change_color");
                                 EventBus.getDefault().post(event);
+                                list.remove(guadanList);
                             }
 
                             @Override
@@ -165,14 +167,15 @@ public class QudanFragment extends Fragment {
 
             }
         });
+        listview.setLayoutManager(new GridLayoutManager(homeActivity, 3));
         listview.setAdapter(guadanListAdapter);
         setView();
+        obtainGuadanList();
     }
 
-    public void setData(PayTypeMsg moren, ArrayList<PayTypeMsg> paytypelist, String mSmGid, InterfaceBack back) {
+    public void setData(PayTypeMsg moren, ArrayList<PayTypeMsg> paytypelist, InterfaceBack back) {
         this.moren = moren;
         this.paytypelist = paytypelist;
-        this.mSmGid = mSmGid;
         this.back = back;
 
         for (PayTypeMsg msg : paytypelist) {
@@ -182,10 +185,8 @@ public class QudanFragment extends Fragment {
             if (msg.getSS_Name().equals("积分支付限制")) {
                 jinfenzfxzbfb = msg.getSS_Value();
             }
-
         }
-
-        obtainGuadanList(1);
+        obtainGuadanList();
     }
 
     private void jiesuan(GuadanList guadanList, VipDengjiMsg.DataBean mVipMsg) {
@@ -204,7 +205,7 @@ public class QudanFragment extends Fragment {
                         if (response != null) {
                             com.blankj.utilcode.util.ToastUtils.showShort("结算成功");
                             mShopLeftList.clear();
-                            obtainGuadanList(1);
+                            obtainGuadanList();
                         }
                     }
 
@@ -256,9 +257,13 @@ public class QudanFragment extends Fragment {
         }
     }
 
+    public void obtainGuadanList() {
+        obtainGuadanList(1);
+    }
+
     private void obtainGuadanList(int index) {
         ImpGuadanList shopHome = new ImpGuadanList();
-        shopHome.guadanList(homeActivity, index, 20, mSmGid, new InterfaceBack() {
+        shopHome.guadanList(homeActivity, index, 20, MyApplication.loginBean.getData().getShopID(), new InterfaceBack() {
             @Override
             public void onResponse(Object response) {
                 HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
@@ -285,6 +290,7 @@ public class QudanFragment extends Fragment {
                     mIsLoadMore = false;
                     mRefresh.setRefreshing(false);
                     mRefresh.setLoading(false);
+                    homeActivity.updateBttGetOrder();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -321,7 +327,7 @@ public class QudanFragment extends Fragment {
             @Override
             public void onRefresh() {
 
-                obtainGuadanList(1);
+                obtainGuadanList();
                 refreshnum = 2;
             }
 
@@ -349,5 +355,9 @@ public class QudanFragment extends Fragment {
             }
         });
 
+    }
+
+    public int getListCount() {
+        return list.size();
     }
 }

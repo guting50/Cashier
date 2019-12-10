@@ -137,9 +137,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     @BindView(R.id.tv_shoukuan)
     BgFrameLayout tvShoukuan;
     @BindView(R.id.btt_get_order)
-    Button bttGetOrder;
-    @BindView(R.id.btt_hung_order)
-    BgFrameLayout bttHungOrder;
+    TextView bttGetOrder;
     @BindView(R.id.btt_hung_money)
     Button bttHungMoney;
     @BindView(R.id.btt_reture_goods)
@@ -156,6 +154,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     Button btnHomePrint;
     @BindView(R.id.btn_home_label)
     Button btnHomeLabel;
+    @BindView(R.id.order_count_layout)
+    BgFrameLayout orderCountLayout;
 
     private static int totalPage;
     private static int totalCount;
@@ -176,7 +176,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     private String jifendkbfb, jinfenzfxzbfb;
     //    private double PD_Discount = 0;
     private int leftpos = -1;// 购物车选中位子 -1表示没有选中
-    private String mSmGid;
     private int mPD_Discount = 0;
     private List<GoodsModelBean> ModelList;
     private List<List<GoodsModelBean>> modelList = new ArrayList<>();
@@ -391,11 +390,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     leftpos = leftpos - 1;
                     mShopLeftAdapter.notifyDataSetChanged();
                     jisuanAllPrice();
-                    if (mShopLeftList.size() > 0) {
-                        bttGetOrder.setText("挂单");
-                    } else {
-                        bttGetOrder.setText("取单");
-                    }
+
+                    updateBttGetOrder();
                 }
             }
 
@@ -454,7 +450,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 //        mClassMsgList = null;//清空分类
 
         if (MyApplication.loginBean != null) {
-            mSmGid = MyApplication.loginBean.getData().getShopID();
 //            if (MyApplication.loginBean.getData().getAgents().getAG_LogoUrl() != null) {
 //                VolleyResponse.instance().getInternetImg(ac, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(MyApplication.loginBean.getData().getShopList().get(0).getSM_Picture()).toString()), ivShop, R.drawable.defalut_store);
 //
@@ -841,11 +836,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                 leftpos += 1;
                             }
                             jisuanShopjisuanPrice(mPD_Discount, mShopLeftList);
-                            if (mShopLeftList.size() > 0) {
-                                bttGetOrder.setText("挂单");
-                            } else {
-                                bttGetOrder.setText("取单");
-                            }
+
+                            updateBttGetOrder();
                         } else {
                             mShopLeftList.get(pos).setNum(num + finalAddnum);
                             jisuanAllPrice();
@@ -938,11 +930,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                             leftpos += 1;
                                         }
                                         jisuanShopjisuanPrice(mPD_Discount, mShopLeftList);
-                                        if (mShopLeftList.size() > 0) {
-                                            bttGetOrder.setText("挂单");
-                                        } else {
-                                            bttGetOrder.setText("取单");
-                                        }
+
+                                        updateBttGetOrder();
                                     } else {
                                         mShopLeftList.get(pos).setNum(num + finalAddnum);
                                         jisuanAllPrice();
@@ -999,11 +988,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     leftpos += 1;
                 }
                 jisuanShopjisuanPrice(mPD_Discount, mShopLeftList);
-                if (mShopLeftList.size() > 0) {
-                    bttGetOrder.setText("挂单");
-                } else {
-                    bttGetOrder.setText("取单");
-                }
+
+                updateBttGetOrder();
             } else {
                 mShopLeftList.get(pos).setNum(num + addnum);
                 jisuanAllPrice();
@@ -1112,11 +1098,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 ((TextView) tvShoukuan.getChildAt(0)).setText("快速收银[Enter]");
                 tvNumTotal.setText("0");
                 leftpos = -1;
-                if (mShopLeftList.size() > 0) {
-                    bttGetOrder.setText("挂单");
-                } else {
-                    bttGetOrder.setText("取单");
-                }
+
+                updateBttGetOrder();
 
                 fragmentManager.beginTransaction().hide(editCashierGoodsFragment).commit();
             }
@@ -1245,51 +1228,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             }
         });
 
-        bttHungOrder.setOnClickListener(new NoDoubleClickListener() {
-            @Override
-            protected void onNoDoubleClick(View view) {
-
-                //挂单
-                if (mShopLeftList.size() > 0) {
-                    NoticeDialog.noticeDialog(ac, "收银台挂单提示", "你确定要挂单吗？", 1, new InterfaceBack() {
-                        @Override
-                        public void onResponse(Object response) {
-
-//                            dialog.show();
-                            ImpSubmitOrder submitOrder = new ImpSubmitOrder();
-                            submitOrder.submitOrder(ac, order, ordertime.toString(), null == mVipMsg ? "00000" : mVipMsg.getVCH_Card(), mShopLeftList, true, new InterfaceBack() {
-                                @Override
-                                public void onResponse(Object response) {
-                                    dialog.dismiss();
-//                                    ToastUtils.showToast(ac, "挂单成功");
-                                    com.blankj.utilcode.util.ToastUtils.showShort("挂单成功");
-
-                                    resetCashier();
-                                }
-
-                                @Override
-                                public void onErrorResponse(Object msg) {
-                                    dialog.dismiss();
-                                }
-                            });
-
-                        }
-
-                        @Override
-                        public void onErrorResponse(Object msg) {
-
-                        }
-                    });
-                } else {
-//                    ToastUtils.showToast(HomeActivity.this, "请选择商品");
-                    com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
-                }
-
-
-            }
-        });
-
-
         bttHungMoney.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
@@ -1350,6 +1288,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                     com.blankj.utilcode.util.ToastUtils.showShort("挂单成功");
 
                                     resetCashier();
+                                    qudanFragment.obtainGuadanList();
                                 }
 
                                 @Override
@@ -1365,10 +1304,10 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
                         }
                     });
-                } else {
+                } else if (qudanFragment.getListCount() > 0) {
                     //取单
                     fragmentManager.beginTransaction().show(qudanFragment).commit();
-                    qudanFragment.setData(moren, paytypelist, mSmGid, new InterfaceBack() {
+                    qudanFragment.setData(moren, paytypelist, new InterfaceBack() {
                         @Override
                         public void onResponse(Object response) {
                             fragmentManager.beginTransaction().hide(qudanFragment).commit();
@@ -1385,6 +1324,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                 mShopLeftAdapter.notifyDataSetChanged();
                                 jisuanAllPrice();
                             }
+                            updateBttGetOrder();
                         }
 
                         @Override
@@ -1392,6 +1332,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
                         }
                     });
+                } else {
+                    com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
                 }
             }
 
@@ -1528,13 +1470,20 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 }
 
                 mShopLeftList.add(newmsg);
-                if (mShopLeftList.size() > 0) {
-                    bttGetOrder.setText("挂单");
-                } else {
-                    bttGetOrder.setText("取单");
-                }
+                updateBttGetOrder();
             }
 
+        }
+    }
+
+    public void updateBttGetOrder() {
+        orderCountLayout.setVisibility(View.GONE);
+        if (mShopLeftList.size() > 0) {
+            bttGetOrder.setText("挂单[F1]");
+        } else if (qudanFragment.getListCount() > 0) {
+            orderCountLayout.setVisibility(View.VISIBLE);
+            ((TextView) orderCountLayout.getChildAt(0)).setText(qudanFragment.getListCount() + "");
+            bttGetOrder.setText("取单[F1]");
         }
     }
 

@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical">
+    android:focusableInTouchMode="true">
 
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="600dp"
         android:layout_height="@dimen/dp_500"
         android:background="@drawable/shap_homesearch"
         android:orientation="vertical">
@@ -27,9 +25,10 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dp_40"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/dp_18"
+                    android:gravity="center_vertical"
                     android:text="选择优惠券"
                     android:textColor="@color/textcolor"
                     android:textSize="@dimen/sp_15" />
@@ -52,9 +51,9 @@
                     android:layout_marginRight="@dimen/dp_12"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:stretchMode="spacingWidth"
                     android:drawableRight="@drawable/home_error"
                     android:hint="请输入优惠券名称"
+                    android:stretchMode="spacingWidth"
                     android:textColor="@color/textcolor"
                     android:textColorHint="@color/textbb"
                     android:textSize="@dimen/sp_13" />
@@ -86,7 +85,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <GridView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/gridview"
                 android:layout_width="450dp"
                 android:layout_height="match_parent"
@@ -97,9 +96,7 @@
                 android:numColumns="2"
                 android:scrollbars="none"
                 android:stretchMode="columnWidth"
-                android:verticalSpacing="0.0dip"
-
-                ></GridView>
+                android:verticalSpacing="0.0dip" />
 
         </LinearLayout>
 
@@ -146,4 +143,4 @@
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
-</LinearLayout>
+</FrameLayout>

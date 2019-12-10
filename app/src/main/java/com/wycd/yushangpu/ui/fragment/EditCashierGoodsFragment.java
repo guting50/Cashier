@@ -20,6 +20,7 @@ import com.wycd.yushangpu.tools.StringUtil;
 import com.wycd.yushangpu.ui.HomeActivity;
 import com.wycd.yushangpu.widget.NumInputView;
 import com.wycd.yushangpu.widget.NumKeyboardUtils;
+import com.wycd.yushangpu.widget.dialog.NoticeDialog;
 import com.wycd.yushangpu.widget.dialog.ShopDetailDialog;
 
 import java.util.ArrayList;
@@ -176,14 +177,24 @@ public class EditCashierGoodsFragment extends Fragment {
                 editTextLayout.selectAll();
                 break;
             case R.id.bn_edit_give:
-                resetBnEdit(view);
-                double discount = 0;
-                shopBean.setIschanged(true);
-                shopBean.setIsgive(true);
-                shopBean.setPD_Discount(discount);
-                shopBean.setAllprice(0);
-                homeActivity.mShopLeftAdapter.notifyDataSetChanged();
-                homeActivity.jisuanAllPrice();
+                NoticeDialog.noticeDialog(homeActivity, "商品赠送", "是否赠送此商品？", 1, new InterfaceBack() {
+                    @Override
+                    public void onResponse(Object response) {
+                        resetBnEdit(view);
+                        double discount = 0;
+                        shopBean.setIschanged(true);
+                        shopBean.setIsgive(true);
+                        shopBean.setPD_Discount(discount);
+                        shopBean.setAllprice(0);
+                        homeActivity.mShopLeftAdapter.notifyDataSetChanged();
+                        homeActivity.jisuanAllPrice();
+                    }
+
+                    @Override
+                    public void onErrorResponse(Object msg) {
+
+                    }
+                });
                 break;
             case R.id.bn_edit_royalty:
                 resetBnEdit(view);

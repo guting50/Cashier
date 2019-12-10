@@ -1,39 +1,37 @@
 package com.wycd.yushangpu.bean;
 
-import android.widget.ListView;
-
 import java.io.Serializable;
 import java.util.List;
 
 public class GuadanList implements Serializable {
 
-   private List<ViewGoodsDetailBean> ViewGoodsDetail;//	商品信息 	IList	返回订单详情
-   private String  CC_GID;//		活动GID	string
-    private String   EM_GIDList;//		提成员工	List<string>
-    private String     PayPoint;//		抵扣积分	decimal
-    private String   DisMoney;//		折后金额/应收金额	decimal
-    private String    VCH_Money;//		卡内余额	decimal	打印用
-    private String    VCH_Point;//		卡内积分	decimal	打印用
-    private String   CO_SSMoney	;//	实收金额	decimal
-    private String   CO_ZLMoney;//		找零金额	decimal
-    private String    CO_ActivityName;//		活动名称	string
-    private String     CO_ActivityValue;//		优惠信息	string	例如：抵扣50元
-    private String     CO_Discount;//		快速消费折扣	decimal?
-    private String     GID;//		消费订单GID	string
-    private String     VIP_GID;//		会员GID	string
-    private String    VIP_Card;//		会员卡号	string
+    private List<ViewGoodsDetailBean> ViewGoodsDetail;//	商品信息 	IList	返回订单详情
+    private String CC_GID;//		活动GID	string
+    private String EM_GIDList;//		提成员工	List<string>
+    private String PayPoint;//		抵扣积分	decimal
+    private String DisMoney;//		折后金额/应收金额	decimal
+    private String VCH_Money;//		卡内余额	decimal	打印用
+    private String VCH_Point;//		卡内积分	decimal	打印用
+    private String CO_SSMoney;//	实收金额	decimal
+    private String CO_ZLMoney;//		找零金额	decimal
+    private String CO_ActivityName;//		活动名称	string
+    private String CO_ActivityValue;//		优惠信息	string	例如：抵扣50元
+    private String CO_Discount;//		快速消费折扣	decimal?
+    private String GID;//		消费订单GID	string
+    private String VIP_GID;//		会员GID	string
+    private String VIP_Card;//		会员卡号	string
     private String VIP_Name;//	会员姓名	string
     private String VIP_Phone;//		会员手机	string
-    private String  VIP_FaceNumber;//		卡面号码	string
-    private String  CO_OrderCode;//		订单编号	string
-    private String  CO_ConsumeWay;//		消费方式	string
-    private String  CO_Monetary;//		消费金额	decimal?
-    private String  CO_TotalPrice;//		折后总价	decimal?
-    private String  CO_Integral;//		订单积分	decimal?	获得积分
+    private String VIP_FaceNumber;//		卡面号码	string
+    private String CO_OrderCode;//		订单编号	string
+    private String CO_ConsumeWay;//		消费方式	string
+    private String CO_Monetary;//		消费金额	decimal?
+    private String CO_TotalPrice;//		折后总价	decimal?
+    private String CO_Integral;//		订单积分	decimal?	获得积分
     private String CO_Type;//		消费类型	string
-    private String  CO_Creator;//		创建者	string
-    private String  CO_UpdateTime;//		创建时间	DateTime?
-    private String  CY_GID;//		企业GID	string
+    private String CO_Creator;//		创建者	string
+    private String CO_UpdateTime;//		创建时间	DateTime?
+    private String CY_GID;//		企业GID	string
     private String SM_Name;//		店铺名称	string
     private String SM_Contacter;//		联系人	string
     private String CO_Identifying; //订单状态名
@@ -287,7 +285,7 @@ public class GuadanList implements Serializable {
         this.SM_Contacter = SM_Contacter;
     }
 
-    public static class ViewGoodsDetailBean implements Serializable{
+    public static class ViewGoodsDetailBean implements Serializable {
 
         private String GID;//
         private String CO_GID;//
@@ -497,14 +495,6 @@ public class GuadanList implements Serializable {
         public void setGOD_Type(int GOD_Type) {
             this.GOD_Type = GOD_Type;
         }
-
-
-
-
-
-
-
-
 
 
     }
