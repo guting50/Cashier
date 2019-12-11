@@ -66,8 +66,8 @@ import com.wycd.yushangpu.tools.Utils;
 import com.wycd.yushangpu.ui.fragment.EditCashierGoodsFragment;
 import com.wycd.yushangpu.ui.fragment.GoodsListFragment;
 import com.wycd.yushangpu.ui.fragment.JiesuanBFragment;
+import com.wycd.yushangpu.ui.fragment.PrintSetFragment;
 import com.wycd.yushangpu.ui.fragment.QudanFragment;
-import com.wycd.yushangpu.ui.fragment.SettingFragment;
 import com.wycd.yushangpu.web.WebDialog;
 import com.wycd.yushangpu.widget.dialog.ChangePwdDialog;
 import com.wycd.yushangpu.widget.dialog.FastCashierDialog;
@@ -192,7 +192,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     private GoodsListFragment goodsListFragment;
     public JiesuanBFragment jiesuanBFragment;
     private QudanFragment qudanFragment;
-    private SettingFragment settingFragment;
+    private PrintSetFragment printSetFragment;
     private boolean isFirstLaunch = false;
 
     private BluetoothAdapter bluetoothAdapter;
@@ -1281,21 +1281,19 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         });
     }
 
-    @OnClick({R.id.btn_Cashier, R.id.btn_home_print_set,R.id.rl_out,R.id.member_bg_layout,R.id.rl_clear})
+    @OnClick({R.id.btn_Cashier, R.id.btn_home_print_set, R.id.rl_out, R.id.member_bg_layout, R.id.rl_clear})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_Cashier:
-                fragmentManager.beginTransaction().hide(settingFragment).commit();
+                fragmentManager.beginTransaction().hide(printSetFragment).commit();
                 break;
             case R.id.btn_home_print_set:
                 if (YSLUtils.isFastClick()) {
-//                    Intent intents = new Intent(ac, PrintSetActivity.class);
-//                    startActivity(intents);
-                    if (settingFragment == null) {
-                        settingFragment = new SettingFragment();
-                        fragmentManager.beginTransaction().add(R.id.subsidiary_fragment, settingFragment).commit();
+                    if (printSetFragment == null) {
+                        printSetFragment = new PrintSetFragment();
+                        fragmentManager.beginTransaction().add(R.id.subsidiary_fragment, printSetFragment).commit();
                     } else {
-                        fragmentManager.beginTransaction().show(settingFragment).commit();
+                        fragmentManager.beginTransaction().show(printSetFragment).commit();
                     }
                 }
                 break;
