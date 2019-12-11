@@ -59,7 +59,9 @@ public class FastCashierDialog {
         numKeyboardUtils.setOnDelClickListener(new NumKeyboardUtils.OnDelClickListener() {
             @Override
             public void popBack(String str) {
-                if (!TextUtils.isEmpty(str)) {
+                edit_view.setText("");
+                tv_total.setText("0.00");
+                /*if (!TextUtils.isEmpty(str)) {
                     if (str.length() > 0) {
                         if (str.length() > 1 && str.contains("+")) {
                             tv_total.setText("0.00");
@@ -69,14 +71,14 @@ public class FastCashierDialog {
                                             Double.parseDouble(str) + "");
                         }
                     }
-                }
+                }*/
             }
         });
         num_keyboard_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String text = edit_view.getText().toString();
-                if (!TextUtils.equals("+", text.substring(text.length() - 1))) {
+                if (!TextUtils.isEmpty(text) && !TextUtils.equals("+", text.substring(text.length() - 1))) {
                     edit_view.addText("+");
                     String[] strList = text.split("\\+");
                     tv_total.setText(

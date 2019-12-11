@@ -21,12 +21,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,6 +61,7 @@ import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 import butterknife.ButterKnife;
 
@@ -80,13 +81,17 @@ public class PrintSetFragment extends Fragment {
     private TextView mTvPrint, mTvConnect;
     private RadioGroup mRgPrintSwitch;//打印开关
     private RadioGroup rgPrinterSet;
-    private RadioGroup rrPrinterSelect;
-    private RadioButton rbPrinterLabel, rbPrinterDevice;
+    private RadioGroup rgPrinterSelect;
+    private RadioGroup rgPrinterSelectLabelSize;
+    private RadioButton rbAboutShop, rbPrinterLabel, rbPrinterDevice, rbSoftwareInfo;
     private RadioButton mRbOpen, mRbClose;
-    private RadioButton rrPrinterSelectedUsb, rrPrinterSelectedBluetooth;
+    private RadioButton rgPrinterSelectedUsb, rgPrinterSelectedBluetooth;
+    private RadioButton rgPrinterSelectLabelSmall, rgPrinterSelectLabelLarge;
     private EditText mEtGoodsConsume, mEtHandDutyTime;
     private LinearLayout llPrintSetSwitch, llPrintSet;
-    private Spinner printPaper;
+    private SwitchCompat scPrintSwitch;
+    private View aboutShopLayout, settingLayout, softwareInfoLayout;
+
     private IPrintSetPresenter mPresenter;
     private IPrintSetView mView;
     private int mPrintSwitch = 1;
@@ -94,8 +99,6 @@ public class PrintSetFragment extends Fragment {
     private int i;
     private PrintSetBean mPrintSetBean;
 
-    private ArrayAdapter<String> mSpinnerPaperAdapter;
-    private ArrayList<String> paperTypeList = new ArrayList<>();//类型
     private int paperType = 2;
 
     private int rbType = 0;
@@ -160,14 +163,27 @@ public class PrintSetFragment extends Fragment {
         mRgPrintSwitch.check(mRbClose.getId());
 
         rgPrinterSet = (RadioGroup) rootView.findViewById(R.id.rg_printer_print_set);
+        rbAboutShop = (RadioButton) rootView.findViewById(R.id.rb_about_shop);
         rbPrinterLabel = (RadioButton) rootView.findViewById(R.id.rb_printer_label_set);
         rbPrinterDevice = (RadioButton) rootView.findViewById(R.id.rb_printer_device_set);
-//        rgPrinterSet.check(rbPrinterReceipt.getId());
+        rbSoftwareInfo = (RadioButton) rootView.findViewById(R.id.rb_software_info);
+        rgPrinterSet.check(rbAboutShop.getId());
 
-        rrPrinterSelect = (RadioGroup) rootView.findViewById(R.id.rb_printer_select);
-        rrPrinterSelectedUsb = (RadioButton) rootView.findViewById(R.id.rb_printer_selected_usb);
-        rrPrinterSelectedBluetooth = (RadioButton) rootView.findViewById(R.id.rb_printer_selected_bluetooth);
-//        rrPrinterSelect.check(rrPrinterSelectedUsb.getId());
+        rgPrinterSelect = (RadioGroup) rootView.findViewById(R.id.rb_printer_select);
+        rgPrinterSelectedUsb = (RadioButton) rootView.findViewById(R.id.rb_printer_selected_usb);
+        rgPrinterSelectedBluetooth = (RadioButton) rootView.findViewById(R.id.rb_printer_selected_bluetooth);
+//        rgPrinterSelect.check(rgPrinterSelectedUsb.getId());
+
+        rgPrinterSelectLabelSize = (RadioGroup) rootView.findViewById(R.id.rb_printer_select_label_size);
+        rgPrinterSelectLabelSmall = (RadioButton) rootView.findViewById(R.id.rb_printer_select_label_small);
+        rgPrinterSelectLabelLarge = (RadioButton) rootView.findViewById(R.id.rb_printer_select_label_large);
+        rgPrinterSelectLabelSize.check(rgPrinterSelectLabelSmall.getId());
+
+        scPrintSwitch = (SwitchCompat) rootView.findViewById(R.id.sc_print_switch);
+
+        aboutShopLayout = rootView.findViewById(R.id.about_shop_layout);
+        settingLayout = rootView.findViewById(R.id.setting_layout);
+        softwareInfoLayout = rootView.findViewById(R.id.software_info_layout);
 
         String ReceiptUSBName = (String) CacheData.restoreObject("ReceiptUSBName");
         if (ReceiptUSBName != null && !"".equals(ReceiptUSBName) && ISCONNECT) {
@@ -181,14 +197,7 @@ public class PrintSetFragment extends Fragment {
 
         mEtGoodsConsume = (EditText) rootView.findViewById(R.id.et_print_set_goods_consume);
         mEtHandDutyTime = (EditText) rootView.findViewById(R.id.et_print_set_hand_duty);
-        printPaper = (Spinner) rootView.findViewById(R.id.sp_print_paper);
-        paperTypeList.add("58mm纸张");
-        paperTypeList.add("80mm纸张");
 
-        mSpinnerPaperAdapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.item_spinner, R.id.tv_item_spinner, paperTypeList);
-        printPaper.setAdapter(mSpinnerPaperAdapter);
-        printPaper.setSelection(0);
     }
 
     //更新打印设置缓存
@@ -240,9 +249,9 @@ public class PrintSetFragment extends Fragment {
                     if (bean.getData().getPS_IsEnabled() == 1) {
                         mRgPrintSwitch.check(mRbOpen.getId());
                         if (bean.getData().getPS_PaperType() == 2) {
-                            printPaper.setSelection(0);
+                            rgPrinterSelectLabelSize.check(rgPrinterSelectLabelSmall.getId());
                         } else if (bean.getData().getPS_PaperType() == 3) {
-                            printPaper.setSelection(1);
+                            rgPrinterSelectLabelSize.check(rgPrinterSelectLabelLarge.getId());
                         }
                     } else {
                         mRgPrintSwitch.check(mRbClose.getId());
@@ -389,29 +398,25 @@ public class PrintSetFragment extends Fragment {
             }
         });
 
-        printPaper.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                paperType = position + 2;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
         rgPrinterSet.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                aboutShopLayout.setVisibility(View.GONE);
+                settingLayout.setVisibility(View.GONE);
+                softwareInfoLayout.setVisibility(View.GONE);
                 switch (checkedId) {
+                    case R.id.rb_about_shop:
+                        aboutShopLayout.setVisibility(View.VISIBLE);
+                        break;
                     case R.id.rb_printer_label_set:
+                        settingLayout.setVisibility(View.VISIBLE);
                         rbType = 1;
                         llPrintSetSwitch.setVisibility(View.GONE);
                         llPrintSet.setVisibility(View.GONE);
                         break;
                     case R.id.rb_printer_device_set:
-                        switch (rrPrinterSelect.getCheckedRadioButtonId()) {
+                        settingLayout.setVisibility(View.VISIBLE);
+                        switch (rgPrinterSelect.getCheckedRadioButtonId()) {
                             case R.id.rb_printer_selected_usb:
                                 rbType = 0;
                                 break;
@@ -422,11 +427,14 @@ public class PrintSetFragment extends Fragment {
                         llPrintSetSwitch.setVisibility(View.VISIBLE);
                         llPrintSet.setVisibility(View.VISIBLE);
                         break;
+                    case R.id.rb_software_info:
+                        softwareInfoLayout.setVisibility(View.VISIBLE);
+                        break;
                 }
             }
         });
 
-        rrPrinterSelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        rgPrinterSelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 String name = "";
@@ -449,6 +457,40 @@ public class PrintSetFragment extends Fragment {
                 }
             }
         });
+
+        rgPrinterSelectLabelSize.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rb_printer_select_label_small:
+                        paperType = 2;
+                        break;
+                    case R.id.rb_printer_select_label_large:
+                        paperType = 3;
+                        break;
+                }
+            }
+        });
+        scPrintSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    mPrintSwitch = 1;
+
+                    mEtGoodsConsume.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    mEtHandDutyTime.setInputType(InputType.TYPE_CLASS_NUMBER);
+
+                    mEtGoodsConsume.setText("1");
+                    mEtHandDutyTime.setText("1");
+                } else {
+                    mPrintSwitch = 0;
+
+                    mEtGoodsConsume.setInputType(InputType.TYPE_NULL);
+                    mEtHandDutyTime.setInputType(InputType.TYPE_NULL);
+                }
+            }
+        });
+
         //打印机连接
         mTvPrint.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -10,26 +10,24 @@
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/dp_20"
         android:paddingLeft="18dp"
+        android:paddingTop="@dimen/dp_20"
         android:text="已配对"
-        android:textSize="@dimen/sp_18"
-        />
+        android:textSize="@dimen/sp_18" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
-        android:paddingRight="5dp"
         android:background="@drawable/spiner_selector"
-        >
+        android:paddingRight="5dp">
+
         <ListView
             android:id="@+id/listView1"
             android:layout_width="wrap_content"
-            android:background="@android:color/white"
-            android:layout_height="wrap_content" >
-        </ListView>
+            android:layout_height="wrap_content"
+            android:background="@android:color/white" />
     </RelativeLayout>
 
 
@@ -40,21 +38,21 @@
         android:layout_margin="18dp"
         android:background="@drawable/customer_button_selector"
         android:text="搜索"
-        android:textColor="@color/white"
-        />
+        android:textColor="@color/white" />
 
     <LinearLayout
         android:id="@+id/ll1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:visibility="gone">
+
         <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="18dp"
-        android:text="新设备" />
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="18dp"
+            android:text="新设备" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -62,15 +60,14 @@
             android:layout_marginLeft="18dp"
             android:layout_marginRight="18dp"
             android:layout_marginBottom="18dp"
-            android:paddingRight="5dp"
             android:background="@drawable/spiner_selector"
-            >
+            android:paddingRight="5dp">
+
             <ListView
                 android:id="@+id/listView2"
-                android:background="@android:color/white"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-            </ListView>
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"></ListView>
         </RelativeLayout>
     </LinearLayout>
 

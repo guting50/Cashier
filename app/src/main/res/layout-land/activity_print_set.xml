@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/result_view"
     android:focusable="true"
     android:focusableInTouchMode="true"
     tools:ignore="MissingDefaultResource">
@@ -13,110 +14,251 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <RadioGroup
-            android:id="@+id/rg_printer_print_set"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_20"
-            android:layout_weight="1"
-            android:background="@drawable/bg_ll_setting"
-            android:orientation="vertical"
-            android:padding="@dimen/dp_2">
-
-            <RadioButton
-                android:id="@+id/rb_printer_label_set"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_60"
-                android:background="@drawable/rb_background_print_set"
-                android:button="@null"
-                android:gravity="center"
-                android:text="USB标签打印"
-                android:textSize="18sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/linecolor" />
-
-            <RadioButton
-                android:id="@+id/rb_printer_device_set"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_60"
-                android:background="@drawable/rb_background_print_set"
-                android:button="@null"
-                android:gravity="center"
-                android:text="无线蓝牙打印"
-                android:textSize="18sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/linecolor" />
-
-        </RadioGroup>
-
-        <LinearLayout
+        <com.gt.utils.view.BgFrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/dp_20"
+            android:layout_weight="1"
+            app:corners_radius="5dp"
+            app:solid_color="@color/white">
+
+            <RadioGroup
+                android:id="@+id/rg_printer_print_set"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:background="@drawable/bg_ll_setting"
+                android:orientation="vertical"
+                android:padding="@dimen/dp_2">
+
+                <RadioButton
+                    android:id="@+id/rb_about_shop"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    android:background="@drawable/rb_background_print_set"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="关于店铺"
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/linecolor" />
+
+                <RadioButton
+                    android:id="@+id/rb_printer_label_set"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    android:background="@drawable/rb_background_print_set"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="标签设置"
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/linecolor" />
+
+                <RadioButton
+                    android:id="@+id/rb_printer_device_set"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    android:background="@drawable/rb_background_print_set"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="打印设置"
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/linecolor" />
+
+                <RadioButton
+                    android:id="@+id/rb_software_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    android:background="@drawable/rb_background_print_set"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="软件版本"
+                    android:textSize="18sp" />
+
+            </RadioGroup>
+
+            <com.gt.utils.view.BgFrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom"
+                android:layout_margin="20dp"
+                app:corners_radius="5dp"
+                app:solid_color="@color/text_yellow">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="退出登录"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+            </com.gt.utils.view.BgFrameLayout>
+        </com.gt.utils.view.BgFrameLayout>
+
+        <com.gt.utils.view.BgFrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
             android:layout_weight="2"
-            android:background="@drawable/bg_ll_setting"
-            android:orientation="vertical"
-            android:padding="@dimen/dp_2">
+            app:corners_radius="5dp"
+            app:solid_color="@color/texte5">
+
+            <com.gt.utils.view.BgFrameLayout
+                android:id="@+id/about_shop_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="关于店铺" />
+
+            </com.gt.utils.view.BgFrameLayout>
 
             <LinearLayout
-                android:id="@+id/ll_print_set_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:id="@+id/setting_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/dp_20"
+                android:visibility="gone">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/ll_print_set_switch"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="42dp"
-                        android:layout_marginTop="2dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
                         android:background="@color/white"
                         android:gravity="center_vertical"
-                        android:paddingStart="20dp"
-                        android:paddingEnd="20dp"
-                        android:text="打印开关"
-                        android:textColor="@color/color_main_text_black"
-                        android:textSize="16sp" />
-
-                    <RadioGroup
-                        android:id="@+id/rg_print_set_switch"
-                        android:layout_width="match_parent"
-                        android:layout_height="42dp"
-                        android:layout_marginTop="2dp"
                         android:orientation="horizontal">
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="42dp"
+                            android:layout_marginTop="2dp"
+                            android:background="@color/white"
+                            android:gravity="center_vertical"
+                            android:paddingStart="20dp"
+                            android:paddingEnd="20dp"
+                            android:text="打印开关"
+                            android:textColor="@color/color_main_text_black"
+                            android:textSize="16sp" />
+
+                        <RadioGroup
+                            android:id="@+id/rg_print_set_switch"
+                            android:layout_width="match_parent"
+                            android:layout_height="42dp"
+                            android:layout_marginTop="2dp"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5" />
+
+                            <RadioButton
+                                android:id="@+id/rb_print_set_open"
+                                style="@style/RadioButton"
+                                android:gravity="center"
+                                android:text="开启打印" />
+
+                            <RadioButton
+                                android:id="@+id/rb_print_set_close"
+                                style="@style/RadioButton"
+                                android:gravity="center"
+                                android:text="关闭打印" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5" />
+
+                        </RadioGroup>
+
                         <View
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="1dp"
+                            android:layout_weight="1" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/sc_print_switch"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.5" />
+                            android:layout_marginRight="@dimen/dimen_15"
+                            android:checked="true"
+                            app:switchMinWidth="50dp" />
 
-                        <RadioButton
-                            android:id="@+id/rb_print_set_open"
-                            style="@style/RadioButton"
-                            android:gravity="center"
-                            android:text="开启打印" />
+                    </LinearLayout>
 
-                        <RadioButton
-                            android:id="@+id/rb_print_set_close"
-                            style="@style/RadioButton"
-                            android:gravity="center"
-                            android:text="关闭打印" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/white"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.5" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="42dp"
+                            android:layout_marginTop="2dp"
+                            android:background="@color/white"
+                            android:gravity="center_vertical"
+                            android:paddingStart="20dp"
+                            android:paddingEnd="20dp"
+                            android:text="连接模式"
+                            android:textColor="@color/color_main_text_black"
+                            android:textSize="16sp" />
 
-                    </RadioGroup>
+                        <RadioGroup
+                            android:id="@+id/rb_printer_select"
+                            android:layout_width="match_parent"
+                            android:layout_height="42dp"
+                            android:layout_marginTop="2dp"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5" />
+
+                            <RadioButton
+                                android:id="@+id/rb_printer_selected_usb"
+                                style="@style/RadioButton"
+                                android:gravity="center"
+                                android:text="usb" />
+
+                            <RadioButton
+                                android:id="@+id/rb_printer_selected_bluetooth"
+                                style="@style/RadioButton"
+                                android:gravity="center"
+                                android:text="蓝牙" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5" />
+
+                        </RadioGroup>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -125,264 +267,246 @@
                     android:layout_height="1dp"
                     android:background="@color/linecolor" />
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="60dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="42dp"
-                        android:layout_marginTop="2dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="20dp"
                         android:background="@color/white"
                         android:gravity="center_vertical"
-                        android:paddingStart="20dp"
-                        android:paddingEnd="20dp"
-                        android:text="连接模式"
+                        android:text="选择打印机"
                         android:textColor="@color/color_main_text_black"
                         android:textSize="16sp" />
 
-                    <RadioGroup
-                        android:id="@+id/rb_printer_select"
+                    <TextView
+                        android:id="@+id/tv_print_set_print"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:background="@color/white"
+                        android:gravity="center_vertical"
+                        android:paddingStart="@dimen/dp_20"
+                        android:paddingEnd="@dimen/dp_20"
+                        android:text="请选择打印机"
+                        android:textColor="@color/color_main_text_black"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/linecolor" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="20dp"
+                        android:background="@color/white"
+                        android:gravity="center_vertical"
+                        android:text="连接状态"
+                        android:textColor="@color/color_main_text_black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_connect_set_print"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:background="@color/white"
+                        android:gravity="center_vertical"
+                        android:paddingStart="@dimen/dp_20"
+                        android:paddingEnd="@dimen/dp_20"
+                        android:text="未连接"
+                        android:textColor="@color/color_main_text_black"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_print_set"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="42dp"
-                        android:layout_marginTop="2dp"
+                        android:layout_height="60dp"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <View
-                            android:layout_width="0dp"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="42dp"
+                            android:layout_marginTop="2dp"
+                            android:background="@color/white"
+                            android:gravity="center_vertical"
+                            android:paddingStart="20dp"
+                            android:paddingEnd="20dp"
+                            android:text="选择打印纸张"
+                            android:textColor="@color/color_main_text_black"
+                            android:textSize="16sp" />
+
+                        <RadioGroup
+                            android:id="@+id/rb_printer_select_label_size"
+                            android:layout_width="match_parent"
+                            android:layout_height="42dp"
+                            android:layout_marginTop="2dp"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.37" />
+
+                            <RadioButton
+                                android:id="@+id/rb_printer_select_label_small"
+                                style="@style/RadioButton"
+                                android:gravity="center"
+                                android:text="58mm" />
+
+                            <RadioButton
+                                android:id="@+id/rb_printer_select_label_large"
+                                style="@style/RadioButton"
+                                android:gravity="center"
+                                android:text="80mm" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5" />
+
+                        </RadioGroup>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/linecolor" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:background="@color/white"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.5" />
+                            android:layout_marginStart="20dp"
+                            android:gravity="center_vertical"
+                            android:text="商品消费小票"
+                            android:textColor="@color/color_main_text_black"
+                            android:textSize="16sp" />
 
-                        <RadioButton
-                            android:id="@+id/rb_printer_selected_usb"
-                            style="@style/RadioButton"
-                            android:gravity="center"
-                            android:text="usb" />
-
-                        <RadioButton
-                            android:id="@+id/rb_printer_selected_bluetooth"
-                            style="@style/RadioButton"
-                            android:gravity="center"
-                            android:text="蓝牙" />
-
-                        <View
-                            android:layout_width="0dp"
+                        <EditText
+                            android:id="@+id/et_print_set_goods_consume"
+                            android:layout_width="@dimen/dp_180"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.5" />
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:background="@null"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:text="1"
+                            android:textColor="@color/color_main_text_black"
+                            android:textSize="16sp" />
 
-                    </RadioGroup>
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/linecolor" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:background="@color/white"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="20dp"
+                            android:gravity="center_vertical"
+                            android:text="交班小票         "
+                            android:textColor="@color/color_main_text_black"
+                            android:textSize="16sp" />
+
+                        <EditText
+                            android:id="@+id/et_print_set_hand_duty"
+                            android:layout_width="@dimen/dp_180"
+                            android:layout_height="match_parent"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:background="@null"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:text="1"
+                            android:textColor="@color/color_main_text_black"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/linecolor" />
 
                 </LinearLayout>
 
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/linecolor" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/white">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="20dp"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
-                    android:text="选择打印机"
-                    android:textColor="@color/color_main_text_black"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/tv_print_set_print"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_centerHorizontal="true"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
-                    android:paddingStart="@dimen/dp_20"
-                    android:paddingEnd="@dimen/dp_20"
-                    android:text="请选择打印机"
-                    android:textColor="@color/color_main_text_black"
-                    android:textSize="16sp" />
-
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/linecolor" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/white">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="20dp"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
-                    android:text="连接状态"
-                    android:textColor="@color/color_main_text_black"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/tv_connect_set_print"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_centerHorizontal="true"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
-                    android:paddingStart="@dimen/dp_20"
-                    android:paddingEnd="@dimen/dp_20"
-                    android:text="未连接"
-                    android:textColor="@color/color_main_text_black"
-                    android:textSize="16sp" />
-
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/linecolor" />
-
-            <LinearLayout
-                android:id="@+id/ll_print_set"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="42dp"
-                    android:layout_marginTop="2dp"
-                    android:background="@color/white">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="42dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="2dp"
-                        android:gravity="center_vertical"
-                        android:text="选择打印纸张"
-                        android:textColor="@color/color_main_text_black"
-                        android:textSize="16sp" />
-
-                    <Spinner
-                        android:id="@+id/sp_print_paper"
-                        android:layout_width="180dp"
-                        android:layout_height="match_parent"
-                        android:layout_centerHorizontal="true"
-                        android:dropDownVerticalOffset="46dp"
-                        android:spinnerMode="dropdown" />
-
-                </RelativeLayout>
-
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="@color/linecolor" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
 
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/tv_print_set_save"
                     android:layout_width="match_parent"
-                    android:layout_height="42dp"
-                    android:layout_marginTop="2dp"
-                    android:background="@color/white"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="42dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="2dp"
-                        android:gravity="center_vertical"
-                        android:text="商品消费小票"
-                        android:textColor="@color/color_main_text_black"
-                        android:textSize="16sp" />
-
-                    <EditText
-                        android:id="@+id/et_print_set_goods_consume"
-                        android:layout_width="@dimen/dp_180"
-                        android:layout_height="match_parent"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="10dp"
-                        android:background="@null"
-                        android:gravity="center"
-                        android:inputType="number"
-                        android:maxLength="1"
-                        android:text="1"
-                        android:textColor="@color/color_main_text_black"
-                        android:textSize="16sp" />
-
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="@color/linecolor" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="42dp"
-                    android:layout_marginTop="2dp"
-                    android:background="@color/white"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="42dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="2dp"
-                        android:gravity="center_vertical"
-                        android:text="交班小票         "
-                        android:textColor="@color/color_main_text_black"
-                        android:textSize="16sp" />
-
-                    <EditText
-                        android:id="@+id/et_print_set_hand_duty"
-                        android:layout_width="@dimen/dp_180"
-                        android:layout_height="match_parent"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="10dp"
-                        android:background="@null"
-                        android:gravity="center"
-                        android:inputType="number"
-                        android:maxLength="1"
-                        android:text="1"
-                        android:textColor="@color/color_main_text_black"
-                        android:textSize="16sp" />
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="@color/linecolor" />
+                    android:layout_height="60dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/textgreen"
+                    android:gravity="center"
+                    android:text="保存设置"
+                    android:textColor="@color/white"
+                    android:textSize="24sp" />
 
             </LinearLayout>
 
-        </LinearLayout>
+            <com.gt.utils.view.BgFrameLayout
+                android:id="@+id/software_info_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="软件版本" />
+
+            </com.gt.utils.view.BgFrameLayout>
+        </com.gt.utils.view.BgFrameLayout>
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_print_set_save"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/textgreen"
-        android:gravity="center"
-        android:text="保存设置"
-        android:textColor="@color/white"
-        android:textSize="24sp" />
 
 </RelativeLayout>

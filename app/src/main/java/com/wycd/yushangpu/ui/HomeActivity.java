@@ -1281,9 +1281,12 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         });
     }
 
-    @OnClick({R.id.btn_Cashier, R.id.btn_home_print_set, R.id.rl_out, R.id.member_bg_layout, R.id.rl_clear})
+    @OnClick({R.id.fragment_content, R.id.subsidiary_fragment, R.id.btn_Cashier, R.id.btn_home_print_set, R.id.rl_out, R.id.member_bg_layout, R.id.rl_clear})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.fragment_content:
+            case R.id.subsidiary_fragment:
+                break;
             case R.id.btn_Cashier:
                 fragmentManager.beginTransaction().hide(printSetFragment).commit();
                 break;
