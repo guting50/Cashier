@@ -2,6 +2,7 @@ package com.wycd.yushangpu.ui;
 
 import android.Manifest;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,8 +24,6 @@ import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.PreferenceHelper;
 import com.wycd.yushangpu.tools.ShadowUtils;
 import com.yanzhenjie.permission.AndPermission;
-
-import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -79,6 +78,10 @@ public class LoginActivity extends BaseActivity {
                         Manifest.permission.WRITE_EXTERNAL_STORAGE
                 )
                 .send();
+
+        Drawable drawable = getResources().getDrawable(R.drawable.selector_login_user_view); //获取图片
+        drawable.setBounds(0, 0, 20, 20); //设置图片参数
+        mEtLoginAccount.setCompoundDrawablesRelativeWithIntrinsicBounds(drawable, null, null, null); //设置到哪个控件的位置（）
 
     }
 

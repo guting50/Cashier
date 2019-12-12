@@ -36,7 +36,7 @@
                     android:layout_height="@dimen/dp_60"
                     android:background="@drawable/rb_background_print_set"
                     android:button="@null"
-                    android:gravity="center"
+                    android:paddingLeft="60dp"
                     android:text="关于店铺"
                     android:textSize="18sp" />
 
@@ -51,7 +51,7 @@
                     android:layout_height="@dimen/dp_60"
                     android:background="@drawable/rb_background_print_set"
                     android:button="@null"
-                    android:gravity="center"
+                    android:paddingLeft="60dp"
                     android:text="标签设置"
                     android:textSize="18sp" />
 
@@ -66,7 +66,7 @@
                     android:layout_height="@dimen/dp_60"
                     android:background="@drawable/rb_background_print_set"
                     android:button="@null"
-                    android:gravity="center"
+                    android:paddingLeft="60dp"
                     android:text="打印设置"
                     android:textSize="18sp" />
 
@@ -81,11 +81,52 @@
                     android:layout_height="@dimen/dp_60"
                     android:background="@drawable/rb_background_print_set"
                     android:button="@null"
-                    android:gravity="center"
+                    android:paddingLeft="60dp"
                     android:text="软件版本"
                     android:textSize="18sp" />
 
             </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_20"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_40"
+                    android:layout_height="@dimen/dp_60"
+                    android:src="@mipmap/icon_about_shop" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_40"
+                    android:layout_height="@dimen/dp_60"
+                    android:src="@mipmap/icon_lable_setting" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_40"
+                    android:layout_height="@dimen/dp_60"
+                    android:src="@mipmap/icon_print_setting" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_40"
+                    android:layout_height="@dimen/dp_60"
+                    android:src="@mipmap/icon_software_info" />
+
+            </LinearLayout>
 
             <com.gt.utils.view.BgFrameLayout
                 android:id="@+id/sigin_out"
@@ -120,11 +161,233 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="关于店铺" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/beijing" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="20dp">
+
+                            <ImageView
+                                android:id="@+id/sm_picture"
+                                android:layout_width="180dp"
+                                android:layout_height="70dp"
+                                android:layout_centerVertical="true"
+                                android:src="@mipmap/icon_shop_logo" />
+
+                            <com.gt.utils.view.BgFrameLayout
+                                android:id="@+id/sm_edition"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:layout_toRightOf="@+id/sm_picture"
+                                android:paddingLeft="10dp"
+                                android:paddingTop="5dp"
+                                android:paddingRight="10dp"
+                                android:paddingBottom="5dp"
+                                app:solid_color="@color/button_dark">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="通用版"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp" />
+
+                            </com.gt.utils.view.BgFrameLayout>
+
+                            <com.gt.utils.view.BgFrameLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_toRightOf="@+id/sm_edition"
+                                android:paddingLeft="10dp"
+                                android:paddingTop="5dp"
+                                android:paddingRight="10dp"
+                                android:paddingBottom="5dp"
+                                app:solid_color="@color/text_yellow">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="2年"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp" />
+
+                            </com.gt.utils.view.BgFrameLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="15dp"
+                                android:layout_toRightOf="@+id/sm_picture"
+                                android:text="到期时间：2020-12-12"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
+
+                        </RelativeLayout>
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/bg_division"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="15dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:lineSpacingExtra="10dp"
+                            android:text="开通时间\n2018-12-12"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:lineSpacingExtra="10dp"
+                            android:text="用户数\n1/10"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:lineSpacingExtra="10dp"
+                            android:text="会员人数\n2555/10000"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:lineSpacingExtra="10dp"
+                            android:text="商品数量\n255/10000"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:background="@color/white">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_toLeftOf="@+id/datum_line">
+
+                            <TextView
+                                android:id="@+id/tv_shop_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="35dp"
+                                android:text="店铺名称："
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/tv_contacter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_shop_name"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="35dp"
+                                android:text="联  系  人："
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/tv_industry"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_contacter"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="35dp"
+                                android:text="所属行业："
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/tv_address"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_industry"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="35dp"
+                                android:text="店铺地址："
+                                android:textSize="16sp" />
+
+                        </RelativeLayout>
+
+                        <View
+                            android:id="@+id/datum_line"
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_centerHorizontal="true" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_toRightOf="@+id/datum_line">
+
+                            <TextView
+                                android:id="@+id/tv_range"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="35dp"
+                                android:text="店铺名称："
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/tv_phone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_range"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="35dp"
+                                android:text="店铺名称："
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/tv_remarks"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_phone"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="35dp"
+                                android:text="店铺名称："
+                                android:textSize="16sp" />
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
 
             </com.gt.utils.view.BgFrameLayout>
 
