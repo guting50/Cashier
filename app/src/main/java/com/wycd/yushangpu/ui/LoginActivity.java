@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -78,11 +79,6 @@ public class LoginActivity extends BaseActivity {
                         Manifest.permission.WRITE_EXTERNAL_STORAGE
                 )
                 .send();
-
-        Drawable drawable = getResources().getDrawable(R.drawable.selector_login_user_view); //获取图片
-        drawable.setBounds(0, 0, 20, 20); //设置图片参数
-        mEtLoginAccount.setCompoundDrawablesRelativeWithIntrinsicBounds(drawable, null, null, null); //设置到哪个控件的位置（）
-
     }
 
 
@@ -93,10 +89,10 @@ public class LoginActivity extends BaseActivity {
         boardHelper = new KeyBoardHelper(this);
         boardHelper.onCreate();
         boardHelper.setOnKeyBoardStatusChangeListener(onKeyBoardStatusChangeListener);
-        layout_content.post(new Runnable() {
+        layout_bottom.post(new Runnable() {
             @Override
             public void run() {
-                bottomHeight = layout_content.getHeight();
+                bottomHeight = layout_bottom.getBottom();
                 Log.i("vlog", "=================bottomHeight:" + bottomHeight);
             }
         });
@@ -159,7 +155,7 @@ public class LoginActivity extends BaseActivity {
             } else {
 //                int offset = bottomHeight - height;
                 int offset = 200 - height;
-                final ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) layout_content
+                final FrameLayout.MarginLayoutParams lp = (FrameLayout.MarginLayoutParams) layout_content
                         .getLayoutParams();
                 //当offset为负数时，layout_content向上移
                 lp.topMargin = offset;
