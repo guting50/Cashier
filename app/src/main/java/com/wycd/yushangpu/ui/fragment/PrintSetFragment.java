@@ -37,6 +37,7 @@ import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.ReportMessageBean;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
+import com.wycd.yushangpu.model.ImpOutLogin;
 import com.wycd.yushangpu.printutil.CallBack;
 import com.wycd.yushangpu.printutil.CommonFun;
 import com.wycd.yushangpu.printutil.HttpHelper;
@@ -47,6 +48,8 @@ import com.wycd.yushangpu.tools.CacheData;
 import com.wycd.yushangpu.tools.DeviceConnFactoryManager;
 import com.wycd.yushangpu.tools.DeviceReceiver;
 import com.wycd.yushangpu.tools.Utils;
+import com.wycd.yushangpu.ui.HomeActivity;
+import com.wycd.yushangpu.ui.LoginActivity;
 import com.wycd.yushangpu.widget.dialog.NoticeDialog;
 
 import net.posprinter.posprinterface.TaskCallback;
@@ -126,12 +129,14 @@ public class PrintSetFragment extends Fragment {
     private UsbManager usbManager;
     private PendingIntent mPermissionIntent;
 
+    private HomeActivity homeActivity;
     View rootView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.activity_print_set, null);
+        homeActivity = (HomeActivity) getActivity();
         return rootView;
     }
 
@@ -198,6 +203,40 @@ public class PrintSetFragment extends Fragment {
         mEtGoodsConsume = (EditText) rootView.findViewById(R.id.et_print_set_goods_consume);
         mEtHandDutyTime = (EditText) rootView.findViewById(R.id.et_print_set_hand_duty);
 
+        rootView.findViewById(R.id.sigin_out).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NoticeDialog.noticeDialog(homeActivity, "系统提示信息", "是否退出当前账户", 1, new InterfaceBack() {
+                    @Override
+                    public void onResponse(Object response) {
+                        //退出
+//                        dialog.show();
+                        ImpOutLogin outLogin = new ImpOutLogin();
+                        outLogin.outLogin(homeActivity, new InterfaceBack() {
+                            @Override
+                            public void onResponse(Object response) {
+                                homeActivity.getSupportFragmentManager().beginTransaction()
+                                        .hide(homeActivity.printSetFragment).commit();
+                                homeActivity.dialog.dismiss();
+                                Intent intent = new Intent(homeActivity, LoginActivity.class);
+                                startActivity(intent);
+                                homeActivity.finish();
+                            }
+
+                            @Override
+                            public void onErrorResponse(Object msg) {
+                                homeActivity.dialog.dismiss();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onErrorResponse(Object msg) {
+
+                    }
+                });
+            }
+        });
     }
 
     //更新打印设置缓存

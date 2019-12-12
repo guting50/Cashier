@@ -88,6 +88,7 @@
             </RadioGroup>
 
             <com.gt.utils.view.BgFrameLayout
+                android:id="@+id/sigin_out"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_gravity="bottom"
@@ -496,7 +497,8 @@
             <com.gt.utils.view.BgFrameLayout
                 android:id="@+id/software_info_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"

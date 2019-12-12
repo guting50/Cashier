@@ -192,7 +192,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     private GoodsListFragment goodsListFragment;
     public JiesuanBFragment jiesuanBFragment;
     private QudanFragment qudanFragment;
-    private PrintSetFragment printSetFragment;
+    public PrintSetFragment printSetFragment;
     private boolean isFirstLaunch = false;
 
     private BluetoothAdapter bluetoothAdapter;
