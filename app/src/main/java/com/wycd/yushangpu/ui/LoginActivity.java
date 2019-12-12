@@ -155,7 +155,7 @@ public class LoginActivity extends BaseActivity {
             } else {
 //                int offset = bottomHeight - height;
                 int offset = 200 - height;
-                final FrameLayout.MarginLayoutParams lp = (FrameLayout.MarginLayoutParams) layout_content
+                final ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) layout_content
                         .getLayoutParams();
                 //当offset为负数时，layout_content向上移
                 lp.topMargin = offset;
