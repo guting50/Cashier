@@ -23,7 +23,7 @@
     </style>
 
     <style name="LogoTheme" parent="AppTheme">
-        <item name="android:windowBackground">@mipmap/iv_login</item>
+        <item name="android:windowBackground">@drawable/iv_login</item>
     </style>
 
     <style name="DialogNotitle1" parent="android:style/Theme.Dialog">

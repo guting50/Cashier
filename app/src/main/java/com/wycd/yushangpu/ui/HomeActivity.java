@@ -106,10 +106,6 @@ import static com.wycd.yushangpu.MyApplication.myBinder;
 import static com.wycd.yushangpu.tools.Constant.ACTION_USB_PERMISSION;
 
 public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.OnItemClickListener, ShowStorePopWindow.OnItemStoreClickListener {
-    @BindView(R.id.ig_back)
-    ImageView igBack;
-    @BindView(R.id.rl_houtai)
-    RelativeLayout mRlHoutai;
     @BindView(R.id.ig_exchange)
     ImageView igExchange;
     @BindView(R.id.rl_jiaoban)
@@ -124,8 +120,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     TextView tv_ordernum;
     @BindView(R.id.recyclerview_shoplist)
     RecyclerView mRecyclerviewShoplist;
-    @BindView(R.id.im_clear)
-    ImageView imClear;
     @BindView(R.id.tv_num_total)
     TextView tvNumTotal;
     @BindView(R.id.tv_heji)
@@ -1218,26 +1212,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 }
             }
         });
-
-        mRlHoutai.setOnClickListener(new NoDoubleClickListener() {
-            @Override
-            protected void onNoDoubleClick(View view) {
-                int version = (int) (1 + Math.random() * (1000000 - 1 + 1));
-
-//                showWebDialog("index.html");
-
-                //后台
-//                Intent intent = new Intent(ac, WebActivity.class);
-//                intent.putExtra("versionDownURL",  MyApplication.BASE_URL+"loginTSCash.html?URL=index.html&v=" +String.valueOf(version));
-//                //http://192.168.1.240:807/login.html
-//                startActivity(intent);
-
-                Intent intent = new Intent(ac, HtmlActivity.class);
-                intent.putExtra("html_url", "https://pc.yunvip123.com/login.html");
-                startActivity(intent);
-            }
-        });
-
         mRlJiaoban.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
@@ -1281,17 +1255,35 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         });
     }
 
-    @OnClick({R.id.fragment_content, R.id.subsidiary_fragment, R.id.btn_Cashier, R.id.btn_home_print_set, R.id.rl_out, R.id.member_bg_layout, R.id.rl_clear})
-    public void onClick(View view) {
+    @BindView(R.id.btn_cashier)
+    ImageView btn_cashier;
+    @BindView(R.id.btn_home_set)
+    ImageView btn_home_set;
+    @BindView(R.id.btn_member)
+    ImageView btn_member;
+    @BindView(R.id.btn_goods)
+    ImageView btn_goods;
+    @BindView(R.id.btn_sale)
+    ImageView btn_sale;
+    @BindView(R.id.btn_houtai)
+    ImageView btn_houtai;
+
+    @OnClick({R.id.btn_cashier, R.id.btn_home_set, R.id.btn_member, R.id.btn_goods, R.id.btn_sale, R.id.btn_houtai})
+    public void onTaskbarClick(View view) {
+        btn_cashier.setImageResource(R.mipmap.btn_cashier_false);
+        btn_home_set.setImageResource(R.mipmap.btn_home_set_false);
+        btn_member.setImageResource(R.mipmap.btn_member_false);
+        btn_goods.setImageResource(R.mipmap.btn_goods_false);
+        btn_sale.setImageResource(R.mipmap.btn_sale_false);
+        btn_houtai.setImageResource(R.mipmap.btn_houtai_false);
         switch (view.getId()) {
-            case R.id.fragment_content:
-            case R.id.subsidiary_fragment:
-                break;
-            case R.id.btn_Cashier:
+            case R.id.btn_cashier:
+                btn_cashier.setImageResource(R.mipmap.btn_cashier_true);
                 fragmentManager.beginTransaction().hide(printSetFragment).commit();
                 break;
-            case R.id.btn_home_print_set:
+            case R.id.btn_home_set:
                 if (YSLUtils.isFastClick()) {
+                    btn_home_set.setImageResource(R.mipmap.btn_home_set_true);
                     if (printSetFragment == null) {
                         printSetFragment = new PrintSetFragment();
                         fragmentManager.beginTransaction().add(R.id.subsidiary_fragment, printSetFragment).commit();
@@ -1299,6 +1291,40 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                         fragmentManager.beginTransaction().show(printSetFragment).commit();
                     }
                 }
+                break;
+            case R.id.btn_member:
+                btn_member.setImageResource(R.mipmap.btn_member_true);
+                break;
+            case R.id.btn_goods:
+                btn_goods.setImageResource(R.mipmap.btn_goods_true);
+                break;
+            case R.id.btn_sale:
+                btn_sale.setImageResource(R.mipmap.btn_sale_true);
+                break;
+            case R.id.btn_houtai:
+                btn_houtai.setImageResource(R.mipmap.btn_houtai_false);
+                int version = (int) (1 + Math.random() * (1000000 - 1 + 1));
+
+//                showWebDialog("index.html");
+
+                //后台
+//                Intent intent = new Intent(ac, WebActivity.class);
+//                intent.putExtra("versionDownURL",  MyApplication.BASE_URL+"loginTSCash.html?URL=index.html&v=" +String.valueOf(version));
+//                //http://192.168.1.240:807/login.html
+//                startActivity(intent);
+
+                Intent intent = new Intent(ac, HtmlActivity.class);
+                intent.putExtra("html_url", "https://pc.yunvip123.com/login.html");
+                startActivity(intent);
+                break;
+        }
+    }
+
+    @OnClick({R.id.fragment_content, R.id.subsidiary_fragment, R.id.rl_out, R.id.member_bg_layout, R.id.im_clear})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.fragment_content:
+            case R.id.subsidiary_fragment:
                 break;
             case R.id.rl_out:
                 mShowMemberPop = new ShowMemberPopWindow(HomeActivity.this, MyApplication.loginBean);
@@ -1349,7 +1375,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 });
                 vipChooseDialog.show();
                 break;
-            case R.id.rl_clear:
+            case R.id.im_clear:
                 //清空
                 mShopLeftList.clear();
                 mShopLeftAdapter.notifyDataSetChanged();

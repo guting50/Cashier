@@ -100,12 +100,12 @@ public class EditCashierGoodsFragment extends Fragment {
         bnEditNum.performClick();
     }
 
-    @OnClick({R.id.info_goods_layout, R.id.close})
+    @OnClick({R.id.info_goods_layout, R.id.iv_clone})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.info_goods_layout:
                 break;
-            case R.id.close:
+            case R.id.iv_clone:
                 resetBnEdit(null);
                 getFragmentManager().beginTransaction().hide(this).commit();
                 break;

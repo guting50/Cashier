@@ -89,42 +89,60 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="250dp"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_20"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="@dimen/dp_40"
-                    android:layout_height="@dimen/dp_60"
-                    android:src="@mipmap/icon_about_shop" />
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="1dp"
+                        android:src="@mipmap/icon_about_shop" />
+                </FrameLayout>
 
-                <ImageView
-                    android:layout_width="@dimen/dp_40"
-                    android:layout_height="@dimen/dp_60"
-                    android:src="@mipmap/icon_lable_setting" />
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="1dp"
+                        android:src="@mipmap/icon_lable_setting" />
+                </FrameLayout>
 
-                <ImageView
-                    android:layout_width="@dimen/dp_40"
-                    android:layout_height="@dimen/dp_60"
-                    android:src="@mipmap/icon_print_setting" />
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/icon_print_setting" />
+                </FrameLayout>
 
-                <ImageView
-                    android:layout_width="@dimen/dp_40"
-                    android:layout_height="@dimen/dp_60"
-                    android:src="@mipmap/icon_software_info" />
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/icon_software_info" />
+                </FrameLayout>
 
             </LinearLayout>
 
@@ -306,8 +324,8 @@
                                 android:id="@+id/tv_shop_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="35dp"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginTop="45dp"
                                 android:text="店铺名称："
                                 android:textSize="16sp" />
 
@@ -316,8 +334,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/tv_shop_name"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="35dp"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginTop="45dp"
                                 android:text="联  系  人："
                                 android:textSize="16sp" />
 
@@ -326,8 +344,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/tv_contacter"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="35dp"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginTop="45dp"
                                 android:text="所属行业："
                                 android:textSize="16sp" />
 
@@ -336,8 +354,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/tv_industry"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="35dp"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginTop="45dp"
                                 android:text="店铺地址："
                                 android:textSize="16sp" />
 
@@ -358,8 +376,8 @@
                                 android:id="@+id/tv_range"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="35dp"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginTop="45dp"
                                 android:text="店铺名称："
                                 android:textSize="16sp" />
 
@@ -368,8 +386,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/tv_range"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="35dp"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginTop="45dp"
                                 android:text="店铺名称："
                                 android:textSize="16sp" />
 
@@ -378,8 +396,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/tv_phone"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="35dp"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginTop="45dp"
                                 android:text="店铺名称："
                                 android:textSize="16sp" />
 

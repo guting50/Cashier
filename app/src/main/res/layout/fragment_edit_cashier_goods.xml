@@ -18,13 +18,13 @@
             android:layout_marginTop="15dp"
             android:text="商品名称" />
 
-        <TextView
-            android:id="@+id/close"
+        <ImageView
+            android:id="@+id/iv_clone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:padding="15dp"
-            android:text="X" />
+            android:padding="10dp"
+            android:src="@drawable/ty_close" />
 
         <View
             android:id="@+id/divider_a"

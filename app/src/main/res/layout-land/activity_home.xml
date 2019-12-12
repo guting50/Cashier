@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:id="@+id/taskbar_layout"
-        android:layout_width="100dp"
+        android:layout_width="110dp"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/dp_5"
         android:background="@color/textgray">
@@ -59,84 +59,48 @@
             </com.gt.utils.view.BgFrameLayout>
         </RelativeLayout>
 
-        <Button
-            android:id="@+id/btn_Cashier"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/btn_cashier"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rl_out"
             android:layout_marginTop="10dp"
-            android:background="@null"
-            android:text="收银"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:src="@mipmap/btn_cashier_true" />
 
-        <Button
+        <ImageView
             android:id="@+id/btn_member"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_Cashier"
-            android:background="@null"
-            android:text="会员"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:layout_below="@+id/btn_cashier"
+            android:src="@mipmap/btn_member_false" />
 
-        <Button
+        <ImageView
             android:id="@+id/btn_goods"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btn_member"
-            android:background="@null"
-            android:text="商品"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:src="@mipmap/btn_goods_false" />
 
-        <Button
+        <ImageView
             android:id="@+id/btn_sale"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btn_goods"
-            android:background="@null"
-            android:text="销售"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:src="@mipmap/btn_sale_false" />
 
-        <Button
-            android:id="@+id/btn_home_print_set"
+        <ImageView
+            android:id="@+id/btn_home_set"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btn_sale"
-            android:background="@null"
-            android:text="设置"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:src="@mipmap/btn_home_set_false" />
 
-        <RelativeLayout
-            android:id="@+id/rl_houtai"
+        <ImageView
+            android:id="@+id/btn_houtai"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@null"
-            android:gravity="center"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
-
-            <ImageView
-                android:id="@+id/ig_back"
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:gravity="center"
-                android:src="@drawable/cash_ico_backstage" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/ig_back"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:text="后台"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_12" />
-        </RelativeLayout>
+            android:src="@mipmap/btn_houtai_false" />
 
         <RelativeLayout
             android:id="@+id/rl_jiaoban"
@@ -198,25 +162,12 @@
 
         <ImageView
             android:id="@+id/im_clear"
-            android:layout_width="@dimen/dp_22"
-            android:layout_height="@dimen/dp_22"
+            android:layout_width="@dimen/dp_53"
+            android:layout_height="@dimen/dp_40"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/dp_13"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="@dimen/dp_10"
             android:padding="@dimen/dp_3"
-            android:src="@drawable/ysl_delet" />
-
-        <TextView
-            android:id="@+id/rl_clear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:paddingLeft="30dp"
-            android:paddingTop="15dp"
-            android:paddingRight="@dimen/dp_10"
-            android:paddingBottom="15dp"
-            android:text="清空"
-            android:textSize="@dimen/dp_14" />
+            android:src="@mipmap/qingkong" />
 
         <ImageView
             android:id="@+id/iv_search"

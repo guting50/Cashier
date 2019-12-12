@@ -2,14 +2,12 @@ package com.wycd.yushangpu.ui;
 
 import android.Manifest;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -89,10 +87,13 @@ public class LoginActivity extends BaseActivity {
         boardHelper = new KeyBoardHelper(this);
         boardHelper.onCreate();
         boardHelper.setOnKeyBoardStatusChangeListener(onKeyBoardStatusChangeListener);
-        layout_bottom.post(new Runnable() {
+        layout_content.post(new Runnable() {
             @Override
             public void run() {
-                bottomHeight = layout_bottom.getBottom();
+                int[] location = new int[2];
+                layout_content.getLocationInWindow(location);
+                layout_content.getLocationOnScreen(location);
+                bottomHeight = ((View) layout_content.getParent()).getHeight() - location[1] - layout_content.getHeight();
                 Log.i("vlog", "=================bottomHeight:" + bottomHeight);
             }
         });
@@ -100,8 +101,6 @@ public class LoginActivity extends BaseActivity {
         mRlLogin.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
-
-
                 if (mEtLoginAccount.getText().toString().equals("")) {
 //                    ToastUtils.showToast(ac, res.getString(R.string.enter_email_mobile));
                     com.blankj.utilcode.util.ToastUtils.showShort(res.getString(R.string.enter_email_mobile));
@@ -149,12 +148,8 @@ public class LoginActivity extends BaseActivity {
     private KeyBoardHelper.OnKeyBoardStatusChangeListener onKeyBoardStatusChangeListener = new KeyBoardHelper.OnKeyBoardStatusChangeListener() {
         @Override
         public void OnKeyBoardPop(int keyBoardheight) {
-            final int height = keyBoardheight;
-            if (bottomHeight > height) {
-//                layout_bottom.setVisibility(View.GONE);
-            } else {
-//                int offset = bottomHeight - height;
-                int offset = 200 - height;
+            if (bottomHeight < keyBoardheight) {
+                int offset = 200 - keyBoardheight;
                 final ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) layout_content
                         .getLayoutParams();
                 //当offset为负数时，layout_content向上移
@@ -165,15 +160,10 @@ public class LoginActivity extends BaseActivity {
 
         @Override
         public void OnKeyBoardClose(int oldKeyBoardheight) {
-            if (View.VISIBLE != layout_bottom.getVisibility()) {
-                layout_bottom.setVisibility(View.VISIBLE);
-            }
             final ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) layout_content
                     .getLayoutParams();
-            if (lp.topMargin != 0) {
-                lp.topMargin = 0;
-                layout_content.setLayoutParams(lp);
-            }
+            lp.topMargin = 0;
+            layout_content.setLayoutParams(lp);
         }
     };
 

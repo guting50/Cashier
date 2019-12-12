@@ -1,9 +1,7 @@
 package com.wycd.yushangpu.tools;
 
 import android.app.Activity;
-import android.content.pm.ActivityInfo;
 import android.graphics.Rect;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
@@ -48,12 +46,12 @@ public class KeyBoardHelper {
             int newBlankheight = screenHeight - rect.bottom;
 
             if (newBlankheight != blankHeight) {
-                if(newBlankheight==0){
+                if (newBlankheight <= 0) {
                     // keyboard close
                     if (onKeyBoardStatusChangeListener != null) {
                         onKeyBoardStatusChangeListener.OnKeyBoardClose(blankHeight);
                     }
-                }else{
+                } else if (newBlankheight > 0) {
                     // keyboard pop
                     if (onKeyBoardStatusChangeListener != null) {
                         onKeyBoardStatusChangeListener.OnKeyBoardPop(newBlankheight);
