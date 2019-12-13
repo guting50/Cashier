@@ -1305,7 +1305,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     @BindView(R.id.btn_houtai)
     ImageView btn_houtai;
 
-    @OnClick({R.id.btn_cashier, R.id.btn_home_set, R.id.btn_member, R.id.btn_goods, R.id.btn_sale, R.id.btn_houtai})
+    @OnClick({R.id.btn_cashier, R.id.btn_home_set, R.id.btn_member, R.id.btn_goods, R.id.btn_sale})
     public void onTaskbarClick(View view) {
         btn_cashier.setImageResource(R.mipmap.btn_cashier_false);
         btn_home_set.setImageResource(R.mipmap.btn_home_set_false);
@@ -1338,6 +1338,12 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             case R.id.btn_sale:
                 btn_sale.setImageResource(R.mipmap.btn_sale_true);
                 break;
+        }
+    }
+
+    @OnClick({R.id.fragment_content, R.id.subsidiary_fragment, R.id.rl_out, R.id.member_bg_layout, R.id.im_clear, R.id.btn_houtai})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.btn_houtai:
                 btn_houtai.setImageResource(R.mipmap.btn_houtai_false);
                 int version = (int) (1 + Math.random() * (1000000 - 1 + 1));
@@ -1354,12 +1360,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 intent.putExtra("html_url", "https://pc.yunvip123.com/login.html");
                 startActivity(intent);
                 break;
-        }
-    }
-
-    @OnClick({R.id.fragment_content, R.id.subsidiary_fragment, R.id.rl_out, R.id.member_bg_layout, R.id.im_clear})
-    public void onClick(View view) {
-        switch (view.getId()) {
             case R.id.fragment_content:
             case R.id.subsidiary_fragment:
                 break;
