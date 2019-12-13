@@ -60,7 +60,8 @@
             android:singleLine="true"
             android:text="超值小吃拼盘"
             android:textColor="@color/textcolor"
-            android:textSize="@dimen/sp_13" />
+            android:textSize="@dimen/sp_13"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_xinghao"
@@ -73,7 +74,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:text="M/8寸"
-            android:textColor="@color/text60"
+            android:textColor="@color/text66"
             android:textSize="@dimen/sp_12" />
 
         <TextView
@@ -87,7 +88,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:text="会：8.00"
-            android:textColor="@color/textred"
+            android:textColor="@color/textred1"
             android:textSize="@dimen/sp_11" />
 
         <TextView
@@ -102,7 +103,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:text="售：8.00"
-            android:textColor="@color/text60"
+            android:textColor="@color/text66"
             android:textSize="@dimen/sp_11" />
 
         <LinearLayout
@@ -133,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text="10000"
-                android:textColor="@color/text60"
+                android:textColor="@color/text66"
                 android:textSize="@dimen/sp_11" />
         </LinearLayout>
     </RelativeLayout>

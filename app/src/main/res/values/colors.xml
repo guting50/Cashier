@@ -59,6 +59,7 @@
 
     <color name="textbb">#bbbbbb</color>
     <color name="textred">#ff0c07</color>
+    <color name="textred1">#ff0000</color>
     <color name="textyellow">#ff9c00</color>
     <color name="textgray">#2f3541</color>
     <color name="textef">#efefef</color>
