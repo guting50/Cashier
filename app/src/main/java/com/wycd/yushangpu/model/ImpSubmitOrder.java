@@ -119,7 +119,7 @@ public class ImpSubmitOrder {
         }
         //CO_Monetary CO_TotalPrice EM_GIDList
         params.put("CO_Monetary", mone);
-        params.put("CO_TotalPrice", 1);
+        params.put("CO_TotalPrice", mone);
 
         String url = HttpAPI.API().GOODS_CELERITY_SUB;
         LogUtils.d("xxparams", params.toString());

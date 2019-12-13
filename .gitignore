@@ -5,3 +5,5 @@ app/build/
 app/app.iml
 local.properties
 ~$触屏界面改版说明.docx
+build/
+release/

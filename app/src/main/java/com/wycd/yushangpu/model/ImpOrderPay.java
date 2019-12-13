@@ -46,7 +46,7 @@ public class ImpOrderPay {
             params.put("PayResult[PayTypeList][" + i + "][PayCode]", typelist.get(i).getPayCode());
             params.put("PayResult[PayTypeList][" + i + "][PayName]", typelist.get(i).getPayName());
             params.put("PayResult[PayTypeList][" + i + "][PayMoney]", Decima2KeeplUtil.stringToDecimal(typelist.get(i).getPayMoney() + ""));
-//            params.put("PayResult[PayTypeList][" + i + "][PayPoint]", Decima2KeeplUtil.stringToDecimal(typelist.get(i).getPayPoint() + ""));
+            params.put("PayResult[PayTypeList][" + i + "][PayPoint]", Decima2KeeplUtil.stringToDecimal(typelist.get(i).getPayPoint() + ""));
 
             System.out.println("============================[" + i + "]PayCode===" + typelist.get(i).getPayCode());
             System.out.println("============================[" + i + "]PayName===" + typelist.get(i).getPayName());

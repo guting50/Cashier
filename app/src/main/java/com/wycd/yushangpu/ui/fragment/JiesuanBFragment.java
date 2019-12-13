@@ -185,6 +185,9 @@ public class JiesuanBFragment extends Fragment {
         this.orderType = orderType;
         this.back = back;
 
+        mEtXianjin.setText("");
+        et_moling.setText("");
+
         this.jifen = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableIntegral() + "";
         this.yue = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableBalance() + "";
         this.isMember = null == mVipMsg ? false : true;
