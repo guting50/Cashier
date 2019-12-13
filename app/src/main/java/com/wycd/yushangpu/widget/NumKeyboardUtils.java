@@ -55,6 +55,10 @@ public class NumKeyboardUtils {
             Timer timer = (Timer) view.getTag();
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
+                    String result = numInputView.popBack();
+                    if (onDelClickListener != null) {
+                        onDelClickListener.popBack(result);
+                    }
                     if (timer == null) {
                         timer = new Timer();
                         view.setTag(timer);
@@ -71,7 +75,7 @@ public class NumKeyboardUtils {
                                     }
                                 });
                             }
-                        }, 0, 80);
+                        }, 500, 100);
                     }
                     break;
                 case MotionEvent.ACTION_UP:

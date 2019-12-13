@@ -45,17 +45,18 @@ public class SaomaDialog {
         Window window = dialog.getWindow();
         dialog.show();
 
+        iv_clone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
         if (MyApplication.loginBean.getData().getShopList().get(0).getSaoBei_State() == 0) {
             on_open_saoma.setVisibility(View.VISIBLE);
         } else {
             on_open_saoma.setVisibility(View.GONE);
             tv_money.setText("￥" + money);
-            iv_clone.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog.dismiss();
-                }
-            });
 
             et_saoma.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                 @Override

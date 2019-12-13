@@ -7,7 +7,9 @@
     <RelativeLayout
         android:layout_width="700dp"
         android:layout_height="@dimen/dp_500"
-        android:background="@drawable/background_white">
+        android:background="@drawable/background_white"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <TextView
             android:layout_width="match_parent"

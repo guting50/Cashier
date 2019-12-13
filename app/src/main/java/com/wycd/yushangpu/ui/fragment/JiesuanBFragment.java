@@ -449,10 +449,10 @@ public class JiesuanBFragment extends Fragment {
                 break;
             case R.id.li_saoma:
 
-                if (MyApplication.loginBean.getData().getShopList().get(0).getSaoBei_State() == 0) {
-                    com.blankj.utilcode.util.ToastUtils.showShort("商家未开通扫码支付功能");
-                    return;
-                }
+//                if (MyApplication.loginBean.getData().getShopList().get(0).getSaoBei_State() == 0) {
+//                    com.blankj.utilcode.util.ToastUtils.showShort("商家未开通扫码支付功能");
+//                    return;
+//                }
                 if (MyApplication.loginBean.getData().getShopList().get(0).getSaoBei_State() == 1) {
                     com.blankj.utilcode.util.ToastUtils.showShort("扫码支付功能审核通过,但未签署电子协议");
                     return;
