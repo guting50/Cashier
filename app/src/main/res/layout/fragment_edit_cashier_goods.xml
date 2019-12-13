@@ -23,8 +23,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:padding="10dp"
-            android:src="@drawable/ty_close" />
+            android:padding="15dp"
+            android:src="@mipmap/ty_close" />
 
         <View
             android:id="@+id/divider_a"

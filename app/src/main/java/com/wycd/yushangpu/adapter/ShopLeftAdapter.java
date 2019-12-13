@@ -1,6 +1,7 @@
 package com.wycd.yushangpu.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,8 +97,13 @@ public class ShopLeftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
 
 
+        vh.mTvName.setTextColor(context.getResources().getColor(R.color.textcolor));
         vh.mTvVipprice.setText("￥" + StringUtil.twoNum(NullUtils.noNullHandle(ts.getJisuanPrice()).toString()) + "/"
                 + ts.getPM_Metering());
+        if (TextUtils.isEmpty(ts.getGID())) {
+            vh.mTvName.setTextColor(context.getResources().getColor(R.color.textred));
+            vh.mTvVipprice.setText("无码商品");
+        }
 //        if(PreferenceHelper.readBoolean(context,"yunshangpu","vip",false)){
 //            String  p1=CommonUtils.multiply(NullUtils.noNullHandle(ts.getPM_MemPrice()).toString(),NullUtils.noNullHandle(ts.getPM_IsDiscount()).toString());
 //           String xiaoji= CommonUtils.multiply(p1,vh.mTvNum.getText().toString());
@@ -124,7 +130,9 @@ public class ShopLeftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         vh.mRlBg.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
-                back.onThreeResponse(i);
+                if (!TextUtils.isEmpty(ts.getGID())) {
+                    back.onThreeResponse(i);
+                }
             }
         });
 

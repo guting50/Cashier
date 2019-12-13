@@ -161,7 +161,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     private String allmoney;
     private double mPoint;//积分
     private long firstTime = 0;
-    private String jifendkbfb, jinfenzfxzbfb;
+    private String jifendkbfb = "0", jinfenzfxzbfb = "0";
     //    private double PD_Discount = 0;
     private int leftpos = -1;// 购物车选中位子 -1表示没有选中
     private int mPD_Discount = 0;
@@ -752,12 +752,19 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         if (num != 0) {
             tvShoukuan.setTag(1);
             ((TextView) tvShoukuan.getChildAt(0)).setText("结账[Enter]");
+        } else {
+            tvShoukuan.setTag(0);
+            ((TextView) tvShoukuan.getChildAt(0)).setText("快速收银[Enter]");
         }
 
         mShopLeftAdapter.notifyDataSetChanged();
     }
 
     public void addCashierList(ShopMsg shopMsg) {
+        if (mShopLeftList.size() == 1 && TextUtils.isEmpty(mShopLeftList.get(0).getGID())) {
+            //如果有快速收银商品 ，就不在添加其他的商品
+            return;
+        }
         if (shopMsg.getStock_Number() <= 0 && isZeroStock && shopMsg.getPM_IsService() == 0) {
 //                    ToastUtils.showToast(ac, "当前库存不足");
             com.blankj.utilcode.util.ToastUtils.showShort("当前库存不足");
@@ -1039,60 +1046,50 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 if (mShopLeftList.size() > 0) {
                     dialog.show();
                     ImpSubmitOrder submitOrder = new ImpSubmitOrder();
-                    submitOrder.submitOrder(ac, order, ordertime.toString(), null == mVipDengjiMsg ? "00000" : mVipDengjiMsg.getData().get(0).getVCH_Card(), mShopLeftList, false, new InterfaceBack() {
-                        @Override
-                        public void onResponse(Object response) {
-                            OrderCanshhu jso = (OrderCanshhu) response;
-                            String jifen = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableIntegral() + "";
-                            double dkmoney = CommonUtils.div(CommonUtils.div(Double.parseDouble(CommonUtils.multiply(jifen, jinfenzfxzbfb)), 100, 2),
-                                    Double.parseDouble(jifendkbfb), 2);//可抵扣金额
 
-                            fragmentManager.beginTransaction().show(jiesuanBFragment).commit();
-                            jiesuanBFragment.setData(allmoney, mVipMsg, mVipDengjiMsg == null ? null : mVipDengjiMsg.getData().get(0),
-                                    dkmoney + "", jso.getGID(), jso.getCO_Type(), jso.getCO_OrderCode(),
-                                    mShopLeftList, moren, paytypelist, false, new InterfaceBack() {
-                                        @Override
-                                        public void onResponse(Object response) {
-                                            fragmentManager.beginTransaction().hide(jiesuanBFragment).commit();
-                                            if (response != null) {
-                                                String gid = (String) response;
-                                                com.blankj.utilcode.util.ToastUtils.showShort("结算成功");
+                    if (mShopLeftList.size() == 1 && TextUtils.isEmpty(mShopLeftList.get(0).getGID()))
+                        submitOrder.submitCelerityOrder(ac, order, ordertime.toString(),
+                                null == mVipDengjiMsg ? "00000" : mVipDengjiMsg.getData().get(0).getVCH_Card(), allmoney, new InterfaceBack() {
+                                    @Override
+                                    public void onResponse(Object response) {
+                                        OrderCanshhu jso = (OrderCanshhu) response;
+                                        toJieSuan(jso, JiesuanBFragment.OrderType.CELERITY_ORDER);
+                                        dialog.dismiss();
+                                    }
 
-                                                //打印小票
-                                                if (MyApplication.PRINT_IS_OPEN) {
-                                                    if (MyApplication.mGoodsConsumeMap.isEmpty()) {
-                                                        GetPrintSet.getPrintParamSet();
-                                                    }
-                                                    new HttpGetPrintContents().SPXF(ac, gid);
-                                                }
+                                    @Override
+                                    public void onErrorResponse(Object msg) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                    else
+                        submitOrder.submitOrder(ac, order, ordertime.toString(), null == mVipDengjiMsg ? "00000" : mVipDengjiMsg.getData().get(0).getVCH_Card(),
+                                mShopLeftList, false, new InterfaceBack() {
+                                    @Override
+                                    public void onResponse(Object response) {
+                                        OrderCanshhu jso = (OrderCanshhu) response;
+                                        toJieSuan(jso, JiesuanBFragment.OrderType.CONSUM_ORDER);
+                                        dialog.dismiss();
+                                    }
 
-                                                if (ISLABELCONNECT && LABELPRINT_IS_OPEN) {
-                                                    for (int i = 0; i < mShopLeftList.size(); i++) {
-                                                        labelPrint(mShopLeftList.get(i));
-                                                    }
-                                                }
-                                                resetCashier();
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onErrorResponse(Object msg) {
-                                        }
-
-                                    });
-                            dialog.dismiss();
-                        }
-
-                        @Override
-                        public void onErrorResponse(Object msg) {
-                            dialog.dismiss();
-                        }
-                    });
+                                    @Override
+                                    public void onErrorResponse(Object msg) {
+                                        dialog.dismiss();
+                                    }
+                                });
                 } else {
                     FastCashierDialog.noticeDialog(ac, new InterfaceBack() {
                         @Override
                         public void onResponse(Object response) {
-
+                            String mone = response.toString();
+                            ShopMsg shopMsg = new ShopMsg();
+                            shopMsg.setGID("");
+                            shopMsg.setPM_UnitPrice(Double.parseDouble(mone));
+                            shopMsg.setJisuanPrice(Double.parseDouble(mone));
+                            shopMsg.setStock_Number(1);
+                            shopMsg.setPM_IsService(1);
+                            shopMsg.setPM_Name("快速收银商品");
+                            addCashierList(shopMsg);
                         }
 
                         @Override
@@ -1253,6 +1250,46 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 showWebDialog("交易", MyApplication.BASE_URL + "/WebUI/CashierDesk/ConsumeOrder.html", width * 9 / 10, 680);
             }
         });
+    }
+
+    private void toJieSuan(OrderCanshhu jso, JiesuanBFragment.OrderType orderType) {
+        String jifen = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableIntegral() + "";
+        double dkmoney = CommonUtils.div(CommonUtils.div(Double.parseDouble(CommonUtils.multiply(jifen, jinfenzfxzbfb)), 100, 2),
+                Double.parseDouble(jifendkbfb), 2);//可抵扣金额
+
+        fragmentManager.beginTransaction().show(jiesuanBFragment).commit();
+        jiesuanBFragment.setData(allmoney, mVipMsg, mVipDengjiMsg == null ? null : mVipDengjiMsg.getData().get(0),
+                dkmoney + "", jso.getGID(), jso.getCO_Type(), jso.getCO_OrderCode(),
+                mShopLeftList, moren, paytypelist, orderType, new InterfaceBack() {
+                    @Override
+                    public void onResponse(Object response) {
+                        fragmentManager.beginTransaction().hide(jiesuanBFragment).commit();
+                        if (response != null) {
+                            String gid = (String) response;
+                            com.blankj.utilcode.util.ToastUtils.showShort("结算成功");
+
+                            //打印小票
+                            if (MyApplication.PRINT_IS_OPEN) {
+                                if (MyApplication.mGoodsConsumeMap.isEmpty()) {
+                                    GetPrintSet.getPrintParamSet();
+                                }
+                                new HttpGetPrintContents().SPXF(ac, gid);
+                            }
+
+                            if (ISLABELCONNECT && LABELPRINT_IS_OPEN) {
+                                for (int i = 0; i < mShopLeftList.size(); i++) {
+                                    labelPrint(mShopLeftList.get(i));
+                                }
+                            }
+                            resetCashier();
+                        }
+                    }
+
+                    @Override
+                    public void onErrorResponse(Object msg) {
+                    }
+
+                });
     }
 
     @BindView(R.id.btn_cashier)

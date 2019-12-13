@@ -133,7 +133,7 @@ public class JiesuanBFragment extends Fragment {
     private String yuezfxz;
     private Dialog yhqdialog;
     private List<YhqMsg> yhqMsgs;
-    private boolean isguazhang;
+    private OrderType orderType;
     private VipDengjiMsg.DataBean mVipDengjiMsg;
     private double moneyFlag;
     private VipDengjiMsg.DataBean mVipMsg;
@@ -164,9 +164,15 @@ public class JiesuanBFragment extends Fragment {
         dialog = LoadingDialog.loadingDialog(context, 1);
     }
 
+    public enum OrderType {
+        CONSUM_ORDER, //商品消费订单
+        CELERITY_ORDER, // 快速消费订单
+        GUAZHANG_ORDER //挂账订单
+    }
+
     public void setData(String money, VipDengjiMsg.DataBean vipMsg, VipDengjiMsg.DataBean mVipDengjiMsg, String dkmoney,
                         String GID, String CO_Type, String CO_OrderCode, ArrayList<ShopMsg> list, PayTypeMsg moren, ArrayList<PayTypeMsg> paylist,
-                        boolean isguazhang, InterfaceBack back) {
+                        OrderType orderType, InterfaceBack back) {
         this.money = money;
         this.mVipMsg = vipMsg;
         this.mVipDengjiMsg = mVipDengjiMsg;
@@ -176,7 +182,7 @@ public class JiesuanBFragment extends Fragment {
         this.CO_OrderCode = CO_OrderCode;
         this.list = list;
         this.paylist = paylist;
-        this.isguazhang = isguazhang;
+        this.orderType = orderType;
         this.back = back;
 
         this.jifen = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableIntegral() + "";
@@ -468,7 +474,7 @@ public class JiesuanBFragment extends Fragment {
 //                tvPayname1.setText("扫码");
 //                mEtXianjin.setText("0");
 
-                SaomaDialog.saomaDialog(context,money, 1, new InterfaceBack() {
+                SaomaDialog.saomaDialog(context, money, 1, new InterfaceBack() {
                     @Override
                     public void onResponse(Object response) {
 
@@ -638,7 +644,7 @@ public class JiesuanBFragment extends Fragment {
                             ImpOrderPay orderPay = new ImpOrderPay();
 
                             shortMessage = cbMessage.isChecked();
-                            orderPay.orderpay(context, GID, result, isguazhang, new InterfaceBack() {
+                            orderPay.orderpay(context, GID, result, orderType, new InterfaceBack() {
                                 @Override
                                 public void onResponse(Object response) {
                                     dialog.dismiss();
@@ -669,7 +675,7 @@ public class JiesuanBFragment extends Fragment {
                             dialog.show();
                             ImpOrderPay orderPay = new ImpOrderPay();
                             shortMessage = cbMessage.isChecked();
-                            orderPay.orderpay(context, GID, result, isguazhang, new InterfaceBack() {
+                            orderPay.orderpay(context, GID, result, orderType, new InterfaceBack() {
                                 @Override
                                 public void onResponse(Object response) {
                                     System.out.println("============666=========" + response.toString());

@@ -234,10 +234,9 @@ public class NumInputView extends RelativeLayout {
 
     public void addText(String text) {
         if (!isSelectAll()) {
-            editText.setText(editText.getText() + text);
+            setText(editText.getText() + text);
         } else {
-            editText.setText(text);
-            notSelectAll();
+            setText(text);
         }
     }
 
@@ -258,10 +257,10 @@ public class NumInputView extends RelativeLayout {
         if (!TextUtils.isEmpty(editText.getText())) {
             String content = editText.getText().toString();
             if (!isSelectAll()) {
-                editText.setText(content.substring(0, content.length() - 1));
+                setText(content.substring(0, content.length() - 1));
                 return content.substring(content.length() - 1);
             } else {
-                editText.setText("");
+                setText("");
                 return content;
             }
         }
@@ -273,18 +272,18 @@ public class NumInputView extends RelativeLayout {
         if (!TextUtils.isEmpty(editText.getText()) && !isSelectAll()) {
             num = Double.parseDouble(editText.getText().toString());
         }
-        editText.setText(num + 1 + "");
+        setText(num + 1 + "");
     }
 
     public void subtractNum() {
         if (!TextUtils.isEmpty(editText.getText()) && !isSelectAll()) {
             double num = Double.parseDouble(editText.getText().toString());
             if (num > 0) {
-                editText.setText(num - 1 + "");
+                setText(num - 1 + "");
                 return;
             }
         }
-        editText.setText("");
+        setText("");
     }
 
     public void addTextChangedListener(TextWatcher textWatcher) {

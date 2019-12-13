@@ -28,7 +28,7 @@
                 android:singleLine="true"
                 android:text="超值小吃  M/8寸"
                 android:textColor="@color/textcolor"
-                android:textSize="@dimen/sp_14" />
+                android:textSize="@dimen/sp_15" />
 
             <TextView
                 android:id="@+id/tv_zeng"
@@ -128,15 +128,15 @@
 
     <FrameLayout
         android:id="@+id/btn_del"
-        android:layout_width="65dp"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_65"
         android:background="@color/theme_color">
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:src="@drawable/ysl_delet" />
+            android:src="@mipmap/icon_item_delete" />
 
     </FrameLayout>
 </com.mcxtzhang.swipemenulib.SwipeMenuLayout>

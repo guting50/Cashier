@@ -90,7 +90,9 @@ public class FastCashierDialog {
         li_jiesuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                back.onResponse(null);
+                num_keyboard_add.performClick();
+                back.onResponse(tv_total.getText().toString());
+                dialog.dismiss();
             }
         });
 
