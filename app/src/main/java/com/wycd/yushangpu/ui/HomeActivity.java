@@ -47,7 +47,6 @@ import com.wycd.yushangpu.model.ImpSubmitOrder_Guazhang;
 import com.wycd.yushangpu.model.ImpSystemCanshu;
 import com.wycd.yushangpu.printutil.GetPrintSet;
 import com.wycd.yushangpu.printutil.HttpGetPrintContents;
-import com.wycd.yushangpu.printutil.YSLUtils;
 import com.wycd.yushangpu.tools.ActivityManager;
 import com.wycd.yushangpu.tools.CacheData;
 import com.wycd.yushangpu.tools.CommonUtils;
@@ -1316,17 +1315,16 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         switch (view.getId()) {
             case R.id.btn_cashier:
                 btn_cashier.setImageResource(R.mipmap.btn_cashier_true);
-                fragmentManager.beginTransaction().hide(printSetFragment).commit();
+                if (printSetFragment != null)
+                    fragmentManager.beginTransaction().hide(printSetFragment).commit();
                 break;
             case R.id.btn_home_set:
-                if (YSLUtils.isFastClick()) {
-                    btn_home_set.setImageResource(R.mipmap.btn_home_set_true);
-                    if (printSetFragment == null) {
-                        printSetFragment = new PrintSetFragment();
-                        fragmentManager.beginTransaction().add(R.id.subsidiary_fragment, printSetFragment).commit();
-                    } else {
-                        fragmentManager.beginTransaction().show(printSetFragment).commit();
-                    }
+                btn_home_set.setImageResource(R.mipmap.btn_home_set_true);
+                if (printSetFragment == null) {
+                    printSetFragment = new PrintSetFragment();
+                    fragmentManager.beginTransaction().add(R.id.subsidiary_fragment, printSetFragment).commit();
+                } else {
+                    fragmentManager.beginTransaction().show(printSetFragment).commit();
                 }
                 break;
             case R.id.btn_member:
