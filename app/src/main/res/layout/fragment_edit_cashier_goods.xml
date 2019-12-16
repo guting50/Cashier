@@ -16,12 +16,14 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
-            android:text="商品名称" />
+            android:text="商品名称"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/iv_clone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentRight="true"
             android:padding="15dp"
             android:src="@mipmap/ty_close" />
@@ -32,7 +34,7 @@
             android:layout_height="1dp"
             android:layout_below="@+id/info_goods_name"
             android:layout_marginTop="15dp"
-            android:background="@color/text49" />
+            android:background="@color/text66" />
 
         <TextView
             android:id="@+id/goods_code"
@@ -41,7 +43,8 @@
             android:layout_below="@+id/divider_a"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
-            android:text="条码：123456" />
+            android:text="条码：123456"
+            android:textSize="@dimen/sp_16" />
 
         <TextView
             android:id="@+id/tv_price"
@@ -50,18 +53,19 @@
             android:layout_below="@+id/goods_code"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
-            android:text="售价：￥888" />
+            android:text="售价：￥888"
+            android:textSize="@dimen/sp_16" />
 
         <com.gt.utils.view.BgFrameLayout
             android:id="@+id/bn_edit_num"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_35"
+            android:layout_height="@dimen/dp_45"
             android:layout_below="@+id/divider_a"
             android:layout_alignParentRight="true"
             android:layout_marginTop="20dp"
             android:layout_marginRight="15dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
             app:corners_radius="2dp"
             app:solid_color="@color/white"
             app:stroke_color="@color/text49"
@@ -71,20 +75,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="数量" />
+                android:text="数量"
+                android:textSize="@dimen/sp_18" />
 
         </com.gt.utils.view.BgFrameLayout>
 
         <com.gt.utils.view.BgFrameLayout
             android:id="@+id/bn_edit_price"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_35"
+            android:layout_height="@dimen/dp_45"
             android:layout_below="@+id/divider_a"
             android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/bn_edit_num"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
             app:corners_radius="2dp"
             app:solid_color="@color/white"
             app:stroke_color="@color/text49"
@@ -94,20 +99,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="单价" />
+                android:text="单价"
+                android:textSize="@dimen/sp_18" />
 
         </com.gt.utils.view.BgFrameLayout>
 
         <com.gt.utils.view.BgFrameLayout
             android:id="@+id/bn_edit_give"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_35"
+            android:layout_height="@dimen/dp_45"
             android:layout_below="@+id/divider_a"
             android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/bn_edit_price"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
             app:corners_radius="2dp"
             app:solid_color="@color/white"
             app:stroke_color="@color/text49"
@@ -117,20 +123,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="赠送" />
+                android:text="赠送"
+                android:textSize="@dimen/sp_18" />
 
         </com.gt.utils.view.BgFrameLayout>
 
         <com.gt.utils.view.BgFrameLayout
             android:id="@+id/bn_edit_subtotal"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_35"
+            android:layout_height="@dimen/dp_45"
             android:layout_below="@+id/bn_edit_num"
             android:layout_alignParentRight="true"
             android:layout_marginTop="20dp"
             android:layout_marginRight="15dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
             app:corners_radius="2dp"
             app:solid_color="@color/white"
             app:stroke_color="@color/text49"
@@ -140,20 +147,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="小计" />
+                android:text="小计"
+                android:textSize="@dimen/sp_18" />
 
         </com.gt.utils.view.BgFrameLayout>
 
         <com.gt.utils.view.BgFrameLayout
             android:id="@+id/bn_edit_discount"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_35"
+            android:layout_height="@dimen/dp_45"
             android:layout_below="@+id/bn_edit_num"
             android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/bn_edit_subtotal"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
             app:corners_radius="2dp"
             app:solid_color="@color/white"
             app:stroke_color="@color/text49"
@@ -163,20 +171,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="折扣" />
+                android:text="折扣"
+                android:textSize="@dimen/sp_18" />
 
         </com.gt.utils.view.BgFrameLayout>
 
         <com.gt.utils.view.BgFrameLayout
             android:id="@+id/bn_edit_royalty"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_35"
+            android:layout_height="@dimen/dp_45"
             android:layout_below="@+id/bn_edit_num"
             android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/bn_edit_discount"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
             app:corners_radius="2dp"
             app:solid_color="@color/white"
             app:stroke_color="@color/text49"
@@ -186,7 +195,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="提成" />
+                android:text="提成"
+                android:textSize="@dimen/sp_18" />
 
         </com.gt.utils.view.BgFrameLayout>
 
@@ -195,8 +205,8 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_above="@+id/keyboard_layout"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp"
             android:layout_marginBottom="15dp"
             android:orientation="horizontal">
 
@@ -307,10 +317,10 @@
         <include
             layout="@layout/item_num_keyboard_layout"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="300dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp"
             android:layout_marginBottom="15dp" />
 
     </RelativeLayout>

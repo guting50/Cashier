@@ -13,7 +13,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.gt.utils.view.OnNoDoubleClickListener;
-import com.maimengmami.waveswiperefreshlayout.WaveSwipeRefreshLayout;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.ClassMsg;
 import com.wycd.yushangpu.bean.ShopMsg;
@@ -30,7 +30,6 @@ import com.wycd.yushangpu.widget.views.ShapedImageView;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -45,10 +44,8 @@ public class GoodsListFragment extends Fragment {
 
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
-    @BindView(R.id.refresh_goods_consume)
-    WaveSwipeRefreshLayout refreshGoodsConsume;
     @BindView(R.id.goods_list)
-    RecyclerView goodsList;
+    XRecyclerView goodsList;
     @BindView(R.id.empty_state_layout)
     FrameLayout emptyStateLayout;
 
@@ -94,25 +91,15 @@ public class GoodsListFragment extends Fragment {
         goodsList.setAdapter(adapter);
 
         //刷新或加载更多
-        refreshGoodsConsume.setOnRefreshListener(new WaveSwipeRefreshLayout.OnRefreshListener() {
+        goodsList.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
                 obtainHomeShop("");
-                refreshGoodsConsume.setRefreshing(false);
             }
 
             @Override
-            public void onLoad() {
-            }
-
-            @Override
-            public boolean canLoadMore() {
-                return false;
-            }
-
-            @Override
-            public boolean canRefresh() {
-                return true;
+            public void onLoadMore() {
+                // load more data here
             }
         });
     }
@@ -210,11 +197,13 @@ public class GoodsListFragment extends Fragment {
                 if (adapter.getShopMsgList().size() <= 0) {
                     emptyStateLayout.setVisibility(View.VISIBLE);
                 }
+                goodsList.refreshComplete();
             }
 
             @Override
             public void onErrorResponse(Object msg) {
                 homeActivity.dialog.dismiss();
+                goodsList.refreshComplete();
             }
         });
 

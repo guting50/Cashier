@@ -15,9 +15,9 @@
         <RelativeLayout
             android:id="@+id/rl_out"
             android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@null">
+            android:layout_gravity="center_horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_hedimg"
@@ -72,21 +72,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btn_cashier"
-            android:src="@mipmap/btn_member_false" />
+            android:src="@mipmap/btn_member_false"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/btn_goods"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btn_member"
-            android:src="@mipmap/btn_goods_false" />
+            android:src="@mipmap/btn_goods_false"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/btn_sale"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btn_goods"
-            android:src="@mipmap/btn_sale_false" />
+            android:src="@mipmap/btn_sale_false"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/btn_home_set"
@@ -202,8 +205,8 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="会员[F2]"
-                    android:textSize="@dimen/sp_15"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_15" />
             </com.gt.utils.view.BgFrameLayout>
 
             <com.gt.utils.view.BgFrameLayout
@@ -277,7 +280,7 @@
             android:gravity="center_vertical"
             android:text="0"
             android:textColor="#1e1e1e"
-            android:textSize="@dimen/dp_22"
+            android:textSize="@dimen/dp_25"
             android:textStyle="bold" />
 
         <TextView
@@ -317,7 +320,7 @@
             android:gravity="center_vertical"
             android:text="0.00"
             android:textColor="#1e1e1e"
-            android:textSize="@dimen/dp_20"
+            android:textSize="@dimen/dp_25"
             android:textStyle="bold" />
 
         <com.gt.utils.view.BgFrameLayout

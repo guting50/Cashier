@@ -63,6 +63,7 @@ dependencies {
     implementation 'com.youth.banner:banner:1.4.10'
     //下拉刷新
     implementation 'com.mamengmami.android:waveswiperefreshlayout:1.0.0'
+    implementation 'com.jcodecraeer:xrecyclerview:1.6.0'
     //图片圆形化工具
     implementation 'de.hdodenhof:circleimageview:2.1.0'
     //最新版本

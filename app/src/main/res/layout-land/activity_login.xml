@@ -14,6 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right|center_vertical"
         android:layout_marginRight="80dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical">
 
         <LinearLayout
@@ -177,7 +179,7 @@
                 android:gravity="center"
                 android:text="登   录"
                 android:textColor="@color/white"
-                android:textSize="@dimen/sp_14" />
+                android:textSize="@dimen/sp_20" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

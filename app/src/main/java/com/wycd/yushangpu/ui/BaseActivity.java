@@ -49,7 +49,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        SystemUIUtils.setStickFullScreen(getWindow().getDecorView());
+//        SystemUIUtils.setStickFullScreen(getWindow().getDecorView());
     }
 
     @Override
@@ -68,10 +68,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
         //底部虚拟键始终隐藏，触摸屏幕时也不出现
-        Window _window = getWindow();
-        WindowManager.LayoutParams params = _window.getAttributes();
-        params.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE;
-        _window.setAttributes(params);
+//        Window _window = getWindow();
+//        WindowManager.LayoutParams params = _window.getAttributes();
+//        params.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE;
+//        _window.setAttributes(params);
     }
 
     protected void init() {

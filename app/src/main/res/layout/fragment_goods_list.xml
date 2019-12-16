@@ -23,21 +23,13 @@
 
     </FrameLayout>
 
-    <com.maimengmami.waveswiperefreshlayout.WaveSwipeRefreshLayout
-        android:id="@+id/refresh_goods_consume"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/goods_list"
+        android:paddingLeft="10dp"
         android:layout_marginTop="70dp"
-        android:layout_marginRight="10dp"
-        app:blow_wave_color="@color/green">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/goods_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </com.maimengmami.waveswiperefreshlayout.WaveSwipeRefreshLayout>
+        android:paddingRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <FrameLayout
         android:id="@+id/empty_state_layout"

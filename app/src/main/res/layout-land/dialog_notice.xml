@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_centerVertical="true"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <ImageView
@@ -54,13 +54,13 @@
                 android:layout_height="@dimen/dp_40"
                 android:layout_marginLeft="@dimen/dp_18"
                 android:padding="@dimen/dp_4"
-                android:src="@mipmap/wh" />
+                android:src="@mipmap/wh"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_notice_msg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_10"
                 android:text="你确定要挂单吗？"
                 android:textColor="@color/text66"
                 android:textSize="@dimen/dp_14" />
@@ -76,24 +76,31 @@
             android:padding="@dimen/dp_7"
             android:paddingBottom="@dimen/dp_10">
 
+
             <TextView
                 android:id="@+id/tv_cancel"
-                android:layout_width="70dp"
+                android:layout_width="80dp"
                 android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginRight="15dp"
+                android:layout_toLeftOf="@+id/view_line"
                 android:background="@drawable/btt_cancel"
                 android:gravity="center"
                 android:text="取消"
                 android:textColor="@color/text60"
                 android:textSize="14sp" />
 
+            <View
+                android:id="@+id/view_line"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true" />
+
             <TextView
                 android:id="@+id/tv_sure"
-                android:layout_width="70dp"
+                android:layout_width="80dp"
                 android:layout_height="match_parent"
-                android:layout_marginRight="@dimen/dp_15"
-                android:layout_toLeftOf="@+id/tv_cancel"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/view_line"
                 android:background="@drawable/btt_ensure"
                 android:gravity="center"
                 android:text="确认"
