@@ -42,7 +42,6 @@ public class GoodsModelDialog {
     private static TextView tvCode;
     private static TextView tvPrice;
     private static TextView tvesPrice;
-    private static LinearLayout ll_esprice;
     private static TextView tvStork;
     private static ShopRulesAdapter mShopRulesAdapter;
     private static List<List<GoodsModelBean>> modelList;
@@ -87,7 +86,6 @@ public class GoodsModelDialog {
         tvCode = (TextView) view.findViewById(R.id.tv_item_goods_code);
         tvPrice = (TextView) view.findViewById(R.id.tv_item_goods_price);
         tvesPrice = (TextView) view.findViewById(R.id.tv_item_goods_esprice);
-        ll_esprice = (LinearLayout) view.findViewById(R.id.ll_esprice);
 
         tvStork = (TextView) view.findViewById(R.id.tv_item_goods_stock);
 
@@ -98,7 +96,7 @@ public class GoodsModelDialog {
                 .getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay()
                 .getWidth();
         dialog.setContentView(view, new LinearLayout.LayoutParams(
-                screenWidth - dip2px(context, 600), 550));
+                screenWidth - dip2px(context, 560), 570));
         Window window = dialog.getWindow();
         dialog.show();
 
@@ -189,14 +187,13 @@ public class GoodsModelDialog {
             VolleyResponse.instance().getInternetImg(context, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(goodsitem.getPM_BigImg()).toString()), ivGoodsImage, R.mipmap.messge_nourl);
 
             tvName.setText(goodsitem.getPM_Name() + "");
-            tvCode.setText(goodsitem.getPM_Code() + "");
+            tvCode.setText("编码:" + goodsitem.getPM_Code() + "");
 
 
             if (NullUtils.noNullHandle(goodsitem.getPM_IsDiscount()).toString().equals("1")) {
-                ll_esprice.setVisibility(View.VISIBLE);
                 if (!NullUtils.noNullHandle(goodsitem.getPM_SpecialOfferMoney()).toString().equals("0.0") && goodsitem.getPM_SpecialOfferMoney() != -1) {
                     //无最低折扣
-                    tvesPrice.setText("特：" + goodsitem.getPM_SpecialOfferMoney());
+                    tvesPrice.setText("特：￥" + goodsitem.getPM_SpecialOfferMoney());
                     tvPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); //中划线
                     tvPrice.setTextColor(context.getResources().getColor(R.color.a5a5a5));
 
@@ -204,13 +201,13 @@ public class GoodsModelDialog {
                     //有特价折扣
                     if (NullUtils.noNullHandle(goodsitem.getPM_MinDisCountValue()).toString().equals("0.0")) {
                         //无最低折扣
-                        tvesPrice.setText("特：" + StringUtil.twoNum(CommonUtils.multiply(goodsitem.getPM_UnitPrice() + "", goodsitem.getPM_SpecialOfferValue() + "")));
+                        tvesPrice.setText("特：￥" + StringUtil.twoNum(CommonUtils.multiply(goodsitem.getPM_UnitPrice() + "", goodsitem.getPM_SpecialOfferValue() + "")));
                     } else {
                         //有最低折扣
                         if (goodsitem.getPM_SpecialOfferValue() > goodsitem.getPM_MinDisCountValue()) {
-                            tvesPrice.setText("特：" + StringUtil.twoNum(CommonUtils.multiply(goodsitem.getPM_UnitPrice() + "", goodsitem.getPM_SpecialOfferValue() + "")));
+                            tvesPrice.setText("特：￥" + StringUtil.twoNum(CommonUtils.multiply(goodsitem.getPM_UnitPrice() + "", goodsitem.getPM_SpecialOfferValue() + "")));
                         } else {
-                            tvesPrice.setText("特：" + StringUtil.twoNum(CommonUtils.multiply(goodsitem.getPM_UnitPrice() + "", goodsitem.getPM_MinDisCountValue() + "")));
+                            tvesPrice.setText("特：￥" + StringUtil.twoNum(CommonUtils.multiply(goodsitem.getPM_UnitPrice() + "", goodsitem.getPM_MinDisCountValue() + "")));
                         }
                     }
                     tvPrice.setTextColor(context.getResources().getColor(R.color.a5a5a5));
@@ -219,29 +216,25 @@ public class GoodsModelDialog {
                     //无特价折扣
                     if (!NullUtils.noNullHandle(goodsitem.getPM_MemPrice()).toString().equals("")) {
                         //有会员价
-                        tvesPrice.setText("会：" + StringUtil.twoNum(NullUtils.noNullHandle(goodsitem.getPM_MemPrice()).toString()));
-                        ll_esprice.setVisibility(View.VISIBLE);
+                        tvesPrice.setText("会：￥" + StringUtil.twoNum(NullUtils.noNullHandle(goodsitem.getPM_MemPrice()).toString()));
                     } else {
                         tvesPrice.setText("");
-                        ll_esprice.setVisibility(View.GONE);
                     }
                     tvPrice.getPaint().setFlags(0 | Paint.ANTI_ALIAS_FLAG); // 取消设置的的划线
                     tvPrice.setTextColor(context.getResources().getColor(R.color.text60));
                 }
             } else {
                 if (!NullUtils.noNullHandle(goodsitem.getPM_MemPrice()).toString().equals("")) {
-                    tvesPrice.setText("会：" + StringUtil.twoNum(NullUtils.noNullHandle(goodsitem.getPM_MemPrice()).toString()));
-                    ll_esprice.setVisibility(View.VISIBLE);
+                    tvesPrice.setText("会：￥" + StringUtil.twoNum(NullUtils.noNullHandle(goodsitem.getPM_MemPrice()).toString()));
                 } else {
                     tvesPrice.setText("");
-                    ll_esprice.setVisibility(View.GONE);
                 }
                 tvPrice.getPaint().setFlags(0 | Paint.ANTI_ALIAS_FLAG); // 取消设置的的划线
                 tvPrice.setTextColor(context.getResources().getColor(R.color.text60));
             }
 
-            tvPrice.setText("售：" + StringUtil.twoNum(goodsitem.getPM_UnitPrice() + ""));
-//            tvesPrice.setText("特："+  StringUtil.twoNum(goodsitem.getPM_UnitPrice() + ""));
+            tvPrice.setText("售：￥" + StringUtil.twoNum(goodsitem.getPM_UnitPrice() + ""));
+//            tvesPrice.setText("特：￥"+  StringUtil.twoNum(goodsitem.getPM_UnitPrice() + ""));
 
             //库存
             if (goodsitem.getPM_Metering() != null) {

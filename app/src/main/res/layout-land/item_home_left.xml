@@ -2,8 +2,7 @@
 <com.mcxtzhang.swipemenulib.SwipeMenuLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true"
-    android:paddingBottom="1dp">
+    android:clickable="true">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -13,7 +12,7 @@
             android:id="@+id/rl_bg"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_75"
-            android:background="@color/lightgray"
+            android:background="@color/item_bg"
             android:paddingLeft="@dimen/dp_10"
             android:paddingRight="@dimen/dp_10">
 
@@ -22,19 +21,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_2"
-                android:layout_marginTop="@dimen/dp_13"
+                android:layout_marginTop="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_3"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="超值小吃  M/8寸"
-                android:textColor="@color/textcolor"
-                android:textSize="@dimen/sp_15"
-                android:textStyle="bold" />
+                android:textColor="@color/title_color"
+                android:textSize="@dimen/sp_18" />
 
             <TextView
                 android:id="@+id/tv_zeng"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_marginTop="@dimen/dp_13"
                 android:layout_toRightOf="@id/tv_name"
                 android:background="@drawable/background_red"
@@ -42,25 +40,26 @@
                 android:paddingBottom="1dp"
                 android:text="赠"
                 android:textColor="@color/white"
-                android:textSize="@dimen/dp_10" />
+                android:textSize="@dimen/dp_13" />
 
             <TextView
                 android:id="@+id/tv_staff"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="13dp"
                 android:layout_toRightOf="@+id/tv_zeng"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="提成员工"
+                android:textSize="@dimen/dp_14"
                 android:textColor="@color/yunpu" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="@dimen/dp_12">
+                android:layout_marginBottom="@dimen/dp_10">
 
                 <TextView
                     android:id="@+id/tv_vipprice"
@@ -70,7 +69,7 @@
                     android:maxLines="1"
                     android:text="￥ 36.00/桶"
                     android:textColor="@color/text66"
-                    android:textSize="@dimen/sp_14" />
+                    android:textSize="@dimen/sp_16" />
 
                 <TextView
                     android:id="@+id/tv_st"
@@ -81,7 +80,7 @@
                     android:maxLines="1"
                     android:text="160/s"
                     android:textColor="@color/text66"
-                    android:textSize="@dimen/sp_14" />
+                    android:textSize="@dimen/sp_16" />
 
                 <TextView
                     android:id="@+id/tv_teprice"
@@ -91,7 +90,7 @@
                     android:maxLines="1"
                     android:text="0.6折"
                     android:textColor="@color/textred1"
-                    android:textSize="@dimen/sp_14" />
+                    android:textSize="@dimen/sp_16" />
 
                 <TextView
                     android:id="@+id/tv_num"
@@ -101,8 +100,8 @@
                     android:gravity="right"
                     android:maxLines="1"
                     android:text="x 1"
-                    android:textColor="@color/text66"
-                    android:textSize="@dimen/sp_14" />
+                    android:textColor="@color/title_color"
+                    android:textSize="@dimen/sp_16" />
 
                 <TextView
                     android:id="@+id/tv_price"
@@ -112,8 +111,8 @@
                     android:gravity="right"
                     android:maxLines="1"
                     android:text="36.00"
-                    android:textColor="@color/textcolor"
-                    android:textSize="@dimen/sp_18"
+                    android:textColor="#303111"
+                    android:textSize="@dimen/sp_20"
                     android:textStyle="bold" />
             </LinearLayout>
         </RelativeLayout>
@@ -124,7 +123,7 @@
             android:layout_height="0.5dp"
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
-            android:background="@drawable/shap_xuxian" />
+            android:background="#ebecee" />
     </FrameLayout>
 
     <FrameLayout

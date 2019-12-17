@@ -63,6 +63,8 @@
     <color name="textyellow">#ff9c00</color>
     <color name="textgray">#2f3541</color>
     <color name="textef">#efefef</color>
+    <color name="texted">#ededec</color>
+    <color name="textf5">#F5F4F9</color>
     <color name="texteb">#ecfcf1</color>
     <color name="texte0">#e0e3ea</color>
 
@@ -83,6 +85,7 @@
     <color name="lightgray">#eee</color><!--亮灰色 -->
     <color name="ysl_gray">#EFEFEF</color>
     <color name="enablenot">#e0e0e0</color>
+    <color name="item_bg">#ebebf5</color>
     <color name="moling_true">#FF9900</color>
     <color name="orange">#fe9f12</color>
     <color name="nameset">#508DC1</color>

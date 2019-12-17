@@ -51,7 +51,7 @@ public class GoodsListFragment extends Fragment {
 
     private List<ClassMsg> mClassMsgList = new ArrayList<>();//分类数据列表
     private int PageIndex = 1;
-    private int PageSize = 20;
+    private int PageSize = 21;
 
     HomeActivity homeActivity;
     Adapter adapter;
@@ -94,12 +94,13 @@ public class GoodsListFragment extends Fragment {
         goodsList.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                obtainHomeShop("");
+                obtainHomeShop("", false);
             }
 
             @Override
             public void onLoadMore() {
                 // load more data here
+                obtainHomeShop("", "", ++PageIndex, false);
             }
         });
     }
@@ -149,7 +150,7 @@ public class GoodsListFragment extends Fragment {
                 tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
-                        obtainHomeShop(tab.getTag().toString());
+                        obtainHomeShop("", tab.getTag().toString());
                     }
 
                     @Override
@@ -170,15 +171,20 @@ public class GoodsListFragment extends Fragment {
         });
     }
 
-    public void obtainHomeShop(String PT_GID) {
-        PageIndex = 1;
-        obtainHomeShop(PT_GID, homeActivity.mEtLoginAccount.getText().toString());
+    public void obtainHomeShop(String PT_GID, boolean isShowDialog) {
+        obtainHomeShop(PT_GID, homeActivity.mEtLoginAccount.getText().toString(), PageIndex, isShowDialog);
     }
 
     public void obtainHomeShop(String PT_GID, String PM_CodeOrNameOrSimpleCode) {
-        homeActivity.dialog.show();
+        PageIndex = 1;
+        obtainHomeShop(PT_GID, PM_CodeOrNameOrSimpleCode, PageIndex, true);
+    }
+
+    public void obtainHomeShop(String PT_GID, String PM_CodeOrNameOrSimpleCode, int pageIndex, boolean isShowDialog) {
+        if (isShowDialog)
+            homeActivity.dialog.show();
         ImpShopHome shopHome = new ImpShopHome();
-        shopHome.shoplist(getActivity(), PageIndex, PageSize, PT_GID, PM_CodeOrNameOrSimpleCode, new InterfaceBack() {
+        shopHome.shoplist(getActivity(), pageIndex, PageSize, PT_GID, PM_CodeOrNameOrSimpleCode, new InterfaceBack() {
             @Override
             public void onResponse(Object response) {
                 List<ShopMsg> sllist = (List<ShopMsg>) response;
@@ -200,12 +206,14 @@ public class GoodsListFragment extends Fragment {
                     emptyStateLayout.setVisibility(View.VISIBLE);
                 }
                 goodsList.refreshComplete();
+                goodsList.loadMoreComplete();
             }
 
             @Override
             public void onErrorResponse(Object msg) {
                 homeActivity.dialog.dismiss();
                 goodsList.refreshComplete();
+                goodsList.loadMoreComplete();
             }
         });
 

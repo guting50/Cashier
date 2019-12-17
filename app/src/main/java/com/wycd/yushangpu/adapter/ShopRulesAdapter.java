@@ -96,11 +96,10 @@ public class ShopRulesAdapter extends RecyclerView.Adapter<ShopRulesAdapter.MyHo
             } else {
                 holder.cbWeek.setEnabled(true);
                 if (beans.isChecked()) {
-                    holder.cbWeek.setBackgroundResource(R.drawable.lab_selected);
+                    holder.cbWeek.setBackgroundResource(R.drawable.ysl_lab_selected);
 
                 } else {
                     holder.cbWeek.setBackgroundResource(R.drawable.ysl_lab_unselected);
-
                 }
             }
             holder.cbWeek.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +109,7 @@ public class ShopRulesAdapter extends RecyclerView.Adapter<ShopRulesAdapter.MyHo
                         beans.setChecked(!beans.isChecked());
                         holder.cbWeek.setChecked(beans.isChecked());
                         if (holder.cbWeek.isChecked()) {
-                            holder.cbWeek.setBackgroundResource(R.drawable.lab_selected);
+                            holder.cbWeek.setBackgroundResource(R.drawable.ysl_lab_selected);
 
                         } else {
                             holder.cbWeek.setBackgroundResource(R.drawable.ysl_lab_unselected);

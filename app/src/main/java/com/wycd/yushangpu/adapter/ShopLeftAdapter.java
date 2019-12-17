@@ -52,7 +52,7 @@ public class ShopLeftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         vh.mTvNum.setText("x " + ts.getNum() + "");
         vh.mTvName.setText(NullUtils.noNullHandle(ts.getPM_Name()).toString() + "  " + NullUtils.noNullHandle(ts.getPM_Modle()).toString());
         if (ts.isCheck()) {
-            vh.mRlBg.setBackgroundResource(R.color.enablenot);
+            vh.mRlBg.setBackgroundResource(R.color.item_bg);
         } else {
             vh.mRlBg.setBackgroundResource(R.color.white);
         }

@@ -8,7 +8,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="70dp">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
@@ -16,18 +16,26 @@
             android:layout_height="match_parent"
             app:tabBackground="@drawable/selector_tab_view"
             app:tabIndicatorColor="@color/colorPrimary"
-            app:tabMaxWidth="100dp"
+            app:tabMaxWidth="120dp"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/colorPrimary"
+            app:tabTextAppearance="@style/tab_layout"
             app:tabTextColor="@color/text66" />
 
     </FrameLayout>
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="70dp"
+        android:background="@color/texte0" />
 
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/goods_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="80dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp" />
 
