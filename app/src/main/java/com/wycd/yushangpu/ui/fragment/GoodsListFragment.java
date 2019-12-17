@@ -251,30 +251,35 @@ public class GoodsListFragment extends Fragment {
                     myHolser.mIvState.setText("普");
                     myHolser.mIvState.setTextColor(getContext().getResources().getColor(R.color.textblue));
 //                myHolser.mIvState.setBackgroundResource(R.drawable.home_pu);
-                    myHolser.llKucun.setVisibility(View.VISIBLE);
+                    myHolser.mIvKu.setVisibility(View.VISIBLE);
+                    myHolser.mTvKunum.setVisibility(View.VISIBLE);
                     break;
                 case "1":
                     myHolser.mIvState.setText("服");
                     myHolser.mIvState.setTextColor(getContext().getResources().getColor(R.color.textgreen));
-                    myHolser.llKucun.setVisibility(View.INVISIBLE);
+                    myHolser.mIvKu.setVisibility(View.INVISIBLE);
+                    myHolser.mTvKunum.setVisibility(View.INVISIBLE);
                     break;
                 case "2":
                     myHolser.mIvState.setText("礼");
                     myHolser.mIvState.setTextColor(getContext().getResources().getColor(R.color.textred));
 //                myHolser.mIvState.setBackgroundResource(R.drawable.shop_li);
-                    myHolser.llKucun.setVisibility(View.VISIBLE);
+                    myHolser.mIvKu.setVisibility(View.VISIBLE);
+                    myHolser.mTvKunum.setVisibility(View.VISIBLE);
                     break;
                 case "3":
                     myHolser.mIvState.setText("套");
                     myHolser.mIvState.setTextColor(getContext().getResources().getColor(R.color.textblue));
 //                myHolser.mIvState.setBackgroundResource(R.drawable.shop_pt);
-                    myHolser.llKucun.setVisibility(View.INVISIBLE);
+                    myHolser.mIvKu.setVisibility(View.INVISIBLE);
+                    myHolser.mTvKunum.setVisibility(View.INVISIBLE);
                     break;
                 case "4":
                     myHolser.mIvState.setText("套");
                     myHolser.mIvState.setTextColor(getContext().getResources().getColor(R.color.textgreen));
 //                myHolser.mIvState.setBackgroundResource(R.drawable.shop_ci);
-                    myHolser.llKucun.setVisibility(View.INVISIBLE);
+                    myHolser.mIvKu.setVisibility(View.INVISIBLE);
+                    myHolser.mTvKunum.setVisibility(View.INVISIBLE);
                     break;
             }
 //        PM_IsDiscount	商品折扣	int	0关闭 1开启
@@ -375,8 +380,6 @@ public class GoodsListFragment extends Fragment {
         TextView mIvKu;
         @BindView(R.id.tv_kunum)
         TextView mTvKunum;
-        @BindView(R.id.ll_kucun)
-        LinearLayout llKucun;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
