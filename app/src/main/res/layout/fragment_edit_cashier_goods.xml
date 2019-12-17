@@ -8,7 +8,7 @@
         android:id="@+id/info_goods_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_white">
+        android:background="@drawable/background_texte0">
 
         <TextView
             android:id="@+id/info_goods_name"

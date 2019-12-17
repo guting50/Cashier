@@ -49,7 +49,7 @@ public class ShopLeftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int i) {
         final ViewHolder vh = (ViewHolder) holder;
         final ShopMsg ts = list.get(i);
-        vh.mTvNum.setText("x " + (int) ts.getNum() + "");
+        vh.mTvNum.setText("x " + ts.getNum() + "");
         vh.mTvName.setText(NullUtils.noNullHandle(ts.getPM_Name()).toString() + "  " + NullUtils.noNullHandle(ts.getPM_Modle()).toString());
         if (ts.isCheck()) {
             vh.mRlBg.setBackgroundResource(R.color.enablenot);

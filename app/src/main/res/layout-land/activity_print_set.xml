@@ -21,7 +21,7 @@
             app:corners_radius="5dp"
             app:solid_color="@color/white">
 
-            <RadioGroup
+            <LinearLayout
                 android:id="@+id/rg_printer_print_set"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,118 +30,115 @@
                 android:orientation="vertical"
                 android:padding="@dimen/dp_2">
 
-                <RadioButton
-                    android:id="@+id/rb_about_shop"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_60"
-                    android:background="@drawable/rb_background_print_set"
-                    android:button="@null"
-                    android:paddingLeft="60dp"
-                    android:text="关于店铺"
-                    android:textSize="18sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="@color/linecolor" />
-
-                <RadioButton
-                    android:id="@+id/rb_printer_label_set"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_60"
-                    android:background="@drawable/rb_background_print_set"
-                    android:button="@null"
-                    android:paddingLeft="60dp"
-                    android:text="标签设置"
-                    android:textSize="18sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="@color/linecolor" />
-
-                <RadioButton
-                    android:id="@+id/rb_printer_device_set"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_60"
-                    android:background="@drawable/rb_background_print_set"
-                    android:button="@null"
-                    android:paddingLeft="60dp"
-                    android:text="打印设置"
-                    android:textSize="18sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="@color/linecolor" />
-
-                <RadioButton
-                    android:id="@+id/rb_software_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_60"
-                    android:background="@drawable/rb_background_print_set"
-                    android:button="@null"
-                    android:paddingLeft="60dp"
-                    android:text="软件版本"
-                    android:textSize="18sp" />
-
-            </RadioGroup>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="250dp"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginTop="@dimen/dp_20"
-                android:orientation="vertical">
-
                 <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/rb_about_shop"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_60"
+                        android:background="@drawable/rb_background_print_set"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="50dp"
+                        android:text="关于店铺"
+                        android:textColor="@color/textcolor"
+                        android:textSize="20sp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="1dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
                         android:src="@mipmap/icon_about_shop" />
+
                 </FrameLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/linecolor" />
+
                 <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/rb_printer_label_set"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_60"
+                        android:background="@drawable/rb_background_print_set"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="50dp"
+                        android:text="标签设置"
+                        android:textColor="@color/textcolor"
+                        android:textSize="20sp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="1dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
                         android:src="@mipmap/icon_lable_setting" />
+
                 </FrameLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/linecolor" />
+
                 <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/rb_printer_device_set"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_60"
+                        android:background="@drawable/rb_background_print_set"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="50dp"
+                        android:text="打印设置"
+                        android:textColor="@color/textcolor"
+                        android:textSize="20sp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
                         android:src="@mipmap/icon_print_setting" />
+
                 </FrameLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/linecolor" />
+
                 <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/rb_software_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_60"
+                        android:background="@drawable/rb_background_print_set"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="50dp"
+                        android:text="软件版本"
+                        android:textColor="@color/textcolor"
+                        android:textSize="20sp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
                         android:src="@mipmap/icon_software_info" />
+
                 </FrameLayout>
 
             </LinearLayout>
@@ -149,7 +146,7 @@
             <com.gt.utils.view.BgFrameLayout
                 android:id="@+id/sigin_out"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="60dp"
                 android:layout_gravity="bottom"
                 android:layout_margin="20dp"
                 app:corners_radius="5dp"
@@ -161,7 +158,7 @@
                     android:gravity="center"
                     android:text="退出登录"
                     android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:textSize="26sp" />
 
             </com.gt.utils.view.BgFrameLayout>
         </com.gt.utils.view.BgFrameLayout>

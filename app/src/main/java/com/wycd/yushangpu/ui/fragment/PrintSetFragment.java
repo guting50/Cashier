@@ -67,6 +67,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static android.hardware.usb.UsbManager.ACTION_USB_DEVICE_ATTACHED;
 import static android.hardware.usb.UsbManager.ACTION_USB_DEVICE_DETACHED;
@@ -83,10 +84,9 @@ public class PrintSetFragment extends Fragment {
 
     private TextView mTvPrint, mTvConnect;
     private RadioGroup mRgPrintSwitch;//打印开关
-    private RadioGroup rgPrinterSet;
     private RadioGroup rgPrinterSelect;
     private RadioGroup rgPrinterSelectLabelSize;
-    private RadioButton rbAboutShop, rbPrinterLabel, rbPrinterDevice, rbSoftwareInfo;
+    private TextView rbAboutShop, rbPrinterLabel, rbPrinterDevice, rbSoftwareInfo;
     private RadioButton mRbOpen, mRbClose;
     private RadioButton rgPrinterSelectedUsb, rgPrinterSelectedBluetooth;
     private RadioButton rgPrinterSelectLabelSmall, rgPrinterSelectLabelLarge;
@@ -167,12 +167,10 @@ public class PrintSetFragment extends Fragment {
         mRbClose = (RadioButton) rootView.findViewById(R.id.rb_print_set_close);
         mRgPrintSwitch.check(mRbClose.getId());
 
-        rgPrinterSet = (RadioGroup) rootView.findViewById(R.id.rg_printer_print_set);
-        rbAboutShop = (RadioButton) rootView.findViewById(R.id.rb_about_shop);
-        rbPrinterLabel = (RadioButton) rootView.findViewById(R.id.rb_printer_label_set);
-        rbPrinterDevice = (RadioButton) rootView.findViewById(R.id.rb_printer_device_set);
-        rbSoftwareInfo = (RadioButton) rootView.findViewById(R.id.rb_software_info);
-        rgPrinterSet.check(rbAboutShop.getId());
+        rbAboutShop = (TextView) rootView.findViewById(R.id.rb_about_shop);
+        rbPrinterLabel = (TextView) rootView.findViewById(R.id.rb_printer_label_set);
+        rbPrinterDevice = (TextView) rootView.findViewById(R.id.rb_printer_device_set);
+        rbSoftwareInfo = (TextView) rootView.findViewById(R.id.rb_software_info);
 
         rgPrinterSelect = (RadioGroup) rootView.findViewById(R.id.rb_printer_select);
         rgPrinterSelectedUsb = (RadioButton) rootView.findViewById(R.id.rb_printer_selected_usb);
@@ -437,42 +435,6 @@ public class PrintSetFragment extends Fragment {
             }
         });
 
-        rgPrinterSet.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                aboutShopLayout.setVisibility(View.GONE);
-                settingLayout.setVisibility(View.GONE);
-                softwareInfoLayout.setVisibility(View.GONE);
-                switch (checkedId) {
-                    case R.id.rb_about_shop:
-                        aboutShopLayout.setVisibility(View.VISIBLE);
-                        break;
-                    case R.id.rb_printer_label_set:
-                        settingLayout.setVisibility(View.VISIBLE);
-                        rbType = 1;
-                        llPrintSetSwitch.setVisibility(View.GONE);
-                        llPrintSet.setVisibility(View.GONE);
-                        break;
-                    case R.id.rb_printer_device_set:
-                        settingLayout.setVisibility(View.VISIBLE);
-                        switch (rgPrinterSelect.getCheckedRadioButtonId()) {
-                            case R.id.rb_printer_selected_usb:
-                                rbType = 0;
-                                break;
-                            case R.id.rb_printer_selected_bluetooth:
-                                rbType = 2;
-                                break;
-                        }
-                        llPrintSetSwitch.setVisibility(View.VISIBLE);
-                        llPrintSet.setVisibility(View.VISIBLE);
-                        break;
-                    case R.id.rb_software_info:
-                        softwareInfoLayout.setVisibility(View.VISIBLE);
-                        break;
-                }
-            }
-        });
-
         rgPrinterSelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -510,6 +472,7 @@ public class PrintSetFragment extends Fragment {
                 }
             }
         });
+
         scPrintSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -545,6 +508,40 @@ public class PrintSetFragment extends Fragment {
                 }
             }
         });
+    }
+
+    @OnClick({R.id.rb_about_shop, R.id.rb_printer_label_set, R.id.rb_printer_device_set, R.id.rb_software_info})
+    public void onTabClick(View view) {
+        aboutShopLayout.setVisibility(View.GONE);
+        settingLayout.setVisibility(View.GONE);
+        softwareInfoLayout.setVisibility(View.GONE);
+        switch (view.getId()) {
+            case R.id.rb_about_shop:
+                aboutShopLayout.setVisibility(View.VISIBLE);
+                break;
+            case R.id.rb_printer_label_set:
+                settingLayout.setVisibility(View.VISIBLE);
+                rbType = 1;
+                llPrintSetSwitch.setVisibility(View.GONE);
+                llPrintSet.setVisibility(View.GONE);
+                break;
+            case R.id.rb_printer_device_set:
+                settingLayout.setVisibility(View.VISIBLE);
+                switch (rgPrinterSelect.getCheckedRadioButtonId()) {
+                    case R.id.rb_printer_selected_usb:
+                        rbType = 0;
+                        break;
+                    case R.id.rb_printer_selected_bluetooth:
+                        rbType = 2;
+                        break;
+                }
+                llPrintSetSwitch.setVisibility(View.VISIBLE);
+                llPrintSet.setVisibility(View.VISIBLE);
+                break;
+            case R.id.rb_software_info:
+                softwareInfoLayout.setVisibility(View.VISIBLE);
+                break;
+        }
     }
 
     /**

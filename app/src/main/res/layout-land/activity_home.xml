@@ -10,14 +10,14 @@
         android:layout_width="110dp"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/dp_5"
-        android:background="@color/textgray">
+        android:background="#1E1E1E">
 
         <RelativeLayout
             android:id="@+id/rl_out"
             android:layout_width="match_parent"
-            android:layout_marginTop="20dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_hedimg"
@@ -280,7 +280,7 @@
             android:gravity="center_vertical"
             android:text="0"
             android:textColor="#1e1e1e"
-            android:textSize="@dimen/dp_25"
+            android:textSize="@dimen/sp_28"
             android:textStyle="bold" />
 
         <TextView
@@ -288,12 +288,12 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/tv_shoukuan"
             android:layout_marginRight="5dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="15dp"
             android:layout_toRightOf="@+id/tv_num_total"
             android:gravity="center_vertical"
             android:text=" 件"
             android:textColor="#1e1e1e"
-            android:textSize="@dimen/dp_12"
+            android:textSize="@dimen/sp_15"
             android:textStyle="bold" />
 
         <TextView
@@ -301,12 +301,12 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/tv_shoukuan"
             android:layout_marginRight="5dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="17dp"
             android:layout_toLeftOf="@+id/tv_heji"
             android:gravity="center_vertical"
             android:text="￥"
             android:textColor="#1e1e1e"
-            android:textSize="@dimen/dp_12"
+            android:textSize="@dimen/sp_15"
             android:textStyle="bold" />
 
         <TextView
@@ -320,7 +320,7 @@
             android:gravity="center_vertical"
             android:text="0.00"
             android:textColor="#1e1e1e"
-            android:textSize="@dimen/dp_25"
+            android:textSize="@dimen/sp_25"
             android:textStyle="bold" />
 
         <com.gt.utils.view.BgFrameLayout

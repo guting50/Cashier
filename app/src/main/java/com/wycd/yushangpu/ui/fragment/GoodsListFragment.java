@@ -173,7 +173,6 @@ public class GoodsListFragment extends Fragment {
     public void obtainHomeShop(String PT_GID) {
         PageIndex = 1;
         obtainHomeShop(PT_GID, homeActivity.mEtLoginAccount.getText().toString());
-        adapter.getShopMsgList().clear();
     }
 
     public void obtainHomeShop(String PT_GID, String PM_CodeOrNameOrSimpleCode) {
@@ -184,6 +183,9 @@ public class GoodsListFragment extends Fragment {
             public void onResponse(Object response) {
                 List<ShopMsg> sllist = (List<ShopMsg>) response;
                 homeActivity.mEtLoginAccount.setText("");
+                if (PageIndex == 1) {
+                    adapter.getShopMsgList().clear();
+                }
                 adapter.addShopMsgList(sllist);
 //                 int  0  表示普通商品    1表示服务商品  2表示礼品   3普通套餐   4充次套餐
                 for (ShopMsg msg : sllist) {
