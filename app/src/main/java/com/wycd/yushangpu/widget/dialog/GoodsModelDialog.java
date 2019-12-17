@@ -95,8 +95,7 @@ public class GoodsModelDialog {
         int screenWidth = ((WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay()
                 .getWidth();
-        dialog.setContentView(view, new LinearLayout.LayoutParams(
-                screenWidth - dip2px(context, 560), 570));
+        dialog.setContentView(view);
         Window window = dialog.getWindow();
         dialog.show();
 
