@@ -411,8 +411,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:padding="@dimen/dp_20"
-                android:visibility="gone">
+                android:padding="@dimen/dp_20">
 
                 <LinearLayout
                     android:id="@+id/ll_print_set_switch"
@@ -438,38 +437,6 @@
                             android:text="打印开关"
                             android:textColor="@color/color_main_text_black"
                             android:textSize="16sp" />
-
-                        <RadioGroup
-                            android:id="@+id/rg_print_set_switch"
-                            android:layout_width="match_parent"
-                            android:layout_height="42dp"
-                            android:layout_marginTop="2dp"
-                            android:orientation="horizontal"
-                            android:visibility="gone">
-
-                            <View
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="0.5" />
-
-                            <RadioButton
-                                android:id="@+id/rb_print_set_open"
-                                style="@style/RadioButton"
-                                android:gravity="center"
-                                android:text="开启打印" />
-
-                            <RadioButton
-                                android:id="@+id/rb_print_set_close"
-                                style="@style/RadioButton"
-                                android:gravity="center"
-                                android:text="关闭打印" />
-
-                            <View
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="0.5" />
-
-                        </RadioGroup>
 
                         <View
                             android:layout_width="wrap_content"

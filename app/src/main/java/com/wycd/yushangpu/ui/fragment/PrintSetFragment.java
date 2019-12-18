@@ -85,11 +85,9 @@ public class PrintSetFragment extends Fragment {
     private String TAG = "PrintSetFragment";
 
     private TextView mTvPrint, mTvConnect;
-    private RadioGroup mRgPrintSwitch;//打印开关
     private RadioGroup rgPrinterSelect;
     private RadioGroup rgPrinterSelectLabelSize;
     private TextView rbAboutShop, rbPrinterLabel, rbPrinterDevice, rbSoftwareInfo;
-    private RadioButton mRbOpen, mRbClose;
     private RadioButton rgPrinterSelectedUsb, rgPrinterSelectedBluetooth;
     private RadioButton rgPrinterSelectLabelSmall, rgPrinterSelectLabelLarge;
     private EditText mEtGoodsConsume, mEtHandDutyTime;
@@ -151,24 +149,22 @@ public class PrintSetFragment extends Fragment {
         usbManager = (UsbManager) getActivity().getSystemService(Context.USB_SERVICE);
 
         initView();
-        loadData();
         setListener();
         initBroadcast();
 
-        mEtGoodsConsume.requestFocus();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData();
     }
 
     private void initView() {
-
         llPrintSetSwitch = (LinearLayout) rootView.findViewById(R.id.ll_print_set_switch);
         llPrintSet = (LinearLayout) rootView.findViewById(R.id.ll_print_set);
         mTvPrint = (TextView) rootView.findViewById(R.id.tv_print_set_print);
         mTvConnect = (TextView) rootView.findViewById(R.id.tv_connect_set_print);
-
-        mRgPrintSwitch = (RadioGroup) rootView.findViewById(R.id.rg_print_set_switch);
-        mRbOpen = (RadioButton) rootView.findViewById(R.id.rb_print_set_open);
-        mRbClose = (RadioButton) rootView.findViewById(R.id.rb_print_set_close);
-        mRgPrintSwitch.check(mRbClose.getId());
 
         rbAboutShop = (TextView) rootView.findViewById(R.id.rb_about_shop);
         rbPrinterLabel = (TextView) rootView.findViewById(R.id.rb_printer_label_set);
@@ -193,61 +189,9 @@ public class PrintSetFragment extends Fragment {
 
         tv_version_number = rootView.findViewById(R.id.tv_version_number);
 
-        String ReceiptUSBName = (String) CacheData.restoreObject("ReceiptUSBName");
-        if (ReceiptUSBName != null && !"".equals(ReceiptUSBName) && ISCONNECT) {
-            mTvPrint.setText(ReceiptUSBName);
-            mTvConnect.setText(getString(R.string.con_success));
-        }
-
-        if (LABELPRINT_IS_OPEN) {
-            rbPrinterLabel.setVisibility(View.VISIBLE);
-        }
-
         mEtGoodsConsume = (EditText) rootView.findViewById(R.id.et_print_set_goods_consume);
         mEtHandDutyTime = (EditText) rootView.findViewById(R.id.et_print_set_hand_duty);
 
-        rootView.findViewById(R.id.sigin_out).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NoticeDialog.noticeDialog(homeActivity, "系统提示信息", "是否退出当前账户", 1, new InterfaceBack() {
-                    @Override
-                    public void onResponse(Object response) {
-                        //退出
-//                        dialog.show();
-                        ImpOutLogin outLogin = new ImpOutLogin();
-                        outLogin.outLogin(homeActivity, new InterfaceBack() {
-                            @Override
-                            public void onResponse(Object response) {
-                                homeActivity.getSupportFragmentManager().beginTransaction()
-                                        .hide(homeActivity.printSetFragment).commit();
-                                homeActivity.dialog.dismiss();
-                                Intent intent = new Intent(homeActivity, LoginActivity.class);
-                                startActivity(intent);
-                                homeActivity.finish();
-                            }
-
-                            @Override
-                            public void onErrorResponse(Object msg) {
-                                homeActivity.dialog.dismiss();
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onErrorResponse(Object msg) {
-
-                    }
-                });
-            }
-        });
-
-        PackageManager manager = getContext().getPackageManager();
-        try {
-            PackageInfo info = manager.getPackageInfo(getContext().getPackageName(), 0);
-            tv_version_number.setText("版本" + info.versionName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     //更新打印设置缓存
@@ -286,6 +230,25 @@ public class PrintSetFragment extends Fragment {
     }
 
     private void loadData() {
+        mEtGoodsConsume.requestFocus();
+        if (LABELPRINT_IS_OPEN) {
+            rbPrinterLabel.setVisibility(View.VISIBLE);
+        }
+
+        String ReceiptUSBName = (String) CacheData.restoreObject("ReceiptUSBName");
+        if (ReceiptUSBName != null && !"".equals(ReceiptUSBName) && ISCONNECT) {
+            mTvPrint.setText(ReceiptUSBName);
+            mTvConnect.setText(getString(R.string.con_success));
+        }
+
+        PackageManager manager = getContext().getPackageManager();
+        try {
+            PackageInfo info = manager.getPackageInfo(getContext().getPackageName(), 0);
+            tv_version_number.setText("版本" + info.versionName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         mPrintMap.put("SPXF", "1");
         mPrintMap.put("JB", "1");
 
@@ -297,18 +260,17 @@ public class PrintSetFragment extends Fragment {
                 mPrintSetBean = bean;
                 if (mPrintSetBean != null) {
                     if (bean.getData().getPS_IsEnabled() == 1) {
-                        mRgPrintSwitch.check(mRbOpen.getId());
+                        scPrintSwitch.setChecked(true);
                         if (bean.getData().getPS_PaperType() == 2) {
                             rgPrinterSelectLabelSize.check(rgPrinterSelectLabelSmall.getId());
                         } else if (bean.getData().getPS_PaperType() == 3) {
                             rgPrinterSelectLabelSize.check(rgPrinterSelectLabelLarge.getId());
                         }
                     } else {
-                        mRgPrintSwitch.check(mRbClose.getId());
+                        scPrintSwitch.setChecked(false);
                     }
                     if (bean.getData().getPrintTimesList() != null) {
                         for (int j = 0; j < bean.getData().getPrintTimesList().size(); j++) {
-
                             if (bean.getData().getPrintTimesList().get(j).getPT_Code().equals("SPXF")) {
                                 mEtGoodsConsume.setText("" + bean.getData().getPrintTimesList().get(j).getPT_Times());
                             } else if (bean.getData().getPrintTimesList().get(j).getPT_Code().equals("JB")) {
@@ -382,29 +344,6 @@ public class PrintSetFragment extends Fragment {
                     mPresenter.savePrintSet(getActivity(), params);
                 }
 
-            }
-        });
-
-        //打印机开关
-        mRgPrintSwitch.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == mRbOpen.getId()) {
-                    mPrintSwitch = 1;
-
-                    mEtGoodsConsume.setInputType(InputType.TYPE_CLASS_NUMBER);
-                    mEtHandDutyTime.setInputType(InputType.TYPE_CLASS_NUMBER);
-
-                    mEtGoodsConsume.setText("1");
-                    mEtHandDutyTime.setText("1");
-
-                }
-                if (checkedId == mRbClose.getId()) {
-                    mPrintSwitch = 0;
-
-                    mEtGoodsConsume.setInputType(InputType.TYPE_NULL);
-                    mEtHandDutyTime.setInputType(InputType.TYPE_NULL);
-                }
             }
         });
 
@@ -519,6 +458,41 @@ public class PrintSetFragment extends Fragment {
                         setBluetooth();
                         break;
                 }
+            }
+        });
+
+        rootView.findViewById(R.id.sigin_out).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NoticeDialog.noticeDialog(homeActivity, "系统提示信息", "是否退出当前账户", 1, new InterfaceBack() {
+                    @Override
+                    public void onResponse(Object response) {
+                        //退出
+//                        dialog.show();
+                        ImpOutLogin outLogin = new ImpOutLogin();
+                        outLogin.outLogin(homeActivity, new InterfaceBack() {
+                            @Override
+                            public void onResponse(Object response) {
+                                homeActivity.getSupportFragmentManager().beginTransaction()
+                                        .hide(homeActivity.printSetFragment).commit();
+                                homeActivity.dialog.dismiss();
+                                Intent intent = new Intent(homeActivity, LoginActivity.class);
+                                startActivity(intent);
+                                homeActivity.finish();
+                            }
+
+                            @Override
+                            public void onErrorResponse(Object msg) {
+                                homeActivity.dialog.dismiss();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onErrorResponse(Object msg) {
+
+                    }
+                });
             }
         });
     }
