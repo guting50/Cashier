@@ -84,6 +84,12 @@ public class ShopInfoBean implements Serializable{
         private String ShopUsers;
         private String ShopOverTime;
         private String ShopCreateTime;
+        private String SM_Industry;
+        private String SM_Type;
+        private String SM_DetailAddr;
+        private String SM_Range;
+        private String SM_BusinessType;
+        private String SM_Remark;
         private int SM_SersionLife;
         private int ShopMaxUsers;
         private int ShopMaxProduct;
@@ -216,6 +222,54 @@ public class ShopInfoBean implements Serializable{
 
         public void setShopMaxStaff(int ShopMaxStaff) {
             this.ShopMaxStaff = ShopMaxStaff;
+        }
+
+        public String getSM_Industry() {
+            return SM_Industry;
+        }
+
+        public void setSM_Industry(String SM_Industry) {
+            this.SM_Industry = SM_Industry;
+        }
+
+        public String getSM_Type() {
+            return SM_Type;
+        }
+
+        public void setSM_Type(String SM_Type) {
+            this.SM_Type = SM_Type;
+        }
+
+        public String getSM_DetailAddr() {
+            return SM_DetailAddr;
+        }
+
+        public void setSM_DetailAddr(String SM_DetailAddr) {
+            this.SM_DetailAddr = SM_DetailAddr;
+        }
+
+        public String getSM_Range() {
+            return SM_Range;
+        }
+
+        public void setSM_Range(String SM_Range) {
+            this.SM_Range = SM_Range;
+        }
+
+        public String getSM_BusinessType() {
+            return SM_BusinessType;
+        }
+
+        public void setSM_BusinessType(String SM_BusinessType) {
+            this.SM_BusinessType = SM_BusinessType;
+        }
+
+        public String getSM_Remark() {
+            return SM_Remark;
+        }
+
+        public void setSM_Remark(String SM_Remark) {
+            this.SM_Remark = SM_Remark;
         }
     }
 }

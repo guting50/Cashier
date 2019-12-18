@@ -112,6 +112,9 @@ public class HttpAPI {
         //店铺详细信息
         public static final String GET_SHOP_INFO = MyApplication.BASE_URL + "api/Shops/GetShopInfo";
 
+        //店铺详细信息2
+        public static final String GET_SHOPS_INFO = MyApplication.BASE_URL + "api/Shops/GetShops";
+
         //商品消费提交
         public static final String GOODS_CONSUME_SUB = MyApplication.BASE_URL + "api/ConsumeOrder/SubmitConsumOrder";
 

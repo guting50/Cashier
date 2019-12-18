@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.gt.utils.view.BgFrameLayout;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
@@ -31,6 +32,7 @@ import com.wycd.yushangpu.bean.GoodsModelBean;
 import com.wycd.yushangpu.bean.OrderCanshhu;
 import com.wycd.yushangpu.bean.PayTypeMsg;
 import com.wycd.yushangpu.bean.RevokeGuaDanBean;
+import com.wycd.yushangpu.bean.ShopInfoBean;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.bean.VipDengjiMsg;
 import com.wycd.yushangpu.bean.event.HomeButtonColorChangeEvent;
@@ -42,6 +44,7 @@ import com.wycd.yushangpu.model.ImpGoodsModel;
 import com.wycd.yushangpu.model.ImpGroupGoodsList;
 import com.wycd.yushangpu.model.ImpOnlyVipMsg;
 import com.wycd.yushangpu.model.ImpOutLogin;
+import com.wycd.yushangpu.model.ImpShopInfo;
 import com.wycd.yushangpu.model.ImpSubmitOrder;
 import com.wycd.yushangpu.model.ImpSubmitOrder_Guazhang;
 import com.wycd.yushangpu.model.ImpSystemCanshu;
@@ -413,6 +416,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         getproductmodel();
         obtainSystemCanshu();
         GetPrintSet.getPrintSet();
+        getShopInfo();
 
         PreferenceHelper.write(ac, "yunshangpu", "vip", false);
 //        mGson = new Gson();
@@ -1322,8 +1326,10 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 btn_home_set.setImageResource(R.mipmap.btn_home_set_true);
                 if (printSetFragment == null) {
                     printSetFragment = new PrintSetFragment();
+                    printSetFragment.setData(shopInfoBean);
                     fragmentManager.beginTransaction().add(R.id.subsidiary_fragment, printSetFragment).commit();
                 } else {
+                    printSetFragment.setData(shopInfoBean);
                     fragmentManager.beginTransaction().show(printSetFragment).commit();
                 }
                 break;
@@ -1770,6 +1776,44 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     public void onEventMemberValueRefresh(HomeButtonColorChangeEvent notifyShopCarEvent) {
         if (notifyShopCarEvent.getMsg().equals("Change_color")) {
         }
+    }
+
+    ShopInfoBean shopInfoBean;
+
+    public void getShopInfo() {
+        ImpShopInfo impShopInfo = new ImpShopInfo();
+        impShopInfo.shopInfo(ac, new InterfaceBack() {
+            @Override
+            public void onResponse(Object response) {
+                shopInfoBean = new Gson().fromJson(response.toString(), ShopInfoBean.class);
+
+//                mShowStorePop = new ShowStorePopWindow(HomeActivity.this, shopInfoBean);
+//                mShowStorePop.setOnItemStoreClickListener(HomeActivity.this);
+//                mShowStorePop.showAsDropDown(HomeActivity.this.findViewById(R.id.iv_shop), 50, -20);
+                impShopInfo.shopInfos(ac, shopInfoBean.getData().getGID(), new InterfaceBack() {
+                    @Override
+                    public void onResponse(Object response) {
+                        ShopInfoBean tmp = new Gson().fromJson(response.toString(), ShopInfoBean.class);
+                        shopInfoBean.getData().setSM_Industry(tmp.getData().getSM_Industry());
+                        shopInfoBean.getData().setSM_Type(tmp.getData().getSM_Type());
+                        shopInfoBean.getData().setSM_DetailAddr(tmp.getData().getSM_DetailAddr());
+                        shopInfoBean.getData().setSM_Range(tmp.getData().getSM_Range());
+                        shopInfoBean.getData().setSM_BusinessType(tmp.getData().getSM_BusinessType());
+                        shopInfoBean.getData().setSM_Remark(tmp.getData().getSM_Remark());
+                    }
+
+                    @Override
+                    public void onErrorResponse(Object msg) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onErrorResponse(Object msg) {
+
+            }
+        });
     }
 
     private void resetCashier() {

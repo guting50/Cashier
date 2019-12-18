@@ -217,6 +217,7 @@
                                 app:solid_color="@color/button_dark">
 
                                 <TextView
+                                    android:id="@+id/tv_sm_edition"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
@@ -238,6 +239,7 @@
                                 app:solid_color="@color/text_yellow">
 
                                 <TextView
+                                    android:id="@+id/tv_sersion_life"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
@@ -248,6 +250,7 @@
                             </com.gt.utils.view.BgFrameLayout>
 
                             <TextView
+                                android:id="@+id/tv_end_time"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentBottom="true"
@@ -269,6 +272,7 @@
                         android:paddingBottom="15dp">
 
                         <TextView
+                            android:id="@+id/tv_create_time"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -278,6 +282,7 @@
                             android:textSize="16sp" />
 
                         <TextView
+                            android:id="@+id/tv_shop_users"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -287,6 +292,7 @@
                             android:textSize="16sp" />
 
                         <TextView
+                            android:id="@+id/tv_shop_mbers"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -296,6 +302,7 @@
                             android:textSize="16sp" />
 
                         <TextView
+                            android:id="@+id/tv_shop_goods"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -353,6 +360,7 @@
                                 android:layout_below="@+id/tv_industry"
                                 android:layout_marginLeft="30dp"
                                 android:layout_marginTop="45dp"
+                                android:lineSpacingExtra="10dp"
                                 android:text="店铺地址："
                                 android:textSize="16sp" />
 
@@ -375,7 +383,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="30dp"
                                 android:layout_marginTop="45dp"
-                                android:text="店铺名称："
+                                android:text="经营范围："
                                 android:textSize="16sp" />
 
                             <TextView
@@ -385,7 +393,7 @@
                                 android:layout_below="@+id/tv_range"
                                 android:layout_marginLeft="30dp"
                                 android:layout_marginTop="45dp"
-                                android:text="店铺名称："
+                                android:text="联系电话："
                                 android:textSize="16sp" />
 
                             <TextView
@@ -395,7 +403,7 @@
                                 android:layout_below="@+id/tv_phone"
                                 android:layout_marginLeft="30dp"
                                 android:layout_marginTop="45dp"
-                                android:text="店铺名称："
+                                android:text="备注信息："
                                 android:textSize="16sp" />
 
                         </RelativeLayout>
@@ -411,7 +419,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:padding="@dimen/dp_20">
+                android:padding="@dimen/dp_20"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:id="@+id/ll_print_set_switch"
@@ -489,13 +498,15 @@
                                 android:id="@+id/rb_printer_selected_usb"
                                 style="@style/RadioButton"
                                 android:gravity="center"
-                                android:text="usb" />
+                                android:text="usb"
+                                android:textColor="@color/color_main_text_black" />
 
                             <RadioButton
                                 android:id="@+id/rb_printer_selected_bluetooth"
                                 style="@style/RadioButton"
                                 android:gravity="center"
-                                android:text="蓝牙" />
+                                android:text="蓝牙"
+                                android:textColor="@color/color_main_text_black" />
 
                             <View
                                 android:layout_width="0dp"
@@ -622,13 +633,15 @@
                                 android:id="@+id/rb_printer_select_label_small"
                                 style="@style/RadioButton"
                                 android:gravity="center"
-                                android:text="58mm" />
+                                android:text="58mm"
+                                android:textColor="@color/color_main_text_black" />
 
                             <RadioButton
                                 android:id="@+id/rb_printer_select_label_large"
                                 style="@style/RadioButton"
                                 android:gravity="center"
-                                android:text="80mm" />
+                                android:text="80mm"
+                                android:textColor="@color/color_main_text_black" />
 
                             <View
                                 android:layout_width="0dp"

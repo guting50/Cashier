@@ -25,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -32,12 +33,16 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.Gson;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.ReportMessageBean;
+import com.wycd.yushangpu.bean.ShopInfoBean;
 import com.wycd.yushangpu.http.HttpAPI;
+import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpOutLogin;
 import com.wycd.yushangpu.printutil.CallBack;
@@ -49,6 +54,7 @@ import com.wycd.yushangpu.printutil.bean.PrintSetBean;
 import com.wycd.yushangpu.tools.CacheData;
 import com.wycd.yushangpu.tools.DeviceConnFactoryManager;
 import com.wycd.yushangpu.tools.DeviceReceiver;
+import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.Utils;
 import com.wycd.yushangpu.ui.HomeActivity;
 import com.wycd.yushangpu.ui.LoginActivity;
@@ -96,6 +102,10 @@ public class PrintSetFragment extends Fragment {
     private View aboutShopLayout, settingLayout, softwareInfoLayout;
     private TextView tv_version_number;
 
+    ImageView sm_picture;
+    TextView tv_sm_edition, tv_sersion_life, tv_create_time, tv_end_time, tv_shop_users, tv_shop_mbers, tv_shop_goods,
+            tv_shop_name, tv_contacter, tv_industry, tv_address, tv_range, tv_phone, tv_remarks;
+
     private IPrintSetPresenter mPresenter;
     private IPrintSetView mView;
     private int mPrintSwitch = 1;
@@ -130,6 +140,8 @@ public class PrintSetFragment extends Fragment {
     private UsbManager usbManager;
     private PendingIntent mPermissionIntent;
 
+    ShopInfoBean shopInfoBean;
+
     private HomeActivity homeActivity;
     View rootView;
 
@@ -154,6 +166,10 @@ public class PrintSetFragment extends Fragment {
 
     }
 
+    public void setData(ShopInfoBean shopInfoBean) {
+        this.shopInfoBean = shopInfoBean;
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -174,12 +190,10 @@ public class PrintSetFragment extends Fragment {
         rgPrinterSelect = (RadioGroup) rootView.findViewById(R.id.rb_printer_select);
         rgPrinterSelectedUsb = (RadioButton) rootView.findViewById(R.id.rb_printer_selected_usb);
         rgPrinterSelectedBluetooth = (RadioButton) rootView.findViewById(R.id.rb_printer_selected_bluetooth);
-//        rgPrinterSelect.check(rgPrinterSelectedUsb.getId());
 
         rgPrinterSelectLabelSize = (RadioGroup) rootView.findViewById(R.id.rb_printer_select_label_size);
         rgPrinterSelectLabelSmall = (RadioButton) rootView.findViewById(R.id.rb_printer_select_label_small);
         rgPrinterSelectLabelLarge = (RadioButton) rootView.findViewById(R.id.rb_printer_select_label_large);
-        rgPrinterSelectLabelSize.check(rgPrinterSelectLabelSmall.getId());
 
         scPrintSwitch = (SwitchCompat) rootView.findViewById(R.id.sc_print_switch);
 
@@ -191,6 +205,29 @@ public class PrintSetFragment extends Fragment {
 
         mEtGoodsConsume = (EditText) rootView.findViewById(R.id.et_print_set_goods_consume);
         mEtHandDutyTime = (EditText) rootView.findViewById(R.id.et_print_set_hand_duty);
+
+        sm_picture = (ImageView) rootView.findViewById(R.id.sm_picture);
+        tv_sm_edition = (TextView) rootView.findViewById(R.id.tv_sm_edition);
+        tv_sersion_life = (TextView) rootView.findViewById(R.id.tv_sersion_life);
+        tv_create_time = (TextView) rootView.findViewById(R.id.tv_create_time);
+        tv_end_time = (TextView) rootView.findViewById(R.id.tv_end_time);
+        tv_shop_users = (TextView) rootView.findViewById(R.id.tv_shop_users);
+        tv_shop_mbers = (TextView) rootView.findViewById(R.id.tv_shop_mbers);
+        tv_shop_goods = (TextView) rootView.findViewById(R.id.tv_shop_goods);
+        tv_shop_name = (TextView) rootView.findViewById(R.id.tv_shop_name);
+        tv_contacter = (TextView) rootView.findViewById(R.id.tv_contacter);
+        tv_industry = (TextView) rootView.findViewById(R.id.tv_industry);
+        tv_address = (TextView) rootView.findViewById(R.id.tv_address);
+        tv_range = (TextView) rootView.findViewById(R.id.tv_range);
+        tv_phone = (TextView) rootView.findViewById(R.id.tv_phone);
+        tv_remarks = (TextView) rootView.findViewById(R.id.tv_remarks);
+
+        rgPrinterSelect.check(rgPrinterSelectedUsb.getId());
+        rgPrinterSelectLabelSize.check(rgPrinterSelectLabelSmall.getId());
+        mEtGoodsConsume.setText("1");
+        mEtHandDutyTime.setText("1");
+        mTvPrint.setText("请选择打印机");
+        mTvConnect.setText("未连接");
 
     }
 
@@ -234,7 +271,6 @@ public class PrintSetFragment extends Fragment {
         if (LABELPRINT_IS_OPEN) {
             rbPrinterLabel.setVisibility(View.VISIBLE);
         }
-
         String ReceiptUSBName = (String) CacheData.restoreObject("ReceiptUSBName");
         if (ReceiptUSBName != null && !"".equals(ReceiptUSBName) && ISCONNECT) {
             mTvPrint.setText(ReceiptUSBName);
@@ -309,6 +345,25 @@ public class PrintSetFragment extends Fragment {
             }
         };
         mPresenter.attachView(mView);
+
+        Glide.with(getContext()).load(ImgUrlTools.obtainUrl(NullUtils.noNullHandle(shopInfoBean.getData().getShopImg()).toString()))
+//                .placeholder(R.mipmap.messge_nourl)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(sm_picture);
+        tv_sm_edition.setText(NullUtils.noNullHandle(shopInfoBean.getData().getShopType()).toString().split("\\(")[0]);
+        tv_sersion_life.setText(NullUtils.noNullHandle(shopInfoBean.getData().getSM_SersionLife()).toString() + "年");
+        tv_create_time.setText("开通时间\n" + NullUtils.noNullHandle(shopInfoBean.getData().getShopCreateTime()).toString());
+        tv_end_time.setText("到期时间：" + NullUtils.noNullHandle(shopInfoBean.getData().getShopOverTime()).toString());
+        tv_shop_users.setText("用户数\n" + NullUtils.noNullHandle(shopInfoBean.getData().getShopUsers()).toString());
+        tv_shop_mbers.setText("会员人数\n" + NullUtils.noNullHandle(shopInfoBean.getData().getShopMbers()).toString());
+        tv_shop_goods.setText("商品数量\n" + NullUtils.noNullHandle(shopInfoBean.getData().getShopGoods()).toString());
+        tv_shop_name.setText("店铺名称：" + NullUtils.noNullHandle(shopInfoBean.getData().getShopName()).toString());
+        tv_contacter.setText("联  系  人：" + NullUtils.noNullHandle(shopInfoBean.getData().getShopContact()).toString());
+        tv_industry.setText("所属行业：" + NullUtils.noNullHandle(shopInfoBean.getData().getSM_Industry()).toString());
+        tv_address.setText("店铺地址：" + NullUtils.noNullHandle(shopInfoBean.getData().getSM_DetailAddr()).toString());
+        tv_range.setText("经营范围：" + NullUtils.noNullHandle(shopInfoBean.getData().getSM_Range()).toString());
+        tv_phone.setText("联系电话：" + NullUtils.noNullHandle(shopInfoBean.getData().getShopTel()).toString());
+        tv_remarks.setText("备注信息：" + NullUtils.noNullHandle(shopInfoBean.getData().getSM_Remark()).toString());
 
     }
 
@@ -436,11 +491,45 @@ public class PrintSetFragment extends Fragment {
 
                     mEtGoodsConsume.setText("1");
                     mEtHandDutyTime.setText("1");
+
+                    rgPrinterSelectLabelLarge.setEnabled(true);
+                    rgPrinterSelectLabelSmall.setEnabled(true);
+                    rgPrinterSelectedBluetooth.setEnabled(true);
+                    rgPrinterSelectedUsb.setEnabled(true);
+                    mEtHandDutyTime.setEnabled(true);
+                    mEtGoodsConsume.setEnabled(true);
+                    mTvPrint.setEnabled(true);
+                    mTvConnect.setEnabled(true);
+                    rgPrinterSelectLabelSmall.setTextColor(getContext().getResources().getColor(R.color.color_main_text_black));
+                    rgPrinterSelectLabelLarge.setTextColor(getContext().getResources().getColor(R.color.color_main_text_black));
+                    rgPrinterSelectedBluetooth.setTextColor(getContext().getResources().getColor(R.color.color_main_text_black));
+                    rgPrinterSelectedUsb.setTextColor(getContext().getResources().getColor(R.color.color_main_text_black));
+                    mEtHandDutyTime.setTextColor(getContext().getResources().getColor(R.color.color_main_text_black));
+                    mEtGoodsConsume.setTextColor(getContext().getResources().getColor(R.color.color_main_text_black));
+                    mTvPrint.setTextColor(getContext().getResources().getColor(R.color.color_main_text_black));
+                    mTvConnect.setTextColor(getContext().getResources().getColor(R.color.color_main_text_black));
                 } else {
                     mPrintSwitch = 0;
 
                     mEtGoodsConsume.setInputType(InputType.TYPE_NULL);
                     mEtHandDutyTime.setInputType(InputType.TYPE_NULL);
+
+                    rgPrinterSelectLabelLarge.setEnabled(false);
+                    rgPrinterSelectLabelSmall.setEnabled(false);
+                    rgPrinterSelectedBluetooth.setEnabled(false);
+                    rgPrinterSelectedUsb.setEnabled(false);
+                    mEtHandDutyTime.setEnabled(false);
+                    mEtGoodsConsume.setEnabled(false);
+                    mTvPrint.setEnabled(false);
+                    mTvConnect.setEnabled(false);
+                    rgPrinterSelectLabelSmall.setTextColor(getContext().getResources().getColor(R.color.color_b7));
+                    rgPrinterSelectLabelLarge.setTextColor(getContext().getResources().getColor(R.color.color_b7));
+                    rgPrinterSelectedBluetooth.setTextColor(getContext().getResources().getColor(R.color.color_b7));
+                    rgPrinterSelectedUsb.setTextColor(getContext().getResources().getColor(R.color.color_b7));
+                    mEtHandDutyTime.setTextColor(getContext().getResources().getColor(R.color.color_b7));
+                    mEtGoodsConsume.setTextColor(getContext().getResources().getColor(R.color.color_b7));
+                    mTvPrint.setTextColor(getContext().getResources().getColor(R.color.color_b7));
+                    mTvConnect.setTextColor(getContext().getResources().getColor(R.color.color_b7));
                 }
             }
         });
