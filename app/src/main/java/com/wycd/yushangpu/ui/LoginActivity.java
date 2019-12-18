@@ -8,21 +8,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
+import com.gt.utils.base64.BASE64Decoder;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.LoginBean;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpLogin;
+import com.wycd.yushangpu.tools.GlideTransform;
 import com.wycd.yushangpu.tools.KeyBoardHelper;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.PreferenceHelper;
 import com.wycd.yushangpu.tools.ShadowUtils;
 import com.yanzhenjie.permission.AndPermission;
+
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,10 +38,14 @@ public class LoginActivity extends BaseActivity {
     TextInputEditText mEtLoginAccount;
     @BindView(R.id.et_login_password)
     TextInputEditText mEtLoginPassword;
+    @BindView(R.id.et_verification_code)
+    TextInputEditText mVerificationCode;
     @BindView(R.id.rl_login)
     TextView mRlLogin;
     @BindView(R.id.li_bg)
     LinearLayout mLiBg;
+    @BindView(R.id.iv_code)
+    ImageView ivCode;
 
     @BindView(R.id.login_cb)
     CheckBox cb;
@@ -111,7 +121,7 @@ public class LoginActivity extends BaseActivity {
                     dialog.show();
 //                    17780716425  121121
                     ImpLogin login = new ImpLogin();
-                    login.login(ac, mEtLoginAccount.getText().toString(), mEtLoginPassword.getText().toString(), new InterfaceBack() {
+                    login.login(ac, mEtLoginAccount.getText().toString(), mEtLoginPassword.getText().toString(), mVerificationCode.getText().toString(), new InterfaceBack() {
 
                         @Override
                         public void onResponse(Object response) {
@@ -136,10 +146,34 @@ public class LoginActivity extends BaseActivity {
                         @Override
                         public void onErrorResponse(Object msg) {
                             dialog.dismiss();
+                            getCode();
                         }
                     });
 
                 }
+            }
+        });
+    }
+
+    private void getCode() {
+        ((View) ivCode.getParent()).setVisibility(View.VISIBLE);
+        new ImpLogin().getCode(ac, new InterfaceBack() {
+            @Override
+            public void onResponse(Object response) {
+                String imageDate = response.toString();
+                BASE64Decoder decoder = new BASE64Decoder();
+                try {
+                    Glide.with(ac).load(decoder.decodeBuffer(imageDate))
+                            .transform(new GlideTransform.GlideCornersTransform(ac, 5))
+                            .into(ivCode);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onErrorResponse(Object msg) {
+
             }
         });
     }

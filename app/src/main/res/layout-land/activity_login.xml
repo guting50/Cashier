@@ -99,7 +99,8 @@
                 android:layout_marginLeft="@dimen/dp_25"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="@dimen/dp_25"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="wrap_content"
@@ -120,7 +121,7 @@
                         android:drawableLeft="@drawable/selector_login_code_view"
                         android:drawablePadding="10dp"
                         android:hint="验证码"
-                        android:inputType="textPassword"
+                        android:maxLength="6"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:selectAllOnFocus="true"
@@ -129,14 +130,15 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/iv_code"
+                    android:layout_width="120dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="1dp"
-                    android:layout_weight="3"
-                    android:background="@drawable/bg_edittext_normal" />
+                    android:background="@drawable/bg_edittext_normal1"
+                    android:scaleType="fitXY" />
 
                 <ImageView
                     android:layout_width="wrap_content"
