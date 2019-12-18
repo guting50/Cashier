@@ -502,4 +502,52 @@ public class ShopMsg implements Serializable, Parcelable {
             return new ShopMsg[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "ShopMsg{" +
+                "PM_GroupGID='" + PM_GroupGID + '\'' +
+                ", GroupCount='" + GroupCount + '\'' +
+                ", GID='" + GID + '\'' +
+                ", PT_ID='" + PT_ID + '\'' +
+                ", SM_ID='" + SM_ID + '\'' +
+                ", PT_Name='" + PT_Name + '\'' +
+                ", PM_Code='" + PM_Code + '\'' +
+                ", PM_Name='" + PM_Name + '\'' +
+                ", PM_SimpleCode='" + PM_SimpleCode + '\'' +
+                ", PM_Metering='" + PM_Metering + '\'' +
+                ", PM_UnitPrice=" + PM_UnitPrice +
+                ", PM_BigImg='" + PM_BigImg + '\'' +
+                ", PM_SmallImg='" + PM_SmallImg + '\'' +
+                ", PM_Description='" + PM_Description + '\'' +
+                ", PM_Modle='" + PM_Modle + '\'' +
+                ", PM_Brand='" + PM_Brand + '\'' +
+                ", PM_Repertory=" + PM_Repertory +
+                ", Stock_Number=" + Stock_Number +
+                ", currtStock_Number=" + currtStock_Number +
+                ", PM_PurchasePrice=" + PM_PurchasePrice +
+                ", PM_MemPrice='" + PM_MemPrice + '\'' +
+                ", PM_IsDiscount=" + PM_IsDiscount +
+                ", PM_IsPoint=" + PM_IsPoint +
+                ", PM_IsService=" + PM_IsService +
+                ", SP_GID='" + SP_GID + '\'' +
+                ", PM_SpecialOfferMoney=" + PM_SpecialOfferMoney +
+                ", PM_SpecialOfferValue=" + PM_SpecialOfferValue +
+                ", PM_MinDisCountValue=" + PM_MinDisCountValue +
+                ", PM_FixedIntegralValue=" + PM_FixedIntegralValue +
+                ", EM_GIDList=" + EM_GIDList +
+                ", EM_NameList='" + EM_NameList + '\'' +
+                ", num=" + num +
+                ", chosePosion=" + chosePosion +
+                ", allprice=" + allprice +
+                ", PD_Discount=" + PD_Discount +
+                ", jisuanPrice=" + jisuanPrice +
+                ", EachPoint=" + EachPoint +
+                ", isCheck=" + isCheck +
+                ", hasvipDiscount=" + hasvipDiscount +
+                ", isgive=" + isgive +
+                ", Type=" + Type +
+                ", ischanged=" + ischanged +
+                '}';
+    }
 }

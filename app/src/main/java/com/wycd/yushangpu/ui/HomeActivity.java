@@ -358,10 +358,11 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             public void onErrorResponse(Object msg) {
                 int po = (int) msg;
                 if (mShopLeftList.size() > 0) {
-                    if (editCashierGoodsFragment.getShopBean() != null &&
-                            TextUtils.equals(mShopLeftList.get(po).getGID(),
-                                    editCashierGoodsFragment.getShopBean().getGID()))
-                        fragmentManager.beginTransaction().hide(editCashierGoodsFragment).commit();
+                    if (editCashierGoodsFragment != null)
+                        if (editCashierGoodsFragment.getShopBean() != null &&
+                                TextUtils.equals(mShopLeftList.get(po).getGID(),
+                                        editCashierGoodsFragment.getShopBean().getGID()))
+                            fragmentManager.beginTransaction().hide(editCashierGoodsFragment).commit();
 
                     mShopLeftList.remove(po);
                     leftpos = leftpos - 1;
@@ -774,16 +775,15 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             addnum = 1;
         }
 
-        if (shopMsg.getPM_GroupGID() != null && !shopMsg.getPM_GroupGID().equals("")) {
+        if (!TextUtils.isEmpty(shopMsg.getPM_GroupGID()) && Integer.parseInt(shopMsg.getGroupCount()) > 1) {
+            dialog.show();
             ImpGroupGoodsList impGroupGoodsList = new ImpGroupGoodsList();
             final double finalAddnum = addnum;
-            dialog.show();
             impGroupGoodsList.getGroupGoodsList(ac, shopMsg.getPM_GroupGID(), new InterfaceBack() {
                 @Override
                 public void onResponse(Object response) {
-                    dialog.dismiss();
                     List<ShopMsg> sllist = (List<ShopMsg>) response;
-                    if (sllist.size() == 1) {
+                    /*if (sllist.size() == 1) {
                         double num = 0;
                         int pos = 0;
 
@@ -818,114 +818,115 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                         }
                         mShopLeftAdapter.notifyDataSetChanged();
 
-                    } else {
-                        if (ModelList != null) {
-                            //初始化
-                            for (int i = 0; i < ModelList.size(); i++) {
-                                ModelList.get(i).setChecked(false);
-                                ModelList.get(i).setEnable(false);
-                            }
-                            //将商品有的规格设置成可点击
-                            for (int i = 0; i < sllist.size(); i++) {
-                                if (sllist.get(i).getPM_Modle() != null && !sllist.get(i).getPM_Modle().equals("")) {
-                                    List<String> list = SignUtils.getStringForlist(sllist.get(i).getPM_Modle());
-                                    for (int j = 0; j < list.size(); j++) {
-                                        for (int k = 0; k < ModelList.size(); k++) {
-                                            if (list.get(j).equals(ModelList.get(k).getPM_Properties())) {
-                                                ModelList.get(k).setEnable(true);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            modelList.clear();
-
-                            //组装规格数据
-                            if (ModelList != null && ModelList.size() > 1) {
-                                for (int i = 0; i < ModelList.size(); i++) {
-                                    if (ModelList.get(i).getPM_Type() == 0) {
-                                        List<GoodsModelBean> list = new ArrayList<>();
-                                        list.add(ModelList.get(i));
-                                        modelList.add(list);
-                                    } else {
-                                        for (int j = 0; j < modelList.size(); j++) {
-                                            if (modelList.get(j).get(0).getPM_Name().equals(ModelList.get(i).getPM_Name())) {
-                                                modelList.get(j).add(ModelList.get(i));
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            //设置第一个默认选中
-                            for (int i = 0; i < modelList.size(); i++) {
-                                int num = 0;
-                                for (int j = 0; j < modelList.get(i).size(); j++) {
-                                    if (modelList.get(i).get(j).isEnable() && modelList.get(i).get(j).getPM_Type() != 0) {
-                                        modelList.get(i).get(j).setChecked(true);
-                                        num++;
-                                        break;
-                                    }
-                                }
-                                if (num == 0) {
-                                    modelList.remove(i);
-                                    i--;
-                                } else {
-                                    modelList.get(i).remove(0);
-                                }
-                            }
-
-                            GoodsModelDialog.goodsModelDialog(ac, 1, modelList, sllist, isZeroStock, new InterfaceBack() {
-                                @Override
-                                public void onResponse(Object response) {
-                                    ShopMsg goodsitem = (ShopMsg) response;
-
-                                    double num = 0;
-                                    int pos = 0;
-                                    for (int j = 0; j < mShopLeftList.size(); j++) {
-                                        if (goodsitem.getGID().equals(mShopLeftList.get(j).getGID())) {
-                                            num = mShopLeftList.get(j).getNum();
-                                            pos = j;
-                                        }
-                                    }
-
-                                    goodsitem.setNum(num + finalAddnum);
-                                    if (num == 0) {
-                                        goodsitem.setCheck(false);
-                                        mShopLeftList.add(0, goodsitem);
-                                        if (leftpos != -1) {
-                                            leftpos += 1;
-                                        }
-                                        jisuanShopjisuanPrice(mPD_Discount, mShopLeftList);
-
-                                        updateBttGetOrder();
-                                    } else {
-                                        mShopLeftList.get(pos).setNum(num + finalAddnum);
-                                        jisuanAllPrice();
-                                    }
-                                    for (int i = 0; i < mShopLeftList.size(); i++) {
-                                        if (goodsitem.getGID().equals(mShopLeftList.get(i).getGID())) {
-                                            mShopLeftList.get(i).setCheck(true);
-                                            leftpos = i;
-                                        } else {
-                                            mShopLeftList.get(i).setCheck(false);
-                                        }
-                                    }
-                                    mShopLeftAdapter.notifyDataSetChanged();
-
-                                }
-
-                                @Override
-                                public void onErrorResponse(Object msg) {
-
-                                }
-                            });
-
-                        } else {
-//                                    ToastUtils.showToast(ac, "没有获取到规格列表，请稍后再尝试");
-                            com.blankj.utilcode.util.ToastUtils.showShort("没有获取到规格列表，请稍后再尝试");
-                            getproductmodel();
+                    } else {*/
+                    if (ModelList != null) {
+                        //初始化
+                        for (int i = 0; i < ModelList.size(); i++) {
+                            ModelList.get(i).setChecked(false);
+                            ModelList.get(i).setEnable(false);
                         }
+                        //将商品有的规格设置成可点击
+                        for (int i = 0; i < sllist.size(); i++) {
+                            if (sllist.get(i).getPM_Modle() != null && !sllist.get(i).getPM_Modle().equals("")) {
+                                List<String> list = SignUtils.getStringForlist(sllist.get(i).getPM_Modle());
+                                for (int j = 0; j < list.size(); j++) {
+                                    for (int k = 0; k < ModelList.size(); k++) {
+                                        if (list.get(j).equals(ModelList.get(k).getPM_Properties())) {
+                                            ModelList.get(k).setEnable(true);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        modelList.clear();
+
+                        //组装规格数据
+                        if (ModelList != null && ModelList.size() > 1) {
+                            for (int i = 0; i < ModelList.size(); i++) {
+                                if (ModelList.get(i).getPM_Type() == 0) {
+                                    List<GoodsModelBean> list = new ArrayList<>();
+                                    list.add(ModelList.get(i));
+                                    modelList.add(list);
+                                } else {
+                                    for (int j = 0; j < modelList.size(); j++) {
+                                        if (modelList.get(j).get(0).getPM_Name().equals(ModelList.get(i).getPM_Name())) {
+                                            modelList.get(j).add(ModelList.get(i));
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        //设置第一个默认选中
+                        for (int i = 0; i < modelList.size(); i++) {
+                            int num = 0;
+                            for (int j = 0; j < modelList.get(i).size(); j++) {
+                                if (modelList.get(i).get(j).isEnable() && modelList.get(i).get(j).getPM_Type() != 0) {
+                                    modelList.get(i).get(j).setChecked(true);
+                                    num++;
+                                    break;
+                                }
+                            }
+                            if (num == 0) {
+                                modelList.remove(i);
+                                i--;
+                            } else {
+                                modelList.get(i).remove(0);
+                            }
+                        }
+
+                        dialog.dismiss();
+                        GoodsModelDialog.goodsModelDialog(ac, 1, modelList, sllist, isZeroStock, new InterfaceBack() {
+                            @Override
+                            public void onResponse(Object response) {
+                                ShopMsg goodsitem = (ShopMsg) response;
+
+                                double num = 0;
+                                int pos = 0;
+                                for (int j = 0; j < mShopLeftList.size(); j++) {
+                                    if (goodsitem.getGID().equals(mShopLeftList.get(j).getGID())) {
+                                        num = mShopLeftList.get(j).getNum();
+                                        pos = j;
+                                    }
+                                }
+
+                                goodsitem.setNum(num + finalAddnum);
+                                if (num == 0) {
+                                    goodsitem.setCheck(false);
+                                    mShopLeftList.add(0, goodsitem);
+                                    if (leftpos != -1) {
+                                        leftpos += 1;
+                                    }
+                                    jisuanShopjisuanPrice(mPD_Discount, mShopLeftList);
+
+                                    updateBttGetOrder();
+                                } else {
+                                    mShopLeftList.get(pos).setNum(num + finalAddnum);
+                                    jisuanAllPrice();
+                                }
+                                for (int i = 0; i < mShopLeftList.size(); i++) {
+                                    if (goodsitem.getGID().equals(mShopLeftList.get(i).getGID())) {
+                                        mShopLeftList.get(i).setCheck(true);
+                                        leftpos = i;
+                                    } else {
+                                        mShopLeftList.get(i).setCheck(false);
+                                    }
+                                }
+                                mShopLeftAdapter.notifyDataSetChanged();
+
+                            }
+
+                            @Override
+                            public void onErrorResponse(Object msg) {
+
+                            }
+                        });
+
+                    } else {
+//                                    ToastUtils.showToast(ac, "没有获取到规格列表，请稍后再尝试");
+                        com.blankj.utilcode.util.ToastUtils.showShort("没有获取到规格列表，请稍后再尝试");
+                        getproductmodel();
                     }
+//                    }
                 }
 
                 @Override
@@ -941,11 +942,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 if (shopMsg.getGID().equals(mShopLeftList.get(j).getGID()) && !mShopLeftList.get(j).isIsgive()) {
                     num = mShopLeftList.get(j).getNum();
                     pos = j;
-//                        return;
                 }
-//                    mShopLeftList.get(j).setCheck(false);
             }
-//                shopMsg.setCheck(true);
             shopMsg.setNum(num + addnum);
             if (num == 0) {
                 shopMsg.setCheck(false);
@@ -1398,7 +1396,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
                 updateBttGetOrder();
 
-                fragmentManager.beginTransaction().hide(editCashierGoodsFragment).commit();
+                if (editCashierGoodsFragment != null)
+                    fragmentManager.beginTransaction().hide(editCashierGoodsFragment).commit();
                 break;
         }
     }
@@ -1797,7 +1796,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         ((TextView) tvShoukuan.getChildAt(0)).setText("快速收银[Enter]");
         tvNumTotal.setText("0");
 
-        fragmentManager.beginTransaction().hide(editCashierGoodsFragment).commit();
+        if (editCashierGoodsFragment != null)
+            fragmentManager.beginTransaction().hide(editCashierGoodsFragment).commit();
     }
 
 }
