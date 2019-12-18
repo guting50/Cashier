@@ -94,6 +94,8 @@
     <color name="color_main_text_black">#333333</color>
     <color name="color_device_line_gray">#c6c5c5</color>
     <color name="yunpu2">#FF85C3FC</color>
+    <color name="color_39f">#3399ff</color>
+    <color name="color_f1">#f1f1f1</color>
 
 <!--    <color name="mtrl_textinput_default_box_stroke_color">@color/textgreen</color>-->
 

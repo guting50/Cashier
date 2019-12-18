@@ -5,17 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#a0000000"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
     android:gravity="center"
     android:orientation="vertical"
     tools:ignore="MissingDefaultResource">
 
     <!--        android:layout_marginLeft="250dp"-->
     <com.gt.utils.view.BgFrameLayout
+        android:id="@+id/jiesuan_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="350dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical"
         app:corners_radius_left_bottom="5dp"
         app:corners_radius_left_top="5dp"

@@ -120,6 +120,7 @@ public class SaomaDialog {
                     break;
             }
         }
+        et_saoma.requestFocus();
         return dialog;
     }
 

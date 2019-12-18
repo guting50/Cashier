@@ -162,6 +162,13 @@ public class JiesuanBFragment extends Fragment {
 
         setCbShortMessage("011");
         dialog = LoadingDialog.loadingDialog(context, 1);
+        rootView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(back != null)
+                    back.onResponse(null);
+            }
+        });
     }
 
     public enum OrderType {
@@ -228,12 +235,14 @@ public class JiesuanBFragment extends Fragment {
         setMorenPay(moren);
     }
 
-    @OnClick({R.id.li_10, R.id.li_20, R.id.li_50, R.id.li_100,
-            R.id.li_xianjin, R.id.li_yue, R.id.li_yinlian,
+    @OnClick({R.id.jiesuan_layout,
+            R.id.li_10, R.id.li_20, R.id.li_50, R.id.li_100, R.id.li_xianjin, R.id.li_yue, R.id.li_yinlian,
             R.id.li_wx, R.id.li_ali, R.id.li_yhq, R.id.li_jifen, R.id.li_saoma, R.id.li_qita, R.id.li_union})
     public void onViewClicked(View view) {
         double molingmoney = et_moling.getText().toString().equals("") ? 0.00 : Double.parseDouble(et_moling.getText().toString());
         switch (view.getId()) {
+            case R.id.jiesuan_layout:
+                break;
             case R.id.li_10:
                 if (mEtXianjin.getText().toString().equals("")) {
                     mEtXianjin.setText("10");

@@ -6,9 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -19,14 +22,13 @@ import com.wycd.yushangpu.bean.ClassMsg;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.http.VolleyResponse;
 import com.wycd.yushangpu.model.ImpShopClass;
 import com.wycd.yushangpu.model.ImpShopHome;
 import com.wycd.yushangpu.tools.CommonUtils;
+import com.wycd.yushangpu.tools.GlideTransform;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.StringUtil;
 import com.wycd.yushangpu.ui.HomeActivity;
-import com.wycd.yushangpu.widget.views.ShapedImageView;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -51,7 +53,7 @@ public class GoodsListFragment extends Fragment {
 
     private List<ClassMsg> mClassMsgList = new ArrayList<>();//分类数据列表
     private int PageIndex = 1;
-    private int PageSize = 21;
+    private int PageSize = 100;
 
     HomeActivity homeActivity;
     Adapter adapter;
@@ -90,6 +92,7 @@ public class GoodsListFragment extends Fragment {
         adapter = new Adapter();
         goodsList.setAdapter(adapter);
 
+        goodsList.setLoadingMoreEnabled(false);
         //刷新或加载更多
         goodsList.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
@@ -235,7 +238,12 @@ public class GoodsListFragment extends Fragment {
             ShopMsg ts = shopMsgList.get(position);
             Holder myHolser = (Holder) holder;
             myHolser.mTvName.setText(NullUtils.noNullHandle(ts.getPM_Name()).toString());
-            VolleyResponse.instance().getInternetImg(getContext(), ImgUrlTools.obtainUrl(NullUtils.noNullHandle(ts.getPM_BigImg()).toString()), myHolser.mIvShop, R.mipmap.messge_nourl);
+            Glide.with(getContext()).load(ImgUrlTools.obtainUrl(NullUtils.noNullHandle(ts.getPM_BigImg()).toString()))
+                    .placeholder(R.mipmap.messge_nourl)
+                    .transform(new CenterCrop(getContext()), new GlideTransform.GlideCornersTransform(getContext(), 4))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(myHolser.mIvShop);
+
             myHolser.mTvXinghao.setText(NullUtils.noNullHandle(ts.getPM_Modle()).toString());
             //库存
 //        if (ts.getPM_Metering() != null) {
@@ -365,7 +373,7 @@ public class GoodsListFragment extends Fragment {
 
         View rootView;
         @BindView(R.id.iv_shop)
-        ShapedImageView mIvShop;
+        ImageView mIvShop;
         @BindView(R.id.iv_state)
         TextView mIvState;
         @BindView(R.id.tv_name)

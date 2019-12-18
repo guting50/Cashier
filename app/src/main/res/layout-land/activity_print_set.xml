@@ -37,10 +37,10 @@
                     <TextView
                         android:id="@+id/rb_about_shop"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_60"
+                        android:layout_height="@dimen/dp_72"
                         android:background="@drawable/rb_background_print_set"
                         android:gravity="center_vertical"
-                        android:paddingLeft="50dp"
+                        android:paddingLeft="55dp"
                         android:text="关于店铺"
                         android:textColor="@color/textcolor"
                         android:textSize="20sp" />
@@ -49,7 +49,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="15dp"
                         android:src="@mipmap/icon_about_shop" />
 
                 </FrameLayout>
@@ -66,10 +66,10 @@
                     <TextView
                         android:id="@+id/rb_printer_label_set"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_60"
+                        android:layout_height="@dimen/dp_72"
                         android:background="@drawable/rb_background_print_set"
                         android:gravity="center_vertical"
-                        android:paddingLeft="50dp"
+                        android:paddingLeft="55dp"
                         android:text="标签设置"
                         android:textColor="@color/textcolor"
                         android:textSize="20sp" />
@@ -78,7 +78,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="15dp"
                         android:src="@mipmap/icon_lable_setting" />
 
                 </FrameLayout>
@@ -95,10 +95,10 @@
                     <TextView
                         android:id="@+id/rb_printer_device_set"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_60"
+                        android:layout_height="@dimen/dp_72"
                         android:background="@drawable/rb_background_print_set"
                         android:gravity="center_vertical"
-                        android:paddingLeft="50dp"
+                        android:paddingLeft="55dp"
                         android:text="打印设置"
                         android:textColor="@color/textcolor"
                         android:textSize="20sp" />
@@ -107,7 +107,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="15dp"
                         android:src="@mipmap/icon_print_setting" />
 
                 </FrameLayout>
@@ -124,10 +124,10 @@
                     <TextView
                         android:id="@+id/rb_software_info"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_60"
+                        android:layout_height="@dimen/dp_72"
                         android:background="@drawable/rb_background_print_set"
                         android:gravity="center_vertical"
-                        android:paddingLeft="50dp"
+                        android:paddingLeft="55dp"
                         android:text="软件版本"
                         android:textColor="@color/textcolor"
                         android:textSize="20sp" />
@@ -136,7 +136,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="15dp"
                         android:src="@mipmap/icon_software_info" />
 
                 </FrameLayout>
@@ -776,13 +776,67 @@
                 android:id="@+id/software_info_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone">
+                android:visibility="gone"
+                app:corners_radius="5dp"
+                app:solid_color="@color/white">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="软件版本" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="104dp"
+                        android:text="关于云会员收银系统"
+                        android:textColor="@color/title_color"
+                        android:textSize="34sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_logo"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_below="@+id/tv_title"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="60dp"
+                        android:src="@mipmap/logo" />
+
+                    <TextView
+                        android:id="@+id/tv_version_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/iv_logo"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+                        android:text="版本号"
+                        android:textColor="#999999"
+                        android:textSize="18sp" />
+
+                    <com.gt.utils.view.BgFrameLayout
+                        android:layout_width="120dp"
+                        android:layout_height="48dp"
+                        android:layout_below="@+id/tv_version_number"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="208dp"
+                        app:corners_radius="5dp"
+                        app:solid_color="@color/item_bg"
+                        app:stroke_color="@color/view_color"
+                        app:stroke_width="1dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/iv_logo"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="center"
+                            android:text="立即升级"
+                            android:textColor="@color/title_color"
+                            android:textSize="18sp" />
+                    </com.gt.utils.view.BgFrameLayout>
+
+                </RelativeLayout>
 
             </com.gt.utils.view.BgFrameLayout>
         </com.gt.utils.view.BgFrameLayout>

@@ -8,6 +8,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
@@ -94,6 +96,7 @@ public class PrintSetFragment extends Fragment {
     private LinearLayout llPrintSetSwitch, llPrintSet;
     private SwitchCompat scPrintSwitch;
     private View aboutShopLayout, settingLayout, softwareInfoLayout;
+    private TextView tv_version_number;
 
     private IPrintSetPresenter mPresenter;
     private IPrintSetView mView;
@@ -188,6 +191,8 @@ public class PrintSetFragment extends Fragment {
         settingLayout = rootView.findViewById(R.id.setting_layout);
         softwareInfoLayout = rootView.findViewById(R.id.software_info_layout);
 
+        tv_version_number = rootView.findViewById(R.id.tv_version_number);
+
         String ReceiptUSBName = (String) CacheData.restoreObject("ReceiptUSBName");
         if (ReceiptUSBName != null && !"".equals(ReceiptUSBName) && ISCONNECT) {
             mTvPrint.setText(ReceiptUSBName);
@@ -235,6 +240,14 @@ public class PrintSetFragment extends Fragment {
                 });
             }
         });
+
+        PackageManager manager = getContext().getPackageManager();
+        try {
+            PackageInfo info = manager.getPackageInfo(getContext().getPackageName(), 0);
+            tv_version_number.setText("版本" + info.versionName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     //更新打印设置缓存
