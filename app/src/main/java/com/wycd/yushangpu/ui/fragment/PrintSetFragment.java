@@ -168,12 +168,14 @@ public class PrintSetFragment extends Fragment {
 
     public void setData(ShopInfoBean shopInfoBean) {
         this.shopInfoBean = shopInfoBean;
+        if (this.isResumed())
+            updateData();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        loadData();
+        updateData();
     }
 
     private void initView() {
@@ -266,7 +268,7 @@ public class PrintSetFragment extends Fragment {
         });
     }
 
-    private void loadData() {
+    private void updateData() {
         mEtGoodsConsume.requestFocus();
         if (LABELPRINT_IS_OPEN) {
             rbPrinterLabel.setVisibility(View.VISIBLE);

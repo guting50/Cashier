@@ -405,8 +405,9 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         goodsListFragment = new GoodsListFragment();
         fragmentManager.beginTransaction().add(R.id.right_fragment_layout, goodsListFragment).commit();
 
-        qudanFragment = new QudanFragment();
-        fragmentManager.beginTransaction().add(R.id.fragment_content, qudanFragment).hide(qudanFragment).commit();
+        qudanFragment = new QudanFragment(this);
+        qudanFragment.obtainGuadanList();
+//        fragmentManager.beginTransaction().add(R.id.fragment_content, qudanFragment).hide(qudanFragment).commit();
     }
 
     private void initData() {
@@ -1143,7 +1144,10 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     });
                 } else if (qudanFragment.getListCount() > 0) {
                     //取单
-                    fragmentManager.beginTransaction().show(qudanFragment).commit();
+                    if (!qudanFragment.isAdded())
+                        fragmentManager.beginTransaction().add(R.id.fragment_content, qudanFragment).commit();
+                    else
+                        fragmentManager.beginTransaction().show(qudanFragment).commit();
                     qudanFragment.setData(moren, paytypelist, new InterfaceBack() {
                         @Override
                         public void onResponse(Object response) {
@@ -1311,7 +1315,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         }
     }
 
-    @OnClick({R.id.fragment_content, R.id.subsidiary_fragment, R.id.rl_out, R.id.member_bg_layout, R.id.im_clear, R.id.btn_houtai})
+    @OnClick({R.id.subsidiary_fragment, R.id.rl_out, R.id.member_bg_layout, R.id.im_clear, R.id.btn_houtai})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_houtai:
@@ -1330,7 +1334,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 intent.putExtra("html_url", "https://pc.yunvip123.com/login.html");
                 startActivity(intent);
                 break;
-            case R.id.fragment_content:
             case R.id.subsidiary_fragment:
                 break;
             case R.id.rl_out:

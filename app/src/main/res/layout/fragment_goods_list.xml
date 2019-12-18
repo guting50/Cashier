@@ -6,23 +6,17 @@
     android:background="@drawable/background_texte0"
     android:orientation="vertical">
 
-    <FrameLayout
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="70dp">
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:tabBackground="@drawable/selector_tab_view"
-            app:tabIndicatorColor="@color/colorPrimary"
-            app:tabMaxWidth="120dp"
-            app:tabMode="scrollable"
-            app:tabSelectedTextColor="@color/colorPrimary"
-            app:tabTextAppearance="@style/tab_layout"
-            app:tabTextColor="@color/text66" />
-
-    </FrameLayout>
+        android:layout_height="70dp"
+        app:tabBackground="@drawable/selector_tab_view"
+        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabMaxWidth="120dp"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="@color/colorPrimary"
+        app:tabTextAppearance="@style/tab_layout"
+        app:tabTextColor="@color/text66" />
 
     <View
         android:id="@+id/view_line"

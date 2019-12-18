@@ -83,10 +83,18 @@ public class QudanFragment extends Fragment {
     private int mPageTotal;//数据总页数
     View rootView;
 
+    public QudanFragment(){
+
+    }
+
+    public QudanFragment(HomeActivity activity){
+        this.homeActivity = activity;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.dialog_gualist, null);
+        rootView = inflater.inflate(R.layout.dialog_gualist, container, false);
         return rootView;
     }
 
@@ -94,8 +102,6 @@ public class QudanFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         ButterKnife.bind(this, rootView);
-
-        homeActivity = (HomeActivity) getActivity();
 
         guadanListAdapter = new GuadanListAdapter(homeActivity, list, new InterfaceBack() {
             @Override
@@ -171,6 +177,13 @@ public class QudanFragment extends Fragment {
         listview.setAdapter(guadanListAdapter);
         setView();
         obtainGuadanList();
+
+        rootView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     public void setData(PayTypeMsg moren, ArrayList<PayTypeMsg> paytypelist, InterfaceBack back) {
@@ -263,12 +276,9 @@ public class QudanFragment extends Fragment {
 
     private void obtainGuadanList(int index) {
         ImpGuadanList shopHome = new ImpGuadanList();
-        shopHome.guadanList(homeActivity, index, 20, MyApplication.loginBean.getData().getShopID(), new InterfaceBack() {
+        shopHome.guadanList(MyApplication.getContext(), index, 20, MyApplication.loginBean.getData().getShopID(), new InterfaceBack() {
             @Override
             public void onResponse(Object response) {
-                HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
-                event.setMsg("Change_color");
-                EventBus.getDefault().post(event);
                 try {
                     Gson mGson = new Gson();
                     JSONObject js = (JSONObject) response;
@@ -284,31 +294,27 @@ public class QudanFragment extends Fragment {
                             list.add(guadanList);
                         }
                     }
-//                list.addAll(sllist);
-                    guadanListAdapter.notifyDataSetChanged();
-
-                    mIsLoadMore = false;
-                    mRefresh.setRefreshing(false);
-                    mRefresh.setLoading(false);
+                    updateData();
                     homeActivity.updateBttGetOrder();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
-//                List<GuadanList> sllist = (List<GuadanList>) response;
-
-
             }
 
             @Override
             public void onErrorResponse(Object msg) {
-                HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
-                event.setMsg("Change_color");
-                EventBus.getDefault().post(event);
             }
         });
 
+    }
+
+    private void updateData() {
+        if (this.isResumed()) {
+            guadanListAdapter.notifyDataSetChanged();
+            mIsLoadMore = false;
+            mRefresh.setRefreshing(false);
+            mRefresh.setLoading(false);
+        }
     }
 
     private void setView() {

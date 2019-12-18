@@ -195,17 +195,17 @@ public class JiesuanBFragment extends Fragment {
         this.orderType = orderType;
         this.back = back;
         if (this.isResumed())
-            initData();
+            updateData();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         if (!TextUtils.isEmpty(money))
-            initData();
+            updateData();
     }
 
-    private void initData() {
+    private void updateData() {
         mEtXianjin.setText("");
         et_moling.setText("");
 

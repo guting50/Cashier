@@ -220,7 +220,7 @@ public class GoodsListFragment extends Fragment {
 
                     if (js.getInt("DataCount") <= adapter.getShopMsgList().size()) {
                         goodsList.setLoadingMoreEnabled(false);
-                    }else{
+                    } else {
                         goodsList.setLoadingMoreEnabled(true);
                     }
                 } catch (JSONException e) {
@@ -244,7 +244,7 @@ public class GoodsListFragment extends Fragment {
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(getContext()).inflate(R.layout.item_home_rightshop, null);
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.item_home_rightshop, parent, false);
             return new Holder(view);
         }
 
@@ -358,9 +358,9 @@ public class GoodsListFragment extends Fragment {
             }
             myHolser.mTvSanprice.setText("售：" + StringUtil.twoNum(NullUtils.noNullHandle(ts.getPM_UnitPrice()).toString()));
 
-            myHolser.rootView.setOnClickListener(new OnNoDoubleClickListener() {
+            myHolser.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onNoDoubleClick(View v) {
+                public void onClick(View view) {
                     homeActivity.addCashierList(ts);
                 }
             });

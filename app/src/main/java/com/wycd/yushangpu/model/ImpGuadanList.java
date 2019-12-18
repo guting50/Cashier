@@ -1,6 +1,7 @@
 package com.wycd.yushangpu.model;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 
 import com.google.gson.Gson;
@@ -38,7 +39,7 @@ public class ImpGuadanList {
     private Gson mGson = new Gson();
     private int index = 1;
 
-    public void guadanList(final Activity ac, final int PageIndex, final int PageSize, String mSmGid, final InterfaceBack back) {
+    public void guadanList(final Context ac, final int PageIndex, final int PageSize, String mSmGid, final InterfaceBack back) {
         // TODO 自动生成的方法存根
         AsyncHttpClient client = new AsyncHttpClient();
         final PersistentCookieStore myCookieStore = new PersistentCookieStore(ac);

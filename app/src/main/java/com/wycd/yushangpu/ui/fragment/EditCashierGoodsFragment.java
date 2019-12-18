@@ -95,17 +95,17 @@ public class EditCashierGoodsFragment extends Fragment {
     public void setData(ShopMsg shopBean) {
         this.shopBean = shopBean;
         if (this.isResumed()) {
-            initData();
+            updateData();
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        initData();
+        updateData();
     }
 
-    private void initData() {
+    private void updateData() {
         if (shopBean != null) {
             infoGoodsName.setText(shopBean.getPM_Name());
             goodsCode.setText("条码：" + shopBean.getPM_Code());
