@@ -30,6 +30,9 @@ import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.StringUtil;
 import com.wycd.yushangpu.ui.HomeActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +56,7 @@ public class GoodsListFragment extends Fragment {
 
     private List<ClassMsg> mClassMsgList = new ArrayList<>();//分类数据列表
     private int PageIndex = 1;
-    private int PageSize = 100;
+    private int PageSize = 50;
 
     HomeActivity homeActivity;
     Adapter adapter;
@@ -92,12 +95,12 @@ public class GoodsListFragment extends Fragment {
         adapter = new Adapter();
         goodsList.setAdapter(adapter);
 
-        goodsList.setLoadingMoreEnabled(false);
+//        goodsList.setLoadingMoreEnabled(false);
         //刷新或加载更多
         goodsList.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                obtainHomeShop("", false);
+                obtainHomeShop("", "", false);
             }
 
             @Override
@@ -119,21 +122,12 @@ public class GoodsListFragment extends Fragment {
                 List<ClassMsg> sllist = gson.fromJson(response.toString(), listType);
                 mClassMsgList.clear();
                 mClassMsgList.addAll(sllist);
-                for (ClassMsg classMsg : sllist) {
-                    if (!NullUtils.noNullHandle(classMsg.getPT_Parent()).toString().equals("")) {
-                        for (int i = 0; i < mClassMsgList.size(); i++) {
-                            if (NullUtils.noNullHandle(classMsg.getPT_Parent()).toString().equals(NullUtils.noNullHandle(mClassMsgList.get(i).getGID()).toString())) {
-                                mClassMsgList.get(i).setTwolist(classMsg);
-                            }
-                        }
-                    }
-                }
 
-                ClassMsg classMsg = new ClassMsg();
-                classMsg.setChose(true);
-                classMsg.setPT_Name("全部");
-                classMsg.setGID("");
-                mClassMsgList.add(0, classMsg);
+                ClassMsg classMsg0 = new ClassMsg();
+                classMsg0.setChose(true);
+                classMsg0.setPT_Name("全部");
+                classMsg0.setGID("");
+                mClassMsgList.add(0, classMsg0);
 
                 ClassMsg classMsg1 = new ClassMsg();
                 classMsg1.setChose(false);
@@ -141,10 +135,18 @@ public class GoodsListFragment extends Fragment {
                 classMsg1.setGID("combo");
                 mClassMsgList.add(1, classMsg1);
 
+//                for (ClassMsg classMsg : sllist) {
+//                    if (!NullUtils.noNullHandle(classMsg.getPT_Parent()).toString().equals("")) {
+//                        for (int i = 0; i < mClassMsgList.size(); i++) {
+//                            if (NullUtils.noNullHandle(classMsg.getPT_Parent()).toString().equals(NullUtils.noNullHandle(mClassMsgList.get(i).getGID()).toString())) {
+//                                mClassMsgList.get(i).setTwolist(classMsg);
+//                            }
+//                        }
+//                    }
+//                }
 
                 for (ClassMsg item : mClassMsgList) {
                     TabLayout.Tab tab = tabLayout.newTab();
-//                    tab.getCustomView().setLayoutParams(new FrameLayout.LayoutParams(100, ViewGroup.LayoutParams.MATCH_PARENT));
                     tab.setText(item.getPT_Name());
                     tab.setTag(item.getGID());
                     tabLayout.addTab(tab);
@@ -174,13 +176,13 @@ public class GoodsListFragment extends Fragment {
         });
     }
 
-    public void obtainHomeShop(String PT_GID, boolean isShowDialog) {
-        obtainHomeShop(PT_GID, homeActivity.mEtLoginAccount.getText().toString(), PageIndex, isShowDialog);
+    public void obtainHomeShop(String PT_GID, String PM_CodeOrNameOrSimpleCode) {
+        obtainHomeShop(PT_GID, PM_CodeOrNameOrSimpleCode, true);
     }
 
-    public void obtainHomeShop(String PT_GID, String PM_CodeOrNameOrSimpleCode) {
+    public void obtainHomeShop(String PT_GID, String PM_CodeOrNameOrSimpleCode, boolean isShowDialog) {
         PageIndex = 1;
-        obtainHomeShop(PT_GID, PM_CodeOrNameOrSimpleCode, PageIndex, true);
+        obtainHomeShop(PT_GID, PM_CodeOrNameOrSimpleCode, PageIndex, isShowDialog);
     }
 
     public void obtainHomeShop(String PT_GID, String PM_CodeOrNameOrSimpleCode, int pageIndex, boolean isShowDialog) {
@@ -190,26 +192,40 @@ public class GoodsListFragment extends Fragment {
         shopHome.shoplist(getActivity(), pageIndex, PageSize, PT_GID, PM_CodeOrNameOrSimpleCode, new InterfaceBack() {
             @Override
             public void onResponse(Object response) {
-                List<ShopMsg> sllist = (List<ShopMsg>) response;
-                homeActivity.mEtLoginAccount.setText("");
-                if (PageIndex == 1) {
-                    adapter.getShopMsgList().clear();
-                }
-                adapter.addShopMsgList(sllist);
-//                 int  0  表示普通商品    1表示服务商品  2表示礼品   3普通套餐   4充次套餐
-                for (ShopMsg msg : sllist) {
-                    if (NullUtils.noNullHandle(msg.getPM_IsService()).toString().equals("2")) {
-                        adapter.getShopMsgList().remove(msg);
+                JSONObject js = (JSONObject) response;
+                try {
+                    Type listType = new TypeToken<List<ShopMsg>>() {
+                    }.getType();
+                    List<ShopMsg> sllist = new Gson().fromJson(js.getString("DataList"), listType);
+
+                    homeActivity.mEtLoginAccount.setText("");
+                    if (PageIndex == 1) {
+                        adapter.getShopMsgList().clear();
                     }
+                    adapter.addShopMsgList(sllist);
+//                 int  0  表示普通商品    1表示服务商品  2表示礼品   3普通套餐   4充次套餐
+                    for (ShopMsg msg : sllist) {
+                        if (NullUtils.noNullHandle(msg.getPM_IsService()).toString().equals("2")) {
+                            adapter.getShopMsgList().remove(msg);
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+                    homeActivity.dialog.dismiss();
+                    emptyStateLayout.setVisibility(View.GONE);
+                    if (adapter.getShopMsgList().size() <= 0) {
+                        emptyStateLayout.setVisibility(View.VISIBLE);
+                    }
+                    goodsList.refreshComplete();
+                    goodsList.loadMoreComplete();
+
+                    if (js.getInt("DataCount") <= adapter.getShopMsgList().size()) {
+                        goodsList.setLoadingMoreEnabled(false);
+                    }else{
+                        goodsList.setLoadingMoreEnabled(true);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                adapter.notifyDataSetChanged();
-                homeActivity.dialog.dismiss();
-                emptyStateLayout.setVisibility(View.GONE);
-                if (adapter.getShopMsgList().size() <= 0) {
-                    emptyStateLayout.setVisibility(View.VISIBLE);
-                }
-                goodsList.refreshComplete();
-                goodsList.loadMoreComplete();
             }
 
             @Override
@@ -219,7 +235,6 @@ public class GoodsListFragment extends Fragment {
                 goodsList.loadMoreComplete();
             }
         });
-
     }
 
     class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

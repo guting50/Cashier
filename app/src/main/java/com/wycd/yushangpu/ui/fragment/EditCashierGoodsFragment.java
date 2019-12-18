@@ -94,10 +94,24 @@ public class EditCashierGoodsFragment extends Fragment {
 
     public void setData(ShopMsg shopBean) {
         this.shopBean = shopBean;
-        infoGoodsName.setText(shopBean.getPM_Name());
-        goodsCode.setText("条码：" + shopBean.getPM_Code());
-        tvPrice.setText("售价：￥" + shopBean.getPM_UnitPrice() + "");
-        bnEditNum.performClick();
+        if (this.isResumed()) {
+            initData();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();
+    }
+
+    private void initData() {
+        if (shopBean != null) {
+            infoGoodsName.setText(shopBean.getPM_Name());
+            goodsCode.setText("条码：" + shopBean.getPM_Code());
+            tvPrice.setText("售价：￥" + shopBean.getPM_UnitPrice() + "");
+            bnEditNum.performClick();
+        }
     }
 
     @OnClick({R.id.info_goods_layout, R.id.iv_clone})

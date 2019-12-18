@@ -35,11 +35,8 @@ import cz.msebera.android.httpclient.Header;
  */
 
 public class ImpShopHome {
-    private List<ShopMsg> shoplist = new ArrayList<>();
-    private Gson mGson = new Gson();
-    private int index = 1;
 
-    public void shoplist(final Activity ac, final int PageIndex, final int PageSize, final String PT_GID,final String PM_CodeOrNameOrSimpleCode,
+    public void shoplist(final Activity ac, final int PageIndex, final int PageSize, final String PT_GID, final String PM_CodeOrNameOrSimpleCode,
                          final InterfaceBack back) {
         // TODO 自动生成的方法存根
         AsyncHttpClient client = new AsyncHttpClient();
@@ -48,10 +45,10 @@ public class ImpShopHome {
         RequestParams params = new RequestParams();
         params.put("PageIndex", PageIndex);
         params.put("PageSize", PageSize);
-        params.put("PT_GID",PT_GID);
+        params.put("PT_GID", PT_GID);
         params.put("DataType", 2);
-        params.put("showGroupPro",1);
-        params.put("PM_CodeOrNameOrSimpleCode",PM_CodeOrNameOrSimpleCode);
+        params.put("showGroupPro", 1);
+        params.put("PM_CodeOrNameOrSimpleCode", PM_CodeOrNameOrSimpleCode);
         String url = HttpAPI.API().COMBOGOODS;
         LogUtils.d("xxparams", params.toString());
         LogUtils.d("xxurl", url);
@@ -63,17 +60,7 @@ public class ImpShopHome {
                     JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
                     if (jso.getBoolean("success")) {
                         JSONObject js = jso.getJSONObject("data");
-                        Type listType = new TypeToken<List<ShopMsg>>() {
-                        }.getType();
-                        List<ShopMsg> sllist = mGson.fromJson(js.getString("DataList"), listType);
-                        shoplist.addAll(sllist);
-                        HomeActivity.setTotal(js.getInt("PageTotal"),js.getInt("DataCount"));
-//                        if (index < js.getInt("PageTotal")) {
-//                            index = index + 1;
-//                            shoplist(ac, index, PageSize,PT_GID,PM_CodeOrNameOrSimpleCode, back);
-//                        } else {
-                            back.onResponse(shoplist);
-//                        }
+                        back.onResponse(js);
                     } else {
                         if (jso.getString("code").equals("RemoteLogin") || jso.getString("code").equals("LoginTimeout")) {
                             ActivityManager.getInstance().exit();

@@ -147,8 +147,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     @BindView(R.id.order_count_layout)
     BgFrameLayout orderCountLayout;
 
-    private static int totalPage;
-    private static int totalCount;
     private static CircleImageView imgHedimg;
     //    private List<ClassMsg> twoClassList;
 //    private Gson mGson;
@@ -385,8 +383,12 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 mShopLeftList.get(i).setCheck(true);
                 mShopLeftAdapter.notifyDataSetChanged();
 
+                if (editCashierGoodsFragment == null) {
+                    editCashierGoodsFragment = new EditCashierGoodsFragment();
+                    fragmentManager.beginTransaction().add(R.id.right_fragment_layout, editCashierGoodsFragment).commit();
+                } else
+                    fragmentManager.beginTransaction().show(editCashierGoodsFragment).commit();
                 editCashierGoodsFragment.setData(mShopLeftList.get(i));
-                fragmentManager.beginTransaction().show(editCashierGoodsFragment).commit();
             }
         });
         LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -402,14 +404,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         goodsListFragment = new GoodsListFragment();
         fragmentManager.beginTransaction().add(R.id.right_fragment_layout, goodsListFragment).commit();
 
-        editCashierGoodsFragment = new EditCashierGoodsFragment();
-        fragmentManager.beginTransaction().add(R.id.right_fragment_layout, editCashierGoodsFragment).hide(editCashierGoodsFragment).commit();
-
         qudanFragment = new QudanFragment();
         fragmentManager.beginTransaction().add(R.id.fragment_content, qudanFragment).hide(qudanFragment).commit();
-
-        jiesuanBFragment = new JiesuanBFragment();
-        fragmentManager.beginTransaction().add(R.id.fragment_content, jiesuanBFragment).hide(jiesuanBFragment).commit();
     }
 
     private void initData() {
@@ -423,10 +419,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 //        mClassMsgList = null;//清空分类
 
         if (MyApplication.loginBean != null) {
-//            if (MyApplication.loginBean.getData().getAgents().getAG_LogoUrl() != null) {
-//                VolleyResponse.instance().getInternetImg(ac, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(MyApplication.loginBean.getData().getShopList().get(0).getSM_Picture()).toString()), ivShop, R.drawable.defalut_store);
-//
-//            }
             if (MyApplication.loginBean.getData().getUM_ChatHead() != null) {
                 VolleyResponse.instance().getInternetImg(ac, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(MyApplication.loginBean.getData().getUM_ChatHead()).toString()), imgHedimg, R.mipmap.member_head_nohead);
             }
@@ -438,11 +430,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
         order = CreateOrder.createOrder("SP");
         tv_ordernum.setText(order);
-    }
-
-    public static void setTotal(int pageTotal, int Count) {
-        totalPage = pageTotal;
-        totalCount = Count;
     }
 
     @Override
@@ -983,7 +970,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             }
             mShopLeftAdapter.notifyDataSetChanged();
         }
-
     }
 
     private void initEvent() {
@@ -1001,28 +987,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 return false;
             }
         });
-
-//        ivShop.setOnClickListener(new NoDoubleClickListener() {
-//            @Override
-//            protected void onNoDoubleClick(View view) {
-//                ImpShopInfo impShopInfo = new ImpShopInfo();
-//                impShopInfo.shopInfo(ac, new InterfaceBack() {
-//                    @Override
-//                    public void onResponse(Object response) {
-//                        ShopInfoBean shopInfoBean = mGson.fromJson(response.toString(), ShopInfoBean.class);
-//
-//                        mShowStorePop = new ShowStorePopWindow(HomeActivity.this, shopInfoBean);
-//                        mShowStorePop.setOnItemStoreClickListener(HomeActivity.this);
-//                        mShowStorePop.showAsDropDown(HomeActivity.this.findViewById(R.id.iv_shop), 50, -20);
-//                    }
-//
-//                    @Override
-//                    public void onErrorResponse(Object msg) {
-//
-//                    }
-//                });
-//            }
-//        });
 
         ivSearch.setOnClickListener(new NoDoubleClickListener() {
             @Override
@@ -1260,7 +1224,11 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         double dkmoney = CommonUtils.div(CommonUtils.div(Double.parseDouble(CommonUtils.multiply(jifen, jinfenzfxzbfb)), 100, 2),
                 Double.parseDouble(jifendkbfb), 2);//可抵扣金额
 
-        fragmentManager.beginTransaction().show(jiesuanBFragment).commit();
+        if (jiesuanBFragment == null) {
+            jiesuanBFragment = new JiesuanBFragment();
+            fragmentManager.beginTransaction().add(R.id.fragment_content, jiesuanBFragment).commit();
+        } else
+            fragmentManager.beginTransaction().show(jiesuanBFragment).commit();
         jiesuanBFragment.setData(allmoney, mVipMsg, mVipDengjiMsg == null ? null : mVipDengjiMsg.getData().get(0),
                 dkmoney + "", jso.getGID(), jso.getCO_Type(), jso.getCO_OrderCode(),
                 mShopLeftList, moren, paytypelist, orderType, new InterfaceBack() {

@@ -3,6 +3,7 @@ package com.wycd.yushangpu.ui.fragment;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -124,6 +125,7 @@ public class JiesuanBFragment extends Fragment {
 
     private InterfaceBack back;
     private List<PayTypeMsg> paylist;
+    private PayTypeMsg moren;
     private boolean isMember;
     private boolean isxianjinpay = true, isyuepay = true, isYinlianpay = true, iswxpay = true, isalipay = true, isyhqpay = true, isjfpay = true, issmpay = true, isqtpay = true;
     private boolean isXianjin = false, isYue = false, isYinlian = false, isWx = false, isAli = false, isYhq = false, isJifen = false, isSaoma = false, isQita = false, isUnion = false;
@@ -165,7 +167,7 @@ public class JiesuanBFragment extends Fragment {
         rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(back != null)
+                if (back != null)
                     back.onResponse(null);
             }
         });
@@ -188,10 +190,22 @@ public class JiesuanBFragment extends Fragment {
         this.CO_Type = CO_Type;
         this.CO_OrderCode = CO_OrderCode;
         this.list = list;
+        this.moren = moren;
         this.paylist = paylist;
         this.orderType = orderType;
         this.back = back;
+        if (this.isResumed())
+            initData();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!TextUtils.isEmpty(money))
+            initData();
+    }
+
+    private void initData() {
         mEtXianjin.setText("");
         et_moling.setText("");
 
