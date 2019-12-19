@@ -32,6 +32,7 @@ import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity {
     @BindView(R.id.et_login_account)
@@ -153,6 +154,15 @@ public class LoginActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    @OnClick({R.id.iv_get_code})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_get_code:
+                getCode();
+                break;
+        }
     }
 
     private void getCode() {
