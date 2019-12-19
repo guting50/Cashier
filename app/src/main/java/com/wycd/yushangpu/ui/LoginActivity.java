@@ -193,7 +193,7 @@ public class LoginActivity extends BaseActivity {
         @Override
         public void OnKeyBoardPop(int keyBoardheight) {
             if (bottomHeight < keyBoardheight) {
-                int offset = 250 - keyBoardheight;
+                int offset = 180 - keyBoardheight;
                 final ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) layout_content
                         .getLayoutParams();
                 //当offset为负数时，layout_content向上移

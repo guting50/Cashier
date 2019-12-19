@@ -21,7 +21,7 @@ public class KeyBoardHelper {
     public KeyBoardHelper(Activity activity) {
         this.activity = activity;
         screenHeight = activity.getResources().getDisplayMetrics().heightPixels;
-        activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+//        activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 //        if (activity.getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
 //            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 //        }
