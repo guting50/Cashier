@@ -321,28 +321,28 @@ public class EditCashierGoodsFragment extends Fragment {
     public void resetBnEdit(View view) {
         bnEditNum.setSolidColor(Color.alpha(R.color.white));
         bnEditNum.setStrokeWidth(1);
-        ((TextView) bnEditNum.getChildAt(0)).setTextColor(getResources().getColor(R.color.black));
+        ((TextView) bnEditNum.getChildAt(0)).setTextColor(getResources().getColor(R.color.title_color));
         bnEditPrice.setSolidColor(Color.alpha(R.color.white));
         bnEditPrice.setStrokeWidth(1);
-        ((TextView) bnEditPrice.getChildAt(0)).setTextColor(getResources().getColor(R.color.black));
+        ((TextView) bnEditPrice.getChildAt(0)).setTextColor(getResources().getColor(R.color.title_color));
         bnEditGive.setSolidColor(Color.alpha(R.color.white));
         bnEditGive.setStrokeWidth(1);
-        ((TextView) bnEditGive.getChildAt(0)).setTextColor(getResources().getColor(R.color.black));
+        ((TextView) bnEditGive.getChildAt(0)).setTextColor(getResources().getColor(R.color.title_color));
         bnEditSubtotal.setSolidColor(Color.alpha(R.color.white));
         bnEditSubtotal.setStrokeWidth(1);
-        ((TextView) bnEditSubtotal.getChildAt(0)).setTextColor(getResources().getColor(R.color.black));
+        ((TextView) bnEditSubtotal.getChildAt(0)).setTextColor(getResources().getColor(R.color.title_color));
         bnEditDiscount.setSolidColor(Color.alpha(R.color.white));
         bnEditDiscount.setStrokeWidth(1);
-        ((TextView) bnEditDiscount.getChildAt(0)).setTextColor(getResources().getColor(R.color.black));
+        ((TextView) bnEditDiscount.getChildAt(0)).setTextColor(getResources().getColor(R.color.title_color));
         bnEditRoyalty.setSolidColor(Color.alpha(R.color.white));
         bnEditRoyalty.setStrokeWidth(1);
-        ((TextView) bnEditRoyalty.getChildAt(0)).setTextColor(getResources().getColor(R.color.black));
+        ((TextView) bnEditRoyalty.getChildAt(0)).setTextColor(getResources().getColor(R.color.title_color));
 
         currentSelectedBn = (BgFrameLayout) view;
         if (currentSelectedBn != null) {
-            currentSelectedBn.setSolidColor(getResources().getColor(R.color.texty6b));
+            currentSelectedBn.setSolidColor(getResources().getColor(R.color.yunpu));
             currentSelectedBn.setStrokeWidth(0);
-            ((TextView) currentSelectedBn.getChildAt(0)).setTextColor(getResources().getColor(R.color.white));
+            ((TextView) currentSelectedBn.getChildAt(0)).setTextColor(getResources().getColor(R.color.color_f3));
         }
 
         editLayout.setVisibility(View.GONE);
