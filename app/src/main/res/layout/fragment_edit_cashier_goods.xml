@@ -311,7 +311,7 @@
         </LinearLayout>
 
         <include
-            layout="@layout/item_num_keyboard_layout"
+            layout="@layout/include_num_keyboard_layout"
             android:layout_width="match_parent"
             android:layout_height="339dp"
             android:layout_alignParentBottom="true"

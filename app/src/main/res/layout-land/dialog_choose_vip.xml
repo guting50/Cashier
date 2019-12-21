@@ -152,7 +152,7 @@
         </LinearLayout>
 
         <include
-            layout="@layout/item_num_keyboard_layout"
+            layout="@layout/include_num_keyboard_layout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3" />

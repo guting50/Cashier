@@ -39,6 +39,10 @@ public class NumKeyboardUtils {
         numInputView.showCursor(true);
     }
 
+    public NumInputView getEditView() {
+        return numInputView;
+    }
+
     public interface OnDelClickListener {
         void popBack(String str);
     }

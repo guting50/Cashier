@@ -47,15 +47,18 @@ import com.wycd.yushangpu.widget.NumKeyboardUtils;
 import com.wycd.yushangpu.widget.dialog.LoadingDialog;
 import com.wycd.yushangpu.widget.dialog.SaomaDialog;
 import com.wycd.yushangpu.widget.dialog.YouhuiquanDialog;
-import com.wycd.yushangpu.widget.views.ClearEditText;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -71,18 +74,14 @@ public class JiesuanBFragment extends Fragment {
     @BindView(R.id.et_zhmoney)
     TextView mEtZhmoney;
     @BindView(R.id.et_yue)
-    ClearEditText mEtYue;
+    TextView mEtYue;
     @BindView(R.id.tv_zhaoling)
     TextView tv_zhaoling;
-    @BindView(R.id.tv_payname_1)
-    TextView tvPayname1;
     @BindView(R.id.tv_payname_2)
     TextView tvPayname2;
 
     @BindView(R.id.et_moling)
     NumInputView et_moling;
-    @BindView(R.id.et_xianjin)
-    NumInputView mEtXianjin;
 
     @BindView(R.id.li_xianjin)
     LinearLayout mLiXianjin;
@@ -98,8 +97,6 @@ public class JiesuanBFragment extends Fragment {
     LinearLayout mLiYinlian;
     @BindView(R.id.li_jifen)
     LinearLayout mLiJifen;
-    @BindView(R.id.li_union)
-    LinearLayout liUnion;
     @BindView(R.id.li_qita)
     LinearLayout li_qita;
 
@@ -122,13 +119,17 @@ public class JiesuanBFragment extends Fragment {
     CheckBox cbMessage;
     @BindView(R.id.li_close)
     View liClose;
+    @BindView(R.id.pay_mode_list)
+    RecyclerView payModeListView;
+    PayModeListAdapter payModeListAdapter;
+    List<Map<String, Object>> payModeList = new ArrayList<>();
 
     private InterfaceBack back;
     private List<PayTypeMsg> paylist;
     private PayTypeMsg moren;
     private boolean isMember;
     private boolean isxianjinpay = true, isyuepay = true, isYinlianpay = true, iswxpay = true, isalipay = true, isyhqpay = true, isjfpay = true, issmpay = true, isqtpay = true;
-    private boolean isXianjin = false, isYue = false, isYinlian = false, isWx = false, isAli = false, isYhq = false, isJifen = false, isSaoma = false, isQita = false, isUnion = false;
+    private boolean isXianjin = false, isYue = false, isYinlian = false, isWx = false, isAli = false, isYhq = false, isJifen = false, isSaoma = false, isQita = false;
     private String money, CO_OrderCode, CO_Type, GID, jifen, dkmoney, yue;//折扣金额 订单号 订单GID 会员积分  会员积分可抵扣金额   余额
     private OrderPayResult result;
     private String jifendkbfb;
@@ -137,10 +138,10 @@ public class JiesuanBFragment extends Fragment {
     private List<YhqMsg> yhqMsgs;
     private OrderType orderType;
     private VipDengjiMsg.DataBean mVipDengjiMsg;
-    private double moneyFlag;
     private VipDengjiMsg.DataBean mVipMsg;
     private Dialog dialog;
     View rootView;
+    NumKeyboardUtils numKeyboardUtils;
 
     @Nullable
     @Override
@@ -154,8 +155,7 @@ public class JiesuanBFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         ButterKnife.bind(this, rootView);
 
-        NumKeyboardUtils numKeyboardUtils = new NumKeyboardUtils(getActivity(), rootView, mEtXianjin);
-        numKeyboardUtils.addEditView(et_moling);
+        numKeyboardUtils = new NumKeyboardUtils(getActivity(), rootView, et_moling);
 
         this.context = (AppCompatActivity) getActivity();
 
@@ -164,6 +164,11 @@ public class JiesuanBFragment extends Fragment {
 
         setCbShortMessage("011");
         dialog = LoadingDialog.loadingDialog(context, 1);
+
+        payModeListAdapter = new PayModeListAdapter();
+        payModeListView.setLayoutManager(new LinearLayoutManager(getContext()));
+        payModeListView.setAdapter(payModeListAdapter);
+
         rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -206,7 +211,6 @@ public class JiesuanBFragment extends Fragment {
     }
 
     private void updateData() {
-        mEtXianjin.setText("");
         et_moling.setText("");
 
         this.jifen = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableIntegral() + "";
@@ -251,135 +255,40 @@ public class JiesuanBFragment extends Fragment {
 
     @OnClick({R.id.jiesuan_layout,
             R.id.li_10, R.id.li_20, R.id.li_50, R.id.li_100, R.id.li_xianjin, R.id.li_yue, R.id.li_yinlian,
-            R.id.li_wx, R.id.li_ali, R.id.li_yhq, R.id.li_jifen, R.id.li_saoma, R.id.li_qita, R.id.li_union})
+            R.id.li_wx, R.id.li_ali, R.id.li_yhq, R.id.li_jifen, R.id.li_saoma, R.id.li_qita})
     public void onViewClicked(View view) {
         double molingmoney = et_moling.getText().toString().equals("") ? 0.00 : Double.parseDouble(et_moling.getText().toString());
         switch (view.getId()) {
             case R.id.jiesuan_layout:
                 break;
             case R.id.li_10:
-                if (mEtXianjin.getText().toString().equals("")) {
-                    mEtXianjin.setText("10");
-                    return;
-                }
-                moneyFlag = Double.parseDouble(mEtXianjin.getText().toString());
-                int moneyFlag10 = (int) moneyFlag;
-                if (moneyFlag10 != 0) {
-                    moneyFlag = moneyFlag + 10;
-                    etPay(moneyFlag + "");
-                    return;
-                }
-                mEtXianjin.setText("10");
+                etPay(10);
                 break;
             case R.id.li_20:
-                if (mEtXianjin.getText().toString().equals("")) {
-                    mEtXianjin.setText("20");
-                    return;
-                }
-                moneyFlag = Double.parseDouble(mEtXianjin.getText().toString());
-                int moneyFlag20 = (int) moneyFlag;
-                if (moneyFlag20 != 0) {
-                    moneyFlag = moneyFlag + 20;
-                    etPay(moneyFlag + "");
-                    return;
-                }
-                mEtXianjin.setText("20");
+                etPay(20);
                 break;
             case R.id.li_50:
-                if (mEtXianjin.getText().toString().equals("")) {
-                    mEtXianjin.setText("50");
-                    return;
-                }
-                moneyFlag = Double.parseDouble(mEtXianjin.getText().toString());
-                int moneyFlag50 = (int) moneyFlag;
-                if (moneyFlag50 != 0) {
-                    moneyFlag = moneyFlag + 50;
-                    etPay(moneyFlag + "");
-                    return;
-                }
-                mEtXianjin.setText("50");
+                etPay(50);
                 break;
             case R.id.li_100:
-                if (mEtXianjin.getText().toString().equals("")) {
-                    mEtXianjin.setText("100");
-                    return;
-                }
-                moneyFlag = Double.parseDouble(mEtXianjin.getText().toString());
-                int moneyFlag100 = (int) moneyFlag;
-                if (moneyFlag100 != 0) {
-                    moneyFlag = moneyFlag + 100;
-                    etPay(moneyFlag + "");
-                    return;
-                }
-                mEtXianjin.setText("100");
+                etPay(100);
                 break;
             case R.id.li_xianjin:
-//                1开启、0关闭
-
-                if (isXianjin) {
-                    return;
-                }
-                resetPayRl("现金支付");
-                resetIsPay();
-                isXianjin = true;
-
-                mLiXianjin.setBackgroundResource(R.drawable.bg_edittext_focused);
-
-//                tvPayname1.setText("现金支付");
-//                mEtXianjin.setText("0");
-
+                resetPayBg(view, "现金支付");
                 break;
             case R.id.li_yue:
-                if (isYue) {
-                    return;
-                }
-
-                resetPayRl("余额支付");
-                resetIsPay();
-                isYue = true;
-
-                mLiYue.setBackgroundResource(R.drawable.bg_edittext_focused);
-//                tvPayname1.setText("余额支付");
-//                mEtXianjin.setText("0");
+                resetPayBg(view, "余额支付");
                 break;
             case R.id.li_wx:
-                if (isWx) {
-                    return;
-                }
-                resetPayRl("微信支付");
-                resetIsPay();
-                isWx = true;
-                mLiWx.setBackgroundResource(R.drawable.bg_edittext_focused);
-//                tvPayname1.setText("微信支付");
-//                mEtXianjin.setText("0");
-
+                resetPayBg(view, "微信支付");
                 break;
             case R.id.li_yinlian:
-                if (isYinlian) {
-                    return;
-                }
-                resetPayRl("银联支付");
-                resetIsPay();
-                isYinlian = true;
-//                tvPayname1.setText("银联支付");
-                mLiYinlian.setBackgroundResource(R.drawable.bg_edittext_focused);
-
-//                mEtXianjin.setText("0");
-
+                resetPayBg(view, "银联支付");
                 break;
             case R.id.li_ali:
-                if (isAli) {
-                    return;
-                }
-                resetPayRl("支付宝支付");
-                resetIsPay();
-                isAli = true;
-                mLiAli.setBackgroundResource(R.drawable.bg_edittext_focused);
-//                tvPayname1.setText("支付宝支付");
-//                mEtXianjin.setText("0");
+                resetPayBg(view, "支付宝支付");
                 break;
             case R.id.li_yhq:
-
                 yhqdialog = YouhuiquanDialog.yhqDialog(context, money, mVipDengjiMsg, yhqMsgs, 1, new InterfaceBack() {
                     @Override
                     public void onResponse(Object response) {
@@ -454,28 +363,11 @@ public class JiesuanBFragment extends Fragment {
                         yhqdialog.dismiss();
                     }
                 });
-
                 break;
             case R.id.li_jifen:
-
-                if (isJifen) {
-                    return;
-                }
-                resetPayRl("积分支付");
-                resetIsPay();
-                isJifen = true;
-                mLiJifen.setBackgroundResource(R.drawable.bg_edittext_focused);
-
-//                tvPayname1.setText("积分支付");
-//                mEtXianjin.setText("0");
-
+                resetPayBg(view, "积分支付");
                 break;
             case R.id.li_saoma:
-
-//                if (MyApplication.loginBean.getData().getShopList().get(0).getSaoBei_State() == 0) {
-//                    com.blankj.utilcode.util.ToastUtils.showShort("商家未开通扫码支付功能");
-//                    return;
-//                }
                 if (MyApplication.loginBean.getData().getShopList().get(0).getSaoBei_State() == 1) {
                     com.blankj.utilcode.util.ToastUtils.showShort("扫码支付功能审核通过,但未签署电子协议");
                     return;
@@ -492,13 +384,7 @@ public class JiesuanBFragment extends Fragment {
                     com.blankj.utilcode.util.ToastUtils.showShort("扫码支付功能审核通过且已签署电子协议");
                     return;
                 }
-
-                resetPayRl("扫码");
-                resetIsPay();
-                isSaoma = true;
-                mLiSaoma.setBackgroundResource(R.drawable.bg_edittext_focused);
-//                tvPayname1.setText("扫码");
-//                mEtXianjin.setText("0");
+                resetPayBg(view, "扫码");
 
                 SaomaDialog.saomaDialog(context, money, 1, new InterfaceBack() {
                     @Override
@@ -510,8 +396,6 @@ public class JiesuanBFragment extends Fragment {
                         saoma.saomaPay(context, response.toString(), money, GID, CO_OrderCode, result, new InterfaceBack() {
                             @Override
                             public void onResponse(Object response) {
-
-
                                 System.out.println("==========扫一扫===22222============random:" + response.toString());
                                 jisuanZhaolingMoney();
                             }
@@ -531,82 +415,12 @@ public class JiesuanBFragment extends Fragment {
 
                 break;
             case R.id.li_qita:
-                if (isQita) {
-                    return;
-                }
-                resetPayRl("其他支付");
-                resetIsPay();
-                isQita = true;
-                li_qita.setBackgroundResource(R.drawable.bg_edittext_focused);
-//                tvPayname1.setText("其他支付");
-//                mEtXianjin.setText("0");
-
-                break;
-            case R.id.li_union:
-//                resetIsPay();
-                if (!isUnion) {
-                    isUnion = true;
-
-                    liUnion.setBackgroundResource(R.drawable.bg_edittext_focused);
-
-                    isYhq = true;
-                    mLiYhq.setBackgroundResource(R.drawable.bg_edittext_focused);
-                } else {
-                    isUnion = false;
-                    liUnion.setBackgroundResource(R.drawable.shap_jiesunnot);
-
-                    switch (tvPayname2.getText().toString()) {
-                        case "现金支付"://现金
-                            mLiXianjin.setBackgroundResource(R.drawable.shap_jiesunnot);
-                            isXianjin = false;
-                            break;
-                        case "余额支付"://余额
-                            mLiYue.setBackgroundResource(R.drawable.shap_jiesunnot);
-                            isYue = false;
-                            break;
-                        case "银联支付"://银联
-                            mLiYinlian.setBackgroundResource(R.drawable.shap_jiesunnot);
-                            isYinlian = false;
-                            break;
-                        case "微信支付"://微信
-                            mLiWx.setBackgroundResource(R.drawable.shap_jiesunnot);
-                            isWx = false;
-                            break;
-                        case "支付宝支付"://支付宝
-                            mLiAli.setBackgroundResource(R.drawable.shap_jiesunnot);
-                            isAli = false;
-                            break;
-                        case "优惠金额"://优惠券
-                            mLiYhq.setBackgroundResource(R.drawable.shap_jiesunnot);
-                            isYhq = false;
-                            break;
-                        case "积分支付"://积分支付
-                            mLiJifen.setBackgroundResource(R.drawable.shap_jiesunnot);
-                            isJifen = false;
-                            break;
-                        case "扫码支付"://扫码支付
-                            mLiSaoma.setBackgroundResource(R.drawable.shap_jiesunnot);
-                            isSaoma = false;
-                            break;
-                        case "其他支付"://其它支付
-                            li_qita.setBackgroundResource(R.drawable.shap_jiesunnot);
-                            isQita = false;
-                            break;
-                    }
-                    tvPayname2.setText("优惠金额");
-                    mEtYue.setText("0.00");
-                    jisuanZhaolingMoney();
-                }
+                resetPayBg(view, "扫码");
                 break;
         }
     }
 
     private void setView() {
-
-        //优惠金额不编辑
-        mEtYue.setFocusable(false);
-        mEtYue.setFocusableInTouchMode(false);
-
         li_jiesuan.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
@@ -855,19 +669,17 @@ public class JiesuanBFragment extends Fragment {
     /**
      * 去掉累加时，double自带的.0
      */
-    public void etPay(String s) {
-        String s1[] = s.split("[.]");
-        int num;
-        if (s1.length == 2) {
-            num = Integer.parseInt(s1[1]);
-            if (num == 0) {
-                mEtXianjin.setText(((int) Double.parseDouble(s + "")) + "");
-            } else {
-                mEtXianjin.setText(s);
+    public void etPay(int m) {
+        String value = numKeyboardUtils.getEditView().getText().toString();
+        if (!value.equals("")) {
+            Double moneyFlag = Double.parseDouble(value);
+            if (moneyFlag != 0) {
+                moneyFlag += m;
+                numKeyboardUtils.getEditView().setText(moneyFlag.intValue() + "");
+                return;
             }
-        } else {
-            mEtXianjin.setText(s);
         }
+        numKeyboardUtils.getEditView().setText(m + "");
     }
 
     /***
@@ -1064,6 +876,26 @@ public class JiesuanBFragment extends Fragment {
         isQita = false;
     }
 
+    private void resetPayBg(View view, String name) {
+        if (view.getTag() == null) {
+            view.setTag(true);
+            view.setBackgroundResource(R.drawable.bg_edittext_focused);
+            Map<String, Object> map = new HashMap<>();
+            map.put("name", name);
+            payModeList.add(map);
+        } else {
+            view.setTag(null);
+            view.setBackgroundResource(R.drawable.shap_jiesunnot);
+            for (Map map : payModeList) {
+                if (map.containsKey(name)) {
+                    payModeList.remove(map);
+                    break;
+                }
+            }
+        }
+        payModeListAdapter.notifyDataSetChanged();
+    }
+
     private void resetPayRl(String payWay) {
 
         if (isxianjinpay) {
@@ -1092,10 +924,6 @@ public class JiesuanBFragment extends Fragment {
         }
         if (isqtpay) {
             li_qita.setBackgroundResource(R.drawable.shap_jiesunnot);
-        }
-
-        if (!isUnion) {
-            liUnion.setBackgroundResource(R.drawable.shap_jiesunnot);
         }
 
         if (isUnion) {
@@ -1364,4 +1192,39 @@ public class JiesuanBFragment extends Fragment {
         });
     }
 
+    class PayModeListAdapter extends RecyclerView.Adapter {
+
+        @NonNull
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.item_pay_mode_input_layout, parent, false);
+            return new MyHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+            MyHolder myHolder = (MyHolder) holder;
+            numKeyboardUtils.addEditView(myHolder.etValue);
+        }
+
+        @Override
+        public int getItemCount() {
+            return payModeList.size();
+        }
+
+        class MyHolder extends RecyclerView.ViewHolder {
+
+            @BindView(R.id.tv_pay_name)
+            TextView tvPayName;
+            @BindView(R.id.et_value)
+            NumInputView etValue;
+            View holderRootView;
+
+            public MyHolder(@NonNull View itemView) {
+                super(itemView);
+                ButterKnife.bind(this, itemView);
+                holderRootView = itemView;
+            }
+        }
+    }
 }
