@@ -63,7 +63,7 @@ public class TelUtils {
 //// 帮跳转到该应用的设置界面，让用户手动授权
 //                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
 //                Uri uri = Uri.fromParts("package", context.getPackageName(), null);
-//                intent.setData(uri);
+//                intent.getGuaDan(uri);
 //                context.startActivity(intent);
 //            }else{
 //// 不需要解释为何需要该权限，直接请求授权

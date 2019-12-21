@@ -407,7 +407,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
         qudanFragment = new QudanFragment(this);
         qudanFragment.obtainGuadanList();
-//        fragmentManager.beginTransaction().add(R.id.fragment_content, qudanFragment).hide(qudanFragment).commit();
     }
 
     private void initData() {
@@ -1110,15 +1109,31 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         bttGetOrder.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
+                if (!qudanFragment.isAdded())
+                    fragmentManager.beginTransaction().add(R.id.fragment_content, qudanFragment).commit();
+                else
+                    fragmentManager.beginTransaction().show(qudanFragment).commit();
                 //挂单
                 if (mShopLeftList.size() > 0) {
-                    NoticeDialog.noticeDialog(ac, "收银台挂单提示", "你确定要挂单吗？", 1, new InterfaceBack() {
+                    qudanFragment.guaDan(order, ordertime.toString(), null == mVipMsg ? "00000" : mVipMsg.getVCH_Card(), mShopLeftList, new InterfaceBack() {
                         @Override
                         public void onResponse(Object response) {
+                            fragmentManager.beginTransaction().hide(qudanFragment).commit();
+                            resetCashier();
+                        }
 
+                        @Override
+                        public void onErrorResponse(Object msg) {
+                            fragmentManager.beginTransaction().hide(qudanFragment).commit();
+                        }
+                    });
+
+                    /*NoticeDialog.noticeDialog(ac, "收银台挂单提示", "你确定要挂单吗？", 1, new InterfaceBack() {
+                        @Override
+                        public void onResponse(Object response) {
 //                            dialog.show();
                             ImpSubmitOrder submitOrder = new ImpSubmitOrder();
-                            submitOrder.submitOrder(ac, order, ordertime.toString(), null == mVipMsg ? "00000" : mVipMsg.getVCH_Card(), mShopLeftList, true, new InterfaceBack() {
+                            submitOrder.submitGuaOrder(ac, order, ordertime.toString(), null == mVipMsg ? "00000" : mVipMsg.getVCH_Card(), mShopLeftList, new InterfaceBack() {
                                 @Override
                                 public void onResponse(Object response) {
                                     dialog.dismiss();
@@ -1134,21 +1149,16 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                     dialog.dismiss();
                                 }
                             });
-
                         }
 
                         @Override
                         public void onErrorResponse(Object msg) {
 
                         }
-                    });
+                    });*/
                 } else if (qudanFragment.getListCount() > 0) {
                     //取单
-                    if (!qudanFragment.isAdded())
-                        fragmentManager.beginTransaction().add(R.id.fragment_content, qudanFragment).commit();
-                    else
-                        fragmentManager.beginTransaction().show(qudanFragment).commit();
-                    qudanFragment.setData(moren, paytypelist, new InterfaceBack() {
+                    qudanFragment.getGuaDan(moren, paytypelist, new InterfaceBack() {
                         @Override
                         public void onResponse(Object response) {
                             fragmentManager.beginTransaction().hide(qudanFragment).commit();
@@ -1170,7 +1180,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
                         @Override
                         public void onErrorResponse(Object msg) {
-
+                            fragmentManager.beginTransaction().hide(qudanFragment).commit();
+                            updateBttGetOrder();
                         }
                     });
                 } else {

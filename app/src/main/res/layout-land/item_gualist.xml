@@ -3,29 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/bg_edittext_normal"
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/item_layout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@drawable/bg_edittext_normal">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tv_vipmsg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="9dp"
             android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="会员："
             android:textColor="@color/title_color"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <com.gt.utils.view.BgFrameLayout
             android:id="@+id/delete_layout"
-            android:layout_width="60dp"
-            android:layout_height="35dp"
+            android:layout_width="66dp"
+            android:layout_height="34dp"
             android:layout_alignParentRight="true"
             android:layout_margin="10dp"
             app:corners_radius="3dp"
@@ -36,7 +38,8 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="删除"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="18sp" />
 
         </com.gt.utils.view.BgFrameLayout>
 
@@ -45,27 +48,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_vipmsg"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="数量："
-            android:textColor="@color/text60" />
+            android:textColor="@color/title_color"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_ordermoney"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_count"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="金额："
-            android:textColor="@color/text60" />
+            android:textColor="@color/title_color"
+            android:textSize="16sp" />
 
         <com.gt.utils.view.BgFrameLayout
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="38dp"
             android:layout_below="@+id/tv_ordermoney"
             android:layout_marginTop="10dp"
             app:corners_radius_left_bottom="5dp"
@@ -78,82 +83,34 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="挂单时间："
-                android:textColor="@color/text60" />
+                android:textColor="@color/title_color"
+                android:textSize="16sp" />
 
         </com.gt.utils.view.BgFrameLayout>
 
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/add_guadan_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_45"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:visibility="gone">
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:minHeight="173dp"
+        android:visibility="gone"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1.5"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_code"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="sp2019041642223"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/sp_11" />
-
-            <TextView
-                android:id="@+id/tv_codetime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="sp2019041642223"
-                android:textColor="@color/text99"
-                android:textSize="@dimen/sp_11" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="0.5dp"
-            android:layout_height="match_parent"
-            android:background="@color/view_color" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/tv_card"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="会员卡"
-            android:textColor="@color/text60"
-            android:textSize="@dimen/sp_13" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="9dp"
+            android:text="新增挂单"
+            android:textColor="@color/title_color"
+            android:textSize="22sp" />
 
-        <TextView
-            android:id="@+id/tv_handler"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1.5"
-            android:gravity="center"
-            android:text="操作员"
-            android:textColor="@color/text60"
-            android:textSize="@dimen/sp_13" />
-
-        <View
-            android:layout_width="0.5dp"
-            android:layout_height="match_parent"
-            android:background="@color/view_color" />
-
-        <TextView
-            android:id="@+id/tv_handle"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="操作"
-            android:textColor="@color/textgreen"
-            android:textSize="@dimen/sp_13" />
     </LinearLayout>
+
 </FrameLayout>

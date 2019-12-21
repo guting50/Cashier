@@ -123,6 +123,12 @@ public class HttpAPI {
         //快速消费提交
         public static final String GOODS_CELERITY_SUB = MyApplication.BASE_URL + "api/ConsumeOrder/SubmitCelerityOrder";
 
+        //挂单
+        public static final String GOODS_CONSUME_GUADAN = MyApplication.BASE_URL + "api/ConsumeOrder/SubmitConsumOrder_GuaDan";
+
+        //取消挂单
+        public static final String CLOSE_GUADAN_ORDER = MyApplication.BASE_URL + "api/ConsumeOrder/CloseGuadanOrder";
+
         //商品消费挂账
         public static final String CONSUME_GUAZHANG = MyApplication.BASE_URL + "api/ConsumeOrder/SubmitConsumOrder_GuaZhang";
 

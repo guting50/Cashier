@@ -9,10 +9,10 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.maimengmami.waveswiperefreshlayout.WaveSwipeRefreshLayout;
+import com.gt.utils.view.BgFrameLayout;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
-import com.wycd.yushangpu.adapter.GuadanListAdapter;
 import com.wycd.yushangpu.bean.GuadanList;
 import com.wycd.yushangpu.bean.PayTypeMsg;
 import com.wycd.yushangpu.bean.RevokeGuaDanBean;
@@ -23,9 +23,13 @@ import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpGuadanList;
 import com.wycd.yushangpu.model.ImpOnlyVipMsg;
 import com.wycd.yushangpu.model.ImpRevokeGuaDanOrder;
+import com.wycd.yushangpu.model.ImpSubmitOrder;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
+import com.wycd.yushangpu.tools.NullUtils;
+import com.wycd.yushangpu.tools.StringUtil;
 import com.wycd.yushangpu.ui.HomeActivity;
+import com.wycd.yushangpu.widget.dialog.NoticeDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
@@ -49,24 +53,10 @@ import butterknife.ButterKnife;
  */
 
 public class QudanFragment extends Fragment {
-    @BindView(R.id.tv_code)
-    TextView tvCode;
-    @BindView(R.id.tv_card)
-    TextView tvCard;
-    @BindView(R.id.tv_vipmsg)
-    TextView tvVipmsg;
-    @BindView(R.id.tv_ordermoney)
-    TextView tvOrdermoney;
-    @BindView(R.id.tv_handler)
-    TextView tvHandler;
-    @BindView(R.id.tv_handle)
-    TextView tvHandle;
     @BindView(R.id.listview)
-    RecyclerView listview;
+    XRecyclerView listview;
     @BindView(R.id.iv_close)
     ImageView ivClose;
-    @BindView(R.id.srl_freshmanage_activity)
-    WaveSwipeRefreshLayout mRefresh;
     private InterfaceBack back;
     private List<GuadanList> list = new ArrayList<>();
     private HomeActivity homeActivity;
@@ -83,11 +73,15 @@ public class QudanFragment extends Fragment {
     private int mPageTotal;//数据总页数
     View rootView;
 
-    public QudanFragment(){
+    private boolean isGuaDan;
+    private String orderCode, orderTime, vipCard;
+    private List<ShopMsg> newShoplist;
+
+    public QudanFragment() {
 
     }
 
-    public QudanFragment(HomeActivity activity){
+    public QudanFragment(HomeActivity activity) {
         this.homeActivity = activity;
     }
 
@@ -103,76 +97,7 @@ public class QudanFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         ButterKnife.bind(this, rootView);
 
-        guadanListAdapter = new GuadanListAdapter(homeActivity, list, new InterfaceBack() {
-            @Override
-            public void onResponse(Object response) {
-                final GuadanList guadanList = (GuadanList) response;
-                if (guadanList.getCO_IdentifyingState().equals("1")) {//挂单
-                    //解挂接口
-                    homeActivity.dialog.show();
-                    ImpRevokeGuaDanOrder impRevokeGuaDanOrder = new ImpRevokeGuaDanOrder();
-                    impRevokeGuaDanOrder.revokeGuaDan(homeActivity, guadanList.getGID(), new InterfaceBack() {
-                        @Override
-                        public void onResponse(Object response) {
-                            homeActivity.dialog.dismiss();
-                            RevokeGuaDanBean guaDanBean = (RevokeGuaDanBean) response;
-                            back.onResponse(guaDanBean);
-                            HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
-                            event.setMsg("Change_color");
-                            EventBus.getDefault().post(event);
-                            list.remove(guadanList);
-                        }
-
-                        @Override
-                        public void onErrorResponse(Object msg) {
-                            back.onResponse(null);
-                            HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
-                            event.setMsg("Change_color");
-                            EventBus.getDefault().post(event);
-                        }
-                    });
-                } else if (guadanList.getCO_IdentifyingState().equals("8")) {//挂账
-                    initGetOrder(guadanList);
-                    //可抵扣金额= 会员积分/积分抵扣百分比 *积分支付限制百分比
-                    if (!guadanList.getVIP_Card().equals("00000")) {
-                        homeActivity.dialog.show();
-                        ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
-                        onlyVipMsg.vipMsg(homeActivity, guadanList.getVIP_Card(), new InterfaceBack() {
-                            @Override
-                            public void onResponse(Object response) {
-                                VipDengjiMsg mVipDengjiMsg = (VipDengjiMsg) response;
-                                homeActivity.dialog.dismiss();
-                                mVipMsg = mVipDengjiMsg.getData().get(0);
-                                jifen = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableIntegral() + "";
-                                dkmoney = CommonUtils.div(Double.parseDouble(CommonUtils.multiply(jifen, jinfenzfxzbfb)), Double.parseDouble(jifendkbfb), 2);//可抵扣金额
-                                jiesuan(guadanList, mVipMsg);
-                                HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
-                                event.setMsg("Change_color");
-                                EventBus.getDefault().post(event);
-                                list.remove(guadanList);
-                            }
-
-                            @Override
-                            public void onErrorResponse(Object msg) {
-
-                            }
-                        });
-                    } else {
-                        dkmoney = 0.00;//可抵扣金额
-
-                        jiesuan(guadanList, null);
-                    }
-
-
-                }
-
-            }
-
-            @Override
-            public void onErrorResponse(Object msg) {
-
-            }
-        });
+        guadanListAdapter = new GuadanListAdapter();
         listview.setLayoutManager(new GridLayoutManager(homeActivity, 3));
         listview.setAdapter(guadanListAdapter);
         setView();
@@ -186,10 +111,23 @@ public class QudanFragment extends Fragment {
         });
     }
 
-    public void setData(PayTypeMsg moren, ArrayList<PayTypeMsg> paytypelist, InterfaceBack back) {
+    public void guaDan(String CO_OrderCode, String OrderTime, String VIP_Card, List<ShopMsg> shoplist,
+                       final InterfaceBack back) {
+        this.isGuaDan = true;
+        this.back = back;
+        this.orderCode = CO_OrderCode;
+        this.orderTime = OrderTime;
+        this.vipCard = VIP_Card;
+        this.newShoplist = shoplist;
+
+        obtainGuadanList();
+    }
+
+    public void getGuaDan(PayTypeMsg moren, ArrayList<PayTypeMsg> paytypelist, InterfaceBack back) {
         this.moren = moren;
         this.paytypelist = paytypelist;
         this.back = back;
+        this.isGuaDan = false;
 
         for (PayTypeMsg msg : paytypelist) {
             if (msg.getSS_Name().equals("积分支付")) {
@@ -286,7 +224,7 @@ public class QudanFragment extends Fragment {
                     }.getType();
                     mPageTotal = js.getInt("PageTotal");
                     List<GuadanList> sllist = mGson.fromJson(js.getString("DataList"), listType);
-                    if (list != null && !mIsLoadMore) {
+                    if (!mIsLoadMore) {
                         list.clear();
                     }
                     for (GuadanList guadanList : sllist) {
@@ -312,8 +250,8 @@ public class QudanFragment extends Fragment {
         if (this.isResumed()) {
             guadanListAdapter.notifyDataSetChanged();
             mIsLoadMore = false;
-            mRefresh.setRefreshing(false);
-            mRefresh.setLoading(false);
+            listview.refreshComplete();
+            listview.loadMoreComplete();
         }
     }
 
@@ -321,15 +259,14 @@ public class QudanFragment extends Fragment {
         ivClose.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
-                back.onResponse(null);
+                back.onErrorResponse(null);
                 HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
                 event.setMsg("Change_color");
                 EventBus.getDefault().post(event);
             }
         });
 
-
-        mRefresh.setOnRefreshListener(new WaveSwipeRefreshLayout.OnRefreshListener() {
+        listview.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
 
@@ -338,7 +275,7 @@ public class QudanFragment extends Fragment {
             }
 
             @Override
-            public void onLoad() {
+            public void onLoadMore() {
                 if (refreshnum <= mPageTotal) {
                     mIsLoadMore = true;
                     obtainGuadanList(refreshnum);
@@ -346,18 +283,8 @@ public class QudanFragment extends Fragment {
                 } else {
 //                    ToastUtils.showToast(context,"没有更多数据了");
                     com.blankj.utilcode.util.ToastUtils.showShort("没有更多数据了");
-                    mRefresh.setLoading(false);
+                    listview.setLoadingMoreEnabled(false);
                 }
-            }
-
-            @Override
-            public boolean canLoadMore() {
-                return true;
-            }
-
-            @Override
-            public boolean canRefresh() {
-                return true;
             }
         });
 
@@ -366,4 +293,230 @@ public class QudanFragment extends Fragment {
     public int getListCount() {
         return list.size();
     }
+
+    class GuadanListAdapter extends RecyclerView.Adapter {
+        private Holder selectedHolder;
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public int getItemCount() {
+            return isGuaDan ? list.size() + 1 : list.size();
+        }
+
+        @NonNull
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(homeActivity).inflate(R.layout.item_gualist, parent, false);
+            return new Holder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
+            Holder holder1 = (Holder) holder;
+            holder1.addGuadanLayout.setVisibility(View.GONE);
+            holder1.itemLayout.setVisibility(View.VISIBLE);
+            if (isGuaDan && position == 0) {
+                holder1.addGuadanLayout.setVisibility(View.VISIBLE);
+                holder1.itemLayout.setVisibility(View.GONE);
+
+                holder1.rootView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        itemClick(holder1, null);
+                    }
+                });
+            } else {
+                GuadanList guadanList = list.get(isGuaDan ? position - 1 : position);
+                holder1.tvCount.setText("数量：" + guadanList.getViewGoodsDetail().size() + "");
+                holder1.tvTime.setText("挂单时间：" + guadanList.getCO_UpdateTime());
+                if (!NullUtils.noNullHandle(guadanList.getVIP_Phone()).toString().equals("")) {
+                    holder1.tvVipmsg.setText("会员：" + NullUtils.noNullHandle(guadanList.getVIP_Name()).toString() + "/" + NullUtils.noNullHandle(guadanList.getVIP_Phone()).toString());
+                } else {
+                    holder1.tvVipmsg.setText("会员：" + NullUtils.noNullHandle(guadanList.getVIP_Name()).toString());
+                }
+                holder1.tvOrdermoney.setText("金额：" + StringUtil.twoNum(NullUtils.noNullHandle(guadanList.getCO_TotalPrice()).toString()));
+
+                holder1.rootView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        itemClick(holder1, guadanList);
+                    }
+                });
+                holder1.deleteLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new ImpSubmitOrder().closeGuadanOrder(homeActivity, guadanList.getGID(), new InterfaceBack() {
+                            @Override
+                            public void onResponse(Object response) {
+                                list.remove(guadanList);
+                                notifyDataSetChanged();
+                                com.blankj.utilcode.util.ToastUtils.showShort("删除挂单");
+                            }
+
+                            @Override
+                            public void onErrorResponse(Object msg) {
+                                com.blankj.utilcode.util.ToastUtils.showShort("删除挂单失败" + msg);
+                            }
+                        });
+                    }
+                });
+            }
+            if (selectedHolder != null) {
+                selectedHolder.rootView.setBackgroundResource(R.drawable.bg_edittext_normal);
+                selectedHolder.tvTime.setTextColor(homeActivity.getResources().getColor(R.color.text60));
+                ((BgFrameLayout) selectedHolder.tvTime.getParent()).setSolidColor(0xffEBEBF5);
+            }
+        }
+
+        private void itemClick(Holder holder1, GuadanList guadanList) {
+            homeActivity.dialog.show();
+            if (selectedHolder != null) {
+                selectedHolder.rootView.setBackgroundResource(R.drawable.bg_edittext_normal);
+                selectedHolder.tvTime.setTextColor(homeActivity.getResources().getColor(R.color.text60));
+                ((BgFrameLayout) selectedHolder.tvTime.getParent()).setSolidColor(0xffEBEBF5);
+            }
+            selectedHolder = holder1;
+            selectedHolder.rootView.setBackgroundResource(R.drawable.bg_edittext_focused);
+            selectedHolder.tvTime.setTextColor(homeActivity.getResources().getColor(R.color.white));
+            ((BgFrameLayout) selectedHolder.tvTime.getParent()).setSolidColor(homeActivity.getResources().getColor(R.color.textgreen));
+            if (isGuaDan) {
+                if (guadanList == null) {
+                    submitGuaOrder("挂单");
+                } else {
+                    homeActivity.dialog.dismiss();
+                    NoticeDialog.noticeDialog(homeActivity, "提示", "您确定要替换该销售单吗？", 1, new InterfaceBack() {
+                        @Override
+                        public void onResponse(Object response) {
+                            new ImpSubmitOrder().closeGuadanOrder(homeActivity, guadanList.getGID(), new InterfaceBack() {
+                                @Override
+                                public void onResponse(Object response) {
+                                    list.remove(guadanList);
+                                    notifyDataSetChanged();
+                                    submitGuaOrder("替换销售单");
+                                }
+
+                                @Override
+                                public void onErrorResponse(Object msg) {
+                                    com.blankj.utilcode.util.ToastUtils.showShort("替换销售单失败" + msg);
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onErrorResponse(Object msg) {
+
+                        }
+                    });
+                }
+            } else {
+                if (guadanList.getCO_IdentifyingState().equals("1")) {//挂单
+                    //解挂接口
+                    ImpRevokeGuaDanOrder impRevokeGuaDanOrder = new ImpRevokeGuaDanOrder();
+                    impRevokeGuaDanOrder.revokeGuaDan(homeActivity, guadanList.getGID(), new InterfaceBack() {
+                        @Override
+                        public void onResponse(Object response) {
+                            homeActivity.dialog.dismiss();
+                            RevokeGuaDanBean guaDanBean = (RevokeGuaDanBean) response;
+                            back.onResponse(guaDanBean);
+                            HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
+                            event.setMsg("Change_color");
+                            EventBus.getDefault().post(event);
+                            list.remove(guadanList);
+                        }
+
+                        @Override
+                        public void onErrorResponse(Object msg) {
+                            homeActivity.dialog.dismiss();
+                            HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
+                            event.setMsg("Change_color");
+                            EventBus.getDefault().post(event);
+                        }
+                    });
+                } else if (guadanList.getCO_IdentifyingState().equals("8")) {//挂账
+                    initGetOrder(guadanList);
+                    //可抵扣金额= 会员积分/积分抵扣百分比 *积分支付限制百分比
+                    if (!guadanList.getVIP_Card().equals("00000")) {
+                        ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
+                        onlyVipMsg.vipMsg(homeActivity, guadanList.getVIP_Card(), new InterfaceBack() {
+                            @Override
+                            public void onResponse(Object response) {
+                                VipDengjiMsg mVipDengjiMsg = (VipDengjiMsg) response;
+                                homeActivity.dialog.dismiss();
+                                mVipMsg = mVipDengjiMsg.getData().get(0);
+                                jifen = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableIntegral() + "";
+                                dkmoney = CommonUtils.div(Double.parseDouble(CommonUtils.multiply(jifen, jinfenzfxzbfb)), Double.parseDouble(jifendkbfb), 2);//可抵扣金额
+                                jiesuan(guadanList, mVipMsg);
+                                HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
+                                event.setMsg("Change_color");
+                                EventBus.getDefault().post(event);
+                                list.remove(guadanList);
+                            }
+
+                            @Override
+                            public void onErrorResponse(Object msg) {
+                                homeActivity.dialog.dismiss();
+                            }
+                        });
+                    } else {
+                        dkmoney = 0.00;//可抵扣金额
+                        jiesuan(guadanList, null);
+                        homeActivity.dialog.dismiss();
+                    }
+                }
+            }
+        }
+
+        private void submitGuaOrder(String message) {
+            new ImpSubmitOrder().submitGuaOrder(homeActivity, orderCode, orderTime, vipCard, newShoplist, new InterfaceBack() {
+                @Override
+                public void onResponse(Object response) {
+                    com.blankj.utilcode.util.ToastUtils.showShort(message + "成功");
+
+                    obtainGuadanList();
+                    back.onResponse(null);
+                    homeActivity.dialog.dismiss();
+                }
+
+                @Override
+                public void onErrorResponse(Object msg) {
+                    com.blankj.utilcode.util.ToastUtils.showShort(message + "失败" + msg);
+                    homeActivity.dialog.dismiss();
+                }
+            });
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return position;
+        }
+
+        class Holder extends RecyclerView.ViewHolder {
+            @BindView(R.id.tv_vipmsg)
+            TextView tvVipmsg;
+            @BindView(R.id.tv_ordermoney)
+            TextView tvOrdermoney;
+            @BindView(R.id.tv_count)
+            TextView tvCount;
+            @BindView(R.id.tv_time)
+            TextView tvTime;
+            @BindView(R.id.delete_layout)
+            View deleteLayout;
+            @BindView(R.id.item_layout)
+            View itemLayout;
+            @BindView(R.id.add_guadan_layout)
+            View addGuadanLayout;
+            View rootView;
+
+            public Holder(View view) {
+                super(view);
+                ButterKnife.bind(this, view);
+                rootView = view;
+            }
+        }
+    }
+
 }
