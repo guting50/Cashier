@@ -99,8 +99,9 @@
 
                     <androidx.core.widget.NestedScrollView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_above="@+id/tv_zhaoling">
+                        android:layout_height="match_parent"
+                        android:layout_above="@+id/tv_zhaoling"
+                        android:layout_marginTop="@dimen/dp_10">
 
                         <RelativeLayout
                             android:layout_width="wrap_content"
@@ -110,7 +111,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dp_15"
-                                android:layout_marginTop="@dimen/dp_10"
                                 android:text="本单合计"
                                 android:textColor="@color/title_color"
                                 android:textSize="@dimen/sp_17" />
@@ -120,7 +120,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
-                                android:layout_marginTop="@dimen/dp_10"
                                 android:layout_marginRight="@dimen/dp_15"
                                 android:text="0.00"
                                 android:textColor="@color/title_color"
