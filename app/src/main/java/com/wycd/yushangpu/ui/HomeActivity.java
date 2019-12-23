@@ -1141,7 +1141,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     private void toJieSuan(OrderCanshhu jso, JiesuanBFragment.OrderType orderType) {
         String jifen = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableIntegral() + "";
         double dkmoney = CommonUtils.div(CommonUtils.div(Double.parseDouble(CommonUtils.multiply(jifen, jinfenzfxzbfb)), 100, 2),
-                Double.parseDouble(jifendkbfb), 2);//可抵扣金额
+                Double.parseDouble(TextUtils.isEmpty(jifendkbfb) ? "0" : jifendkbfb), 2);//可抵扣金额
 
         if (jiesuanBFragment == null) {
             jiesuanBFragment = new JiesuanBFragment();

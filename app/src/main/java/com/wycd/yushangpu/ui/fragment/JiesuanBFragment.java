@@ -125,7 +125,7 @@ public class JiesuanBFragment extends Fragment {
     RecyclerView payModeListView;
 
     PayModeListAdapter payModeListAdapter;
-    Map<String, Double> payModeList = new HashMap<>();
+    List<Map<String, Double>> payModeList = new ArrayList<>();
 
     private InterfaceBack back;
     private List<PayTypeMsg> paylist;
@@ -381,11 +381,13 @@ public class JiesuanBFragment extends Fragment {
         li_jiesuan.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
-                for (String name : payModeList.keySet()) {
-                    if (TextUtils.equals(name, PayMode.XJZF.getStr())) {
-                        if (getZhaoling() > Double.parseDouble(payModeList.get(name).toString())) {
-                            com.blankj.utilcode.util.ToastUtils.showShort("找零金额不能大于现金支付");
-                            return;
+                for (Map<String, Double> map : payModeList) {
+                    for (String name : map.keySet()) {
+                        if (TextUtils.equals(name, PayMode.XJZF.getStr())) {
+                            if (getZhaoling() > Double.parseDouble(map.get(name).toString())) {
+                                com.blankj.utilcode.util.ToastUtils.showShort("找零金额不能大于现金支付");
+                                return;
+                            }
                         }
                     }
                 }
@@ -515,10 +517,12 @@ public class JiesuanBFragment extends Fragment {
 
     private double getPayTotal() {
         double payTotal = 0.0;
-        for (String name : payModeList.keySet()) {
-            String str = payModeList.get(name).toString();
-            Double value = Double.parseDouble(str);
-            payTotal = CommonUtils.add(payTotal, value);
+        for (Map<String, Double> map : payModeList) {
+            for (String name : map.keySet()) {
+                String str = map.get(name).toString();
+                Double value = Double.parseDouble(str);
+                payTotal = CommonUtils.add(payTotal, value);
+            }
         }
         return payTotal;
     }
@@ -666,20 +670,27 @@ public class JiesuanBFragment extends Fragment {
 
         view.setTag(true);
         view.setBackgroundResource(R.drawable.bg_edittext_focused);
-        payModeList.put(name, 0.00);
+        Map<String, Double> map = new HashMap<>();
+        map.put(name, 0.00);
+        payModeList.add(map);
     }
 
     private void resetPayBg(View view, String name) {
         if (view.getTag() == null) {
             view.setTag(true);
             view.setBackgroundResource(R.drawable.bg_edittext_focused);
-            payModeList.put(name, 0.00);
+            Map<String, Double> map = new HashMap<>();
+            map.put(name, 0.00);
+            payModeList.add(map);
         } else {
             view.setTag(null);
             view.setBackgroundResource(R.drawable.shap_jiesunnot);
-            if (payModeList.containsKey(name)) {
-                payModeList.remove(name);
-                jisuanZhaolingMoney();
+            for (Map map : payModeList) {
+                if (map.containsKey(name)) {
+                    payModeList.remove(map);
+                    jisuanZhaolingMoney();
+                    break;
+                }
             }
         }
         payModeListAdapter.notifyDataSetChanged();
@@ -688,65 +699,67 @@ public class JiesuanBFragment extends Fragment {
     private List<PayType> payWay() {
         List<PayType> typeList = new ArrayList<>();
         for (PayTypeMsg m : paylist) {
-            for (String name : payModeList.keySet()) {
-                PayType p = new PayType();
-                double money = payModeList.get(name);
-                if (TextUtils.equals(name, PayMode.XJZF.getStr())
-                        && m.getSS_Name().equals("现金支付")) {
-                    p.setGID(new String[0]);
-                    p.setPayCode("XJZF");
-                    p.setPayMoney(money);
-                    p.setPayName(m.getSS_Name());
-                    p.setPayPoint(0.00);
-                } else if (TextUtils.equals(name, PayMode.YEZF.getStr())
-                        && m.getSS_Name().equals("余额支付")) {
-                    p.setGID(new String[0]);
-                    p.setPayCode("YEZF");
-                    p.setPayMoney(money);
-                    p.setPayName(m.getSS_Name());
-                    p.setPayPoint(0.00);
-                } else if (TextUtils.equals(name, PayMode.YLZF.getStr())
-                        && m.getSS_Name().equals("银联支付")) {
-                    p.setGID(new String[0]);
-                    p.setPayCode("YLZF");
-                    p.setPayMoney(money);
-                    p.setPayName(m.getSS_Name());
-                    p.setPayPoint(0.00);
-                } else if (TextUtils.equals(name, PayMode.WXJZ.getStr())
-                        && m.getSS_Name().equals("微信记账")) {
-                    p.setGID(new String[0]);
-                    p.setPayCode("WX_JZ");
-                    p.setPayMoney(money);
-                    p.setPayName(m.getSS_Name());
-                    p.setPayPoint(0.00);
-                } else if (TextUtils.equals(name, PayMode.ZFBJZ.getStr())
-                        && m.getSS_Name().equals("支付宝记账")) {
-                    p.setGID(new String[0]);
-                    p.setPayCode("ZFB_JZ");
-                    p.setPayMoney(money);
-                    p.setPayName(m.getSS_Name());
-                    p.setPayPoint(0.00);
-                } else if (TextUtils.equals(name, PayMode.JFZF.getStr())
-                        && m.getSS_Name().equals("积分支付")) {
-                    p.setGID(new String[0]);
-                    p.setPayCode("JFZF");
-                    p.setPayMoney(money);
-                    p.setPayName(m.getSS_Name());
-                    String jifenm = String.valueOf(money);
-                    String jifennumber = CommonUtils.multiply(jifenm, jifendkbfb);
-                    p.setPayPoint(Double.parseDouble(jifennumber));
-                } else if (TextUtils.equals(name, PayMode.QTZF.getStr())
-                        && m.getSS_Name().equals("其他支付")) {
-                    p.setGID(new String[0]);
-                    p.setPayCode("QTZF");
-                    p.setPayMoney(money);
-                    p.setPayName(m.getSS_Name());
-                    p.setPayPoint(0.00);
-                } else {
-                    p = null;
+            for (Map<String, Double> map : payModeList) {
+                for (String name : map.keySet()) {
+                    PayType p = new PayType();
+                    double money = map.get(name);
+                    if (TextUtils.equals(name, PayMode.XJZF.getStr())
+                            && m.getSS_Name().equals("现金支付")) {
+                        p.setGID(new String[0]);
+                        p.setPayCode("XJZF");
+                        p.setPayMoney(money);
+                        p.setPayName(m.getSS_Name());
+                        p.setPayPoint(0.00);
+                    } else if (TextUtils.equals(name, PayMode.YEZF.getStr())
+                            && m.getSS_Name().equals("余额支付")) {
+                        p.setGID(new String[0]);
+                        p.setPayCode("YEZF");
+                        p.setPayMoney(money);
+                        p.setPayName(m.getSS_Name());
+                        p.setPayPoint(0.00);
+                    } else if (TextUtils.equals(name, PayMode.YLZF.getStr())
+                            && m.getSS_Name().equals("银联支付")) {
+                        p.setGID(new String[0]);
+                        p.setPayCode("YLZF");
+                        p.setPayMoney(money);
+                        p.setPayName(m.getSS_Name());
+                        p.setPayPoint(0.00);
+                    } else if (TextUtils.equals(name, PayMode.WXJZ.getStr())
+                            && m.getSS_Name().equals("微信记账")) {
+                        p.setGID(new String[0]);
+                        p.setPayCode("WX_JZ");
+                        p.setPayMoney(money);
+                        p.setPayName(m.getSS_Name());
+                        p.setPayPoint(0.00);
+                    } else if (TextUtils.equals(name, PayMode.ZFBJZ.getStr())
+                            && m.getSS_Name().equals("支付宝记账")) {
+                        p.setGID(new String[0]);
+                        p.setPayCode("ZFB_JZ");
+                        p.setPayMoney(money);
+                        p.setPayName(m.getSS_Name());
+                        p.setPayPoint(0.00);
+                    } else if (TextUtils.equals(name, PayMode.JFZF.getStr())
+                            && m.getSS_Name().equals("积分支付")) {
+                        p.setGID(new String[0]);
+                        p.setPayCode("JFZF");
+                        p.setPayMoney(money);
+                        p.setPayName(m.getSS_Name());
+                        String jifenm = String.valueOf(money);
+                        String jifennumber = CommonUtils.multiply(jifenm, jifendkbfb);
+                        p.setPayPoint(Double.parseDouble(jifennumber));
+                    } else if (TextUtils.equals(name, PayMode.QTZF.getStr())
+                            && m.getSS_Name().equals("其他支付")) {
+                        p.setGID(new String[0]);
+                        p.setPayCode("QTZF");
+                        p.setPayMoney(money);
+                        p.setPayName(m.getSS_Name());
+                        p.setPayPoint(0.00);
+                    } else {
+                        p = null;
+                    }
+                    if (p != null)
+                        typeList.add(p);
                 }
-                if (p != null)
-                    typeList.add(p);
             }
 
             PayType p = new PayType();
@@ -841,10 +854,10 @@ public class JiesuanBFragment extends Fragment {
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             MyHolder myHolder = (MyHolder) holder;
             numKeyboardUtils.addEditView(myHolder.etValue);
-
-            for (String name : payModeList.keySet()) {
+            Map<String, Double> map = payModeList.get(position);
+            for (String name : map.keySet()) {
                 myHolder.tvPayName.setText(name);
-                myHolder.etValue.setText(payModeList.get(name) + "");
+                myHolder.etValue.setText(map.get(name) + "");
             }
             myHolder.etValue.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -895,8 +908,12 @@ public class JiesuanBFragment extends Fragment {
                         }
 
                     }
-                    payModeList.put(name, value);
-                    jisuanZhaolingMoney();
+                    for (String n : map.keySet()) {
+                        if (TextUtils.equals(n, name)) {
+                            map.put(name, value);
+                            jisuanZhaolingMoney();
+                        }
+                    }
                 }
             });
         }
