@@ -158,7 +158,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     private String order;
     private ArrayList<PayTypeMsg> paytypelist = new ArrayList<>();
     private PayTypeMsg moren;
-    private String allmoney;
+    private String allmoney, totalMoney;
     private double mPoint;//积分
     private long firstTime = 0;
     private String jifendkbfb = "0", jinfenzfxzbfb = "0";
@@ -577,36 +577,17 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             switch (p.getSS_Name()) {
                 case "默认支付":
                     moren = p;
-//                    paytypelist.add(p);
                     break;
                 case "现金支付":
-                    paytypelist.add(p);
-                    break;
                 case "余额支付":
-                    paytypelist.add(p);
-                    break;
                 case "银联支付":
-                    paytypelist.add(p);
-                    break;
                 case "微信记账":
-                    paytypelist.add(p);
-                    break;
                 case "支付宝记账":
-                    paytypelist.add(p);
-                    break;
                 case "优惠券":
-                    paytypelist.add(p);
-                    break;
                 case "积分支付":
-                    paytypelist.add(p);
                     jifendkbfb = p.getSS_Value();
-                    break;
                 case "扫码支付":
-                    paytypelist.add(p);
-                    break;
                 case "其他支付":
-                    paytypelist.add(p);
-                    break;
                 case "积分支付限制":
                     paytypelist.add(p);
                     jinfenzfxzbfb = p.getSS_Value();
@@ -633,111 +614,74 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 mChangeSubtotal = p.getSS_State();
             }
         }
-
-    }
-
-    private void setMorenPay(PayTypeMsg msg) {
-        switch (msg.getSS_Value()) {
-            case "XJZF":
-
-                break;
-            case "YEZF":
-                break;
-            case "YLZF":
-                break;
-            case "WXJZ":
-                break;
-            case "ZFBJZ":
-                break;
-            case "YHQ":
-                break;
-            case "JFZF":
-                break;
-            case "SMZF":
-                break;
-            case "QTZF":
-                break;
-        }
     }
 
     public void jisuanAllPrice() {
-        if (mVipDengjiMsg != null) {
+        double allprice = 0;
+        double totalPrice = 0;
+        double onepoint = 0;
+        double num = 0;
+        for (ShopMsg shopMsg : mShopLeftList) {
             //商品积分计算
-            for (int k = 0; k < mShopLeftList.size(); k++) {
-                if (mShopLeftList.get(k).getPM_IsPoint() == 0 || mShopLeftList.get(k).getPM_IsPoint() == 3) {//0没有设置积分规则，3本商品不计分
-                    mShopLeftList.get(k).setEachPoint(0);
-                } else if (mShopLeftList.get(k).getPM_IsPoint() == 2) {//本商品按固定积分
-                    mShopLeftList.get(k).setEachPoint(mShopLeftList.get(k).getPM_FixedIntegralValue());
-                } else if (mShopLeftList.get(k).getPM_IsPoint() == 1) {//本商品按等级积分
+            if (mVipDengjiMsg != null) {
+                if (shopMsg.getPM_IsPoint() == 0 || shopMsg.getPM_IsPoint() == 3) {//0没有设置积分规则，3本商品不计分
+                    shopMsg.setEachPoint(0);
+                } else if (shopMsg.getPM_IsPoint() == 2) {//本商品按固定积分
+                    shopMsg.setEachPoint(shopMsg.getPM_FixedIntegralValue());
+                } else if (shopMsg.getPM_IsPoint() == 1) {//本商品按等级积分
                     if (mVipDengjiMsg.getData().get(0).getVG_IsIntegral() == 0) {//会员等级积分开关没有有打开
-                        mShopLeftList.get(k).setEachPoint(0);
+                        shopMsg.setEachPoint(0);
                     } else if (mVipDengjiMsg.getData().get(0).getVG_IsIntegral() == 1) {
                         for (int m = 0; m < mVipDengjiMsg.getData().get(0).getVGInfo().size(); m++) {//所选商品种类的数量，不等于所选商品数量；
-//                                            for (int n = 0; n < mShopLeftList.size(); n++) {
-                            if (mVipDengjiMsg.getData().get(0).getVGInfo().get(m).getPT_GID().equals(mShopLeftList.get(k).getPT_ID())) {
+                            if (mVipDengjiMsg.getData().get(0).getVGInfo().get(m).getPT_GID().equals(shopMsg.getPT_ID())) {
                                 double bl = mVipDengjiMsg.getData().get(0).getVGInfo().get(m).getVS_CMoney();
                                 if (bl != 0) {
-                                    if (mShopLeftList.get(k).getPM_MemPrice() != null) {
-                                        double memprice = Double.parseDouble(mShopLeftList.get(k).getPM_MemPrice());
-                                        if (memprice < mShopLeftList.get(k).getJisuanPrice() * mShopLeftList.get(k).getPD_Discount()) {
-//                                                            double fb = YSLUtils.siOutFiveIn(memprice / bl);
+                                    if (shopMsg.getPM_MemPrice() != null) {
+                                        double memprice = Double.parseDouble(shopMsg.getPM_MemPrice());
+                                        if (memprice < shopMsg.getJisuanPrice() * shopMsg.getPD_Discount()) {
                                             double fb = memprice / bl;
-                                            mShopLeftList.get(k).setEachPoint(fb);
+                                            shopMsg.setEachPoint(fb);
                                         } else {
-                                            double fb = mShopLeftList.get(k).getJisuanPrice() * mShopLeftList.get(k).getPD_Discount() / bl;
-                                            mShopLeftList.get(k).setEachPoint(fb);
+                                            double fb = shopMsg.getJisuanPrice() * shopMsg.getPD_Discount() / bl;
+                                            shopMsg.setEachPoint(fb);
                                         }
                                     } else {
-                                        double fb = mShopLeftList.get(k).getJisuanPrice() * mShopLeftList.get(k).getPD_Discount() / bl;
-                                        mShopLeftList.get(k).setEachPoint(fb);
+                                        double fb = shopMsg.getJisuanPrice() * shopMsg.getPD_Discount() / bl;
+                                        shopMsg.setEachPoint(fb);
                                     }
                                 }
                             }
-//                                            }
                         }
                     }
                 }
             }
-        }
 
-//        goodOrdeLists.clear();
-        double allprice = 0;
-        double onepoint = 0;
-        double num = 0;
-        for (int i = 0; i < mShopLeftList.size(); i++) {
-            ShopMsg ts = mShopLeftList.get(i);
-            double xiaoji = Double.parseDouble(CommonUtils.multiply(CommonUtils.multiply
-                    (NullUtils.noNullHandle(ts.getJisuanPrice()).toString(), ts.getNum() + ""), ts.getPD_Discount() + ""));
-            allprice = allprice + xiaoji;
-            onepoint += mShopLeftList.get(i).getEachPoint() * mShopLeftList.get(i).getNum();
-            num += mShopLeftList.get(i).getNum();
+            allprice += shopMsg.getAllprice();
+            totalPrice += shopMsg.getTotalPrice();
+            onepoint += shopMsg.getEachPoint() * shopMsg.getNum();
+            num += shopMsg.getNum();
 
             int type = 0;
-            switch (NullUtils.noNullHandle(ts.getPM_IsService()).toString()) {
+            switch (NullUtils.noNullHandle(shopMsg.getPM_IsService()).toString()) {
                 case "0":
-                    type = 0;
-                    break;
                 case "1":
-                    type = 0;
-                    break;
                 case "2":
                     type = 0;
                     break;
                 case "3":
-                    type = 1;
-                    break;
                 case "4":
                     type = 1;
                     break;
             }
-            mShopLeftList.get(i).setType(type);
-            mShopLeftList.get(i).setAllprice(xiaoji);
+            shopMsg.setType(type);
         }
+
         if (!PreferenceHelper.readBoolean(ac, "yunshangpu", "vip", false)) {
             mPoint = 0;
         }
         mPoint = Double.parseDouble(StringUtil.twoNum(onepoint + ""));
         allmoney = StringUtil.twoNum(allprice + "");
+        totalMoney = StringUtil.twoNum(totalPrice + "");
         mTvHeji.setText(allmoney);
         tvNumTotal.setText(num + "");
         if (num != 0) {
@@ -783,42 +727,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 @Override
                 public void onResponse(Object response) {
                     List<ShopMsg> sllist = (List<ShopMsg>) response;
-                    /*if (sllist.size() == 1) {
-                        double num = 0;
-                        int pos = 0;
-
-                        for (int j = 0; j < mShopLeftList.size(); j++) {
-                            if (sllist.get(0).getGID().equals(mShopLeftList.get(j).getGID()) && !mShopLeftList.get(j).isIsgive()) {
-                                num = mShopLeftList.get(j).getNum();
-                                pos = j;
-                            }
-                        }
-
-                        sllist.get(0).setNum(num + finalAddnum);
-                        if (num == 0) {
-                            sllist.get(0).setCheck(false);
-                            mShopLeftList.add(0, sllist.get(0));
-                            if (leftpos != -1) {
-                                leftpos += 1;
-                            }
-                            jisuanShopjisuanPrice(mPD_Discount, mShopLeftList);
-
-                            updateBttGetOrder();
-                        } else {
-                            mShopLeftList.get(pos).setNum(num + finalAddnum);
-                            jisuanAllPrice();
-                        }
-                        for (int i = 0; i < mShopLeftList.size(); i++) {
-                            if (sllist.get(0).getGID().equals(mShopLeftList.get(i).getGID()) && !mShopLeftList.get(i).isIsgive()) {
-                                mShopLeftList.get(i).setCheck(true);
-                                leftpos = i;
-                            } else {
-                                mShopLeftList.get(i).setCheck(false);
-                            }
-                        }
-                        mShopLeftAdapter.notifyDataSetChanged();
-
-                    } else {*/
                     if (ModelList != null) {
                         //初始化
                         for (int i = 0; i < ModelList.size(); i++) {
@@ -896,7 +804,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                     if (leftpos != -1) {
                                         leftpos += 1;
                                     }
-                                    jisuanShopjisuanPrice(mPD_Discount, mShopLeftList);
+                                    jisuanShopPrice(mPD_Discount);
 
                                     updateBttGetOrder();
                                 } else {
@@ -922,11 +830,9 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                         });
 
                     } else {
-//                                    ToastUtils.showToast(ac, "没有获取到规格列表，请稍后再尝试");
                         com.blankj.utilcode.util.ToastUtils.showShort("没有获取到规格列表，请稍后再尝试");
                         getproductmodel();
                     }
-//                    }
                 }
 
                 @Override
@@ -951,7 +857,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 if (leftpos != -1) {
                     leftpos += 1;
                 }
-                jisuanShopjisuanPrice(mPD_Discount, mShopLeftList);
+                jisuanShopPrice(mPD_Discount);
 
                 updateBttGetOrder();
             } else {
@@ -1242,7 +1148,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             fragmentManager.beginTransaction().add(R.id.fragment_content, jiesuanBFragment).commit();
         } else
             fragmentManager.beginTransaction().show(jiesuanBFragment).commit();
-        jiesuanBFragment.setData(allmoney, mVipMsg, mVipDengjiMsg == null ? null : mVipDengjiMsg.getData().get(0),
+        jiesuanBFragment.setData(totalMoney, allmoney, mVipMsg, mVipDengjiMsg == null ? null : mVipDengjiMsg.getData().get(0),
                 dkmoney + "", jso.getGID(), jso.getCO_Type(), jso.getCO_OrderCode(),
                 mShopLeftList, moren, paytypelist, orderType, new InterfaceBack() {
                     @Override
@@ -1366,7 +1272,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                             public void onResponse(Object response) {
                                 mVipDengjiMsg = (VipDengjiMsg) response;
                                 mPD_Discount = obtainVipPD_Discount(mVipMsg.getVG_GID(), mVipDengjiMsg.getData().get(0).getVGInfo());
-                                jisuanShopjisuanPrice(mPD_Discount, mShopLeftList);
+                                jisuanShopPrice(mPD_Discount);
                             }
 
                             @Override
@@ -1438,7 +1344,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 PreferenceHelper.write(ac, "yunshangpu", "vip", true);
 
 //                mPD_Discount = obtainVipPD_Discount(mVipDengjiMsg.getData().get(0).getVG_GID(), mVipDengjiMsg.getData().get(0).getVGInfo());
-//                jisuanShopjisuanPrice(mPD_Discount, mShopLeftList);
+//                jisuanShopPrice(mPD_Discount, mShopLeftList);
             }
 
             @Override
@@ -1446,12 +1352,10 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
             }
         });
-
     }
 
     private void initGetOrder(RevokeGuaDanBean guadanDetail) {
         mShopLeftList.clear();
-
         for (RevokeGuaDanBean.DataBean.ViewGoodsDetailBean msg : guadanDetail.getData().getViewGoodsDetail()) {
             if (msg.getGOD_Type() != 11) {
                 ShopMsg newmsg = new ShopMsg();
@@ -1481,11 +1385,9 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     newmsg.setEM_GIDList(eMlist);
                     newmsg.setEM_NameList(msg.getGOD_EMName());
                 }
-
                 mShopLeftList.add(newmsg);
                 updateBttGetOrder();
             }
-
         }
     }
 
@@ -1500,114 +1402,82 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         }
     }
 
-    private void jisuanShopjisuanPrice(int pd_discount, List<ShopMsg> leftlist) {
+    private void jisuanShopPrice(int pd_discount) {
         boolean isVip = PreferenceHelper.readBoolean(ac, "yunshangpu", "vip", false);
-        for (int i = 0; i < leftlist.size(); i++) {
-            if (!leftlist.get(i).isIschanged()) {
-                ShopMsg ts = leftlist.get(i);
+        for (ShopMsg ts : mShopLeftList) {
+            if (!ts.isIschanged()) {
                 if (NullUtils.noNullHandle(ts.getPM_IsDiscount()).toString().equals("1")) {
-                    if (ts.getPM_SpecialOfferMoney() != -1) {
-                        mShopLeftList.get(i).setPD_Discount(ts.getPM_SpecialOfferMoney() / ts.getPM_UnitPrice());
-//                        PD_Discount = ts.getPM_SpecialOfferValue();
-                        mShopLeftList.get(i).setHasvipDiscount(false);
-                        mShopLeftList.get(i).setJisuanPrice(ts.getPM_UnitPrice());
-
-                    } else if (!NullUtils.noNullHandle(ts.getPM_SpecialOfferValue()).toString().equals("0.0")) {
+                    //有特价折扣
+                    if (ts.getPM_SpecialOfferMoney() != -1) { // 特价金额值
+                        ts.setPD_Discount(ts.getPM_SpecialOfferMoney() / ts.getPM_UnitPrice());
+                        ts.setHasvipDiscount(false);
+                        ts.setJisuanPrice(ts.getPM_UnitPrice());
+                    } else if (!NullUtils.noNullHandle(ts.getPM_SpecialOfferValue()).toString().equals("0.0")) { // 特价折扣开关的值
                         //有特价折扣
-                        if (NullUtils.noNullHandle(ts.getPM_MinDisCountValue()).toString().equals("0.0")) {
-                            //无最低折扣
-                            mShopLeftList.get(i).setPD_Discount(ts.getPM_SpecialOfferValue());
-//                        PD_Discount = ts.getPM_SpecialOfferValue();
-                            mShopLeftList.get(i).setHasvipDiscount(false);
-                            mShopLeftList.get(i).setJisuanPrice(ts.getPM_UnitPrice());
+                        // 如果特价折扣 > 最低折扣 按特价折扣算，否者按最低折扣算
+                        if (ts.getPM_SpecialOfferValue() > ts.getPM_MinDisCountValue()) {
+                            ts.setPD_Discount(ts.getPM_SpecialOfferValue());
+                            ts.setHasvipDiscount(false);
+                            ts.setJisuanPrice(ts.getPM_UnitPrice());
                         } else {
-                            //有最低折扣
-                            if (ts.getPM_SpecialOfferValue() > ts.getPM_MinDisCountValue()) {
-                                mShopLeftList.get(i).setPD_Discount(ts.getPM_SpecialOfferValue());
-//                            PD_Discount = ts.getPM_SpecialOfferValue();
-                                mShopLeftList.get(i).setHasvipDiscount(false);
-                                mShopLeftList.get(i).setJisuanPrice(ts.getPM_UnitPrice());
-                            } else {
-                                mShopLeftList.get(i).setPD_Discount(ts.getPM_MinDisCountValue());
-//                            PD_Discount = ts.getPM_SpecialOfferValue();
-                                mShopLeftList.get(i).setHasvipDiscount(false);
-                                mShopLeftList.get(i).setJisuanPrice(ts.getPM_UnitPrice());
-                            }
+                            ts.setPD_Discount(ts.getPM_MinDisCountValue());
+                            ts.setHasvipDiscount(false);
+                            ts.setJisuanPrice(ts.getPM_UnitPrice());
                         }
                     } else {
                         //无特价折扣
                         if (isVip) {
                             if (ts.getPM_MemPrice() != null) {
                                 //有会员价
-//                            PD_Discount = CommonUtils.div(ts.getPM_MemPrice(),ts.getPM_UnitPrice(),2);
-                                mShopLeftList.get(i).setPD_Discount(1);
-                                mShopLeftList.get(i).setHasvipDiscount(true);
-                                mShopLeftList.get(i).setJisuanPrice(Double.parseDouble(ts.getPM_MemPrice()));
-                            } else {
+                                ts.setPD_Discount(1);
+                                ts.setHasvipDiscount(true);
+                                ts.setJisuanPrice(Double.parseDouble(ts.getPM_MemPrice()));
+                            } else if (pd_discount > 0) {
                                 //无会员价
-                                if (pd_discount > 0) {
-                                    //有等级折扣
-                                    if (NullUtils.noNullHandle(ts.getPM_MinDisCountValue()).toString().equals("0.0")) {
-                                        //无最低折扣
-//                                    PD_Discount = CommonUtils.div(pd_discount,100,2);
-                                        mShopLeftList.get(i).setHasvipDiscount(true);
-                                        mShopLeftList.get(i).setPD_Discount(CommonUtils.div(pd_discount, 100, 2));
-                                        mShopLeftList.get(i).setJisuanPrice(ts.getPM_UnitPrice());
-                                    } else {
-                                        //有最低折扣
-                                        if (CommonUtils.div(pd_discount, 100, 2) > ts.getPM_MinDisCountValue()) {
-//                                        PD_Discount = CommonUtils.div(pd_discount,100,2);
-                                            mShopLeftList.get(i).setPD_Discount(CommonUtils.div(pd_discount, 100, 2));
-                                            mShopLeftList.get(i).setHasvipDiscount(true);
-                                            mShopLeftList.get(i).setJisuanPrice(ts.getPM_UnitPrice());
-                                        } else {
-//                                        PD_Discount = ts.getPM_MinDisCountValue();
-                                            mShopLeftList.get(i).setHasvipDiscount(true);
-                                            mShopLeftList.get(i).setPD_Discount(ts.getPM_MinDisCountValue());
-                                            mShopLeftList.get(i).setJisuanPrice(ts.getPM_UnitPrice());
-                                        }
-                                    }
-
+                                // 如果等级折扣 > 最低折扣 按等级折扣算，否者按最低折扣算
+                                if (CommonUtils.div(pd_discount, 100, 2) > ts.getPM_MinDisCountValue()) {
+                                    ts.setPD_Discount(CommonUtils.div(pd_discount, 100, 2));
+                                    ts.setHasvipDiscount(true);
+                                    ts.setJisuanPrice(ts.getPM_UnitPrice());
                                 } else {
-//                                PD_Discount = 1;
-                                    mShopLeftList.get(i).setPD_Discount(1);
-                                    mShopLeftList.get(i).setHasvipDiscount(false);
-                                    mShopLeftList.get(i).setJisuanPrice(ts.getPM_UnitPrice());
+                                    ts.setPD_Discount(ts.getPM_MinDisCountValue());
+                                    ts.setHasvipDiscount(true);
+                                    ts.setJisuanPrice(ts.getPM_UnitPrice());
                                 }
+                            } else {
+                                ts.setPD_Discount(1);
+                                ts.setHasvipDiscount(false);
+                                ts.setJisuanPrice(ts.getPM_UnitPrice());
                             }
                         } else {
-//                        PD_Discount = 1;
-                            mShopLeftList.get(i).setPD_Discount(1);
-                            mShopLeftList.get(i).setHasvipDiscount(false);
-                            mShopLeftList.get(i).setJisuanPrice(ts.getPM_UnitPrice());
+                            ts.setPD_Discount(1);
+                            ts.setHasvipDiscount(false);
+                            ts.setJisuanPrice(ts.getPM_UnitPrice());
                         }
                     }
-                } else {
+                } else { // 会员折扣
                     //没有开启折扣开关
-                    if (isVip) {
-                        if (!NullUtils.noNullHandle(ts.getPM_MemPrice()).toString().equals("")) {
-                            //有会员价
-                            mShopLeftList.get(i).setPD_Discount(1);
-                            mShopLeftList.get(i).setHasvipDiscount(true);
-                            mShopLeftList.get(i).setJisuanPrice(Double.parseDouble(ts.getPM_MemPrice()));
-                        } else {
-                            mShopLeftList.get(i).setPD_Discount(1);
-                            mShopLeftList.get(i).setHasvipDiscount(false);
-                            mShopLeftList.get(i).setJisuanPrice(ts.getPM_UnitPrice());
-                        }
+                    if (isVip && !NullUtils.noNullHandle(ts.getPM_MemPrice()).toString().equals("")) {
+                        //有会员价
+                        ts.setPD_Discount(1);
+                        ts.setHasvipDiscount(true);
+                        ts.setJisuanPrice(Double.parseDouble(ts.getPM_MemPrice()));
                     } else {
-                        mShopLeftList.get(i).setPD_Discount(1);
-                        mShopLeftList.get(i).setHasvipDiscount(false);
-                        mShopLeftList.get(i).setJisuanPrice(ts.getPM_UnitPrice());
+                        ts.setPD_Discount(1);
+                        ts.setHasvipDiscount(false);
+                        ts.setJisuanPrice(ts.getPM_UnitPrice());
                     }
                 }
-                if (NullUtils.noNullHandle(ts.getPM_MemPrice()).toString().equals("0.0")) {
-                    mShopLeftList.get(i).setPM_MemPrice(ts.getPM_UnitPrice() + "");
-                }
-                double xiaoji = Double.parseDouble(CommonUtils.multiply(CommonUtils.multiply(ts.getJisuanPrice() + "", ts.getNum() + ""), ts.getPD_Discount() + ""));
-                mShopLeftList.get(i).setAllprice(xiaoji);
-            }
 
+                if (NullUtils.noNullHandle(ts.getPM_MemPrice()).toString().equals("0.0")) {
+                    ts.setPM_MemPrice(ts.getPM_UnitPrice() + "");
+                }
+                double allprice = Double.parseDouble(CommonUtils.multiply(CommonUtils.multiply(ts.getJisuanPrice() + "", ts.getNum() + ""), ts.getPD_Discount() + ""));
+                ts.setAllprice(allprice);
+
+                double totalPrice = Double.parseDouble(CommonUtils.multiply(ts.getPM_UnitPrice() + "", ts.getNum() + ""));
+                ts.setTotalPrice(totalPrice);
+            }
         }
 
         jisuanAllPrice();
@@ -1809,6 +1679,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         tvShoukuan.setTag(0);
         ((TextView) tvShoukuan.getChildAt(0)).setText("快速收银[Enter]");
         tvNumTotal.setText("0");
+        updateBttGetOrder();
 
         if (editCashierGoodsFragment != null)
             fragmentManager.beginTransaction().hide(editCashierGoodsFragment).commit();

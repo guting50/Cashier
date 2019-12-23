@@ -63,9 +63,9 @@ public class ImpOrderPay {
         System.out.println("============================DisMoney===" + orderPayResult.getDisMoney());
 
         params.put("PayResult[CC_GID]", "");
-        params.put("PayResult[EraseOdd]", 0);
-        params.put("PayResult[IsPrint]", false);
-        params.put("PayResult[IsSms]", false);
+        params.put("PayResult[EraseOdd]", orderPayResult.getMolingMoney());
+        params.put("PayResult[IsPrint]", orderPayResult.isPrint());
+        params.put("PayResult[IsSms]", shortMessage);
 
         String url = HttpAPI.API().GOODS_CONSUME_PAY;
         switch (orderType) {

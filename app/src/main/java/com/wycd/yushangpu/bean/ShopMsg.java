@@ -42,6 +42,7 @@ public class ShopMsg implements Serializable, Parcelable {
     private double num;
     private int chosePosion;
     private double allprice;//折后总价
+    private double totalPrice;//原价总价
     private double PD_Discount; //会员等级折扣
     private double jisuanPrice;//折后单价
     private double EachPoint;//每个商品积分
@@ -84,7 +85,6 @@ public class ShopMsg implements Serializable, Parcelable {
     }
 
 
-
     public boolean isHasvipDiscount() {
         return hasvipDiscount;
     }
@@ -93,7 +93,13 @@ public class ShopMsg implements Serializable, Parcelable {
         this.hasvipDiscount = hasvipDiscount;
     }
 
+    public double getTotalPrice() {
+        return totalPrice;
+    }
 
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
     public boolean isCheck() {
         return isCheck;
@@ -392,6 +398,58 @@ public class ShopMsg implements Serializable, Parcelable {
         this.SP_GID = SP_GID;
     }
 
+    public ShopMsg() {
+    }
+
+    @Override
+    public String toString() {
+        return "ShopMsg{" +
+                "PM_GroupGID='" + PM_GroupGID + '\'' +
+                ", GroupCount='" + GroupCount + '\'' +
+                ", GID='" + GID + '\'' +
+                ", PT_ID='" + PT_ID + '\'' +
+                ", SM_ID='" + SM_ID + '\'' +
+                ", PT_Name='" + PT_Name + '\'' +
+                ", PM_Code='" + PM_Code + '\'' +
+                ", PM_Name='" + PM_Name + '\'' +
+                ", PM_SimpleCode='" + PM_SimpleCode + '\'' +
+                ", PM_Metering='" + PM_Metering + '\'' +
+                ", PM_UnitPrice=" + PM_UnitPrice +
+                ", PM_BigImg='" + PM_BigImg + '\'' +
+                ", PM_SmallImg='" + PM_SmallImg + '\'' +
+                ", PM_Description='" + PM_Description + '\'' +
+                ", PM_Modle='" + PM_Modle + '\'' +
+                ", PM_Brand='" + PM_Brand + '\'' +
+                ", PM_Repertory=" + PM_Repertory +
+                ", Stock_Number=" + Stock_Number +
+                ", currtStock_Number=" + currtStock_Number +
+                ", PM_PurchasePrice=" + PM_PurchasePrice +
+                ", PM_MemPrice='" + PM_MemPrice + '\'' +
+                ", PM_IsDiscount=" + PM_IsDiscount +
+                ", PM_IsPoint=" + PM_IsPoint +
+                ", PM_IsService=" + PM_IsService +
+                ", SP_GID='" + SP_GID + '\'' +
+                ", PM_SpecialOfferMoney=" + PM_SpecialOfferMoney +
+                ", PM_SpecialOfferValue=" + PM_SpecialOfferValue +
+                ", PM_MinDisCountValue=" + PM_MinDisCountValue +
+                ", PM_FixedIntegralValue=" + PM_FixedIntegralValue +
+                ", EM_GIDList=" + EM_GIDList +
+                ", EM_NameList='" + EM_NameList + '\'' +
+                ", num=" + num +
+                ", chosePosion=" + chosePosion +
+                ", allprice=" + allprice +
+                ", totalPrice=" + totalPrice +
+                ", PD_Discount=" + PD_Discount +
+                ", jisuanPrice=" + jisuanPrice +
+                ", EachPoint=" + EachPoint +
+                ", isCheck=" + isCheck +
+                ", hasvipDiscount=" + hasvipDiscount +
+                ", isgive=" + isgive +
+                ", Type=" + Type +
+                ", ischanged=" + ischanged +
+                '}';
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -433,6 +491,7 @@ public class ShopMsg implements Serializable, Parcelable {
         dest.writeDouble(this.num);
         dest.writeInt(this.chosePosion);
         dest.writeDouble(this.allprice);
+        dest.writeDouble(this.totalPrice);
         dest.writeDouble(this.PD_Discount);
         dest.writeDouble(this.jisuanPrice);
         dest.writeDouble(this.EachPoint);
@@ -441,9 +500,6 @@ public class ShopMsg implements Serializable, Parcelable {
         dest.writeByte(this.isgive ? (byte) 1 : (byte) 0);
         dest.writeInt(this.Type);
         dest.writeByte(this.ischanged ? (byte) 1 : (byte) 0);
-    }
-
-    public ShopMsg() {
     }
 
     protected ShopMsg(Parcel in) {
@@ -481,6 +537,7 @@ public class ShopMsg implements Serializable, Parcelable {
         this.num = in.readDouble();
         this.chosePosion = in.readInt();
         this.allprice = in.readDouble();
+        this.totalPrice = in.readDouble();
         this.PD_Discount = in.readDouble();
         this.jisuanPrice = in.readDouble();
         this.EachPoint = in.readDouble();
@@ -491,7 +548,7 @@ public class ShopMsg implements Serializable, Parcelable {
         this.ischanged = in.readByte() != 0;
     }
 
-    public static final Parcelable.Creator<ShopMsg> CREATOR = new Parcelable.Creator<ShopMsg>() {
+    public static final Creator<ShopMsg> CREATOR = new Creator<ShopMsg>() {
         @Override
         public ShopMsg createFromParcel(Parcel source) {
             return new ShopMsg(source);
@@ -502,52 +559,4 @@ public class ShopMsg implements Serializable, Parcelable {
             return new ShopMsg[size];
         }
     };
-
-    @Override
-    public String toString() {
-        return "ShopMsg{" +
-                "PM_GroupGID='" + PM_GroupGID + '\'' +
-                ", GroupCount='" + GroupCount + '\'' +
-                ", GID='" + GID + '\'' +
-                ", PT_ID='" + PT_ID + '\'' +
-                ", SM_ID='" + SM_ID + '\'' +
-                ", PT_Name='" + PT_Name + '\'' +
-                ", PM_Code='" + PM_Code + '\'' +
-                ", PM_Name='" + PM_Name + '\'' +
-                ", PM_SimpleCode='" + PM_SimpleCode + '\'' +
-                ", PM_Metering='" + PM_Metering + '\'' +
-                ", PM_UnitPrice=" + PM_UnitPrice +
-                ", PM_BigImg='" + PM_BigImg + '\'' +
-                ", PM_SmallImg='" + PM_SmallImg + '\'' +
-                ", PM_Description='" + PM_Description + '\'' +
-                ", PM_Modle='" + PM_Modle + '\'' +
-                ", PM_Brand='" + PM_Brand + '\'' +
-                ", PM_Repertory=" + PM_Repertory +
-                ", Stock_Number=" + Stock_Number +
-                ", currtStock_Number=" + currtStock_Number +
-                ", PM_PurchasePrice=" + PM_PurchasePrice +
-                ", PM_MemPrice='" + PM_MemPrice + '\'' +
-                ", PM_IsDiscount=" + PM_IsDiscount +
-                ", PM_IsPoint=" + PM_IsPoint +
-                ", PM_IsService=" + PM_IsService +
-                ", SP_GID='" + SP_GID + '\'' +
-                ", PM_SpecialOfferMoney=" + PM_SpecialOfferMoney +
-                ", PM_SpecialOfferValue=" + PM_SpecialOfferValue +
-                ", PM_MinDisCountValue=" + PM_MinDisCountValue +
-                ", PM_FixedIntegralValue=" + PM_FixedIntegralValue +
-                ", EM_GIDList=" + EM_GIDList +
-                ", EM_NameList='" + EM_NameList + '\'' +
-                ", num=" + num +
-                ", chosePosion=" + chosePosion +
-                ", allprice=" + allprice +
-                ", PD_Discount=" + PD_Discount +
-                ", jisuanPrice=" + jisuanPrice +
-                ", EachPoint=" + EachPoint +
-                ", isCheck=" + isCheck +
-                ", hasvipDiscount=" + hasvipDiscount +
-                ", isgive=" + isgive +
-                ", Type=" + Type +
-                ", ischanged=" + ischanged +
-                '}';
-    }
 }

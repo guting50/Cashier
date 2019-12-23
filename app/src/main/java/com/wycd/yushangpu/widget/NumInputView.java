@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wycd.yushangpu.R;
+import com.wycd.yushangpu.tools.StringUtil;
 
 import java.lang.reflect.Field;
 import java.util.Timer;
@@ -133,7 +134,11 @@ public class NumInputView extends RelativeLayout {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                if (!StringUtil.isTwoPoint(s.toString())) {
+                    com.blankj.utilcode.util.ToastUtils.showShort("只能输入两位小数");
+                    s = s.toString().substring(0, s.toString().length() - 1);
+                    setText(s.toString());
+                }
             }
 
             @Override

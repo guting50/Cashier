@@ -147,7 +147,7 @@ public class QudanFragment extends Fragment {
         } else
             homeActivity.getSupportFragmentManager().beginTransaction().show(homeActivity.jiesuanBFragment).commit();
 
-        homeActivity.jiesuanBFragment.setData(guadanList.getCO_TotalPrice(), mVipMsg, mVipMsg,
+        homeActivity.jiesuanBFragment.setData(guadanList.getCO_TotalPrice(), guadanList.getCO_TotalPrice(), mVipMsg, mVipMsg,
                 dkmoney + "", guadanList.getGID(), guadanList.getCO_Type(), guadanList.getCO_OrderCode(),
                 mShopLeftList, moren, paytypelist, JiesuanBFragment.OrderType.GUAZHANG_ORDER, new InterfaceBack() {
                     @Override
