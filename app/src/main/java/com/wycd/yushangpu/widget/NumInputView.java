@@ -28,6 +28,7 @@ import androidx.annotation.Nullable;
 
 public class NumInputView extends RelativeLayout {
 
+    private View rootView;
     private EditText editText;
     private TextView editTextHint;
     private View textCursor;
@@ -77,11 +78,11 @@ public class NumInputView extends RelativeLayout {
 
     private void init(AttributeSet attrs) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.item_edit_layout, this, true);
+        rootView = inflater.inflate(R.layout.item_edit_layout, this, true);
 
-        editText = (EditText) view.findViewById(R.id.edit_text);
-        editTextHint = (TextView) view.findViewById(R.id.edit_text_hint);
-        textCursor = (View) view.findViewById(R.id.edit_text_cursor);
+        editText = (EditText) rootView.findViewById(R.id.edit_text);
+        editTextHint = (TextView) rootView.findViewById(R.id.edit_text_hint);
+        textCursor = (View) rootView.findViewById(R.id.edit_text_cursor);
 
         TypedArray array = getTypedArray(attrs, "TextView");
         CharSequence text = array.getText(getStyleId("TextView_text"));
@@ -160,7 +161,7 @@ public class NumInputView extends RelativeLayout {
         });
 
         editText.setOnTouchListener(touchListener);
-        view.setOnTouchListener(touchListener);
+        rootView.setOnTouchListener(touchListener);
     }
 
     OnTouchListener touchListener = new OnTouchListener() {
@@ -197,12 +198,15 @@ public class NumInputView extends RelativeLayout {
     Timer timer;
 
     public void showCursor(boolean isShow) {
+        textCursor.setVisibility(INVISIBLE);
+        rootView.setBackgroundResource(R.drawable.bg_edittext_normal);
         if (timer != null) {
             timer.cancel();
             timer = null;
         }
         if (isShow) {
             textCursor.setVisibility(VISIBLE);
+            rootView.setBackgroundResource(R.drawable.lab_selected);
             timer = new Timer();
             timer.schedule(new TimerTask() {
                 @Override
@@ -219,10 +223,7 @@ public class NumInputView extends RelativeLayout {
                     });
                 }
             }, 500, 500);
-        } else {
-            textCursor.setVisibility(INVISIBLE);
         }
-
     }
 
     public boolean isSelectAll() {

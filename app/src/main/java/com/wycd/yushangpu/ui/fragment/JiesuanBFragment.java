@@ -254,6 +254,7 @@ public class JiesuanBFragment extends Fragment {
 
         setMorenPay(moren);
         setPay(paylist);
+        jisuanZhaolingMoney();
     }
 
     @OnClick({R.id.jiesuan_layout,
@@ -680,7 +681,7 @@ public class JiesuanBFragment extends Fragment {
             view.setTag(true);
             view.setBackgroundResource(R.drawable.bg_edittext_focused);
             Map<String, Double> map = new HashMap<>();
-            map.put(name, 0.00);
+            map.put(name, 0.0);
             payModeList.add(map);
         } else {
             view.setTag(null);
@@ -860,9 +861,11 @@ public class JiesuanBFragment extends Fragment {
                 myHolder.etValue.setText(map.get(name) + "");
             }
             myHolder.etValue.addTextChangedListener(new TextWatcher() {
+                CharSequence chat;
+
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                    this.chat = s;
                 }
 
                 @Override
@@ -872,46 +875,47 @@ public class JiesuanBFragment extends Fragment {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    String name = myHolder.tvPayName.getText().toString();
-                    double value = 0.0;
-                    if (!TextUtils.isEmpty(s)) {
-                        value = Double.parseDouble(s.toString());
-                        if (TextUtils.equals(name, PayMode.YEZF.getStr())) {
-                            if (value > Double.parseDouble(money) * Double.parseDouble(yuezfxz) / 100) {
-                                myHolder.etValue.setText(StringUtil.onlytwoNum(Double.parseDouble(money) * Double.parseDouble(yuezfxz) / 100 + ""));
-                                com.blankj.utilcode.util.ToastUtils.showShort("超过余额支付限制");
-                                return;
-                            }
+                    if (!TextUtils.equals(s.toString(), chat)) {
+                        String name = myHolder.tvPayName.getText().toString();
+                        double value = 0.0;
+                        for (String n : map.keySet()) {
+                            value = Double.parseDouble(TextUtils.isEmpty(s) ? "0" : s.toString());
+                            if (TextUtils.equals(n, name)) {
+                                if (map.get(n) != value) {
+                                    if (TextUtils.equals(name, PayMode.YEZF.getStr())) {
+                                        if (value > Double.parseDouble(money) * Double.parseDouble(yuezfxz) / 100) {
+                                            myHolder.etValue.setText(StringUtil.onlytwoNum(Double.parseDouble(money) * Double.parseDouble(yuezfxz) / 100 + ""));
+                                            com.blankj.utilcode.util.ToastUtils.showShort("超过余额支付限制");
+                                            return;
+                                        }
 
-                            if (TextUtils.equals(name, PayMode.YEZF.getStr())) {
-                                if (value > Double.parseDouble(yue)) {
-                                    com.blankj.utilcode.util.ToastUtils.showShort("余额不足");
-                                    myHolder.etValue.setText(StringUtil.onlytwoNum(yue + ""));
-                                    return;
+                                        if (TextUtils.equals(name, PayMode.YEZF.getStr())) {
+                                            if (value > Double.parseDouble(yue)) {
+                                                com.blankj.utilcode.util.ToastUtils.showShort("余额不足");
+                                                myHolder.etValue.setText(StringUtil.onlytwoNum(yue + ""));
+                                                return;
+                                            }
+                                        }
+                                    }
+
+                                    if (TextUtils.equals(name, PayMode.JFZF.getStr())) {
+                                        if (value > Double.parseDouble(dkmoney)) {
+                                            myHolder.etValue.setText(StringUtil.onlytwoNum(dkmoney + ""));
+                                            com.blankj.utilcode.util.ToastUtils.showShort("超过积分支付限制");
+                                            return;
+                                        }
+                                        if (TextUtils.equals(name, PayMode.JFZF.getStr())) {
+                                            if (value > Double.parseDouble(dkmoney)) {
+                                                com.blankj.utilcode.util.ToastUtils.showShort("积分不足");
+                                                myHolder.etValue.setText(StringUtil.onlytwoNum(dkmoney + ""));
+                                                return;
+                                            }
+                                        }
+                                    }
                                 }
+                                map.put(name, value);
+                                jisuanZhaolingMoney();
                             }
-                        }
-
-                        if (TextUtils.equals(name, PayMode.JFZF.getStr())) {
-                            if (value > Double.parseDouble(dkmoney)) {
-                                myHolder.etValue.setText(StringUtil.onlytwoNum(dkmoney + ""));
-                                com.blankj.utilcode.util.ToastUtils.showShort("超过积分支付限制");
-                                return;
-                            }
-                            if (TextUtils.equals(name, PayMode.JFZF.getStr())) {
-                                if (value > Double.parseDouble(dkmoney)) {
-                                    com.blankj.utilcode.util.ToastUtils.showShort("积分不足");
-                                    myHolder.etValue.setText(StringUtil.onlytwoNum(dkmoney + ""));
-                                    return;
-                                }
-                            }
-                        }
-
-                    }
-                    for (String n : map.keySet()) {
-                        if (TextUtils.equals(n, name)) {
-                            map.put(name, value);
-                            jisuanZhaolingMoney();
                         }
                     }
                 }

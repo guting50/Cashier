@@ -14,7 +14,6 @@
         android:id="@+id/jiesuan_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical"
         app:corners_radius_left_bottom="5dp"
@@ -204,7 +203,7 @@
                                 android:layout_marginLeft="60dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginRight="60dp"
-                                android:background="@drawable/shap_jiesunnot"
+                                android:background="@drawable/select_edit_green_gray"
                                 android:paddingLeft="@dimen/dp_10"
                                 android:paddingRight="@dimen/dp_10">
 
@@ -233,7 +232,7 @@
                                 android:layout_marginLeft="60dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginRight="60dp"
-                                android:background="@drawable/shap_jiesunnot"
+                                android:background="@drawable/select_edit_green_gray"
                                 android:paddingLeft="@dimen/dp_10"
                                 android:paddingRight="@dimen/dp_10">
 
@@ -261,24 +260,25 @@
                                 android:layout_below="@+id/li_promotion"
                                 android:layout_marginLeft="60dp"
                                 android:layout_marginTop="5dp"
-                                android:layout_marginRight="60dp"
-                                android:background="@drawable/shap_jiesunnot"
-                                android:paddingLeft="@dimen/dp_10"
-                                android:paddingRight="@dimen/dp_10">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center"
-                                    android:text="抹零："
-                                    android:textColor="@color/text60"
-                                    android:textSize="@dimen/sp_16" />
+                                android:layout_marginRight="60dp">
 
                                 <com.wycd.yushangpu.widget.NumInputView
                                     android:id="@+id/et_moling"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:gravity="center|right" />
+                                    android:background="@drawable/select_edit_green_gray"
+                                    android:gravity="center|right"
+                                    android:paddingLeft="@dimen/dp_10"
+                                    android:paddingRight="@dimen/dp_10" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:paddingLeft="@dimen/dp_10"
+                                    android:text="抹零："
+                                    android:textColor="@color/text60"
+                                    android:textSize="@dimen/sp_16" />
 
                             </FrameLayout>
 
