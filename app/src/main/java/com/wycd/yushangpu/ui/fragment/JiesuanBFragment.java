@@ -733,7 +733,7 @@ public class JiesuanBFragment extends Fragment {
                     p.setPayMoney(money);
                     p.setPayName(m.getSS_Name());
                     String jifenm = String.valueOf(money);
-                    String jifennumber = CommonUtils.multiply(jifenm, jifendkbfb);
+                    String jifennumber = CommonUtils.multiply(jifenm, TextUtils.isEmpty(jifendkbfb)?"0":jifendkbfb);
                     p.setPayPoint(Double.parseDouble(jifennumber));
                 } else if (TextUtils.equals(name, PayMode.QTZF.getStr())
                         && m.getSS_Name().equals("其他支付")) {
@@ -882,8 +882,9 @@ public class JiesuanBFragment extends Fragment {
                     if (TextUtils.equals(itemData.getPayName(), name)) {
                         if (itemData.getValue() != value) {
                             if (TextUtils.equals(name, PayMode.YEZF.getStr())) {
-                                if (value > Double.parseDouble(money) * Double.parseDouble(yuezfxz) / 100) {
-                                    myHolder.etValue.setText(StringUtil.onlytwoNum(Double.parseDouble(money) * Double.parseDouble(yuezfxz) / 100 + ""));
+                                if (value > Double.parseDouble(money) * Double.parseDouble(TextUtils.isEmpty(yuezfxz) ? "0" : yuezfxz) / 100) {
+                                    myHolder.etValue.setText(StringUtil.onlytwoNum(Double.parseDouble(money) *
+                                            Double.parseDouble(TextUtils.isEmpty(yuezfxz) ? "0" : yuezfxz) / 100 + ""));
                                     com.blankj.utilcode.util.ToastUtils.showShort("超过余额支付限制");
                                     return;
                                 }

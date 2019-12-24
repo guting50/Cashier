@@ -15,6 +15,8 @@ import com.wycd.yushangpu.model.ImpOnlyVipMsg;
 import com.wycd.yushangpu.widget.NumInputView;
 import com.wycd.yushangpu.widget.NumKeyboardUtils;
 
+import java.util.List;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -115,13 +117,13 @@ public class VipChooseDialog extends Dialog {
         dialog.show();
 
         ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
-        onlyVipMsg.vipMsg(context, serachContent, new InterfaceBack() {
+        onlyVipMsg.vipMsgs(context, serachContent, new InterfaceBack() {
             @Override
             public void onResponse(Object response) {
                 dialog.dismiss();
-                VipDengjiMsg vipDengjiMsg = (VipDengjiMsg) response;
+                List<VipDengjiMsg.DataBean> vipDengjiMsg = (List<VipDengjiMsg.DataBean>) response;
 
-                searchVipPopAdapter.setList(vipDengjiMsg.getData());
+                searchVipPopAdapter.setList(vipDengjiMsg);
                 searchVipPopAdapter.notifyDataSetChanged();
             }
 
