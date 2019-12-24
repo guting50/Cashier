@@ -3,6 +3,9 @@ package com.wycd.yushangpu.widget;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.DrawableContainer;
+import android.graphics.drawable.StateListDrawable;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -35,6 +38,9 @@ public class NumInputView extends RelativeLayout {
     private Context context;
     private NumKeyboardUtils numKeyboardUtils;
     private NumInputView numInputView;
+    private Drawable[] drawables;
+    private int drawablesSize;
+    private OnFocusChangeListener focusChangeListener;
 
     public NumInputView(Context context) {
         this(context, null);
@@ -126,6 +132,25 @@ public class NumInputView extends RelativeLayout {
             editTextHint.setVisibility(GONE);
         }
 
+        Drawable drawable = getBackground();
+        if (drawable instanceof StateListDrawable) {
+            StateListDrawable listDrawable = (StateListDrawable) drawable;
+            //私有属性的访问权限
+            try {
+                //每一个Field 对象对应一个私有属性，当然也可以用for循环遍历来统一设置私有属性的访问权限
+                Field user = listDrawable.getClass().getDeclaredField("mStateListState");
+                user.setAccessible(true);  // 获取user访问权限
+                DrawableContainer.DrawableContainerState state = (DrawableContainer.DrawableContainerState) user.get(listDrawable);
+                drawables = state.getChildren();
+                drawablesSize = state.getChildCount();
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+
         editText.setInputType(InputType.TYPE_NULL);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -181,6 +206,10 @@ public class NumInputView extends RelativeLayout {
         }
     };
 
+    public void setOnFocusChangeListener(OnFocusChangeListener listener) {
+        this.focusChangeListener = listener;
+    }
+
     public void bindNumKeyboard(NumKeyboardUtils numKeyboardUtils) {
         this.numKeyboardUtils = numKeyboardUtils;
     }
@@ -199,14 +228,20 @@ public class NumInputView extends RelativeLayout {
 
     public void showCursor(boolean isShow) {
         textCursor.setVisibility(INVISIBLE);
-        rootView.setBackgroundResource(R.drawable.bg_edittext_normal);
+        if (drawables != null && drawablesSize > 0) {
+            rootView.setBackgroundDrawable(drawables[drawablesSize - 1]);
+        }
+        if (focusChangeListener != null)
+            focusChangeListener.onFocusChange(this, isShow);
         if (timer != null) {
             timer.cancel();
             timer = null;
         }
         if (isShow) {
             textCursor.setVisibility(VISIBLE);
-            rootView.setBackgroundResource(R.drawable.lab_selected);
+            if (drawables != null && drawablesSize > 0) {
+                rootView.setBackgroundDrawable(drawables[0]);
+            }
             timer = new Timer();
             timer.schedule(new TimerTask() {
                 @Override

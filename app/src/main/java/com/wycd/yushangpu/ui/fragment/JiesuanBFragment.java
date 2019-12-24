@@ -860,6 +860,22 @@ public class JiesuanBFragment extends Fragment {
                 myHolder.tvPayName.setText(name);
                 myHolder.etValue.setText(map.get(name) + "");
             }
+            myHolder.etValue.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        String name = myHolder.tvPayName.getText().toString();
+                        String value = myHolder.etValue.getText().toString();
+                        if (!TextUtils.equals(name, PayMode.XJZF.getStr())) {
+                            if (getZhaoling() < 0) {
+                                myHolder.etValue.setText(CommonUtils.add(Double.parseDouble(value), getZhaoling() * -1) + "");
+                            } else {
+                                myHolder.etValue.setText(CommonUtils.del(Double.parseDouble(value), getZhaoling()) + "");
+                            }
+                        }
+                    }
+                }
+            });
             myHolder.etValue.addTextChangedListener(new TextWatcher() {
                 CharSequence chat;
 
