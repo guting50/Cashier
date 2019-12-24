@@ -41,6 +41,7 @@ public class NumInputView extends RelativeLayout {
     private Drawable[] drawables;
     private int drawablesSize;
     private OnFocusChangeListener focusChangeListener;
+    private TextWatcher textWatcher;
 
     public NumInputView(Context context) {
         this(context, null);
@@ -155,7 +156,8 @@ public class NumInputView extends RelativeLayout {
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                if (textWatcher != null)
+                    textWatcher.beforeTextChanged(s, start, count, after);
             }
 
             @Override
@@ -165,6 +167,8 @@ public class NumInputView extends RelativeLayout {
                     s = s.toString().substring(0, s.toString().length() - 1);
                     setText(s.toString());
                 }
+                if (textWatcher != null)
+                    textWatcher.onTextChanged(s, start, before, count);
             }
 
             @Override
@@ -172,15 +176,23 @@ public class NumInputView extends RelativeLayout {
                 editTextHint.setVisibility(View.VISIBLE);
                 if (s.toString().length() > 0)
                     editTextHint.setVisibility(View.GONE);
+                if (textWatcher != null)
+                    textWatcher.afterTextChanged(s);
             }
         });
 
         editText.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                if (focusChangeListener != null)
+                    focusChangeListener.onFocusChange(view, b);
                 if (!b) {
                     showCursor(false);
                     cleanSelectAll();
+                } else {
+                    showCursor(true);
+                    if (numKeyboardUtils != null)
+                        numKeyboardUtils.setEditView(numInputView);
                 }
             }
         });
@@ -192,7 +204,7 @@ public class NumInputView extends RelativeLayout {
     OnTouchListener touchListener = new OnTouchListener() {
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+            if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                 showCursor(true);
                 if (numKeyboardUtils != null)
                     numKeyboardUtils.setEditView(numInputView);
@@ -202,9 +214,17 @@ public class NumInputView extends RelativeLayout {
                     cleanSelectAll();
                 }
             }
-            return false;
+            return true;
         }
     };
+
+    public void setFocusable(boolean focusable) {
+        if (focusable) {
+            editText.setFocusable(true);
+            editText.setFocusableInTouchMode(true);
+            editText.requestFocus();
+        }
+    }
 
     public void setOnFocusChangeListener(OnFocusChangeListener listener) {
         this.focusChangeListener = listener;
@@ -231,8 +251,6 @@ public class NumInputView extends RelativeLayout {
         if (drawables != null && drawablesSize > 0) {
             rootView.setBackgroundDrawable(drawables[drawablesSize - 1]);
         }
-        if (focusChangeListener != null)
-            focusChangeListener.onFocusChange(this, isShow);
         if (timer != null) {
             timer.cancel();
             timer = null;
@@ -336,7 +354,7 @@ public class NumInputView extends RelativeLayout {
     }
 
     public void addTextChangedListener(TextWatcher textWatcher) {
-        editText.addTextChangedListener(textWatcher);
+        this.textWatcher = textWatcher;
     }
 
 }
