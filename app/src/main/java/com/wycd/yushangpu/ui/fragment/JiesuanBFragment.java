@@ -272,7 +272,7 @@ public class JiesuanBFragment extends Fragment {
                 numKeyboardUtils.getEditView().addNum(100);
                 break;
             case R.id.li_yhq:
-                yhqdialog = YouhuiquanDialog.yhqDialog(context, ysMoney, mVipMsg, yhqMsgs, 1, new InterfaceBack() {
+                yhqdialog = YouhuiquanDialog.yhqDialog(context, ysMoney, mVipMsg, /*yhqMsgs*/null, 1, new InterfaceBack() {
                     @Override
                     public void onResponse(Object response) {
                         yhqMsgs = (List<YhqMsg>) response;
