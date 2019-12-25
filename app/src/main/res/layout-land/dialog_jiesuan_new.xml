@@ -219,7 +219,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="right"
-                                    android:gravity="center"
+                                    android:gravity="center|right"
                                     android:hint="请选择优惠券"
                                     android:textSize="@dimen/sp_16" />
 
@@ -294,7 +294,7 @@
                                 android:textSize="@dimen/sp_23" />
 
                             <TextView
-                                android:id="@+id/et_zhmoney"
+                                android:id="@+id/et_ys_money"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/li_moling"
@@ -309,7 +309,7 @@
                                 android:id="@+id/v_dividing"
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:layout_below="@+id/et_zhmoney"
+                                android:layout_below="@+id/et_ys_money"
                                 android:layout_marginTop="15dp"
                                 android:background="@color/view_gray_line" />
 

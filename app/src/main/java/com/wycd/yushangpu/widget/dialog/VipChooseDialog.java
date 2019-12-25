@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.blankj.utilcode.util.KeyboardUtils;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.adapter.SearchVipPopAdapter;
 import com.wycd.yushangpu.bean.VipInfoMsg;
@@ -14,10 +17,13 @@ import com.wycd.yushangpu.model.ImpOnlyVipMsg;
 import com.wycd.yushangpu.widget.NumInputView;
 import com.wycd.yushangpu.widget.NumKeyboardUtils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.util.List;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -32,15 +38,16 @@ public class VipChooseDialog extends Dialog {
     private static String memoryText;
 
     @BindView(R.id.search_list)
-    RecyclerView searchList;
+    XRecyclerView searchList;
 
-    SearchVipPopAdapter searchVipPopAdapter;
+    private SearchVipPopAdapter searchVipPopAdapter;
 
     private Activity mContext;
     private InterfaceBack back;
     private Dialog dialog;
     private VipInfoMsg mVipDetail;
-    NumInputView editTextLayout;
+    private NumInputView editTextLayout;
+    private int pageIndex = 1;
 
     public VipChooseDialog(Activity context, VipInfoMsg vipMsg, final InterfaceBack back) {
         super(context, R.style.ActionSheetDialogStyle);
@@ -84,6 +91,19 @@ public class VipChooseDialog extends Dialog {
             editTextLayout.setText(memoryText);
         }
         searchList.setAdapter(searchVipPopAdapter);
+        searchList.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                pageIndex = 1;
+                obtainVipList();
+            }
+
+            @Override
+            public void onLoadMore() {
+                pageIndex++;
+                obtainVipList();
+            }
+        });
     }
 
     @Override
@@ -107,7 +127,8 @@ public class VipChooseDialog extends Dialog {
                 break;
             case R.id.li_search:
                 memoryText = editTextLayout.getText().toString();
-                obtainVipList(mContext, editTextLayout.getText().toString());
+                pageIndex = 1;
+                obtainVipList();
                 break;
             case R.id.rl_confirm:
                 if (mVipDetail != null) {
@@ -125,23 +146,42 @@ public class VipChooseDialog extends Dialog {
         }
     }
 
-    private void obtainVipList(Activity context, String serachContent) {
+    private void obtainVipList() {
         dialog.show();
-
+        if (pageIndex == 1) {
+            searchVipPopAdapter.getList().clear();
+        }
         ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
-        onlyVipMsg.vipMsgs(context, serachContent, new InterfaceBack() {
+        onlyVipMsg.vipMsgs(mContext, editTextLayout.getText().toString(), pageIndex, 20, new InterfaceBack() {
             @Override
             public void onResponse(Object response) {
                 dialog.dismiss();
-                List<VipInfoMsg> vipDengjiMsg = (List<VipInfoMsg>) response;
+                JSONObject jso = (JSONObject) response;
+                try {
+                    JSONObject js = jso.getJSONObject("data");
+                    Type listType = new TypeToken<List<VipInfoMsg>>() {
+                    }.getType();
+                    List<VipInfoMsg> vipDengjiMsg = new Gson().fromJson(js.getString("DataList"), listType);
 
-                searchVipPopAdapter.setList(vipDengjiMsg);
-                searchVipPopAdapter.notifyDataSetChanged();
+                    searchVipPopAdapter.addAllList(vipDengjiMsg);
+                    searchVipPopAdapter.notifyDataSetChanged();
+                    if (js.getInt("DataCount") <= searchVipPopAdapter.getList().size()) {
+                        searchList.setLoadingMoreEnabled(false);
+                    } else {
+                        searchList.setLoadingMoreEnabled(true);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                searchList.loadMoreComplete();
+                searchList.refreshComplete();
             }
 
             @Override
             public void onErrorResponse(Object msg) {
                 dialog.dismiss();
+                searchList.loadMoreComplete();
+                searchList.refreshComplete();
             }
         });
     }

@@ -92,7 +92,7 @@
                             android:background="@drawable/shap_search_2dp">
 
                             <TextView
-                                android:id="@+id/et_zhmoney"
+                                android:id="@+id/et_ys_money"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginLeft="@dimen/dp_10"

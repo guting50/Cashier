@@ -39,8 +39,16 @@ public class SearchVipPopAdapter extends RecyclerView.Adapter {
         this.list.add(list);
     }
 
+    public void addAllList(List<VipInfoMsg> list) {
+        this.list.addAll(list);
+    }
+
     public void setList(List<VipInfoMsg> list) {
         this.list = list;
+    }
+
+    public List<VipInfoMsg> getList() {
+        return list;
     }
 
     @NonNull

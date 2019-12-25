@@ -69,8 +69,8 @@ public class JiesuanBFragment extends Fragment {
     private List<ShopMsg> list;
     private AppCompatActivity context;
 
-    @BindView(R.id.et_zhmoney)
-    TextView mEtZhmoney;
+    @BindView(R.id.et_ys_money)
+    TextView mEtYsMoney;
     @BindView(R.id.tv_all_coupon_money)
     TextView tvAllCouponMoney;
     @BindView(R.id.tv_coupon_money)
@@ -127,11 +127,13 @@ public class JiesuanBFragment extends Fragment {
     PayModeListAdapter payModeListAdapter;
 
     private InterfaceBack back;
-    private List<PayTypeMsg> paylist;
-    private PayTypeMsg moren;
+    private List<PayTypeMsg> payModeList;
+    private PayTypeMsg defaultMode;
     private boolean isMember;
-    //            原价总金额，折扣金额 订单号 订单GID 会员积分  会员积分可抵扣金额   余额
-    private String totalMoney, money, CO_OrderCode, CO_Type, GID, dkmoney, yue;
+    //            原价总金额，折后金额  , 总共优惠金额 ， 应收金额
+    private String totalMoney, zhMoney, totalYhMoney, ysMoney;
+    //订单号 订单GID 会员积分  会员积分可抵扣金额   余额
+    private String CO_OrderCode, CO_Type, GID, dkmoney, yue;
     private OrderPayResult result;
     private String jifendkbfb;
     private String yuezfxz;
@@ -197,15 +199,15 @@ public class JiesuanBFragment extends Fragment {
                         String GID, String CO_Type, String CO_OrderCode, ArrayList<ShopMsg> list, PayTypeMsg moren, ArrayList<PayTypeMsg> paylist,
                         OrderType orderType, InterfaceBack back) {
         this.totalMoney = totalMoney;
-        this.money = money;
+        this.zhMoney = money;
         this.mVipMsg = vipMsg;
         this.dkmoney = dkmoney;
         this.GID = GID;
         this.CO_Type = CO_Type;
         this.CO_OrderCode = CO_OrderCode;
         this.list = list;
-        this.moren = moren;
-        this.paylist = paylist;
+        this.defaultMode = moren;
+        this.payModeList = paylist;
         this.orderType = orderType;
         this.back = back;
         if (this.isResumed())
@@ -215,7 +217,7 @@ public class JiesuanBFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (!TextUtils.isEmpty(money))
+        if (!TextUtils.isEmpty(totalMoney))
             updateData();
     }
 
@@ -223,6 +225,7 @@ public class JiesuanBFragment extends Fragment {
         et_moling.setText("");
         tv_zhaoling.setText("");
         tvCouponMoney.setText("");
+        yhqMsgs = null;
 
         this.yue = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableBalance() + "";
         this.isMember = null == mVipMsg ? false : true;
@@ -240,15 +243,13 @@ public class JiesuanBFragment extends Fragment {
             tvIntegral.setText("积分:0");
         }
 
-        tvDiscount.setText(CommonUtils.del(Double.parseDouble(totalMoney), Double.parseDouble(money)) + "");
-        tvAllCouponMoney.setText(tvDiscount.getText());
+        String discount = CommonUtils.del(Double.parseDouble(totalMoney), Double.parseDouble(zhMoney)) + "";
+        tvDiscount.setText(StringUtil.twoNum(discount));
         tvBillCount.setText(StringUtil.twoNum(totalMoney));
-        mEtZhmoney.setText(StringUtil.twoNum(money));
-        LogUtils.d("xxxxxx", new Gson().toJson(moren));
 
-        setMorenPay(moren);
-        setPay(paylist);
-        jisuanZhaolingMoney();
+        setDefaultPayMode(defaultMode);
+        resetPayModeList(payModeList);
+        computeYsMoney();
     }
 
     @OnClick({R.id.jiesuan_layout,
@@ -271,7 +272,7 @@ public class JiesuanBFragment extends Fragment {
                 numKeyboardUtils.getEditView().addNum(100);
                 break;
             case R.id.li_yhq:
-                yhqdialog = YouhuiquanDialog.yhqDialog(context, money, mVipMsg, yhqMsgs, 1, new InterfaceBack() {
+                yhqdialog = YouhuiquanDialog.yhqDialog(context, ysMoney, mVipMsg, yhqMsgs, 1, new InterfaceBack() {
                     @Override
                     public void onResponse(Object response) {
                         yhqMsgs = (List<YhqMsg>) response;
@@ -286,13 +287,12 @@ public class JiesuanBFragment extends Fragment {
                             if (yhqMsg.getEC_DiscountType() == 1) {//代金券
                                 yhqmo = CommonUtils.add(Double.parseDouble(NullUtils.noNullHandle(yhqMsg.getEC_Discount()).toString()), yhqmo);
                             } else {
-                                yhqmo += CommonUtils.del(Double.parseDouble(money), Double.parseDouble(
-                                        CommonUtils.multiply(String.valueOf(CommonUtils.div(yhqMsg.getEC_Discount(), 100, 2)), money)));
+                                yhqmo = CommonUtils.add(yhqmo, CommonUtils.del(Double.parseDouble(ysMoney), Double.parseDouble(
+                                        CommonUtils.multiply(String.valueOf(CommonUtils.div(yhqMsg.getEC_Discount(), 100, 2)), ysMoney))));
                             }
                         }
-                        tvCouponMoney.setText(yhqmo + "");
-                        mEtZhmoney.setText(StringUtil.twoNum(CommonUtils.del(TextUtils.isEmpty(money) ? 0.0 : Double.parseDouble(money), yhqmo) + ""));
-                        jisuanZhaolingMoney();
+                        tvCouponMoney.setText("抵扣金额：" + yhqmo);
+                        computeYsMoney();
                     }
 
                     @Override
@@ -342,18 +342,17 @@ public class JiesuanBFragment extends Fragment {
 
                 resetPayBg(view, PayMode.SMZF.getStr());
                 if (view.getTag() != null) {
-                    SaomaDialog.saomaDialog(context, money, 1, new InterfaceBack() {
+                    SaomaDialog.saomaDialog(context, ysMoney, 1, new InterfaceBack() {
                         @Override
                         public void onResponse(Object response) {
-
 //                        dialog.show();
                             ImpSaoma saoma = new ImpSaoma();
                             obtainOrderPayResult();
-                            saoma.saomaPay(context, response.toString(), money, GID, CO_OrderCode, result, new InterfaceBack() {
+                            saoma.saomaPay(context, response.toString(), ysMoney, GID, CO_OrderCode, result, new InterfaceBack() {
                                 @Override
                                 public void onResponse(Object response) {
                                     System.out.println("==========扫一扫===22222============random:" + response.toString());
-                                    jisuanZhaolingMoney();
+                                    computeYsMoney();
                                 }
 
                                 @Override
@@ -387,31 +386,17 @@ public class JiesuanBFragment extends Fragment {
                     }
                 }
 
-                System.out.println("============000=========");
-                double yfmoney = CommonUtils.del(Double.parseDouble(money), getMoling()); //折后 - 抹零
-                double ym = CommonUtils.del(yfmoney, getCouponMoney());//折后 - 抹零 - 优惠金额（应收）
-                double xjm = CommonUtils.del(ym, getPayTotal());//折后 - 抹零 - 优惠金额 - 组合支付
-
-                double zlmoney = CommonUtils.del(0, xjm);
-                LogUtils.d("xxzhmoney", xjm + "");
-
-                System.out.println("============3333=========");
-
-                if (zlmoney < 0) {
+                if (getZhaoling() < 0) {
                     com.blankj.utilcode.util.ToastUtils.showShort("支付金额小于折后金额");
                 } else {
-                    System.out.println("============4444=========");
                     //结算
                     obtainOrderPayResult();
-                    System.out.println("============555=========");
                     dialog.show();
                     ImpOrderPay orderPay = new ImpOrderPay();
                     shortMessage = cbMessage.isChecked();
                     orderPay.orderpay(context, GID, result, orderType, new InterfaceBack() {
                         @Override
                         public void onResponse(Object response) {
-                            System.out.println("============666=========" + response.toString());
-
                             String responseString = (String) response;
                             Gson gson = new Gson();
                             final SPXF_Success_Bean spxf_success_bean = gson.fromJson(responseString, SPXF_Success_Bean.class);
@@ -456,7 +441,7 @@ public class JiesuanBFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                jisuanZhaolingMoney();
+                computeYsMoney();
             }
         });
 
@@ -469,33 +454,30 @@ public class JiesuanBFragment extends Fragment {
         result = new OrderPayResult();
         //找零
         result.setGiveChange(getZhaoling());
-        result.setPayTotalMoney(getCouponMoney() + getPayTotal());
+        result.setPayTotalMoney(getPayTotal());
         List<PayType> typeList = payWay();
-
-//        if (getMoling() > 0) {
-//            PayType p = new PayType();
-//            p.setGID(new String[0]);
-//            p.setPayCode("EZJZ");
-//            p.setPayMoney(getMoling());
-//            p.setPayName("抹零");
-//            p.setPayPoint(0.00);
-//            typeList.add(p);
-//        }
-        result.setDisMoney(Double.parseDouble(money) - getCouponMoney() - getMoling());
+        result.setDisMoney(Double.parseDouble(ysMoney));
         result.setMolingMoney(getMoling());
         result.setPayTypeList(typeList);
         result.setPrint(cbSmallTicket.isChecked());
     }
 
-    private void jisuanZhaolingMoney() {
+    /**
+     * 计算应收金额
+     */
+    private void computeYsMoney() {
         double payTotal = getPayTotal();
-        double yfmoney = CommonUtils.del(Double.parseDouble(money), getMoling());
+        double tempTotalYhMoney = CommonUtils.del(Double.parseDouble(totalMoney), Double.parseDouble(zhMoney));//折扣优惠
+        tempTotalYhMoney = CommonUtils.add(tempTotalYhMoney, getCouponMoney()); // + 优惠券
+        tempTotalYhMoney = CommonUtils.add(tempTotalYhMoney, getMoling());// + 抹零
+        totalYhMoney = tempTotalYhMoney + "";
 
-        double ym = CommonUtils.del(yfmoney, payTotal);
+        tvAllCouponMoney.setText(StringUtil.twoNum(totalYhMoney));
+        ysMoney = CommonUtils.del(Double.parseDouble(totalMoney), Double.parseDouble(totalYhMoney)) + "";
+        mEtYsMoney.setText(StringUtil.twoNum(ysMoney));
 
-        double xjm = CommonUtils.del(ym, getCouponMoney());
-        double zlmoney = CommonUtils.del(0, xjm);
-        tv_zhaoling.setText(StringUtil.twoNum(zlmoney + ""));
+        double zlMoney = CommonUtils.del(0, CommonUtils.del(Double.parseDouble(ysMoney), payTotal));
+        tv_zhaoling.setText(StringUtil.twoNum(zlMoney + ""));
     }
 
     private double getMoling() {
@@ -503,7 +485,11 @@ public class JiesuanBFragment extends Fragment {
     }
 
     private double getCouponMoney() {
-        return tvCouponMoney.getText().toString().equals("") ? 0.00 : Double.parseDouble(tvCouponMoney.getText().toString());
+        if (!TextUtils.isEmpty(tvCouponMoney.getText())) {
+            String[] strs = tvCouponMoney.getText().toString().split("：");
+            return Double.parseDouble(strs[strs.length - 1]);
+        }
+        return 0.00;
     }
 
     private double getZhaoling() {
@@ -522,7 +508,7 @@ public class JiesuanBFragment extends Fragment {
      * 判断支付是否开启
      * @param list
      */
-    private void setPay(List<PayTypeMsg> list) {
+    private void resetPayModeList(List<PayTypeMsg> list) {
         for (PayTypeMsg msg : list) {
             switch (NullUtils.noNullHandle(msg.getSS_Code()).toString()) {
                 case "101"://现金
@@ -535,8 +521,8 @@ public class JiesuanBFragment extends Fragment {
                     if (msg.getSS_State() != 1 || !isMember) {
                         mLiYue.setBackgroundResource(R.drawable.shap_enable_not);
                         mLiYue.setEnabled(false);
-                        yuezfxz = NullUtils.noNullHandle(msg.getSS_Value()).toString();
                     }
+                    yuezfxz = NullUtils.noNullHandle(msg.getSS_Value()).toString();
                     break;
                 case "103"://银联
                     if (msg.getSS_State() != 1) {
@@ -566,8 +552,8 @@ public class JiesuanBFragment extends Fragment {
                     if (msg.getSS_State() != 1 || !isMember) {
                         mLiJifen.setBackgroundResource(R.drawable.shap_enable_not);
                         mLiJifen.setEnabled(false);
-                        jifendkbfb = NullUtils.noNullHandle(msg.getSS_Value()).toString();
                     }
+                    jifendkbfb = NullUtils.noNullHandle(msg.getSS_Value()).toString();
                     break;
                 case "111"://扫码支付
                     if (msg.getSS_State() != 1) {
@@ -589,7 +575,7 @@ public class JiesuanBFragment extends Fragment {
      * 设置默认支付
      * @param msg
      */
-    private void setMorenPay(PayTypeMsg msg) {
+    private void setDefaultPayMode(PayTypeMsg msg) {
         payModeListAdapter.getData().clear();
         payModeListAdapter.notifyDataSetChanged();
         mLiXianjin.setTag(null);
@@ -675,7 +661,7 @@ public class JiesuanBFragment extends Fragment {
             for (PayModeListAdapter.MyPayMode payMode : payModeListAdapter.getData()) {
                 if (TextUtils.equals(payMode.getPayName(), name)) {
                     payModeListAdapter.getData().remove(payMode);
-                    jisuanZhaolingMoney();
+                    computeYsMoney();
                     break;
                 }
             }
@@ -685,7 +671,7 @@ public class JiesuanBFragment extends Fragment {
 
     private List<PayType> payWay() {
         List<PayType> typeList = new ArrayList<>();
-        for (PayTypeMsg m : paylist) {
+        for (PayTypeMsg m : payModeList) {
             for (PayModeListAdapter.MyPayMode payMode : payModeListAdapter.getData()) {
                 PayType p = new PayType();
                 String name = payMode.getPayName();
@@ -746,22 +732,6 @@ public class JiesuanBFragment extends Fragment {
                 }
                 if (p != null)
                     typeList.add(p);
-            }
-
-            PayType p = new PayType();
-            if (m.getSS_Name().equals("优惠券")) {
-                if (yhqMsgs != null) {
-                    String[] yhq = new String[yhqMsgs.size()];
-                    for (int i = 0; i < yhqMsgs.size(); i++) {
-                        yhq[i] = yhqMsgs.get(i).getGID();
-                    }
-                    p.setGID(yhq);
-                    p.setPayCode("YHJZF");
-                    p.setPayMoney(getCouponMoney());
-                    p.setPayName(m.getSS_Name());
-                    p.setPayPoint(0.00);
-                    typeList.add(p);
-                }
             }
         }
 
@@ -881,9 +851,9 @@ public class JiesuanBFragment extends Fragment {
                     if (TextUtils.equals(itemData.getPayName(), name)) {
                         if (itemData.getValue() != value) {
                             if (TextUtils.equals(name, PayMode.YEZF.getStr())) {
-                                if (value > Double.parseDouble(money) * Double.parseDouble(TextUtils.isEmpty(yuezfxz) ? "0" : yuezfxz) / 100) {
-                                    myHolder.etValue.setText(StringUtil.onlytwoNum(Double.parseDouble(money) *
-                                            Double.parseDouble(TextUtils.isEmpty(yuezfxz) ? "0" : yuezfxz) / 100 + ""));
+                                if (value > Double.parseDouble(ysMoney) * Double.parseDouble(TextUtils.isEmpty(yuezfxz) ? "0" : yuezfxz) / 100) {
+                                    myHolder.etValue.setText(StringUtil.onlytwoNum(
+                                            Double.parseDouble(ysMoney) * Double.parseDouble(TextUtils.isEmpty(yuezfxz) ? "0" : yuezfxz) / 100 + ""));
                                     com.blankj.utilcode.util.ToastUtils.showShort("超过余额支付限制");
                                     return;
                                 }
@@ -913,7 +883,7 @@ public class JiesuanBFragment extends Fragment {
                             }
                         }
                         itemData.setValue(value);
-                        jisuanZhaolingMoney();
+                        computeYsMoney();
                     }
                 }
             });

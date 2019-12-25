@@ -86,14 +86,14 @@ public class ImpOnlyVipMsg {
         });
     }
 
-    public void vipMsgs(final Activity ac, final String VCH_Card, final InterfaceBack back) {
+    public void vipMsgs(final Activity ac, final String VCH_Card, int pageIndex, int pageSize, final InterfaceBack back) {
         // TODO 自动生成的方法存根
         AsyncHttpClient client = new AsyncHttpClient();
         final PersistentCookieStore myCookieStore = new PersistentCookieStore(ac);
         client.setCookieStore(myCookieStore);
         RequestParams params = new RequestParams();
-        params.put("PageIndex", 1);
-        params.put("PageSize", 100);
+        params.put("PageIndex", pageIndex);
+        params.put("PageSize", pageSize);
         params.put("CardOrNameOrCellPhoneOrFace", VCH_Card);
         params.put("SM_GID", MyApplication.loginBean.getData().getShopID());
         String url = HttpAPI.API().VIPLIST;
@@ -108,11 +108,7 @@ public class ImpOnlyVipMsg {
                     LogUtils.d("xxVipS", new String(responseBody, "UTF-8"));
                     JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
                     if (jso.getBoolean("success")) {
-                        JSONObject js = jso.getJSONObject("data");
-                        Type listType = new TypeToken<List<VipInfoMsg>>() {
-                        }.getType();
-                        List<VipInfoMsg> sllist = mGson.fromJson(js.getString("DataList"), listType);
-                        back.onResponse(sllist);
+                        back.onResponse(jso);
                     } else {
                         if (jso.getString("code").equals("RemoteLogin") || jso.getString("code").equals("LoginTimeout")) {
                             ActivityManager.getInstance().exit();

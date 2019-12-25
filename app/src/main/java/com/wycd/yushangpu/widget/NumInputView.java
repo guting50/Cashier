@@ -247,7 +247,6 @@ public class NumInputView extends RelativeLayout {
     Timer timer;
 
     public void showCursor(boolean isShow) {
-        textCursor.setVisibility(INVISIBLE);
         if (drawables != null && drawablesSize > 0) {
             rootView.setBackgroundDrawable(drawables[drawablesSize - 1]);
         }
@@ -259,7 +258,13 @@ public class NumInputView extends RelativeLayout {
             if (drawables != null && drawablesSize > 0) {
                 rootView.setBackgroundDrawable(drawables[0]);
             }
-            timer = new Timer();
+            timer = new Timer(){
+                @Override
+                public void cancel() {
+                    super.cancel();
+                    textCursor.setVisibility(INVISIBLE);
+                }
+            };
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
