@@ -656,6 +656,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     }
                 }
             }
+            jisuanShopPrice(shopMsg);
 
             allprice += shopMsg.getAllprice();
             totalPrice += shopMsg.getTotalPrice();
@@ -694,6 +695,83 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         }
 
         mShopLeftAdapter.notifyDataSetChanged();
+    }
+
+    private void jisuanShopPrice(ShopMsg ts) {
+        boolean isVip = PreferenceHelper.readBoolean(ac, "yunshangpu", "vip", false);
+        if (!ts.isIschanged()) {
+            if (NullUtils.noNullHandle(ts.getPM_IsDiscount()).toString().equals("1")) {
+                //有特价折扣
+                if (ts.getPM_SpecialOfferMoney() != -1) { // 特价金额值
+                    ts.setPD_Discount(ts.getPM_SpecialOfferMoney() / ts.getPM_UnitPrice());
+                    ts.setHasvipDiscount(false);
+                    ts.setJisuanPrice(ts.getPM_UnitPrice());
+                } else if (!NullUtils.noNullHandle(ts.getPM_SpecialOfferValue()).toString().equals("0.0")) { // 特价折扣开关的值
+                    //有特价折扣
+                    // 如果特价折扣 > 最低折扣 按特价折扣算，否者按最低折扣算
+                    if (ts.getPM_SpecialOfferValue() > ts.getPM_MinDisCountValue()) {
+                        ts.setPD_Discount(ts.getPM_SpecialOfferValue());
+                        ts.setHasvipDiscount(false);
+                        ts.setJisuanPrice(ts.getPM_UnitPrice());
+                    } else {
+                        ts.setPD_Discount(ts.getPM_MinDisCountValue());
+                        ts.setHasvipDiscount(false);
+                        ts.setJisuanPrice(ts.getPM_UnitPrice());
+                    }
+                } else {
+                    //无特价折扣
+                    if (isVip) {
+                        if (ts.getPM_MemPrice() != null) {
+                            //有会员价
+                            ts.setPD_Discount(1);
+                            ts.setHasvipDiscount(true);
+                            ts.setJisuanPrice(Double.parseDouble(ts.getPM_MemPrice()));
+                        } else if (mPD_Discount > 0) {
+                            //无会员价
+                            // 如果等级折扣 > 最低折扣 按等级折扣算，否者按最低折扣算
+                            if (CommonUtils.div(mPD_Discount, 100, 2) > ts.getPM_MinDisCountValue()) {
+                                ts.setPD_Discount(CommonUtils.div(mPD_Discount, 100, 2));
+                                ts.setHasvipDiscount(true);
+                                ts.setJisuanPrice(ts.getPM_UnitPrice());
+                            } else {
+                                ts.setPD_Discount(ts.getPM_MinDisCountValue());
+                                ts.setHasvipDiscount(true);
+                                ts.setJisuanPrice(ts.getPM_UnitPrice());
+                            }
+                        } else {
+                            ts.setPD_Discount(1);
+                            ts.setHasvipDiscount(false);
+                            ts.setJisuanPrice(ts.getPM_UnitPrice());
+                        }
+                    } else {
+                        ts.setPD_Discount(1);
+                        ts.setHasvipDiscount(false);
+                        ts.setJisuanPrice(ts.getPM_UnitPrice());
+                    }
+                }
+            } else { // 会员折扣
+                //没有开启折扣开关
+                if (isVip && !NullUtils.noNullHandle(ts.getPM_MemPrice()).toString().equals("")) {
+                    //有会员价
+                    ts.setPD_Discount(1);
+                    ts.setHasvipDiscount(true);
+                    ts.setJisuanPrice(Double.parseDouble(ts.getPM_MemPrice()));
+                } else {
+                    ts.setPD_Discount(1);
+                    ts.setHasvipDiscount(false);
+                    ts.setJisuanPrice(ts.getPM_UnitPrice());
+                }
+            }
+
+            if (NullUtils.noNullHandle(ts.getPM_MemPrice()).toString().equals("0.0")) {
+                ts.setPM_MemPrice(ts.getPM_UnitPrice() + "");
+            }
+            double allprice = Double.parseDouble(CommonUtils.multiply(CommonUtils.multiply(ts.getJisuanPrice() + "", ts.getNum() + ""), ts.getPD_Discount() + ""));
+            ts.setAllprice(allprice);
+
+            double totalPrice = Double.parseDouble(CommonUtils.multiply(ts.getPM_UnitPrice() + "", ts.getNum() + ""));
+            ts.setTotalPrice(totalPrice);
+        }
     }
 
     public void addCashierList(ShopMsg shopMsg) {
@@ -805,13 +883,12 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                     if (leftpos != -1) {
                                         leftpos += 1;
                                     }
-                                    jisuanShopPrice(mPD_Discount);
 
                                     updateBttGetOrder();
                                 } else {
                                     mShopLeftList.get(pos).setNum(num + finalAddnum);
-                                    jisuanAllPrice();
                                 }
+                                jisuanAllPrice();
                                 for (int i = 0; i < mShopLeftList.size(); i++) {
                                     if (goodsitem.getGID().equals(mShopLeftList.get(i).getGID())) {
                                         mShopLeftList.get(i).setCheck(true);
@@ -858,13 +935,12 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 if (leftpos != -1) {
                     leftpos += 1;
                 }
-                jisuanShopPrice(mPD_Discount);
 
                 updateBttGetOrder();
             } else {
                 mShopLeftList.get(pos).setNum(num + addnum);
-                jisuanAllPrice();
             }
+            jisuanAllPrice();
             for (int i = 0; i < mShopLeftList.size(); i++) {
                 if (shopMsg.getGID().equals(mShopLeftList.get(i).getGID()) && !mShopLeftList.get(i).isIsgive()) {
                     mShopLeftList.get(i).setCheck(true);
@@ -1270,7 +1346,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                             PreferenceHelper.write(ac, "yunshangpu", "vip", true);
 
                             mPD_Discount = obtainVipPD_Discount(mVipMsg.getVG_GID(), mVipMsg.getVGInfo());
-                            jisuanShopPrice(mPD_Discount);
+                            jisuanAllPrice();
 
                             if (!TextUtils.isEmpty(mVipMsg.getVIP_Name())) {
                                 vipNameLayout.setVisibility(View.VISIBLE);
@@ -1331,7 +1407,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 //        JavascriptInterfaceImpl.startLoading();
         MyApplication.isDialog = "1";
     }
-
 
     private void initVIP(String VIP_Card) {
         ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
@@ -1407,87 +1482,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             ((TextView) orderCountLayout.getChildAt(0)).setText(qudanFragment.getListCount() + "");
             bttGetOrder.setText("取单[F1]");
         }
-    }
-
-    private void jisuanShopPrice(int pd_discount) {
-        boolean isVip = PreferenceHelper.readBoolean(ac, "yunshangpu", "vip", false);
-        for (ShopMsg ts : mShopLeftList) {
-            if (!ts.isIschanged()) {
-                if (NullUtils.noNullHandle(ts.getPM_IsDiscount()).toString().equals("1")) {
-                    //有特价折扣
-                    if (ts.getPM_SpecialOfferMoney() != -1) { // 特价金额值
-                        ts.setPD_Discount(ts.getPM_SpecialOfferMoney() / ts.getPM_UnitPrice());
-                        ts.setHasvipDiscount(false);
-                        ts.setJisuanPrice(ts.getPM_UnitPrice());
-                    } else if (!NullUtils.noNullHandle(ts.getPM_SpecialOfferValue()).toString().equals("0.0")) { // 特价折扣开关的值
-                        //有特价折扣
-                        // 如果特价折扣 > 最低折扣 按特价折扣算，否者按最低折扣算
-                        if (ts.getPM_SpecialOfferValue() > ts.getPM_MinDisCountValue()) {
-                            ts.setPD_Discount(ts.getPM_SpecialOfferValue());
-                            ts.setHasvipDiscount(false);
-                            ts.setJisuanPrice(ts.getPM_UnitPrice());
-                        } else {
-                            ts.setPD_Discount(ts.getPM_MinDisCountValue());
-                            ts.setHasvipDiscount(false);
-                            ts.setJisuanPrice(ts.getPM_UnitPrice());
-                        }
-                    } else {
-                        //无特价折扣
-                        if (isVip) {
-                            if (ts.getPM_MemPrice() != null) {
-                                //有会员价
-                                ts.setPD_Discount(1);
-                                ts.setHasvipDiscount(true);
-                                ts.setJisuanPrice(Double.parseDouble(ts.getPM_MemPrice()));
-                            } else if (pd_discount > 0) {
-                                //无会员价
-                                // 如果等级折扣 > 最低折扣 按等级折扣算，否者按最低折扣算
-                                if (CommonUtils.div(pd_discount, 100, 2) > ts.getPM_MinDisCountValue()) {
-                                    ts.setPD_Discount(CommonUtils.div(pd_discount, 100, 2));
-                                    ts.setHasvipDiscount(true);
-                                    ts.setJisuanPrice(ts.getPM_UnitPrice());
-                                } else {
-                                    ts.setPD_Discount(ts.getPM_MinDisCountValue());
-                                    ts.setHasvipDiscount(true);
-                                    ts.setJisuanPrice(ts.getPM_UnitPrice());
-                                }
-                            } else {
-                                ts.setPD_Discount(1);
-                                ts.setHasvipDiscount(false);
-                                ts.setJisuanPrice(ts.getPM_UnitPrice());
-                            }
-                        } else {
-                            ts.setPD_Discount(1);
-                            ts.setHasvipDiscount(false);
-                            ts.setJisuanPrice(ts.getPM_UnitPrice());
-                        }
-                    }
-                } else { // 会员折扣
-                    //没有开启折扣开关
-                    if (isVip && !NullUtils.noNullHandle(ts.getPM_MemPrice()).toString().equals("")) {
-                        //有会员价
-                        ts.setPD_Discount(1);
-                        ts.setHasvipDiscount(true);
-                        ts.setJisuanPrice(Double.parseDouble(ts.getPM_MemPrice()));
-                    } else {
-                        ts.setPD_Discount(1);
-                        ts.setHasvipDiscount(false);
-                        ts.setJisuanPrice(ts.getPM_UnitPrice());
-                    }
-                }
-
-                if (NullUtils.noNullHandle(ts.getPM_MemPrice()).toString().equals("0.0")) {
-                    ts.setPM_MemPrice(ts.getPM_UnitPrice() + "");
-                }
-                double allprice = Double.parseDouble(CommonUtils.multiply(CommonUtils.multiply(ts.getJisuanPrice() + "", ts.getNum() + ""), ts.getPD_Discount() + ""));
-                ts.setAllprice(allprice);
-
-                double totalPrice = Double.parseDouble(CommonUtils.multiply(ts.getPM_UnitPrice() + "", ts.getNum() + ""));
-                ts.setTotalPrice(totalPrice);
-            }
-        }
-
-        jisuanAllPrice();
     }
 
     private int obtainVipPD_Discount(String vg_gid, List<VipInfoMsg.VGInfoBean> sllist) {

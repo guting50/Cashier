@@ -274,7 +274,7 @@ public class NumInputView extends RelativeLayout {
                         }
                     });
                 }
-            }, 50, 500);
+            }, 500, 500);
         }
     }
 

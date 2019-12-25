@@ -71,6 +71,8 @@ public class JiesuanBFragment extends Fragment {
 
     @BindView(R.id.et_zhmoney)
     TextView mEtZhmoney;
+    @BindView(R.id.tv_all_coupon_money)
+    TextView tvAllCouponMoney;
     @BindView(R.id.tv_coupon_money)
     TextView tvCouponMoney;
     @BindView(R.id.tv_zhaoling)
@@ -128,7 +130,8 @@ public class JiesuanBFragment extends Fragment {
     private List<PayTypeMsg> paylist;
     private PayTypeMsg moren;
     private boolean isMember;
-    private String totalMoney, money, CO_OrderCode, CO_Type, GID, dkmoney, yue;//折扣金额 订单号 订单GID 会员积分  会员积分可抵扣金额   余额
+    //            原价总金额，折扣金额 订单号 订单GID 会员积分  会员积分可抵扣金额   余额
+    private String totalMoney, money, CO_OrderCode, CO_Type, GID, dkmoney, yue;
     private OrderPayResult result;
     private String jifendkbfb;
     private String yuezfxz;
@@ -190,7 +193,7 @@ public class JiesuanBFragment extends Fragment {
         dialog = LoadingDialog.loadingDialog(context, 1);
     }
 
-    public void setData(String totalMoney, String money, VipInfoMsg vipMsg,String dkmoney,
+    public void setData(String totalMoney, String money, VipInfoMsg vipMsg, String dkmoney,
                         String GID, String CO_Type, String CO_OrderCode, ArrayList<ShopMsg> list, PayTypeMsg moren, ArrayList<PayTypeMsg> paylist,
                         OrderType orderType, InterfaceBack back) {
         this.totalMoney = totalMoney;
@@ -219,6 +222,7 @@ public class JiesuanBFragment extends Fragment {
     private void updateData() {
         et_moling.setText("");
         tv_zhaoling.setText("");
+        tvCouponMoney.setText("");
 
         this.yue = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableBalance() + "";
         this.isMember = null == mVipMsg ? false : true;
@@ -237,6 +241,7 @@ public class JiesuanBFragment extends Fragment {
         }
 
         tvDiscount.setText(CommonUtils.del(Double.parseDouble(totalMoney), Double.parseDouble(money)) + "");
+        tvAllCouponMoney.setText(tvDiscount.getText());
         tvBillCount.setText(StringUtil.twoNum(totalMoney));
         mEtZhmoney.setText(StringUtil.twoNum(money));
         LogUtils.d("xxxxxx", new Gson().toJson(moren));
@@ -286,6 +291,8 @@ public class JiesuanBFragment extends Fragment {
                             }
                         }
                         tvCouponMoney.setText(yhqmo + "");
+                        mEtZhmoney.setText(StringUtil.twoNum(CommonUtils.del(TextUtils.isEmpty(money) ? 0.0 : Double.parseDouble(money), yhqmo) + ""));
+                        jisuanZhaolingMoney();
                     }
 
                     @Override
@@ -682,56 +689,56 @@ public class JiesuanBFragment extends Fragment {
             for (PayModeListAdapter.MyPayMode payMode : payModeListAdapter.getData()) {
                 PayType p = new PayType();
                 String name = payMode.getPayName();
-                double money = payMode.getValue();
+                double modeMoney = payMode.getValue();
                 if (TextUtils.equals(name, PayMode.XJZF.getStr())
                         && m.getSS_Name().equals("现金支付")) {
                     p.setGID(new String[0]);
                     p.setPayCode("XJZF");
-                    p.setPayMoney(money);
+                    p.setPayMoney(modeMoney);
                     p.setPayName(m.getSS_Name());
                     p.setPayPoint(0.00);
                 } else if (TextUtils.equals(name, PayMode.YEZF.getStr())
                         && m.getSS_Name().equals("余额支付")) {
                     p.setGID(new String[0]);
                     p.setPayCode("YEZF");
-                    p.setPayMoney(money);
+                    p.setPayMoney(modeMoney);
                     p.setPayName(m.getSS_Name());
                     p.setPayPoint(0.00);
                 } else if (TextUtils.equals(name, PayMode.YLZF.getStr())
                         && m.getSS_Name().equals("银联支付")) {
                     p.setGID(new String[0]);
                     p.setPayCode("YLZF");
-                    p.setPayMoney(money);
+                    p.setPayMoney(modeMoney);
                     p.setPayName(m.getSS_Name());
                     p.setPayPoint(0.00);
                 } else if (TextUtils.equals(name, PayMode.WXJZ.getStr())
                         && m.getSS_Name().equals("微信记账")) {
                     p.setGID(new String[0]);
                     p.setPayCode("WX_JZ");
-                    p.setPayMoney(money);
+                    p.setPayMoney(modeMoney);
                     p.setPayName(m.getSS_Name());
                     p.setPayPoint(0.00);
                 } else if (TextUtils.equals(name, PayMode.ZFBJZ.getStr())
                         && m.getSS_Name().equals("支付宝记账")) {
                     p.setGID(new String[0]);
                     p.setPayCode("ZFB_JZ");
-                    p.setPayMoney(money);
+                    p.setPayMoney(modeMoney);
                     p.setPayName(m.getSS_Name());
                     p.setPayPoint(0.00);
                 } else if (TextUtils.equals(name, PayMode.JFZF.getStr())
                         && m.getSS_Name().equals("积分支付")) {
                     p.setGID(new String[0]);
                     p.setPayCode("JFZF");
-                    p.setPayMoney(money);
+                    p.setPayMoney(modeMoney);
                     p.setPayName(m.getSS_Name());
-                    String jifenm = String.valueOf(money);
-                    String jifennumber = CommonUtils.multiply(jifenm, TextUtils.isEmpty(jifendkbfb)?"0":jifendkbfb);
+                    String jifenm = String.valueOf(modeMoney);
+                    String jifennumber = CommonUtils.multiply(jifenm, TextUtils.isEmpty(jifendkbfb) ? "0" : jifendkbfb);
                     p.setPayPoint(Double.parseDouble(jifennumber));
                 } else if (TextUtils.equals(name, PayMode.QTZF.getStr())
                         && m.getSS_Name().equals("其他支付")) {
                     p.setGID(new String[0]);
                     p.setPayCode("QTZF");
-                    p.setPayMoney(money);
+                    p.setPayMoney(modeMoney);
                     p.setPayName(m.getSS_Name());
                     p.setPayPoint(0.00);
                 } else {
