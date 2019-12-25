@@ -17,7 +17,7 @@ import com.wycd.yushangpu.bean.GuadanList;
 import com.wycd.yushangpu.bean.PayTypeMsg;
 import com.wycd.yushangpu.bean.RevokeGuaDanBean;
 import com.wycd.yushangpu.bean.ShopMsg;
-import com.wycd.yushangpu.bean.VipDengjiMsg;
+import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.bean.event.HomeButtonColorChangeEvent;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpGuadanList;
@@ -63,7 +63,7 @@ public class QudanFragment extends Fragment {
     private GuadanListAdapter guadanListAdapter;
     private String jifen;
     private double dkmoney;
-    private VipDengjiMsg.DataBean mVipMsg;
+    private VipInfoMsg mVipMsg;
     private ArrayList<ShopMsg> mShopLeftList = new ArrayList<>();
     private PayTypeMsg moren;//默认支付
     private ArrayList<PayTypeMsg> paytypelist;
@@ -140,14 +140,14 @@ public class QudanFragment extends Fragment {
         obtainGuadanList();
     }
 
-    private void jiesuan(GuadanList guadanList, VipDengjiMsg.DataBean mVipMsg) {
+    private void jiesuan(GuadanList guadanList, VipInfoMsg mVipMsg) {
         if (homeActivity.jiesuanBFragment == null) {
             homeActivity.jiesuanBFragment = new JiesuanBFragment();
             homeActivity.getSupportFragmentManager().beginTransaction().add(R.id.fragment_content, homeActivity.jiesuanBFragment).commit();
         } else
             homeActivity.getSupportFragmentManager().beginTransaction().show(homeActivity.jiesuanBFragment).commit();
 
-        homeActivity.jiesuanBFragment.setData(guadanList.getCO_TotalPrice(), guadanList.getCO_TotalPrice(), mVipMsg, mVipMsg,
+        homeActivity.jiesuanBFragment.setData(guadanList.getCO_TotalPrice(), guadanList.getCO_TotalPrice(), mVipMsg,
                 dkmoney + "", guadanList.getGID(), guadanList.getCO_Type(), guadanList.getCO_OrderCode(),
                 mShopLeftList, moren, paytypelist, JiesuanBFragment.OrderType.GUAZHANG_ORDER, new InterfaceBack() {
                     @Override
@@ -444,9 +444,8 @@ public class QudanFragment extends Fragment {
                         onlyVipMsg.vipMsg(homeActivity, guadanList.getVIP_Card(), new InterfaceBack() {
                             @Override
                             public void onResponse(Object response) {
-                                VipDengjiMsg mVipDengjiMsg = (VipDengjiMsg) response;
+                                mVipMsg = (VipInfoMsg) response;
                                 homeActivity.dialog.dismiss();
-                                mVipMsg = mVipDengjiMsg.getData().get(0);
                                 jifen = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableIntegral() + "";
                                 dkmoney = CommonUtils.div(Double.parseDouble(CommonUtils.multiply(jifen, jinfenzfxzbfb)), Double.parseDouble(jifendkbfb), 2);//可抵扣金额
                                 jiesuan(guadanList, mVipMsg);

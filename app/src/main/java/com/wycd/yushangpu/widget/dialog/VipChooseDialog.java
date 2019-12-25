@@ -2,14 +2,13 @@ package com.wycd.yushangpu.widget.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.adapter.SearchVipPopAdapter;
-import com.wycd.yushangpu.bean.VipDengjiMsg;
+import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpOnlyVipMsg;
 import com.wycd.yushangpu.widget.NumInputView;
@@ -40,10 +39,10 @@ public class VipChooseDialog extends Dialog {
     private Activity mContext;
     private InterfaceBack back;
     private Dialog dialog;
-    private VipDengjiMsg.DataBean mVipDetail;
+    private VipInfoMsg mVipDetail;
     NumInputView editTextLayout;
 
-    public VipChooseDialog(Activity context, VipDengjiMsg.DataBean vipMsg, final InterfaceBack back) {
+    public VipChooseDialog(Activity context, VipInfoMsg vipMsg, final InterfaceBack back) {
         super(context, R.style.ActionSheetDialogStyle);
         this.mContext = context;
         this.back = back;
@@ -57,8 +56,21 @@ public class VipChooseDialog extends Dialog {
         searchVipPopAdapter = new SearchVipPopAdapter(mContext, new InterfaceBack() {
             @Override
             public void onResponse(Object response) {
-                mVipDetail = (VipDengjiMsg.DataBean) response;
-                back.onResponse(mVipDetail);
+                mVipDetail = (VipInfoMsg) response;
+
+                ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
+                onlyVipMsg.vipMsg(mContext, mVipDetail.getVCH_Card(), new InterfaceBack() {
+                    @Override
+                    public void onResponse(Object response) {
+                        mVipDetail = (VipInfoMsg) response;
+                        back.onResponse(mVipDetail);
+                    }
+
+                    @Override
+                    public void onErrorResponse(Object msg) {
+
+                    }
+                });
                 dismiss();
             }
 
@@ -121,7 +133,7 @@ public class VipChooseDialog extends Dialog {
             @Override
             public void onResponse(Object response) {
                 dialog.dismiss();
-                List<VipDengjiMsg.DataBean> vipDengjiMsg = (List<VipDengjiMsg.DataBean>) response;
+                List<VipInfoMsg> vipDengjiMsg = (List<VipInfoMsg>) response;
 
                 searchVipPopAdapter.setList(vipDengjiMsg);
                 searchVipPopAdapter.notifyDataSetChanged();

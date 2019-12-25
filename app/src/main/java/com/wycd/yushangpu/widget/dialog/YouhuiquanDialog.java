@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.adapter.YouhuiquanAdapter;
-import com.wycd.yushangpu.bean.VipDengjiMsg;
+import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.bean.YhqMsg;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpYhq;
@@ -37,7 +37,7 @@ public class YouhuiquanDialog {
     private static List<YhqMsg> list = new ArrayList<>();
     private static YouhuiquanAdapter adapter;
 
-    public static Dialog yhqDialog(final Activity context, final String paymoney, VipDengjiMsg.DataBean mVipDengjiMsg, List<YhqMsg> yhqMsgs,
+    public static Dialog yhqDialog(final Activity context, final String paymoney, VipInfoMsg mVipDengjiMsg, List<YhqMsg> yhqMsgs,
                                    int showingLocation, final InterfaceBack back) {
         final Dialog dialog;
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -156,10 +156,10 @@ public class YouhuiquanDialog {
         return dialog;
     }
 
-    private static void addDate(VipDengjiMsg.DataBean mVipDengjiMsg) {
+    private static void addDate(VipInfoMsg mVipDengjiMsg) {
         list.clear();
         if (mVipDengjiMsg != null && mVipDengjiMsg.getCouponsList() != null) {
-            for (VipDengjiMsg.DataBean.CouponsListBean msg : mVipDengjiMsg.getCouponsList()) {
+            for (VipInfoMsg.CouponsListBean msg : mVipDengjiMsg.getCouponsList()) {
                 YhqMsg bean = new YhqMsg();
                 bean.setGID(msg.getGID());
                 bean.setVIP_GID(msg.getVIP_GID());

@@ -16,7 +16,7 @@ import android.widget.ListView;
 
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.adapter.VipListAdapter;
-import com.wycd.yushangpu.bean.VipMsg;
+import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpVipList;
 import com.wycd.yushangpu.tools.LogUtils;
@@ -32,7 +32,7 @@ import java.util.List;
 
 public class VipDialog {
     public static Dialog languageChoseDialog(final Activity context,
-                                             int showingLocation, final List<VipMsg> vipList, final InterfaceBack back) {
+                                             int showingLocation, final List<VipInfoMsg> vipList, final InterfaceBack back) {
         final Dialog dialog;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.dialog_chosevip, null);
@@ -59,7 +59,7 @@ public class VipDialog {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                VipMsg vipMsg = (VipMsg) adapterView.getItemAtPosition(i);
+                VipInfoMsg vipMsg = (VipInfoMsg) adapterView.getItemAtPosition(i);
                 back.onResponse(vipMsg);
                 dialog.dismiss();
             }
@@ -120,14 +120,14 @@ public class VipDialog {
         return (int) (dipValue * scale + 0.5f);
     }
 
-    private static void obtainVipList(Activity context, final Dialog loadingdialog, final List<VipMsg> vipList, final VipListAdapter mVipListAdapter,String search) {
+    private static void obtainVipList(Activity context, final Dialog loadingdialog, final List<VipInfoMsg> vipList, final VipListAdapter mVipListAdapter,String search) {
         loadingdialog.show();
         ImpVipList shopHome = new ImpVipList();
         shopHome.vipList(context, "yes", 1, 50,search, new InterfaceBack() {
             @Override
             public void onResponse(Object response) {
                 loadingdialog.dismiss();
-                List<VipMsg> sllist = (List<VipMsg>) response;
+                List<VipInfoMsg> sllist = (List<VipInfoMsg>) response;
                 vipList.addAll(sllist);
                 LogUtils.d("xxshoplist", vipList.size() + "");
                 mVipListAdapter.notifyDataSetChanged();

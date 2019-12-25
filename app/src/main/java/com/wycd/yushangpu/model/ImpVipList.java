@@ -10,13 +10,11 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
-import com.wycd.yushangpu.bean.VipMsg;
+import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.http.UrlTools;
 import com.wycd.yushangpu.tools.ActivityManager;
 import com.wycd.yushangpu.tools.LogUtils;
-import com.wycd.yushangpu.tools.ToastUtils;
 import com.wycd.yushangpu.ui.LoginActivity;
 
 import org.json.JSONObject;
@@ -33,11 +31,11 @@ import cz.msebera.android.httpclient.Header;
  */
 
 public class ImpVipList {
-    private List<VipMsg> shoplist = new ArrayList<>();
+    private List<VipInfoMsg> shoplist = new ArrayList<>();
     private Gson mGson = new Gson();
     private int index = 1;
 
-    public void vipList(final Activity ac, final String type, final int PageIndex, final int PageSize, final String WCardOrNameOrCellPhoneOrFace,
+    public void vipList(final Activity ac, final String type, final int PageIndex, final int PageSize, final String CardOrNameOrCellPhoneOrFace,
                         final InterfaceBack back) {
         // TODO 自动生成的方法存根
         AsyncHttpClient client = new AsyncHttpClient();
@@ -46,7 +44,7 @@ public class ImpVipList {
         RequestParams params = new RequestParams();
         params.put("PageIndex", PageIndex);
         params.put("PageSize", PageSize);
-        params.put("WCardOrNameOrCellPhoneOrFace", WCardOrNameOrCellPhoneOrFace);
+        params.put("CardOrNameOrCellPhoneOrFace", CardOrNameOrCellPhoneOrFace);
         String url = HttpAPI.API().VIPLIST;
         LogUtils.d("xxparams", params.toString());
         LogUtils.d("xxurl", url);
@@ -58,13 +56,13 @@ public class ImpVipList {
                     JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
                     if (jso.getBoolean("success")) {
                         JSONObject js = jso.getJSONObject("data");
-                        Type listType = new TypeToken<List<VipMsg>>() {
+                        Type listType = new TypeToken<List<VipInfoMsg>>() {
                         }.getType();
-                        List<VipMsg> sllist = mGson.fromJson(js.getString("DataList"), listType);
+                        List<VipInfoMsg> sllist = mGson.fromJson(js.getString("DataList"), listType);
                         shoplist.addAll(sllist);
                         if (index < js.getInt("PageTotal")) {
                             index = index + 1;
-                            vipList(ac, type, index, PageSize,WCardOrNameOrCellPhoneOrFace, back);
+                            vipList(ac, type, index, PageSize, CardOrNameOrCellPhoneOrFace, back);
                         } else {
                             back.onResponse(shoplist);
                         }

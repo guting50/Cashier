@@ -256,7 +256,6 @@ public class NumInputView extends RelativeLayout {
             timer = null;
         }
         if (isShow) {
-            textCursor.setVisibility(VISIBLE);
             if (drawables != null && drawablesSize > 0) {
                 rootView.setBackgroundDrawable(drawables[0]);
             }
@@ -275,7 +274,7 @@ public class NumInputView extends RelativeLayout {
                         }
                     });
                 }
-            }, 500, 500);
+            }, 50, 500);
         }
     }
 

@@ -23,7 +23,7 @@ import com.wycd.yushangpu.bean.PayType;
 import com.wycd.yushangpu.bean.PayTypeMsg;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.bean.SmsSwitch;
-import com.wycd.yushangpu.bean.VipDengjiMsg;
+import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.bean.YhqMsg;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.ImgUrlTools;
@@ -135,8 +135,7 @@ public class JiesuanBFragment extends Fragment {
     private Dialog yhqdialog;
     private List<YhqMsg> yhqMsgs;
     private OrderType orderType;
-    private VipDengjiMsg.DataBean mVipDengjiMsg;
-    private VipDengjiMsg.DataBean mVipMsg;
+    private VipInfoMsg mVipMsg;
     private Dialog dialog;
 
     View rootView;
@@ -191,13 +190,12 @@ public class JiesuanBFragment extends Fragment {
         dialog = LoadingDialog.loadingDialog(context, 1);
     }
 
-    public void setData(String totalMoney, String money, VipDengjiMsg.DataBean vipMsg, VipDengjiMsg.DataBean mVipDengjiMsg, String dkmoney,
+    public void setData(String totalMoney, String money, VipInfoMsg vipMsg,String dkmoney,
                         String GID, String CO_Type, String CO_OrderCode, ArrayList<ShopMsg> list, PayTypeMsg moren, ArrayList<PayTypeMsg> paylist,
                         OrderType orderType, InterfaceBack back) {
         this.totalMoney = totalMoney;
         this.money = money;
         this.mVipMsg = vipMsg;
-        this.mVipDengjiMsg = mVipDengjiMsg;
         this.dkmoney = dkmoney;
         this.GID = GID;
         this.CO_Type = CO_Type;
@@ -225,13 +223,7 @@ public class JiesuanBFragment extends Fragment {
         this.yue = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableBalance() + "";
         this.isMember = null == mVipMsg ? false : true;
 
-        if (mVipDengjiMsg != null) {
-            VolleyResponse.instance().getInternetImg(context, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(
-                    mVipDengjiMsg.getVIP_HeadImg()).toString()), mIvViptx, R.mipmap.member_head_nohead);
-            mTvVipname.setText(NullUtils.noNullHandle(mVipDengjiMsg.getVIP_Name()).toString());
-            tvBlance.setText("余额:" + StringUtil.twoNum(NullUtils.noNullHandle(mVipDengjiMsg.getMA_AvailableBalance()).toString()));
-            tvIntegral.setText("积分:" + Double.parseDouble(NullUtils.noNullHandle(mVipDengjiMsg.getMA_AvailableIntegral()).toString()) + "");
-        } else if (mVipMsg != null) {
+        if (mVipMsg != null) {
             VolleyResponse.instance().getInternetImg(context, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(
                     mVipMsg.getVIP_HeadImg()).toString()), mIvViptx, R.mipmap.member_head_nohead);
             mTvVipname.setText(NullUtils.noNullHandle(mVipMsg.getVIP_Name()).toString());
@@ -274,7 +266,7 @@ public class JiesuanBFragment extends Fragment {
                 numKeyboardUtils.getEditView().addNum(100);
                 break;
             case R.id.li_yhq:
-                yhqdialog = YouhuiquanDialog.yhqDialog(context, money, mVipDengjiMsg, yhqMsgs, 1, new InterfaceBack() {
+                yhqdialog = YouhuiquanDialog.yhqDialog(context, money, mVipMsg, yhqMsgs, 1, new InterfaceBack() {
                     @Override
                     public void onResponse(Object response) {
                         yhqMsgs = (List<YhqMsg>) response;

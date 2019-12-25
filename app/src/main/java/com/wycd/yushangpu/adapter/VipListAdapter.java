@@ -5,14 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wycd.yushangpu.R;
-import com.wycd.yushangpu.bean.ShopMsg;
-import com.wycd.yushangpu.bean.VipMsg;
-import com.wycd.yushangpu.http.InterfaceBack;
+import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.StringUtil;
 
@@ -26,11 +22,11 @@ import butterknife.ButterKnife;
  */
 
 public class VipListAdapter extends BaseAdapter {
-    private List<VipMsg> list;
+    private List<VipInfoMsg> list;
     private Context context;
     private LayoutInflater inflater;
 
-    public VipListAdapter(Context context, List<VipMsg> list) {
+    public VipListAdapter(Context context, List<VipInfoMsg> list) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -62,7 +58,7 @@ public class VipListAdapter extends BaseAdapter {
         } else {
             holder1 = (ViewHolder) view.getTag();
         }
-        final VipMsg vipMsg = list.get(i);
+        final VipInfoMsg vipMsg = list.get(i);
         holder1.mTvVipcard.setText(NullUtils.noNullHandle(vipMsg.getVCH_Card()).toString());
         holder1.mTvVipname.setText(NullUtils.noNullHandle(vipMsg.getVIP_Name()).toString());
         holder1.mTvVipdnegji.setText(NullUtils.noNullHandle(vipMsg.getVG_Name()).toString());

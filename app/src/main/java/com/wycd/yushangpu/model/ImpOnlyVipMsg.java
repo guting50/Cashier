@@ -10,19 +10,16 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
-import com.wycd.yushangpu.bean.VipDengjiMsg;
+import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.http.UrlTools;
 import com.wycd.yushangpu.tools.ActivityManager;
 import com.wycd.yushangpu.tools.LogUtils;
-import com.wycd.yushangpu.tools.ToastUtils;
 import com.wycd.yushangpu.ui.LoginActivity;
 
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
@@ -46,6 +43,8 @@ public class ImpOnlyVipMsg {
         String url = HttpAPI.API().QUERY_SINGLE_LIST;
         LogUtils.d("xxparams", params.toString());
         LogUtils.d("xxurl", url);
+        System.out.println("============================url===" + url);
+        System.out.println("============================params===" + params.toString());
         client.post(url, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -53,9 +52,11 @@ public class ImpOnlyVipMsg {
                     LogUtils.d("xxVipS", new String(responseBody, "UTF-8"));
                     JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
                     if (jso.getBoolean("success")) {
-                        Type listType = new TypeToken<VipDengjiMsg>() {}.getType();
-                        VipDengjiMsg sllist = mGson.fromJson(jso.toString(), listType);
-                        back.onResponse(sllist);
+                        Type listType = new TypeToken<List<VipInfoMsg>>() {
+                        }.getType();
+                        List<VipInfoMsg> sllist = mGson.fromJson(jso.getString("data"), listType);
+                        if (sllist != null && sllist.size() > 0)
+                            back.onResponse(sllist.get(0));
                     } else {
                         if (jso.getString("code").equals("RemoteLogin") || jso.getString("code").equals("LoginTimeout")) {
                             ActivityManager.getInstance().exit();
@@ -93,10 +94,13 @@ public class ImpOnlyVipMsg {
         RequestParams params = new RequestParams();
         params.put("PageIndex", 1);
         params.put("PageSize", 100);
-        params.put("WCardOrNameOrCellPhoneOrFace", VCH_Card);
+        params.put("CardOrNameOrCellPhoneOrFace", VCH_Card);
+        params.put("SM_GID", MyApplication.loginBean.getData().getShopID());
         String url = HttpAPI.API().VIPLIST;
         LogUtils.d("xxparams", params.toString());
         LogUtils.d("xxurl", url);
+        System.out.println("============================url===" + url);
+        System.out.println("============================params===" + params.toString());
         client.post(url, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -105,8 +109,9 @@ public class ImpOnlyVipMsg {
                     JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
                     if (jso.getBoolean("success")) {
                         JSONObject js = jso.getJSONObject("data");
-                        Type listType = new TypeToken<List<VipDengjiMsg.DataBean>>() {}.getType();
-                        List<VipDengjiMsg.DataBean> sllist = mGson.fromJson(js.getString("DataList"), listType);
+                        Type listType = new TypeToken<List<VipInfoMsg>>() {
+                        }.getType();
+                        List<VipInfoMsg> sllist = mGson.fromJson(js.getString("DataList"), listType);
                         back.onResponse(sllist);
                     } else {
                         if (jso.getString("code").equals("RemoteLogin") || jso.getString("code").equals("LoginTimeout")) {

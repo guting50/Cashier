@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.gt.utils.view.OnNoDoubleClickListener;
 import com.wycd.yushangpu.R;
-import com.wycd.yushangpu.bean.VipDengjiMsg;
+import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.tools.NullUtils;
 
@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
 
 
 public class SearchVipPopAdapter extends RecyclerView.Adapter {
-    private List<VipDengjiMsg.DataBean> list = new ArrayList<>();
+    private List<VipInfoMsg> list = new ArrayList<>();
     private Context context;
     private InterfaceBack back;
 
@@ -35,11 +35,11 @@ public class SearchVipPopAdapter extends RecyclerView.Adapter {
         this.back = back;
     }
 
-    public void addList(VipDengjiMsg.DataBean list) {
+    public void addList(VipInfoMsg list) {
         this.list.add(list);
     }
 
-    public void setList(List<VipDengjiMsg.DataBean> list) {
+    public void setList(List<VipInfoMsg> list) {
         this.list = list;
     }
 
@@ -54,7 +54,7 @@ public class SearchVipPopAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         Holder vh = (Holder) holder;
-        final VipDengjiMsg.DataBean ts = list.get(position);
+        final VipInfoMsg ts = list.get(position);
 
         vh.tvGid.setText(NullUtils.noNullHandle(ts.getGID()) + "");
         vh.tvName.setText(NullUtils.noNullHandle(ts.getVIP_Name()) + "");
