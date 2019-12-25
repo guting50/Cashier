@@ -53,7 +53,6 @@ public class ImpLogin {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
-
                     if (headers == null) {
                         return;
                     } else {
@@ -68,7 +67,6 @@ public class ImpLogin {
                             }
                         }
                         AddCookies();
-
                     }
                     LogUtils.d("xxLoginS", new String(responseBody, "UTF-8"));
                     JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
@@ -150,8 +148,6 @@ public class ImpLogin {
                         back.onErrorResponse("");
                     }
                 } catch (Exception e) {
-//                    ToastUtils.showToast(ac, "获取店铺信息失败");
-//                    com.blankj.utilcode.util.ToastUtils.showShort("获取店铺信息失败");
                     back.onErrorResponse("");
                 }
             }
@@ -160,6 +156,53 @@ public class ImpLogin {
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 //                ToastUtils.showToast(ac, "获取店铺信息失败");
                 com.blankj.utilcode.util.ToastUtils.showShort("获取验证码失败");
+                LogUtils.d("xxerror", error.getMessage());
+                back.onErrorResponse("");
+            }
+        });
+    }
+
+
+    public void getNewsVersion(final Activity ac, final InterfaceBack back) {
+        AsyncHttpClient client = new AsyncHttpClient();
+        final PersistentCookieStore myCookieStore = new PersistentCookieStore(ac);
+        client.setCookieStore(myCookieStore);
+        RequestParams params = new RequestParams();
+
+        params.put("Code", 3);
+        String url = HttpAPI.API().GET_NEWS_VERSION;
+        LogUtils.d("xxparams", params.toString());
+        LogUtils.d("xxurl", url);
+        client.post(url, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                try {
+                    LogUtils.d("xxoutLoginS", new String(responseBody, "UTF-8"));
+                    JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
+                    if (jso.getBoolean("success")) {
+                        back.onResponse(jso.get("data"));
+                    } else {
+                        if (jso.getString("code").equals("RemoteLogin") || jso.getString("code").equals("LoginTimeout")) {
+                            ActivityManager.getInstance().exit();
+                            Intent intent = new Intent(MyApplication.getContext(), LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            MyApplication.getContext().startActivity(intent);
+                            com.blankj.utilcode.util.ToastUtils.showShort(jso.getString("msg"));
+                            return;
+                        }
+//                        ToastUtils.showToast(ac, jso.getString("msg"));
+                        com.blankj.utilcode.util.ToastUtils.showShort(jso.getString("msg"));
+                        back.onErrorResponse("");
+                    }
+                } catch (Exception e) {
+                    back.onErrorResponse("");
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+//                ToastUtils.showToast(ac, "获取店铺信息失败");
+                com.blankj.utilcode.util.ToastUtils.showShort("获取版本更新失败");
                 LogUtils.d("xxerror", error.getMessage());
                 back.onErrorResponse("");
             }

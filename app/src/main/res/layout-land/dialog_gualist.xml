@@ -53,11 +53,18 @@
             app:stroke_color="#b3e4c6"
             app:stroke_width="1dp">
 
-            <TextView
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
+                android:src="@mipmap/icon_warning"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="40dp"
                 android:text="挂单有效期为24小时，过期自动删除。"
                 android:textColor="#149f4a"
                 android:textSize="18sp" />

@@ -80,6 +80,8 @@ public class HttpAPI {
         public static final String LOGIN = MyApplication.BASE_URL + "api/UserManager/Login";
         //获取验证码
         public static final String GET_CODE = MyApplication.BASE_URL + "api/VerifyCode/GetCode";
+        //获取版本更新
+        public static final String GET_NEWS_VERSION = MyApplication.BASE_URL + "api/TouchScreen/GetNewsVersion";
 
         //根据卡号查询会员列表
         public static final String QUERY_SINGLE_LIST = MyApplication.BASE_URL + "api/VIP/GetQuerySingleList";

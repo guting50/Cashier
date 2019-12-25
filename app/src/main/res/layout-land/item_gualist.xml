@@ -5,12 +5,14 @@
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     android:background="@drawable/bg_edittext_normal"
+    android:minHeight="173dp"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/item_layout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:minHeight="173dp"
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/tv_vipmsg"
@@ -18,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="9dp"
             android:layout_marginTop="20dp"
-            android:gravity="center"
+            android:maxLines="1"
             android:text="会员："
             android:textColor="@color/title_color"
             android:textSize="20sp"
@@ -71,7 +73,7 @@
         <com.gt.utils.view.BgFrameLayout
             android:layout_width="match_parent"
             android:layout_height="38dp"
-            android:layout_below="@+id/tv_ordermoney"
+            android:layout_alignParentBottom="true"
             android:layout_marginTop="10dp"
             app:corners_radius_left_bottom="5dp"
             app:corners_radius_right_bottom="5dp"
@@ -96,17 +98,18 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:minHeight="173dp"
-        android:visibility="gone"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_add_guadan" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="9dp"
+            android:layout_marginLeft="10dp"
             android:text="新增挂单"
             android:textColor="@color/title_color"
             android:textSize="22sp" />
