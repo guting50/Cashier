@@ -127,6 +127,7 @@ public class JiesuanBFragment extends Fragment {
 
     PayModeListAdapter payModeListAdapter;
 
+    private boolean isInit;
     private InterfaceBack back;
     private List<PayTypeMsg> payModeList;
     private PayTypeMsg defaultMode;
@@ -213,21 +214,23 @@ public class JiesuanBFragment extends Fragment {
         this.payModeList = paylist;
         this.orderType = orderType;
         this.back = back;
-        if (this.isResumed())
+        if (isInit)
             updateData();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (!TextUtils.isEmpty(totalMoney))
+        if (!TextUtils.isEmpty(totalMoney) && !isInit)
             updateData();
+        isInit = true;
     }
 
     private void updateData() {
         et_moling.setText("");
         tv_zhaoling.setText("");
         tvCouponMoney.setText("");
+        tvCouponMoney.setHint("请选择优惠券");
         tvPromotion.setText("");
         yhqMsgs = null;
 

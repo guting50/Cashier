@@ -2,6 +2,7 @@ package com.wycd.yushangpu.ui.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +75,7 @@ public class EditCashierGoodsFragment extends Fragment {
 
     ShopMsg shopBean;
     View rootView;
+    private boolean isInit;
 
     @Nullable
     @Override
@@ -94,7 +96,7 @@ public class EditCashierGoodsFragment extends Fragment {
 
     public void setData(ShopMsg shopBean) {
         this.shopBean = shopBean;
-        if (this.isResumed()) {
+        if (isInit) {
             updateData();
         }
     }
@@ -102,7 +104,9 @@ public class EditCashierGoodsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        updateData();
+        if (!isInit)
+            updateData();
+        isInit = true;
     }
 
     private void updateData() {

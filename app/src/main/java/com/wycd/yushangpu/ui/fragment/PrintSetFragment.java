@@ -138,6 +138,7 @@ public class PrintSetFragment extends Fragment {
 
     private HomeActivity homeActivity;
     View rootView;
+    private boolean isInit;
 
     @Nullable
     @Override
@@ -162,14 +163,16 @@ public class PrintSetFragment extends Fragment {
 
     public void setData(ShopInfoBean shopInfoBean) {
         this.shopInfoBean = shopInfoBean;
-        if (this.isResumed())
+        if (isInit)
             updateData();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        updateData();
+        if (!isInit)
+            updateData();
+        isInit = true;
     }
 
     private void initView() {
