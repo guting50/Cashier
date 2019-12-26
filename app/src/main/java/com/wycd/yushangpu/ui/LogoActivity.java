@@ -2,13 +2,12 @@ package com.wycd.yushangpu.ui;
 
 import android.content.Intent;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpLogin;
+import com.wycd.yushangpu.tools.UpdateAppVersion;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Timer;
@@ -35,32 +34,41 @@ public class LogoActivity extends BaseActivity {
                     PackageInfo packageInfo = getPackageManager().getPackageInfo(
                             getPackageName(), 0);
                     if (Integer.parseInt(version) > packageInfo.versionCode) {
-                        if(jso.getInt("VA_UpdateMechanism") == 0){
+                        if (jso.getInt("VA_UpdateMechanism") == 0) {
                             //自动升级
-                        }else{
-                            new Timer().schedule(new TimerTask() {
+                            UpdateAppVersion.UpdateInfoRes updateInfoBean = new UpdateAppVersion.UpdateInfoRes();
+                            updateInfoBean.setContent(jso.getString("VA_Remark"));
+                            updateInfoBean.setCurrentversion(Integer.parseInt(version));
+                            updateInfoBean.setMinversionrequire(Integer.parseInt(version));
+                            updateInfoBean.setCurrentversiondesc(jso.getString("VA_VersionName"));
+                            updateInfoBean.setUrl(jso.getString("VA_VersionAddress"));
+                            new UpdateAppVersion(LogoActivity.this, updateInfoBean, new UpdateAppVersion.OnUpdateVersionBackListener() {
                                 @Override
-                                public void run() {
-                                    startActivity(new Intent(LogoActivity.this, LoginActivity.class));
-                                    finish();
+                                public void onBackListener() {
+                                    toLoginActivity();
                                 }
-                            }, 500);
+                            }).compareVersion();
+                        } else {
+                            toLoginActivity();
                         }
                     }
 
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
-                } catch (PackageManager.NameNotFoundException e) {
-                    e.printStackTrace();
+                    toLoginActivity();
                 }
             }
 
             @Override
             public void onErrorResponse(Object msg) {
-
+                toLoginActivity();
             }
         });
 
+        toLoginActivity();
+    }
+
+    public void toLoginActivity() {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
@@ -68,6 +76,5 @@ public class LogoActivity extends BaseActivity {
                 finish();
             }
         }, 500);
-
     }
 }
