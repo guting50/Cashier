@@ -139,6 +139,28 @@
                         android:layout_marginLeft="15dp"
                         android:src="@mipmap/icon_software_info" />
 
+                    <com.gt.utils.view.BgFrameLayout
+                        android:id="@+id/upgrade_sign"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="150dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:visibility="gone"
+                        app:corners_radius="10dp"
+                        app:solid_color="#ff6632">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="有更新"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp_13" />
+
+                    </com.gt.utils.view.BgFrameLayout>
+
                 </FrameLayout>
 
             </LinearLayout>
@@ -756,7 +778,6 @@
                 android:id="@+id/software_info_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone"
                 app:corners_radius="5dp"
                 app:solid_color="@color/white">
 
@@ -795,11 +816,13 @@
                         android:textSize="18sp" />
 
                     <com.gt.utils.view.BgFrameLayout
+                        android:id="@+id/upgrade"
                         android:layout_width="120dp"
                         android:layout_height="48dp"
                         android:layout_below="@+id/tv_version_number"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="208dp"
+                        android:visibility="gone"
                         app:corners_radius="5dp"
                         app:solid_color="@color/item_bg"
                         app:stroke_color="@color/view_color"

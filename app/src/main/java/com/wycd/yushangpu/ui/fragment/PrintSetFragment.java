@@ -15,6 +15,7 @@ import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,9 +50,11 @@ import com.wycd.yushangpu.tools.CacheData;
 import com.wycd.yushangpu.tools.DeviceConnFactoryManager;
 import com.wycd.yushangpu.tools.DeviceReceiver;
 import com.wycd.yushangpu.tools.NullUtils;
+import com.wycd.yushangpu.tools.UpdateAppVersion;
 import com.wycd.yushangpu.tools.Utils;
 import com.wycd.yushangpu.ui.HomeActivity;
 import com.wycd.yushangpu.ui.LoginActivity;
+import com.wycd.yushangpu.ui.LogoActivity;
 import com.wycd.yushangpu.widget.dialog.NoticeDialog;
 
 import net.posprinter.posprinterface.TaskCallback;
@@ -95,6 +98,7 @@ public class PrintSetFragment extends Fragment {
     private SwitchCompat scPrintSwitch;
     private View aboutShopLayout, settingLayout, softwareInfoLayout;
     private TextView tv_version_number;
+    private View upgrade, upgradeSign;
 
     ImageView sm_picture;
     TextView tv_sm_edition, tv_sersion_life, tv_create_time, tv_end_time, tv_shop_users, tv_shop_mbers, tv_shop_goods,
@@ -201,6 +205,8 @@ public class PrintSetFragment extends Fragment {
         softwareInfoLayout = rootView.findViewById(R.id.software_info_layout);
 
         tv_version_number = rootView.findViewById(R.id.tv_version_number);
+        upgrade = rootView.findViewById(R.id.upgrade);
+        upgradeSign = rootView.findViewById(R.id.upgrade_sign);
 
         mEtGoodsConsume = (EditText) rootView.findViewById(R.id.et_print_set_goods_consume);
         mEtHandDutyTime = (EditText) rootView.findViewById(R.id.et_print_set_hand_duty);
@@ -548,6 +554,17 @@ public class PrintSetFragment extends Fragment {
                 });
             }
         });
+
+        if (!TextUtils.isEmpty(LogoActivity.VERSION_ADDRESS)) {
+            upgrade.setVisibility(View.VISIBLE);
+            upgradeSign.setVisibility(View.VISIBLE);
+            upgrade.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new UpdateAppVersion(getActivity()).downLoadNewApk(LogoActivity.VERSION_ADDRESS);
+                }
+            });
+        }
     }
 
     @OnClick({R.id.rb_about_shop, R.id.rb_printer_label_set, R.id.rb_printer_device_set, R.id.rb_software_info})

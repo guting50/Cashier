@@ -46,8 +46,12 @@ public class UpdateAppVersion {
      */
     private Context context;
 
-    public UpdateAppVersion(Context ct, UpdateInfoRes mUpdateInfoBean, OnUpdateVersionBackListener listener) {
+    public UpdateAppVersion(Context ct) {
         context = ct;
+    }
+
+    public UpdateAppVersion(Context ct, UpdateInfoRes mUpdateInfoBean, OnUpdateVersionBackListener listener) {
+        this(ct);
         this.updateInfoRes = mUpdateInfoBean;
         this.listener = listener;
     }
@@ -143,7 +147,7 @@ public class UpdateAppVersion {
 
     public static final String KMS_DIR = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath() + File.separator + "kms";
 
-    private void downLoadNewApk(String apkUri) {
+    public void downLoadNewApk(String apkUri) {
         String fileName = KMS_DIR + File.separator + "apk" + File.separator + context.getPackageName() + updateInfoRes.getCurrentversiondesc() + ".apk";
         new MuchThreadDown(apkUri, fileName).download(new MuchThreadDown.OnDownloadListener() {
             @Override

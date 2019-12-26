@@ -17,6 +17,8 @@ import androidx.annotation.Nullable;
 
 public class LogoActivity extends BaseActivity {
 
+    public static String VERSION_ADDRESS = null;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +36,7 @@ public class LogoActivity extends BaseActivity {
                     PackageInfo packageInfo = getPackageManager().getPackageInfo(
                             getPackageName(), 0);
                     if (Integer.parseInt(version) > packageInfo.versionCode) {
+                        VERSION_ADDRESS = jso.getString("VA_VersionAddress");
                         if (jso.getInt("VA_UpdateMechanism") == 0) {
                             //自动升级
                             UpdateAppVersion.UpdateInfoRes updateInfoBean = new UpdateAppVersion.UpdateInfoRes();
