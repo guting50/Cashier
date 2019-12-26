@@ -1455,6 +1455,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 newmsg.setPM_Modle(msg.getPM_Modle());
                 newmsg.setPT_ID(msg.getPT_GID());
                 newmsg.setPT_Name(msg.getPT_Name());
+                //setPM_IsDiscount
                 if (msg.getGOD_Type() == 0) {
                     newmsg.setPM_IsService(0);
                 } else if (msg.getGOD_Type() == 10) {
