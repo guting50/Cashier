@@ -21,6 +21,7 @@ import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.OrderPayResult;
 import com.wycd.yushangpu.bean.PayType;
 import com.wycd.yushangpu.bean.PayTypeMsg;
+import com.wycd.yushangpu.bean.ReportMessageBean;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.bean.SmsSwitch;
 import com.wycd.yushangpu.bean.VipInfoMsg;
@@ -45,6 +46,7 @@ import com.wycd.yushangpu.tools.StringUtil;
 import com.wycd.yushangpu.widget.NumInputView;
 import com.wycd.yushangpu.widget.NumKeyboardUtils;
 import com.wycd.yushangpu.widget.dialog.LoadingDialog;
+import com.wycd.yushangpu.widget.dialog.PromotionDialog;
 import com.wycd.yushangpu.widget.dialog.SaomaDialog;
 import com.wycd.yushangpu.widget.dialog.YouhuiquanDialog;
 
@@ -75,6 +77,8 @@ public class JiesuanBFragment extends Fragment {
     TextView tvAllCouponMoney;
     @BindView(R.id.tv_coupon_money)
     TextView tvCouponMoney;
+    @BindView(R.id.tv_promotion)
+    TextView tvPromotion;
     @BindView(R.id.tv_zhaoling)
     TextView tv_zhaoling;
     @BindView(R.id.tv_discount)
@@ -103,9 +107,6 @@ public class JiesuanBFragment extends Fragment {
     LinearLayout mLiJifen;
     @BindView(R.id.li_qita)
     LinearLayout li_qita;
-
-    @BindView(R.id.li_yhq)
-    FrameLayout mLiYhq;
 
     @BindView(R.id.iv_viptx)
     CircleImageView mIvViptx;
@@ -137,8 +138,10 @@ public class JiesuanBFragment extends Fragment {
     private OrderPayResult result;
     private String jifendkbfb;
     private String yuezfxz;
-    private Dialog yhqdialog;
+    private Dialog yhqDialog;
+    private Dialog promotionDialog;
     private List<YhqMsg> yhqMsgs;
+    private ReportMessageBean.DataBean.ActiveBean promotionMsg;
     private OrderType orderType;
     private VipInfoMsg mVipMsg;
     private Dialog dialog;
@@ -225,17 +228,26 @@ public class JiesuanBFragment extends Fragment {
         et_moling.setText("");
         tv_zhaoling.setText("");
         tvCouponMoney.setText("");
+        tvPromotion.setText("");
         yhqMsgs = null;
 
         this.yue = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableBalance() + "";
         this.isMember = null == mVipMsg ? false : true;
 
         if (mVipMsg != null) {
+            int couponCount = 0;
             VolleyResponse.instance().getInternetImg(context, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(
                     mVipMsg.getVIP_HeadImg()).toString()), mIvViptx, R.mipmap.member_head_nohead);
             mTvVipname.setText(NullUtils.noNullHandle(mVipMsg.getVIP_Name()).toString());
             tvBlance.setText("余额:" + StringUtil.twoNum(NullUtils.noNullHandle(mVipMsg.getMA_AvailableBalance()).toString()));
             tvIntegral.setText("积分:" + Double.parseDouble(NullUtils.noNullHandle(mVipMsg.getMA_AvailableIntegral()).toString()) + "");
+
+            for (VipInfoMsg.CouponsListBean vipMsg : mVipMsg.getCouponsList()) {
+                if (Double.parseDouble(zhMoney) >= vipMsg.getEC_Denomination()) {
+                    couponCount++;
+                }
+            }
+            tvCouponMoney.setHint("有" + couponCount + "张优惠券可用");
         } else {
             Glide.with(context).load(R.mipmap.member_head_nohead).into(mIvViptx);
             mTvVipname.setText("散客");
@@ -250,11 +262,54 @@ public class JiesuanBFragment extends Fragment {
         setDefaultPayMode(defaultMode);
         resetPayModeList(payModeList);
         computeYsMoney();
+
+        yhqDialog = YouhuiquanDialog.yhqDialog(context, zhMoney, mVipMsg, /*yhqMsgs*/null, 1, new InterfaceBack() {
+            @Override
+            public void onResponse(Object response) {
+                yhqMsgs = (List<YhqMsg>) response;
+                yhqDialog.dismiss();
+//                        if (yhqMsgs.size() <= 0) {
+//                            return;
+//                        }
+                LogUtils.d("xxyhq", new Gson().toJson(yhqMsgs));
+
+                double yhqmo = 0.0;
+                for (YhqMsg yhqMsg : yhqMsgs) {
+                    if (yhqMsg.getEC_DiscountType() == 1) {//代金券
+                        yhqmo = CommonUtils.add(Double.parseDouble(NullUtils.noNullHandle(yhqMsg.getEC_Discount()).toString()), yhqmo);
+                    } else {
+                        yhqmo = CommonUtils.add(yhqmo, CommonUtils.del(Double.parseDouble(zhMoney), Double.parseDouble(
+                                CommonUtils.multiply(String.valueOf(CommonUtils.div(yhqMsg.getEC_Discount(), 100, 2)), zhMoney))));
+                    }
+                }
+                tvCouponMoney.setText("抵扣金额：" + yhqmo);
+                computeYsMoney();
+            }
+
+            @Override
+            public void onErrorResponse(Object msg) {
+                yhqDialog.dismiss();
+            }
+        });
+        promotionDialog = PromotionDialog.yhqDialog(context, 1, new InterfaceBack() {
+            @Override
+            public void onResponse(Object response) {
+                promotionMsg = (ReportMessageBean.DataBean.ActiveBean) response;
+                promotionDialog.dismiss();
+                if (promotionMsg != null)
+                    tvPromotion.setText(promotionMsg.getRP_Name());
+            }
+
+            @Override
+            public void onErrorResponse(Object msg) {
+                promotionDialog.dismiss();
+            }
+        });
     }
 
     @OnClick({R.id.jiesuan_layout,
             R.id.li_10, R.id.li_20, R.id.li_50, R.id.li_100, R.id.li_xianjin, R.id.li_yue, R.id.li_yinlian,
-            R.id.li_wx, R.id.li_ali, R.id.li_yhq, R.id.li_jifen, R.id.li_saoma, R.id.li_qita})
+            R.id.li_wx, R.id.li_ali, R.id.li_yhq, R.id.li_promotion, R.id.li_jifen, R.id.li_saoma, R.id.li_qita})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.jiesuan_layout:
@@ -272,34 +327,10 @@ public class JiesuanBFragment extends Fragment {
                 numKeyboardUtils.getEditView().addNum(100);
                 break;
             case R.id.li_yhq:
-                yhqdialog = YouhuiquanDialog.yhqDialog(context, ysMoney, mVipMsg, /*yhqMsgs*/null, 1, new InterfaceBack() {
-                    @Override
-                    public void onResponse(Object response) {
-                        yhqMsgs = (List<YhqMsg>) response;
-                        yhqdialog.dismiss();
-                        if (yhqMsgs.size() <= 0) {
-                            return;
-                        }
-                        LogUtils.d("xxyhq", new Gson().toJson(yhqMsgs));
-
-                        double yhqmo = 0.0;
-                        for (YhqMsg yhqMsg : yhqMsgs) {
-                            if (yhqMsg.getEC_DiscountType() == 1) {//代金券
-                                yhqmo = CommonUtils.add(Double.parseDouble(NullUtils.noNullHandle(yhqMsg.getEC_Discount()).toString()), yhqmo);
-                            } else {
-                                yhqmo = CommonUtils.add(yhqmo, CommonUtils.del(Double.parseDouble(ysMoney), Double.parseDouble(
-                                        CommonUtils.multiply(String.valueOf(CommonUtils.div(yhqMsg.getEC_Discount(), 100, 2)), ysMoney))));
-                            }
-                        }
-                        tvCouponMoney.setText("抵扣金额：" + yhqmo);
-                        computeYsMoney();
-                    }
-
-                    @Override
-                    public void onErrorResponse(Object msg) {
-                        yhqdialog.dismiss();
-                    }
-                });
+                yhqDialog.show();
+                break;
+            case R.id.li_promotion:
+                promotionDialog.show();
                 break;
             case R.id.li_xianjin:
                 resetPayBg(view, PayMode.XJZF.getStr());
@@ -460,6 +491,8 @@ public class JiesuanBFragment extends Fragment {
         result.setMolingMoney(getMoling());
         result.setPayTypeList(typeList);
         result.setPrint(cbSmallTicket.isChecked());
+        result.setYhqList(yhqMsgs);
+        result.setActive(promotionMsg);
     }
 
     /**
@@ -542,12 +575,6 @@ public class JiesuanBFragment extends Fragment {
                         mLiAli.setEnabled(false);
                     }
                     break;
-                case "110"://优惠券
-                    if (msg.getSS_State() != 1) {
-                        mLiYhq.setBackgroundResource(R.drawable.shap_enable_not);
-                        mLiYhq.setEnabled(false);
-                    }
-                    break;
                 case "107"://积分支付
                     if (msg.getSS_State() != 1 || !isMember) {
                         mLiJifen.setBackgroundResource(R.drawable.shap_enable_not);
@@ -621,10 +648,6 @@ public class JiesuanBFragment extends Fragment {
             case "ZFBJZ"://支付宝
                 view = mLiAli;
                 name = PayMode.ZFBJZ.getStr();
-                break;
-            case "YHQ"://优惠券
-//                view = mLiYhq;
-//                name = "优惠金额";
                 break;
             case "JFZF"://积分支付
                 if (isMember) {

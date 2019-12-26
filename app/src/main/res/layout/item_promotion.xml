@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_240"
+    android:layout_height="@dimen/dp_150"
+    android:layout_margin="5dp"
+    android:background="@mipmap/bg_yhq_no_select">
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:text="30"
+        android:textColor="@color/title_color"
+        android:textSize="@dimen/sp_24"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_youxiao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_name"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="@dimen/dp_4"
+        android:layout_marginRight="15dp"
+        android:text="永久有效"
+        android:textColor="@color/color_999999"
+        android:textSize="@dimen/sp_14" />
+
+    <TextView
+        android:id="@+id/tv_name_1"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:gravity="center_vertical"
+        android:text="满100元减10"
+        android:textColor="@color/title_color"
+        android:textSize="@dimen/sp_16" />
+</RelativeLayout>

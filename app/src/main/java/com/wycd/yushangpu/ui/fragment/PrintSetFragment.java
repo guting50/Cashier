@@ -35,19 +35,13 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.google.gson.Gson;
 import com.loopj.android.http.RequestParams;
-import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
-import com.wycd.yushangpu.bean.ReportMessageBean;
 import com.wycd.yushangpu.bean.ShopInfoBean;
-import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpOutLogin;
-import com.wycd.yushangpu.printutil.CallBack;
-import com.wycd.yushangpu.printutil.CommonFun;
-import com.wycd.yushangpu.printutil.HttpHelper;
+import com.wycd.yushangpu.model.ImpPreLoading;
 import com.wycd.yushangpu.printutil.IPrintSetPresenter;
 import com.wycd.yushangpu.printutil.IPrintSetView;
 import com.wycd.yushangpu.printutil.bean.PrintSetBean;
@@ -233,41 +227,6 @@ public class PrintSetFragment extends Fragment {
 
     }
 
-    //更新打印设置缓存
-    private void getAllMessage() {
-        HttpHelper.post(getActivity(), HttpAPI.API().PRE_LOAD, new CallBack() {
-            @Override
-            public void onSuccess(String responseString, Gson gson) {
-                ReportMessageBean reportbean = CommonFun.JsonToObj(responseString, ReportMessageBean.class);
-                if (reportbean != null) {
-                    ReportMessageBean.DataBean.PrintSetBean printbean = reportbean.getData().getPrintSet();
-                    if (printbean.getPS_IsEnabled() == 1) {
-                        MyApplication.PRINT_IS_OPEN = true;
-                    } else {
-                        MyApplication.PRINT_IS_OPEN = false;
-                    }
-                    if (printbean != null && printbean.getPrintTimesList() != null) {
-                        for (int i = 0; i < printbean.getPrintTimesList().size(); i++) {
-                            ReportMessageBean.DataBean.PrintSetBean.PrintTimesListBean bean = printbean.getPrintTimesList().get(i);
-                            if ("SPXF".equals(bean.getPT_Code())) {
-                                MyApplication.SPXF_PRINT_TIMES = bean.getPT_Times();
-                            }
-                            if ("JB".equals(bean.getPT_Code())) {
-                                MyApplication.JB_PRINT_TIMES = bean.getPT_Times();
-                            }
-                        }
-                    }
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(String msg) {
-            }
-        });
-    }
-
     private void updateData() {
         mEtGoodsConsume.requestFocus();
         if (LABELPRINT_IS_OPEN) {
@@ -328,7 +287,7 @@ public class PrintSetFragment extends Fragment {
 
             @Override
             public void saveSetSuccess() {
-                getAllMessage();
+                ImpPreLoading.preLoad(getActivity());
                 NoticeDialog.noticeDialog(getActivity(), "设置", "打印设置保存成功!", 1, new InterfaceBack() {
                     @Override
                     public void onResponse(Object response) {

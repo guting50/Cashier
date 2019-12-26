@@ -52,9 +52,9 @@ public class ImpOrderPay {
             System.out.println("============================[" + i + "]PayName===" + typelist.get(i).getPayName());
             System.out.println("============================[" + i + "]PayMoney===" + typelist.get(i).getPayMoney());
             System.out.println("============================[" + i + "]PayPoint===" + typelist.get(i).getPayPoint());
-            if (typelist.get(i).getPayName().equals("优惠券")) {
-                params.put("PayResult[PayTypeList][" + i + "][GID][]", typelist.get(i).getGID());
-            }
+        }
+        for (int i = 0; i < orderPayResult.getYhqList().size(); i++) {
+            params.put("PayResult[GIDList][" + i + "]", orderPayResult.getYhqList().get(i).getGID());
         }
 
         System.out.println("============================PayCode===" + OrderGID);
@@ -62,7 +62,7 @@ public class ImpOrderPay {
         System.out.println("============================PayTotalMoney===" + orderPayResult.getPayTotalMoney());
         System.out.println("============================DisMoney===" + orderPayResult.getDisMoney());
 
-        params.put("PayResult[CC_GID]", "");
+        params.put("PayResult[CC_GID]", orderPayResult.getActive() == null ? "" : orderPayResult.getActive().getGID());
         params.put("PayResult[EraseOdd]", orderPayResult.getMolingMoney());
         params.put("PayResult[IsPrint]", orderPayResult.isPrint());
         params.put("PayResult[IsSms]", shortMessage);

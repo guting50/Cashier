@@ -1,68 +1,51 @@
 package com.wycd.yushangpu.model;
 
 import android.app.Activity;
-import android.content.Intent;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.PersistentCookieStore;
-import com.loopj.android.http.RequestParams;
+import com.google.gson.Gson;
 import com.wycd.yushangpu.MyApplication;
+import com.wycd.yushangpu.bean.ReportMessageBean;
 import com.wycd.yushangpu.http.HttpAPI;
-import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.http.UrlTools;
-import com.wycd.yushangpu.tools.ActivityManager;
-import com.wycd.yushangpu.tools.LogUtils;
-import com.wycd.yushangpu.ui.LoginActivity;
-
-import org.json.JSONObject;
-
-import cz.msebera.android.httpclient.Header;
+import com.wycd.yushangpu.printutil.CallBack;
+import com.wycd.yushangpu.printutil.CommonFun;
+import com.wycd.yushangpu.printutil.HttpHelper;
 
 /**
  * Created by songxiaotao on 2018/6/19.
  * 首页预加载数据
  */
 
-public class ImpPreloading {
-    public void preload(final Activity ac,
-                        final InterfaceBack back) {
-        // TODO 自动生成的方法存根
-        AsyncHttpClient client = new AsyncHttpClient();
-        final PersistentCookieStore myCookieStore = new PersistentCookieStore(ac);
-        client.setCookieStore(myCookieStore);
-        RequestParams params = new RequestParams();
-        String url = HttpAPI.API().PRE_LOAD;
-        LogUtils.d("xxparams", params.toString());
-        LogUtils.d("xxurl", url);
-        client.post(url, params, new AsyncHttpResponseHandler() {
+public class ImpPreLoading {
+    public static ReportMessageBean REPORT_BEAN;
+
+    public static void preLoad(final Activity ac) {
+        HttpHelper.post(ac, HttpAPI.API().PRE_LOAD, new CallBack() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                try {
-                    LogUtils.d("xxPreloadS", new String(responseBody, "UTF-8"));
-                    JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
-                    if (jso.getBoolean("success")) {
-                        back.onResponse(jso.getJSONObject("data"));
+            public void onSuccess(String responseString, Gson gson) {
+                REPORT_BEAN = CommonFun.JsonToObj(responseString, ReportMessageBean.class);
+                if (REPORT_BEAN != null) {
+                    ReportMessageBean.DataBean.PrintSetBean printbean = REPORT_BEAN.getData().getPrintSet();
+                    if (printbean.getPS_IsEnabled() == 1) {
+                        MyApplication.PRINT_IS_OPEN = true;
                     } else {
-                        if (jso.getString("code").equals("RemoteLogin") || jso.getString("code").equals("LoginTimeout")) {
-                            ActivityManager.getInstance().exit();
-                            Intent intent = new Intent(MyApplication.getContext(), LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            MyApplication.getContext().startActivity(intent);
-                            com.blankj.utilcode.util.ToastUtils.showShort(jso.getString("msg"));
-                            return;
-                        }
-//                        ToastUtils.showToast(ac,jso.getString("msg"));
-                        back.onErrorResponse("");
+                        MyApplication.PRINT_IS_OPEN = false;
                     }
-                } catch (Exception e) {
-                    back.onErrorResponse("");
+                    if (printbean != null && printbean.getPrintTimesList() != null) {
+                        for (int i = 0; i < printbean.getPrintTimesList().size(); i++) {
+                            ReportMessageBean.DataBean.PrintSetBean.PrintTimesListBean bean = printbean.getPrintTimesList().get(i);
+                            if ("SPXF".equals(bean.getPT_Code())) {
+                                MyApplication.SPXF_PRINT_TIMES = bean.getPT_Times();
+                            }
+                            if ("JB".equals(bean.getPT_Code())) {
+                                MyApplication.JB_PRINT_TIMES = bean.getPT_Times();
+                            }
+                        }
+                    }
                 }
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                back.onErrorResponse("");
+            public void onFailure(String msg) {
             }
         });
     }

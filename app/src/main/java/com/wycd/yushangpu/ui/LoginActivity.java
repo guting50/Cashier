@@ -21,6 +21,7 @@ import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.LoginBean;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpLogin;
+import com.wycd.yushangpu.model.ImpPreLoading;
 import com.wycd.yushangpu.tools.GlideTransform;
 import com.wycd.yushangpu.tools.KeyBoardHelper;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
@@ -142,6 +143,7 @@ public class LoginActivity extends BaseActivity {
                             startActivity(new Intent(ac, HomeActivity.class));
                             finish();
 
+                            ImpPreLoading.preLoad(ac);
                         }
 
                         @Override

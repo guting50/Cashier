@@ -3,29 +3,36 @@ package com.wycd.yushangpu.widget.dialog;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.wycd.yushangpu.R;
-import com.wycd.yushangpu.adapter.YouhuiquanAdapter;
 import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.bean.YhqMsg;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpYhq;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
+import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.widget.views.ClearEditText;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 /**
@@ -33,19 +40,16 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 
 public class YouhuiquanDialog {
-    private static List<YhqMsg> choselist;
-    private static List<YhqMsg> list = new ArrayList<>();
-    private static YouhuiquanAdapter adapter;
 
-    public static Dialog yhqDialog(final Activity context, final String paymoney, VipInfoMsg mVipDengjiMsg, List<YhqMsg> yhqMsgs,
+    public static Dialog yhqDialog(final Activity context, final String payMoney, VipInfoMsg mVipInfoMsg, List<YhqMsg> yhqMsgs,
                                    int showingLocation, final InterfaceBack back) {
         final Dialog dialog;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.dialog_youhuiquan, null);
-        final RelativeLayout rl_confirm = (RelativeLayout) view.findViewById(R.id.rl_confirm);
-        final RelativeLayout rl_cancle = (RelativeLayout) view.findViewById(R.id.rl_cancle);
-        final RecyclerView gridview = (RecyclerView) view.findViewById(R.id.gridview);
-        final ClearEditText et_search = (ClearEditText) view.findViewById(R.id.et_search);
+        View rl_confirm = view.findViewById(R.id.rl_confirm);
+        View rl_cancle = view.findViewById(R.id.rl_cancle);
+        RecyclerView gridview = (RecyclerView) view.findViewById(R.id.gridview);
+        ClearEditText et_search = (ClearEditText) view.findViewById(R.id.et_search);
 
         LinearLayout li_search = (LinearLayout) view.findViewById(R.id.li_search);
         dialog = new Dialog(context, R.style.DialogNotitle1);
@@ -56,19 +60,14 @@ public class YouhuiquanDialog {
                 .getWidth();
         dialog.setContentView(view);
         Window window = dialog.getWindow();
-        dialog.show();
 //        gridview.setSelector(new ColorDrawable(Color.TRANSPARENT));
-        choselist = new ArrayList<>();
-
-        if (yhqMsgs != null && yhqMsgs.size() > 0) {
-            choselist.addAll(yhqMsgs);
-        }
 
         final Dialog loadingdialog = LoadingDialog.loadingDialog(context, 1);
 //        loadingdialog.show();
 
-        addDate(mVipDengjiMsg);
-        adapter = new YouhuiquanAdapter(context, list, paymoney, choselist);
+        List<YhqMsg> list = addDate(mVipInfoMsg, yhqMsgs);
+        YouhuiquanAdapter adapter = new YouhuiquanAdapter(context, list, payMoney,
+                yhqMsgs == null ? new ArrayList<>() : yhqMsgs);
         gridview.setLayoutManager(new GridLayoutManager(context, 3));
         gridview.setAdapter(adapter);
 
@@ -81,8 +80,8 @@ public class YouhuiquanDialog {
         rl_confirm.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
-                if (choselist != null) {
-                    back.onResponse(choselist);
+                if (adapter.choselist != null) {
+                    back.onResponse(adapter.choselist);
                 } else {
                     back.onErrorResponse("");
                 }
@@ -97,7 +96,7 @@ public class YouhuiquanDialog {
                 } else {
                     loadingdialog.show();
                     ImpYhq impYhq = new ImpYhq();
-                    impYhq.yhqlist(context, paymoney, et_search.getText().toString(), new InterfaceBack() {
+                    impYhq.yhqlist(context, payMoney, et_search.getText().toString(), new InterfaceBack() {
                         @Override
                         public void onResponse(Object response) {
                             loadingdialog.dismiss();
@@ -156,8 +155,8 @@ public class YouhuiquanDialog {
         return dialog;
     }
 
-    private static void addDate(VipInfoMsg mVipDengjiMsg) {
-        list.clear();
+    private static List<YhqMsg> addDate(VipInfoMsg mVipDengjiMsg, List<YhqMsg> choselist) {
+        List<YhqMsg> list = new ArrayList<>();
         if (mVipDengjiMsg != null && mVipDengjiMsg.getCouponsList() != null) {
             for (VipInfoMsg.CouponsListBean msg : mVipDengjiMsg.getCouponsList()) {
                 YhqMsg bean = new YhqMsg();
@@ -181,7 +180,7 @@ public class YouhuiquanDialog {
                 bean.setSM_GID(msg.getSM_GID());
                 bean.setSM_Name(msg.getSM_Name());
 
-                if (choselist.size() > 0) {
+                if (choselist != null && choselist.size() > 0) {
                     for (int j = 0; j < choselist.size(); j++) {
                         if (msg.getGID().equals(choselist.get(j).getGID())) {
                             bean.setChose(true);
@@ -190,9 +189,8 @@ public class YouhuiquanDialog {
                 }
                 list.add(bean);
             }
-
-
         }
+        return list;
     }
 
     /**
@@ -205,4 +203,157 @@ public class YouhuiquanDialog {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
     }
+
+    public static class YouhuiquanAdapter extends RecyclerView.Adapter {
+        private List<YhqMsg> list;
+        private List<YhqMsg> choselist;
+        private Context context;
+        private String pamoney;
+        private AdapterView.OnItemClickListener listener;
+
+        public YouhuiquanAdapter(Context context, List<YhqMsg> list, String pamoney, List<YhqMsg> choselist) {
+            this.list = list;
+            this.context = context;
+            this.pamoney = pamoney;
+            this.choselist = choselist;
+        }
+
+        @NonNull
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(context).inflate(R.layout.item_youhuiquan, parent, false);
+            return new Holder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+            final YhqMsg vipMsg = list.get(position);
+            Holder holder1 = (Holder) holder;
+
+            holder1.rootView.setBackgroundResource(R.mipmap.bg_yhq_no_select);
+            holder1.mTvYhqmsg.setTextColor(context.getResources().getColor(R.color.title_color));
+            holder1.mTvYouxiao.setTextColor(context.getResources().getColor(R.color.color_999999));
+
+            ViewGroup viewGroup = (ViewGroup) holder1.mTvMoney.getParent();
+            ((TextView) viewGroup.getChildAt(0)).setTextColor(context.getResources().getColor(R.color.color_fe3d51));
+            ((TextView) viewGroup.getChildAt(1)).setTextColor(context.getResources().getColor(R.color.color_fe3d51));
+            ((TextView) viewGroup.getChildAt(2)).setTextColor(context.getResources().getColor(R.color.color_fe3d51));
+            if (Double.parseDouble(pamoney) < vipMsg.getEC_Denomination()) {
+                holder1.rootView.setBackgroundResource(R.mipmap.bg_yhq_ban);
+                holder1.mTvYhqmsg.setTextColor(context.getResources().getColor(R.color.textcc));
+                holder1.mTvYouxiao.setTextColor(context.getResources().getColor(R.color.textcc));
+
+                ((TextView) viewGroup.getChildAt(0)).setTextColor(context.getResources().getColor(R.color.textcc));
+                ((TextView) viewGroup.getChildAt(1)).setTextColor(context.getResources().getColor(R.color.textcc));
+                ((TextView) viewGroup.getChildAt(2)).setTextColor(context.getResources().getColor(R.color.textcc));
+            }
+
+            holder1.mTvAction.setText(NullUtils.noNullHandle(vipMsg.getEC_Name()).toString());
+
+            holder1.mTvAllshop.setText(NullUtils.noNullHandle(vipMsg.getSM_Name()).toString().equals("") ? "所有店铺可用" : NullUtils.noNullHandle(vipMsg.getSM_Name()).toString());
+
+            holder1.mTvDiejia.setText(NullUtils.noNullHandle(vipMsg.getEC_IsOverlay()).toString().equals("1") ? "可叠加使用" : "不可叠加使用");
+
+            if (vipMsg.getEC_DiscountType() == 1) {
+                holder1.tv_type.setText("代金券");
+                holder1.mTvMoney.setText("¥" + vipMsg.getEC_Discount());
+            } else {
+                holder1.tv_type.setText("折扣券");
+                holder1.mTvMoney.setText((vipMsg.getEC_Discount()) / 10 + "折");
+            }
+            holder1.mTvYhqmsg.setText("满" + NullUtils.noNullHandle(vipMsg.getEC_Denomination()).toString() + "元减" + vipMsg.getEC_Discount());
+
+            switch (NullUtils.noNullHandle(vipMsg.getVCR_IsForver()).toString()) {
+                case "0":
+                    holder1.mTvYouxiao.setText(NullUtils.noNullHandle(vipMsg.getVCR_StatrTime()).toString() + "～" + NullUtils.noNullHandle(vipMsg.getVCR_EndTime()).toString() + "有效");
+                    break;
+                case "1":
+                    holder1.mTvYouxiao.setText("永久有效");
+                    break;
+                case "2":
+                    holder1.mTvYouxiao.setText(NullUtils.noNullHandle(vipMsg.getVCR_EndTime()).toString() + "前有效");
+                    break;
+            }
+            holder1.mTvYouxiao.setText("有效期:" + holder1.mTvYouxiao.getText());
+
+            holder1.rootView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (Double.parseDouble(pamoney) < vipMsg.getEC_Denomination()) {
+//                    ToastUtils.showToast(context,"未达到使用金额");
+                        com.blankj.utilcode.util.ToastUtils.showShort("未达到使用金额");
+                        return;
+                    }
+                    if (choselist.contains(vipMsg)) {
+                        vipMsg.setChose(false);
+                        choselist.remove(vipMsg);
+                    } else {
+                        if (vipMsg.getEC_IsOverlay() == 0) { // 可不叠加
+                            for (int j = 0; j < choselist.size(); j++) {
+                                if (choselist.get(j).getEC_IsOverlay() == 0) {
+                                    com.blankj.utilcode.util.ToastUtils.showShort("一个订单中，不可叠加优惠券只能使用一张");
+                                    return;
+                                }
+                            }
+                        }
+                        vipMsg.setChose(true);
+                        choselist.add(vipMsg);
+                    }
+
+                    if (vipMsg.isChose()) {
+//                          holder1.mIvChose.setVisibility(View.VISIBLE);
+                        holder1.rootView.setBackgroundResource(R.mipmap.bg_yhq_selected);
+                        holder1.mTvYhqmsg.setTextColor(Color.WHITE);
+                    } else {
+//                          holder1.mIvChose.setVisibility(View.GONE);
+                        holder1.rootView.setBackgroundResource(R.mipmap.bg_yhq_no_select);
+                        holder1.mTvYhqmsg.setTextColor(context.getResources().getColor(R.color.title_color));
+                    }
+                }
+            });
+//        holder1.tv_ygcode.setText(NullUtils.noNullHandle(vipMsg.getEM_Code()).toString());
+//        holder1.tv_ygsex.setText(Integer.parseInt(NullUtils.noNullHandle(vipMsg.getEM_Sex()).toString()) == 1 ? "男" : "女");
+        }
+
+        public void setOnItemClickListener(AdapterView.OnItemClickListener listener) {
+            this.listener = listener;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        class Holder extends RecyclerView.ViewHolder {
+            @BindView(R.id.tv_type)
+            TextView tv_type;
+            @BindView(R.id.tv_money)
+            TextView mTvMoney;
+            @BindView(R.id.tv_yhqmsg)
+            TextView mTvYhqmsg;
+            @BindView(R.id.tv_action)
+            TextView mTvAction;
+            @BindView(R.id.tv_youxiao)
+            TextView mTvYouxiao;
+            @BindView(R.id.tv_allshop)
+            TextView mTvAllshop;
+            @BindView(R.id.tv_diejia)
+            TextView mTvDiejia;
+            @BindView(R.id.iv_chose)
+            ImageView mIvChose;
+            View rootView;
+
+            public Holder(View view) {
+                super(view);
+                ButterKnife.bind(this, view);
+                rootView = view;
+            }
+        }
+    }
+
 }

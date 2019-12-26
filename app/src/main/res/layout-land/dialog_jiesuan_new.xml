@@ -245,11 +245,12 @@
                                     android:textSize="@dimen/sp_16" />
 
                                 <TextView
+                                    android:id="@+id/tv_promotion"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="right"
                                     android:gravity="center"
-                                    android:text="请选择优惠活动"
+                                    android:hint="请选择优惠活动"
                                     android:textSize="@dimen/sp_16" />
 
                             </FrameLayout>
