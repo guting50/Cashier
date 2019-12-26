@@ -1150,7 +1150,9 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                 order = CreateOrder.createOrder("SP");
                                 RevokeGuaDanBean guadanDetail = (RevokeGuaDanBean) response;
                                 initGetOrder(guadanDetail);
-                                if (guadanDetail.getData().getVIP_Card() != null && !guadanDetail.getData().getVIP_Card().equals("00000") && !guadanDetail.getData().getVIP_Card().equals("")) {
+                                if (guadanDetail.getData().getVIP_Card() != null &&
+                                        !guadanDetail.getData().getVIP_Card().equals("00000") &&
+                                        !guadanDetail.getData().getVIP_Card().equals("")) {
                                     initVIP(guadanDetail.getData().getVIP_Card());
                                 } else {
                                     PreferenceHelper.write(ac, "yunshangpu", "vip", false);

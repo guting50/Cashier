@@ -3,7 +3,6 @@ package com.wycd.yushangpu.printutil;
 
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -12,19 +11,12 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
-import com.wycd.yushangpu.bean.RevokeGuaDanBean;
-import com.wycd.yushangpu.db.SaveObjectName;
 import com.wycd.yushangpu.http.HttpAPI;
-import com.wycd.yushangpu.http.UrlTools;
 import com.wycd.yushangpu.printutil.bean.PrintParamSetBean;
 import com.wycd.yushangpu.printutil.bean.PrintSetBean;
 import com.wycd.yushangpu.tools.ActivityManager;
-import com.wycd.yushangpu.tools.CacheData;
 import com.wycd.yushangpu.tools.LogUtils;
-import com.wycd.yushangpu.tools.ToastUtils;
-import com.wycd.yushangpu.ui.HomeActivity;
 import com.wycd.yushangpu.ui.LoginActivity;
-import com.wycd.yushangpu.web.WebDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -435,7 +427,7 @@ public class GetPrintSet {
 //                                HomeActivity.printConnect(MyApplication.getContext(), printSetBean.getData().getPS_PrinterName());
                             }
                         }
-                    }else {
+                    } else {
                         if (jso.getString("code").equals("RemoteLogin") || jso.getString("code").equals("LoginTimeout")) {
                             ActivityManager.getInstance().exit();
                             Intent intent = new Intent(MyApplication.getContext(), LoginActivity.class);
