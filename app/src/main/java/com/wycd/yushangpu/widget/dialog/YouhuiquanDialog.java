@@ -41,8 +41,8 @@ import butterknife.ButterKnife;
 
 public class YouhuiquanDialog {
 
-    public static Dialog yhqDialog(final Activity context, final String payMoney, VipInfoMsg mVipInfoMsg, List<YhqMsg> yhqMsgs,
-                                   int showingLocation, final InterfaceBack back) {
+    public static Dialog showDialog(final Activity context, final String payMoney, VipInfoMsg mVipInfoMsg, List<YhqMsg> yhqMsgs,
+                                    int showingLocation, final InterfaceBack back) {
         final Dialog dialog;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.dialog_youhuiquan, null);

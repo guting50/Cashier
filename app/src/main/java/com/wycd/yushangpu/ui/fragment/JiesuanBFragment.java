@@ -234,6 +234,7 @@ public class JiesuanBFragment extends Fragment {
         tvCouponMoney.setText("");
         tvCouponMoney.setHint("请选择优惠券");
         tvPromotion.setText("");
+        promotionMoney = 0;
         yhqMsgs = null;
 
         this.yue = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableBalance() + "";
@@ -268,8 +269,6 @@ public class JiesuanBFragment extends Fragment {
                         promotionMoney = temp;
                         promotionMsg = active;
                         tvPromotion.setText(promotionMsg.getRP_Name());
-                        if (active.getRP_GiveMoney() != -1) // 如果是赠送活动，优惠金额设置为0
-                            promotionMoney = 0;
                     }
                 }
             }
@@ -283,7 +282,7 @@ public class JiesuanBFragment extends Fragment {
         resetPayModeList(payModeList);
         computeYsMoney();
 
-        yhqDialog = YouhuiquanDialog.yhqDialog(context, zhMoney, mVipMsg, /*yhqMsgs*/null, 1, new InterfaceBack() {
+        yhqDialog = YouhuiquanDialog.showDialog(context, zhMoney, mVipMsg, /*yhqMsgs*/null, 1, new InterfaceBack() {
             @Override
             public void onResponse(Object response) {
                 yhqMsgs = (List<YhqMsg>) response;
@@ -311,7 +310,7 @@ public class JiesuanBFragment extends Fragment {
                 yhqDialog.dismiss();
             }
         });
-        promotionDialog = PromotionDialog.yhqDialog(context, zhMoney, 1, new InterfaceBack() {
+        promotionDialog = PromotionDialog.showDialog(context, zhMoney, promotionMsg, 1, new InterfaceBack() {
             @Override
             public void onResponse(Object response) {
                 promotionDialog.dismiss();
@@ -526,14 +525,21 @@ public class JiesuanBFragment extends Fragment {
             }
 
             if (active.getRP_Discount() != -1) { // 折扣活动
-                temp = CommonUtils.div(Double.parseDouble(zhMoney), CommonUtils.div(active.getRP_Discount(), 100, 2), 2);
+                temp = CommonUtils.del(Double.parseDouble(zhMoney),
+                        Double.parseDouble(
+                                CommonUtils.multiply(zhMoney, CommonUtils.div(active.getRP_Discount(), 10, 2) + "")));
             }
             if (active.getRP_GiveMoney() != -1) { // 赠送活动
-                temp = Double.parseDouble(CommonUtils.multiply(active.getRP_GiveMoney() + "", multiple + ""));
+                temp = active.getRP_GiveMoney();
             }
             if (active.getRP_ReduceMoney() != -1) { // 满减活动
-                temp = Double.parseDouble(CommonUtils.multiply(active.getRP_ReduceMoney() + "", multiple + ""));
+                temp = active.getRP_ReduceMoney();
             }
+
+            temp = Double.parseDouble(CommonUtils.multiply(temp + "", multiple + ""));
+
+            if (active.getRP_GiveMoney() != -1) // 如果是赠送活动，优惠金额设置为0
+                temp = 0;
             return temp;
         } else {
             promotionMsg = null;

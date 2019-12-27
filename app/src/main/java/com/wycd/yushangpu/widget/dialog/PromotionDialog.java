@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -34,7 +35,7 @@ import butterknife.ButterKnife;
 
 public class PromotionDialog {
 
-    public static Dialog yhqDialog(final Activity context, String payMoney, int showingLocation, final InterfaceBack back) {
+    public static Dialog showDialog(final Activity context, String payMoney, ReportMessageBean.DataBean.ActiveBean active, int showingLocation, final InterfaceBack back) {
         final Dialog dialog;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.dialog_youhuiquan, null);
@@ -42,8 +43,17 @@ public class PromotionDialog {
         ((TextView) view.findViewById(R.id.tv_title)).setText("优惠活动");
 
         RecyclerView gridView = view.findViewById(R.id.gridview);
+        PromotionAdapter adapter = new PromotionAdapter(context, payMoney, active, back);
+        gridView.setLayoutManager(new GridLayoutManager(context, 3));
+        gridView.setAdapter(adapter);
 
-        dialog = new Dialog(context, R.style.DialogNotitle1);
+        dialog = new Dialog(context, R.style.DialogNotitle1) {
+            @Override
+            public void show() {
+                super.show();
+                adapter.notifyDataSetChanged();
+            }
+        };
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
         int screenWidth = ((WindowManager) context
@@ -51,10 +61,6 @@ public class PromotionDialog {
                 .getWidth();
         dialog.setContentView(view);
         Window window = dialog.getWindow();
-
-        PromotionAdapter adapter = new PromotionAdapter(context, payMoney, back);
-        gridView.setLayoutManager(new GridLayoutManager(context, 3));
-        gridView.setAdapter(adapter);
 
         switch (showingLocation) {
             case 0:
@@ -102,11 +108,12 @@ public class PromotionDialog {
         private String payMoney;
         private InterfaceBack back;
 
-        public PromotionAdapter(Context context, String payMoney, InterfaceBack back) {
+        public PromotionAdapter(Context context, String payMoney, ReportMessageBean.DataBean.ActiveBean active, InterfaceBack back) {
             if (ImpPreLoading.REPORT_BEAN != null && ImpPreLoading.REPORT_BEAN.getData() != null)
                 this.list = ImpPreLoading.REPORT_BEAN.getData().getActive();
             this.context = context;
             this.payMoney = payMoney;
+            this.currentBean = active;
             this.back = back;
         }
 
@@ -126,6 +133,11 @@ public class PromotionDialog {
             holder1.tvName.setTextColor(context.getResources().getColor(R.color.title_color));
             holder1.tvName1.setTextColor(context.getResources().getColor(R.color.title_color));
             holder1.mTvYouxiao.setTextColor(context.getResources().getColor(R.color.color_999999));
+            if (currentBean != null && TextUtils.equals(currentBean.getGID(), activeBean.getGID())) {
+                currentHolder = holder1;
+                currentHolder.rootView.setBackgroundResource(R.mipmap.bg_promotion_selected);
+                currentHolder.tvName1.setTextColor(Color.WHITE);
+            }
             if (Double.parseDouble(payMoney) < activeBean.getRP_RechargeMoney()) {
                 holder1.rootView.setBackgroundResource(R.mipmap.bg_promotion_ban);
                 holder1.tvName.setTextColor(context.getResources().getColor(R.color.textcc));
@@ -160,6 +172,7 @@ public class PromotionDialog {
                     currentHolder = holder1;
                     currentHolder.rootView.setBackgroundResource(R.mipmap.bg_promotion_selected);
                     currentHolder.tvName1.setTextColor(Color.WHITE);
+                    currentBean = activeBean;
                     back.onResponse(activeBean);
                 }
             });
