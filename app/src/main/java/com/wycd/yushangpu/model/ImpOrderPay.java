@@ -47,20 +47,10 @@ public class ImpOrderPay {
             params.put("PayResult[PayTypeList][" + i + "][PayName]", typelist.get(i).getPayName());
             params.put("PayResult[PayTypeList][" + i + "][PayMoney]", Decima2KeeplUtil.stringToDecimal(typelist.get(i).getPayMoney() + ""));
             params.put("PayResult[PayTypeList][" + i + "][PayPoint]", Decima2KeeplUtil.stringToDecimal(typelist.get(i).getPayPoint() + ""));
-
-            System.out.println("============================[" + i + "]PayCode===" + typelist.get(i).getPayCode());
-            System.out.println("============================[" + i + "]PayName===" + typelist.get(i).getPayName());
-            System.out.println("============================[" + i + "]PayMoney===" + typelist.get(i).getPayMoney());
-            System.out.println("============================[" + i + "]PayPoint===" + typelist.get(i).getPayPoint());
         }
         for (int i = 0; i < orderPayResult.getYhqList().size(); i++) {
             params.put("PayResult[GIDList][" + i + "]", orderPayResult.getYhqList().get(i).getGID());
         }
-
-        System.out.println("============================PayCode===" + OrderGID);
-        System.out.println("============================GiveChange===" + orderPayResult.getGiveChange());
-        System.out.println("============================PayTotalMoney===" + orderPayResult.getPayTotalMoney());
-        System.out.println("============================DisMoney===" + orderPayResult.getDisMoney());
 
         params.put("PayResult[CC_GID]", orderPayResult.getActive() == null ? "" : orderPayResult.getActive().getGID());
         params.put("PayResult[EraseOdd]", orderPayResult.getMolingMoney());
@@ -82,16 +72,13 @@ public class ImpOrderPay {
 
         LogUtils.d("xxparams", params.toString());
         LogUtils.d("xxurl", url);
-        System.out.println("============================url===" + url);
-        System.out.println("============================params===" + params.toString());
+        LogUtils.d("params", params.toString());
         client.post(url, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
                     LogUtils.d("xxorderpayS", new String(responseBody, "UTF-8"));
                     JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
-
-                    System.out.println("========onSuccess=============random" + jso.toString());
 
                     if (jso.getBoolean("success")) {
                         back.onResponse(jso.toString());

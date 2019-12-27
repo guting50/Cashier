@@ -265,7 +265,7 @@ public class YouhuiquanDialog {
 
             switch (NullUtils.noNullHandle(vipMsg.getVCR_IsForver()).toString()) {
                 case "0":
-                    holder1.mTvYouxiao.setText(NullUtils.noNullHandle(vipMsg.getVCR_StatrTime()).toString() + "～" + NullUtils.noNullHandle(vipMsg.getVCR_EndTime()).toString() + "有效");
+                    holder1.mTvYouxiao.setText(NullUtils.noNullHandle(vipMsg.getVCR_StatrTime()).toString() + "～" + NullUtils.noNullHandle(vipMsg.getVCR_EndTime()).toString());
                     break;
                 case "1":
                     holder1.mTvYouxiao.setText("永久有效");

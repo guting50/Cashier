@@ -43,8 +43,7 @@ public class ImpOnlyVipMsg {
         String url = HttpAPI.API().QUERY_SINGLE_LIST;
         LogUtils.d("xxparams", params.toString());
         LogUtils.d("xxurl", url);
-        System.out.println("============================url===" + url);
-        System.out.println("============================params===" + params.toString());
+        LogUtils.d("params", params.toString());
         client.post(url, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -99,8 +98,7 @@ public class ImpOnlyVipMsg {
         String url = HttpAPI.API().VIPLIST;
         LogUtils.d("xxparams", params.toString());
         LogUtils.d("xxurl", url);
-        System.out.println("============================url===" + url);
-        System.out.println("============================params===" + params.toString());
+        LogUtils.d("params", params.toString());
         client.post(url, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {

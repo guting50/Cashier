@@ -59,8 +59,7 @@ public class ImpSubmitOrder {
         String url = HttpAPI.API().GOODS_CONSUME_SUB;
         LogUtils.d("xxparams", params.toString());
         LogUtils.d("xxurl", url);
-        System.out.println("============================url===" + url);
-        System.out.println("============================params===" + params.toString());
+        LogUtils.d("params", params.toString());
         client.post(url, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -136,8 +135,7 @@ public class ImpSubmitOrder {
         String url = HttpAPI.API().GOODS_CONSUME_GUADAN;
         LogUtils.d("xxparams", params.toString());
         LogUtils.d("xxurl", url);
-        System.out.println("============================url===" + url);
-        System.out.println("============================params===" + params.toString());
+        LogUtils.d("params", params.toString());
         client.post(url, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -204,8 +202,7 @@ public class ImpSubmitOrder {
         String url = HttpAPI.API().GOODS_CELERITY_SUB;
         LogUtils.d("xxparams", params.toString());
         LogUtils.d("xxurl", url);
-        System.out.println("============================url===" + url);
-        System.out.println("============================params===" + params.toString());
+        LogUtils.d("params", params.toString());
         client.post(url, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -260,8 +257,7 @@ public class ImpSubmitOrder {
         String url = HttpAPI.API().CLOSE_GUADAN_ORDER;
         LogUtils.d("xxparams", params.toString());
         LogUtils.d("xxurl", url);
-        System.out.println("============================url===" + url);
-        System.out.println("============================params===" + params.toString());
+        LogUtils.d("params", params.toString());
         client.post(url, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {

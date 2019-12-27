@@ -29,6 +29,7 @@ public class LogUtils {
     public static void d(String ta, String msg) {
         if (LEVEL <= DEBUG) {
             Log.d(ta, msg);
+            System.out.println("============================ " + ta + " ====== " + msg);
         }
     }
 

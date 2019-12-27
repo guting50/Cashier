@@ -31,6 +31,7 @@ import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.http.VolleyResponse;
 import com.wycd.yushangpu.model.ImpOrderPay;
+import com.wycd.yushangpu.model.ImpPreLoading;
 import com.wycd.yushangpu.model.ImpSaoma;
 import com.wycd.yushangpu.printutil.CallBack;
 import com.wycd.yushangpu.printutil.CommonFun;
@@ -146,6 +147,7 @@ public class JiesuanBFragment extends Fragment {
     private OrderType orderType;
     private VipInfoMsg mVipMsg;
     private Dialog dialog;
+    private double promotionMoney;
 
     View rootView;
     NumKeyboardUtils numKeyboardUtils;
@@ -258,6 +260,21 @@ public class JiesuanBFragment extends Fragment {
             tvIntegral.setText("积分:0");
         }
 
+        if (ImpPreLoading.REPORT_BEAN != null && ImpPreLoading.REPORT_BEAN.getData() != null) {
+            for (ReportMessageBean.DataBean.ActiveBean active : ImpPreLoading.REPORT_BEAN.getData().getActive()) {
+                if (Double.parseDouble(zhMoney) >= active.getRP_RechargeMoney()) {
+                    double temp = computePromotionMoney(active);
+                    if (promotionMoney < temp) {
+                        promotionMoney = temp;
+                        promotionMsg = active;
+                        tvPromotion.setText(promotionMsg.getRP_Name());
+                        if (active.getRP_GiveMoney() != -1) // 如果是赠送活动，优惠金额设置为0
+                            promotionMoney = 0;
+                    }
+                }
+            }
+        }
+
         String discount = CommonUtils.del(Double.parseDouble(totalMoney), Double.parseDouble(zhMoney)) + "";
         tvDiscount.setText(StringUtil.twoNum(discount));
         tvBillCount.setText(StringUtil.twoNum(totalMoney));
@@ -294,13 +311,15 @@ public class JiesuanBFragment extends Fragment {
                 yhqDialog.dismiss();
             }
         });
-        promotionDialog = PromotionDialog.yhqDialog(context, 1, new InterfaceBack() {
+        promotionDialog = PromotionDialog.yhqDialog(context, zhMoney, 1, new InterfaceBack() {
             @Override
             public void onResponse(Object response) {
-                promotionMsg = (ReportMessageBean.DataBean.ActiveBean) response;
                 promotionDialog.dismiss();
+                promotionMsg = (ReportMessageBean.DataBean.ActiveBean) response;
+                promotionMoney = computePromotionMoney(promotionMsg);
                 if (promotionMsg != null)
                     tvPromotion.setText(promotionMsg.getRP_Name());
+                computeYsMoney();
             }
 
             @Override
@@ -498,6 +517,31 @@ public class JiesuanBFragment extends Fragment {
         result.setActive(promotionMsg);
     }
 
+    private double computePromotionMoney(ReportMessageBean.DataBean.ActiveBean active) {
+        if (active != null) {
+            double temp = 0.0;
+            double multiple = 1;
+            if (active.getRP_ISDouble() > 0) {
+                multiple = CommonUtils.div(Double.parseDouble(zhMoney), active.getRP_RechargeMoney(), 0);
+            }
+
+            if (active.getRP_Discount() != -1) { // 折扣活动
+                temp = CommonUtils.div(Double.parseDouble(zhMoney), CommonUtils.div(active.getRP_Discount(), 100, 2), 2);
+            }
+            if (active.getRP_GiveMoney() != -1) { // 赠送活动
+                temp = Double.parseDouble(CommonUtils.multiply(active.getRP_GiveMoney() + "", multiple + ""));
+            }
+            if (active.getRP_ReduceMoney() != -1) { // 满减活动
+                temp = Double.parseDouble(CommonUtils.multiply(active.getRP_ReduceMoney() + "", multiple + ""));
+            }
+            return temp;
+        } else {
+            promotionMsg = null;
+            tvPromotion.setText("");
+        }
+        return 0;
+    }
+
     /**
      * 计算应收金额
      */
@@ -505,6 +549,7 @@ public class JiesuanBFragment extends Fragment {
         double payTotal = getPayTotal();
         double tempTotalYhMoney = CommonUtils.del(Double.parseDouble(totalMoney), Double.parseDouble(zhMoney));//折扣优惠
         tempTotalYhMoney = CommonUtils.add(tempTotalYhMoney, getCouponMoney()); // + 优惠券
+        tempTotalYhMoney = CommonUtils.add(tempTotalYhMoney, promotionMoney); // + 优惠活动
         tempTotalYhMoney = CommonUtils.add(tempTotalYhMoney, getMoling());// + 抹零
         totalYhMoney = tempTotalYhMoney + "";
 

@@ -130,7 +130,7 @@ public class ImpLogin {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
-                    LogUtils.d("xxoutLoginS", new String(responseBody, "UTF-8"));
+                    LogUtils.d("getCode", new String(responseBody, "UTF-8"));
                     JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
                     if (jso.getBoolean("success")) {
                         back.onResponse(jso.get("data"));
@@ -171,13 +171,13 @@ public class ImpLogin {
 
         params.put("Code", 3);
         String url = HttpAPI.API().GET_NEWS_VERSION;
-        LogUtils.d("xxparams", params.toString());
         LogUtils.d("xxurl", url);
+        LogUtils.d("xxparams", params.toString());
         client.post(url, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
-                    LogUtils.d("xxoutLoginS", new String(responseBody, "UTF-8"));
+                    LogUtils.d("getNewsVersion", new String(responseBody, "UTF-8"));
                     JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
                     if (jso.getBoolean("success")) {
                         back.onResponse(jso.get("data"));

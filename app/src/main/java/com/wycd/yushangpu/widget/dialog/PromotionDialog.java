@@ -34,7 +34,7 @@ import butterknife.ButterKnife;
 
 public class PromotionDialog {
 
-    public static Dialog yhqDialog(final Activity context, int showingLocation, final InterfaceBack back) {
+    public static Dialog yhqDialog(final Activity context, String payMoney, int showingLocation, final InterfaceBack back) {
         final Dialog dialog;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.dialog_youhuiquan, null);
@@ -52,7 +52,7 @@ public class PromotionDialog {
         dialog.setContentView(view);
         Window window = dialog.getWindow();
 
-        PromotionAdapter adapter = new PromotionAdapter(context, back);
+        PromotionAdapter adapter = new PromotionAdapter(context, payMoney, back);
         gridView.setLayoutManager(new GridLayoutManager(context, 3));
         gridView.setAdapter(adapter);
 
@@ -99,12 +99,14 @@ public class PromotionDialog {
         private ReportMessageBean.DataBean.ActiveBean currentBean;
         private Holder currentHolder;
         private Context context;
+        private String payMoney;
         private InterfaceBack back;
 
-        public PromotionAdapter(Context context, InterfaceBack back) {
+        public PromotionAdapter(Context context, String payMoney, InterfaceBack back) {
             if (ImpPreLoading.REPORT_BEAN != null && ImpPreLoading.REPORT_BEAN.getData() != null)
                 this.list = ImpPreLoading.REPORT_BEAN.getData().getActive();
             this.context = context;
+            this.payMoney = payMoney;
             this.back = back;
         }
 
@@ -121,30 +123,36 @@ public class PromotionDialog {
             Holder holder1 = (Holder) holder;
 
             holder1.rootView.setBackgroundResource(R.mipmap.bg_promotion_no_select);
+            holder1.tvName.setTextColor(context.getResources().getColor(R.color.title_color));
             holder1.tvName1.setTextColor(context.getResources().getColor(R.color.title_color));
             holder1.mTvYouxiao.setTextColor(context.getResources().getColor(R.color.color_999999));
+            if (Double.parseDouble(payMoney) < activeBean.getRP_RechargeMoney()) {
+                holder1.rootView.setBackgroundResource(R.mipmap.bg_promotion_ban);
+                holder1.tvName.setTextColor(context.getResources().getColor(R.color.textcc));
+                holder1.tvName1.setTextColor(context.getResources().getColor(R.color.textcc));
+                holder1.mTvYouxiao.setTextColor(context.getResources().getColor(R.color.textcc));
+            }
 
             holder1.tvName.setText(activeBean.getRP_Name());
             holder1.tvName1.setText(activeBean.getRP_Name());
 
-//            switch (NullUtils.noNullHandle(vipMsg.getVCR_IsForver()).toString()) {
-//                case "0":
-//                    holder1.mTvYouxiao.setText(NullUtils.noNullHandle(activeBean.getRP_CreateTime()).toString() + "～" + NullUtils.noNullHandle(activeBean.getRP_ValidEndTime()).toString() + "有效");
-//                    break;
-//                case "1":
-//                    holder1.mTvYouxiao.setText("永久有效");
-//                    break;
-//                case "2":
-//                    holder1.mTvYouxiao.setText(NullUtils.noNullHandle(vipMsg.getVCR_EndTime()).toString() + "前有效");
-//                    break;
-//            }
-//            holder1.mTvYouxiao.setText("有效期:" + holder1.mTvYouxiao.getText());
-
-            holder1.mTvYouxiao.setText("有效期:" + NullUtils.noNullHandle(activeBean.getRP_CreateTime()).toString() + "～" + NullUtils.noNullHandle(activeBean.getRP_ValidEndTime()).toString() + "有效");
+            switch (NullUtils.noNullHandle(activeBean.getRP_ValidType()).toString()) {
+                case "0":
+                    holder1.mTvYouxiao.setText("永久有效");
+                    break;
+                case "1":
+                    holder1.mTvYouxiao.setText(NullUtils.noNullHandle(activeBean.getRP_ValidStartTime()).toString() + "～" + NullUtils.noNullHandle(activeBean.getRP_ValidEndTime()).toString());
+                    break;
+            }
+            holder1.mTvYouxiao.setText("有效期:" + holder1.mTvYouxiao.getText());
 
             holder1.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (Double.parseDouble(payMoney) < activeBean.getRP_RechargeMoney()) {
+                        com.blankj.utilcode.util.ToastUtils.showShort("未达到使用金额");
+                        return;
+                    }
                     if (currentHolder != null) {
                         currentHolder.rootView.setBackgroundResource(R.mipmap.bg_promotion_no_select);
                         currentHolder.tvName1.setTextColor(context.getResources().getColor(R.color.title_color));
