@@ -3,6 +3,7 @@ package com.wycd.yushangpu.ui;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -149,7 +150,10 @@ public class LoginActivity extends BaseActivity {
                         @Override
                         public void onErrorResponse(Object msg) {
                             dialog.dismiss();
-                            getCode();
+                            if (msg != null && !TextUtils.isEmpty((String) msg)) {
+                                if (TextUtils.equals((String) msg, "请输入验证码"))
+                                    getCode();
+                            }
                         }
                     });
 

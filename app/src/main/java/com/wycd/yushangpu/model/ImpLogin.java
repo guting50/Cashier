@@ -77,7 +77,7 @@ public class ImpLogin {
                     } else {
 //                        ToastUtils.showToast(ac, jso.getString("msg"));
                         com.blankj.utilcode.util.ToastUtils.showShort(jso.getString("msg"));
-                        back.onErrorResponse("");
+                        back.onErrorResponse(jso.getString("msg"));
                     }
                 } catch (Exception e) {
 //                    ToastUtils.showToast(ac, "登录失败，请重新登录");

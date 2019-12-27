@@ -618,6 +618,10 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     }
 
     public void jisuanAllPrice() {
+        jisuanAllPrice(true);
+    }
+
+    public void jisuanAllPrice(boolean isJisuanDiscount) {
         double allprice = 0;
         double totalPrice = 0;
         double onepoint = 0;
@@ -656,7 +660,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     }
                 }
             }
-            jisuanShopPrice(shopMsg);
+            if (isJisuanDiscount)
+                jisuanDiscount(shopMsg);
 
             allprice += shopMsg.getAllprice();
             totalPrice += shopMsg.getTotalPrice();
@@ -697,7 +702,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         mShopLeftAdapter.notifyDataSetChanged();
     }
 
-    private void jisuanShopPrice(ShopMsg ts) {
+    private void jisuanDiscount(ShopMsg ts) {
         boolean isVip = PreferenceHelper.readBoolean(ac, "yunshangpu", "vip", false);
         if (!ts.isIschanged()) {
             if (NullUtils.noNullHandle(ts.getPM_IsDiscount()).toString().equals("1")) {
@@ -1092,6 +1097,10 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         bttGetOrder.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
+                if (mShopLeftList.size() == 0 && qudanFragment.getListCount() == 0) {
+                    com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
+                    return;
+                }
                 if (!qudanFragment.isAdded())
                     fragmentManager.beginTransaction().add(R.id.fragment_content, qudanFragment).commit();
                 else
@@ -1158,7 +1167,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                     PreferenceHelper.write(ac, "yunshangpu", "vip", false);
                                 }
                                 mShopLeftAdapter.notifyDataSetChanged();
-                                jisuanAllPrice();
+                                jisuanAllPrice(false);
                             }
                             updateBttGetOrder();
                         }
@@ -1169,8 +1178,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                             updateBttGetOrder();
                         }
                     });
-                } else {
-                    com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
                 }
             }
         });
@@ -1421,7 +1428,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     PreferenceHelper.write(ac, "yunshangpu", "vip", true);
 
 //                mPD_Discount = obtainVipPD_Discount(mVipMsg.getVG_GID(), mVipMsg.getVGInfo());
-//                jisuanShopPrice(mPD_Discount, mShopLeftList);
+//                jisuanDiscount(mPD_Discount, mShopLeftList);
                     if (!TextUtils.isEmpty(mVipMsg.getVIP_Name())) {
                         vipNameLayout.setVisibility(View.VISIBLE);
                         ((TextView) vipNameLayout.getChildAt(0)).setText(mVipMsg.getVIP_Name().substring(0, 1));
