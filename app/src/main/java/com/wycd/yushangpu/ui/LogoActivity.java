@@ -35,14 +35,14 @@ public class LogoActivity extends BaseActivity {
                     // 参1 包名 参2 获取额外信息的flag 不需要的话 写0
                     PackageInfo packageInfo = getPackageManager().getPackageInfo(
                             getPackageName(), 0);
-                    if (Integer.parseInt(version) > packageInfo.versionCode) {
+                    if (Double.parseDouble(version) > packageInfo.versionCode) {
                         VERSION_ADDRESS = jso.getString("VA_VersionAddress");
                         if (jso.getInt("VA_UpdateMechanism") == 0) {
                             //自动升级
                             UpdateAppVersion.UpdateInfoRes updateInfoBean = new UpdateAppVersion.UpdateInfoRes();
                             updateInfoBean.setContent(jso.getString("VA_Remark"));
-                            updateInfoBean.setCurrentversion(Integer.parseInt(version));
-                            updateInfoBean.setMinversionrequire(Integer.parseInt(version));
+                            updateInfoBean.setCurrentversion(Double.parseDouble(version));
+                            updateInfoBean.setMinversionrequire(Double.parseDouble(version));
                             updateInfoBean.setCurrentversiondesc(jso.getString("VA_VersionName"));
                             updateInfoBean.setUrl(jso.getString("VA_VersionAddress"));
                             new UpdateAppVersion(LogoActivity.this, updateInfoBean, new UpdateAppVersion.OnUpdateVersionBackListener() {
@@ -67,8 +67,6 @@ public class LogoActivity extends BaseActivity {
                 toLoginActivity();
             }
         });
-
-        toLoginActivity();
     }
 
     public void toLoginActivity() {

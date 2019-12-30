@@ -1,6 +1,7 @@
 package com.wycd.yushangpu.tools;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -11,7 +12,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.gt.utils.MuchThreadDown;
@@ -44,13 +44,13 @@ public class UpdateAppVersion {
     /**
      * 上下文
      */
-    private Context context;
+    private Activity context;
 
-    public UpdateAppVersion(Context ct) {
+    public UpdateAppVersion(Activity ct) {
         context = ct;
     }
 
-    public UpdateAppVersion(Context ct, UpdateInfoRes mUpdateInfoBean, OnUpdateVersionBackListener listener) {
+    public UpdateAppVersion(Activity ct, UpdateInfoRes mUpdateInfoBean, OnUpdateVersionBackListener listener) {
         this(ct);
         this.updateInfoRes = mUpdateInfoBean;
         this.listener = listener;
@@ -97,7 +97,7 @@ public class UpdateAppVersion {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            Uri contentUri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".fileprovider", file);
+            Uri contentUri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".gt_utils.fileprovider", file);
             intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
         } else {
             Uri contentUri = Uri.fromFile(file);
@@ -117,7 +117,7 @@ public class UpdateAppVersion {
         new AlertDialog.Builder(context).setIcon(R.mipmap.logo).setTitle("版本升级")
                 .setMessage("升级版本：" + updateInfoRes.getCurrentversiondesc()
                         + "\n" + "当前版本：" + getLocalVersionName(context)
-                        + "\n" + (contents.length > 1 ? "新版大小：" + contents[0] + "\n" + "更新内容：" + "\n" + contents[1] : "更新内容：" + "\n" + updateInfoRes.getContent()))
+                        + "\n" + (contents.length > 1 ? "新版大小：" + contents[0] + "\n" + "更新内容：" + contents[1] : "更新内容：" + updateInfoRes.getContent()))
                 .setPositiveButton("现在升级", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -125,7 +125,8 @@ public class UpdateAppVersion {
                             @Override
                             public void onPermissionGranted(int... requestCode) {
                                 Toast.makeText(context, "正在升级中...", Toast.LENGTH_LONG).show();
-                                downLoadNewApk(updateInfoRes.getUrl());  //通过通知栏更新
+                                //downLoadNewApk(updateInfoRes.getUrl());  //通过通知栏更新
+                                downLoadNewApk("https://dldir1.qq.com/weixin/android/weixin7010android1580.apk");
                                 if (!force) {
                                     listener.onBackListener();
                                 }
@@ -148,27 +149,45 @@ public class UpdateAppVersion {
     public static final String KMS_DIR = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath() + File.separator + "kms";
 
     public void downLoadNewApk(String apkUri) {
-        String fileName = KMS_DIR + File.separator + "apk" + File.separator + context.getPackageName() + updateInfoRes.getCurrentversiondesc() + ".apk";
-        new MuchThreadDown(apkUri, fileName).download(new MuchThreadDown.OnDownloadListener() {
+        new MuchThreadDown(apkUri, KMS_DIR).download(true, new MuchThreadDown.OnDownloadListener() {
             @Override
             protected void onDownloadComplete(String name, String url, String filePath) {
-                if (pd != null) {
-                    pd.setMessage("下载完成");
-                    pd.setProgress(100);
-                    pd.cancel();
-                }
-                installApk(new File(KMS_DIR + File.separator + "apk", context.getPackageName() + updateInfoRes.getCurrentversiondesc() + ".apk"));
+                context.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ;
+                        if (pd != null) {
+                            pd.setMessage("下载完成");
+                            pd.setProgress(100);
+                            pd.cancel();
+                            String[] path = filePath.split("/");
+                            installApk(new File(KMS_DIR + File.separator + path[path.length - 1]));
+                        }
+                    }
+                });
             }
 
             protected void onDownloadError(String url, Exception e) {
-                Log.e("onDownloadError", url + "下载失败");
                 e.printStackTrace();
+                context.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (pd != null) {
+                            pd.setMessage("下载失败:" + e.getMessage());
+                        }
+                    }
+                });
             }
 
             protected void onDownloads(String url, int completed, int endIndex) {
-                if (pd != null) {
-                    pd.setProgress(completed);
-                }
+                context.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (pd != null) {
+                            pd.setProgress((int) ((float) completed / (float) endIndex * 100));
+                        }
+                    }
+                });
             }
         });
 
@@ -233,13 +252,13 @@ public class UpdateAppVersion {
          * minversionrequiredesc : 1.0.1
          * type : 0
          * uploaddate : 2017-04-01 18:24:53
-         * url : http://app.kuaimashi.com/kms-app-release-105p.apk
+         * url :
          */
 
         private String content;
-        private int currentversion;
+        private double currentversion;
         private String currentversiondesc;
-        private int minversionrequire;
+        private double minversionrequire;
         private String minversionrequiredesc;
         private int type;
         private String uploaddate;
@@ -253,27 +272,27 @@ public class UpdateAppVersion {
             this.content = content;
         }
 
-        public int getCurrentversion() {
+        public double getCurrentversion() {
             return currentversion;
         }
 
-        public void setCurrentversion(int currentversion) {
+        public void setCurrentversion(double currentversion) {
             this.currentversion = currentversion;
         }
 
         public String getCurrentversiondesc() {
-            return currentversiondesc;
+            return currentversiondesc == null ? "" : currentversiondesc;
         }
 
         public void setCurrentversiondesc(String currentversiondesc) {
             this.currentversiondesc = currentversiondesc;
         }
 
-        public int getMinversionrequire() {
+        public double getMinversionrequire() {
             return minversionrequire;
         }
 
-        public void setMinversionrequire(int minversionrequire) {
+        public void setMinversionrequire(double minversionrequire) {
             this.minversionrequire = minversionrequire;
         }
 

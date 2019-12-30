@@ -3,7 +3,6 @@ package com.wycd.yushangpu;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.MutableContextWrapper;
 import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -19,7 +18,6 @@ import com.loopj.android.http.PersistentCookieStore;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tencent.smtt.sdk.QbSdk;
-import com.tencent.smtt.sdk.WebView;
 import com.wycd.yushangpu.bean.LoginBean;
 import com.wycd.yushangpu.tools.AppLanguageUtils;
 import com.wycd.yushangpu.tools.LogUtils;
@@ -55,12 +53,11 @@ public class MyApplication extends MultiDexApplication {
      **/
 //        public static String BASE_URL = "http://pc.yunvip123.com/";
 //        public static String BASE_URL = "http://192.168.1.240:807/";
-        public static String BASE_URL = "http://pcbeta.yunvip123.com/";
+    public static String BASE_URL = "http://pcbeta.yunvip123.com/";
 
-        public static String IMAGE_URL = "http://pc.yunvip123.com";
-        public static String CTMONEY_URL = "http://core.yunvip123.com/";
-
-
+    public static String IMAGE_URL = "http://pc.yunvip123.com";
+    //public static String CTMONEY_URL = "http://core.yunvip123.com/";
+    public static String CTMONEY_URL = "http://corebeta.yunvip123.com/";
 
 
     /***
@@ -72,18 +69,16 @@ public class MyApplication extends MultiDexApplication {
 //    public static  String CTMONEY_URL = "http://admin.znheqi.com/";
 
 
-
-
     /**
      * logo
      */
     public static Bitmap HYCZ_LOGO, HYCC_LOGO, SPXF_LOGO, KSXF_LOGO, JCXF_LOGO, JFDH_LOGO,
-            SPTH_LOGO, JB_LOGO, FTXF_LOGO, HYSK_LOGO, TCXF_LOGO,OPENCARD_LOGO,RK_LOGO,CK_LOGO;
+            SPTH_LOGO, JB_LOGO, FTXF_LOGO, HYSK_LOGO, TCXF_LOGO, OPENCARD_LOGO, RK_LOGO, CK_LOGO;
     /**
      * 二维码
      */
     public static Bitmap HYCZ_QR, HYCC_QR, SPXF_QR, KSXF_QR, JCXF_QR, JFDH_QR,
-            SPTH_QR, JB_QR, FTXF_QR, HYSK_QR, TCXF_QR,OPENCARD_QR,RK_QR,CK_QR;
+            SPTH_QR, JB_QR, FTXF_QR, HYSK_QR, TCXF_QR, OPENCARD_QR, RK_QR, CK_QR;
 
     /**
      * 会员充次
@@ -141,17 +136,17 @@ public class MyApplication extends MultiDexApplication {
     /**
      * 打印是否开启
      */
-    public static boolean PRINT_IS_OPEN  = false;
+    public static boolean PRINT_IS_OPEN = false;
 
     /**
      * 标签打印是否开启
      */
-    public static boolean LABELPRINT_IS_OPEN  = false;
+    public static boolean LABELPRINT_IS_OPEN = false;
 
     /**
      * 标签打印是否开启
      */
-    public static int LABEL_TYPE  = 0;
+    public static int LABEL_TYPE = 0;
 
     /**
      * 蓝牙打印机列表
@@ -188,21 +183,21 @@ public class MyApplication extends MultiDexApplication {
     public static boolean ISCONNECT = false;//USB小票打印机
 
 
-    public static MyApplication getInstance(){
+    public static MyApplication getInstance() {
         return homeApplication;
     }
 
 
-    ServiceConnection mSerconnection= new ServiceConnection() {
+    ServiceConnection mSerconnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            myBinder= (IMyBinder) service;
-            Log.e("myBinder","connect");
+            myBinder = (IMyBinder) service;
+            Log.e("myBinder", "connect");
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            Log.e("myBinder","disconnect");
+            Log.e("myBinder", "disconnect");
         }
     };
 
@@ -210,7 +205,7 @@ public class MyApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
 
-        homeApplication=this;
+        homeApplication = this;
         sContext = this;
 
         mTimesRechargeMap = new HashMap<>();
@@ -220,7 +215,7 @@ public class MyApplication extends MultiDexApplication {
         mIntegralExchangeMap = new HashMap<>();
         mFastConsumeMap = new HashMap<>();
         mTCConsumeMap = new HashMap<>();
-        mCardOpenMap= new HashMap<>();
+        mCardOpenMap = new HashMap<>();
         mHandOverMap = new HashMap<>();
         mGoodsIn = new HashMap<>();
         mGoodsOut = new HashMap<>();
@@ -255,8 +250,8 @@ public class MyApplication extends MultiDexApplication {
         };
         //x5内核初始化接口
         QbSdk.initX5Environment(getApplicationContext(), cb);
-        Intent intent =new Intent(this, PosprinterService.class);
-        bindService(intent,mSerconnection,BIND_AUTO_CREATE);
+        Intent intent = new Intent(this, PosprinterService.class);
+        bindService(intent, mSerconnection, BIND_AUTO_CREATE);
 
     }
 
@@ -296,7 +291,7 @@ public class MyApplication extends MultiDexApplication {
     }
 
 
-    public static String getLoginBean(){
+    public static String getLoginBean() {
         String result = null;
         String loginResultString = null;
         try {

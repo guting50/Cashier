@@ -169,7 +169,7 @@ public class ImpLogin {
         client.setCookieStore(myCookieStore);
         RequestParams params = new RequestParams();
 
-        params.put("Code", 3);
+        params.put("Type", 3);
         String url = HttpAPI.API().GET_NEWS_VERSION;
         LogUtils.d("xxurl", url);
         LogUtils.d("xxparams", params.toString());

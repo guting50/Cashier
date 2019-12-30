@@ -14,6 +14,7 @@
         android:id="@+id/jiesuan_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="350dp"
         android:focusableInTouchMode="true"
         android:orientation="vertical"
         app:corners_radius_left_bottom="5dp"
