@@ -155,7 +155,6 @@ public class UpdateAppVersion {
                 context.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ;
                         if (pd != null) {
                             pd.setMessage("下载完成");
                             pd.setProgress(100);
