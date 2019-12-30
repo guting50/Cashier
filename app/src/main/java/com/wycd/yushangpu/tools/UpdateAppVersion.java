@@ -125,8 +125,8 @@ public class UpdateAppVersion {
                             @Override
                             public void onPermissionGranted(int... requestCode) {
                                 Toast.makeText(context, "正在升级中...", Toast.LENGTH_LONG).show();
-                                //downLoadNewApk(updateInfoRes.getUrl());  //通过通知栏更新
-                                downLoadNewApk("https://dldir1.qq.com/weixin/android/weixin7010android1580.apk");
+                                downLoadNewApk(updateInfoRes.getUrl());  //通过通知栏更新
+//                                downLoadNewApk("https://dldir1.qq.com/weixin/android/weixin7010android1580.apk");
                                 if (!force) {
                                     listener.onBackListener();
                                 }
@@ -146,10 +146,10 @@ public class UpdateAppVersion {
                 }).create().show();
     }
 
-    public static final String KMS_DIR = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath() + File.separator + "kms";
+    public static final String KMS_DIR = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath() + File.separator + "apk";
 
     public void downLoadNewApk(String apkUri) {
-        new MuchThreadDown(apkUri, KMS_DIR).download(true, new MuchThreadDown.OnDownloadListener() {
+        new MuchThreadDown(apkUri, KMS_DIR).isShowLog(true).download(new MuchThreadDown.OnDownloadListener() {
             @Override
             protected void onDownloadComplete(String name, String url, String filePath) {
                 context.runOnUiThread(new Runnable() {

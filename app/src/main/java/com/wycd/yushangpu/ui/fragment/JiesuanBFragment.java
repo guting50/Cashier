@@ -51,6 +51,7 @@ import com.wycd.yushangpu.widget.dialog.PromotionDialog;
 import com.wycd.yushangpu.widget.dialog.SaomaDialog;
 import com.wycd.yushangpu.widget.dialog.YouhuiquanDialog;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -521,7 +522,7 @@ public class JiesuanBFragment extends Fragment {
             double temp = 0.0;
             double multiple = 1;
             if (active.getRP_ISDouble() > 0) {
-                multiple = CommonUtils.div(Double.parseDouble(zhMoney), active.getRP_RechargeMoney(), 0);
+                multiple = CommonUtils.div(Double.parseDouble(zhMoney), active.getRP_RechargeMoney(), 0, BigDecimal.ROUND_DOWN);
             }
 
             if (active.getRP_Discount() != -1) { // 折扣活动
