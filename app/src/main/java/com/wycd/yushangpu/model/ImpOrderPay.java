@@ -48,9 +48,10 @@ public class ImpOrderPay {
             params.put("PayResult[PayTypeList][" + i + "][PayMoney]", Decima2KeeplUtil.stringToDecimal(typelist.get(i).getPayMoney() + ""));
             params.put("PayResult[PayTypeList][" + i + "][PayPoint]", Decima2KeeplUtil.stringToDecimal(typelist.get(i).getPayPoint() + ""));
         }
-        for (int i = 0; i < orderPayResult.getYhqList().size(); i++) {
-            params.put("PayResult[GIDList][" + i + "]", orderPayResult.getYhqList().get(i).getGID());
-        }
+        if (orderPayResult.getYhqList() != null)
+            for (int i = 0; i < orderPayResult.getYhqList().size(); i++) {
+                params.put("PayResult[GIDList][" + i + "]", orderPayResult.getYhqList().get(i).getGID());
+            }
 
         params.put("PayResult[CC_GID]", orderPayResult.getActive() == null ? "" : orderPayResult.getActive().getGID());
         params.put("PayResult[EraseOdd]", orderPayResult.getMolingMoney());

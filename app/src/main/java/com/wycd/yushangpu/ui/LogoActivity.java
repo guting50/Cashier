@@ -51,11 +51,10 @@ public class LogoActivity extends BaseActivity {
                                     toLoginActivity();
                                 }
                             }).compareVersion();
-                        } else {
-                            toLoginActivity();
+                            return;
                         }
                     }
-
+                    toLoginActivity();
                 } catch (Exception e) {
                     e.printStackTrace();
                     toLoginActivity();

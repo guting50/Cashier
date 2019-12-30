@@ -141,6 +141,7 @@ public class ImpSubmitOrder {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
                     JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
+                    LogUtils.d("xxorderE", new String(responseBody, "UTF-8"));
                     if (jso.getBoolean("success")) {
                         JSONObject js = jso.getJSONObject("data");
                         OrderCanshhu canshhu = new OrderCanshhu();
