@@ -237,6 +237,7 @@ public class JiesuanBFragment extends Fragment {
         tvPromotion.setText("");
         promotionMoney = 0;
         yhqMsgs = null;
+        cbSmallTicket.setChecked(MyApplication.PRINT_IS_OPEN);
 
         this.yue = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableBalance() + "";
         this.isMember = null == mVipMsg ? false : true;
@@ -264,7 +265,7 @@ public class JiesuanBFragment extends Fragment {
 
         if (ImpPreLoading.REPORT_BEAN != null && ImpPreLoading.REPORT_BEAN.getData() != null) {
             for (ReportMessageBean.DataBean.ActiveBean active : ImpPreLoading.REPORT_BEAN.getData().getActive()) {
-                if (Double.parseDouble(zhMoney) >= active.getRP_RechargeMoney()) {
+                if (active.getRP_Type() != 1 && Double.parseDouble(zhMoney) >= active.getRP_RechargeMoney()) {
                     double temp = computePromotionMoney(active);
                     if (promotionMoney < temp) {
                         promotionMoney = temp;

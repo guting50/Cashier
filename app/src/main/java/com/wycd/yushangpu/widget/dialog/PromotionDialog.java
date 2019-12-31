@@ -20,6 +20,7 @@ import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpPreLoading;
 import com.wycd.yushangpu.tools.NullUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -101,7 +102,7 @@ public class PromotionDialog {
     }
 
     public static class PromotionAdapter extends RecyclerView.Adapter {
-        private List<ReportMessageBean.DataBean.ActiveBean> list;
+        private List<ReportMessageBean.DataBean.ActiveBean> list = new ArrayList<>();
         private ReportMessageBean.DataBean.ActiveBean currentBean;
         private Holder currentHolder;
         private Context context;
@@ -109,8 +110,13 @@ public class PromotionDialog {
         private InterfaceBack back;
 
         public PromotionAdapter(Context context, String payMoney, ReportMessageBean.DataBean.ActiveBean active, InterfaceBack back) {
-            if (ImpPreLoading.REPORT_BEAN != null && ImpPreLoading.REPORT_BEAN.getData() != null)
-                this.list = ImpPreLoading.REPORT_BEAN.getData().getActive();
+            if (ImpPreLoading.REPORT_BEAN != null && ImpPreLoading.REPORT_BEAN.getData() != null) {
+                for (ReportMessageBean.DataBean.ActiveBean bean : ImpPreLoading.REPORT_BEAN.getData().getActive()) {
+                    if (bean.getRP_Type() != 1) {
+                        list.add(bean);
+                    }
+                }
+            }
             this.context = context;
             this.payMoney = payMoney;
             this.currentBean = active;
