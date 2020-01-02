@@ -439,7 +439,9 @@ public class JiesuanBFragment extends Fragment {
                         }
                     }
                 }
-
+                if (getZhaoling() > 0) {
+                    com.blankj.utilcode.util.ToastUtils.showShort("找零金额不能大于现金支付");
+                } else
                 if (getZhaoling() < 0) {
                     com.blankj.utilcode.util.ToastUtils.showShort("支付金额小于折后金额");
                 } else {

@@ -785,136 +785,33 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             return;
         }
         if (shopMsg.getStock_Number() <= 0 && isZeroStock && shopMsg.getPM_IsService() == 0) {
-//                    ToastUtils.showToast(ac, "当前库存不足");
             com.blankj.utilcode.util.ToastUtils.showShort("当前库存不足");
             return;
         }
         double addnum = 1;
         if (isZeroStock && shopMsg.getPM_IsService() == 0) {//禁止0库存销售的普通商品
             if (shopMsg.getStock_Number() - 1 >= 0) { //库存大于等于1
-//                        shopMsg.setCurrtStock_Number(shopMsg.getCurrtStock_Number() - 1);
                 addnum = 1;
             } else {//库存大于0小于1
-//                        shopMsg.setCurrtStock_Number(0);
                 addnum = shopMsg.getStock_Number();
             }
         } else {
-//                    shopMsg.setCurrtStock_Number(shopMsg.getCurrtStock_Number() - 1);
             addnum = 1;
         }
 
-        if (!TextUtils.isEmpty(shopMsg.getPM_GroupGID()) && Integer.parseInt(shopMsg.getGroupCount()) > 1) {
+        if (!TextUtils.isEmpty(shopMsg.getPM_GroupGID())/* && Integer.parseInt(shopMsg.getGroupCount()) > 1*/) {
             dialog.show();
             ImpGroupGoodsList impGroupGoodsList = new ImpGroupGoodsList();
             final double finalAddnum = addnum;
             impGroupGoodsList.getGroupGoodsList(ac, shopMsg.getPM_GroupGID(), new InterfaceBack() {
                 @Override
                 public void onResponse(Object response) {
+                    dialog.dismiss();
                     List<ShopMsg> sllist = (List<ShopMsg>) response;
-                    if (ModelList != null) {
-                        //初始化
-                        for (int i = 0; i < ModelList.size(); i++) {
-                            ModelList.get(i).setChecked(false);
-                            ModelList.get(i).setEnable(false);
-                        }
-                        //将商品有的规格设置成可点击
-                        for (int i = 0; i < sllist.size(); i++) {
-                            if (sllist.get(i).getPM_Modle() != null && !sllist.get(i).getPM_Modle().equals("")) {
-                                List<String> list = SignUtils.getStringForlist(sllist.get(i).getPM_Modle());
-                                for (int j = 0; j < list.size(); j++) {
-                                    for (int k = 0; k < ModelList.size(); k++) {
-                                        if (list.get(j).equals(ModelList.get(k).getPM_Properties())) {
-                                            ModelList.get(k).setEnable(true);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        modelList.clear();
-
-                        //组装规格数据
-                        if (ModelList != null && ModelList.size() > 1) {
-                            for (int i = 0; i < ModelList.size(); i++) {
-                                if (ModelList.get(i).getPM_Type() == 0) {
-                                    List<GoodsModelBean> list = new ArrayList<>();
-                                    list.add(ModelList.get(i));
-                                    modelList.add(list);
-                                } else {
-                                    for (int j = 0; j < modelList.size(); j++) {
-                                        if (modelList.get(j).get(0).getPM_Name().equals(ModelList.get(i).getPM_Name())) {
-                                            modelList.get(j).add(ModelList.get(i));
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        //设置第一个默认选中
-                        for (int i = 0; i < modelList.size(); i++) {
-                            int num = 0;
-                            for (int j = 0; j < modelList.get(i).size(); j++) {
-                                if (modelList.get(i).get(j).isEnable() && modelList.get(i).get(j).getPM_Type() != 0) {
-                                    modelList.get(i).get(j).setChecked(true);
-                                    num++;
-                                    break;
-                                }
-                            }
-                            if (num == 0) {
-                                modelList.remove(i);
-                                i--;
-                            } else {
-                                modelList.get(i).remove(0);
-                            }
-                        }
-
-                        dialog.dismiss();
-                        GoodsModelDialog.goodsModelDialog(ac, 1, modelList, sllist, isZeroStock, new InterfaceBack() {
-                            @Override
-                            public void onResponse(Object response) {
-                                ShopMsg goodsitem = (ShopMsg) response;
-
-                                double num = 0;
-                                int pos = 0;
-                                for (int j = 0; j < mShopLeftList.size(); j++) {
-                                    if (goodsitem.getGID().equals(mShopLeftList.get(j).getGID())) {
-                                        num = mShopLeftList.get(j).getNum();
-                                        pos = j;
-                                    }
-                                }
-
-                                goodsitem.setNum(num + finalAddnum);
-                                if (num == 0) {
-                                    goodsitem.setCheck(false);
-                                    mShopLeftList.add(0, goodsitem);
-                                    if (leftpos != -1) {
-                                        leftpos += 1;
-                                    }
-
-                                    updateBttGetOrder();
-                                } else {
-                                    mShopLeftList.get(pos).setNum(num + finalAddnum);
-                                }
-                                jisuanAllPrice();
-                                for (int i = 0; i < mShopLeftList.size(); i++) {
-                                    if (goodsitem.getGID().equals(mShopLeftList.get(i).getGID())) {
-                                        mShopLeftList.get(i).setCheck(true);
-                                        leftpos = i;
-                                    } else {
-                                        mShopLeftList.get(i).setCheck(false);
-                                    }
-                                }
-                                mShopLeftAdapter.notifyDataSetChanged();
-
-                            }
-
-                            @Override
-                            public void onErrorResponse(Object msg) {
-
-                            }
-                        });
-
+                    if (sllist.size() == 1) {
+                        addShopLeftList(shopMsg, finalAddnum);
                     } else {
-                        com.blankj.utilcode.util.ToastUtils.showShort("没有获取到规格列表，请稍后再尝试");
-                        getproductmodel();
+                        showGoodsModelDialog(sllist, finalAddnum);
                     }
                 }
 
@@ -924,37 +821,116 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 }
             });
         } else {
-            double num = 0;
-            int pos = 0;
+            addShopLeftList(shopMsg, addnum);
+        }
+    }
 
-            for (int j = 0; j < mShopLeftList.size(); j++) {
-                if (shopMsg.getGID().equals(mShopLeftList.get(j).getGID()) && !mShopLeftList.get(j).isIsgive()) {
-                    num = mShopLeftList.get(j).getNum();
-                    pos = j;
-                }
+    private void addShopLeftList(ShopMsg shopMsg, double addnum) {
+        double num = 0;
+        int pos = 0;
+
+        for (int j = 0; j < mShopLeftList.size(); j++) {
+            if (shopMsg.getGID().equals(mShopLeftList.get(j).getGID()) && !mShopLeftList.get(j).isIsgive()) {
+                num = mShopLeftList.get(j).getNum();
+                pos = j;
             }
-            shopMsg.setNum(num + addnum);
-            if (num == 0) {
-                shopMsg.setCheck(false);
-                mShopLeftList.add(0, shopMsg);
-                if (leftpos != -1) {
-                    leftpos += 1;
-                }
+        }
+        shopMsg.setNum(num + addnum);
+        if (num == 0) {
+            shopMsg.setCheck(false);
+            mShopLeftList.add(0, shopMsg);
+            if (leftpos != -1) {
+                leftpos += 1;
+            }
 
-                updateBttGetOrder();
+            updateBttGetOrder();
+        } else {
+            mShopLeftList.get(pos).setNum(num + addnum);
+        }
+        jisuanAllPrice();
+        for (int i = 0; i < mShopLeftList.size(); i++) {
+            if (shopMsg.getGID().equals(mShopLeftList.get(i).getGID()) && !mShopLeftList.get(i).isIsgive()) {
+                mShopLeftList.get(i).setCheck(true);
+                leftpos = i;
             } else {
-                mShopLeftList.get(pos).setNum(num + addnum);
+                mShopLeftList.get(i).setCheck(false);
             }
-            jisuanAllPrice();
-            for (int i = 0; i < mShopLeftList.size(); i++) {
-                if (shopMsg.getGID().equals(mShopLeftList.get(i).getGID()) && !mShopLeftList.get(i).isIsgive()) {
-                    mShopLeftList.get(i).setCheck(true);
-                    leftpos = i;
-                } else {
-                    mShopLeftList.get(i).setCheck(false);
+        }
+        mShopLeftAdapter.notifyDataSetChanged();
+    }
+
+    private void showGoodsModelDialog(List<ShopMsg> sllist, double addnum) {
+        if (ModelList != null) {
+            //初始化
+            for (int i = 0; i < ModelList.size(); i++) {
+                ModelList.get(i).setChecked(false);
+                ModelList.get(i).setEnable(false);
+            }
+            //将商品有的规格设置成可点击
+            for (ShopMsg shopMsg : sllist) {
+                if (!TextUtils.isEmpty(shopMsg.getPM_Modle())) {
+                    for (String str : shopMsg.getPM_Modle().split("\\|")) {
+                        for (GoodsModelBean modelBean : ModelList) {
+                            if (str.equals(modelBean.getPM_Properties())) {
+                                modelBean.setEnable(true);
+                            }
+                        }
+                    }
                 }
             }
-            mShopLeftAdapter.notifyDataSetChanged();
+            modelList.clear();
+
+            //组装规格数据
+            if (ModelList != null && ModelList.size() > 1) {
+                for (int i = 0; i < ModelList.size(); i++) {
+                    if (ModelList.get(i).getPM_Type() == 0) {
+                        List<GoodsModelBean> list = new ArrayList<>();
+                        list.add(ModelList.get(i));
+                        modelList.add(list);
+                    } else {
+                        for (int j = 0; j < modelList.size(); j++) {
+                            if (modelList.get(j).get(0).getPM_Name().equals(ModelList.get(i).getPM_Name())) {
+                                modelList.get(j).add(ModelList.get(i));
+                            }
+                        }
+                    }
+                }
+            }
+            //设置第一个默认选中
+            for (int i = 0; i < modelList.size(); i++) {
+                int num = 0;
+                for (int j = 0; j < modelList.get(i).size(); j++) {
+                    if (modelList.get(i).get(j).isEnable() && modelList.get(i).get(j).getPM_Type() != 0) {
+                        modelList.get(i).get(j).setChecked(true);
+                        num++;
+                        break;
+                    }
+                }
+                if (num == 0) {
+                    modelList.remove(i);
+                    i--;
+                } else {
+                    modelList.get(i).remove(0);
+                }
+            }
+
+            dialog.dismiss();
+            GoodsModelDialog.goodsModelDialog(ac, 1, modelList, sllist, isZeroStock, new InterfaceBack() {
+                @Override
+                public void onResponse(Object response) {
+                    ShopMsg goodsitem = (ShopMsg) response;
+                    addShopLeftList(goodsitem, addnum);
+                }
+
+                @Override
+                public void onErrorResponse(Object msg) {
+
+                }
+            });
+
+        } else {
+            com.blankj.utilcode.util.ToastUtils.showShort("没有获取到规格列表，请稍后再尝试");
+            getproductmodel();
         }
     }
 

@@ -165,7 +165,7 @@ public class GoodsListFragment extends Fragment {
 
                     @Override
                     public void onTabReselected(TabLayout.Tab tab) {
-
+                        obtainHomeShop("", tab.getTag().toString());
                     }
                 });
             }
