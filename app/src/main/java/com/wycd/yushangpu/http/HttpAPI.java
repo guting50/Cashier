@@ -107,6 +107,9 @@ public class HttpAPI {
         //扫码支付
         public static final String BAR_CODE_PAY = MyApplication.BASE_URL + "api/PayOrder/BarcodePay";
 
+        //扫码支付查询
+        public static final String BAR_QUER_PAY = MyApplication.BASE_URL + "api/PayOrder/QuerPay";
+
         //产品类型
         public static final String PRODUCTTYPE = MyApplication.BASE_URL + "api/ProductTypeManager/QueryAllProductTypeBySM_ID";
 

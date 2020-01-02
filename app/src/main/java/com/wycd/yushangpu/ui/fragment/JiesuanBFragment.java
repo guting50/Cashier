@@ -51,9 +51,14 @@ import com.wycd.yushangpu.widget.dialog.PromotionDialog;
 import com.wycd.yushangpu.widget.dialog.SaomaDialog;
 import com.wycd.yushangpu.widget.dialog.YouhuiquanDialog;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -405,13 +410,54 @@ public class JiesuanBFragment extends Fragment {
                             saoma.saomaPay(context, response.toString(), ysMoney, GID, CO_OrderCode, result, new InterfaceBack() {
                                 @Override
                                 public void onResponse(Object response) {
-                                    System.out.println("==========扫一扫===22222============random:" + response.toString());
+                                    System.out.println("==========扫一扫=============== " + response.toString());
                                     computeYsMoney();
                                 }
 
                                 @Override
                                 public void onErrorResponse(Object msg) {
-                                    back.onResponse(msg);
+                                    String s = "";
+                                    if (msg != null) {
+                                        JSONObject jso = (JSONObject) msg;
+                                        try {
+                                            if (jso.getString("code").equals("410004")) {
+                                                String gid = new JSONObject(jso.getString("data")).getString("GID");
+                                                Timer timer = new Timer();
+                                                timer.schedule(new TimerTask() {
+                                                    @Override
+                                                    public void run() {
+                                                        saoma.saomaPayQuer(context, gid, new InterfaceBack() {
+                                                            @Override
+                                                            public void onResponse(Object response) {
+                                                                JSONObject jso = (JSONObject) msg;
+                                                                try {
+                                                                    if (!jso.getString("code").equals("410004")) {
+                                                                        if (jso.getBoolean("success")){
+                                                                            System.out.println("==========扫一扫=============== " + response.toString());
+                                                                            computeYsMoney();
+                                                                        }else{
+                                                                            com.blankj.utilcode.util.ToastUtils.showShort("扫码支付功能失败");
+                                                                        }
+                                                                    }
+                                                                } catch (JSONException e) {
+                                                                    e.printStackTrace();
+                                                                }
+                                                            }
+
+                                                            @Override
+                                                            public void onErrorResponse(Object msg) {
+                                                                com.blankj.utilcode.util.ToastUtils.showShort("扫码支付功能失败");
+                                                            }
+                                                        });
+                                                    }
+                                                }, 2000, 2000);
+                                            }
+                                            s = jso.getString("msg");
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    com.blankj.utilcode.util.ToastUtils.showShort("扫码支付功能失败" + s);
                                 }
                             });
                         }
@@ -441,8 +487,7 @@ public class JiesuanBFragment extends Fragment {
                 }
                 if (getZhaoling() > 0) {
                     com.blankj.utilcode.util.ToastUtils.showShort("找零金额不能大于现金支付");
-                } else
-                if (getZhaoling() < 0) {
+                } else if (getZhaoling() < 0) {
                     com.blankj.utilcode.util.ToastUtils.showShort("支付金额小于折后金额");
                 } else {
                     //结算
