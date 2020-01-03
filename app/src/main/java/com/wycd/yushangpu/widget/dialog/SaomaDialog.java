@@ -95,7 +95,6 @@ public class SaomaDialog {
                     } else {
                         if (editable.toString().length() == 18) {
                             back.onResponse(editable.toString());
-                            dialog.dismiss();
                         }
                     }
                 }

@@ -420,7 +420,7 @@ public class JiesuanBFragment extends Fragment {
                         xjzfMoney = itemMode.getValue();
                     }
                 }
-                if (getZhaoling() >= xjzfMoney) {
+                if (getZhaoling() > 0 && getZhaoling() >= xjzfMoney) {
                     com.blankj.utilcode.util.ToastUtils.showShort("找零金额不能大于等于现金支付金额");
                 } else if (getZhaoling() < 0) {
                     com.blankj.utilcode.util.ToastUtils.showShort("支付金额小于折后金额");
@@ -438,11 +438,15 @@ public class JiesuanBFragment extends Fragment {
                             final SPXF_Success_Bean spxf_success_bean = gson.fromJson(responseString, SPXF_Success_Bean.class);
                             dialog.dismiss();
                             back.onResponse(spxf_success_bean.getData().getGID());
+                            if (saomaDialog != null)
+                                saomaDialog.dismiss();
                         }
 
                         @Override
                         public void onErrorResponse(Object msg) {
                             dialog.dismiss();
+                            if (saomaDialog != null)
+                                saomaDialog.dismiss();
                         }
                     });
                 }
@@ -783,6 +787,13 @@ public class JiesuanBFragment extends Fragment {
                         && m.getSS_Name().equals("其他支付")) {
                     p.setGID(new String[0]);
                     p.setPayCode("QTZF");
+                    p.setPayMoney(modeMoney);
+                    p.setPayName(m.getSS_Name());
+                    p.setPayPoint(0.00);
+                } else if (TextUtils.equals(name, PayMode.SMZF.getStr())
+                        && m.getSS_Name().equals("扫码支付")) {
+                    p.setGID(new String[0]);
+                    p.setPayCode("SMZF");
                     p.setPayMoney(modeMoney);
                     p.setPayName(m.getSS_Name());
                     p.setPayPoint(0.00);
