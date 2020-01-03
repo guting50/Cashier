@@ -95,12 +95,12 @@ public class ImpSaoma {
         });
     }
 
-    public void saomaPayQuer(final Activity ac, String GID, final InterfaceBack back) {
+    public void saomaPayQuery(final Activity ac, String GID, final InterfaceBack back) {
         AsyncHttpClient client = new AsyncHttpClient();
         final PersistentCookieStore myCookieStore = new PersistentCookieStore(ac);
         client.setCookieStore(myCookieStore);
         RequestParams params = new RequestParams();
-        String url = HttpAPI.API().BAR_QUER_PAY;
+        String url = HttpAPI.API().QUERY_PAY_RESULT;
         params.put("ResultGID", GID);
         LogUtils.d("xxparams", params.toString());
         LogUtils.d("xxurl", url);

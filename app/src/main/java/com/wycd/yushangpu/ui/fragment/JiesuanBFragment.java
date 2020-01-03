@@ -430,7 +430,7 @@ public class JiesuanBFragment extends Fragment {
                                                 timer.schedule(new TimerTask() {
                                                     @Override
                                                     public void run() {
-                                                        saoma.saomaPayQuer(context, gid, new InterfaceBack() {
+                                                        saoma.saomaPayQuery(context, gid, new InterfaceBack() {
                                                             @Override
                                                             public void onResponse(Object response) {
                                                                 JSONObject jso = (JSONObject) msg;
@@ -486,16 +486,14 @@ public class JiesuanBFragment extends Fragment {
         li_jiesuan.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
+                double xjzfMoney = 0;
                 for (PayModeListAdapter.MyPayMode itemMode : payModeListAdapter.getData()) {
                     if (TextUtils.equals(itemMode.getPayName(), PayMode.XJZF.getStr())) {
-                        if (getZhaoling() > itemMode.getValue()) {
-                            com.blankj.utilcode.util.ToastUtils.showShort("找零金额不能大于现金支付");
-                            return;
-                        }
+                        xjzfMoney = itemMode.getValue();
                     }
                 }
-                if (getZhaoling() > 0) {
-                    com.blankj.utilcode.util.ToastUtils.showShort("找零金额不能大于现金支付");
+                if (getZhaoling() >= xjzfMoney) {
+                    com.blankj.utilcode.util.ToastUtils.showShort("找零金额不能大于等于现金支付金额");
                 } else if (getZhaoling() < 0) {
                     com.blankj.utilcode.util.ToastUtils.showShort("支付金额小于折后金额");
                 } else {
