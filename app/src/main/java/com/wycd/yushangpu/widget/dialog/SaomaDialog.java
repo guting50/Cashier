@@ -49,6 +49,7 @@ public class SaomaDialog {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+                back.onErrorResponse(null);
             }
         });
 

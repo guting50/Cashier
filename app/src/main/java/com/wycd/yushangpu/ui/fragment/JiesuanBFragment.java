@@ -414,8 +414,8 @@ public class JiesuanBFragment extends Fragment {
                             saoma.saomaPay(context, response.toString(), ysMoney, GID, CO_OrderCode, result, new InterfaceBack() {
                                 @Override
                                 public void onResponse(Object response) {
-                                    System.out.println("==========扫一扫=============== " + response.toString());
-                                    computeYsMoney();
+                                    System.out.println("==========扫码支付成功=============== " + response.toString());
+                                    li_jiesuan.performClick();
                                 }
 
                                 @Override
@@ -437,20 +437,23 @@ public class JiesuanBFragment extends Fragment {
                                                                 try {
                                                                     if (!jso.getString("code").equals("410004")) {
                                                                         if (jso.getBoolean("success")) {
-                                                                            System.out.println("==========扫一扫=============== " + response.toString());
-                                                                            computeYsMoney();
+                                                                            System.out.println("==========扫码支付成功=============== " + response.toString());
+                                                                            li_jiesuan.performClick();
                                                                         } else {
                                                                             com.blankj.utilcode.util.ToastUtils.showShort("扫码支付功能失败");
+                                                                            view.performClick();
                                                                         }
                                                                     }
                                                                 } catch (JSONException e) {
                                                                     e.printStackTrace();
+                                                                    view.performClick();
                                                                 }
                                                             }
 
                                                             @Override
                                                             public void onErrorResponse(Object msg) {
                                                                 com.blankj.utilcode.util.ToastUtils.showShort("扫码支付功能失败");
+                                                                view.performClick();
                                                             }
                                                         });
                                                     }
@@ -459,16 +462,18 @@ public class JiesuanBFragment extends Fragment {
                                             s = jso.getString("msg");
                                         } catch (JSONException e) {
                                             e.printStackTrace();
+                                            view.performClick();
                                         }
                                     }
                                     com.blankj.utilcode.util.ToastUtils.showShort("扫码支付功能失败" + s);
+                                    view.performClick();
                                 }
                             });
                         }
 
                         @Override
                         public void onErrorResponse(Object msg) {
-
+                            view.performClick();
                         }
                     });
                 }
@@ -1015,10 +1020,12 @@ public class JiesuanBFragment extends Fragment {
             if (!payModeList.contains(currentSelectedPay)) {
                 if (position == payModeList.size() - 1) {
                     myHolder.etValue.setFocusable(true);
+                    myHolder.etValue.selectAll();
                 }
             } else {
                 if (TextUtils.equals(currentSelectedPay.getPayName(), itemData.getPayName())) {
                     myHolder.etValue.setFocusable(true);
+                    myHolder.etValue.selectAll();
                 }
             }
         }

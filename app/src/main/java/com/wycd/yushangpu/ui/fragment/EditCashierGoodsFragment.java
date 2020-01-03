@@ -276,10 +276,12 @@ public class EditCashierGoodsFragment extends Fragment {
                     double editValue = Double.parseDouble(editTextLayout.getText().toString());
                     switch (currentSelectedBn.getId()) {
                         case R.id.bn_edit_num:
-                            if (shopBean != null && (shopBean.getPM_IsService() == 1 || shopBean.getPM_IsService() == 3)
-                                    && editTextLayout.getText().toString().contains(".")) {
-                                com.blankj.utilcode.util.ToastUtils.showShort("服务或套餐的数量不能为小数");
-                                return;
+                            if (shopBean != null && (shopBean.getPM_IsService() == 1 || shopBean.getPM_IsService() == 3)) {
+                                String[] strs = editTextLayout.getText().toString().split("\\.");
+                                if (strs.length == 2 && Integer.parseInt(strs[1]) > 0) {
+                                    com.blankj.utilcode.util.ToastUtils.showShort("服务或套餐的数量不能为小数");
+                                    return;
+                                }
                             }
                             shopBean.setNum(editValue);
                             break;
