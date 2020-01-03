@@ -52,13 +52,13 @@ public class MyApplication extends MultiDexApplication {
     /**
      * 正式版
      **/
-    public static String BASE_URL = "https://pc.yunvip123.com/";
-//    public static String BASE_URL = "https://192.168.1.240:807/";
-//    public static String BASE_URL = "https://pcbeta.yunvip123.com/";
+//    public static String BASE_URL = "http://pc.yunvip123.com/";
+//    public static String BASE_URL = "http://192.168.1.240:807/";
+    public static String BASE_URL = "http://pcbeta.yunvip123.com/";
 
-    public static String IMAGE_URL = "https://pc.yunvip123.com";
-    public static String CTMONEY_URL = "https://core.yunvip123.com/";
-//    public static String CTMONEY_URL = "https://corebeta.yunvip123.com/";
+    public static String IMAGE_URL = "http://pc.yunvip123.com";
+    public static String CTMONEY_URL = "http://core.yunvip123.com/";
+//    public static String CTMONEY_URL = "http://corebeta.yunvip123.com/";
 
 
     /***

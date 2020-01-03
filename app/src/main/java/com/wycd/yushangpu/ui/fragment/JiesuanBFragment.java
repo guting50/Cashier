@@ -153,7 +153,7 @@ public class JiesuanBFragment extends Fragment {
     private OrderType orderType;
     private VipInfoMsg mVipMsg;
     private Dialog dialog;
-    private double promotionMoney;
+    private double promotionMoney; // 优惠活动金额
 
     View rootView;
     NumKeyboardUtils numKeyboardUtils;
@@ -386,98 +386,26 @@ public class JiesuanBFragment extends Fragment {
                 resetPayBg(view, PayMode.QTZF.getStr());
                 break;
             case R.id.li_saoma:
-                if (MyApplication.loginBean.getData().getShopList().get(0).getSaoBei_State() == 1) {
-                    com.blankj.utilcode.util.ToastUtils.showShort("扫码支付功能审核通过,但未签署电子协议");
-                    return;
-                }
-                if (MyApplication.loginBean.getData().getShopList().get(0).getSaoBei_State() == 2) {
-                    com.blankj.utilcode.util.ToastUtils.showShort("扫码支付功能审核驳回");
-                    return;
-                }
-                if (MyApplication.loginBean.getData().getShopList().get(0).getSaoBei_State() == 3) {
-                    com.blankj.utilcode.util.ToastUtils.showShort("扫码支付功能审核中");
-                    return;
-                }
-                if (MyApplication.loginBean.getData().getShopList().get(0).getSaoBei_State() == 5) {
-                    com.blankj.utilcode.util.ToastUtils.showShort("扫码支付功能审核通过且已签署电子协议");
-                    return;
-                }
+                if (getZhaoling() < 0) {
+                    if (MyApplication.loginBean.getData().getShopList().get(0).getSaoBei_State() == 1) {
+                        com.blankj.utilcode.util.ToastUtils.showShort("扫码支付功能审核通过,但未签署电子协议");
+                        return;
+                    }
+                    if (MyApplication.loginBean.getData().getShopList().get(0).getSaoBei_State() == 2) {
+                        com.blankj.utilcode.util.ToastUtils.showShort("扫码支付功能审核驳回");
+                        return;
+                    }
+                    if (MyApplication.loginBean.getData().getShopList().get(0).getSaoBei_State() == 3) {
+                        com.blankj.utilcode.util.ToastUtils.showShort("扫码支付功能审核中");
+                        return;
+                    }
+                    if (MyApplication.loginBean.getData().getShopList().get(0).getSaoBei_State() == 5) {
+                        com.blankj.utilcode.util.ToastUtils.showShort("扫码支付功能审核通过且已签署电子协议");
+                        return;
+                    }
 
-                resetPayBg(view, PayMode.SMZF.getStr());
-                if (view.getTag() != null) {
-                    SaomaDialog.saomaDialog(context, ysMoney, 1, new InterfaceBack() {
-                        @Override
-                        public void onResponse(Object response) {
-//                        dialog.show();
-                            ImpSaoma saoma = new ImpSaoma();
-                            obtainOrderPayResult();
-                            saoma.saomaPay(context, response.toString(), ysMoney, GID, CO_OrderCode, result, new InterfaceBack() {
-                                @Override
-                                public void onResponse(Object response) {
-                                    System.out.println("==========扫码支付成功=============== " + response.toString());
-                                    li_jiesuan.performClick();
-                                }
-
-                                @Override
-                                public void onErrorResponse(Object msg) {
-                                    String s = "";
-                                    if (msg != null) {
-                                        JSONObject jso = (JSONObject) msg;
-                                        try {
-                                            if (jso.getString("code").equals("410004")) {
-                                                String gid = new JSONObject(jso.getString("data")).getString("GID");
-                                                Timer timer = new Timer();
-                                                timer.schedule(new TimerTask() {
-                                                    @Override
-                                                    public void run() {
-                                                        saoma.saomaPayQuery(context, gid, new InterfaceBack() {
-                                                            @Override
-                                                            public void onResponse(Object response) {
-                                                                JSONObject jso = (JSONObject) msg;
-                                                                try {
-                                                                    if (!jso.getString("code").equals("410004")) {
-                                                                        if (jso.getBoolean("success")) {
-                                                                            System.out.println("==========扫码支付成功=============== " + response.toString());
-                                                                            li_jiesuan.performClick();
-                                                                        } else {
-                                                                            com.blankj.utilcode.util.ToastUtils.showShort("扫码支付功能失败");
-                                                                            view.performClick();
-                                                                        }
-                                                                    }
-                                                                } catch (JSONException e) {
-                                                                    e.printStackTrace();
-                                                                    view.performClick();
-                                                                }
-                                                            }
-
-                                                            @Override
-                                                            public void onErrorResponse(Object msg) {
-                                                                com.blankj.utilcode.util.ToastUtils.showShort("扫码支付功能失败");
-                                                                view.performClick();
-                                                            }
-                                                        });
-                                                    }
-                                                }, 2000, 2000);
-                                            }
-                                            s = jso.getString("msg");
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                            view.performClick();
-                                        }
-                                    }
-                                    com.blankj.utilcode.util.ToastUtils.showShort("扫码支付功能失败" + s);
-                                    view.performClick();
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onErrorResponse(Object msg) {
-                            view.performClick();
-                        }
-                    });
+                    resetPayBg(view, PayMode.SMZF.getStr());
                 }
-
                 break;
         }
     }
@@ -778,7 +706,11 @@ public class JiesuanBFragment extends Fragment {
     }
 
     private void resetPayBg(View view, String name) {
-        if (view.getTag() == null) {
+        resetPayBg(view, name, view.getTag() == null);
+    }
+
+    private void resetPayBg(View view, String name, boolean isAdd) {
+        if (isAdd) {
             view.setTag(true);
             view.setBackgroundResource(R.drawable.bg_edittext_focused);
             payModeListAdapter.addData(name);
@@ -924,6 +856,99 @@ public class JiesuanBFragment extends Fragment {
         });
     }
 
+    /**
+     * 打开扫码支付
+     *
+     * @param smzfMoney
+     */
+    Dialog saomaDialog;
+
+    private void showSaomaDialog(final double smzfMoney) {
+        if (mLiSaoma.getTag() != null && (saomaDialog == null || !saomaDialog.isShowing())) {
+            saomaDialog = SaomaDialog.saomaDialog(context, smzfMoney + "", 1, new InterfaceBack() {
+                @Override
+                public void onResponse(Object response) {
+                    ImpSaoma saoma = new ImpSaoma();
+                    obtainOrderPayResult();
+                    saoma.saomaPay(context, response.toString(), smzfMoney + "", GID, CO_OrderCode, result, new InterfaceBack() {
+                        @Override
+                        public void onResponse(Object response) {
+                            System.out.println("==========扫码支付成功=============== " + response.toString());
+                            li_jiesuan.performClick();
+                        }
+
+                        @Override
+                        public void onErrorResponse(Object msg) {
+                            if (msg != null) {
+                                JSONObject jso = (JSONObject) msg;
+                                try {
+                                    if (jso.getString("code").equals("410004")) {
+                                        String gid = new JSONObject(jso.getString("data")).getString("GID");
+                                        Timer timer = new Timer();
+                                        timer.schedule(new TimerTask() {
+                                            @Override
+                                            public void run() {
+                                                getActivity().runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        saoma.saomaPayQuery(context, gid, new InterfaceBack() {
+                                                            @Override
+                                                            public void onResponse(Object response) {
+                                                                JSONObject jso = (JSONObject) msg;
+                                                                try {
+                                                                    if (!jso.getString("code").equals("410004")) {
+                                                                        if (jso.getBoolean("success")) {
+                                                                            System.out.println("==========扫码支付成功=============== " + response.toString());
+                                                                            li_jiesuan.performClick();
+                                                                        } else {
+                                                                            timer.cancel();
+                                                                            com.blankj.utilcode.util.ToastUtils.showShort("扫码支付失败");
+                                                                            resetPayBg(mLiSaoma, PayMode.SMZF.getStr(), false);
+                                                                        }
+                                                                    } else {
+                                                                        timer.cancel();
+                                                                        com.blankj.utilcode.util.ToastUtils.showShort("扫码支付失败");
+                                                                        resetPayBg(mLiSaoma, PayMode.SMZF.getStr(), false);
+                                                                    }
+                                                                } catch (JSONException e) {
+                                                                    e.printStackTrace();
+                                                                }
+                                                            }
+
+                                                            @Override
+                                                            public void onErrorResponse(Object msg) {
+                                                                timer.cancel();
+                                                                com.blankj.utilcode.util.ToastUtils.showShort("扫码支付失败");
+                                                                resetPayBg(mLiSaoma, PayMode.SMZF.getStr(), false);
+                                                            }
+                                                        });
+                                                    }
+                                                });
+                                            }
+                                        }, 2000, 2000);
+                                    } else {
+                                        com.blankj.utilcode.util.ToastUtils.showShort("扫码支付失败" + jso.getString("msg"));
+                                        resetPayBg(mLiSaoma, PayMode.SMZF.getStr(), false);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
+                                com.blankj.utilcode.util.ToastUtils.showShort("扫码支付失败");
+                                resetPayBg(mLiSaoma, PayMode.SMZF.getStr(), false);
+                            }
+                        }
+                    });
+                }
+
+                @Override
+                public void onErrorResponse(Object msg) {
+                    resetPayBg(mLiSaoma, PayMode.SMZF.getStr(), false);
+                }
+            });
+        }
+    }
+
     class PayModeListAdapter extends RecyclerView.Adapter {
 
         private MyPayMode currentSelectedPay;
@@ -1008,6 +1033,10 @@ public class JiesuanBFragment extends Fragment {
                                     }
                                 }
                             }
+                        }
+
+                        if (TextUtils.equals(name, PayMode.SMZF.getStr()) && value > 0) {
+                            showSaomaDialog(value);
                         }
                         itemData.setValue(value);
                         computeYsMoney();
