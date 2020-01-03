@@ -227,7 +227,10 @@ public class PrintSetFragment extends Fragment {
         tv_phone = (TextView) rootView.findViewById(R.id.tv_phone);
         tv_remarks = (TextView) rootView.findViewById(R.id.tv_remarks);
 
-        rgPrinterSelect.check(rgPrinterSelectedUsb.getId());
+        if (ISBULETOOTHCONNECT)
+            rgPrinterSelect.check(rgPrinterSelectedBluetooth.getId());
+        if (ISCONNECT)
+            rgPrinterSelect.check(rgPrinterSelectedUsb.getId());
         rgPrinterSelectLabelSize.check(rgPrinterSelectLabelSmall.getId());
         mEtGoodsConsume.setText("1");
         mEtHandDutyTime.setText("1");
