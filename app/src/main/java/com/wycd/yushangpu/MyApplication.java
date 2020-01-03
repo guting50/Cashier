@@ -20,6 +20,7 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tencent.smtt.sdk.QbSdk;
 import com.wycd.yushangpu.bean.LoginBean;
 import com.wycd.yushangpu.tools.AppLanguageUtils;
+import com.wycd.yushangpu.tools.CrashHandler;
 import com.wycd.yushangpu.tools.LogUtils;
 import com.wycd.yushangpu.tools.ObtainSystemLanguage;
 import com.wycd.yushangpu.tools.PreferenceHelper;
@@ -221,6 +222,8 @@ public class MyApplication extends MultiDexApplication {
         mGoodsOut = new HashMap<>();
         mReTureOrder = new HashMap<>();
 
+        //全局异常捕获
+        CrashHandler.getInstance().init(this);
 
         Set<RequestListener> requestListeners = new HashSet<>();
         requestListeners.add(new RequestLoggingListener());

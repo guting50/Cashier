@@ -322,9 +322,13 @@ public class JiesuanBFragment extends Fragment {
             public void onResponse(Object response) {
                 promotionDialog.dismiss();
                 promotionMsg = (ReportMessageBean.DataBean.ActiveBean) response;
-                promotionMoney = computePromotionMoney(promotionMsg);
-                if (promotionMsg != null)
+                if (promotionMsg != null) {
                     tvPromotion.setText(promotionMsg.getRP_Name());
+                    promotionMoney = computePromotionMoney(promotionMsg);
+                } else {
+                    promotionMoney = 0;
+                    tvPromotion.setText("");
+                }
                 computeYsMoney();
             }
 
@@ -432,10 +436,10 @@ public class JiesuanBFragment extends Fragment {
                                                                 JSONObject jso = (JSONObject) msg;
                                                                 try {
                                                                     if (!jso.getString("code").equals("410004")) {
-                                                                        if (jso.getBoolean("success")){
+                                                                        if (jso.getBoolean("success")) {
                                                                             System.out.println("==========扫一扫=============== " + response.toString());
                                                                             computeYsMoney();
-                                                                        }else{
+                                                                        } else {
                                                                             com.blankj.utilcode.util.ToastUtils.showShort("扫码支付功能失败");
                                                                         }
                                                                     }
@@ -566,35 +570,29 @@ public class JiesuanBFragment extends Fragment {
     }
 
     private double computePromotionMoney(ReportMessageBean.DataBean.ActiveBean active) {
-        if (active != null) {
-            double temp = 0.0;
-            double multiple = 1;
-            if (active.getRP_ISDouble() > 0) {
-                multiple = CommonUtils.div(Double.parseDouble(zhMoney), active.getRP_RechargeMoney(), 0, BigDecimal.ROUND_DOWN);
-            }
-
-            if (active.getRP_Discount() != -1) { // 折扣活动
-                temp = CommonUtils.del(Double.parseDouble(zhMoney),
-                        Double.parseDouble(
-                                CommonUtils.multiply(zhMoney, CommonUtils.div(active.getRP_Discount(), 10, 2) + "")));
-            }
-            if (active.getRP_GiveMoney() != -1) { // 赠送活动
-                temp = active.getRP_GiveMoney();
-            }
-            if (active.getRP_ReduceMoney() != -1) { // 满减活动
-                temp = active.getRP_ReduceMoney();
-            }
-
-            temp = Double.parseDouble(CommonUtils.multiply(temp + "", multiple + ""));
-
-            if (active.getRP_GiveMoney() != -1) // 如果是赠送活动，优惠金额设置为0
-                temp = 0;
-            return temp;
-        } else {
-            promotionMsg = null;
-            tvPromotion.setText("");
+        double temp = 0.0;
+        double multiple = 1;
+        if (active.getRP_ISDouble() > 0) {
+            multiple = CommonUtils.div(Double.parseDouble(zhMoney), active.getRP_RechargeMoney(), 0, BigDecimal.ROUND_DOWN);
         }
-        return 0;
+
+        if (active.getRP_Discount() != -1) { // 折扣活动
+            temp = CommonUtils.del(Double.parseDouble(zhMoney),
+                    Double.parseDouble(
+                            CommonUtils.multiply(zhMoney, CommonUtils.div(active.getRP_Discount(), 10, 2) + "")));
+        }
+        if (active.getRP_GiveMoney() != -1) { // 赠送活动
+            temp = active.getRP_GiveMoney();
+        }
+        if (active.getRP_ReduceMoney() != -1) { // 满减活动
+            temp = active.getRP_ReduceMoney();
+        }
+
+        temp = Double.parseDouble(CommonUtils.multiply(temp + "", multiple + ""));
+
+        if (active.getRP_GiveMoney() != -1) // 如果是赠送活动，优惠金额设置为0
+            temp = 0;
+        return temp;
     }
 
     /**
