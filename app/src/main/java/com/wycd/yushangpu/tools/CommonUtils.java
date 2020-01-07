@@ -278,14 +278,17 @@ public class CommonUtils {
      * @param v2
      * @return 两个参数的数学积，以字符串格式返回
      */
-
-    public static String multiply(String v1, String v2) {
-
+    public static double multiply(String v1, String v2) {
         BigDecimal b1 = new BigDecimal(replaceBlank(v1));
-
         BigDecimal b2 = new BigDecimal(replaceBlank(v2));
+        return b1.multiply(b2).doubleValue();
 
-        return b1.multiply(b2).toString();
+    }
+
+    public static double multiply(double v1, double v2) {
+        BigDecimal b1 = new BigDecimal(v1);
+        BigDecimal b2 = new BigDecimal(v2);
+        return b1.multiply(b2).doubleValue();
 
     }
 

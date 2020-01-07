@@ -141,8 +141,8 @@ public class JiesuanBFragment extends Fragment {
     private boolean isMember;
     //            原价总金额，折后金额  , 总共优惠金额 ， 应收金额
     private String totalMoney, zhMoney, totalYhMoney, ysMoney;
-    //订单号 订单GID 会员积分  会员积分可抵扣金额   余额
-    private String CO_OrderCode, CO_Type, GID, dkmoney, yue;
+    //                 订单号       订单GID  会员积分  会员积分可抵扣金额   余额
+    private String CO_OrderCode, CO_Type, GID, jifen, dkmoney, yue;
     private OrderPayResult result;
     private String jifendkbfb;
     private String yuezfxz;
@@ -242,12 +242,22 @@ public class JiesuanBFragment extends Fragment {
         tvPromotion.setText("");
         promotionMoney = 0;
         yhqMsgs = null;
+
+        this.yue = "0.00";
+        this.jifen = "0.00";
+        this.isMember = false;
+
+        Glide.with(context).load(R.mipmap.member_head_nohead).into(mIvViptx);
+        mTvVipname.setText("散客");
+        tvBlance.setText("余额:0.00");
+        tvIntegral.setText("积分:0");
         cbSmallTicket.setChecked(MyApplication.PRINT_IS_OPEN);
 
-        this.yue = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableBalance() + "";
-        this.isMember = null == mVipMsg ? false : true;
-
         if (mVipMsg != null) {
+            this.yue = mVipMsg.getMA_AvailableBalance() + "";
+            this.jifen = mVipMsg.getMA_AvailableIntegral() + "";
+            this.isMember = true;
+
             int couponCount = 0;
             VolleyResponse.instance().getInternetImg(context, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(
                     mVipMsg.getVIP_HeadImg()).toString()), mIvViptx, R.mipmap.member_head_nohead);
@@ -261,11 +271,6 @@ public class JiesuanBFragment extends Fragment {
                 }
             }
             tvCouponMoney.setHint("有" + couponCount + "张优惠券可用");
-        } else {
-            Glide.with(context).load(R.mipmap.member_head_nohead).into(mIvViptx);
-            mTvVipname.setText("散客");
-            tvBlance.setText("余额:0.00");
-            tvIntegral.setText("积分:0");
         }
 
         if (ImpPreLoading.REPORT_BEAN != null && ImpPreLoading.REPORT_BEAN.getData() != null) {
@@ -304,8 +309,8 @@ public class JiesuanBFragment extends Fragment {
                     if (yhqMsg.getEC_DiscountType() == 1) {//代金券
                         yhqmo = CommonUtils.add(Double.parseDouble(NullUtils.noNullHandle(yhqMsg.getEC_Discount()).toString()), yhqmo);
                     } else {
-                        yhqmo = CommonUtils.add(yhqmo, CommonUtils.del(Double.parseDouble(zhMoney), Double.parseDouble(
-                                CommonUtils.multiply(String.valueOf(CommonUtils.div(yhqMsg.getEC_Discount(), 100, 2)), zhMoney))));
+                        yhqmo = CommonUtils.add(yhqmo, CommonUtils.del(Double.parseDouble(zhMoney),
+                                CommonUtils.multiply(String.valueOf(CommonUtils.div(yhqMsg.getEC_Discount(), 100, 2)), zhMoney)));
                     }
                 }
                 tvCouponMoney.setText("抵扣金额：" + yhqmo);
@@ -513,8 +518,7 @@ public class JiesuanBFragment extends Fragment {
 
         if (active.getRP_Discount() != -1) { // 折扣活动
             temp = CommonUtils.del(Double.parseDouble(zhMoney),
-                    Double.parseDouble(
-                            CommonUtils.multiply(zhMoney, CommonUtils.div(active.getRP_Discount(), 10, 2) + "")));
+                    CommonUtils.multiply(zhMoney, CommonUtils.div(active.getRP_Discount(), 10, 2) + ""));
         }
         if (active.getRP_GiveMoney() != -1) { // 赠送活动
             temp = active.getRP_GiveMoney();
@@ -523,7 +527,7 @@ public class JiesuanBFragment extends Fragment {
             temp = active.getRP_ReduceMoney();
         }
 
-        temp = Double.parseDouble(CommonUtils.multiply(temp + "", multiple + ""));
+        temp = CommonUtils.multiply(temp + "", multiple + "");
 
         if (active.getRP_GiveMoney() != -1) // 如果是赠送活动，优惠金额设置为0
             temp = 0;
@@ -581,12 +585,14 @@ public class JiesuanBFragment extends Fragment {
         for (PayTypeMsg msg : list) {
             switch (NullUtils.noNullHandle(msg.getSS_Code()).toString()) {
                 case "101"://现金
+                    mLiXianjin.setEnabled(true);
                     if (msg.getSS_State() != 1) {
                         mLiXianjin.setBackgroundResource(R.drawable.shap_enable_not);
                         mLiXianjin.setEnabled(false);
                     }
                     break;
                 case "102"://余额
+                    mLiYue.setEnabled(true);
                     if (msg.getSS_State() != 1 || !isMember) {
                         mLiYue.setBackgroundResource(R.drawable.shap_enable_not);
                         mLiYue.setEnabled(false);
@@ -594,24 +600,28 @@ public class JiesuanBFragment extends Fragment {
                     yuezfxz = NullUtils.noNullHandle(msg.getSS_Value()).toString();
                     break;
                 case "103"://银联
+                    mLiYinlian.setEnabled(true);
                     if (msg.getSS_State() != 1) {
                         mLiYinlian.setBackgroundResource(R.drawable.shap_enable_not);
                         mLiYinlian.setEnabled(false);
                     }
                     break;
                 case "105"://微信
+                    mLiWx.setEnabled(true);
                     if (msg.getSS_State() != 1) {
                         mLiWx.setBackgroundResource(R.drawable.shap_enable_not);
                         mLiWx.setEnabled(false);
                     }
                     break;
                 case "106"://支付宝
+                    mLiAli.setEnabled(true);
                     if (msg.getSS_State() != 1) {
                         mLiAli.setBackgroundResource(R.drawable.shap_enable_not);
                         mLiAli.setEnabled(false);
                     }
                     break;
                 case "107"://积分支付
+                    mLiJifen.setEnabled(true);
                     if (msg.getSS_State() != 1 || !isMember) {
                         mLiJifen.setBackgroundResource(R.drawable.shap_enable_not);
                         mLiJifen.setEnabled(false);
@@ -619,12 +629,14 @@ public class JiesuanBFragment extends Fragment {
                     jifendkbfb = NullUtils.noNullHandle(msg.getSS_Value()).toString();
                     break;
                 case "111"://扫码支付
+                    mLiSaoma.setEnabled(true);
                     if (msg.getSS_State() != 1) {
                         mLiSaoma.setBackgroundResource(R.drawable.shap_enable_not);
                         mLiSaoma.setEnabled(false);
                     }
                     break;
                 case "113"://其它支付
+                    li_qita.setEnabled(true);
                     if (msg.getSS_State() != 1) {
                         li_qita.setBackgroundResource(R.drawable.shap_enable_not);
                         li_qita.setEnabled(false);
@@ -781,7 +793,7 @@ public class JiesuanBFragment extends Fragment {
                     p.setPayMoney(modeMoney);
                     p.setPayName(m.getSS_Name());
                     String jifenm = String.valueOf(modeMoney);
-                    String jifennumber = CommonUtils.multiply(jifenm, TextUtils.isEmpty(jifendkbfb) ? "0" : jifendkbfb);
+                    String jifennumber = CommonUtils.multiply(jifenm, TextUtils.isEmpty(jifendkbfb) ? "0" : jifendkbfb) + "";
                     p.setPayPoint(Double.parseDouble(jifennumber));
                 } else if (TextUtils.equals(name, PayMode.QTZF.getStr())
                         && m.getSS_Name().equals("其他支付")) {
@@ -1020,13 +1032,10 @@ public class JiesuanBFragment extends Fragment {
                                     com.blankj.utilcode.util.ToastUtils.showShort("超过余额支付限制");
                                     return;
                                 }
-
-                                if (TextUtils.equals(name, PayMode.YEZF.getStr())) {
-                                    if (value > Double.parseDouble(yue)) {
-                                        com.blankj.utilcode.util.ToastUtils.showShort("余额不足");
-                                        myHolder.etValue.setText(StringUtil.onlytwoNum(yue + ""));
-                                        return;
-                                    }
+                                if (value > Double.parseDouble(yue)) {
+                                    com.blankj.utilcode.util.ToastUtils.showShort("余额不足");
+                                    myHolder.etValue.setText(StringUtil.onlytwoNum(yue + ""));
+                                    return;
                                 }
                             }
 
@@ -1036,12 +1045,10 @@ public class JiesuanBFragment extends Fragment {
                                     com.blankj.utilcode.util.ToastUtils.showShort("超过积分支付限制");
                                     return;
                                 }
-                                if (TextUtils.equals(name, PayMode.JFZF.getStr())) {
-                                    if (value > Double.parseDouble(dkmoney)) {
-                                        com.blankj.utilcode.util.ToastUtils.showShort("积分不足");
-                                        myHolder.etValue.setText(StringUtil.onlytwoNum(dkmoney + ""));
-                                        return;
-                                    }
+                                if (value > Double.parseDouble(jifen)) {
+                                    com.blankj.utilcode.util.ToastUtils.showShort("积分不足");
+                                    myHolder.etValue.setText(StringUtil.onlytwoNum(jifen + ""));
+                                    return;
                                 }
                             }
                         }

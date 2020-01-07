@@ -15,7 +15,6 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.gt.utils.view.OnNoDoubleClickListener;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.ClassMsg;
@@ -325,13 +324,13 @@ public class GoodsListFragment extends Fragment {
                     //有特价折扣
                     if (NullUtils.noNullHandle(ts.getPM_MinDisCountValue()).toString().equals("0.0")) {
                         //无最低折扣
-                        myHolser.mTvVipprice.setText("特：" + StringUtil.twoNum(CommonUtils.multiply(ts.getPM_UnitPrice() + "", ts.getPM_SpecialOfferValue() + "")));
+                        myHolser.mTvVipprice.setText("特：" + StringUtil.twoNum(CommonUtils.multiply(ts.getPM_UnitPrice(), ts.getPM_SpecialOfferValue())));
                     } else {
                         //有最低折扣
                         if (ts.getPM_SpecialOfferValue() > ts.getPM_MinDisCountValue()) {
-                            myHolser.mTvVipprice.setText("特：" + StringUtil.twoNum(CommonUtils.multiply(ts.getPM_UnitPrice() + "", ts.getPM_SpecialOfferValue() + "")));
+                            myHolser.mTvVipprice.setText("特：" + StringUtil.twoNum(CommonUtils.multiply(ts.getPM_UnitPrice(), ts.getPM_SpecialOfferValue())));
                         } else {
-                            myHolser.mTvVipprice.setText("特：" + StringUtil.twoNum(CommonUtils.multiply(ts.getPM_UnitPrice() + "", ts.getPM_MinDisCountValue() + "")));
+                            myHolser.mTvVipprice.setText("特：" + StringUtil.twoNum(CommonUtils.multiply(ts.getPM_UnitPrice(), ts.getPM_MinDisCountValue())));
                         }
                     }
                     myHolser.mTvSanprice.setTextColor(getContext().getResources().getColor(R.color.a5a5a5));

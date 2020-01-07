@@ -200,13 +200,13 @@ public class GoodsModelDialog {
                     //有特价折扣
                     if (NullUtils.noNullHandle(goodsitem.getPM_MinDisCountValue()).toString().equals("0.0")) {
                         //无最低折扣
-                        tvesPrice.setText("特：￥" + StringUtil.twoNum(CommonUtils.multiply(goodsitem.getPM_UnitPrice() + "", goodsitem.getPM_SpecialOfferValue() + "")));
+                        tvesPrice.setText("特：￥" + StringUtil.twoNum(CommonUtils.multiply(goodsitem.getPM_UnitPrice(), goodsitem.getPM_SpecialOfferValue())));
                     } else {
                         //有最低折扣
                         if (goodsitem.getPM_SpecialOfferValue() > goodsitem.getPM_MinDisCountValue()) {
-                            tvesPrice.setText("特：￥" + StringUtil.twoNum(CommonUtils.multiply(goodsitem.getPM_UnitPrice() + "", goodsitem.getPM_SpecialOfferValue() + "")));
+                            tvesPrice.setText("特：￥" + StringUtil.twoNum(CommonUtils.multiply(goodsitem.getPM_UnitPrice(), goodsitem.getPM_SpecialOfferValue())));
                         } else {
-                            tvesPrice.setText("特：￥" + StringUtil.twoNum(CommonUtils.multiply(goodsitem.getPM_UnitPrice() + "", goodsitem.getPM_MinDisCountValue() + "")));
+                            tvesPrice.setText("特：￥" + StringUtil.twoNum(CommonUtils.multiply(goodsitem.getPM_UnitPrice(), goodsitem.getPM_MinDisCountValue())));
                         }
                     }
                     tvPrice.setTextColor(context.getResources().getColor(R.color.a5a5a5));

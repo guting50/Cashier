@@ -2,6 +2,7 @@ package com.wycd.yushangpu.bean;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by YSL on 2018-08-28.
@@ -2526,6 +2527,36 @@ public class ReportMessageBean implements Serializable {
 
             public void setRP_Remark(Object RP_Remark) {
                 this.RP_Remark = RP_Remark;
+            }
+
+            @Override
+            public boolean equals(Object o) {
+                if (this == o) return true;
+                if (o == null || getClass() != o.getClass()) return false;
+                ActiveBean that = (ActiveBean) o;
+                return Double.compare(that.RP_Discount, RP_Discount) == 0 &&
+                        RP_IsOpen == that.RP_IsOpen &&
+                        RP_Type == that.RP_Type &&
+                        Double.compare(that.RP_RechargeMoney, RP_RechargeMoney) == 0 &&
+                        Double.compare(that.RP_GiveMoney, RP_GiveMoney) == 0 &&
+                        RP_GivePoint == that.RP_GivePoint &&
+                        Double.compare(that.RP_ReduceMoney, RP_ReduceMoney) == 0 &&
+                        RP_ValidType == that.RP_ValidType &&
+                        RP_ISDouble == that.RP_ISDouble &&
+                        Objects.equals(GID, that.GID) &&
+                        Objects.equals(RP_Name, that.RP_Name) &&
+                        Objects.equals(RP_ValidWeekMonth, that.RP_ValidWeekMonth) &&
+                        Objects.equals(RP_ValidStartTime, that.RP_ValidStartTime) &&
+                        Objects.equals(RP_ValidEndTime, that.RP_ValidEndTime) &&
+                        Objects.equals(RP_Creator, that.RP_Creator) &&
+                        Objects.equals(RP_CreateTime, that.RP_CreateTime) &&
+                        Objects.equals(CY_GID, that.CY_GID) &&
+                        Objects.equals(RP_Remark, that.RP_Remark);
+            }
+
+            @Override
+            public int hashCode() {
+                return Objects.hash(RP_Discount, RP_IsOpen, GID, RP_Name, RP_Type, RP_RechargeMoney, RP_GiveMoney, RP_GivePoint, RP_ReduceMoney, RP_ValidType, RP_ValidWeekMonth, RP_ValidStartTime, RP_ValidEndTime, RP_ISDouble, RP_Creator, RP_CreateTime, CY_GID, RP_Remark);
             }
         }
     }

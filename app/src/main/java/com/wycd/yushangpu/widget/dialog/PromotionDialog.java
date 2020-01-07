@@ -175,11 +175,16 @@ public class PromotionDialog {
                         currentHolder.rootView.setBackgroundResource(R.mipmap.bg_promotion_no_select);
                         currentHolder.tvName1.setTextColor(context.getResources().getColor(R.color.title_color));
                     }
-                    currentHolder = holder1;
-                    currentHolder.rootView.setBackgroundResource(R.mipmap.bg_promotion_selected);
-                    currentHolder.tvName1.setTextColor(Color.WHITE);
-                    currentBean = activeBean;
-                    back.onResponse(activeBean);
+                    if (activeBean.equals(currentBean)) { // 如果当前为选中，则取消选中
+                        currentBean = null;
+                        back.onResponse(null);
+                    } else {
+                        currentHolder = holder1;
+                        currentHolder.rootView.setBackgroundResource(R.mipmap.bg_promotion_selected);
+                        currentHolder.tvName1.setTextColor(Color.WHITE);
+                        currentBean = activeBean;
+                        back.onResponse(activeBean);
+                    }
                 }
             });
         }

@@ -175,7 +175,7 @@ public class EditCashierGoodsFragment extends Fragment {
                 editLayout.setVisibility(View.VISIBLE);
                 editTextLayout.setText(CommonUtils.multiply(NullUtils.noNullHandle(
                         shopBean.getJisuanPrice() * shopBean.getPD_Discount()).toString(),
-                        NullUtils.noNullHandle(shopBean.getNum()).toString()));
+                        NullUtils.noNullHandle(shopBean.getNum()).toString()) + "");
                 editTextLayout.selectAll();
                 break;
             case R.id.bn_edit_discount:
@@ -310,7 +310,7 @@ public class EditCashierGoodsFragment extends Fragment {
                             shopBean.setIschanged(true);
                             shopBean.setPD_Discount(editValue);
                             double xiaoji = Double.parseDouble(
-                                    CommonUtils.multiply(NullUtils.noNullHandle(shopBean.getJisuanPrice() * editValue).toString(), shopBean.getNum() + ""));
+                                    CommonUtils.multiply(NullUtils.noNullHandle(shopBean.getJisuanPrice() * editValue).toString(), shopBean.getNum() + "") + "");
                             shopBean.setAllprice(xiaoji);
                             break;
                     }

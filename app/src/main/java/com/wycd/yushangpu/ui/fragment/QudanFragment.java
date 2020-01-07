@@ -61,7 +61,6 @@ public class QudanFragment extends Fragment {
     private List<GuadanList> list = new ArrayList<>();
     private HomeActivity homeActivity;
     private GuadanListAdapter guadanListAdapter;
-    private String jifen;
     private double dkmoney;
     private VipInfoMsg mVipMsg;
     private ArrayList<ShopMsg> mShopLeftList = new ArrayList<>();
@@ -446,8 +445,8 @@ public class QudanFragment extends Fragment {
                             public void onResponse(Object response) {
                                 mVipMsg = (VipInfoMsg) response;
                                 homeActivity.dialog.dismiss();
-                                jifen = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableIntegral() + "";
-                                dkmoney = CommonUtils.div(Double.parseDouble(CommonUtils.multiply(jifen, jinfenzfxzbfb)), Double.parseDouble(jifendkbfb), 2);//可抵扣金额
+                                String jifen = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableIntegral() + "";
+                                dkmoney = CommonUtils.div(CommonUtils.multiply(jifen, jinfenzfxzbfb), Double.parseDouble(jifendkbfb), 2);//可抵扣金额
                                 jiesuan(guadanList, mVipMsg);
                                 HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
                                 event.setMsg("Change_color");

@@ -60,7 +60,6 @@ import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.PreferenceHelper;
 import com.wycd.yushangpu.tools.PrintContent;
 import com.wycd.yushangpu.tools.PrinterCommand;
-import com.wycd.yushangpu.tools.SignUtils;
 import com.wycd.yushangpu.tools.StringUtil;
 import com.wycd.yushangpu.tools.SystemUIUtils;
 import com.wycd.yushangpu.tools.ThreadPool;
@@ -563,7 +562,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             @Override
             public void onResponse(Object response) {
                 List<PayTypeMsg> sllist = (List<PayTypeMsg>) response;
-                handleSystemc(sllist);
+                handleSystem(sllist);
             }
 
             @Override
@@ -573,7 +572,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     }
 
 
-    private void handleSystemc(List<PayTypeMsg> sllist) {
+    private void handleSystem(List<PayTypeMsg> sllist) {
         for (PayTypeMsg p : sllist) {
             switch (p.getSS_Name()) {
                 case "默认支付":
@@ -585,13 +584,17 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 case "微信记账":
                 case "支付宝记账":
                 case "优惠券":
-                case "积分支付":
-                    jifendkbfb = p.getSS_Value();
                 case "扫码支付":
                 case "其他支付":
-                case "积分支付限制":
                     paytypelist.add(p);
+                    break;
+                case "积分支付":
+                    jifendkbfb = p.getSS_Value();
+                    paytypelist.add(p);
+                    break;
+                case "积分支付限制":
                     jinfenzfxzbfb = p.getSS_Value();
+                    paytypelist.add(p);
                     break;
                 case "禁止0库存销售":
                     if (p.getSS_State() == 1) {
@@ -771,10 +774,10 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             if (NullUtils.noNullHandle(ts.getPM_MemPrice()).toString().equals("0.0")) {
                 ts.setPM_MemPrice(ts.getPM_UnitPrice() + "");
             }
-            double allprice = Double.parseDouble(CommonUtils.multiply(CommonUtils.multiply(ts.getJisuanPrice() + "", ts.getNum() + ""), ts.getPD_Discount() + ""));
+            double allprice = CommonUtils.multiply(CommonUtils.multiply(ts.getJisuanPrice(), ts.getNum()), ts.getPD_Discount());
             ts.setAllprice(allprice);
 
-            double totalPrice = Double.parseDouble(CommonUtils.multiply(ts.getPM_UnitPrice() + "", ts.getNum() + ""));
+            double totalPrice = CommonUtils.multiply(ts.getPM_UnitPrice(), ts.getNum());
             ts.setTotalPrice(totalPrice);
         }
     }
@@ -1202,8 +1205,9 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
     private void toJieSuan(OrderCanshhu jso, JiesuanBFragment.OrderType orderType) {
         String jifen = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableIntegral() + "";
-        double dkmoney = CommonUtils.div(CommonUtils.div(Double.parseDouble(CommonUtils.multiply(jifen,
-                TextUtils.isEmpty(jinfenzfxzbfb) ? "0" : jinfenzfxzbfb)), 100, 2),
+//        可抵扣金额 = 会员积分 / 积分抵扣百分比 * 积分支付限制百分比
+        double dkmoney = CommonUtils.div(CommonUtils.div(CommonUtils.multiply(jifen,
+                TextUtils.isEmpty(jinfenzfxzbfb) ? "0" : jinfenzfxzbfb), 100, 2),
                 Double.parseDouble(TextUtils.isEmpty(jifendkbfb) ? "0" : jifendkbfb), 2);//可抵扣金额
 
         if (jiesuanBFragment == null) {

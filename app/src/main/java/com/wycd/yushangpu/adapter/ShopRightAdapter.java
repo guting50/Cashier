@@ -128,13 +128,13 @@ public class ShopRightAdapter extends BaseAdapter {
                 //有特价折扣
                 if (NullUtils.noNullHandle(ts.getPM_MinDisCountValue()).toString().equals("0.0")) {
                     //无最低折扣
-                    vh.mTvVipprice.setText("特：" + StringUtil.twoNum(CommonUtils.multiply(ts.getPM_UnitPrice() + "", ts.getPM_SpecialOfferValue() + "")));
+                    vh.mTvVipprice.setText("特：" + StringUtil.twoNum(CommonUtils.multiply(ts.getPM_UnitPrice(), ts.getPM_SpecialOfferValue())));
                 } else {
                     //有最低折扣
                     if (ts.getPM_SpecialOfferValue() > ts.getPM_MinDisCountValue()) {
-                        vh.mTvVipprice.setText("特：" + StringUtil.twoNum(CommonUtils.multiply(ts.getPM_UnitPrice() + "", ts.getPM_SpecialOfferValue() + "")));
+                        vh.mTvVipprice.setText("特：" + StringUtil.twoNum(CommonUtils.multiply(ts.getPM_UnitPrice(), ts.getPM_SpecialOfferValue())));
                     } else {
-                        vh.mTvVipprice.setText("特：" + StringUtil.twoNum(CommonUtils.multiply(ts.getPM_UnitPrice() + "", ts.getPM_MinDisCountValue() + "")));
+                        vh.mTvVipprice.setText("特：" + StringUtil.twoNum(CommonUtils.multiply(ts.getPM_UnitPrice(), ts.getPM_MinDisCountValue())));
                     }
                 }
                 vh.mTvSanprice.setTextColor(context.getResources().getColor(R.color.a5a5a5));
