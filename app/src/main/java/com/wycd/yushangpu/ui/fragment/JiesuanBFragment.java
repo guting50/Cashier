@@ -1026,28 +1026,28 @@ public class JiesuanBFragment extends Fragment {
                     if (TextUtils.equals(itemData.getPayName(), name)) {
                         if (itemData.getValue() != value) {
                             if (TextUtils.equals(name, PayMode.YEZF.getStr())) {
-                                if (value > Double.parseDouble(ysMoney) * Double.parseDouble(TextUtils.isEmpty(yuezfxz) ? "0" : yuezfxz) / 100) {
-                                    myHolder.etValue.setText(StringUtil.onlytwoNum(
-                                            Double.parseDouble(ysMoney) * Double.parseDouble(TextUtils.isEmpty(yuezfxz) ? "0" : yuezfxz) / 100 + ""));
+                                double yueLimit = CommonUtils.multiply(CommonUtils.div(ysMoney, TextUtils.isEmpty(yuezfxz) ? "0" : yuezfxz, 2), 100);
+                                if (value > yueLimit) {
+                                    myHolder.etValue.setText(StringUtil.onlyTwoNum(yueLimit + ""));
                                     com.blankj.utilcode.util.ToastUtils.showShort("超过余额支付限制");
                                     return;
                                 }
                                 if (value > Double.parseDouble(yue)) {
                                     com.blankj.utilcode.util.ToastUtils.showShort("余额不足");
-                                    myHolder.etValue.setText(StringUtil.onlytwoNum(yue + ""));
+                                    myHolder.etValue.setText(StringUtil.onlyTwoNum(yue + ""));
                                     return;
                                 }
                             }
 
                             if (TextUtils.equals(name, PayMode.JFZF.getStr())) {
                                 if (value > Double.parseDouble(dkmoney)) {
-                                    myHolder.etValue.setText(StringUtil.onlytwoNum(dkmoney + ""));
+                                    myHolder.etValue.setText(StringUtil.onlyTwoNum(dkmoney + ""));
                                     com.blankj.utilcode.util.ToastUtils.showShort("超过积分支付限制");
                                     return;
                                 }
                                 if (value > Double.parseDouble(jifen)) {
                                     com.blankj.utilcode.util.ToastUtils.showShort("积分不足");
-                                    myHolder.etValue.setText(StringUtil.onlytwoNum(jifen + ""));
+                                    myHolder.etValue.setText(StringUtil.onlyTwoNum(jifen + ""));
                                     return;
                                 }
                             }

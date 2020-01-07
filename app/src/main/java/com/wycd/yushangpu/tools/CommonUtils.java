@@ -300,6 +300,11 @@ public class CommonUtils {
      * @param scale 表示表示需要精确到小数点以后几位。
      * @return 两个参数的商
      */
+
+    public static double div(String v1, String v2, int scale) {
+        return div(Double.parseDouble(v1), Double.parseDouble(v2), scale, BigDecimal.ROUND_HALF_UP);
+    }
+
     public static double div(double v1, double v2, int scale) {
         return div(v1, v2, scale, BigDecimal.ROUND_HALF_UP);
     }

@@ -27,7 +27,7 @@ public class StringUtil {
         return num == null || num.equals("0") || num.equals("0.0") || num.equals("") ? df.format(0.00) : df.format(Double.parseDouble(num));
     }
 
-    public static String onlytwoNum(String rateStr) {
+    public static String onlyTwoNum(String rateStr) {
         if (rateStr.indexOf(".") != -1) {
             //获取小数点的位置
             int num = 0;
