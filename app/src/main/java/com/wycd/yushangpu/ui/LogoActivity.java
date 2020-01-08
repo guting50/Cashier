@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.os.Bundle;
 
+import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpLogin;
 import com.wycd.yushangpu.tools.UpdateAppVersion;
@@ -36,7 +37,7 @@ public class LogoActivity extends BaseActivity {
                     PackageInfo packageInfo = getPackageManager().getPackageInfo(
                             getPackageName(), 0);
                     if (Double.parseDouble(version) > packageInfo.versionCode) {
-                        VERSION_ADDRESS = jso.getString("VA_VersionAddress");
+                        VERSION_ADDRESS = MyApplication.CTMONEY_URL + jso.getString("VA_VersionAddress");
                         if (jso.getInt("VA_UpdateMechanism") == 0) {
                             //自动升级
                             UpdateAppVersion.UpdateInfoRes updateInfoBean = new UpdateAppVersion.UpdateInfoRes();
@@ -44,7 +45,7 @@ public class LogoActivity extends BaseActivity {
                             updateInfoBean.setCurrentversion(Double.parseDouble(version));
                             updateInfoBean.setMinversionrequire(Double.parseDouble(version));
                             updateInfoBean.setCurrentversiondesc(jso.getString("VA_VersionName"));
-                            updateInfoBean.setUrl(jso.getString("VA_VersionAddress"));
+                            updateInfoBean.setUrl(VERSION_ADDRESS);
                             new UpdateAppVersion(LogoActivity.this, updateInfoBean, new UpdateAppVersion.OnUpdateVersionBackListener() {
                                 @Override
                                 public void onBackListener() {

@@ -56,8 +56,8 @@ public class MyApplication extends MultiDexApplication {
     public static String BASE_URL = "http://pcbeta.yunvip123.com/";
 
     public static String IMAGE_URL = "http://pc.yunvip123.com";
-    //    public static String CTMONEY_URL = "http://core.yunvip123.com/";
-    public static String CTMONEY_URL = "http://corebeta.yunvip123.com/";
+    public static String CTMONEY_URL = "http://core.yunvip123.com/";
+//    public static String CTMONEY_URL = "http://corebeta.yunvip123.com/";
 
 
     /***
