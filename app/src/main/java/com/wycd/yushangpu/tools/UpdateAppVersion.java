@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.gt.utils.MuchThreadDown;
@@ -115,9 +116,11 @@ public class UpdateAppVersion {
     protected void showUpdataDialog(final boolean force) {
         String[] contents = updateInfoRes.getContent().split("&");
         new AlertDialog.Builder(context).setIcon(R.mipmap.logo).setTitle("版本升级")
-                .setMessage("升级版本：" + updateInfoRes.getCurrentversiondesc()
-                        + "\n" + "当前版本：" + getLocalVersionName(context)
-                        + "\n" + (contents.length > 1 ? "新版大小：" + contents[0] + "\n" + "更新内容：" + contents[1] : "更新内容：" + updateInfoRes.getContent()))
+                .setMessage((TextUtils.isEmpty(updateInfoRes.getCurrentversiondesc()) || "null".equals(updateInfoRes.getCurrentversiondesc()) ?
+                        "" : "升级版本：" + updateInfoRes.getCurrentversiondesc() + "\n")
+                        + "当前版本：" + getLocalVersionName(context) + "\n"
+                        + (contents.length > 1 ? "新版大小：" + contents[0] + "\n" + "更新内容：" + contents[1]
+                        : "更新内容：" + updateInfoRes.getContent()))
                 .setPositiveButton("现在升级", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
