@@ -37,16 +37,18 @@ public class ImpOrderPay {
 //        OrderGID	订单GID	String
 //        PayResult	收银台信息	OrderPayResult
         params.put("OrderGID", OrderGID);
+        params.put("Smsg", shortMessage);
+
         params.put("PayResult[GiveChange]", Decima2KeeplUtil.stringToDecimal(orderPayResult.getGiveChange() + ""));
         params.put("PayResult[PayTotalMoney]", Decima2KeeplUtil.stringToDecimal(orderPayResult.getPayTotalMoney() + ""));
         params.put("PayResult[DisMoney]", Decima2KeeplUtil.stringToDecimal(orderPayResult.getDisMoney() + ""));
-        params.put("IS_Sms", shortMessage);
         List<PayType> typelist = orderPayResult.getPayTypeList();
         for (int i = 0; i < typelist.size(); i++) {
             params.put("PayResult[PayTypeList][" + i + "][PayCode]", typelist.get(i).getPayCode());
             params.put("PayResult[PayTypeList][" + i + "][PayName]", typelist.get(i).getPayName());
             params.put("PayResult[PayTypeList][" + i + "][PayMoney]", Decima2KeeplUtil.stringToDecimal(typelist.get(i).getPayMoney() + ""));
             params.put("PayResult[PayTypeList][" + i + "][PayPoint]", Decima2KeeplUtil.stringToDecimal(typelist.get(i).getPayPoint() + ""));
+            params.put("PayResult[PayTypeList][" + i + "][GID]", typelist.get(i).getGID());
         }
         if (orderPayResult.getYhqList() != null)
             for (int i = 0; i < orderPayResult.getYhqList().size(); i++) {
@@ -56,7 +58,6 @@ public class ImpOrderPay {
         params.put("PayResult[CC_GID]", orderPayResult.getActive() == null ? "" : orderPayResult.getActive().getGID());
         params.put("PayResult[EraseOdd]", orderPayResult.getMolingMoney());
         params.put("PayResult[IsPrint]", orderPayResult.isPrint());
-        params.put("PayResult[IsSms]", shortMessage);
 
         String url = HttpAPI.API().GOODS_CONSUME_PAY;
         switch (orderType) {

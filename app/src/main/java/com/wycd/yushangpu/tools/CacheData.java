@@ -71,10 +71,10 @@ public class CacheData {
             String filePath = Environment.getExternalStorageDirectory().getCanonicalPath() + "/cache";
             File f = new File(filePath + "/" + fileName);
             if (!f.exists()) {
-                LogUtils.i(fileName + "文件不存在");
+                LogUtils.i("CacheData.restoreObject",fileName + "文件不存在");
                 return null;
             } else {
-                LogUtils.i(fileName + "文件存在");
+                LogUtils.i("CacheData.restoreObject",fileName + "文件存在");
             }
             fis = new FileInputStream(f);
             ois = new ObjectInputStream(fis);

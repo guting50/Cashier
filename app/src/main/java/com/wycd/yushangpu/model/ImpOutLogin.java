@@ -34,13 +34,13 @@ public class ImpOutLogin {
         client.setCookieStore(myCookieStore);
         RequestParams params = new RequestParams();
         String url = HttpAPI.API().SIGNOUT;
-        LogUtils.d("xxparams", params.toString());
-        LogUtils.d("xxurl", url);
+        LogUtils.d("======== url ======== >>", url);
+        LogUtils.d("======== params ======== >>", params.toString());
         client.post(url, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
-                    LogUtils.d("xxoutLoginS", new String(responseBody, "UTF-8"));
+                    LogUtils.d("<< ======== " + url + " result ========", new String(responseBody, "UTF-8"));
                     JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
                     if (jso.getBoolean("success")) {
                         back.onResponse(jso);

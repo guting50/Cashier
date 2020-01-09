@@ -19,8 +19,22 @@ android {
             }
         }
     }
+    signingConfigs {
+        config {
+            keyAlias 'cash'
+            keyPassword 'android'
+            storeFile file('../yun.jks')
+            storePassword 'android'
+        }
+    }
     buildTypes {
+        debug {
+            signingConfig signingConfigs.config
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
         release {
+            signingConfig signingConfigs.config
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

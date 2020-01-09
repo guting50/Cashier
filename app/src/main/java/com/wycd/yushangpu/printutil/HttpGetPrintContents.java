@@ -77,11 +77,13 @@ public class HttpGetPrintContents {
         RequestParams params = new RequestParams();
         params.put("OrderGID",GID);
 
+        LogUtils.d("======== url ======== >>", HttpAPI.API().GET_GOODS_PRINT_DATA);
+        LogUtils.d("======== params ======== >>", params.toString());
         client.post(HttpAPI.API().GET_GOODS_PRINT_DATA, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
-                    LogUtils.d("xxoutLoginS", new String(responseBody, "UTF-8"));
+                    LogUtils.d("<< ======== " + HttpAPI.API().GET_GOODS_PRINT_DATA + " result ========", new String(responseBody, "UTF-8"));
                     JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
                     if (jso.getBoolean("success")) {
                         Print_SPXF_Bean print_spxf_bean = gson.fromJson(jso.toString(), Print_SPXF_Bean.class);

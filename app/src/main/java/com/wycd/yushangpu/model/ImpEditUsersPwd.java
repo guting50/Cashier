@@ -8,9 +8,7 @@ import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.http.UrlTools;
 import com.wycd.yushangpu.tools.LogUtils;
-import com.wycd.yushangpu.tools.ToastUtils;
 
 import org.json.JSONObject;
 
@@ -22,22 +20,23 @@ import cz.msebera.android.httpclient.Header;
 
 public class ImpEditUsersPwd {
 
-    public void editPwd(final Activity ac,String oldPwd,String newPwd
-                        ,final InterfaceBack back) {
+    public void editPwd(final Activity ac, String oldPwd, String newPwd
+            , final InterfaceBack back) {
         // TODO 自动生成的方法存根
         AsyncHttpClient client = new AsyncHttpClient();
         final PersistentCookieStore myCookieStore = new PersistentCookieStore(ac);
         client.setCookieStore(myCookieStore);
         RequestParams params = new RequestParams();
-        params.put("UM_Pwd",oldPwd);
-        params.put("UMNew_Pwd",newPwd);
+        params.put("UM_Pwd", oldPwd);
+        params.put("UMNew_Pwd", newPwd);
 
-        LogUtils.d("xxparams", params.toString());
+        LogUtils.d("======== url ======== >>", HttpAPI.API().EDIT_USERPWD);
+        LogUtils.d("======== params ======== >>", params.toString());
         client.post(HttpAPI.API().EDIT_USERPWD, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
-                    LogUtils.d("xxoutLoginS", new String(responseBody, "UTF-8"));
+                    LogUtils.d("<< ======== " + HttpAPI.API().EDIT_USERPWD + " result ========", new String(responseBody, "UTF-8"));
                     JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
                     if (jso.getBoolean("success")) {
                         back.onResponse(jso);

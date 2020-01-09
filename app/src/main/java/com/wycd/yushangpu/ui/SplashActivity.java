@@ -17,9 +17,6 @@ import com.wycd.yushangpu.tools.PreferenceHelper;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import static com.wycd.yushangpu.tools.LogUtils.tag;
-
-
 public class SplashActivity extends Activity {
 
     private static final int GO_MAIN = 1000;
@@ -118,6 +115,6 @@ public class SplashActivity extends Activity {
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true, priority = 1)
     public void onMessageEventMain(EventMsg event) {
-        Log.v(tag, " MAIN id = " + Thread.currentThread().getId());
+        Log.v("SplashActivity", " MAIN id = " + Thread.currentThread().getId());
     }
 }

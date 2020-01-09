@@ -4,13 +4,15 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.os.Bundle;
 
+import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
+import com.wycd.yushangpu.http.AsyncHttpUtils;
+import com.wycd.yushangpu.http.BaseRes;
+import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.model.ImpLogin;
 import com.wycd.yushangpu.tools.UpdateAppVersion;
 
-import org.json.JSONObject;
-
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -23,28 +25,26 @@ public class LogoActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        new ImpLogin().getNewsVersion(ac, new InterfaceBack() {
+        RequestParams params = new RequestParams();
+        params.put("Type", 3);
+        AsyncHttpUtils.postHttp(ac, HttpAPI.API().GET_NEWS_VERSION, params, new InterfaceBack<BaseRes<Map<String, Object>>>() {
             @Override
-            public void onResponse(Object response) {
-                String imageDate = response.toString();
+            public void onResponse(BaseRes<Map<String, Object>> response) {
                 try {
-                    JSONObject jso = new JSONObject(imageDate);
-                    String version = jso.getString("VA_Version");
-
                     // 获取包信息
                     // 参1 包名 参2 获取额外信息的flag 不需要的话 写0
                     PackageInfo packageInfo = getPackageManager().getPackageInfo(
                             getPackageName(), 0);
+                    String version = response.getData().get("VA_Version").toString();
                     if (Double.parseDouble(version) > packageInfo.versionCode) {
-                        VERSION_ADDRESS = MyApplication.CTMONEY_URL + jso.getString("VA_VersionAddress");
-                        if (jso.getInt("VA_UpdateMechanism") == 0) {
+                        VERSION_ADDRESS = MyApplication.CTMONEY_URL + response.getData().get("VA_VersionAddress").toString();
+                        if (Integer.parseInt(response.getData().get("VA_UpdateMechanism").toString()) == 0) {
                             //自动升级
                             UpdateAppVersion.UpdateInfoRes updateInfoBean = new UpdateAppVersion.UpdateInfoRes();
-                            updateInfoBean.setContent(jso.getString("VA_Remark"));
+                            updateInfoBean.setContent(response.getData().get("VA_Remark").toString());
                             updateInfoBean.setCurrentversion(Double.parseDouble(version));
                             updateInfoBean.setMinversionrequire(Double.parseDouble(version));
-                            updateInfoBean.setCurrentversiondesc(jso.getString("VA_VersionName"));
+                            updateInfoBean.setCurrentversiondesc(response.getData().get("VA_VersionName").toString());
                             updateInfoBean.setUrl(VERSION_ADDRESS);
                             new UpdateAppVersion(LogoActivity.this, updateInfoBean, new UpdateAppVersion.OnUpdateVersionBackListener() {
                                 @Override
@@ -58,7 +58,7 @@ public class LogoActivity extends BaseActivity {
                     toLoginActivity();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    toLoginActivity();
+                    onErrorResponse(e.getMessage());
                 }
             }
 

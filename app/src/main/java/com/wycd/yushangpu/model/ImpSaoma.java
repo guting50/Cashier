@@ -12,6 +12,7 @@ import com.wycd.yushangpu.bean.OrderPayResult;
 import com.wycd.yushangpu.bean.PayType;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
+import com.wycd.yushangpu.printutil.Decima2KeeplUtil;
 import com.wycd.yushangpu.tools.ActivityManager;
 import com.wycd.yushangpu.tools.LogUtils;
 import com.wycd.yushangpu.ui.LoginActivity;
@@ -21,6 +22,8 @@ import org.json.JSONObject;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
+
+import static com.wycd.yushangpu.MyApplication.shortMessage;
 
 /**
  * 首页商品数据
@@ -47,17 +50,28 @@ public class ImpSaoma {
         params.put("OrderGID", OrderGID);
         params.put("OrderType", 10);
         params.put("OrderNo", OrderNo);
-        params.put("OrderPayInfo[GiveChange]", orderPayResult.getGiveChange());
-        params.put("OrderPayInfo[PayTotalMoney]", orderPayResult.getPayTotalMoney());
-        params.put("OrderPayInfo[DisMoney]", orderPayResult.getDisMoney());
+        params.put("Smsg", shortMessage);
+
+        params.put("OrderPayInfo[GiveChange]", Decima2KeeplUtil.stringToDecimal(orderPayResult.getGiveChange() + ""));
+        params.put("OrderPayInfo[PayTotalMoney]", Decima2KeeplUtil.stringToDecimal(orderPayResult.getPayTotalMoney() + ""));
+        params.put("OrderPayInfo[DisMoney]", Decima2KeeplUtil.stringToDecimal(orderPayResult.getDisMoney() + ""));
         List<PayType> typelist = orderPayResult.getPayTypeList();
         for (int i = 0; i < typelist.size(); i++) {
             params.put("OrderPayInfo[PayTypeList][" + i + "][PayCode]", typelist.get(i).getPayCode());
             params.put("OrderPayInfo[PayTypeList][" + i + "][PayName]", typelist.get(i).getPayName());
-            params.put("OrderPayInfo[PayTypeList][" + i + "][PayMoney]", typelist.get(i).getPayMoney());
-            params.put("OrderPayInfo[PayTypeList][" + i + "][PayPoint]", typelist.get(i).getPayPoint());
+            params.put("OrderPayInfo[PayTypeList][" + i + "][PayMoney]", Decima2KeeplUtil.stringToDecimal(typelist.get(i).getPayMoney() + ""));
+            params.put("OrderPayInfo[PayTypeList][" + i + "][PayPoint]", Decima2KeeplUtil.stringToDecimal(typelist.get(i).getPayPoint() + ""));
             params.put("OrderPayInfo[PayTypeList][" + i + "][GID]", typelist.get(i).getGID());
         }
+        if (orderPayResult.getYhqList() != null)
+            for (int i = 0; i < orderPayResult.getYhqList().size(); i++) {
+                params.put("OrderPayInfo[GIDList][" + i + "]", orderPayResult.getYhqList().get(i).getGID());
+            }
+
+        params.put("OrderPayInfo[CC_GID]", orderPayResult.getActive() == null ? "" : orderPayResult.getActive().getGID());
+        params.put("OrderPayInfo[EraseOdd]", orderPayResult.getMolingMoney());
+        params.put("OrderPayInfo[IsPrint]", orderPayResult.isPrint());
+
         String url = HttpAPI.API().BAR_CODE_PAY;
         LogUtils.d("xxparams", params.toString());
         LogUtils.d("xxurl", url);
@@ -68,7 +82,7 @@ public class ImpSaoma {
                     LogUtils.d("xxSaomaS", new String(responseBody, "UTF-8"));
                     JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
                     if (jso.getBoolean("success")) {
-                        back.onResponse("扫码成功");
+                        back.onResponse(jso);
                     } else {
                         if (jso.getString("code").equals("RemoteLogin") || jso.getString("code").equals("LoginTimeout")) {
                             ActivityManager.getInstance().exit();

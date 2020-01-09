@@ -20,6 +20,9 @@ import com.gt.utils.base64.BASE64Decoder;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.LoginBean;
+import com.wycd.yushangpu.http.AsyncHttpUtils;
+import com.wycd.yushangpu.http.BaseRes;
+import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpLogin;
 import com.wycd.yushangpu.model.ImpPreLoading;
@@ -173,23 +176,20 @@ public class LoginActivity extends BaseActivity {
 
     private void getCode() {
         ((View) ivCode.getParent()).setVisibility(View.VISIBLE);
-        new ImpLogin().getCode(ac, new InterfaceBack() {
+
+        String url = HttpAPI.API().GET_CODE;
+        AsyncHttpUtils.postHttp(ac, url, new InterfaceBack<BaseRes<String>>() {
             @Override
-            public void onResponse(Object response) {
-                String imageDate = response.toString();
+            public void onResponse(BaseRes<String> response) {
                 BASE64Decoder decoder = new BASE64Decoder();
                 try {
-                    Glide.with(ac).load(decoder.decodeBuffer(imageDate))
+                    Glide.with(ac).load(decoder.decodeBuffer(response.getData()))
                             .transform(new GlideTransform.GlideCornersTransform(ac, 5))
                             .into(ivCode);
                 } catch (IOException e) {
                     e.printStackTrace();
+                    onErrorResponse(e.getMessage());
                 }
-            }
-
-            @Override
-            public void onErrorResponse(Object msg) {
-
             }
         });
     }
