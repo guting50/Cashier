@@ -2,7 +2,6 @@ package com.wycd.yushangpu.ui.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -220,7 +219,7 @@ public class EditCashierGoodsFragment extends Fragment {
                 //提成员工
                 ShopDetailDialog.shopdetailDialog(getActivity(), shopBean,
                         null == homeActivity.mVipMsg ? "" : homeActivity.mVipMsg.getVG_GID(),
-                        shopBean.getEM_GIDList(), MyApplication.loginBean.getData().getShopID(), 1, new InterfaceBack() {
+                        shopBean.getEM_GIDList(), MyApplication.loginBean.getShopID(), 1, new InterfaceBack() {
                             @Override
                             public void onResponse(Object response) {
 

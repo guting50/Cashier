@@ -310,7 +310,7 @@ public class MyApplication extends MultiDexApplication {
 
             result = JSESSIONID;
 
-            loginBean.getData().setSessionId(result);
+            loginBean.setSessionId(result);
             Gson gson = new Gson();
             loginResultString = gson.toJson(loginBean);
 

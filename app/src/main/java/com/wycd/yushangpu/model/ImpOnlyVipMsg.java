@@ -94,7 +94,7 @@ public class ImpOnlyVipMsg {
         params.put("PageIndex", pageIndex);
         params.put("PageSize", pageSize);
         params.put("CardOrNameOrCellPhoneOrFace", VCH_Card);
-        params.put("SM_GID", MyApplication.loginBean.getData().getShopID());
+        params.put("SM_GID", MyApplication.loginBean.getShopID());
         String url = HttpAPI.API().VIPLIST;
         LogUtils.d("xxparams", params.toString());
         LogUtils.d("xxurl", url);

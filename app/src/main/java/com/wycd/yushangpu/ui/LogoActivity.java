@@ -27,24 +27,25 @@ public class LogoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         RequestParams params = new RequestParams();
         params.put("Type", 3);
-        AsyncHttpUtils.postHttp(ac, HttpAPI.API().GET_NEWS_VERSION, params, new InterfaceBack<BaseRes<Map<String, Object>>>() {
+        AsyncHttpUtils.postHttp(ac, HttpAPI.API().GET_NEWS_VERSION, params, new InterfaceBack<BaseRes>() {
             @Override
-            public void onResponse(BaseRes<Map<String, Object>> response) {
+            public void onResponse(BaseRes response) {
                 try {
                     // 获取包信息
                     // 参1 包名 参2 获取额外信息的flag 不需要的话 写0
                     PackageInfo packageInfo = getPackageManager().getPackageInfo(
                             getPackageName(), 0);
-                    String version = response.getData().get("VA_Version").toString();
+                    Map<String, Object> baen = response.getData(Map.class);
+                    String version = baen.get("VA_Version").toString();
                     if (Double.parseDouble(version) > packageInfo.versionCode) {
-                        VERSION_ADDRESS = MyApplication.CTMONEY_URL + response.getData().get("VA_VersionAddress").toString();
-                        if (Double.parseDouble(response.getData().get("VA_UpdateMechanism").toString()) == 0) {
+                        VERSION_ADDRESS = MyApplication.CTMONEY_URL + baen.get("VA_VersionAddress").toString();
+                        if (Double.parseDouble(baen.get("VA_UpdateMechanism").toString()) == 0) {
                             //自动升级
                             UpdateAppVersion.UpdateInfoRes updateInfoBean = new UpdateAppVersion.UpdateInfoRes();
-                            updateInfoBean.setContent(response.getData().get("VA_Remark").toString());
+                            updateInfoBean.setContent(baen.get("VA_Remark").toString());
                             updateInfoBean.setCurrentversion(Double.parseDouble(version));
                             updateInfoBean.setMinversionrequire(Double.parseDouble(version));
-                            //updateInfoBean.setCurrentversiondesc(response.getData().get("VA_VersionName").toString());
+                            //updateInfoBean.setCurrentversiondesc(baen.get("VA_VersionName").toString());
                             updateInfoBean.setUrl(VERSION_ADDRESS);
                             new UpdateAppVersion(LogoActivity.this, updateInfoBean, new UpdateAppVersion.OnUpdateVersionBackListener() {
                                 @Override

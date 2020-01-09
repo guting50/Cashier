@@ -213,7 +213,7 @@ public class QudanFragment extends Fragment {
 
     private void obtainGuadanList(int index) {
         ImpGuadanList shopHome = new ImpGuadanList();
-        shopHome.guadanList(MyApplication.getContext(), index, 20, MyApplication.loginBean.getData().getShopID(), new InterfaceBack() {
+        shopHome.guadanList(MyApplication.getContext(), index, 20, MyApplication.loginBean.getShopID(), new InterfaceBack() {
             @Override
             public void onResponse(Object response) {
                 try {

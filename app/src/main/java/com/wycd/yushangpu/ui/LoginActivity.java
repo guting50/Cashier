@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -15,8 +14,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.gson.Gson;
 import com.gt.utils.base64.BASE64Decoder;
+import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.LoginBean;
@@ -24,7 +23,6 @@ import com.wycd.yushangpu.http.AsyncHttpUtils;
 import com.wycd.yushangpu.http.BaseRes;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.model.ImpLogin;
 import com.wycd.yushangpu.model.ImpPreLoading;
 import com.wycd.yushangpu.tools.GlideTransform;
 import com.wycd.yushangpu.tools.KeyBoardHelper;
@@ -117,32 +115,36 @@ public class LoginActivity extends BaseActivity {
             @Override
             protected void onNoDoubleClick(View view) {
                 if (mEtLoginAccount.getText().toString().equals("")) {
-//                    ToastUtils.showToast(ac, res.getString(R.string.enter_email_mobile));
                     com.blankj.utilcode.util.ToastUtils.showShort(res.getString(R.string.enter_email_mobile));
                 } else if (mEtLoginPassword.getText().toString().equals("")) {
-//                    ToastUtils.showToast(ac, res.getString(R.string.enter_password));
                     com.blankj.utilcode.util.ToastUtils.showShort(res.getString(R.string.enter_password));
                 } else {
                     dialog.show();
-//                    17780716425  121121
-                    ImpLogin login = new ImpLogin();
-                    login.login(ac, mEtLoginAccount.getText().toString(), mEtLoginPassword.getText().toString(), mVerificationCode.getText().toString(), new InterfaceBack() {
+
+                    RequestParams params = new RequestParams();
+                    params.put("UserAcount", mEtLoginAccount.getText().toString());
+                    params.put("PassWord", mEtLoginPassword.getText().toString());
+//                  客户端类型 1.网页 2.安卓 APP 3.PC客户端 4.苹果APP 5.触屏收银
+                    params.put("Type", "5");
+                    if (!TextUtils.isEmpty(mVerificationCode.getText()))
+                        params.put("VerifyCode", mVerificationCode.getText().toString());
+                    String url = HttpAPI.API().LOGIN;
+                    AsyncHttpUtils.postHttp(ac, url, params, new InterfaceBack<BaseRes>() {
 
                         @Override
-                        public void onResponse(Object response) {
-                            Gson gson = new Gson();
-                            String resultString = (String) response;
-                            MyApplication.loginBean = gson.fromJson(resultString, LoginBean.class);
+                        public void onResponse(BaseRes response) {
+                            MyApplication.loginBean = response.getData(LoginBean.class);
 
-//                        dialog.dismiss();
                             //保存登录账号密码
                             PreferenceHelper.write(ac, "lottery", "account", mEtLoginAccount.getText().toString());
                             PreferenceHelper.write(ac, "lottery", "pwd", mEtLoginPassword.getText().toString());
+                            PreferenceHelper.write(ac, "yunshangpu", "UserAcount", mEtLoginAccount.getText().toString());
+                            PreferenceHelper.write(ac, "yunshangpu", "PassWord", mEtLoginPassword.getText().toString());
 
-                            if (MyApplication.loginBean.getData().getShopList().get(0).getSM_Type() == 3009) {
+                            if (MyApplication.loginBean.getShopList().get(0).getSM_Type() == 3009) {
                                 MyApplication.LABELPRINT_IS_OPEN = true;
                             }
-                            MyApplication.SHOP_NAME = MyApplication.loginBean.getData().getSM_Name();
+                            MyApplication.SHOP_NAME = MyApplication.loginBean.getSM_Name();
                             startActivity(new Intent(ac, HomeActivity.class));
                             finish();
 
@@ -152,13 +154,13 @@ public class LoginActivity extends BaseActivity {
                         @Override
                         public void onErrorResponse(Object msg) {
                             dialog.dismiss();
-                            if (msg != null && !TextUtils.isEmpty((String) msg)) {
-                                if (TextUtils.equals((String) msg, "请输入验证码"))
+                            if (msg != null && msg instanceof BaseRes) {
+                                String massage = ((BaseRes) msg).getMsg();
+                                if (TextUtils.equals(massage, "请输入验证码"))
                                     getCode();
                             }
                         }
                     });
-
                 }
             }
         });
@@ -177,12 +179,12 @@ public class LoginActivity extends BaseActivity {
         ((View) ivCode.getParent()).setVisibility(View.VISIBLE);
 
         String url = HttpAPI.API().GET_CODE;
-        AsyncHttpUtils.postHttp(ac, url, new InterfaceBack<BaseRes<String>>() {
+        AsyncHttpUtils.postHttp(ac, url, new InterfaceBack<BaseRes>() {
             @Override
-            public void onResponse(BaseRes<String> response) {
+            public void onResponse(BaseRes response) {
                 BASE64Decoder decoder = new BASE64Decoder();
                 try {
-                    Glide.with(ac).load(decoder.decodeBuffer(response.getData()))
+                    Glide.with(ac).load(decoder.decodeBuffer(response.getData(String.class)))
                             .transform(new GlideTransform.GlideCornersTransform(ac, 5))
                             .into(ivCode);
                 } catch (IOException e) {

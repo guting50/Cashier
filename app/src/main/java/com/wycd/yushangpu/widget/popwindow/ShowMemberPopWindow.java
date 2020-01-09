@@ -28,10 +28,10 @@ public class ShowMemberPopWindow extends PopupWindow implements View.OnClickList
     private LoginBean loginBean;
     private View mView;//PopWindow布局
     private CircleImageView imgHead;
-    private TextView mStoreName,mStoreEmail,mChangePwd,mOut,mNameSet,mChangeHead;
+    private TextView mStoreName, mStoreEmail, mChangePwd, mOut, mNameSet, mChangeHead;
     private OnItemClickListener mListener;
 
-    public ShowMemberPopWindow(Activity ac,LoginBean loginBean){
+    public ShowMemberPopWindow(Activity ac, LoginBean loginBean) {
 
         this.ac = ac;
         this.loginBean = loginBean;
@@ -43,7 +43,7 @@ public class ShowMemberPopWindow extends PopupWindow implements View.OnClickList
     private void loadData() {
 
         ImpUserInfomation impUserInfomation = new ImpUserInfomation();
-        impUserInfomation.userInfo(ac, loginBean.getData().getGID(), new InterfaceBack() {
+        impUserInfomation.userInfo(ac, loginBean.getGID(), new InterfaceBack() {
             @Override
             public void onResponse(Object response) {
                 UserInfomationBean sllist = (UserInfomationBean) response;
@@ -75,17 +75,17 @@ public class ShowMemberPopWindow extends PopupWindow implements View.OnClickList
         mNameSet.setOnClickListener(this);
         mChangeHead.setOnClickListener(this);
 
-        if (loginBean.getData().getUM_ChatHead() != null) {
-            VolleyResponse.instance().getInternetImg(ac, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(loginBean.getData().getUM_ChatHead()).toString()), imgHead, R.mipmap.member_head_nohead);
+        if (loginBean.getUM_ChatHead() != null) {
+            VolleyResponse.instance().getInternetImg(ac, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(loginBean.getUM_ChatHead()).toString()), imgHead, R.mipmap.member_head_nohead);
         }
-        if (loginBean.getData().getUM_Name().equals(loginBean.getData().getUM_Acount())){
+        if (loginBean.getUM_Name().equals(loginBean.getUM_Acount())) {
             mStoreName.setText("暂无名称");
 //            mNameSet.setVisibility(View.VISIBLE);
-        }else {
-            mStoreName.setText(loginBean.getData().getUM_Name());
+        } else {
+            mStoreName.setText(loginBean.getUM_Name());
             mNameSet.setVisibility(View.GONE);
         }
-        mStoreEmail.setText(loginBean.getData().getUM_Acount());
+        mStoreEmail.setText(loginBean.getUM_Acount());
     }
 
     /**

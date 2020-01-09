@@ -2,11 +2,11 @@ package com.wycd.yushangpu.http;
 
 import com.google.gson.Gson;
 
-public class BaseRes<T> {
+public class BaseRes {
     private boolean success;
     private String code;
     private String msg;
-    private T data;
+    private Object data;
 
     public boolean isSuccess() {
         return success;
@@ -32,17 +32,15 @@ public class BaseRes<T> {
         this.msg = msg;
     }
 
-    public T getData() {
+    public Object getData() {
         return data;
     }
 
-    public T getData(Class<T> aa) {
-        T t = new Gson().fromJson(data.toString(), aa);
-        return t;
+    public void setData(Object data) {
+        this.data = data;
     }
 
-
-    public void setData(T data) {
-        this.data = data;
+    public <T> T getData(Class<T> tClass) {
+        return new Gson().fromJson(new Gson().toJson(data), tClass);
     }
 }

@@ -392,19 +392,19 @@ public class JiesuanBFragment extends Fragment {
                 break;
             case R.id.li_saoma:
                 if (getZhaoling() < 0) {
-                    if (MyApplication.loginBean.getData().getShopList().get(0).getSaoBei_State() == 1) {
+                    if (MyApplication.loginBean.getShopList().get(0).getSaoBei_State() == 1) {
                         com.blankj.utilcode.util.ToastUtils.showShort("扫码支付功能审核通过,但未签署电子协议");
                         return;
                     }
-                    if (MyApplication.loginBean.getData().getShopList().get(0).getSaoBei_State() == 2) {
+                    if (MyApplication.loginBean.getShopList().get(0).getSaoBei_State() == 2) {
                         com.blankj.utilcode.util.ToastUtils.showShort("扫码支付功能审核驳回");
                         return;
                     }
-                    if (MyApplication.loginBean.getData().getShopList().get(0).getSaoBei_State() == 3) {
+                    if (MyApplication.loginBean.getShopList().get(0).getSaoBei_State() == 3) {
                         com.blankj.utilcode.util.ToastUtils.showShort("扫码支付功能审核中");
                         return;
                     }
-                    if (MyApplication.loginBean.getData().getShopList().get(0).getSaoBei_State() == 5) {
+                    if (MyApplication.loginBean.getShopList().get(0).getSaoBei_State() == 5) {
                         com.blankj.utilcode.util.ToastUtils.showShort("扫码支付功能审核通过且已签署电子协议");
                         return;
                     }

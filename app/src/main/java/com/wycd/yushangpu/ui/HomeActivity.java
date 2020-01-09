@@ -420,10 +420,10 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 //        mClassMsgList = null;//清空分类
 
         if (MyApplication.loginBean != null) {
-            if (MyApplication.loginBean.getData().getUM_ChatHead() != null) {
-                VolleyResponse.instance().getInternetImg(ac, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(MyApplication.loginBean.getData().getUM_ChatHead()).toString()), imgHedimg, R.mipmap.member_head_nohead);
+            if (MyApplication.loginBean.getUM_ChatHead() != null) {
+                VolleyResponse.instance().getInternetImg(ac, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(MyApplication.loginBean.getUM_ChatHead()).toString()), imgHedimg, R.mipmap.member_head_nohead);
             }
-            tvStoreName.setText(MyApplication.loginBean.getData().getUM_Name());
+            tvStoreName.setText(MyApplication.loginBean.getUM_Name());
         }
 
         //更新订单时间
@@ -1534,7 +1534,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 //                        ToastUtils.showToast(ac,"修改头像成功");
                         com.blankj.utilcode.util.ToastUtils.showShort("修改头像成功");
                     }
-                    MyApplication.loginBean.getData().setUM_ChatHead(String.valueOf(msg.obj));
+                    MyApplication.loginBean.setUM_ChatHead(String.valueOf(msg.obj));
                     if (webDialog != null) {
                         webDialog.dismiss();
                         MyApplication.isDialog = "0";

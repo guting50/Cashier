@@ -22,7 +22,6 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
-import java.util.HashMap;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -56,7 +55,8 @@ public class AsyncHttpUtils {
                     if (baseRes.isSuccess()) {
                         back.onResponse(baseRes);
                     } else {
-                        if (baseRes.getCode().equals("RemoteLogin") || baseRes.getCode().equals("LoginTimeout")) {
+                        if (baseRes.getCode() != null &&
+                                (baseRes.getCode().equals("RemoteLogin") || baseRes.getCode().equals("LoginTimeout"))) {
                             ActivityManager.getInstance().exit();
                             Intent intent = new Intent(MyApplication.getContext(), LoginActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
