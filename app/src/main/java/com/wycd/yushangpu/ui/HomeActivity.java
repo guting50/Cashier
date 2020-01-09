@@ -662,27 +662,28 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     }
                 }
             }
-            if (isJisuanDiscount)
+            if (isJisuanDiscount) {
                 jisuanDiscount(shopMsg);
+
+                int type = 0;
+                switch (NullUtils.noNullHandle(shopMsg.getPM_IsService()).toString()) {
+                    case "0":
+                    case "1":
+                    case "2":
+                        type = 0;
+                        break;
+                    case "3":
+                    case "4":
+                        type = 1;
+                        break;
+                }
+                shopMsg.setType(type);
+            }
 
             allprice += shopMsg.getAllprice();
             totalPrice += shopMsg.getTotalPrice();
             onepoint += shopMsg.getEachPoint() * shopMsg.getNum();
             num += shopMsg.getNum();
-
-            int type = 0;
-            switch (NullUtils.noNullHandle(shopMsg.getPM_IsService()).toString()) {
-                case "0":
-                case "1":
-                case "2":
-                    type = 0;
-                    break;
-                case "3":
-                case "4":
-                    type = 1;
-                    break;
-            }
-            shopMsg.setType(type);
         }
 
         if (!PreferenceHelper.readBoolean(ac, "yunshangpu", "vip", false)) {
@@ -923,11 +924,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     ShopMsg goodsitem = (ShopMsg) response;
                     addShopLeftList(goodsitem, addnum);
                 }
-
-                @Override
-                public void onErrorResponse(Object msg) {
-
-                }
             });
 
         } else {
@@ -961,11 +957,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     public void onResponse(Object response) {
                         String search = (String) response;
                         goodsListFragment.obtainHomeShop("", search + "");
-                    }
-
-                    @Override
-                    public void onErrorResponse(Object msg) {
-
                     }
                 });
             }
@@ -1021,11 +1012,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                             shopMsg.setPM_IsService(1);
                             shopMsg.setPM_Name("快速收银商品");
                             addCashierList(shopMsg);
-                        }
-
-                        @Override
-                        public void onErrorResponse(Object msg) {
-
                         }
                     });
                 }
@@ -1137,10 +1123,10 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                 order = CreateOrder.createOrder("SP");
                                 RevokeGuaDanBean guadanDetail = (RevokeGuaDanBean) response;
                                 initGetOrder(guadanDetail);
-                                if (guadanDetail.getData().getVIP_Card() != null &&
-                                        !guadanDetail.getData().getVIP_Card().equals("00000") &&
-                                        !guadanDetail.getData().getVIP_Card().equals("")) {
-                                    initVIP(guadanDetail.getData().getVIP_Card());
+                                if (guadanDetail.getVIP_Card() != null &&
+                                        !guadanDetail.getVIP_Card().equals("00000") &&
+                                        !guadanDetail.getVIP_Card().equals("")) {
+                                    initVIP(guadanDetail.getVIP_Card());
                                 } else {
                                     PreferenceHelper.write(ac, "yunshangpu", "vip", false);
                                 }
@@ -1426,7 +1412,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
     private void initGetOrder(RevokeGuaDanBean guadanDetail) {
         mShopLeftList.clear();
-        for (RevokeGuaDanBean.DataBean.ViewGoodsDetailBean msg : guadanDetail.getData().getViewGoodsDetail()) {
+        for (RevokeGuaDanBean.ViewGoodsDetailBean msg : guadanDetail.getViewGoodsDetail()) {
             if (msg.getGOD_Type() != 11) {
                 ShopMsg newmsg = new ShopMsg();
                 newmsg.setJisuanPrice(msg.getPM_UnitPrice());
@@ -1446,6 +1432,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     newmsg.setPM_IsService(0);
                 } else if (msg.getGOD_Type() == 10) {
                     newmsg.setPM_IsService(1);
+                    newmsg.setType(1);
                 }
                 if (msg.getGOD_EMName() != null && !msg.getGOD_EMName().equals("")) {
                     List<String> eMlist = new ArrayList<>();

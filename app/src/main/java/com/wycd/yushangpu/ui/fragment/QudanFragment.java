@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.gt.utils.view.BgFrameLayout;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.GuadanList;
@@ -19,10 +20,13 @@ import com.wycd.yushangpu.bean.RevokeGuaDanBean;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.bean.event.HomeButtonColorChangeEvent;
+import com.wycd.yushangpu.http.AsyncHttpUtils;
+import com.wycd.yushangpu.http.BaseRes;
+import com.wycd.yushangpu.http.CallBack;
+import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpGuadanList;
 import com.wycd.yushangpu.model.ImpOnlyVipMsg;
-import com.wycd.yushangpu.model.ImpRevokeGuaDanOrder;
 import com.wycd.yushangpu.model.ImpSubmitOrder;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
@@ -189,6 +193,7 @@ public class QudanFragment extends Fragment {
                     newmsg.setPM_IsService(0);
                 } else if (msg.getGOD_Type() == 10) {
                     newmsg.setPM_IsService(1);
+                    newmsg.setType(1);
                 }
 
                 if (msg.getGOD_EMName() != null && !msg.getGOD_EMName().equals("")) {
@@ -414,12 +419,14 @@ public class QudanFragment extends Fragment {
             } else {
                 if (guadanList.getCO_IdentifyingState().equals("1")) {//挂单
                     //解挂接口
-                    ImpRevokeGuaDanOrder impRevokeGuaDanOrder = new ImpRevokeGuaDanOrder();
-                    impRevokeGuaDanOrder.revokeGuaDan(homeActivity, guadanList.getGID(), new InterfaceBack<RevokeGuaDanBean>() {
+                    RequestParams params = new RequestParams();
+                    params.put("GID", guadanList.getGID());
+                    String url = HttpAPI.API().REVOKE_GUADAN;
+                    AsyncHttpUtils.postHttp(homeActivity, url, params, new CallBack() {
                         @Override
-                        public void onResponse(RevokeGuaDanBean guaDanBean) {
+                        public void onResponse(BaseRes response) {
                             homeActivity.dialog.dismiss();
-                            back.onResponse(guaDanBean);
+                            back.onResponse(response.getData(RevokeGuaDanBean.class));
                             HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
                             event.setMsg("Change_color");
                             EventBus.getDefault().post(event);
@@ -428,6 +435,7 @@ public class QudanFragment extends Fragment {
 
                         @Override
                         public void onErrorResponse(Object msg) {
+                            super.onErrorResponse(msg);
                             homeActivity.dialog.dismiss();
                             HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
                             event.setMsg("Change_color");
