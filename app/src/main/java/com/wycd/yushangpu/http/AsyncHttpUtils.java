@@ -31,12 +31,12 @@ import cz.msebera.android.httpclient.Header;
 
 public class AsyncHttpUtils {
 
-    public static void postHttp(final Activity ac, String url, final InterfaceBack back) {
+    public static void postHttp(final Activity ac, String url, CallBack back) {
         RequestParams params = new RequestParams();
         postHttp(ac, url, params, back);
     }
 
-    public static void postHttp(final Activity ac, String url, RequestParams map, final InterfaceBack back) {
+    public static void postHttp(final Activity ac, String url, RequestParams map, CallBack back) {
         AsyncHttpClient client = new AsyncHttpClient();
         final PersistentCookieStore myCookieStore = new PersistentCookieStore(ac);
         client.setCookieStore(myCookieStore);
@@ -86,48 +86,4 @@ public class AsyncHttpUtils {
         });
     }
 
-    public static void getHttp(final Activity ac, String url, final InterfaceBack<String> back) {
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.addHeader("api_version", "0.0.1");
-        client.addHeader("content_type", "application/json");
-        client.addHeader("platform", "android");
-        client.addHeader("language", PreferenceHelper.readString(ac, "lottery", "lagavage", "cn"));
-        client.addHeader("uuid", Installation.id(ac));
-        client.addHeader("system_version", CommonUtils.getVersionName(ac));
-        client.addHeader("token", PreferenceHelper.readString(ac, "lottery", "token", ""));
-        LogUtils.d("xxurl", url);
-        client.get(ac, url, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                try {
-                    LogUtils.d("xxmsg", SignUtils.decode(new String(responseBody, "UTF-8")));
-                    JSONObject jso = new JSONObject(SignUtils.decode(new String(responseBody, "UTF-8")));
-                    if (jso.getInt("status") == 0) {
-                        back.onResponse(jso.getString("data"));
-                    } else {
-//                        if (jso.getInt("status") == 106) {
-//                            PreferenceHelper.write(ac, "carapp", "token", "");
-//                            ActivityStack.create().finishAllActivity();
-//                            Intent intent = new Intent(ac, LoginActivity.class);
-//                            ac.startActivity(intent);
-//                        }
-
-//                        ToastUtils.showToast(ac, jso.getString("msg"));
-                        com.blankj.utilcode.util.ToastUtils.showShort(jso.getString("msg"));
-                        back.onErrorResponse("");
-                    }
-                } catch (Exception e) {
-                    back.onErrorResponse("");
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                back.onErrorResponse("");
-//                ToastUtils.showToast(ac, "服务异常，请稍后再试");
-                com.blankj.utilcode.util.ToastUtils.showShort("服务异常，请稍后再试");
-            }
-        });
-    }
 }

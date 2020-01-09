@@ -19,17 +19,17 @@ import com.wycd.yushangpu.tools.NullUtils;
  * Created by ZPH on 2019-07-05.
  */
 
-public class ShowStorePopWindow extends PopupWindow implements View.OnClickListener{
+public class ShowStorePopWindow extends PopupWindow implements View.OnClickListener {
 
     private Activity ac;
     private ShopInfoBean shopInfoBean;
     private View mView;//PopWindow布局
     private ImageView imgHead;
-    private TextView mStartTime,mEndTime,mVersion,mUser,mMember,mgoods,mShopName,mShopInfo;
+    private TextView mStartTime, mEndTime, mVersion, mUser, mMember, mgoods, mShopName, mShopInfo;
     private ShowStorePopWindow.OnItemStoreClickListener mListener;
 
 
-    public ShowStorePopWindow(Activity ac,ShopInfoBean shopInfoBean){
+    public ShowStorePopWindow(Activity ac, ShopInfoBean shopInfoBean) {
 
         this.ac = ac;
         this.shopInfoBean = shopInfoBean;
@@ -50,20 +50,20 @@ public class ShowStorePopWindow extends PopupWindow implements View.OnClickListe
         mMember = (TextView) mView.findViewById(R.id.tv_member);
         mgoods = (TextView) mView.findViewById(R.id.tv_goods);
         mShopName = (TextView) mView.findViewById(R.id.tv_shop_name);
-        mShopInfo= (TextView) mView.findViewById(R.id.show_shop_info);
+        mShopInfo = (TextView) mView.findViewById(R.id.show_shop_info);
 
         mShopInfo.setOnClickListener(this);
 
-        if (shopInfoBean.getData().getShopImg() != null) {
-            VolleyResponse.instance().getInternetImg(ac, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(shopInfoBean.getData().getShopImg()).toString()), imgHead, R.drawable.defalut_store);
+        if (shopInfoBean.getShopImg() != null) {
+            VolleyResponse.instance().getInternetImg(ac, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(shopInfoBean.getShopImg()).toString()), imgHead, R.drawable.defalut_store);
         }
-        mShopName.setText(NullUtils.noNullHandle(shopInfoBean.getData().getShopName()).toString() );
-        mEndTime.setText("到期："+NullUtils.noNullHandle(shopInfoBean.getData().getShopOverTime()).toString());
-        mStartTime.setText("开通："+NullUtils.noNullHandle(shopInfoBean.getData().getShopCreateTime()).toString());
-        mVersion.setText("版本："+NullUtils.noNullHandle(shopInfoBean.getData().getShopType()).toString());
-        mUser.setText("用户数："+NullUtils.noNullHandle(shopInfoBean.getData().getShopUsers()).toString());
-        mMember.setText("会员数："+NullUtils.noNullHandle(shopInfoBean.getData().getShopMbers()).toString());
-        mgoods.setText("商品数："+NullUtils.noNullHandle(shopInfoBean.getData().getShopGoods()).toString());
+        mShopName.setText(NullUtils.noNullHandle(shopInfoBean.getShopName()).toString());
+        mEndTime.setText("到期：" + NullUtils.noNullHandle(shopInfoBean.getShopOverTime()).toString());
+        mStartTime.setText("开通：" + NullUtils.noNullHandle(shopInfoBean.getShopCreateTime()).toString());
+        mVersion.setText("版本：" + NullUtils.noNullHandle(shopInfoBean.getShopType()).toString());
+        mUser.setText("用户数：" + NullUtils.noNullHandle(shopInfoBean.getShopUsers()).toString());
+        mMember.setText("会员数：" + NullUtils.noNullHandle(shopInfoBean.getShopMbers()).toString());
+        mgoods.setText("商品数：" + NullUtils.noNullHandle(shopInfoBean.getShopGoods()).toString());
     }
 
     /**

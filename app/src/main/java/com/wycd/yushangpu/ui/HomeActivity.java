@@ -23,7 +23,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.gt.utils.view.BgFrameLayout;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
@@ -1624,36 +1623,10 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
     public void getShopInfo() {
         ImpShopInfo impShopInfo = new ImpShopInfo();
-        impShopInfo.shopInfo(ac, new InterfaceBack() {
+        impShopInfo.shopInfo(ac, new InterfaceBack<ShopInfoBean>() {
             @Override
-            public void onResponse(Object response) {
-                shopInfoBean = new Gson().fromJson(response.toString(), ShopInfoBean.class);
-
-//                mShowStorePop = new ShowStorePopWindow(HomeActivity.this, shopInfoBean);
-//                mShowStorePop.setOnItemStoreClickListener(HomeActivity.this);
-//                mShowStorePop.showAsDropDown(HomeActivity.this.findViewById(R.id.iv_shop), 50, -20);
-                impShopInfo.shopInfos(ac, shopInfoBean.getData().getGID(), new InterfaceBack() {
-                    @Override
-                    public void onResponse(Object response) {
-                        ShopInfoBean tmp = new Gson().fromJson(response.toString(), ShopInfoBean.class);
-                        shopInfoBean.getData().setSM_Industry(tmp.getData().getSM_Industry());
-                        shopInfoBean.getData().setSM_Type(tmp.getData().getSM_Type());
-                        shopInfoBean.getData().setSM_DetailAddr(tmp.getData().getSM_DetailAddr());
-                        shopInfoBean.getData().setSM_Range(tmp.getData().getSM_Range());
-                        shopInfoBean.getData().setSM_BusinessType(tmp.getData().getSM_BusinessType());
-                        shopInfoBean.getData().setSM_Remark(tmp.getData().getSM_Remark());
-                    }
-
-                    @Override
-                    public void onErrorResponse(Object msg) {
-
-                    }
-                });
-            }
-
-            @Override
-            public void onErrorResponse(Object msg) {
-
+            public void onResponse(ShopInfoBean response) {
+                shopInfoBean = response;
             }
         });
     }

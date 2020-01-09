@@ -6,270 +6,222 @@ import java.io.Serializable;
  * Created by ZPH on 2019-07-05.
  */
 
-public class ShopInfoBean implements Serializable{
-
-
+public class ShopInfoBean implements Serializable {
     /**
-     * success : true
-     * code : null
-     * msg : 执行成功
-     * data : {"GID":"4a7b1141-8ca3-4bef-961f-ffd153357823","ShopImg":"/img/head.png","ShopName":"加油站","ShopContact":"6545646","ShopTel":"18328578333","ShopType":"加油站(1年)","ShopMbers":"243/10000","ShopGoods":"128/10000","ShopUsers":"4/10","ShopOverTime":"2020-05-31","ShopCreateTime":"2018-06-29","SM_SersionLife":1,"ShopMaxUsers":10,"ShopMaxProduct":10000,"ShopMaxVip":10000,"ShopMaxStaff":50}
+     * GID : 4a7b1141-8ca3-4bef-961f-ffd153357823
+     * ShopImg : /img/head.png
+     * ShopName : 加油站
+     * ShopContact : 6545646
+     * ShopTel : 18328578333
+     * ShopType : 加油站(1年)
+     * ShopMbers : 243/10000
+     * ShopGoods : 128/10000
+     * ShopUsers : 4/10
+     * ShopOverTime : 2020-05-31
+     * ShopCreateTime : 2018-06-29
+     * SM_SersionLife : 1
+     * ShopMaxUsers : 10
+     * ShopMaxProduct : 10000
+     * ShopMaxVip : 10000
+     * ShopMaxStaff : 50
      */
 
-    private boolean success;
-    private Object code;
-    private String msg;
-    private DataBean data;
+    private String GID;
+    private String ShopImg;
+    private String ShopName;
+    private String ShopContact;
+    private String ShopTel;
+    private String ShopType;
+    private String ShopMbers;
+    private String ShopGoods;
+    private String ShopUsers;
+    private String ShopOverTime;
+    private String ShopCreateTime;
+    private String SM_Industry;
+    private String SM_Type;
+    private String SM_DetailAddr;
+    private String SM_Range;
+    private String SM_BusinessType;
+    private String SM_Remark;
+    private int SM_SersionLife;
+    private int ShopMaxUsers;
+    private int ShopMaxProduct;
+    private int ShopMaxVip;
+    private int ShopMaxStaff;
 
-    public boolean isSuccess() {
-        return success;
+    public String getGID() {
+        return GID;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public void setGID(String GID) {
+        this.GID = GID;
     }
 
-    public Object getCode() {
-        return code;
+    public String getShopImg() {
+        return ShopImg;
     }
 
-    public void setCode(Object code) {
-        this.code = code;
+    public void setShopImg(String ShopImg) {
+        this.ShopImg = ShopImg;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getShopName() {
+        return ShopName;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setShopName(String ShopName) {
+        this.ShopName = ShopName;
     }
 
-    public DataBean getData() {
-        return data;
+    public String getShopContact() {
+        return ShopContact;
     }
 
-    public void setData(DataBean data) {
-        this.data = data;
+    public void setShopContact(String ShopContact) {
+        this.ShopContact = ShopContact;
     }
 
-    public static class DataBean implements Serializable {
-        /**
-         * GID : 4a7b1141-8ca3-4bef-961f-ffd153357823
-         * ShopImg : /img/head.png
-         * ShopName : 加油站
-         * ShopContact : 6545646
-         * ShopTel : 18328578333
-         * ShopType : 加油站(1年)
-         * ShopMbers : 243/10000
-         * ShopGoods : 128/10000
-         * ShopUsers : 4/10
-         * ShopOverTime : 2020-05-31
-         * ShopCreateTime : 2018-06-29
-         * SM_SersionLife : 1
-         * ShopMaxUsers : 10
-         * ShopMaxProduct : 10000
-         * ShopMaxVip : 10000
-         * ShopMaxStaff : 50
-         */
+    public String getShopTel() {
+        return ShopTel;
+    }
 
-        private String GID;
-        private String ShopImg;
-        private String ShopName;
-        private String ShopContact;
-        private String ShopTel;
-        private String ShopType;
-        private String ShopMbers;
-        private String ShopGoods;
-        private String ShopUsers;
-        private String ShopOverTime;
-        private String ShopCreateTime;
-        private String SM_Industry;
-        private String SM_Type;
-        private String SM_DetailAddr;
-        private String SM_Range;
-        private String SM_BusinessType;
-        private String SM_Remark;
-        private int SM_SersionLife;
-        private int ShopMaxUsers;
-        private int ShopMaxProduct;
-        private int ShopMaxVip;
-        private int ShopMaxStaff;
+    public void setShopTel(String ShopTel) {
+        this.ShopTel = ShopTel;
+    }
 
-        public String getGID() {
-            return GID;
-        }
+    public String getShopType() {
+        return ShopType;
+    }
 
-        public void setGID(String GID) {
-            this.GID = GID;
-        }
+    public void setShopType(String ShopType) {
+        this.ShopType = ShopType;
+    }
 
-        public String getShopImg() {
-            return ShopImg;
-        }
+    public String getShopMbers() {
+        return ShopMbers;
+    }
 
-        public void setShopImg(String ShopImg) {
-            this.ShopImg = ShopImg;
-        }
+    public void setShopMbers(String ShopMbers) {
+        this.ShopMbers = ShopMbers;
+    }
 
-        public String getShopName() {
-            return ShopName;
-        }
+    public String getShopGoods() {
+        return ShopGoods;
+    }
 
-        public void setShopName(String ShopName) {
-            this.ShopName = ShopName;
-        }
+    public void setShopGoods(String ShopGoods) {
+        this.ShopGoods = ShopGoods;
+    }
 
-        public String getShopContact() {
-            return ShopContact;
-        }
+    public String getShopUsers() {
+        return ShopUsers;
+    }
 
-        public void setShopContact(String ShopContact) {
-            this.ShopContact = ShopContact;
-        }
+    public void setShopUsers(String ShopUsers) {
+        this.ShopUsers = ShopUsers;
+    }
 
-        public String getShopTel() {
-            return ShopTel;
-        }
+    public String getShopOverTime() {
+        return ShopOverTime;
+    }
 
-        public void setShopTel(String ShopTel) {
-            this.ShopTel = ShopTel;
-        }
+    public void setShopOverTime(String ShopOverTime) {
+        this.ShopOverTime = ShopOverTime;
+    }
 
-        public String getShopType() {
-            return ShopType;
-        }
+    public String getShopCreateTime() {
+        return ShopCreateTime;
+    }
 
-        public void setShopType(String ShopType) {
-            this.ShopType = ShopType;
-        }
+    public void setShopCreateTime(String ShopCreateTime) {
+        this.ShopCreateTime = ShopCreateTime;
+    }
 
-        public String getShopMbers() {
-            return ShopMbers;
-        }
+    public int getSM_SersionLife() {
+        return SM_SersionLife;
+    }
 
-        public void setShopMbers(String ShopMbers) {
-            this.ShopMbers = ShopMbers;
-        }
+    public void setSM_SersionLife(int SM_SersionLife) {
+        this.SM_SersionLife = SM_SersionLife;
+    }
 
-        public String getShopGoods() {
-            return ShopGoods;
-        }
+    public int getShopMaxUsers() {
+        return ShopMaxUsers;
+    }
 
-        public void setShopGoods(String ShopGoods) {
-            this.ShopGoods = ShopGoods;
-        }
+    public void setShopMaxUsers(int ShopMaxUsers) {
+        this.ShopMaxUsers = ShopMaxUsers;
+    }
 
-        public String getShopUsers() {
-            return ShopUsers;
-        }
+    public int getShopMaxProduct() {
+        return ShopMaxProduct;
+    }
 
-        public void setShopUsers(String ShopUsers) {
-            this.ShopUsers = ShopUsers;
-        }
+    public void setShopMaxProduct(int ShopMaxProduct) {
+        this.ShopMaxProduct = ShopMaxProduct;
+    }
 
-        public String getShopOverTime() {
-            return ShopOverTime;
-        }
+    public int getShopMaxVip() {
+        return ShopMaxVip;
+    }
 
-        public void setShopOverTime(String ShopOverTime) {
-            this.ShopOverTime = ShopOverTime;
-        }
+    public void setShopMaxVip(int ShopMaxVip) {
+        this.ShopMaxVip = ShopMaxVip;
+    }
 
-        public String getShopCreateTime() {
-            return ShopCreateTime;
-        }
+    public int getShopMaxStaff() {
+        return ShopMaxStaff;
+    }
 
-        public void setShopCreateTime(String ShopCreateTime) {
-            this.ShopCreateTime = ShopCreateTime;
-        }
+    public void setShopMaxStaff(int ShopMaxStaff) {
+        this.ShopMaxStaff = ShopMaxStaff;
+    }
 
-        public int getSM_SersionLife() {
-            return SM_SersionLife;
-        }
+    public String getSM_Industry() {
+        return SM_Industry;
+    }
 
-        public void setSM_SersionLife(int SM_SersionLife) {
-            this.SM_SersionLife = SM_SersionLife;
-        }
+    public void setSM_Industry(String SM_Industry) {
+        this.SM_Industry = SM_Industry;
+    }
 
-        public int getShopMaxUsers() {
-            return ShopMaxUsers;
-        }
+    public String getSM_Type() {
+        return SM_Type;
+    }
 
-        public void setShopMaxUsers(int ShopMaxUsers) {
-            this.ShopMaxUsers = ShopMaxUsers;
-        }
+    public void setSM_Type(String SM_Type) {
+        this.SM_Type = SM_Type;
+    }
 
-        public int getShopMaxProduct() {
-            return ShopMaxProduct;
-        }
+    public String getSM_DetailAddr() {
+        return SM_DetailAddr;
+    }
 
-        public void setShopMaxProduct(int ShopMaxProduct) {
-            this.ShopMaxProduct = ShopMaxProduct;
-        }
+    public void setSM_DetailAddr(String SM_DetailAddr) {
+        this.SM_DetailAddr = SM_DetailAddr;
+    }
 
-        public int getShopMaxVip() {
-            return ShopMaxVip;
-        }
+    public String getSM_Range() {
+        return SM_Range;
+    }
 
-        public void setShopMaxVip(int ShopMaxVip) {
-            this.ShopMaxVip = ShopMaxVip;
-        }
+    public void setSM_Range(String SM_Range) {
+        this.SM_Range = SM_Range;
+    }
 
-        public int getShopMaxStaff() {
-            return ShopMaxStaff;
-        }
+    public String getSM_BusinessType() {
+        return SM_BusinessType;
+    }
 
-        public void setShopMaxStaff(int ShopMaxStaff) {
-            this.ShopMaxStaff = ShopMaxStaff;
-        }
+    public void setSM_BusinessType(String SM_BusinessType) {
+        this.SM_BusinessType = SM_BusinessType;
+    }
 
-        public String getSM_Industry() {
-            return SM_Industry;
-        }
+    public String getSM_Remark() {
+        return SM_Remark;
+    }
 
-        public void setSM_Industry(String SM_Industry) {
-            this.SM_Industry = SM_Industry;
-        }
-
-        public String getSM_Type() {
-            return SM_Type;
-        }
-
-        public void setSM_Type(String SM_Type) {
-            this.SM_Type = SM_Type;
-        }
-
-        public String getSM_DetailAddr() {
-            return SM_DetailAddr;
-        }
-
-        public void setSM_DetailAddr(String SM_DetailAddr) {
-            this.SM_DetailAddr = SM_DetailAddr;
-        }
-
-        public String getSM_Range() {
-            return SM_Range;
-        }
-
-        public void setSM_Range(String SM_Range) {
-            this.SM_Range = SM_Range;
-        }
-
-        public String getSM_BusinessType() {
-            return SM_BusinessType;
-        }
-
-        public void setSM_BusinessType(String SM_BusinessType) {
-            this.SM_BusinessType = SM_BusinessType;
-        }
-
-        public String getSM_Remark() {
-            return SM_Remark;
-        }
-
-        public void setSM_Remark(String SM_Remark) {
-            this.SM_Remark = SM_Remark;
-        }
+    public void setSM_Remark(String SM_Remark) {
+        this.SM_Remark = SM_Remark;
     }
 }

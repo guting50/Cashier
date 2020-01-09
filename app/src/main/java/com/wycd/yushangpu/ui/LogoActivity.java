@@ -8,8 +8,8 @@ import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
 import com.wycd.yushangpu.http.BaseRes;
+import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
-import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.tools.UpdateAppVersion;
 
 import java.util.Map;
@@ -27,7 +27,7 @@ public class LogoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         RequestParams params = new RequestParams();
         params.put("Type", 3);
-        AsyncHttpUtils.postHttp(ac, HttpAPI.API().GET_NEWS_VERSION, params, new InterfaceBack<BaseRes>() {
+        AsyncHttpUtils.postHttp(ac, HttpAPI.API().GET_NEWS_VERSION, params, new CallBack() {
             @Override
             public void onResponse(BaseRes response) {
                 try {

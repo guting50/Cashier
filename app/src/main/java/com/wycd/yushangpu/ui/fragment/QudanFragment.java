@@ -415,11 +415,10 @@ public class QudanFragment extends Fragment {
                 if (guadanList.getCO_IdentifyingState().equals("1")) {//挂单
                     //解挂接口
                     ImpRevokeGuaDanOrder impRevokeGuaDanOrder = new ImpRevokeGuaDanOrder();
-                    impRevokeGuaDanOrder.revokeGuaDan(homeActivity, guadanList.getGID(), new InterfaceBack() {
+                    impRevokeGuaDanOrder.revokeGuaDan(homeActivity, guadanList.getGID(), new InterfaceBack<RevokeGuaDanBean>() {
                         @Override
-                        public void onResponse(Object response) {
+                        public void onResponse(RevokeGuaDanBean guaDanBean) {
                             homeActivity.dialog.dismiss();
-                            RevokeGuaDanBean guaDanBean = (RevokeGuaDanBean) response;
                             back.onResponse(guaDanBean);
                             HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
                             event.setMsg("Change_color");

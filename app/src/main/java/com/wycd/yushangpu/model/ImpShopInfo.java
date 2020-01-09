@@ -8,6 +8,10 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
+import com.wycd.yushangpu.bean.ShopInfoBean;
+import com.wycd.yushangpu.http.AsyncHttpUtils;
+import com.wycd.yushangpu.http.BaseRes;
+import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.tools.ActivityManager;
@@ -29,99 +33,32 @@ public class ImpShopInfo {
         AsyncHttpClient client = new AsyncHttpClient();
         final PersistentCookieStore myCookieStore = new PersistentCookieStore(ac);
         client.setCookieStore(myCookieStore);
-        RequestParams params = new RequestParams();
 
         String url = HttpAPI.API().GET_SHOP_INFO;
-        LogUtils.d("======== url ======== >>", url);
-        LogUtils.d("======== params ======== >>", params.toString());
-        client.post(url, params, new AsyncHttpResponseHandler() {
+        AsyncHttpUtils.postHttp(ac, url, new CallBack() {
+
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                try {
-                    LogUtils.d("<< ======== " + url + " result ========", new String(responseBody, "UTF-8"));
-                    JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
-                    if (jso.getBoolean("success")) {
-                        back.onResponse(jso);
-                    } else {
-                        if (jso.getString("code").equals("RemoteLogin") || jso.getString("code").equals("LoginTimeout")) {
-                            ActivityManager.getInstance().exit();
-                            Intent intent = new Intent(MyApplication.getContext(), LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            MyApplication.getContext().startActivity(intent);
-                            com.blankj.utilcode.util.ToastUtils.showShort(jso.getString("msg"));
-                            return;
-                        }
-//                        ToastUtils.showToast(ac, jso.getString("msg"));
-                        com.blankj.utilcode.util.ToastUtils.showShort(jso.getString("msg"));
-                        back.onErrorResponse("");
+            public void onResponse(BaseRes response) {
+                ShopInfoBean infoBean = response.getData(ShopInfoBean.class);
+                RequestParams params = new RequestParams();
+
+                String url = HttpAPI.API().GET_SHOPS_INFO;
+                params.put("GID", infoBean.getGID());
+                AsyncHttpUtils.postHttp(ac, url, params, new CallBack() {
+
+                    @Override
+                    public void onResponse(BaseRes response) {
+                        ShopInfoBean tmp = response.getData(ShopInfoBean.class);
+                        infoBean.setSM_Industry(tmp.getSM_Industry());
+                        infoBean.setSM_Type(tmp.getSM_Type());
+                        infoBean.setSM_DetailAddr(tmp.getSM_DetailAddr());
+                        infoBean.setSM_Range(tmp.getSM_Range());
+                        infoBean.setSM_BusinessType(tmp.getSM_BusinessType());
+                        infoBean.setSM_Remark(tmp.getSM_Remark());
+                        back.onResponse(infoBean);
                     }
-                } catch (Exception e) {
-//                    ToastUtils.showToast(ac, "获取店铺信息失败");
-//                    com.blankj.utilcode.util.ToastUtils.showShort("获取店铺信息失败");
-                    back.onErrorResponse("");
-                }
+                });
             }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-//                ToastUtils.showToast(ac, "获取店铺信息失败");
-                com.blankj.utilcode.util.ToastUtils.showShort("获取店铺信息失败");
-                LogUtils.d("xxerror", error.getMessage());
-                back.onErrorResponse("");
-
-            }
-
-        });
-    }
-
-    public void shopInfos(final Activity ac, String PT_GID, final InterfaceBack back) {
-        // TODO 自动生成的方法存根
-        AsyncHttpClient client = new AsyncHttpClient();
-        final PersistentCookieStore myCookieStore = new PersistentCookieStore(ac);
-        client.setCookieStore(myCookieStore);
-        RequestParams params = new RequestParams();
-
-        String url = HttpAPI.API().GET_SHOPS_INFO;
-        params.put("GID", PT_GID);
-        LogUtils.d("======== url ======== >>", url);
-        LogUtils.d("======== params ======== >>", params.toString());
-        client.post(url, params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                try {
-                    LogUtils.d("<< ======== " + url + " result ========", new String(responseBody, "UTF-8"));
-                    JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
-                    if (jso.getBoolean("success")) {
-                        back.onResponse(jso);
-                    } else {
-                        if (jso.getString("code").equals("RemoteLogin") || jso.getString("code").equals("LoginTimeout")) {
-                            ActivityManager.getInstance().exit();
-                            Intent intent = new Intent(MyApplication.getContext(), LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            MyApplication.getContext().startActivity(intent);
-                            com.blankj.utilcode.util.ToastUtils.showShort(jso.getString("msg"));
-                            return;
-                        }
-//                        ToastUtils.showToast(ac, jso.getString("msg"));
-                        com.blankj.utilcode.util.ToastUtils.showShort(jso.getString("msg"));
-                        back.onErrorResponse("");
-                    }
-                } catch (Exception e) {
-//                    ToastUtils.showToast(ac, "获取店铺信息失败");
-//                    com.blankj.utilcode.util.ToastUtils.showShort("获取店铺信息失败");
-                    back.onErrorResponse("");
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-//                ToastUtils.showToast(ac, "获取店铺信息失败");
-                com.blankj.utilcode.util.ToastUtils.showShort("获取店铺信息失败");
-                LogUtils.d("xxerror", error.getMessage());
-                back.onErrorResponse("");
-
-            }
-
         });
     }
 }

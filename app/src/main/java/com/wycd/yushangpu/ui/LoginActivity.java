@@ -21,8 +21,8 @@ import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.LoginBean;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
 import com.wycd.yushangpu.http.BaseRes;
+import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
-import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpPreLoading;
 import com.wycd.yushangpu.tools.GlideTransform;
 import com.wycd.yushangpu.tools.KeyBoardHelper;
@@ -129,7 +129,7 @@ public class LoginActivity extends BaseActivity {
                     if (!TextUtils.isEmpty(mVerificationCode.getText()))
                         params.put("VerifyCode", mVerificationCode.getText().toString());
                     String url = HttpAPI.API().LOGIN;
-                    AsyncHttpUtils.postHttp(ac, url, params, new InterfaceBack<BaseRes>() {
+                    AsyncHttpUtils.postHttp(ac, url, params, new CallBack() {
 
                         @Override
                         public void onResponse(BaseRes response) {
@@ -179,7 +179,7 @@ public class LoginActivity extends BaseActivity {
         ((View) ivCode.getParent()).setVisibility(View.VISIBLE);
 
         String url = HttpAPI.API().GET_CODE;
-        AsyncHttpUtils.postHttp(ac, url, new InterfaceBack<BaseRes>() {
+        AsyncHttpUtils.postHttp(ac, url, new CallBack() {
             @Override
             public void onResponse(BaseRes response) {
                 BASE64Decoder decoder = new BASE64Decoder();
