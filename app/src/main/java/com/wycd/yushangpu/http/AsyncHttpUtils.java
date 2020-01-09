@@ -22,6 +22,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.util.HashMap;
 
 import cz.msebera.android.httpclient.Header;
 

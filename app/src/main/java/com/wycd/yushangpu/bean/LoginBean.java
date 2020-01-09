@@ -7,7 +7,7 @@ import java.util.List;
  * Created by ZPH on 2019-06-19.
  */
 
-public class LoginBean  implements Serializable{
+public class LoginBean implements Serializable {
 
 
     /**
@@ -54,7 +54,7 @@ public class LoginBean  implements Serializable{
         this.data = data;
     }
 
-    public static class DataBean implements Serializable{
+    public static class DataBean implements Serializable {
         /**
          * UM_OriginalAccount : 18328578333
          * AuthorityList : []
@@ -139,7 +139,7 @@ public class LoginBean  implements Serializable{
         private Object RM_Name;
         private Object UM_State;
         private String UM_ChatHead;
-        private List<?> AuthorityList;
+        private List<Authority> AuthorityList;
         private List<ShopListBean> ShopList;
         private List<MenuInfoListBean> MenuInfoList;
         private String SessionId;
@@ -465,11 +465,11 @@ public class LoginBean  implements Serializable{
             this.UM_ChatHead = UM_ChatHead;
         }
 
-        public List<?> getAuthorityList() {
+        public List<Authority> getAuthorityList() {
             return AuthorityList;
         }
 
-        public void setAuthorityList(List<?> AuthorityList) {
+        public void setAuthorityList(List<Authority> AuthorityList) {
             this.AuthorityList = AuthorityList;
         }
 
@@ -489,7 +489,123 @@ public class LoginBean  implements Serializable{
             this.MenuInfoList = MenuInfoList;
         }
 
-        public static class AgentsBean implements Serializable{
+        public static class Authority implements Serializable {
+            /**
+             * GID : 82bbf598-30a0-48ac-aca2-77f3224edde8
+             * MM_Name : 首页统计表
+             * MM_Sort : 1
+             * MM_Code : AU001
+             * MM_ParentID : e27027d3-1850-401e-ab9e-fc112b2a03b7
+             * MM_Type : 2
+             * MM_LinkUrl :
+             * MM_Icon :
+             * MM_Remark : null
+             * MM_CreateTime : null
+             * MM_Creator : null
+             */
+
+            private String GID;
+            private String MM_Name;
+            private int MM_Sort;
+            private String MM_Code;
+            private String MM_ParentID;
+            private int MM_Type;
+            private String MM_LinkUrl;
+            private String MM_Icon;
+            private Object MM_Remark;
+            private Object MM_CreateTime;
+            private Object MM_Creator;
+
+            public String getGID() {
+                return GID;
+            }
+
+            public void setGID(String GID) {
+                this.GID = GID;
+            }
+
+            public String getMM_Name() {
+                return MM_Name;
+            }
+
+            public void setMM_Name(String MM_Name) {
+                this.MM_Name = MM_Name;
+            }
+
+            public int getMM_Sort() {
+                return MM_Sort;
+            }
+
+            public void setMM_Sort(int MM_Sort) {
+                this.MM_Sort = MM_Sort;
+            }
+
+            public String getMM_Code() {
+                return MM_Code;
+            }
+
+            public void setMM_Code(String MM_Code) {
+                this.MM_Code = MM_Code;
+            }
+
+            public String getMM_ParentID() {
+                return MM_ParentID;
+            }
+
+            public void setMM_ParentID(String MM_ParentID) {
+                this.MM_ParentID = MM_ParentID;
+            }
+
+            public int getMM_Type() {
+                return MM_Type;
+            }
+
+            public void setMM_Type(int MM_Type) {
+                this.MM_Type = MM_Type;
+            }
+
+            public String getMM_LinkUrl() {
+                return MM_LinkUrl;
+            }
+
+            public void setMM_LinkUrl(String MM_LinkUrl) {
+                this.MM_LinkUrl = MM_LinkUrl;
+            }
+
+            public String getMM_Icon() {
+                return MM_Icon;
+            }
+
+            public void setMM_Icon(String MM_Icon) {
+                this.MM_Icon = MM_Icon;
+            }
+
+            public Object getMM_Remark() {
+                return MM_Remark;
+            }
+
+            public void setMM_Remark(Object MM_Remark) {
+                this.MM_Remark = MM_Remark;
+            }
+
+            public Object getMM_CreateTime() {
+                return MM_CreateTime;
+            }
+
+            public void setMM_CreateTime(Object MM_CreateTime) {
+                this.MM_CreateTime = MM_CreateTime;
+            }
+
+            public Object getMM_Creator() {
+                return MM_Creator;
+            }
+
+            public void setMM_Creator(Object MM_Creator) {
+                this.MM_Creator = MM_Creator;
+            }
+        }
+
+        public static class AgentsBean implements Serializable {
             /**
              * GID : PlatformUser
              * AG_Name : 云上铺
@@ -595,7 +711,7 @@ public class LoginBean  implements Serializable{
             }
         }
 
-        public static class ShopListBean  implements Serializable{
+        public static class ShopListBean implements Serializable {
             /**
              * SM_MaxVip : 10000
              * SM_MaxProduct : 10000
@@ -1081,7 +1197,7 @@ public class LoginBean  implements Serializable{
             }
         }
 
-        public static class MenuInfoListBean  implements Serializable{
+        public static class MenuInfoListBean implements Serializable {
             /**
              * GID : 44c5a445-ac4e-47aa-8efa-984aac438a8e
              * MM_Name : 公众号授权

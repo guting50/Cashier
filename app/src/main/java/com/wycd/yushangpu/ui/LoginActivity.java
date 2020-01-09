@@ -110,7 +110,6 @@ public class LoginActivity extends BaseActivity {
                 layout_content.getLocationInWindow(location);
                 layout_content.getLocationOnScreen(location);
                 bottomHeight = ((View) layout_content.getParent()).getHeight() - location[1] - layout_content.getHeight();
-                Log.i("vlog", "=================bottomHeight:" + bottomHeight);
             }
         });
 

@@ -38,13 +38,13 @@ public class LogoActivity extends BaseActivity {
                     String version = response.getData().get("VA_Version").toString();
                     if (Double.parseDouble(version) > packageInfo.versionCode) {
                         VERSION_ADDRESS = MyApplication.CTMONEY_URL + response.getData().get("VA_VersionAddress").toString();
-                        if (Integer.parseInt(response.getData().get("VA_UpdateMechanism").toString()) == 0) {
+                        if (Double.parseDouble(response.getData().get("VA_UpdateMechanism").toString()) == 0) {
                             //自动升级
                             UpdateAppVersion.UpdateInfoRes updateInfoBean = new UpdateAppVersion.UpdateInfoRes();
                             updateInfoBean.setContent(response.getData().get("VA_Remark").toString());
                             updateInfoBean.setCurrentversion(Double.parseDouble(version));
                             updateInfoBean.setMinversionrequire(Double.parseDouble(version));
-                            updateInfoBean.setCurrentversiondesc(response.getData().get("VA_VersionName").toString());
+                            //updateInfoBean.setCurrentversiondesc(response.getData().get("VA_VersionName").toString());
                             updateInfoBean.setUrl(VERSION_ADDRESS);
                             new UpdateAppVersion(LogoActivity.this, updateInfoBean, new UpdateAppVersion.OnUpdateVersionBackListener() {
                                 @Override

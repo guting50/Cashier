@@ -1,5 +1,7 @@
 package com.wycd.yushangpu.http;
 
+import com.google.gson.Gson;
+
 public class BaseRes<T> {
     private boolean success;
     private String code;
@@ -33,6 +35,12 @@ public class BaseRes<T> {
     public T getData() {
         return data;
     }
+
+    public T getData(Class<T> aa) {
+        T t = new Gson().fromJson(data.toString(), aa);
+        return t;
+    }
+
 
     public void setData(T data) {
         this.data = data;

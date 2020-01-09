@@ -160,14 +160,14 @@ public class ImpSubmitOrder {
                         }
 //                        ToastUtils.showToast(ac, jso.getString("msg"));
                         com.blankj.utilcode.util.ToastUtils.showShort(jso.getString("msg"));
-                        back.onErrorResponse("");
+                        back.onErrorResponse(jso.getString("msg"));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                     LogUtils.d("xxorderE", e.getMessage());
 //                    ToastUtils.showToast(ac, "提交订单失败");
 //                    com.blankj.utilcode.util.ToastUtils.showShort("提交订单失败");
-                    back.onErrorResponse("");
+                    back.onErrorResponse(e.getMessage());
                 }
             }
 
