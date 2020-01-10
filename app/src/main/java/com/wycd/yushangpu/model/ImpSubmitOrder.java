@@ -45,7 +45,7 @@ public class ImpSubmitOrder {
             params.put("Goods[" + i + "][PM_Discount]", shoplist.get(i).getPD_Discount());//折扣后的单价除以原价
         }
         String url = HttpAPI.API().GOODS_CONSUME_SUB;
-        AsyncHttpUtils.postHttp(ac, url, params, new CallBack() {
+        AsyncHttpUtils.postHttp(url, params, new CallBack() {
             @Override
             public void onResponse(BaseRes response) {
                 back.onResponse(response.getData(OrderCanshhu.class));
@@ -87,7 +87,7 @@ public class ImpSubmitOrder {
         }
         String url = HttpAPI.API().GOODS_CONSUME_GUADAN;
 
-        AsyncHttpUtils.postHttp(ac, url, params, new CallBack() {
+        AsyncHttpUtils.postHttp(url, params, new CallBack() {
             @Override
             public void onResponse(BaseRes response) {
                 back.onResponse(response.getData(OrderCanshhu.class));
@@ -120,7 +120,7 @@ public class ImpSubmitOrder {
 
         String url = HttpAPI.API().GOODS_CELERITY_SUB;
 
-        AsyncHttpUtils.postHttp(ac, url, params, new CallBack() {
+        AsyncHttpUtils.postHttp(url, params, new CallBack() {
             @Override
             public void onResponse(BaseRes response) {
                 back.onResponse(response.getData(OrderCanshhu.class));
@@ -141,7 +141,7 @@ public class ImpSubmitOrder {
 
         String url = HttpAPI.API().CLOSE_GUADAN_ORDER;
 
-        AsyncHttpUtils.postHttp(ac, url, params, new CallBack() {
+        AsyncHttpUtils.postHttp(url, params, new CallBack() {
             @Override
             public void onResponse(BaseRes response) {
                 back.onResponse(response);

@@ -129,7 +129,7 @@ public class LoginActivity extends BaseActivity {
                     if (!TextUtils.isEmpty(mVerificationCode.getText()))
                         params.put("VerifyCode", mVerificationCode.getText().toString());
                     String url = HttpAPI.API().LOGIN;
-                    AsyncHttpUtils.postHttp(ac, url, params, new CallBack() {
+                    AsyncHttpUtils.postHttp(url, params, new CallBack() {
 
                         @Override
                         public void onResponse(BaseRes response) {
@@ -148,7 +148,7 @@ public class LoginActivity extends BaseActivity {
                             startActivity(new Intent(ac, HomeActivity.class));
                             finish();
 
-                            ImpPreLoading.preLoad(ac);
+                            ImpPreLoading.preLoad();
                         }
 
                         @Override
@@ -179,7 +179,7 @@ public class LoginActivity extends BaseActivity {
         ((View) ivCode.getParent()).setVisibility(View.VISIBLE);
 
         String url = HttpAPI.API().GET_CODE;
-        AsyncHttpUtils.postHttp(ac, url, new CallBack() {
+        AsyncHttpUtils.postHttp(url, new CallBack() {
             @Override
             public void onResponse(BaseRes response) {
                 BASE64Decoder decoder = new BASE64Decoder();

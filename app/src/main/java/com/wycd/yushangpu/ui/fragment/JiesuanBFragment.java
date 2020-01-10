@@ -844,7 +844,7 @@ public class JiesuanBFragment extends Fragment {
      * 获取短信开关
      */
     private void getSmsSet(final String code) {
-        AsyncHttpUtils.postHttp(context, HttpAPI.API().SMS_LIST, new CallBack() {
+        AsyncHttpUtils.postHttp(HttpAPI.API().SMS_LIST, new CallBack() {
             @Override
             public void onResponse(BaseRes response) {
                 SmsSwitch bean = response.getData(SmsSwitch.class);

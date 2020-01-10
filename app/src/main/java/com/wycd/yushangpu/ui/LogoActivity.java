@@ -27,7 +27,7 @@ public class LogoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         RequestParams params = new RequestParams();
         params.put("Type", 3);
-        AsyncHttpUtils.postHttp(ac, HttpAPI.API().GET_NEWS_VERSION, params, new CallBack() {
+        AsyncHttpUtils.postHttp(HttpAPI.API().GET_NEWS_VERSION, params, new CallBack() {
             @Override
             public void onResponse(BaseRes response) {
                 try {

@@ -260,7 +260,7 @@ public class PrintSetFragment extends Fragment {
         mPrintMap.put("SPXF", "1");
         mPrintMap.put("JB", "1");
 
-        AsyncHttpUtils.postHttp(getActivity(), HttpAPI.API().GET_PRINT_SET, new CallBack() {
+        AsyncHttpUtils.postHttp(HttpAPI.API().GET_PRINT_SET, new CallBack() {
             @Override
             public void onResponse(BaseRes response) {
                 mPrintSetBean = response.getData(PrintSetBean.class);
@@ -339,10 +339,10 @@ public class PrintSetFragment extends Fragment {
                         i++;
                     }
 
-                    AsyncHttpUtils.postHttp(getActivity(), HttpAPI.API().EDIT_PRINT_SET, params, new CallBack() {
+                    AsyncHttpUtils.postHttp(HttpAPI.API().EDIT_PRINT_SET, params, new CallBack() {
                         @Override
                         public void onResponse(BaseRes response) {
-                            ImpPreLoading.preLoad(getActivity());
+                            ImpPreLoading.preLoad();
                             NoticeDialog.noticeDialog(getActivity(), "设置", "打印设置保存成功!", 1, new InterfaceBack() {
                                 @Override
                                 public void onResponse(Object response) {

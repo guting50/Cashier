@@ -1,6 +1,5 @@
 package com.wycd.yushangpu.http;
 
-import android.content.Context;
 import android.content.Intent;
 
 import com.google.gson.Gson;
@@ -26,24 +25,14 @@ import cz.msebera.android.httpclient.Header;
 public class AsyncHttpUtils {
 
     public static void postHttp(String url, CallBack back) {
-        postHttp(null, url, back);
+        RequestParams params = new RequestParams();
+        postHttp(url, params, back);
     }
 
     public static void postHttp(String url, RequestParams map, CallBack back) {
-        postHttp(null, url, map, back);
-    }
-
-    public static void postHttp(Context ac, String url, CallBack back) {
-        RequestParams params = new RequestParams();
-        postHttp(ac, url, params, back);
-    }
-
-    public static void postHttp(Context ac, String url, RequestParams map, CallBack back) {
         AsyncHttpClient client = new AsyncHttpClient();
-        if (ac != null) {
-            final PersistentCookieStore myCookieStore = new PersistentCookieStore(ac);
-            client.setCookieStore(myCookieStore);
-        }
+        final PersistentCookieStore myCookieStore = new PersistentCookieStore(MyApplication.getContext());
+        client.setCookieStore(myCookieStore);
         LogUtils.d("======== url ======== >>>", url);
         LogUtils.d("======== params ======== >>>", new Gson().toJson(map));
         client.post(url, map, new AsyncHttpResponseHandler() {

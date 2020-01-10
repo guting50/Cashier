@@ -60,7 +60,7 @@ public class ImpOrderPay {
                 break;
         }
 
-        AsyncHttpUtils.postHttp(ac, url, params, new CallBack() {
+        AsyncHttpUtils.postHttp(url, params, new CallBack() {
             @Override
             public void onResponse(BaseRes response) {
                 back.onResponse(response.getData(SPXFSuccessBean.class).getGID());

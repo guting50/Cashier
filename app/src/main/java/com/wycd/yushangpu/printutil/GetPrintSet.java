@@ -50,7 +50,7 @@ public class GetPrintSet {
         mContext = MyApplication.getContext();
 
         String url = HttpAPI.API().GET_PRINT_TEMP;
-        AsyncHttpUtils.postHttp(MyApplication.getContext(), url, new CallBack() {
+        AsyncHttpUtils.postHttp(url, new CallBack() {
             @Override
             public void onResponse(BaseRes response) {
                 Type type = new TypeToken<List<PrintParamSetBean>>() {
@@ -345,7 +345,7 @@ public class GetPrintSet {
      */
     public static void getPrintSet() {
         String url = HttpAPI.API().GET_PRINT_SET;
-        AsyncHttpUtils.postHttp(MyApplication.getContext(), url, new CallBack() {
+        AsyncHttpUtils.postHttp(url, new CallBack() {
             @Override
             public void onResponse(BaseRes response) {
                 PrintSetBean printSetBean = response.getData(PrintSetBean.class);

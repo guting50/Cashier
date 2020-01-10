@@ -423,7 +423,7 @@ public class QudanFragment extends Fragment {
                     RequestParams params = new RequestParams();
                     params.put("GID", guadanList.getGID());
                     String url = HttpAPI.API().REVOKE_GUADAN;
-                    AsyncHttpUtils.postHttp(homeActivity, url, params, new CallBack() {
+                    AsyncHttpUtils.postHttp(url, params, new CallBack() {
                         @Override
                         public void onResponse(BaseRes response) {
                             homeActivity.dialog.dismiss();

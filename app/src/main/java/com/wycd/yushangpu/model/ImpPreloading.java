@@ -17,8 +17,8 @@ import com.wycd.yushangpu.http.HttpAPI;
 public class ImpPreLoading {
     public static ReportMessageBean REPORT_BEAN;
 
-    public static void preLoad(final Activity ac) {
-        AsyncHttpUtils.postHttp(ac, HttpAPI.API().PRE_LOAD, new CallBack() {
+    public static void preLoad() {
+        AsyncHttpUtils.postHttp(HttpAPI.API().PRE_LOAD, new CallBack() {
             @Override
             public void onResponse(BaseRes response) {
                 REPORT_BEAN = response.getData(ReportMessageBean.class);

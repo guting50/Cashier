@@ -1608,7 +1608,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
     public void getShopInfo() {
         ImpShopInfo impShopInfo = new ImpShopInfo();
-        impShopInfo.shopInfo(ac, new InterfaceBack<ShopInfoBean>() {
+        impShopInfo.shopInfo(new InterfaceBack<ShopInfoBean>() {
             @Override
             public void onResponse(ShopInfoBean response) {
                 shopInfoBean = response;
