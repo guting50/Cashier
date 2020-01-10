@@ -3,7 +3,6 @@ package com.wycd.yushangpu.tools;
 import com.gprinter.command.EscCommand;
 import com.gprinter.command.LabelCommand;
 import com.wycd.yushangpu.bean.ShopMsg;
-import com.wycd.yushangpu.printutil.Decima2KeeplUtil;
 
 import java.util.Vector;
 

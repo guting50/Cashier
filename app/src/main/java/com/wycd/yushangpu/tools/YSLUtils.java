@@ -1,4 +1,4 @@
-package com.wycd.yushangpu.printutil;
+package com.wycd.yushangpu.tools;
 
 import com.wycd.yushangpu.bean.SmsSwitch;
 import com.wycd.yushangpu.tools.CacheData;

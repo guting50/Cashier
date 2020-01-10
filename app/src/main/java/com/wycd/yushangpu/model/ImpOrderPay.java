@@ -1,28 +1,19 @@
 package com.wycd.yushangpu.model;
 
 import android.app.Activity;
-import android.content.Intent;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
-import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.bean.OrderPayResult;
 import com.wycd.yushangpu.bean.PayType;
+import com.wycd.yushangpu.http.AsyncHttpUtils;
+import com.wycd.yushangpu.http.BaseRes;
+import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.printutil.Decima2KeeplUtil;
-import com.wycd.yushangpu.tools.ActivityManager;
-import com.wycd.yushangpu.tools.LogUtils;
-import com.wycd.yushangpu.ui.LoginActivity;
+import com.wycd.yushangpu.tools.Decima2KeeplUtil;
 import com.wycd.yushangpu.ui.fragment.JiesuanBFragment;
 
-import org.json.JSONObject;
-
 import java.util.List;
-
-import cz.msebera.android.httpclient.Header;
 
 import static com.wycd.yushangpu.MyApplication.shortMessage;
 
@@ -30,9 +21,6 @@ public class ImpOrderPay {
     public void orderpay(final Activity ac, String OrderGID, OrderPayResult orderPayResult, JiesuanBFragment.OrderType orderType,
                          final InterfaceBack back) {
         // TODO 自动生成的方法存根
-        AsyncHttpClient client = new AsyncHttpClient();
-        final PersistentCookieStore myCookieStore = new PersistentCookieStore(ac);
-        client.setCookieStore(myCookieStore);
         RequestParams params = new RequestParams();
 //        OrderGID	订单GID	String
 //        PayResult	收银台信息	OrderPayResult
@@ -72,44 +60,16 @@ public class ImpOrderPay {
                 break;
         }
 
-        LogUtils.d("xxparams", params.toString());
-        LogUtils.d("xxurl", url);
-        LogUtils.d("params", params.toString());
-        client.post(url, params, new AsyncHttpResponseHandler() {
+        AsyncHttpUtils.postHttp(ac, url, params, new CallBack() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                try {
-                    LogUtils.d("xxorderpayS", new String(responseBody, "UTF-8"));
-                    JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
-
-                    if (jso.getBoolean("success")) {
-                        back.onResponse(jso.toString());
-                    } else {
-                        if (jso.getString("code").equals("RemoteLogin") || jso.getString("code").equals("LoginTimeout")) {
-                            ActivityManager.getInstance().exit();
-                            Intent intent = new Intent(MyApplication.getContext(), LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            MyApplication.getContext().startActivity(intent);
-                            com.blankj.utilcode.util.ToastUtils.showShort(jso.getString("msg"));
-                            return;
-                        }
-//                        ToastUtils.showToast(ac, jso.getString("msg"));
-                        com.blankj.utilcode.util.ToastUtils.showShort(jso.getString("msg"));
-                        back.onErrorResponse("");
-                    }
-                } catch (Exception e) {
-                    LogUtils.d("xxorderpayE", e.getMessage());
-//                    ToastUtils.showToast(ac, "订单支付失败");
-//                    com.blankj.utilcode.util.ToastUtils.showShort("订单支付失败");
-                    back.onErrorResponse("");
-                }
+            public void onResponse(BaseRes response) {
+                back.onResponse(response.getData(SPXFSuccessBean.class).getGID());
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-//                ToastUtils.showToast(ac, "订单支付失败");
-                com.blankj.utilcode.util.ToastUtils.showShort("订单支付失败");
-                back.onErrorResponse("");
+            public void onErrorResponse(Object msg) {
+                super.onErrorResponse(msg);
+                back.onErrorResponse(msg);
             }
         });
     }

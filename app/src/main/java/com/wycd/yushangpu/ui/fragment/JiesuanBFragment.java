@@ -36,14 +36,14 @@ import com.wycd.yushangpu.http.VolleyResponse;
 import com.wycd.yushangpu.model.ImpOrderPay;
 import com.wycd.yushangpu.model.ImpPreLoading;
 import com.wycd.yushangpu.model.ImpSaoma;
-import com.wycd.yushangpu.printutil.YSLUtils;
-import com.wycd.yushangpu.printutil.bean.SPXF_Success_Bean;
+import com.wycd.yushangpu.model.SPXFSuccessBean;
 import com.wycd.yushangpu.tools.CacheData;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.LogUtils;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.StringUtil;
+import com.wycd.yushangpu.tools.YSLUtils;
 import com.wycd.yushangpu.widget.NumInputView;
 import com.wycd.yushangpu.widget.NumKeyboardUtils;
 import com.wycd.yushangpu.widget.dialog.LoadingDialog;
@@ -434,14 +434,11 @@ public class JiesuanBFragment extends Fragment {
                     obtainOrderPayResult();
                     dialog.show();
                     ImpOrderPay orderPay = new ImpOrderPay();
-                    orderPay.orderpay(context, GID, result, orderType, new InterfaceBack() {
+                    orderPay.orderpay(context, GID, result, orderType, new InterfaceBack<String>() {
                         @Override
-                        public void onResponse(Object response) {
-                            String responseString = (String) response;
-                            Gson gson = new Gson();
-                            final SPXF_Success_Bean spxf_success_bean = gson.fromJson(responseString, SPXF_Success_Bean.class);
+                        public void onResponse(String response) {
                             dialog.dismiss();
-                            back.onResponse(spxf_success_bean.getData().getGID());
+                            back.onResponse(response);
                         }
 
                         @Override

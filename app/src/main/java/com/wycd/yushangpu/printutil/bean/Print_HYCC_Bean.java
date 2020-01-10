@@ -7,8 +7,7 @@ import java.util.List;
  * date: 2017/8/2 19:49
  * email：jasoncheng9111@gmail.com
  */
-public class Print_HYCC_Bean
-{
+public class Print_HYCC_Bean {
 
     /**
      * success : true
@@ -28,24 +27,39 @@ public class Print_HYCC_Bean
     private String msg;
     private DataBean data;
 
-    public boolean isSuccess() { return success;}
+    public boolean isSuccess() {
+        return success;
+    }
 
-    public void setSuccess(boolean success) { this.success = success;}
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
 
-    public Object getCode() { return code;}
+    public Object getCode() {
+        return code;
+    }
 
-    public void setCode(Object code) { this.code = code;}
+    public void setCode(Object code) {
+        this.code = code;
+    }
 
-    public String getMsg() { return msg;}
+    public String getMsg() {
+        return msg;
+    }
 
-    public void setMsg(String msg) { this.msg = msg;}
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 
-    public DataBean getData() { return data;}
+    public DataBean getData() {
+        return data;
+    }
 
-    public void setData(DataBean data) { this.data = data;}
+    public void setData(DataBean data) {
+        this.data = data;
+    }
 
-    public static class DataBean
-    {
+    public static class DataBean {
         /**
          * Cashier : 18986810706
          * CheckoutDate : 0001-01-01 00:00:00
@@ -105,6 +119,7 @@ public class Print_HYCC_Bean
         public void setEMName(String EMName) {
             this.EMName = EMName;
         }
+
         public String getVIP_FaceNumber() {
             return VIP_FaceNumber;
         }
@@ -137,96 +152,183 @@ public class Print_HYCC_Bean
         private String PayInfo;
         private List<ServiceListBean> ServiceList;
 
-        public String getCashier() { return Cashier;}
+        public String getCashier() {
+            return Cashier;
+        }
 
-        public void setCashier(String Cashier) { this.Cashier = Cashier;}
+        public void setCashier(String Cashier) {
+            this.Cashier = Cashier;
+        }
 
-        public String getCheckoutDate() { return CheckoutDate;}
+        public String getCheckoutDate() {
+            return CheckoutDate;
+        }
 
-        public void setCheckoutDate(String CheckoutDate) { this.CheckoutDate = CheckoutDate;}
+        public void setCheckoutDate(String CheckoutDate) {
+            this.CheckoutDate = CheckoutDate;
+        }
 
-        public String getOrderCode() { return OrderCode;}
+        public String getOrderCode() {
+            return OrderCode;
+        }
 
-        public void setOrderCode(String OrderCode) { this.OrderCode = OrderCode;}
+        public void setOrderCode(String OrderCode) {
+            this.OrderCode = OrderCode;
+        }
 
-        public Object getActivityName() { return ActivityName;}
+        public Object getActivityName() {
+            return ActivityName;
+        }
 
-        public void setActivityName(Object ActivityName) { this.ActivityName = ActivityName;}
+        public void setActivityName(Object ActivityName) {
+            this.ActivityName = ActivityName;
+        }
 
-        public Object getActivityValue() { return ActivityValue;}
+        public Object getActivityValue() {
+            return ActivityValue;
+        }
 
-        public void setActivityValue(Object ActivityValue) { this.ActivityValue = ActivityValue;}
+        public void setActivityValue(Object ActivityValue) {
+            this.ActivityValue = ActivityValue;
+        }
 
-        public double getIntegralAdd() { return IntegralAdd;}
+        public double getIntegralAdd() {
+            return IntegralAdd;
+        }
 
-        public void setIntegralAdd(double IntegralAdd) { this.IntegralAdd = IntegralAdd;}
+        public void setIntegralAdd(double IntegralAdd) {
+            this.IntegralAdd = IntegralAdd;
+        }
 
-        public double getIntegralDeduct() { return IntegralDeduct;}
+        public double getIntegralDeduct() {
+            return IntegralDeduct;
+        }
 
-        public void setIntegralDeduct(double IntegralDeduct) { this.IntegralDeduct = IntegralDeduct;}
+        public void setIntegralDeduct(double IntegralDeduct) {
+            this.IntegralDeduct = IntegralDeduct;
+        }
 
-        public double getYSMoney() { return YSMoney;}
+        public double getYSMoney() {
+            return YSMoney;
+        }
 
-        public void setYSMoney(double YSMoney) { this.YSMoney = YSMoney;}
+        public void setYSMoney(double YSMoney) {
+            this.YSMoney = YSMoney;
+        }
 
-        public double getSSMoney() { return SSMoney;}
+        public double getSSMoney() {
+            return SSMoney;
+        }
 
-        public void setSSMoney(double SSMoney) { this.SSMoney = SSMoney;}
+        public void setSSMoney(double SSMoney) {
+            this.SSMoney = SSMoney;
+        }
 
-        public double getZLMoney() { return ZLMoney;}
+        public double getZLMoney() {
+            return ZLMoney;
+        }
 
-        public void setZLMoney(double ZLMoney) { this.ZLMoney = ZLMoney;}
+        public void setZLMoney(double ZLMoney) {
+            this.ZLMoney = ZLMoney;
+        }
 
-        public String getVCH_Card() { return VCH_Card;}
+        public String getVCH_Card() {
+            return VCH_Card;
+        }
 
-        public void setVCH_Card(String VCH_Card) { this.VCH_Card = VCH_Card;}
+        public void setVCH_Card(String VCH_Card) {
+            this.VCH_Card = VCH_Card;
+        }
 
-        public String getVIP_Name() { return VIP_Name;}
+        public String getVIP_Name() {
+            return VIP_Name;
+        }
 
-        public void setVIP_Name(String VIP_Name) { this.VIP_Name = VIP_Name;}
+        public void setVIP_Name(String VIP_Name) {
+            this.VIP_Name = VIP_Name;
+        }
 
-        public double getVCH_Money() { return VCH_Money;}
+        public double getVCH_Money() {
+            return VCH_Money;
+        }
 
-        public void setVCH_Money(double VCH_Money) { this.VCH_Money = VCH_Money;}
+        public void setVCH_Money(double VCH_Money) {
+            this.VCH_Money = VCH_Money;
+        }
 
-        public double getVCH_Point() { return VCH_Point;}
+        public double getVCH_Point() {
+            return VCH_Point;
+        }
 
-        public void setVCH_Point(double VCH_Point) { this.VCH_Point = VCH_Point;}
+        public void setVCH_Point(double VCH_Point) {
+            this.VCH_Point = VCH_Point;
+        }
 
-        public Object getGoodsList() { return GoodsList;}
+        public Object getGoodsList() {
+            return GoodsList;
+        }
 
-        public void setGoodsList(Object GoodsList) { this.GoodsList = GoodsList;}
+        public void setGoodsList(Object GoodsList) {
+            this.GoodsList = GoodsList;
+        }
 
-        public Object getGiftList() { return GiftList;}
+        public Object getGiftList() {
+            return GiftList;
+        }
 
-        public void setGiftList(Object GiftList) { this.GiftList = GiftList;}
+        public void setGiftList(Object GiftList) {
+            this.GiftList = GiftList;
+        }
 
-        public double getConsumeMoney() { return ConsumeMoney;}
+        public double getConsumeMoney() {
+            return ConsumeMoney;
+        }
 
-        public void setConsumeMoney(double ConsumeMoney) { this.ConsumeMoney = ConsumeMoney;}
+        public void setConsumeMoney(double ConsumeMoney) {
+            this.ConsumeMoney = ConsumeMoney;
+        }
 
-        public double getDiscount() { return Discount;}
+        public double getDiscount() {
+            return Discount;
+        }
 
-        public void setDiscount(double Discount) { this.Discount = Discount;}
+        public void setDiscount(double Discount) {
+            this.Discount = Discount;
+        }
 
-        public double getGiveMoney() { return GiveMoney;}
+        public double getGiveMoney() {
+            return GiveMoney;
+        }
 
-        public void setGiveMoney(double GiveMoney) { this.GiveMoney = GiveMoney;}
+        public void setGiveMoney(double GiveMoney) {
+            this.GiveMoney = GiveMoney;
+        }
 
-        public double getRechargeTotal() { return RechargeTotal;}
+        public double getRechargeTotal() {
+            return RechargeTotal;
+        }
 
-        public void setRechargeTotal(double RechargeTotal) { this.RechargeTotal = RechargeTotal;}
+        public void setRechargeTotal(double RechargeTotal) {
+            this.RechargeTotal = RechargeTotal;
+        }
 
-        public double getExchangeNum() { return ExchangeNum;}
+        public double getExchangeNum() {
+            return ExchangeNum;
+        }
 
-        public void setExchangeNum(double ExchangeNum) { this.ExchangeNum = ExchangeNum;}
+        public void setExchangeNum(double ExchangeNum) {
+            this.ExchangeNum = ExchangeNum;
+        }
 
-        public List<ServiceListBean> getServiceList() { return ServiceList;}
+        public List<ServiceListBean> getServiceList() {
+            return ServiceList;
+        }
 
-        public void setServiceList(List<ServiceListBean> ServiceList) { this.ServiceList = ServiceList;}
+        public void setServiceList(List<ServiceListBean> ServiceList) {
+            this.ServiceList = ServiceList;
+        }
 
-        public static class ServiceListBean
-        {
+        public static class ServiceListBean {
             /**
              * EM_GIDList : null
              * SumPrice : null
@@ -289,101 +391,197 @@ public class Print_HYCC_Bean
 
             private String GOD_ExpireDate;
 
-            public Object getEM_GIDList() { return EM_GIDList;}
+            public Object getEM_GIDList() {
+                return EM_GIDList;
+            }
 
-            public void setEM_GIDList(Object EM_GIDList) { this.EM_GIDList = EM_GIDList;}
+            public void setEM_GIDList(Object EM_GIDList) {
+                this.EM_GIDList = EM_GIDList;
+            }
 
-            public Object getSumPrice() { return SumPrice;}
+            public Object getSumPrice() {
+                return SumPrice;
+            }
 
-            public void setSumPrice(Object SumPrice) { this.SumPrice = SumPrice;}
+            public void setSumPrice(Object SumPrice) {
+                this.SumPrice = SumPrice;
+            }
 
-            public String getGID() { return GID;}
+            public String getGID() {
+                return GID;
+            }
 
-            public void setGID(String GID) { this.GID = GID;}
+            public void setGID(String GID) {
+                this.GID = GID;
+            }
 
-            public String getCO_GID() { return CO_GID;}
+            public String getCO_GID() {
+                return CO_GID;
+            }
 
-            public void setCO_GID(String CO_GID) { this.CO_GID = CO_GID;}
+            public void setCO_GID(String CO_GID) {
+                this.CO_GID = CO_GID;
+            }
 
-            public String getPM_GID() { return PM_GID;}
+            public String getPM_GID() {
+                return PM_GID;
+            }
 
-            public void setPM_GID(String PM_GID) { this.PM_GID = PM_GID;}
+            public void setPM_GID(String PM_GID) {
+                this.PM_GID = PM_GID;
+            }
 
-            public String getPM_Code() { return PM_Code;}
+            public String getPM_Code() {
+                return PM_Code;
+            }
 
-            public void setPM_Code(String PM_Code) { this.PM_Code = PM_Code;}
+            public void setPM_Code(String PM_Code) {
+                this.PM_Code = PM_Code;
+            }
 
-            public String getPT_Name() { return PT_Name;}
+            public String getPT_Name() {
+                return PT_Name;
+            }
 
-            public void setPT_Name(String PT_Name) { this.PT_Name = PT_Name;}
+            public void setPT_Name(String PT_Name) {
+                this.PT_Name = PT_Name;
+            }
 
-            public String getPT_GID() { return PT_GID;}
+            public String getPT_GID() {
+                return PT_GID;
+            }
 
-            public void setPT_GID(String PT_GID) { this.PT_GID = PT_GID;}
+            public void setPT_GID(String PT_GID) {
+                this.PT_GID = PT_GID;
+            }
 
-            public String getPM_Name() { return PM_Name;}
+            public String getPM_Name() {
+                return PM_Name;
+            }
 
-            public void setPM_Name(String PM_Name) { this.PM_Name = PM_Name;}
+            public void setPM_Name(String PM_Name) {
+                this.PM_Name = PM_Name;
+            }
 
-            public String getPM_SimpleCode() { return PM_SimpleCode;}
+            public String getPM_SimpleCode() {
+                return PM_SimpleCode;
+            }
 
-            public void setPM_SimpleCode(String PM_SimpleCode) { this.PM_SimpleCode = PM_SimpleCode;}
+            public void setPM_SimpleCode(String PM_SimpleCode) {
+                this.PM_SimpleCode = PM_SimpleCode;
+            }
 
-            public Object getPM_Metering() { return PM_Metering;}
+            public Object getPM_Metering() {
+                return PM_Metering;
+            }
 
-            public void setPM_Metering(Object PM_Metering) { this.PM_Metering = PM_Metering;}
+            public void setPM_Metering(Object PM_Metering) {
+                this.PM_Metering = PM_Metering;
+            }
 
-            public double getPM_UnitPrice() { return PM_UnitPrice;}
+            public double getPM_UnitPrice() {
+                return PM_UnitPrice;
+            }
 
-            public void setPM_UnitPrice(double PM_UnitPrice) { this.PM_UnitPrice = PM_UnitPrice;}
+            public void setPM_UnitPrice(double PM_UnitPrice) {
+                this.PM_UnitPrice = PM_UnitPrice;
+            }
 
-            public Object getPM_Detail() { return PM_Detail;}
+            public Object getPM_Detail() {
+                return PM_Detail;
+            }
 
-            public void setPM_Detail(Object PM_Detail) { this.PM_Detail = PM_Detail;}
+            public void setPM_Detail(Object PM_Detail) {
+                this.PM_Detail = PM_Detail;
+            }
 
-            public String getPM_Description() { return PM_Description;}
+            public String getPM_Description() {
+                return PM_Description;
+            }
 
-            public void setPM_Description(String PM_Description) { this.PM_Description = PM_Description;}
+            public void setPM_Description(String PM_Description) {
+                this.PM_Description = PM_Description;
+            }
 
-            public String getPM_Modle() { return PM_Modle;}
+            public String getPM_Modle() {
+                return PM_Modle;
+            }
 
-            public void setPM_Modle(String PM_Modle) { this.PM_Modle = PM_Modle;}
+            public void setPM_Modle(String PM_Modle) {
+                this.PM_Modle = PM_Modle;
+            }
 
-            public String getPM_Brand() { return PM_Brand;}
+            public String getPM_Brand() {
+                return PM_Brand;
+            }
 
-            public void setPM_Brand(String PM_Brand) { this.PM_Brand = PM_Brand;}
+            public void setPM_Brand(String PM_Brand) {
+                this.PM_Brand = PM_Brand;
+            }
 
-            public int getPM_Number() { return PM_Number;}
+            public int getPM_Number() {
+                return PM_Number;
+            }
 
-            public void setPM_Number(int PM_Number) { this.PM_Number = PM_Number;}
+            public void setPM_Number(int PM_Number) {
+                this.PM_Number = PM_Number;
+            }
 
-            public double getPM_FixedIntegralValue() { return PM_FixedIntegralValue;}
+            public double getPM_FixedIntegralValue() {
+                return PM_FixedIntegralValue;
+            }
 
-            public void setPM_FixedIntegralValue(double PM_FixedIntegralValue) { this.PM_FixedIntegralValue = PM_FixedIntegralValue;}
+            public void setPM_FixedIntegralValue(double PM_FixedIntegralValue) {
+                this.PM_FixedIntegralValue = PM_FixedIntegralValue;
+            }
 
-            public double getPM_Discount() { return PM_Discount;}
+            public double getPM_Discount() {
+                return PM_Discount;
+            }
 
-            public void setPM_Discount(double PM_Discount) { this.PM_Discount = PM_Discount;}
+            public void setPM_Discount(double PM_Discount) {
+                this.PM_Discount = PM_Discount;
+            }
 
-            public double getGOD_DiscountPrice() { return GOD_DiscountPrice;}
+            public double getGOD_DiscountPrice() {
+                return GOD_DiscountPrice;
+            }
 
-            public void setGOD_DiscountPrice(double GOD_DiscountPrice) { this.GOD_DiscountPrice = GOD_DiscountPrice;}
+            public void setGOD_DiscountPrice(double GOD_DiscountPrice) {
+                this.GOD_DiscountPrice = GOD_DiscountPrice;
+            }
 
-            public double getGOD_Integral() { return GOD_Integral;}
+            public double getGOD_Integral() {
+                return GOD_Integral;
+            }
 
-            public void setGOD_Integral(double GOD_Integral) { this.GOD_Integral = GOD_Integral;}
+            public void setGOD_Integral(double GOD_Integral) {
+                this.GOD_Integral = GOD_Integral;
+            }
 
-            public String getGOD_Creator() { return GOD_Creator;}
+            public String getGOD_Creator() {
+                return GOD_Creator;
+            }
 
-            public void setGOD_Creator(String GOD_Creator) { this.GOD_Creator = GOD_Creator;}
+            public void setGOD_Creator(String GOD_Creator) {
+                this.GOD_Creator = GOD_Creator;
+            }
 
-            public String getGOD_UpdateTime() { return GOD_UpdateTime;}
+            public String getGOD_UpdateTime() {
+                return GOD_UpdateTime;
+            }
 
-            public void setGOD_UpdateTime(String GOD_UpdateTime) { this.GOD_UpdateTime = GOD_UpdateTime;}
+            public void setGOD_UpdateTime(String GOD_UpdateTime) {
+                this.GOD_UpdateTime = GOD_UpdateTime;
+            }
 
-            public String getCY_GID() { return CY_GID;}
+            public String getCY_GID() {
+                return CY_GID;
+            }
 
-            public void setCY_GID(String CY_GID) { this.CY_GID = CY_GID;}
+            public void setCY_GID(String CY_GID) {
+                this.CY_GID = CY_GID;
+            }
         }
     }
 }

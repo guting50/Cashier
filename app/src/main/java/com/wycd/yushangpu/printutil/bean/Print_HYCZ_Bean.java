@@ -1,7 +1,5 @@
 package com.wycd.yushangpu.printutil.bean;
 
-import java.io.Serializable;
-
 /**
  * iauthor：Cheng
  * date: 2017/8/2 19:49

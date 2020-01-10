@@ -1,4 +1,4 @@
-package com.wycd.yushangpu.printutil;
+package com.wycd.yushangpu.tools;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
