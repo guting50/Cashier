@@ -23,7 +23,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.reflect.TypeToken;
 import com.gt.utils.view.BgFrameLayout;
+import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.adapter.ShopLeftAdapter;
@@ -35,12 +37,14 @@ import com.wycd.yushangpu.bean.ShopInfoBean;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.bean.event.HomeButtonColorChangeEvent;
+import com.wycd.yushangpu.http.AsyncHttpUtils;
+import com.wycd.yushangpu.http.BaseRes;
+import com.wycd.yushangpu.http.CallBack;
+import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.http.InterfaceThreeBack;
 import com.wycd.yushangpu.http.VolleyResponse;
-import com.wycd.yushangpu.model.ImpGoodsModel;
-import com.wycd.yushangpu.model.ImpGroupGoodsList;
 import com.wycd.yushangpu.model.ImpOnlyVipMsg;
 import com.wycd.yushangpu.model.ImpOutLogin;
 import com.wycd.yushangpu.model.ImpShopInfo;
@@ -85,6 +89,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -409,7 +414,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     }
 
     private void initData() {
-        getproductmodel();
+        getProductModel();
         obtainSystemCanshu();
         GetPrintSet.getPrintSet();
         getShopInfo();
@@ -804,23 +809,21 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
         if (!TextUtils.isEmpty(shopMsg.getPM_GroupGID())/* && Integer.parseInt(shopMsg.getGroupCount()) > 1*/) {
             dialog.show();
-            ImpGroupGoodsList impGroupGoodsList = new ImpGroupGoodsList();
             final double finalAddnum = addnum;
-            impGroupGoodsList.getGroupGoodsList(ac, shopMsg.getPM_GroupGID(), new InterfaceBack() {
+            String url = HttpAPI.API().GROUPGOODS_LIST;
+            RequestParams params = new RequestParams();
+            params.put("GroupGID", shopMsg.getPM_GroupGID());
+            AsyncHttpUtils.postHttp(url, params, new CallBack() {
                 @Override
-                public void onResponse(Object response) {
-                    dialog.dismiss();
-                    List<ShopMsg> sllist = (List<ShopMsg>) response;
+                public void onResponse(BaseRes response) {
+                    Type listType = new TypeToken<List<ShopMsg>>() {
+                    }.getType();
+                    List<ShopMsg> sllist = response.getData(listType);
                     if (sllist.size() == 1) {
                         addShopLeftList(shopMsg, finalAddnum);
                     } else {
                         showGoodsModelDialog(sllist, finalAddnum);
                     }
-                }
-
-                @Override
-                public void onErrorResponse(Object msg) {
-                    dialog.dismiss();
                 }
             });
         } else {
@@ -928,7 +931,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
         } else {
             com.blankj.utilcode.util.ToastUtils.showShort("没有获取到规格列表，请稍后再尝试");
-            getproductmodel();
+            getProductModel();
         }
     }
 
@@ -1469,22 +1472,16 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         return PD_Discount;
     }
 
-    private void getproductmodel() {
-
-        ImpGoodsModel impGoodsModel = new ImpGoodsModel();
-        impGoodsModel.getGoodsModel(ac, new InterfaceBack() {
+    private void getProductModel() {
+        String url = HttpAPI.API().GOODSMODEL;
+        AsyncHttpUtils.postHttp(url, new CallBack() {
             @Override
-            public void onResponse(Object response) {
-                ModelList = (List<GoodsModelBean>) response;
-            }
-
-            @Override
-            public void onErrorResponse(Object msg) {
-
+            public void onResponse(BaseRes response) {
+                Type listType = new TypeToken<List<GoodsModelBean>>() {
+                }.getType();
+                ModelList = response.getData(listType);
             }
         });
-
-
     }
 
     public static void closeDialog() {

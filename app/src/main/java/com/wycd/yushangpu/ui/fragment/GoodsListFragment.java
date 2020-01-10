@@ -19,6 +19,7 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.ClassMsg;
 import com.wycd.yushangpu.bean.ShopMsg;
+import com.wycd.yushangpu.http.BasePageRes;
 import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpShopClass;
@@ -28,9 +29,6 @@ import com.wycd.yushangpu.tools.GlideTransform;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.StringUtil;
 import com.wycd.yushangpu.ui.HomeActivity;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -188,42 +186,37 @@ public class GoodsListFragment extends Fragment {
         if (isShowDialog)
             homeActivity.dialog.show();
         ImpShopHome shopHome = new ImpShopHome();
-        shopHome.shoplist(getActivity(), pageIndex, PageSize, PT_GID, PM_CodeOrNameOrSimpleCode, new InterfaceBack() {
+        shopHome.shoplist(pageIndex, PageSize, PT_GID, PM_CodeOrNameOrSimpleCode, new InterfaceBack<BasePageRes>() {
             @Override
-            public void onResponse(Object response) {
-                JSONObject js = (JSONObject) response;
-                try {
-                    Type listType = new TypeToken<List<ShopMsg>>() {
-                    }.getType();
-                    List<ShopMsg> sllist = new Gson().fromJson(js.getString("DataList"), listType);
+            public void onResponse(BasePageRes response) {
+                Type listType = new TypeToken<List<ShopMsg>>() {
+                }.getType();
+                List<ShopMsg> sllist = response.getData(listType);
 
-                    homeActivity.mEtLoginAccount.setText("");
-                    if (PageIndex == 1) {
-                        adapter.getShopMsgList().clear();
-                    }
-                    adapter.addShopMsgList(sllist);
+                homeActivity.mEtLoginAccount.setText("");
+                if (PageIndex == 1) {
+                    adapter.getShopMsgList().clear();
+                }
+                adapter.addShopMsgList(sllist);
 //                 int  0  表示普通商品    1表示服务商品  2表示礼品   3普通套餐   4充次套餐
-                    for (ShopMsg msg : sllist) {
-                        if (NullUtils.noNullHandle(msg.getPM_IsService()).toString().equals("2")) {
-                            adapter.getShopMsgList().remove(msg);
-                        }
+                for (ShopMsg msg : sllist) {
+                    if (NullUtils.noNullHandle(msg.getPM_IsService()).toString().equals("2")) {
+                        adapter.getShopMsgList().remove(msg);
                     }
-                    adapter.notifyDataSetChanged();
-                    homeActivity.dialog.dismiss();
-                    emptyStateLayout.setVisibility(View.GONE);
-                    if (adapter.getShopMsgList().size() <= 0) {
-                        emptyStateLayout.setVisibility(View.VISIBLE);
-                    }
-                    goodsList.refreshComplete();
-                    goodsList.loadMoreComplete();
+                }
+                adapter.notifyDataSetChanged();
+                homeActivity.dialog.dismiss();
+                emptyStateLayout.setVisibility(View.GONE);
+                if (adapter.getShopMsgList().size() <= 0) {
+                    emptyStateLayout.setVisibility(View.VISIBLE);
+                }
+                goodsList.refreshComplete();
+                goodsList.loadMoreComplete();
 
-                    if (js.getInt("DataCount") <= adapter.getShopMsgList().size()) {
-                        goodsList.setLoadingMoreEnabled(false);
-                    } else {
-                        goodsList.setLoadingMoreEnabled(true);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (response.getDataCount() <= adapter.getShopMsgList().size()) {
+                    goodsList.setLoadingMoreEnabled(false);
+                } else {
+                    goodsList.setLoadingMoreEnabled(true);
                 }
             }
 

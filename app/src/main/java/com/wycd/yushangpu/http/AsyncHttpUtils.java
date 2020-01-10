@@ -3,7 +3,6 @@ package com.wycd.yushangpu.http;
 import android.content.Intent;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
@@ -14,7 +13,6 @@ import com.wycd.yushangpu.tools.LogUtils;
 import com.wycd.yushangpu.ui.LoginActivity;
 
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Type;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -42,9 +40,7 @@ public class AsyncHttpUtils {
                     String result = new String(responseBody, "UTF-8");
                     LogUtils.d("<<< ======== url ======== ", url);
                     LogUtils.d("<<< ======== result ======== ", result);
-                    Type type = new TypeToken<BaseRes>() {
-                    }.getType();
-                    BaseRes baseRes = new Gson().fromJson(result, type);
+                    BaseRes baseRes = new Gson().fromJson(result, BaseRes.class);
                     if (baseRes.isSuccess()) {
                         back.onResponse(baseRes);
                     } else {
