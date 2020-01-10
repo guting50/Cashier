@@ -517,7 +517,7 @@ public class PrintSetFragment extends Fragment {
                         //退出
 //                        dialog.show();
                         ImpOutLogin outLogin = new ImpOutLogin();
-                        outLogin.outLogin(homeActivity, new InterfaceBack() {
+                        outLogin.outLogin(new InterfaceBack() {
                             @Override
                             public void onResponse(Object response) {
                                 homeActivity.getSupportFragmentManager().beginTransaction()
@@ -533,11 +533,6 @@ public class PrintSetFragment extends Fragment {
                                 homeActivity.dialog.dismiss();
                             }
                         });
-                    }
-
-                    @Override
-                    public void onErrorResponse(Object msg) {
-
                     }
                 });
             }

@@ -2,7 +2,6 @@ package com.wycd.yushangpu.http;
 
 import android.content.Intent;
 
-import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
@@ -33,7 +32,7 @@ public class AsyncHttpUtils {
         final PersistentCookieStore myCookieStore = new PersistentCookieStore(MyApplication.getContext());
         client.setCookieStore(myCookieStore);
         LogUtils.d("======== url ======== >>>", url);
-        LogUtils.d("======== params ======== >>>", new Gson().toJson(map));
+        LogUtils.d("======== params ======== >>>", map.toString());
         client.post(url, map, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {

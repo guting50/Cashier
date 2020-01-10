@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.OrderPayResult;
@@ -36,7 +37,6 @@ import com.wycd.yushangpu.http.VolleyResponse;
 import com.wycd.yushangpu.model.ImpOrderPay;
 import com.wycd.yushangpu.model.ImpPreLoading;
 import com.wycd.yushangpu.model.ImpSaoma;
-import com.wycd.yushangpu.model.SPXFSuccessBean;
 import com.wycd.yushangpu.tools.CacheData;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.LogUtils;
@@ -51,12 +51,11 @@ import com.wycd.yushangpu.widget.dialog.PromotionDialog;
 import com.wycd.yushangpu.widget.dialog.SaomaDialog;
 import com.wycd.yushangpu.widget.dialog.YouhuiquanDialog;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -882,74 +881,63 @@ public class JiesuanBFragment extends Fragment {
                 public void onResponse(Object response) {
                     obtainOrderPayResult();
                     ImpSaoma saoma = new ImpSaoma();
-                    saoma.saomaPay(context, response.toString(), smPayMoney + "", GID, CO_OrderCode, result, new InterfaceBack() {
+                    saoma.saomaPay(response.toString(), smPayMoney + "", GID, CO_OrderCode, result, new InterfaceBack<String>() {
                         @Override
-                        public void onResponse(Object response) {
+                        public void onResponse(String response) {
                             System.out.println("==========扫码支付成功 (免密) =============== ");
-                            JSONObject jso = (JSONObject) response;
-                            try {
-                                String Order_GID = new JSONObject(jso.getString("data")).getString("Order_GID");
-                                back.onResponse(Order_GID);
-                                if (saomaDialog != null)
-                                    saomaDialog.dismiss();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                            back.onResponse(response);
+                            if (saomaDialog != null)
+                                saomaDialog.dismiss();
                         }
 
                         @Override
                         public void onErrorResponse(Object msg) {
-                            if (msg != null) {
-                                JSONObject jso = (JSONObject) msg;
-                                try {
-                                    if (jso.getString("code").equals("410004")) {
-                                        String gid = new JSONObject(jso.getString("data")).getString("GID");
-                                        Timer timer = new Timer();
-                                        timer.schedule(new TimerTask() {
-                                            @Override
-                                            public void run() {
-                                                getActivity().runOnUiThread(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        saoma.saomaPayQuery(context, gid, new InterfaceBack() {
-                                                            @Override
-                                                            public void onResponse(Object response) {
-                                                                JSONObject jso = (JSONObject) response;
-                                                                try {
-                                                                    if (!jso.getString("code").equals("410004")) {
-                                                                        timer.cancel();
-                                                                        if (jso.getBoolean("success")) {
-                                                                            System.out.println("==========扫码支付成功=============== ");
-                                                                            String Order_GID = new JSONObject(jso.getString("data")).getString("Order_GID");
-                                                                            back.onResponse(Order_GID);
-                                                                            if (saomaDialog != null)
-                                                                                saomaDialog.dismiss();
-                                                                        } else {
-                                                                            saomaPayError();
-                                                                        }
-                                                                    } else {
-                                                                        com.blankj.utilcode.util.ToastUtils.showShort("支付中");
-                                                                    }
-                                                                } catch (JSONException e) {
-                                                                    e.printStackTrace();
-                                                                }
-                                                            }
-
-                                                            @Override
-                                                            public void onErrorResponse(Object msg) {
+                            if (msg instanceof BaseRes) {
+                                BaseRes baseRes = (BaseRes) msg;
+                                if (("410004").equals(baseRes.getCode())) {
+                                    Type type = new TypeToken<Map<String, Object>>() {
+                                    }.getType();
+                                    Map<String, Object> map = baseRes.getData(type);
+                                    String gid = map.get("Order_GID").toString();
+                                    Timer timer = new Timer();
+                                    timer.schedule(new TimerTask() {
+                                        @Override
+                                        public void run() {
+                                            getActivity().runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    saoma.saomaPayQuery(gid, new InterfaceBack<BaseRes>() {
+                                                        @Override
+                                                        public void onResponse(BaseRes response) {
+                                                            if (!("410004").equals(response.getCode())) {
                                                                 timer.cancel();
-                                                                saomaPayError();
+                                                                if (response.isSuccess()) {
+                                                                    System.out.println("==========扫码支付成功=============== ");
+                                                                    Map<String, Object> map = response.getData(type);
+                                                                    String Order_GID = map.get("Order_GID").toString();
+                                                                    back.onResponse(Order_GID);
+                                                                    if (saomaDialog != null)
+                                                                        saomaDialog.dismiss();
+                                                                } else {
+                                                                    saomaPayError();
+                                                                }
+                                                            } else {
+                                                                com.blankj.utilcode.util.ToastUtils.showShort("支付中");
                                                             }
-                                                        });
-                                                    }
-                                                });
-                                            }
-                                        }, 2000, 2000);
-                                    } else {
-                                        saomaPayError();
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
+                                                        }
+
+                                                        @Override
+                                                        public void onErrorResponse(Object msg) {
+                                                            timer.cancel();
+                                                            saomaPayError();
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                        }
+                                    }, 2000, 2000);
+                                } else {
+                                    saomaPayError();
                                 }
                             } else {
                                 saomaPayError();

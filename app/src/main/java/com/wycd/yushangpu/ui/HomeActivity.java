@@ -459,7 +459,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                         //退出
                         dialog.show();
                         ImpOutLogin outLogin = new ImpOutLogin();
-                        outLogin.outLogin(ac, new InterfaceBack() {
+                        outLogin.outLogin(new InterfaceBack() {
                             @Override
                             public void onResponse(Object response) {
                                 mShowMemberPop.dismiss();
@@ -474,11 +474,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                 dialog.dismiss();
                             }
                         });
-                    }
-
-                    @Override
-                    public void onErrorResponse(Object msg) {
-
                     }
                 });
 
@@ -1525,10 +1520,9 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     }
 //                    dialog.show();
                     ImpOutLogin outLogin = new ImpOutLogin();
-                    outLogin.outLogin(ac, new InterfaceBack() {
+                    outLogin.outLogin(new InterfaceBack() {
                         @Override
                         public void onResponse(Object response) {
-
                             dialog.dismiss();
                             Intent intent = new Intent(ac, LoginActivity.class);
                             ac.startActivity(intent);

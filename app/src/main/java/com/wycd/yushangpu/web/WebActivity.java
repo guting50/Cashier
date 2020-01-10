@@ -198,10 +198,9 @@ public class WebActivity extends BaseActivity {
                 case 1:
                     dialog.show();
                     ImpOutLogin outLogin = new ImpOutLogin();
-                    outLogin.outLogin(ac, new InterfaceBack() {
+                    outLogin.outLogin(new InterfaceBack() {
                         @Override
                         public void onResponse(Object response) {
-
                             dialog.dismiss();
                             ActivityManager.getInstance().exit();
                             Intent intent = new Intent(ac, LoginActivity.class);
