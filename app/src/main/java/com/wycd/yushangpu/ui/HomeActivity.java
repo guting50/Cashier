@@ -50,7 +50,6 @@ import com.wycd.yushangpu.model.ImpOutLogin;
 import com.wycd.yushangpu.model.ImpShopInfo;
 import com.wycd.yushangpu.model.ImpSubmitOrder;
 import com.wycd.yushangpu.model.ImpSubmitOrder_Guazhang;
-import com.wycd.yushangpu.model.ImpSystemCanshu;
 import com.wycd.yushangpu.printutil.GetPrintSet;
 import com.wycd.yushangpu.printutil.HttpGetPrintContents;
 import com.wycd.yushangpu.tools.ActivityManager;
@@ -556,16 +555,13 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     }
 
     private void obtainSystemCanshu() {
-        ImpSystemCanshu systemCanshu = new ImpSystemCanshu();
-        systemCanshu.systemCanshu(ac, new InterfaceBack() {
+        String url = HttpAPI.API().GET_SWITCH_LIST;
+        AsyncHttpUtils.postHttp(url, new CallBack() {
             @Override
-            public void onResponse(Object response) {
-                List<PayTypeMsg> sllist = (List<PayTypeMsg>) response;
-                handleSystem(sllist);
-            }
-
-            @Override
-            public void onErrorResponse(Object msg) {
+            public void onResponse(BaseRes response) {
+                Type listType = new TypeToken<List<PayTypeMsg>>() {
+                }.getType();
+                handleSystem(response.getData(listType));
             }
         });
     }

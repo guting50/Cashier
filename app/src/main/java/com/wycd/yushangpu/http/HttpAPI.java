@@ -47,7 +47,6 @@ public class HttpAPI {
             return instance;
         }
 
-
     }
 
 
@@ -68,18 +67,25 @@ public class HttpAPI {
 
         //修改密码
         public static final String EDIT_USERPWD = MyApplication.BASE_URL + "api/UserManager/EditUsersPwd";
+
         //员工列表
         public static final String GET_EMPLLIST = MyApplication.BASE_URL + "api/Empl/GetEmplList";
+
         //查询商品规格
         public static final String GOODSMODEL = MyApplication.BASE_URL + "api/ProductConfig/GetModelList";
+
         //查询商品组合
         public static final String GROUPGOODS_LIST = MyApplication.BASE_URL + "api/ProductManger/GetGroupGoodsList";
+
         //查询商品列表
         public static final String QUERYALL_LIST = MyApplication.BASE_URL + "api/ConsumeOrder/QueryAllOrderList";
+
         //登陆
         public static final String LOGIN = MyApplication.BASE_URL + "api/UserManager/Login";
+
         //获取验证码
         public static final String GET_CODE = MyApplication.BASE_URL + "api/VerifyCode/GetCode";
+
         //获取版本更新
         public static final String GET_NEWS_VERSION = MyApplication.CTMONEY_URL + "TouchScreen/GetNewsVersion";
 
@@ -145,7 +151,6 @@ public class HttpAPI {
 
         //获取用户信息
         public static final String USER_INFORMATION = MyApplication.BASE_URL + "api/UserManager/UserInformation";
-
 
         //获取部门列表
         public static final String GET_VALIDRULE = MyApplication.BASE_URL + "api/StaffCommission/GetValidRule";

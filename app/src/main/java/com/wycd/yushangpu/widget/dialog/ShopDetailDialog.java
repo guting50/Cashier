@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.gt.utils.view.BgFrameLayout;
+import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.adapter.YuangongAdapter;
 import com.wycd.yushangpu.bean.EmplMsg;
@@ -27,7 +28,6 @@ import com.wycd.yushangpu.http.BaseRes;
 import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.model.ImpValidRule;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.widget.NumInputView;
 import com.wycd.yushangpu.widget.NumKeyboardUtils;
@@ -85,7 +85,7 @@ public class ShopDetailDialog {
         dialog.setContentView(view);
         Window window = dialog.getWindow();
         dialog.show();
-        obtainBumenList(context, loadingdialog, mShopMsg, VGID, mValiRuleMsgList, mEmplMsgList, yuangongAdapter);
+        obtainBumenList(loadingdialog, mShopMsg, VGID, mValiRuleMsgList, mEmplMsgList, yuangongAdapter);
 
         li_search.setOnClickListener(new NoDoubleClickListener() {
             @Override
@@ -182,14 +182,28 @@ public class ShopDetailDialog {
         return (int) (dipValue * scale + 0.5f);
     }
 
-    private static void obtainBumenList(final Activity context, final Dialog loadingdialog, ShopMsg mShopMsg, String VGID,
-                                        final List<ValiRuleMsg> ValiRuleMsg, final List<EmplMsg> emplMsgList, final YuangongAdapter yuangongAdapter) {
+    private static void obtainBumenList(Dialog loadingdialog, ShopMsg mShopMsg, String VGID,
+                                        List<ValiRuleMsg> ValiRuleMsg, List<EmplMsg> emplMsgList, YuangongAdapter yuangongAdapter) {
         loadingdialog.show();
-        ImpValidRule validRule = new ImpValidRule();
-        validRule.valiRule(context, VGID, mShopMsg.getGID(), mShopMsg.getPT_ID(), new InterfaceBack() {
+
+        RequestParams params = new RequestParams();
+//        Type	提成类型	int	否
+//        VGID	等级GID	string	是
+//        PGID	商品GID	string	是
+        params.put("Type", 50);
+        params.put("VGID", VGID);
+        params.put("PGID", mShopMsg.getGID());
+        params.put("PTGID", mShopMsg.getPT_ID());
+        if (VGID.equals("")) {
+            params.put("VIP_Card", "00000");
+        }
+        String url = HttpAPI.API().GET_VALIDRULE;
+        AsyncHttpUtils.postHttp(url, params, new CallBack() {
             @Override
-            public void onResponse(Object response) {
-                List<ValiRuleMsg> mValiRuleMsgList = (List<ValiRuleMsg>) response;
+            public void onResponse(BaseRes response) {
+                Type listType = new TypeToken<List<ValiRuleMsg>>() {
+                }.getType();
+                List<ValiRuleMsg> mValiRuleMsgList = response.getData(listType);
                 bumenlist.clear();
                 bumenlist.addAll(mValiRuleMsgList);
                 ValiRuleMsg.addAll(mValiRuleMsgList);
@@ -219,6 +233,7 @@ public class ShopDetailDialog {
 
             @Override
             public void onErrorResponse(Object msg) {
+                super.onErrorResponse(msg);
                 loadingdialog.dismiss();
                 HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
                 event.setMsg("Change_color");

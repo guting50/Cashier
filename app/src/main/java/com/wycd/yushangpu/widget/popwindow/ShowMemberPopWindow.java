@@ -8,13 +8,16 @@ import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.LoginBean;
 import com.wycd.yushangpu.bean.UserInfomationBean;
+import com.wycd.yushangpu.http.AsyncHttpUtils;
+import com.wycd.yushangpu.http.BaseRes;
+import com.wycd.yushangpu.http.CallBack;
+import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.ImgUrlTools;
-import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.http.VolleyResponse;
-import com.wycd.yushangpu.model.ImpUserInfomation;
 import com.wycd.yushangpu.tools.NullUtils;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -41,18 +44,13 @@ public class ShowMemberPopWindow extends PopupWindow implements View.OnClickList
     }
 
     private void loadData() {
-
-        ImpUserInfomation impUserInfomation = new ImpUserInfomation();
-        impUserInfomation.userInfo(ac, loginBean.getGID(), new InterfaceBack() {
+        String url = HttpAPI.API().USER_INFORMATION;
+        RequestParams params = new RequestParams();
+        params.put("GID", loginBean.getGID());
+        AsyncHttpUtils.postHttp(url, params, new CallBack() {
             @Override
-            public void onResponse(Object response) {
-                UserInfomationBean sllist = (UserInfomationBean) response;
-                mStoreName.setText(sllist.getUM_Name());
-            }
-
-            @Override
-            public void onErrorResponse(Object msg) {
-
+            public void onResponse(BaseRes response) {
+                mStoreName.setText(response.getData(UserInfomationBean.class).getUM_Name());
             }
         });
     }
