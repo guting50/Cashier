@@ -2,36 +2,24 @@ package com.wycd.yushangpu.model;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
-import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.bean.OrderCanshhu;
 import com.wycd.yushangpu.bean.ShopMsg;
+import com.wycd.yushangpu.http.AsyncHttpUtils;
+import com.wycd.yushangpu.http.BaseRes;
+import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.printutil.Decima2KeeplUtil;
-import com.wycd.yushangpu.tools.ActivityManager;
 import com.wycd.yushangpu.tools.CreateOrder;
-import com.wycd.yushangpu.tools.LogUtils;
-import com.wycd.yushangpu.ui.LoginActivity;
-
-import org.json.JSONObject;
 
 import java.util.List;
-
-import cz.msebera.android.httpclient.Header;
 
 public class ImpSubmitOrder {
     public void submitOrder(final Activity ac, String CO_OrderCode, String OrderTime, String VIP_Card, List<ShopMsg> shoplist, boolean isGuadan,
                             final InterfaceBack back) {
         // TODO 自动生成的方法存根
-        AsyncHttpClient client = new AsyncHttpClient();
-        final PersistentCookieStore myCookieStore = new PersistentCookieStore(ac);
-        client.setCookieStore(myCookieStore);
         RequestParams params = new RequestParams();
 //        params.put("CO_OrderCode", CO_OrderCode);
         params.put("CO_OrderCode", CreateOrder.createOrder("SP"));
@@ -57,48 +45,16 @@ public class ImpSubmitOrder {
             params.put("Goods[" + i + "][PM_Discount]", shoplist.get(i).getPD_Discount());//折扣后的单价除以原价
         }
         String url = HttpAPI.API().GOODS_CONSUME_SUB;
-        LogUtils.d("xxparams", params.toString());
-        LogUtils.d("xxurl", url);
-        LogUtils.d("params", params.toString());
-        client.post(url, params, new AsyncHttpResponseHandler() {
+        AsyncHttpUtils.postHttp(ac, url, params, new CallBack() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                try {
-                    JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
-                    if (jso.getBoolean("success")) {
-                        JSONObject js = jso.getJSONObject("data");
-                        OrderCanshhu canshhu = new OrderCanshhu();
-                        canshhu.setCO_OrderCode(js.getString("CO_OrderCode"));
-                        canshhu.setCO_Type(js.getString("CO_Type"));
-                        canshhu.setGID(js.getString("GID"));
-                        back.onResponse(canshhu);
-                    } else {
-                        if (jso.getString("code").equals("RemoteLogin") || jso.getString("code").equals("LoginTimeout")) {
-                            ActivityManager.getInstance().exit();
-                            Intent intent = new Intent(MyApplication.getContext(), LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            MyApplication.getContext().startActivity(intent);
-                            com.blankj.utilcode.util.ToastUtils.showShort(jso.getString("msg"));
-                            return;
-                        }
-//                        ToastUtils.showToast(ac, jso.getString("msg"));
-                        com.blankj.utilcode.util.ToastUtils.showShort(jso.getString("msg"));
-                        back.onErrorResponse("");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    LogUtils.d("xxorderE", e.getMessage());
-//                    ToastUtils.showToast(ac, "提交订单失败");
-//                    com.blankj.utilcode.util.ToastUtils.showShort("提交订单失败");
-                    back.onErrorResponse("");
-                }
+            public void onResponse(BaseRes response) {
+                back.onResponse(response.getData(OrderCanshhu.class));
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-//                ToastUtils.showToast(ac, "提交订单失败");
-                com.blankj.utilcode.util.ToastUtils.showShort("提交订单失败");
-                back.onErrorResponse("");
+            public void onErrorResponse(Object msg) {
+                super.onErrorResponse(msg);
+                back.onErrorResponse(msg);
             }
         });
     }
@@ -106,9 +62,6 @@ public class ImpSubmitOrder {
     public void submitGuaOrder(final Activity ac, String CO_OrderCode, String OrderTime, String VIP_Card, List<ShopMsg> shoplist,
                                final InterfaceBack back) {
         // TODO 自动生成的方法存根
-        AsyncHttpClient client = new AsyncHttpClient();
-        final PersistentCookieStore myCookieStore = new PersistentCookieStore(ac);
-        client.setCookieStore(myCookieStore);
         RequestParams params = new RequestParams();
 //        params.put("CO_OrderCode", CO_OrderCode);
         params.put("CO_OrderCode", CreateOrder.createOrder("SP"));
@@ -133,49 +86,17 @@ public class ImpSubmitOrder {
             params.put("Goods[" + i + "][PM_Discount]", shoplist.get(i).getPD_Discount());//折扣后的单价除以原价
         }
         String url = HttpAPI.API().GOODS_CONSUME_GUADAN;
-        LogUtils.d("xxparams", params.toString());
-        LogUtils.d("xxurl", url);
-        LogUtils.d("params", params.toString());
-        client.post(url, params, new AsyncHttpResponseHandler() {
+
+        AsyncHttpUtils.postHttp(ac, url, params, new CallBack() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                try {
-                    JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
-                    LogUtils.d("xxorderE", new String(responseBody, "UTF-8"));
-                    if (jso.getBoolean("success")) {
-                        JSONObject js = jso.getJSONObject("data");
-                        OrderCanshhu canshhu = new OrderCanshhu();
-                        canshhu.setCO_OrderCode(js.getString("CO_OrderCode"));
-                        canshhu.setCO_Type(js.getString("CO_Type"));
-                        canshhu.setGID(js.getString("GID"));
-                        back.onResponse(canshhu);
-                    } else {
-                        if (jso.getString("code").equals("RemoteLogin") || jso.getString("code").equals("LoginTimeout")) {
-                            ActivityManager.getInstance().exit();
-                            Intent intent = new Intent(MyApplication.getContext(), LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            MyApplication.getContext().startActivity(intent);
-                            com.blankj.utilcode.util.ToastUtils.showShort(jso.getString("msg"));
-                            return;
-                        }
-//                        ToastUtils.showToast(ac, jso.getString("msg"));
-                        com.blankj.utilcode.util.ToastUtils.showShort(jso.getString("msg"));
-                        back.onErrorResponse(jso.getString("msg"));
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    LogUtils.d("xxorderE", e.getMessage());
-//                    ToastUtils.showToast(ac, "提交订单失败");
-//                    com.blankj.utilcode.util.ToastUtils.showShort("提交订单失败");
-                    back.onErrorResponse(e.getMessage());
-                }
+            public void onResponse(BaseRes response) {
+                back.onResponse(response.getData(OrderCanshhu.class));
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-//                ToastUtils.showToast(ac, "提交订单失败");
-                com.blankj.utilcode.util.ToastUtils.showShort("提交订单失败");
-                back.onErrorResponse("");
+            public void onErrorResponse(Object msg) {
+                super.onErrorResponse(msg);
+                back.onErrorResponse(msg);
             }
         });
     }
@@ -183,9 +104,6 @@ public class ImpSubmitOrder {
     public void submitCelerityOrder(final Activity ac, String CO_OrderCode, String OrderTime, String VIP_Card, String mone,
                                     final InterfaceBack back) {
         // TODO 自动生成的方法存根
-        AsyncHttpClient client = new AsyncHttpClient();
-        final PersistentCookieStore myCookieStore = new PersistentCookieStore(ac);
-        client.setCookieStore(myCookieStore);
         RequestParams params = new RequestParams();
 //        params.put("CO_OrderCode", CO_OrderCode);
         params.put("CO_OrderCode", CreateOrder.createOrder("SP"));
@@ -201,97 +119,38 @@ public class ImpSubmitOrder {
         params.put("CO_TotalPrice", mone);
 
         String url = HttpAPI.API().GOODS_CELERITY_SUB;
-        LogUtils.d("xxparams", params.toString());
-        LogUtils.d("xxurl", url);
-        LogUtils.d("params", params.toString());
-        client.post(url, params, new AsyncHttpResponseHandler() {
+
+        AsyncHttpUtils.postHttp(ac, url, params, new CallBack() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                try {
-                    JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
-                    if (jso.getBoolean("success")) {
-                        JSONObject js = jso.getJSONObject("data");
-                        OrderCanshhu canshhu = new OrderCanshhu();
-                        canshhu.setCO_OrderCode(js.getString("CO_OrderCode"));
-                        canshhu.setCO_Type(js.getString("CO_Type"));
-                        canshhu.setGID(js.getString("GID"));
-                        back.onResponse(canshhu);
-                    } else {
-                        if (jso.getString("code").equals("RemoteLogin") || jso.getString("code").equals("LoginTimeout")) {
-                            ActivityManager.getInstance().exit();
-                            Intent intent = new Intent(MyApplication.getContext(), LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            MyApplication.getContext().startActivity(intent);
-                            com.blankj.utilcode.util.ToastUtils.showShort(jso.getString("msg"));
-                            return;
-                        }
-//                        ToastUtils.showToast(ac, jso.getString("msg"));
-                        com.blankj.utilcode.util.ToastUtils.showShort(jso.getString("msg"));
-                        back.onErrorResponse("");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    LogUtils.d("xxorderE", e.getMessage());
-//                    ToastUtils.showToast(ac, "提交订单失败");
-//                    com.blankj.utilcode.util.ToastUtils.showShort("提交订单失败");
-                    back.onErrorResponse("");
-                }
+            public void onResponse(BaseRes response) {
+                back.onResponse(response.getData(OrderCanshhu.class));
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-//                ToastUtils.showToast(ac, "提交订单失败");
-                com.blankj.utilcode.util.ToastUtils.showShort("提交订单失败");
-                back.onErrorResponse("");
+            public void onErrorResponse(Object msg) {
+                super.onErrorResponse(msg);
+                back.onErrorResponse(msg);
             }
         });
     }
 
     public void closeGuadanOrder(final Context ac, String GID, final InterfaceBack back) {
         // TODO 自动生成的方法存根
-        AsyncHttpClient client = new AsyncHttpClient();
-        final PersistentCookieStore myCookieStore = new PersistentCookieStore(ac);
-        client.setCookieStore(myCookieStore);
         RequestParams params = new RequestParams();
         params.put("GID", GID);
 
         String url = HttpAPI.API().CLOSE_GUADAN_ORDER;
-        LogUtils.d("xxparams", params.toString());
-        LogUtils.d("xxurl", url);
-        LogUtils.d("params", params.toString());
-        client.post(url, params, new AsyncHttpResponseHandler() {
+
+        AsyncHttpUtils.postHttp(ac, url, params, new CallBack() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                try {
-                    JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
-                    if (jso.getBoolean("success")) {
-                        back.onResponse("success");
-                    } else {
-                        if (jso.getString("code").equals("RemoteLogin") || jso.getString("code").equals("LoginTimeout")) {
-                            ActivityManager.getInstance().exit();
-                            Intent intent = new Intent(MyApplication.getContext(), LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            MyApplication.getContext().startActivity(intent);
-                            com.blankj.utilcode.util.ToastUtils.showShort(jso.getString("msg"));
-                            return;
-                        }
-//                        ToastUtils.showToast(ac, jso.getString("msg"));
-                        com.blankj.utilcode.util.ToastUtils.showShort(jso.getString("msg"));
-                        back.onErrorResponse("");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    LogUtils.d("xxorderE", e.getMessage());
-//                    ToastUtils.showToast(ac, "提交订单失败");
-//                    com.blankj.utilcode.util.ToastUtils.showShort("提交订单失败");
-                    back.onErrorResponse("");
-                }
+            public void onResponse(BaseRes response) {
+                back.onResponse(response);
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-//                ToastUtils.showToast(ac, "提交订单失败");
-                back.onErrorResponse("");
+            public void onErrorResponse(Object msg) {
+                super.onErrorResponse(msg);
+                back.onErrorResponse(msg);
             }
         });
     }

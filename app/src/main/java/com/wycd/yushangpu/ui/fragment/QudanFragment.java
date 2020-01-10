@@ -15,6 +15,7 @@ import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.GuadanList;
+import com.wycd.yushangpu.bean.OrderCanshhu;
 import com.wycd.yushangpu.bean.PayTypeMsg;
 import com.wycd.yushangpu.bean.RevokeGuaDanBean;
 import com.wycd.yushangpu.bean.ShopMsg;
@@ -476,9 +477,9 @@ public class QudanFragment extends Fragment {
         }
 
         private void submitGuaOrder(String message) {
-            new ImpSubmitOrder().submitGuaOrder(homeActivity, orderCode, orderTime, vipCard, newShoplist, new InterfaceBack() {
+            new ImpSubmitOrder().submitGuaOrder(homeActivity, orderCode, orderTime, vipCard, newShoplist, new InterfaceBack<OrderCanshhu>() {
                 @Override
-                public void onResponse(Object response) {
+                public void onResponse(OrderCanshhu response) {
                     com.blankj.utilcode.util.ToastUtils.showShort(message + "成功");
 
                     obtainGuadanList();

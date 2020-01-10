@@ -971,11 +971,10 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
                     if (mShopLeftList.size() == 1 && TextUtils.isEmpty(mShopLeftList.get(0).getGID()))
                         submitOrder.submitCelerityOrder(ac, order, ordertime.toString(),
-                                null == mVipMsg ? "00000" : mVipMsg.getVCH_Card(), allmoney, new InterfaceBack() {
+                                null == mVipMsg ? "00000" : mVipMsg.getVCH_Card(), allmoney, new InterfaceBack<OrderCanshhu>() {
                                     @Override
-                                    public void onResponse(Object response) {
-                                        OrderCanshhu jso = (OrderCanshhu) response;
-                                        toJieSuan(jso, JiesuanBFragment.OrderType.CELERITY_ORDER);
+                                    public void onResponse(OrderCanshhu response) {
+                                        toJieSuan(response, JiesuanBFragment.OrderType.CELERITY_ORDER);
                                         dialog.dismiss();
                                     }
 
@@ -986,11 +985,10 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                                 });
                     else
                         submitOrder.submitOrder(ac, order, ordertime.toString(), null == mVipMsg ? "00000" : mVipMsg.getVCH_Card(),
-                                mShopLeftList, false, new InterfaceBack() {
+                                mShopLeftList, false, new InterfaceBack<OrderCanshhu>() {
                                     @Override
-                                    public void onResponse(Object response) {
-                                        OrderCanshhu jso = (OrderCanshhu) response;
-                                        toJieSuan(jso, JiesuanBFragment.OrderType.CONSUM_ORDER);
+                                    public void onResponse(OrderCanshhu response) {
+                                        toJieSuan(response, JiesuanBFragment.OrderType.CONSUM_ORDER);
                                         dialog.dismiss();
                                     }
 

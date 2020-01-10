@@ -1,6 +1,6 @@
 package com.wycd.yushangpu.http;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 
 import com.google.gson.Gson;
@@ -11,14 +11,8 @@ import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.tools.ActivityManager;
-import com.wycd.yushangpu.tools.CommonUtils;
-import com.wycd.yushangpu.tools.Installation;
 import com.wycd.yushangpu.tools.LogUtils;
-import com.wycd.yushangpu.tools.PreferenceHelper;
-import com.wycd.yushangpu.tools.SignUtils;
 import com.wycd.yushangpu.ui.LoginActivity;
-
-import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -31,12 +25,12 @@ import cz.msebera.android.httpclient.Header;
 
 public class AsyncHttpUtils {
 
-    public static void postHttp(final Activity ac, String url, CallBack back) {
+    public static void postHttp(final Context ac, String url, CallBack back) {
         RequestParams params = new RequestParams();
         postHttp(ac, url, params, back);
     }
 
-    public static void postHttp(final Activity ac, String url, RequestParams map, CallBack back) {
+    public static void postHttp(final Context ac, String url, RequestParams map, CallBack back) {
         AsyncHttpClient client = new AsyncHttpClient();
         final PersistentCookieStore myCookieStore = new PersistentCookieStore(ac);
         client.setCookieStore(myCookieStore);
