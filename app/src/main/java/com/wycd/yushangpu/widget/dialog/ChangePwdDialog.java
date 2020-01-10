@@ -15,10 +15,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
-import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.model.ImpEditUsersPwd;
+import com.wycd.yushangpu.http.AsyncHttpUtils;
+import com.wycd.yushangpu.http.BaseRes;
+import com.wycd.yushangpu.http.CallBack;
+import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.ui.LoginActivity;
 
 /**
@@ -26,9 +29,9 @@ import com.wycd.yushangpu.ui.LoginActivity;
  */
 
 public class ChangePwdDialog {
-     static Dialog dialog;
+    static Dialog dialog;
 
-    public static Dialog numchangeDialog(final Activity context,int showingLocation){
+    public static Dialog numchangeDialog(final Activity context, int showingLocation) {
 
 
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -47,22 +50,22 @@ public class ChangePwdDialog {
                 .getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay()
                 .getWidth();
         dialog.setContentView(view, new LinearLayout.LayoutParams(
-                (int)(screenWidth *0.4), LinearLayout.LayoutParams.WRAP_CONTENT));
+                (int) (screenWidth * 0.4), LinearLayout.LayoutParams.WRAP_CONTENT));
         Window window = dialog.getWindow();
         dialog.show();
 
         tvSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (oldPwd.getText().toString().length()<6){
+                if (oldPwd.getText().toString().length() < 6) {
                     oldPwd.requestFocus();
 //                    ToastUtils.showToast(context,"密码不能少于6个字符");
                     com.blankj.utilcode.util.ToastUtils.showShort("密码不能少于6个字符");
-                }else if (newPwd.getText().toString().length()<6){
+                } else if (newPwd.getText().toString().length() < 6) {
                     newPwd.requestFocus();
 //                    ToastUtils.showToast(context,"密码不能少于6个字符");
                     com.blankj.utilcode.util.ToastUtils.showShort("密码不能少于6个字符");
-                }else if (ensureNewPwd.getText().toString().length()<6){
+                } else if (ensureNewPwd.getText().toString().length() < 6) {
                     ensureNewPwd.requestFocus();
 //                    ToastUtils.showToast(context,"密码不能少于6个字符");
                     com.blankj.utilcode.util.ToastUtils.showShort("密码不能少于6个字符");
@@ -70,7 +73,7 @@ public class ChangePwdDialog {
                     ensureNewPwd.requestFocus();
 //                    ToastUtils.showToast(context,"与新密码不一致");
                     com.blankj.utilcode.util.ToastUtils.showShort("新密码与确认新密码输入不一致");
-                }else {
+                } else {
                     changePwd(context, oldPwd.getText().toString(), newPwd.getText().toString());
 
                 }
@@ -90,7 +93,6 @@ public class ChangePwdDialog {
                 dialog.dismiss();
             }
         });
-
 
 
         switch (showingLocation) {
@@ -121,7 +123,6 @@ public class ChangePwdDialog {
     }
 
 
-
     /**
      * 将dip或dp值转换为px值，保证尺寸大小不变
      *
@@ -133,23 +134,19 @@ public class ChangePwdDialog {
         return (int) (dipValue * scale + 0.5f);
     }
 
-    private static void changePwd(final Activity ac, String oidPwd, String newPwd){
-        ImpEditUsersPwd impEditUsersPwd = new ImpEditUsersPwd();
-        impEditUsersPwd.editPwd(ac, oidPwd, newPwd, new InterfaceBack() {
+    private static void changePwd(final Activity ac, String oldPwd, String newPwd) {
+        RequestParams params = new RequestParams();
+        params.put("UM_Pwd", oldPwd);
+        params.put("UMNew_Pwd", newPwd);
+        AsyncHttpUtils.postHttp(HttpAPI.API().EDIT_USERPWD, params, new CallBack() {
             @Override
-            public void onResponse(Object response) {
+            public void onResponse(BaseRes response) {
                 dialog.dismiss();
-//                ToastUtils.showToast(ac,"修改密码成功");
                 ac.finish();
                 Intent intent = new Intent(MyApplication.getContext(), LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 MyApplication.getContext().startActivity(intent);
                 com.blankj.utilcode.util.ToastUtils.showShort("修改密码成功");
-            }
-
-            @Override
-            public void onErrorResponse(Object msg) {
-
             }
         });
     }

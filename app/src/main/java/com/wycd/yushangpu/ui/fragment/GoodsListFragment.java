@@ -154,7 +154,7 @@ public class GoodsListFragment extends Fragment {
                 tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
-                        obtainHomeShop("", tab.getTag().toString());
+                        obtainHomeShop(tab.getTag().toString(), "");
                     }
 
                     @Override
@@ -164,7 +164,7 @@ public class GoodsListFragment extends Fragment {
 
                     @Override
                     public void onTabReselected(TabLayout.Tab tab) {
-                        obtainHomeShop("", tab.getTag().toString());
+                        obtainHomeShop(tab.getTag().toString(), "");
                     }
                 });
             }

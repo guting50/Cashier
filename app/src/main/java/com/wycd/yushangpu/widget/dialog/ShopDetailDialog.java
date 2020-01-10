@@ -11,10 +11,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.reflect.TypeToken;
 import com.gt.utils.view.BgFrameLayout;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.adapter.YuangongAdapter;
@@ -22,8 +22,11 @@ import com.wycd.yushangpu.bean.EmplMsg;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.bean.ValiRuleMsg;
 import com.wycd.yushangpu.bean.event.HomeButtonColorChangeEvent;
+import com.wycd.yushangpu.http.AsyncHttpUtils;
+import com.wycd.yushangpu.http.BaseRes;
+import com.wycd.yushangpu.http.CallBack;
+import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.model.ImpEmplList;
 import com.wycd.yushangpu.model.ImpValidRule;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.widget.NumInputView;
@@ -31,6 +34,7 @@ import com.wycd.yushangpu.widget.NumKeyboardUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -178,7 +182,6 @@ public class ShopDetailDialog {
         return (int) (dipValue * scale + 0.5f);
     }
 
-
     private static void obtainBumenList(final Activity context, final Dialog loadingdialog, ShopMsg mShopMsg, String VGID,
                                         final List<ValiRuleMsg> ValiRuleMsg, final List<EmplMsg> emplMsgList, final YuangongAdapter yuangongAdapter) {
         loadingdialog.show();
@@ -190,13 +193,14 @@ public class ShopDetailDialog {
                 bumenlist.clear();
                 bumenlist.addAll(mValiRuleMsgList);
                 ValiRuleMsg.addAll(mValiRuleMsgList);
-                ImpEmplList emplList = new ImpEmplList();
                 //预加载接口获取员工列表
-                emplList.emplList(context, new InterfaceBack() {
+                AsyncHttpUtils.postHttp(HttpAPI.API().GET_EMPLLIST, new CallBack() {
                     @Override
-                    public void onResponse(Object response) {
+                    public void onResponse(BaseRes response) {
                         loadingdialog.dismiss();
-                        List<EmplMsg> sllist = (List<EmplMsg>) response;
+                        Type listType = new TypeToken<List<EmplMsg>>() {
+                        }.getType();
+                        List<EmplMsg> sllist = response.getData(listType);
                         choseEmplList(ValiRuleMsg, sllist, emplMsgList, yuangongAdapter);
                         HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
                         event.setMsg("Change_color");
