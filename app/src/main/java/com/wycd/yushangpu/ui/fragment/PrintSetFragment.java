@@ -268,22 +268,22 @@ public class PrintSetFragment extends Fragment {
             public void getPrintSetSuccess(PrintSetBean bean) {
                 mPrintSetBean = bean;
                 if (mPrintSetBean != null) {
-                    if (bean.getData().getPS_IsEnabled() == 1) {
+                    if (bean.getPS_IsEnabled() == 1) {
                         scPrintSwitch.setChecked(true);
-                        if (bean.getData().getPS_PaperType() == 2) {
+                        if (bean.getPS_PaperType() == 2) {
                             rgPrinterSelectLabelSize.check(rgPrinterSelectLabelSmall.getId());
-                        } else if (bean.getData().getPS_PaperType() == 3) {
+                        } else if (bean.getPS_PaperType() == 3) {
                             rgPrinterSelectLabelSize.check(rgPrinterSelectLabelLarge.getId());
                         }
                     } else {
                         scPrintSwitch.setChecked(false);
                     }
-                    if (bean.getData().getPrintTimesList() != null) {
-                        for (int j = 0; j < bean.getData().getPrintTimesList().size(); j++) {
-                            if (bean.getData().getPrintTimesList().get(j).getPT_Code().equals("SPXF")) {
-                                mEtGoodsConsume.setText("" + bean.getData().getPrintTimesList().get(j).getPT_Times());
-                            } else if (bean.getData().getPrintTimesList().get(j).getPT_Code().equals("JB")) {
-                                mEtHandDutyTime.setText("" + bean.getData().getPrintTimesList().get(j).getPT_Times());
+                    if (bean.getPrintTimesList() != null) {
+                        for (int j = 0; j < bean.getPrintTimesList().size(); j++) {
+                            if (bean.getPrintTimesList().get(j).getPT_Code().equals("SPXF")) {
+                                mEtGoodsConsume.setText("" + bean.getPrintTimesList().get(j).getPT_Times());
+                            } else if (bean.getPrintTimesList().get(j).getPT_Code().equals("JB")) {
+                                mEtHandDutyTime.setText("" + bean.getPrintTimesList().get(j).getPT_Times());
                             }
                         }
                     }
@@ -355,8 +355,8 @@ public class PrintSetFragment extends Fragment {
                     params.put("PS_StylusPrintingName:", "XP-58");
                 } else {
                     params.put("PS_PaperType", paperType);
-                    params.put("PS_PrinterName", mPrintSetBean.getData().getPS_PrinterName());
-                    params.put("PS_StylusPrintingName:", mPrintSetBean.getData().getPS_StylusPrintingName());
+                    params.put("PS_PrinterName", mPrintSetBean.getPS_PrinterName());
+                    params.put("PS_StylusPrintingName:", mPrintSetBean.getPS_StylusPrintingName());
                 }
 
                 if (mPrintMap.size() > 0) {

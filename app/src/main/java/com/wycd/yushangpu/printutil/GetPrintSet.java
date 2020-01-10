@@ -12,6 +12,7 @@ import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.http.HttpAPI;
+import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.printutil.bean.PrintParamSetBean;
 import com.wycd.yushangpu.printutil.bean.PrintSetBean;
 import com.wycd.yushangpu.tools.ActivityManager;
@@ -72,14 +73,15 @@ public class GetPrintSet {
                     LogUtils.d("<< ======== " + url + " result ========", new String(responseBody, "UTF-8"));
                     JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
                     if (jso.getBoolean("success")) {
-
                         Gson gson = new Gson();
-                        PrintParamSetBean bean = gson.fromJson(jso.toString(), PrintParamSetBean.class);
-                        for (int i = 0; i < bean.getData().size(); i++) {
-                            List<PrintParamSetBean.DataBean.TemplateItemsBean> itemsBean = bean.getData().get(i).getTemplateItems();
+                        Type type = new TypeToken<List<PrintParamSetBean>>() {
+                        }.getType();
+                        List<PrintParamSetBean> beanList = gson.fromJson(jso.toString(), type);
+                        for (int i = 0; i < beanList.size(); i++) {
+                            List<PrintParamSetBean.TemplateItemsBean> itemsBean = beanList.get(i).getTemplateItems();
                             if (itemsBean != null) {
                                 //会员充次
-                                if ("HYCC".equals(bean.getData().get(i).getPT_Code())) {
+                                if ("HYCC".equals(beanList.get(i).getPT_Code())) {
                                     for (int j = 0; j < itemsBean.size(); j++) {
                                         if ("LOGO".equals(itemsBean.get(j).getItemName())) {
                                             if (itemsBean.get(j).getItemValue().contains("http")) {
@@ -101,7 +103,7 @@ public class GetPrintSet {
                                     }
                                 }
                                 //会员充值
-                                if ("HYCZ".equals(bean.getData().get(i).getPT_Code())) {
+                                if ("HYCZ".equals(beanList.get(i).getPT_Code())) {
                                     for (int j = 0; j < itemsBean.size(); j++) {
                                         if ("LOGO".equals(itemsBean.get(j).getItemName())) {
                                             if (itemsBean.get(j).getItemValue().contains("http")) {
@@ -123,7 +125,7 @@ public class GetPrintSet {
                                     }
                                 }
                                 //商品消费
-                                if ("SPXF".equals(bean.getData().get(i).getPT_Code())) {
+                                if ("SPXF".equals(beanList.get(i).getPT_Code())) {
                                     for (int j = 0; j < itemsBean.size(); j++) {
                                         if ("LOGO".equals(itemsBean.get(j).getItemName())) {
                                             if (itemsBean.get(j).getItemValue().contains("http")) {
@@ -145,7 +147,7 @@ public class GetPrintSet {
                                     }
                                 }
                                 //计次消费
-                                if ("JCXF".equals(bean.getData().get(i).getPT_Code())) {
+                                if ("JCXF".equals(beanList.get(i).getPT_Code())) {
                                     for (int j = 0; j < itemsBean.size(); j++) {
                                         if ("LOGO".equals(itemsBean.get(j).getItemName())) {
                                             if (itemsBean.get(j).getItemValue().contains("http")) {
@@ -167,7 +169,7 @@ public class GetPrintSet {
                                     }
                                 }
                                 //积分兑换
-                                if ("JFDH".equals(bean.getData().get(i).getPT_Code())) {
+                                if ("JFDH".equals(beanList.get(i).getPT_Code())) {
                                     for (int j = 0; j < itemsBean.size(); j++) {
                                         if ("LOGO".equals(itemsBean.get(j).getItemName())) {
                                             if (itemsBean.get(j).getItemValue().contains("http")) {
@@ -189,7 +191,7 @@ public class GetPrintSet {
                                     }
                                 }
                                 //快速消费
-                                if ("KSXF".equals(bean.getData().get(i).getPT_Code())) {
+                                if ("KSXF".equals(beanList.get(i).getPT_Code())) {
                                     for (int j = 0; j < itemsBean.size(); j++) {
                                         if ("LOGO".equals(itemsBean.get(j).getItemName())) {
                                             if (itemsBean.get(j).getItemValue().contains("http")) {
@@ -211,7 +213,7 @@ public class GetPrintSet {
                                     }
                                 }
                                 //套餐消费
-                                if ("TCXF".equals(bean.getData().get(i).getPT_Code())) {
+                                if ("TCXF".equals(beanList.get(i).getPT_Code())) {
                                     for (int j = 0; j < itemsBean.size(); j++) {
                                         if ("LOGO".equals(itemsBean.get(j).getItemName())) {
                                             if (itemsBean.get(j).getItemValue().contains("http")) {
@@ -234,7 +236,7 @@ public class GetPrintSet {
                                 }
 
                                 //会员开卡
-                                if ("HYKK".equals(bean.getData().get(i).getPT_Code())) {
+                                if ("HYKK".equals(beanList.get(i).getPT_Code())) {
                                     for (int j = 0; j < itemsBean.size(); j++) {
                                         if ("LOGO".equals(itemsBean.get(j).getItemName())) {
                                             if (itemsBean.get(j).getItemValue().contains("http")) {
@@ -257,7 +259,7 @@ public class GetPrintSet {
                                 }
 
                                 //交班
-                                if ("JB".equals(bean.getData().get(i).getPT_Code())) {
+                                if ("JB".equals(beanList.get(i).getPT_Code())) {
                                     for (int j = 0; j < itemsBean.size(); j++) {
                                         if ("LOGO".equals(itemsBean.get(j).getItemName())) {
                                             if (itemsBean.get(j).getItemValue().contains("http")) {
@@ -280,7 +282,7 @@ public class GetPrintSet {
                                 }
 
                                 //入库
-                                if ("RKJLXQ".equals(bean.getData().get(i).getPT_Code())) {
+                                if ("RKJLXQ".equals(beanList.get(i).getPT_Code())) {
                                     for (int j = 0; j < itemsBean.size(); j++) {
                                         if ("LOGO".equals(itemsBean.get(j).getItemName())) {
                                             if (itemsBean.get(j).getItemValue().contains("http")) {
@@ -303,7 +305,7 @@ public class GetPrintSet {
                                 }
 
                                 //出库
-                                if ("CKJLXQ".equals(bean.getData().get(i).getPT_Code())) {
+                                if ("CKJLXQ".equals(beanList.get(i).getPT_Code())) {
                                     for (int j = 0; j < itemsBean.size(); j++) {
                                         if ("LOGO".equals(itemsBean.get(j).getItemName())) {
                                             if (itemsBean.get(j).getItemValue().contains("http")) {
@@ -325,7 +327,7 @@ public class GetPrintSet {
                                     }
                                 }
                                 //商品退货
-                                if ("SPTH".equals(bean.getData().get(i).getPT_Code())) {
+                                if ("SPTH".equals(beanList.get(i).getPT_Code())) {
                                     for (int j = 0; j < itemsBean.size(); j++) {
                                         if ("LOGO".equals(itemsBean.get(j).getItemName())) {
                                             if (itemsBean.get(j).getItemValue().contains("http")) {
@@ -371,21 +373,20 @@ public class GetPrintSet {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-//                ToastUtils.showToast(mContext, "获取打印模板失败");
                 com.blankj.utilcode.util.ToastUtils.showShort("获取打印模板失败");
                 LogUtils.d("xxerror", error.getMessage());
             }
-
         });
-
     }
 
     /**
      * 获取打印设置
      */
     public static void getPrintSet() {
+        getPrintSet(null);
+    }
 
-
+    public static void getPrintSet(InterfaceBack back) {
         AsyncHttpClient client = new AsyncHttpClient();
         final PersistentCookieStore myCookieStore = new PersistentCookieStore(MyApplication.getContext());
         client.setCookieStore(myCookieStore);
@@ -408,15 +409,18 @@ public class GetPrintSet {
 
                         if (!jso.getString("data").equals("")) {
                             PrintSetBean printSetBean = gson.fromJson(jso.toString(), listType);
-                            MyApplication.LABEL_TYPE = printSetBean.getData().getPS_TipPrintPaper();
-                            if (printSetBean.getData().getPS_IsEnabled() == 1) {
+                            if (back != null) {
+                                back.onResponse(printSetBean);
+                            }
+                            MyApplication.LABEL_TYPE = printSetBean.getPS_TipPrintPaper();
+                            if (printSetBean.getPS_IsEnabled() == 1) {
                                 MyApplication.PRINT_IS_OPEN = true;
                             } else {
                                 MyApplication.PRINT_IS_OPEN = false;
                             }
-                            if (printSetBean.getData() != null && printSetBean.getData().getPrintTimesList() != null) {
-                                for (int i = 0; i < printSetBean.getData().getPrintTimesList().size(); i++) {
-                                    PrintSetBean.DataBean.PrintTimesListBean bean = printSetBean.getData().getPrintTimesList().get(i);
+                            if (printSetBean != null && printSetBean.getPrintTimesList() != null) {
+                                for (int i = 0; i < printSetBean.getPrintTimesList().size(); i++) {
+                                    PrintSetBean.PrintTimesListBean bean = printSetBean.getPrintTimesList().get(i);
                                     if ("SPXF".equals(bean.getPT_Code())) {
                                         MyApplication.SPXF_PRINT_TIMES = bean.getPT_Times();
                                     }
@@ -424,10 +428,10 @@ public class GetPrintSet {
                                         MyApplication.JB_PRINT_TIMES = bean.getPT_Times();
                                     }
                                 }
-//                                HomeActivity.printConnect(MyApplication.getContext(), printSetBean.getData().getPS_PrinterName());
                             }
                         }
                     } else {
+                        back.onErrorResponse("");
                         if (jso.getString("code").equals("RemoteLogin") || jso.getString("code").equals("LoginTimeout")) {
                             ActivityManager.getInstance().exit();
                             Intent intent = new Intent(MyApplication.getContext(), LoginActivity.class);
@@ -442,18 +446,15 @@ public class GetPrintSet {
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
-
-
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers,
                                   byte[] responseBody, Throwable error) {
                 MyApplication.PRINT_IS_OPEN = false;
-//                ToastUtils.showToast(mContext, error.getMessage());
                 com.blankj.utilcode.util.ToastUtils.showShort(error.getMessage());
+                back.onErrorResponse(error.getMessage());
             }
-
         });
     }
 
