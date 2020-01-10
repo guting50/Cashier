@@ -13,16 +13,18 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.google.android.material.tabs.TabLayout;
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.ClassMsg;
 import com.wycd.yushangpu.bean.ShopMsg;
+import com.wycd.yushangpu.http.AsyncHttpUtils;
 import com.wycd.yushangpu.http.BasePageRes;
+import com.wycd.yushangpu.http.BaseRes;
+import com.wycd.yushangpu.http.CallBack;
+import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.model.ImpShopClass;
 import com.wycd.yushangpu.model.ImpShopHome;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.GlideTransform;
@@ -109,14 +111,13 @@ public class GoodsListFragment extends Fragment {
     }
 
     private void obtainShopClass() {
-        ImpShopClass shopClass = new ImpShopClass();
-        shopClass.shopclass(getActivity(), new InterfaceBack() {//获取商品列表
+        String url = HttpAPI.API().PRODUCTTYPE;
+        AsyncHttpUtils.postHttp(url, new CallBack() {
             @Override
-            public void onResponse(Object response) {
-                Gson gson = new Gson();
+            public void onResponse(BaseRes response) {
                 Type listType = new TypeToken<List<ClassMsg>>() {
                 }.getType();
-                List<ClassMsg> sllist = gson.fromJson(response.toString(), listType);
+                List<ClassMsg> sllist = response.getData(listType);
                 mClassMsgList.clear();
                 mClassMsgList.addAll(sllist);
 
@@ -165,10 +166,6 @@ public class GoodsListFragment extends Fragment {
                         obtainHomeShop(tab.getTag().toString(), "");
                     }
                 });
-            }
-
-            @Override
-            public void onErrorResponse(Object msg) {
             }
         });
     }
