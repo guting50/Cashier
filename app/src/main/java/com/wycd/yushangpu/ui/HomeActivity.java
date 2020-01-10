@@ -1386,10 +1386,10 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
     private void initVIP(String VIP_Card) {
         ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
-        onlyVipMsg.vipMsg(ac, VIP_Card, new InterfaceBack() {
+        onlyVipMsg.vipMsg(VIP_Card, new InterfaceBack<VipInfoMsg>() {
             @Override
-            public void onResponse(Object response) {
-                mVipMsg = (VipInfoMsg) response;
+            public void onResponse(VipInfoMsg response) {
+                mVipMsg = response;
 
                 if (mVipMsg != null) {
                     PreferenceHelper.write(ac, "yunshangpu", "vip", true);
@@ -1403,11 +1403,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                         com.blankj.utilcode.util.ToastUtils.showShort("会员名为空");
                     }
                 }
-            }
-
-            @Override
-            public void onErrorResponse(Object msg) {
-
             }
         });
     }

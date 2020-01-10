@@ -6,19 +6,16 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.blankj.utilcode.util.KeyboardUtils;
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.adapter.SearchVipPopAdapter;
 import com.wycd.yushangpu.bean.VipInfoMsg;
+import com.wycd.yushangpu.http.BasePageRes;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpOnlyVipMsg;
 import com.wycd.yushangpu.widget.NumInputView;
 import com.wycd.yushangpu.widget.NumKeyboardUtils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -66,19 +63,14 @@ public class VipChooseDialog extends Dialog {
                 mVipDetail = (VipInfoMsg) response;
 
                 ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
-                onlyVipMsg.vipMsg(mContext, mVipDetail.getVCH_Card(), new InterfaceBack() {
+                onlyVipMsg.vipMsg(mVipDetail.getVCH_Card(), new InterfaceBack<VipInfoMsg>() {
                     @Override
-                    public void onResponse(Object response) {
-                        mVipDetail = (VipInfoMsg) response;
+                    public void onResponse(VipInfoMsg response) {
+                        mVipDetail = response;
                         back.onResponse(mVipDetail);
-                    }
-
-                    @Override
-                    public void onErrorResponse(Object msg) {
-
+                        dismiss();
                     }
                 });
-                dismiss();
             }
 
             @Override
@@ -152,26 +144,20 @@ public class VipChooseDialog extends Dialog {
             searchVipPopAdapter.getList().clear();
         }
         ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
-        onlyVipMsg.vipMsgs(mContext, editTextLayout.getText().toString(), pageIndex, 20, new InterfaceBack() {
+        onlyVipMsg.vipMsgs(editTextLayout.getText().toString(), pageIndex, 20, new InterfaceBack<BasePageRes>() {
             @Override
-            public void onResponse(Object response) {
+            public void onResponse(BasePageRes response) {
                 dialog.dismiss();
-                JSONObject jso = (JSONObject) response;
-                try {
-                    JSONObject js = jso.getJSONObject("data");
-                    Type listType = new TypeToken<List<VipInfoMsg>>() {
-                    }.getType();
-                    List<VipInfoMsg> vipDengjiMsg = new Gson().fromJson(js.getString("DataList"), listType);
+                Type listType = new TypeToken<List<VipInfoMsg>>() {
+                }.getType();
+                List<VipInfoMsg> vipDengjiMsg = response.getData(listType);
 
-                    searchVipPopAdapter.addAllList(vipDengjiMsg);
-                    searchVipPopAdapter.notifyDataSetChanged();
-                    if (js.getInt("DataCount") <= searchVipPopAdapter.getList().size()) {
-                        searchList.setLoadingMoreEnabled(false);
-                    } else {
-                        searchList.setLoadingMoreEnabled(true);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                searchVipPopAdapter.addAllList(vipDengjiMsg);
+                searchVipPopAdapter.notifyDataSetChanged();
+                if (response.getDataCount() <= searchVipPopAdapter.getList().size()) {
+                    searchList.setLoadingMoreEnabled(false);
+                } else {
+                    searchList.setLoadingMoreEnabled(true);
                 }
                 searchList.loadMoreComplete();
                 searchList.refreshComplete();

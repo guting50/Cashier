@@ -449,10 +449,10 @@ public class QudanFragment extends Fragment {
                     //可抵扣金额= 会员积分/积分抵扣百分比 *积分支付限制百分比
                     if (!guadanList.getVIP_Card().equals("00000")) {
                         ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
-                        onlyVipMsg.vipMsg(homeActivity, guadanList.getVIP_Card(), new InterfaceBack() {
+                        onlyVipMsg.vipMsg(guadanList.getVIP_Card(), new InterfaceBack<VipInfoMsg>() {
                             @Override
-                            public void onResponse(Object response) {
-                                mVipMsg = (VipInfoMsg) response;
+                            public void onResponse(VipInfoMsg response) {
+                                mVipMsg = response;
                                 homeActivity.dialog.dismiss();
                                 String jifen = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableIntegral() + "";
                                 dkmoney = CommonUtils.div(CommonUtils.multiply(jifen, jinfenzfxzbfb), Double.parseDouble(jifendkbfb), 2);//可抵扣金额
