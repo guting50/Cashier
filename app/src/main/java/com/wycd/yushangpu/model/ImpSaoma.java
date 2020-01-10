@@ -1,7 +1,5 @@
 package com.wycd.yushangpu.model;
 
-import android.app.Activity;
-
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.bean.OrderPayResult;
@@ -92,7 +90,6 @@ public class ImpSaoma {
 
             @Override
             public void onErrorResponse(Object msg) {
-                super.onErrorResponse(msg);
                 back.onErrorResponse(msg);
             }
         });

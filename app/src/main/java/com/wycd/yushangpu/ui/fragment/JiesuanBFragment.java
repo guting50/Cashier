@@ -898,7 +898,7 @@ public class JiesuanBFragment extends Fragment {
                                     Type type = new TypeToken<Map<String, Object>>() {
                                     }.getType();
                                     Map<String, Object> map = baseRes.getData(type);
-                                    String gid = map.get("Order_GID").toString();
+                                    String gid = map.get("GID").toString();
                                     Timer timer = new Timer();
                                     timer.schedule(new TimerTask() {
                                         @Override
@@ -909,6 +909,20 @@ public class JiesuanBFragment extends Fragment {
                                                     saoma.saomaPayQuery(gid, new InterfaceBack<BaseRes>() {
                                                         @Override
                                                         public void onResponse(BaseRes response) {
+                                                            checkPayResult(response);
+                                                        }
+
+                                                        @Override
+                                                        public void onErrorResponse(Object msg) {
+                                                            if (msg instanceof BaseRes) {
+                                                                checkPayResult((BaseRes) msg);
+                                                            } else {
+                                                                timer.cancel();
+                                                                saomaPayError();
+                                                            }
+                                                        }
+
+                                                        public void checkPayResult(BaseRes response) {
                                                             if (!("410004").equals(response.getCode())) {
                                                                 timer.cancel();
                                                                 if (response.isSuccess()) {
@@ -924,12 +938,6 @@ public class JiesuanBFragment extends Fragment {
                                                             } else {
                                                                 com.blankj.utilcode.util.ToastUtils.showShort("支付中");
                                                             }
-                                                        }
-
-                                                        @Override
-                                                        public void onErrorResponse(Object msg) {
-                                                            timer.cancel();
-                                                            saomaPayError();
                                                         }
                                                     });
                                                 }
