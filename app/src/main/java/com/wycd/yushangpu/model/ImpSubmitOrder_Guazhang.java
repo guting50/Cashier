@@ -8,15 +8,12 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
-import com.wycd.yushangpu.bean.OrderCanshhu;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.http.UrlTools;
 import com.wycd.yushangpu.tools.ActivityManager;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.LogUtils;
-import com.wycd.yushangpu.tools.ToastUtils;
 import com.wycd.yushangpu.ui.LoginActivity;
 
 import org.json.JSONObject;

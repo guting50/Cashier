@@ -13,13 +13,13 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
+import com.wycd.yushangpu.MyApplication;
+import com.wycd.yushangpu.tools.LogUtils;
+import com.wycd.yushangpu.tools.PreferenceHelper;
 
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
-import com.wycd.yushangpu.http.UrlTools;
-import com.wycd.yushangpu.tools.LogUtils;
-import com.wycd.yushangpu.tools.PreferenceHelper;
 
 public class PayResultPollService extends Service {
     private Intent intent = new Intent("com.example.communication.RECEIVER");
@@ -56,10 +56,10 @@ public class PayResultPollService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // TODO 自动生成的方法存根
-      String payway=  PreferenceHelper.readString(getApplicationContext(), "lottery", "payway", "ali");
-        if(payway.equals("ali")){
+        String payway = PreferenceHelper.readString(getApplicationContext(), "lottery", "payway", "ali");
+        if (payway.equals("ali")) {
             getAliPayResult();
-        }else{
+        } else {
             getWxPayResult();
         }
         AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
@@ -88,7 +88,7 @@ public class PayResultPollService extends Service {
         RequestParams params = new RequestParams();
         params.put("zfborder", PreferenceHelper.readString(getApplicationContext(), "lottery", "aliOrder", ""));
         LogUtils.d("xxali", params.toString());
-        client.post(UrlTools.obtainUrl("jhzf/zfbpay/queryZfborder"), params, new AsyncHttpResponseHandler() {
+        client.post(MyApplication.BASE_URL + "jhzf/zfbpay/queryZfborder", params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
@@ -121,6 +121,7 @@ public class PayResultPollService extends Service {
             }
         });
     }
+
     private void getWxPayResult() {
         AsyncHttpClient client = new AsyncHttpClient();
         final PersistentCookieStore myCookieStore = new PersistentCookieStore(getApplicationContext());
@@ -128,7 +129,7 @@ public class PayResultPollService extends Service {
         RequestParams params = new RequestParams();
         params.put("wxorder", PreferenceHelper.readString(getApplicationContext(), "lottery", "wxOrder", ""));
         LogUtils.d("xxali", params.toString());
-        client.post(UrlTools.obtainUrl("jhzf/wxpay/queryWxorder"), params, new AsyncHttpResponseHandler() {
+        client.post(MyApplication.BASE_URL + "jhzf/wxpay/queryWxorder", params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {

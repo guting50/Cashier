@@ -23,6 +23,15 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.wycd.yushangpu.MyApplication;
+import com.wycd.yushangpu.R;
+import com.wycd.yushangpu.tools.ActivityStack;
+import com.wycd.yushangpu.tools.LogUtils;
+import com.wycd.yushangpu.tools.PreferenceHelper;
+import com.wycd.yushangpu.zxing.camera.CameraManager;
+import com.wycd.yushangpu.zxing.decoding.CaptureActivityHandler;
+import com.wycd.yushangpu.zxing.decoding.InactivityTimer;
+import com.wycd.yushangpu.zxing.view.ViewfinderView;
 
 import org.json.JSONObject;
 
@@ -33,15 +42,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
-import com.wycd.yushangpu.R;
-import com.wycd.yushangpu.http.UrlTools;
-import com.wycd.yushangpu.tools.ActivityStack;
-import com.wycd.yushangpu.tools.LogUtils;
-import com.wycd.yushangpu.tools.PreferenceHelper;
-import com.wycd.yushangpu.zxing.camera.CameraManager;
-import com.wycd.yushangpu.zxing.decoding.CaptureActivityHandler;
-import com.wycd.yushangpu.zxing.decoding.InactivityTimer;
-import com.wycd.yushangpu.zxing.view.ViewfinderView;
 
 /**
  * Initial the camera
@@ -269,7 +269,7 @@ public class MipcaActivityCapture extends Activity implements Callback {
 
     private void obtainHuilu() {
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get(UrlTools.obtainUrl("jhzf/getRate"), new AsyncHttpResponseHandler() {
+        client.get(MyApplication.BASE_URL + "jhzf/getRate", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {

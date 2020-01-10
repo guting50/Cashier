@@ -54,7 +54,7 @@ public class VipDialog {
         Window window = dialog.getWindow();
         dialog.show();
         if (vipList.size() == 0) {
-            obtainVipList(context, loadingdialog, vipList, mVipListAdapter,"");
+            obtainVipList(context, loadingdialog, vipList, mVipListAdapter, "");
         }
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -74,9 +74,9 @@ public class VipDialog {
         li_search.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
-                if(!et_search.getText().toString().equals("")){
-                    obtainVipList(context, loadingdialog, vipList, mVipListAdapter,et_search.getText().toString());
-                }else{
+                if (!et_search.getText().toString().equals("")) {
+                    obtainVipList(context, loadingdialog, vipList, mVipListAdapter, et_search.getText().toString());
+                } else {
 //                    ToastUtils.showToast(context,"请输入会员卡号/姓名/手机号/卡面号");
                     com.blankj.utilcode.util.ToastUtils.showShort("请输入会员卡号/姓名/手机号/卡面号");
                 }
@@ -120,15 +120,14 @@ public class VipDialog {
         return (int) (dipValue * scale + 0.5f);
     }
 
-    private static void obtainVipList(Activity context, final Dialog loadingdialog, final List<VipInfoMsg> vipList, final VipListAdapter mVipListAdapter,String search) {
+    private static void obtainVipList(Activity context, final Dialog loadingdialog, final List<VipInfoMsg> vipList, final VipListAdapter mVipListAdapter, String search) {
         loadingdialog.show();
         ImpVipList shopHome = new ImpVipList();
-        shopHome.vipList(context, "yes", 1, 50,search, new InterfaceBack() {
+        shopHome.vipList(1, 50, search, new InterfaceBack<List<VipInfoMsg>>() {
             @Override
-            public void onResponse(Object response) {
+            public void onResponse(List<VipInfoMsg> response) {
                 loadingdialog.dismiss();
-                List<VipInfoMsg> sllist = (List<VipInfoMsg>) response;
-                vipList.addAll(sllist);
+                vipList.addAll(response);
                 LogUtils.d("xxshoplist", vipList.size() + "");
                 mVipListAdapter.notifyDataSetChanged();
             }

@@ -16,11 +16,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.bean.YhqMsg;
+import com.wycd.yushangpu.http.AsyncHttpUtils;
+import com.wycd.yushangpu.http.BaseRes;
+import com.wycd.yushangpu.http.CallBack;
+import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.model.ImpYhq;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.widget.views.ClearEditText;
@@ -95,12 +99,14 @@ public class YouhuiquanDialog {
                     com.blankj.utilcode.util.ToastUtils.showShort("请输入优惠券名称");
                 } else {
                     loadingdialog.show();
-                    ImpYhq impYhq = new ImpYhq();
-                    impYhq.yhqlist(context, payMoney, et_search.getText().toString(), new InterfaceBack() {
+                    RequestParams params = new RequestParams();
+                    params.put("Code", et_search.getText().toString());
+                    params.put("Money", payMoney);
+                    String url = HttpAPI.API().QUERY_COUPONS_BYCODE;
+                    AsyncHttpUtils.postHttp(url, params, new CallBack() {
                         @Override
-                        public void onResponse(Object response) {
-                            loadingdialog.dismiss();
-                            YhqMsg slist = (YhqMsg) response;
+                        public void onResponse(BaseRes response) {
+                            YhqMsg slist = response.getData(YhqMsg.class);
 
                             if (list.size() > 0) {
                                 for (int i = 0; i < list.size(); i++) {
@@ -111,11 +117,9 @@ public class YouhuiquanDialog {
                                         break;
                                     }
                                 }
-
                             } else {
                                 list.add(0, slist);
                             }
-
                             adapter.notifyDataSetChanged();
                         }
 
