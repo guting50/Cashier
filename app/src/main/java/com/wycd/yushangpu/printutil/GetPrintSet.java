@@ -2,27 +2,19 @@ package com.wycd.yushangpu.printutil;
 
 
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.BitmapFactory;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.PersistentCookieStore;
-import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.BinaryHttpResponseHandler;
 import com.wycd.yushangpu.MyApplication;
+import com.wycd.yushangpu.http.AsyncHttpUtils;
+import com.wycd.yushangpu.http.BaseRes;
+import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
-import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.printutil.bean.PrintParamSetBean;
 import com.wycd.yushangpu.printutil.bean.PrintSetBean;
-import com.wycd.yushangpu.tools.ActivityManager;
-import com.wycd.yushangpu.tools.LogUtils;
-import com.wycd.yushangpu.ui.LoginActivity;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -57,324 +49,293 @@ public class GetPrintSet {
 
         mContext = MyApplication.getContext();
 
-        AsyncHttpClient client = new AsyncHttpClient();
-        final PersistentCookieStore myCookieStore = new PersistentCookieStore(mContext);
-        client.setCookieStore(myCookieStore);
-        RequestParams params = new RequestParams();
-
-
         String url = HttpAPI.API().GET_PRINT_TEMP;
-        LogUtils.d("======== url ======== >>", url);
-        LogUtils.d("======== params ======== >>", params.toString());
-        client.post(url, params, new AsyncHttpResponseHandler() {
+        AsyncHttpUtils.postHttp(url, new CallBack() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                try {
-                    LogUtils.d("<< ======== " + url + " result ========", new String(responseBody, "UTF-8"));
-                    JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
-                    if (jso.getBoolean("success")) {
-                        Gson gson = new Gson();
-                        Type type = new TypeToken<List<PrintParamSetBean>>() {
-                        }.getType();
-                        List<PrintParamSetBean> beanList = gson.fromJson(jso.toString(), type);
-                        for (int i = 0; i < beanList.size(); i++) {
-                            List<PrintParamSetBean.TemplateItemsBean> itemsBean = beanList.get(i).getTemplateItems();
-                            if (itemsBean != null) {
-                                //会员充次
-                                if ("HYCC".equals(beanList.get(i).getPT_Code())) {
-                                    for (int j = 0; j < itemsBean.size(); j++) {
-                                        if ("LOGO".equals(itemsBean.get(j).getItemName())) {
-                                            if (itemsBean.get(j).getItemValue().contains("http")) {
-                                                HttpHelper.getBitmap(itemsBean.get(j).getItemValue(), "HYCC", true);
-                                            } else {
-                                                HttpHelper.getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
-                                                        "HYCC", true);
-                                            }
-                                        }
-                                        if ("二维码".equals(itemsBean.get(j).getItemName())) {
-                                            if (itemsBean.get(j).getItemValue().contains("http")) {
-                                                HttpHelper.getBitmap(itemsBean.get(j).getItemValue(), "HYCC", false);
-                                            } else {
-                                                HttpHelper.getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
-                                                        "HYCC", false);
-                                            }
-                                        }
-                                        MyApplication.mTimesRechargeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
+            public void onResponse(BaseRes response) {
+                Type type = new TypeToken<List<PrintParamSetBean>>() {
+                }.getType();
+                List<PrintParamSetBean> beanList = response.getData(type);
+                for (int i = 0; i < beanList.size(); i++) {
+                    List<PrintParamSetBean.TemplateItemsBean> itemsBean = beanList.get(i).getTemplateItems();
+                    if (itemsBean != null) {
+                        //会员充次
+                        if ("HYCC".equals(beanList.get(i).getPT_Code())) {
+                            for (int j = 0; j < itemsBean.size(); j++) {
+                                if ("LOGO".equals(itemsBean.get(j).getItemName())) {
+                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                        getBitmap(itemsBean.get(j).getItemValue(), "HYCC", true);
+                                    } else {
+                                        getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
+                                                "HYCC", true);
                                     }
                                 }
-                                //会员充值
-                                if ("HYCZ".equals(beanList.get(i).getPT_Code())) {
-                                    for (int j = 0; j < itemsBean.size(); j++) {
-                                        if ("LOGO".equals(itemsBean.get(j).getItemName())) {
-                                            if (itemsBean.get(j).getItemValue().contains("http")) {
-                                                HttpHelper.getBitmap(itemsBean.get(j).getItemValue(), "HYCZ", true);
-                                            } else {
-                                                HttpHelper.getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
-                                                        "HYCZ", true);
-                                            }
-                                        }
-                                        if ("二维码".equals(itemsBean.get(j).getItemName())) {
-                                            if (itemsBean.get(j).getItemValue().contains("http")) {
-                                                HttpHelper.getBitmap(itemsBean.get(j).getItemValue(), "HYCZ", false);
-                                            } else {
-                                                HttpHelper.getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
-                                                        "HYCZ", false);
-                                            }
-                                        }
-                                        MyApplication.mRechargeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
+                                if ("二维码".equals(itemsBean.get(j).getItemName())) {
+                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                        getBitmap(itemsBean.get(j).getItemValue(), "HYCC", false);
+                                    } else {
+                                        getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
+                                                "HYCC", false);
                                     }
                                 }
-                                //商品消费
-                                if ("SPXF".equals(beanList.get(i).getPT_Code())) {
-                                    for (int j = 0; j < itemsBean.size(); j++) {
-                                        if ("LOGO".equals(itemsBean.get(j).getItemName())) {
-                                            if (itemsBean.get(j).getItemValue().contains("http")) {
-                                                HttpHelper.getBitmap(itemsBean.get(j).getItemValue(), "SPXF", true);
-                                            } else {
-                                                HttpHelper.getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
-                                                        "SPXF", true);
-                                            }
-                                        }
-                                        if ("二维码".equals(itemsBean.get(j).getItemName())) {
-                                            if (itemsBean.get(j).getItemValue().contains("http")) {
-                                                HttpHelper.getBitmap(itemsBean.get(j).getItemValue(), "SPXF", false);
-                                            } else {
-                                                HttpHelper.getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
-                                                        "SPXF", false);
-                                            }
-                                        }
-                                        MyApplication.mGoodsConsumeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
-                                    }
-                                }
-                                //计次消费
-                                if ("JCXF".equals(beanList.get(i).getPT_Code())) {
-                                    for (int j = 0; j < itemsBean.size(); j++) {
-                                        if ("LOGO".equals(itemsBean.get(j).getItemName())) {
-                                            if (itemsBean.get(j).getItemValue().contains("http")) {
-                                                HttpHelper.getBitmap(itemsBean.get(j).getItemValue(), "JCXF", true);
-                                            } else {
-                                                HttpHelper.getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
-                                                        "JCXF", true);
-                                            }
-                                        }
-                                        if ("二维码".equals(itemsBean.get(j).getItemName())) {
-                                            if (itemsBean.get(j).getItemValue().contains("http")) {
-                                                HttpHelper.getBitmap(itemsBean.get(j).getItemValue(), "JCXF", false);
-                                            } else {
-                                                HttpHelper.getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
-                                                        "JCXF", false);
-                                            }
-                                        }
-                                        MyApplication.mTimesConsumeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
-                                    }
-                                }
-                                //积分兑换
-                                if ("JFDH".equals(beanList.get(i).getPT_Code())) {
-                                    for (int j = 0; j < itemsBean.size(); j++) {
-                                        if ("LOGO".equals(itemsBean.get(j).getItemName())) {
-                                            if (itemsBean.get(j).getItemValue().contains("http")) {
-                                                HttpHelper.getBitmap(itemsBean.get(j).getItemValue(), "JFDH", true);
-                                            } else {
-                                                HttpHelper.getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
-                                                        "JFDH", true);
-                                            }
-                                        }
-                                        if ("二维码".equals(itemsBean.get(j).getItemName())) {
-                                            if (itemsBean.get(j).getItemValue().contains("http")) {
-                                                HttpHelper.getBitmap(itemsBean.get(j).getItemValue(), "JFDH", false);
-                                            } else {
-                                                HttpHelper.getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
-                                                        "JFDH", false);
-                                            }
-                                        }
-                                        MyApplication.mIntegralExchangeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
-                                    }
-                                }
-                                //快速消费
-                                if ("KSXF".equals(beanList.get(i).getPT_Code())) {
-                                    for (int j = 0; j < itemsBean.size(); j++) {
-                                        if ("LOGO".equals(itemsBean.get(j).getItemName())) {
-                                            if (itemsBean.get(j).getItemValue().contains("http")) {
-                                                HttpHelper.getBitmap(itemsBean.get(j).getItemValue(), "KSXF", true);
-                                            } else {
-                                                HttpHelper.getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
-                                                        "KSXF", true);
-                                            }
-                                        }
-                                        if ("二维码".equals(itemsBean.get(j).getItemName())) {
-                                            if (itemsBean.get(j).getItemValue().contains("http")) {
-                                                HttpHelper.getBitmap(itemsBean.get(j).getItemValue(), "KSXF", false);
-                                            } else {
-                                                HttpHelper.getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
-                                                        "KSXF", false);
-                                            }
-                                        }
-                                        MyApplication.mFastConsumeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
-                                    }
-                                }
-                                //套餐消费
-                                if ("TCXF".equals(beanList.get(i).getPT_Code())) {
-                                    for (int j = 0; j < itemsBean.size(); j++) {
-                                        if ("LOGO".equals(itemsBean.get(j).getItemName())) {
-                                            if (itemsBean.get(j).getItemValue().contains("http")) {
-                                                HttpHelper.getBitmap(itemsBean.get(j).getItemValue(), "TCXF", true);
-                                            } else {
-                                                HttpHelper.getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
-                                                        "TCXF", true);
-                                            }
-                                        }
-                                        if ("二维码".equals(itemsBean.get(j).getItemName())) {
-                                            if (itemsBean.get(j).getItemValue().contains("http")) {
-                                                HttpHelper.getBitmap(itemsBean.get(j).getItemValue(), "TCXF", false);
-                                            } else {
-                                                HttpHelper.getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
-                                                        "TCXF", false);
-                                            }
-                                        }
-                                        MyApplication.mTCConsumeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
-                                    }
-                                }
-
-                                //会员开卡
-                                if ("HYKK".equals(beanList.get(i).getPT_Code())) {
-                                    for (int j = 0; j < itemsBean.size(); j++) {
-                                        if ("LOGO".equals(itemsBean.get(j).getItemName())) {
-                                            if (itemsBean.get(j).getItemValue().contains("http")) {
-                                                HttpHelper.getBitmap(itemsBean.get(j).getItemValue(), "KYKK", true);
-                                            } else {
-                                                HttpHelper.getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
-                                                        "HYKK", true);
-                                            }
-                                        }
-                                        if ("二维码".equals(itemsBean.get(j).getItemName())) {
-                                            if (itemsBean.get(j).getItemValue().contains("http")) {
-                                                HttpHelper.getBitmap(itemsBean.get(j).getItemValue(), "HYKK", false);
-                                            } else {
-                                                HttpHelper.getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
-                                                        "HYKK", false);
-                                            }
-                                        }
-                                        MyApplication.mCardOpenMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
-                                    }
-                                }
-
-                                //交班
-                                if ("JB".equals(beanList.get(i).getPT_Code())) {
-                                    for (int j = 0; j < itemsBean.size(); j++) {
-                                        if ("LOGO".equals(itemsBean.get(j).getItemName())) {
-                                            if (itemsBean.get(j).getItemValue().contains("http")) {
-                                                HttpHelper.getBitmap(itemsBean.get(j).getItemValue(), "JB", true);
-                                            } else {
-                                                HttpHelper.getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
-                                                        "JB", true);
-                                            }
-                                        }
-                                        if ("二维码".equals(itemsBean.get(j).getItemName())) {
-                                            if (itemsBean.get(j).getItemValue().contains("http")) {
-                                                HttpHelper.getBitmap(itemsBean.get(j).getItemValue(), "JB", false);
-                                            } else {
-                                                HttpHelper.getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
-                                                        "JB", false);
-                                            }
-                                        }
-                                        MyApplication.mHandOverMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
-                                    }
-                                }
-
-                                //入库
-                                if ("RKJLXQ".equals(beanList.get(i).getPT_Code())) {
-                                    for (int j = 0; j < itemsBean.size(); j++) {
-                                        if ("LOGO".equals(itemsBean.get(j).getItemName())) {
-                                            if (itemsBean.get(j).getItemValue().contains("http")) {
-                                                HttpHelper.getBitmap(itemsBean.get(j).getItemValue(), "RK", true);
-                                            } else {
-                                                HttpHelper.getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
-                                                        "RK", true);
-                                            }
-                                        }
-                                        if ("二维码".equals(itemsBean.get(j).getItemName())) {
-                                            if (itemsBean.get(j).getItemValue().contains("http")) {
-                                                HttpHelper.getBitmap(itemsBean.get(j).getItemValue(), "RK", false);
-                                            } else {
-                                                HttpHelper.getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
-                                                        "RK", false);
-                                            }
-                                        }
-                                        MyApplication.mGoodsIn.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
-                                    }
-                                }
-
-                                //出库
-                                if ("CKJLXQ".equals(beanList.get(i).getPT_Code())) {
-                                    for (int j = 0; j < itemsBean.size(); j++) {
-                                        if ("LOGO".equals(itemsBean.get(j).getItemName())) {
-                                            if (itemsBean.get(j).getItemValue().contains("http")) {
-                                                HttpHelper.getBitmap(itemsBean.get(j).getItemValue(), "CK", true);
-                                            } else {
-                                                HttpHelper.getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
-                                                        "CK", true);
-                                            }
-                                        }
-                                        if ("二维码".equals(itemsBean.get(j).getItemName())) {
-                                            if (itemsBean.get(j).getItemValue().contains("http")) {
-                                                HttpHelper.getBitmap(itemsBean.get(j).getItemValue(), "CK", false);
-                                            } else {
-                                                HttpHelper.getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
-                                                        "CK", false);
-                                            }
-                                        }
-                                        MyApplication.mGoodsOut.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
-                                    }
-                                }
-                                //商品退货
-                                if ("SPTH".equals(beanList.get(i).getPT_Code())) {
-                                    for (int j = 0; j < itemsBean.size(); j++) {
-                                        if ("LOGO".equals(itemsBean.get(j).getItemName())) {
-                                            if (itemsBean.get(j).getItemValue().contains("http")) {
-                                                HttpHelper.getBitmap(itemsBean.get(j).getItemValue(), "SPTH", true);
-                                            } else {
-                                                HttpHelper.getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
-                                                        "SPTH", true);
-                                            }
-                                        }
-                                        if ("二维码".equals(itemsBean.get(j).getItemName())) {
-                                            if (itemsBean.get(j).getItemValue().contains("http")) {
-                                                HttpHelper.getBitmap(itemsBean.get(j).getItemValue(), "SPTH", false);
-                                            } else {
-                                                HttpHelper.getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
-                                                        "SPTH", false);
-                                            }
-                                        }
-                                        MyApplication.mReTureOrder.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
-                                    }
-                                }
-
+                                MyApplication.mTimesRechargeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
                             }
                         }
-                    } else {
-                        if (jso.getString("code").equals("RemoteLogin") || jso.getString("code").equals("LoginTimeout")) {
-                            ActivityManager.getInstance().exit();
-                            Intent intent = new Intent(MyApplication.getContext(), LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            MyApplication.getContext().startActivity(intent);
-                            com.blankj.utilcode.util.ToastUtils.showShort(jso.getString("msg"));
-                            return;
+                        //会员充值
+                        if ("HYCZ".equals(beanList.get(i).getPT_Code())) {
+                            for (int j = 0; j < itemsBean.size(); j++) {
+                                if ("LOGO".equals(itemsBean.get(j).getItemName())) {
+                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                        getBitmap(itemsBean.get(j).getItemValue(), "HYCZ", true);
+                                    } else {
+                                        getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
+                                                "HYCZ", true);
+                                    }
+                                }
+                                if ("二维码".equals(itemsBean.get(j).getItemName())) {
+                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                        getBitmap(itemsBean.get(j).getItemValue(), "HYCZ", false);
+                                    } else {
+                                        getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
+                                                "HYCZ", false);
+                                    }
+                                }
+                                MyApplication.mRechargeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
+                            }
                         }
-//                        ToastUtils.showToast(mContext, jso.getString("msg"));
-                        com.blankj.utilcode.util.ToastUtils.showShort(jso.getString("msg"));
+                        //商品消费
+                        if ("SPXF".equals(beanList.get(i).getPT_Code())) {
+                            for (int j = 0; j < itemsBean.size(); j++) {
+                                if ("LOGO".equals(itemsBean.get(j).getItemName())) {
+                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                        getBitmap(itemsBean.get(j).getItemValue(), "SPXF", true);
+                                    } else {
+                                        getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
+                                                "SPXF", true);
+                                    }
+                                }
+                                if ("二维码".equals(itemsBean.get(j).getItemName())) {
+                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                        getBitmap(itemsBean.get(j).getItemValue(), "SPXF", false);
+                                    } else {
+                                        getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
+                                                "SPXF", false);
+                                    }
+                                }
+                                MyApplication.mGoodsConsumeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
+                            }
+                        }
+                        //计次消费
+                        if ("JCXF".equals(beanList.get(i).getPT_Code())) {
+                            for (int j = 0; j < itemsBean.size(); j++) {
+                                if ("LOGO".equals(itemsBean.get(j).getItemName())) {
+                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                        getBitmap(itemsBean.get(j).getItemValue(), "JCXF", true);
+                                    } else {
+                                        getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
+                                                "JCXF", true);
+                                    }
+                                }
+                                if ("二维码".equals(itemsBean.get(j).getItemName())) {
+                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                        getBitmap(itemsBean.get(j).getItemValue(), "JCXF", false);
+                                    } else {
+                                        getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
+                                                "JCXF", false);
+                                    }
+                                }
+                                MyApplication.mTimesConsumeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
+                            }
+                        }
+                        //积分兑换
+                        if ("JFDH".equals(beanList.get(i).getPT_Code())) {
+                            for (int j = 0; j < itemsBean.size(); j++) {
+                                if ("LOGO".equals(itemsBean.get(j).getItemName())) {
+                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                        getBitmap(itemsBean.get(j).getItemValue(), "JFDH", true);
+                                    } else {
+                                        getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
+                                                "JFDH", true);
+                                    }
+                                }
+                                if ("二维码".equals(itemsBean.get(j).getItemName())) {
+                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                        getBitmap(itemsBean.get(j).getItemValue(), "JFDH", false);
+                                    } else {
+                                        getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
+                                                "JFDH", false);
+                                    }
+                                }
+                                MyApplication.mIntegralExchangeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
+                            }
+                        }
+                        //快速消费
+                        if ("KSXF".equals(beanList.get(i).getPT_Code())) {
+                            for (int j = 0; j < itemsBean.size(); j++) {
+                                if ("LOGO".equals(itemsBean.get(j).getItemName())) {
+                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                        getBitmap(itemsBean.get(j).getItemValue(), "KSXF", true);
+                                    } else {
+                                        getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
+                                                "KSXF", true);
+                                    }
+                                }
+                                if ("二维码".equals(itemsBean.get(j).getItemName())) {
+                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                        getBitmap(itemsBean.get(j).getItemValue(), "KSXF", false);
+                                    } else {
+                                        getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
+                                                "KSXF", false);
+                                    }
+                                }
+                                MyApplication.mFastConsumeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
+                            }
+                        }
+                        //套餐消费
+                        if ("TCXF".equals(beanList.get(i).getPT_Code())) {
+                            for (int j = 0; j < itemsBean.size(); j++) {
+                                if ("LOGO".equals(itemsBean.get(j).getItemName())) {
+                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                        getBitmap(itemsBean.get(j).getItemValue(), "TCXF", true);
+                                    } else {
+                                        getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
+                                                "TCXF", true);
+                                    }
+                                }
+                                if ("二维码".equals(itemsBean.get(j).getItemName())) {
+                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                        getBitmap(itemsBean.get(j).getItemValue(), "TCXF", false);
+                                    } else {
+                                        getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
+                                                "TCXF", false);
+                                    }
+                                }
+                                MyApplication.mTCConsumeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
+                            }
+                        }
+
+                        //会员开卡
+                        if ("HYKK".equals(beanList.get(i).getPT_Code())) {
+                            for (int j = 0; j < itemsBean.size(); j++) {
+                                if ("LOGO".equals(itemsBean.get(j).getItemName())) {
+                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                        getBitmap(itemsBean.get(j).getItemValue(), "KYKK", true);
+                                    } else {
+                                        getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
+                                                "HYKK", true);
+                                    }
+                                }
+                                if ("二维码".equals(itemsBean.get(j).getItemName())) {
+                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                        getBitmap(itemsBean.get(j).getItemValue(), "HYKK", false);
+                                    } else {
+                                        getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
+                                                "HYKK", false);
+                                    }
+                                }
+                                MyApplication.mCardOpenMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
+                            }
+                        }
+
+                        //交班
+                        if ("JB".equals(beanList.get(i).getPT_Code())) {
+                            for (int j = 0; j < itemsBean.size(); j++) {
+                                if ("LOGO".equals(itemsBean.get(j).getItemName())) {
+                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                        getBitmap(itemsBean.get(j).getItemValue(), "JB", true);
+                                    } else {
+                                        getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
+                                                "JB", true);
+                                    }
+                                }
+                                if ("二维码".equals(itemsBean.get(j).getItemName())) {
+                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                        getBitmap(itemsBean.get(j).getItemValue(), "JB", false);
+                                    } else {
+                                        getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
+                                                "JB", false);
+                                    }
+                                }
+                                MyApplication.mHandOverMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
+                            }
+                        }
+
+                        //入库
+                        if ("RKJLXQ".equals(beanList.get(i).getPT_Code())) {
+                            for (int j = 0; j < itemsBean.size(); j++) {
+                                if ("LOGO".equals(itemsBean.get(j).getItemName())) {
+                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                        getBitmap(itemsBean.get(j).getItemValue(), "RK", true);
+                                    } else {
+                                        getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
+                                                "RK", true);
+                                    }
+                                }
+                                if ("二维码".equals(itemsBean.get(j).getItemName())) {
+                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                        getBitmap(itemsBean.get(j).getItemValue(), "RK", false);
+                                    } else {
+                                        getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
+                                                "RK", false);
+                                    }
+                                }
+                                MyApplication.mGoodsIn.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
+                            }
+                        }
+
+                        //出库
+                        if ("CKJLXQ".equals(beanList.get(i).getPT_Code())) {
+                            for (int j = 0; j < itemsBean.size(); j++) {
+                                if ("LOGO".equals(itemsBean.get(j).getItemName())) {
+                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                        getBitmap(itemsBean.get(j).getItemValue(), "CK", true);
+                                    } else {
+                                        getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
+                                                "CK", true);
+                                    }
+                                }
+                                if ("二维码".equals(itemsBean.get(j).getItemName())) {
+                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                        getBitmap(itemsBean.get(j).getItemValue(), "CK", false);
+                                    } else {
+                                        getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
+                                                "CK", false);
+                                    }
+                                }
+                                MyApplication.mGoodsOut.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
+                            }
+                        }
+                        //商品退货
+                        if ("SPTH".equals(beanList.get(i).getPT_Code())) {
+                            for (int j = 0; j < itemsBean.size(); j++) {
+                                if ("LOGO".equals(itemsBean.get(j).getItemName())) {
+                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                        getBitmap(itemsBean.get(j).getItemValue(), "SPTH", true);
+                                    } else {
+                                        getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
+                                                "SPTH", true);
+                                    }
+                                }
+                                if ("二维码".equals(itemsBean.get(j).getItemName())) {
+                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                        getBitmap(itemsBean.get(j).getItemValue(), "SPTH", false);
+                                    } else {
+                                        getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
+                                                "SPTH", false);
+                                    }
+                                }
+                                MyApplication.mReTureOrder.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
+                            }
+                        }
 
                     }
-                } catch (Exception e) {
-//                    ToastUtils.showToast(mContext, "获取打印模板失败");
-//                    com.blankj.utilcode.util.ToastUtils.showShort("获取打印模板失败");
-
                 }
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+            public void onErrorResponse(Object msg) {
+                super.onErrorResponse(msg);
                 com.blankj.utilcode.util.ToastUtils.showShort("获取打印模板失败");
-                LogUtils.d("xxerror", error.getMessage());
             }
         });
     }
@@ -383,79 +344,166 @@ public class GetPrintSet {
      * 获取打印设置
      */
     public static void getPrintSet() {
-        getPrintSet(null);
-    }
-
-    public static void getPrintSet(InterfaceBack back) {
-        AsyncHttpClient client = new AsyncHttpClient();
-        final PersistentCookieStore myCookieStore = new PersistentCookieStore(MyApplication.getContext());
-        client.setCookieStore(myCookieStore);
-        RequestParams params = new RequestParams();
-
         String url = HttpAPI.API().GET_PRINT_SET;
-        LogUtils.d("xxparams", params.toString());
-        LogUtils.d("xxurl", url);
-        client.post(url, params, new AsyncHttpResponseHandler() {
+        AsyncHttpUtils.postHttp(MyApplication.getContext(), url, new CallBack() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-                try {
-                    Gson gson = new Gson();
-                    JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
-
-                    if (jso.getBoolean("success")) {
-                        Type listType = new TypeToken<PrintSetBean>() {
-                        }.getType();
-
-                        if (!jso.getString("data").equals("")) {
-                            PrintSetBean printSetBean = gson.fromJson(jso.toString(), listType);
-                            if (back != null) {
-                                back.onResponse(printSetBean);
-                            }
-                            MyApplication.LABEL_TYPE = printSetBean.getPS_TipPrintPaper();
-                            if (printSetBean.getPS_IsEnabled() == 1) {
-                                MyApplication.PRINT_IS_OPEN = true;
-                            } else {
-                                MyApplication.PRINT_IS_OPEN = false;
-                            }
-                            if (printSetBean != null && printSetBean.getPrintTimesList() != null) {
-                                for (int i = 0; i < printSetBean.getPrintTimesList().size(); i++) {
-                                    PrintSetBean.PrintTimesListBean bean = printSetBean.getPrintTimesList().get(i);
-                                    if ("SPXF".equals(bean.getPT_Code())) {
-                                        MyApplication.SPXF_PRINT_TIMES = bean.getPT_Times();
-                                    }
-                                    if ("JB".equals(bean.getPT_Code())) {
-                                        MyApplication.JB_PRINT_TIMES = bean.getPT_Times();
-                                    }
-                                }
-                            }
+            public void onResponse(BaseRes response) {
+                PrintSetBean printSetBean = response.getData(PrintSetBean.class);
+                MyApplication.LABEL_TYPE = printSetBean.getPS_TipPrintPaper();
+                if (printSetBean.getPS_IsEnabled() == 1) {
+                    MyApplication.PRINT_IS_OPEN = true;
+                } else {
+                    MyApplication.PRINT_IS_OPEN = false;
+                }
+                if (printSetBean != null && printSetBean.getPrintTimesList() != null) {
+                    for (int i = 0; i < printSetBean.getPrintTimesList().size(); i++) {
+                        PrintSetBean.PrintTimesListBean bean = printSetBean.getPrintTimesList().get(i);
+                        if ("SPXF".equals(bean.getPT_Code())) {
+                            MyApplication.SPXF_PRINT_TIMES = bean.getPT_Times();
                         }
-                    } else {
-                        back.onErrorResponse("");
-                        if (jso.getString("code").equals("RemoteLogin") || jso.getString("code").equals("LoginTimeout")) {
-                            ActivityManager.getInstance().exit();
-                            Intent intent = new Intent(MyApplication.getContext(), LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            MyApplication.getContext().startActivity(intent);
-                            com.blankj.utilcode.util.ToastUtils.showShort(jso.getString("msg"));
-                            return;
+                        if ("JB".equals(bean.getPT_Code())) {
+                            MyApplication.JB_PRINT_TIMES = bean.getPT_Times();
                         }
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
                 }
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers,
-                                  byte[] responseBody, Throwable error) {
+            public void onErrorResponse(Object msg) {
+                super.onErrorResponse(msg);
                 MyApplication.PRINT_IS_OPEN = false;
-                com.blankj.utilcode.util.ToastUtils.showShort(error.getMessage());
-                back.onErrorResponse(error.getMessage());
+                if (msg instanceof String)
+                    com.blankj.utilcode.util.ToastUtils.showShort((String) msg);
             }
         });
     }
 
+    /**
+     * 下载打印模板Logo、二维码
+     *
+     * @param str  下载地址
+     * @param type 模板类型
+     * @param b    二维码还是Logo true：Logo  false:二维码
+     */
+    private static void getBitmap(final String str, final String type, final boolean b) {
+        new AsyncHttpClient().get(str, new BinaryHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] result) {
+                switch (type) {
+                    //会员充值
+                    case "HYCZ":
+                        if (b) {
+                            MyApplication.HYCZ_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        } else {
+                            MyApplication.HYCZ_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        }
+                        break;
+                    //会员充次
+                    case "HYCC":
+                        if (b) {
+                            MyApplication.HYCC_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        } else {
+                            MyApplication.HYCC_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        }
+                        break;
+                    // 商品消费
+                    case "SPXF":
+                        if (b) {
+                            MyApplication.SPXF_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        } else {
+                            MyApplication.SPXF_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        }
+                        break;
+                    //快速消费
+                    case "KSXF":
+                        if (b) {
+                            MyApplication.KSXF_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        } else {
+                            MyApplication.KSXF_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        }
+                        break;
+                    //计次消费
+                    case "JCXF":
+                        if (b) {
+                            MyApplication.JCXF_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        } else {
+                            MyApplication.JCXF_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        }
+                        break;
+                    //积分兑换
+                    case "JFDH":
+                        if (b) {
+                            MyApplication.JFDH_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        } else {
+                            MyApplication.JFDH_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        }
+                        break;
+                    //商品退货
+                    case "SPTH":
+                        if (b) {
+                            MyApplication.SPTH_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        } else {
+                            MyApplication.SPTH_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        }
+                        break;
+                    //交班
+                    case "JB":
+                        if (b) {
+                            MyApplication.JB_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        } else {
+                            MyApplication.JB_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        }
+                        break;
+                    //房台消费
+                    case "FTXF":
+                        if (b) {
+                            MyApplication.FTXF_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        } else {
+                            MyApplication.FTXF_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        }
+                        break;
+                    //刷卡登记
+                    case "HYDJ":
+                        if (b) {
+                            MyApplication.HYSK_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        } else {
+                            MyApplication.HYSK_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        }
+                        break;
+                    //套餐消费
+                    case "TCXF":
+                        if (b) {
+                            MyApplication.TCXF_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        } else {
+                            MyApplication.TCXF_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        }
+                        break;
+                    //商品入库
+                    case "RK":
+                        if (b) {
+                            MyApplication.RK_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        } else {
+                            MyApplication.RK_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        }
+                        break;
+                    //商品出库
+                    case "CK":
+                        if (b) {
+                            MyApplication.CK_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        } else {
+                            MyApplication.CK_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] binaryData, Throwable error) {
+
+            }
+        });
+    }
 }

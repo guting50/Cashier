@@ -11,7 +11,7 @@ public class OrderPayResult implements Serializable {
     private boolean isPrint;//	是否打印
     private List<PayType> PayTypeList;//	 支付方式	List<PayType>
     private List<YhqMsg> yhqList;//	 优惠券
-    private ReportMessageBean.DataBean.ActiveBean active;// 优惠活动
+    private ReportMessageBean.ActiveBean active;// 优惠活动
 
     public List<PayType> getPayTypeList() {
         return PayTypeList;
@@ -69,11 +69,11 @@ public class OrderPayResult implements Serializable {
         this.yhqList = yhqList;
     }
 
-    public ReportMessageBean.DataBean.ActiveBean getActive() {
+    public ReportMessageBean.ActiveBean getActive() {
         return active;
     }
 
-    public void setActive(ReportMessageBean.DataBean.ActiveBean active) {
+    public void setActive(ReportMessageBean.ActiveBean active) {
         this.active = active;
     }
 }

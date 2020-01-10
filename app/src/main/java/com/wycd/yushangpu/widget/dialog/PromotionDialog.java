@@ -36,7 +36,7 @@ import butterknife.ButterKnife;
 
 public class PromotionDialog {
 
-    public static Dialog showDialog(final Activity context, String payMoney, ReportMessageBean.DataBean.ActiveBean active, int showingLocation, final InterfaceBack back) {
+    public static Dialog showDialog(final Activity context, String payMoney, ReportMessageBean.ActiveBean active, int showingLocation, final InterfaceBack back) {
         final Dialog dialog;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.dialog_youhuiquan, null);
@@ -102,16 +102,16 @@ public class PromotionDialog {
     }
 
     public static class PromotionAdapter extends RecyclerView.Adapter {
-        private List<ReportMessageBean.DataBean.ActiveBean> list = new ArrayList<>();
-        private ReportMessageBean.DataBean.ActiveBean currentBean;
+        private List<ReportMessageBean.ActiveBean> list = new ArrayList<>();
+        private ReportMessageBean.ActiveBean currentBean;
         private Holder currentHolder;
         private Context context;
         private String payMoney;
         private InterfaceBack back;
 
-        public PromotionAdapter(Context context, String payMoney, ReportMessageBean.DataBean.ActiveBean active, InterfaceBack back) {
-            if (ImpPreLoading.REPORT_BEAN != null && ImpPreLoading.REPORT_BEAN.getData() != null) {
-                for (ReportMessageBean.DataBean.ActiveBean bean : ImpPreLoading.REPORT_BEAN.getData().getActive()) {
+        public PromotionAdapter(Context context, String payMoney, ReportMessageBean.ActiveBean active, InterfaceBack back) {
+            if (ImpPreLoading.REPORT_BEAN != null) {
+                for (ReportMessageBean.ActiveBean bean : ImpPreLoading.REPORT_BEAN.getActive()) {
                     if (bean.getRP_Type() != 1) {
                         list.add(bean);
                     }
@@ -132,7 +132,7 @@ public class PromotionDialog {
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            final ReportMessageBean.DataBean.ActiveBean activeBean = list.get(position);
+            final ReportMessageBean.ActiveBean activeBean = list.get(position);
             Holder holder1 = (Holder) holder;
 
             holder1.rootView.setBackgroundResource(R.mipmap.bg_promotion_no_select);

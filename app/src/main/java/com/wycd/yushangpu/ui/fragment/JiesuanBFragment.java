@@ -26,6 +26,9 @@ import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.bean.SmsSwitch;
 import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.bean.YhqMsg;
+import com.wycd.yushangpu.http.AsyncHttpUtils;
+import com.wycd.yushangpu.http.BaseRes;
+import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
@@ -33,9 +36,6 @@ import com.wycd.yushangpu.http.VolleyResponse;
 import com.wycd.yushangpu.model.ImpOrderPay;
 import com.wycd.yushangpu.model.ImpPreLoading;
 import com.wycd.yushangpu.model.ImpSaoma;
-import com.wycd.yushangpu.printutil.CallBack;
-import com.wycd.yushangpu.printutil.CommonFun;
-import com.wycd.yushangpu.printutil.HttpHelper;
 import com.wycd.yushangpu.printutil.YSLUtils;
 import com.wycd.yushangpu.printutil.bean.SPXF_Success_Bean;
 import com.wycd.yushangpu.tools.CacheData;
@@ -149,7 +149,7 @@ public class JiesuanBFragment extends Fragment {
     private Dialog yhqDialog;
     private Dialog promotionDialog;
     private List<YhqMsg> yhqMsgs;
-    private ReportMessageBean.DataBean.ActiveBean promotionMsg;
+    private ReportMessageBean.ActiveBean promotionMsg;
     private OrderType orderType;
     private VipInfoMsg mVipMsg;
     private Dialog dialog;
@@ -273,8 +273,8 @@ public class JiesuanBFragment extends Fragment {
             tvCouponMoney.setHint("有" + couponCount + "张优惠券可用");
         }
 
-        if (ImpPreLoading.REPORT_BEAN != null && ImpPreLoading.REPORT_BEAN.getData() != null) {
-            for (ReportMessageBean.DataBean.ActiveBean active : ImpPreLoading.REPORT_BEAN.getData().getActive()) {
+        if (ImpPreLoading.REPORT_BEAN != null) {
+            for (ReportMessageBean.ActiveBean active : ImpPreLoading.REPORT_BEAN.getActive()) {
                 if (active.getRP_Type() != 1 && Double.parseDouble(zhMoney) >= active.getRP_RechargeMoney()) {
                     double temp = computePromotionMoney(active);
                     if (promotionMoney < temp) {
@@ -326,7 +326,7 @@ public class JiesuanBFragment extends Fragment {
             @Override
             public void onResponse(Object response) {
                 promotionDialog.dismiss();
-                promotionMsg = (ReportMessageBean.DataBean.ActiveBean) response;
+                promotionMsg = (ReportMessageBean.ActiveBean) response;
                 if (promotionMsg != null) {
                     tvPromotion.setText(promotionMsg.getRP_Name());
                     promotionMoney = computePromotionMoney(promotionMsg);
@@ -505,7 +505,7 @@ public class JiesuanBFragment extends Fragment {
         result.setActive(promotionMsg);
     }
 
-    private double computePromotionMoney(ReportMessageBean.DataBean.ActiveBean active) {
+    private double computePromotionMoney(ReportMessageBean.ActiveBean active) {
         double temp = 0.0;
         double multiple = 1;
         if (active.getRP_ISDouble() > 0) {
@@ -847,10 +847,10 @@ public class JiesuanBFragment extends Fragment {
      * 获取短信开关
      */
     private void getSmsSet(final String code) {
-        HttpHelper.post(context, HttpAPI.API().SMS_LIST, new CallBack() {
+        AsyncHttpUtils.postHttp(context, HttpAPI.API().SMS_LIST, new CallBack() {
             @Override
-            public void onSuccess(String responseString, Gson gson) {
-                SmsSwitch bean = CommonFun.JsonToObj(responseString, SmsSwitch.class);
+            public void onResponse(BaseRes response) {
+                SmsSwitch bean = response.getData(SmsSwitch.class);
                 for (int i = 0; i < bean.getData().size(); i++) {
                     if (bean.getData().get(i).getST_Code().equals(code)) {
                         if (bean.getData().get(i).getST_State() == null || !bean.getData().get(i).getST_State().equals("1")) {
@@ -867,10 +867,6 @@ public class JiesuanBFragment extends Fragment {
                     }
                 }
                 CacheData.saveObject("shortmessage", bean);//缓存短信开关到本地
-            }
-
-            @Override
-            public void onFailure(String msg) {
             }
         });
     }

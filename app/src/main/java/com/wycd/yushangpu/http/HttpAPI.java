@@ -162,6 +162,9 @@ public class HttpAPI {
         //获取打印设置
         public static final String GET_PRINT_SET = MyApplication.BASE_URL + "api/PrintSet/GetPrintSet";
 
+        //编辑打印设置
+        public static final String EDIT_PRINT_SET = MyApplication.BASE_URL + "api/PrintSet/EditPrintSet";
+
         //短信开关
         public static final String SMS_LIST = MyApplication.BASE_URL + "api/SysSMSTemp/GetList";
 

@@ -32,19 +32,20 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.ShopInfoBean;
+import com.wycd.yushangpu.http.AsyncHttpUtils;
+import com.wycd.yushangpu.http.BaseRes;
+import com.wycd.yushangpu.http.CallBack;
+import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpOutLogin;
 import com.wycd.yushangpu.model.ImpPreLoading;
-import com.wycd.yushangpu.printutil.IPrintSetPresenter;
-import com.wycd.yushangpu.printutil.IPrintSetView;
 import com.wycd.yushangpu.printutil.bean.PrintSetBean;
 import com.wycd.yushangpu.tools.CacheData;
 import com.wycd.yushangpu.tools.DeviceConnFactoryManager;
@@ -104,8 +105,6 @@ public class PrintSetFragment extends Fragment {
     TextView tv_sm_edition, tv_sersion_life, tv_create_time, tv_end_time, tv_shop_users, tv_shop_mbers, tv_shop_goods,
             tv_shop_name, tv_contacter, tv_industry, tv_address, tv_range, tv_phone, tv_remarks;
 
-    private IPrintSetPresenter mPresenter;
-    private IPrintSetView mView;
     private int mPrintSwitch = 1;
     private HashMap<String, String> mPrintMap = new HashMap<>();
     private int i;
@@ -261,63 +260,33 @@ public class PrintSetFragment extends Fragment {
         mPrintMap.put("SPXF", "1");
         mPrintMap.put("JB", "1");
 
-        mPresenter = new IPrintSetPresenter(getActivity());
-        mPresenter.onCreate("");
-        mView = new IPrintSetView() {
+        AsyncHttpUtils.postHttp(getActivity(), HttpAPI.API().GET_PRINT_SET, new CallBack() {
             @Override
-            public void getPrintSetSuccess(PrintSetBean bean) {
-                mPrintSetBean = bean;
+            public void onResponse(BaseRes response) {
+                mPrintSetBean = response.getData(PrintSetBean.class);
                 if (mPrintSetBean != null) {
-                    if (bean.getPS_IsEnabled() == 1) {
+                    if (mPrintSetBean.getPS_IsEnabled() == 1) {
                         scPrintSwitch.setChecked(true);
-                        if (bean.getPS_PaperType() == 2) {
+                        if (mPrintSetBean.getPS_PaperType() == 2) {
                             rgPrinterSelectLabelSize.check(rgPrinterSelectLabelSmall.getId());
-                        } else if (bean.getPS_PaperType() == 3) {
+                        } else if (mPrintSetBean.getPS_PaperType() == 3) {
                             rgPrinterSelectLabelSize.check(rgPrinterSelectLabelLarge.getId());
                         }
                     } else {
                         scPrintSwitch.setChecked(false);
                     }
-                    if (bean.getPrintTimesList() != null) {
-                        for (int j = 0; j < bean.getPrintTimesList().size(); j++) {
-                            if (bean.getPrintTimesList().get(j).getPT_Code().equals("SPXF")) {
-                                mEtGoodsConsume.setText("" + bean.getPrintTimesList().get(j).getPT_Times());
-                            } else if (bean.getPrintTimesList().get(j).getPT_Code().equals("JB")) {
-                                mEtHandDutyTime.setText("" + bean.getPrintTimesList().get(j).getPT_Times());
+                    if (mPrintSetBean.getPrintTimesList() != null) {
+                        for (int j = 0; j < mPrintSetBean.getPrintTimesList().size(); j++) {
+                            if (mPrintSetBean.getPrintTimesList().get(j).getPT_Code().equals("SPXF")) {
+                                mEtGoodsConsume.setText("" + mPrintSetBean.getPrintTimesList().get(j).getPT_Times());
+                            } else if (mPrintSetBean.getPrintTimesList().get(j).getPT_Code().equals("JB")) {
+                                mEtHandDutyTime.setText("" + mPrintSetBean.getPrintTimesList().get(j).getPT_Times());
                             }
                         }
                     }
                 }
             }
-
-            @Override
-            public void getPrintSetFail(String result) {
-                if (!result.equals("执行失败")) {
-                    Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void saveSetSuccess() {
-                ImpPreLoading.preLoad(getActivity());
-                NoticeDialog.noticeDialog(getActivity(), "设置", "打印设置保存成功!", 1, new InterfaceBack() {
-                    @Override
-                    public void onResponse(Object response) {
-                        i = 0;
-                    }
-
-                    @Override
-                    public void onErrorResponse(Object msg) {
-                    }
-                });
-            }
-
-            @Override
-            public void saveSetFail(String result) {
-                Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
-            }
-        };
-        mPresenter.attachView(mView);
+        });
 
         Glide.with(getContext()).load(ImgUrlTools.obtainUrl(NullUtils.noNullHandle(shopInfoBean.getShopImg()).toString()))
 //                .placeholder(R.mipmap.messge_nourl)
@@ -369,7 +338,23 @@ public class PrintSetFragment extends Fragment {
                         params.put("PrintTimesList[" + i + "][PT_Times]", value);
                         i++;
                     }
-                    mPresenter.savePrintSet(getActivity(), params);
+
+                    AsyncHttpUtils.postHttp(getActivity(), HttpAPI.API().EDIT_PRINT_SET, params, new CallBack() {
+                        @Override
+                        public void onResponse(BaseRes response) {
+                            ImpPreLoading.preLoad(getActivity());
+                            NoticeDialog.noticeDialog(getActivity(), "设置", "打印设置保存成功!", 1, new InterfaceBack() {
+                                @Override
+                                public void onResponse(Object response) {
+                                    i = 0;
+                                }
+
+                                @Override
+                                public void onErrorResponse(Object msg) {
+                                }
+                            });
+                        }
+                    });
                 }
 
             }

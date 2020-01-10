@@ -2,13 +2,12 @@ package com.wycd.yushangpu.model;
 
 import android.app.Activity;
 
-import com.google.gson.Gson;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.bean.ReportMessageBean;
+import com.wycd.yushangpu.http.AsyncHttpUtils;
+import com.wycd.yushangpu.http.BaseRes;
+import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
-import com.wycd.yushangpu.printutil.CallBack;
-import com.wycd.yushangpu.printutil.CommonFun;
-import com.wycd.yushangpu.printutil.HttpHelper;
 
 /**
  * Created by songxiaotao on 2018/6/19.
@@ -19,12 +18,12 @@ public class ImpPreLoading {
     public static ReportMessageBean REPORT_BEAN;
 
     public static void preLoad(final Activity ac) {
-        HttpHelper.post(ac, HttpAPI.API().PRE_LOAD, new CallBack() {
+        AsyncHttpUtils.postHttp(ac, HttpAPI.API().PRE_LOAD, new CallBack() {
             @Override
-            public void onSuccess(String responseString, Gson gson) {
-                REPORT_BEAN = CommonFun.JsonToObj(responseString, ReportMessageBean.class);
+            public void onResponse(BaseRes response) {
+                REPORT_BEAN = response.getData(ReportMessageBean.class);
                 if (REPORT_BEAN != null) {
-                    ReportMessageBean.DataBean.PrintSetBean printbean = REPORT_BEAN.getData().getPrintSet();
+                    ReportMessageBean.PrintSetBean printbean = REPORT_BEAN.getPrintSet();
                     if (printbean.getPS_IsEnabled() == 1) {
                         MyApplication.PRINT_IS_OPEN = true;
                     } else {
@@ -32,7 +31,7 @@ public class ImpPreLoading {
                     }
                     if (printbean != null && printbean.getPrintTimesList() != null) {
                         for (int i = 0; i < printbean.getPrintTimesList().size(); i++) {
-                            ReportMessageBean.DataBean.PrintSetBean.PrintTimesListBean bean = printbean.getPrintTimesList().get(i);
+                            ReportMessageBean.PrintSetBean.PrintTimesListBean bean = printbean.getPrintTimesList().get(i);
                             if ("SPXF".equals(bean.getPT_Code())) {
                                 MyApplication.SPXF_PRINT_TIMES = bean.getPT_Times();
                             }
@@ -42,10 +41,6 @@ public class ImpPreLoading {
                         }
                     }
                 }
-            }
-
-            @Override
-            public void onFailure(String msg) {
             }
         });
     }
