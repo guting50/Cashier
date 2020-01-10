@@ -2,6 +2,8 @@ package com.wycd.yushangpu.http;
 
 import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
+
 public class BaseRes {
     private boolean success;
     private String code;
@@ -42,5 +44,9 @@ public class BaseRes {
 
     public <T> T getData(Class<T> tClass) {
         return new Gson().fromJson(new Gson().toJson(data), tClass);
+    }
+
+    public <T> T getData(Type type) {
+        return new Gson().fromJson(new Gson().toJson(data), type);
     }
 }

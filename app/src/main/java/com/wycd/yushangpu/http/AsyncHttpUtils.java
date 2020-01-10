@@ -25,15 +25,25 @@ import cz.msebera.android.httpclient.Header;
 
 public class AsyncHttpUtils {
 
-    public static void postHttp(final Context ac, String url, CallBack back) {
+    public static void postHttp(String url, CallBack back) {
+        postHttp(null, url, back);
+    }
+
+    public static void postHttp(String url, RequestParams map, CallBack back) {
+        postHttp(null, url, map, back);
+    }
+
+    public static void postHttp(Context ac, String url, CallBack back) {
         RequestParams params = new RequestParams();
         postHttp(ac, url, params, back);
     }
 
-    public static void postHttp(final Context ac, String url, RequestParams map, CallBack back) {
+    public static void postHttp(Context ac, String url, RequestParams map, CallBack back) {
         AsyncHttpClient client = new AsyncHttpClient();
-        final PersistentCookieStore myCookieStore = new PersistentCookieStore(ac);
-        client.setCookieStore(myCookieStore);
+        if (ac != null) {
+            final PersistentCookieStore myCookieStore = new PersistentCookieStore(ac);
+            client.setCookieStore(myCookieStore);
+        }
         LogUtils.d("======== url ======== >>>", url);
         LogUtils.d("======== params ======== >>>", new Gson().toJson(map));
         client.post(url, map, new AsyncHttpResponseHandler() {
@@ -71,7 +81,7 @@ public class AsyncHttpUtils {
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 try {
                     String errorMsg = new String(responseBody, "UTF-8");
-                    back.onErrorResponse(errorMsg);
+                    back.onErrorResponse(errorMsg + error.getMessage());
                     com.blankj.utilcode.util.ToastUtils.showShort("服务异常，请稍后再试");
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();

@@ -156,9 +156,9 @@ public class HttpAPI {
         //获取优惠券列表
         public static final String QUERY_COUPONS_BYCODE = MyApplication.BASE_URL + "api/CouponManager/QueryCouponsByCode";
 
-
         //获取打印模板
         public static final String GET_PRINT_TEMP = MyApplication.BASE_URL + "api/PrintTemplate/GetPrintTemplateList";
+
         //获取打印设置
         public static final String GET_PRINT_SET = MyApplication.BASE_URL + "api/PrintSet/GetPrintSet";
 
