@@ -1,6 +1,6 @@
 package com.wycd.yushangpu.http;
 
-import com.google.gson.Gson;
+import com.wycd.yushangpu.tools.GsonUtils;
 
 import java.lang.reflect.Type;
 
@@ -43,10 +43,10 @@ public class BaseRes {
     }
 
     public <T> T getData(Class<T> tClass) {
-        return new Gson().fromJson(new Gson().toJson(data), tClass);
+        return GsonUtils.getGson().fromJson(GsonUtils.getGson().toJson(data), tClass);
     }
 
     public <T> T getData(Type type) {
-        return new Gson().fromJson(new Gson().toJson(data), type);
+        return GsonUtils.getGson().fromJson(GsonUtils.getGson().toJson(data), type);
     }
 }

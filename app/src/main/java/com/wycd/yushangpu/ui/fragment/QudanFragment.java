@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.gt.utils.view.BgFrameLayout;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -22,11 +21,11 @@ import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.bean.event.HomeButtonColorChangeEvent;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
+import com.wycd.yushangpu.http.BasePageRes;
 import com.wycd.yushangpu.http.BaseRes;
 import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.model.ImpGuadanList;
 import com.wycd.yushangpu.model.ImpOnlyVipMsg;
 import com.wycd.yushangpu.model.ImpSubmitOrder;
 import com.wycd.yushangpu.tools.CommonUtils;
@@ -37,8 +36,6 @@ import com.wycd.yushangpu.ui.HomeActivity;
 import com.wycd.yushangpu.widget.dialog.NoticeDialog;
 
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -218,37 +215,41 @@ public class QudanFragment extends Fragment {
     }
 
     private void obtainGuadanList(int index) {
-        ImpGuadanList shopHome = new ImpGuadanList();
-        shopHome.guadanList(MyApplication.getContext(), index, 20, MyApplication.loginBean.getShopID(), new InterfaceBack() {
+        RequestParams params = new RequestParams();
+        params.put("PageIndex", index);
+        params.put("PageSize", 20);
+        params.put("CO_TypeCode", "SPXF");
+        params.put("SM_GID", MyApplication.loginBean.getShopID());
+        params.put("IdentifyingState", 20);
+
+        String url = HttpAPI.API().QUERYALL_LIST;
+        AsyncHttpUtils.postHttp(url, params, new CallBack() {
             @Override
-            public void onResponse(Object response) {
-                try {
-                    Gson mGson = new Gson();
-                    JSONObject js = (JSONObject) response;
-                    Type listType = new TypeToken<List<GuadanList>>() {
-                    }.getType();
-                    mPageTotal = js.getInt("PageTotal");
-                    List<GuadanList> sllist = mGson.fromJson(js.getString("DataList"), listType);
-                    if (!mIsLoadMore) {
-                        list.clear();
-                    }
-                    for (GuadanList guadanList : sllist) {
-                        if (guadanList.getCO_IdentifyingState().equals("1") || guadanList.getCO_IdentifyingState().equals("8")) {
-                            list.add(guadanList);
-                        }
-                    }
-                    updateData();
-                    homeActivity.updateBttGetOrder();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+            public void onResponse(BaseRes response) {
+                BasePageRes basePageRes = response.getData(BasePageRes.class);
+                Type listType = new TypeToken<List<GuadanList>>() {
+                }.getType();
+                mPageTotal = basePageRes.getPageTotal();
+                List<GuadanList> sllist = basePageRes.getData(listType);
+                if (!mIsLoadMore) {
+                    list.clear();
                 }
+                for (GuadanList guadanList : sllist) {
+                    if (guadanList.getCO_IdentifyingState().equals("1") || guadanList.getCO_IdentifyingState().equals("8")) {
+                        list.add(guadanList);
+                    }
+                }
+                updateData();
+                homeActivity.updateBttGetOrder();
             }
 
             @Override
             public void onErrorResponse(Object msg) {
+                super.onErrorResponse(msg);
+                listview.refreshComplete();
+                listview.loadMoreComplete();
             }
         });
-
     }
 
     private void updateData() {

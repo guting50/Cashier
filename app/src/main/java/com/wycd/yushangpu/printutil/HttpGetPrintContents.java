@@ -1,7 +1,6 @@
 package com.wycd.yushangpu.printutil;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 
 import com.google.gson.Gson;
@@ -11,21 +10,11 @@ import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.http.HttpAPI;
-import com.wycd.yushangpu.http.UrlTools;
-import com.wycd.yushangpu.printutil.bean.CK_Success_Bean;
 import com.wycd.yushangpu.printutil.bean.HandDutyBean;
-import com.wycd.yushangpu.printutil.bean.Print_HYCC_Bean;
 import com.wycd.yushangpu.printutil.bean.Print_HYCZ_Bean;
-import com.wycd.yushangpu.printutil.bean.Print_HYKK_Bean;
-import com.wycd.yushangpu.printutil.bean.Print_JCXF_Bean;
-import com.wycd.yushangpu.printutil.bean.Print_JFDH_Bean;
-import com.wycd.yushangpu.printutil.bean.Print_KSXF_Bean;
-import com.wycd.yushangpu.printutil.bean.Print_SPTH_Bean;
 import com.wycd.yushangpu.printutil.bean.Print_SPXF_Bean;
-import com.wycd.yushangpu.printutil.bean.RK_Success_Bean;
 import com.wycd.yushangpu.tools.ActivityManager;
 import com.wycd.yushangpu.tools.LogUtils;
-import com.wycd.yushangpu.tools.ToastUtils;
 import com.wycd.yushangpu.ui.LoginActivity;
 
 import org.json.JSONObject;
@@ -44,7 +33,7 @@ public class HttpGetPrintContents {
 
     private static Gson gson = new Gson();
 
-    private static int mPrintNum=1;
+    private static int mPrintNum = 1;
 
 
 //    /**
@@ -75,7 +64,7 @@ public class HttpGetPrintContents {
         final PersistentCookieStore myCookieStore = new PersistentCookieStore(mContext);
         client.setCookieStore(myCookieStore);
         RequestParams params = new RequestParams();
-        params.put("OrderGID",GID);
+        params.put("OrderGID", GID);
 
         LogUtils.d("======== url ======== >>", HttpAPI.API().GET_GOODS_PRINT_DATA);
         LogUtils.d("======== params ======== >>", params.toString());
@@ -259,15 +248,15 @@ public class HttpGetPrintContents {
 //
 //    }
 //
+
     /**
      * 交班
-     *
-     * */
+     */
 
-    public static void JB(Activity mContext, String responseString){
+    public static void JB(Activity mContext, String responseString) {
         try {
             HandDutyBean bean = gson.fromJson(responseString, HandDutyBean.class);
-            PrinterUtils printerUtils = new PrinterUtils(mContext,mPrintNum, bean, "JB");
+            PrinterUtils printerUtils = new PrinterUtils(mContext, mPrintNum, bean, "JB");
             printerUtils.print();
 
         } catch (Exception e) {

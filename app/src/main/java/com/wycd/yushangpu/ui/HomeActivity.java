@@ -816,6 +816,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             AsyncHttpUtils.postHttp(url, params, new CallBack() {
                 @Override
                 public void onResponse(BaseRes response) {
+                    dialog.dismiss();
                     Type listType = new TypeToken<List<ShopMsg>>() {
                     }.getType();
                     List<ShopMsg> sllist = response.getData(listType);
@@ -1307,9 +1308,9 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             case R.id.subsidiary_fragment:
                 break;
             case R.id.rl_out:
-                mShowMemberPop = new ShowMemberPopWindow(HomeActivity.this, MyApplication.loginBean);
+                /*mShowMemberPop = new ShowMemberPopWindow(HomeActivity.this, MyApplication.loginBean);
                 mShowMemberPop.setOnItemClickListener(HomeActivity.this);
-                mShowMemberPop.showAsDropDown(HomeActivity.this.findViewById(R.id.rl_out), -10, 0);
+                mShowMemberPop.showAsDropDown(HomeActivity.this.findViewById(R.id.rl_out), -10, 0);*/
                 break;
             case R.id.member_bg_layout:
                 VipChooseDialog vipChooseDialog = new VipChooseDialog(HomeActivity.this, mVipMsg, new InterfaceBack() {

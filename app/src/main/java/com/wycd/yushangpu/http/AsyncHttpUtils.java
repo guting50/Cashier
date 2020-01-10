@@ -9,6 +9,7 @@ import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.tools.ActivityManager;
+import com.wycd.yushangpu.tools.GsonUtils;
 import com.wycd.yushangpu.tools.LogUtils;
 import com.wycd.yushangpu.ui.LoginActivity;
 
@@ -40,7 +41,7 @@ public class AsyncHttpUtils {
                     String result = new String(responseBody, "UTF-8");
                     LogUtils.d("<<< ======== url ======== ", url);
                     LogUtils.d("<<< ======== result ======== ", result);
-                    BaseRes baseRes = new Gson().fromJson(result, BaseRes.class);
+                    BaseRes baseRes = GsonUtils.getGson().fromJson(result, BaseRes.class);
                     if (baseRes.isSuccess()) {
                         back.onResponse(baseRes);
                     } else {
