@@ -2,7 +2,8 @@ package com.wycd.yushangpu.tools;
 
 import android.util.Log;
 
-import com.google.gson.Gson;
+import com.gt.utils.LogsUtils;
+import com.wycd.yushangpu.MyApplication;
 
 public class LogUtils {
     public static final int VERBOSE = 1;
@@ -23,14 +24,7 @@ public class LogUtils {
         if (LEVEL <= DEBUG) {
             Log.d(tag, msg);
             System.out.println(tag + " : " + msg);
-        }
-    }
-
-    public static void d(String tag, Object msg) {
-        if (LEVEL <= DEBUG) {
-            Gson gson = new Gson();
-            Log.d(tag, gson.toJson(msg));
-            System.out.println(tag + " : " + gson.toJson(msg));
+            LogsUtils.writeInfoLog(MyApplication.getContext(), MyApplication.loginBean == null ? "" : MyApplication.loginBean.getUM_Acount(), tag + msg);
         }
     }
 
@@ -49,6 +43,8 @@ public class LogUtils {
     public static void e(String tag, String msg) {
         if (LEVEL <= ERROR) {
             Log.e(tag, msg);
+            System.out.println(tag + " : " + msg);
+            LogsUtils.writeEooroLog(MyApplication.getContext(), MyApplication.loginBean == null ? "" : MyApplication.loginBean.getUM_Acount(), tag + msg);
         }
     }
 }

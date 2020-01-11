@@ -94,6 +94,7 @@ public class HttpGetPrintContents {
 
                     }
                 } catch (Exception e) {
+                    LogUtils.e("======== Error ========", e.getMessage());
 //                    ToastUtils.showToast(mContext, "获取商品消费打印参数失败");
 //                    com.blankj.utilcode.util.ToastUtils.showShort("获取商品消费打印参数失败");
 
@@ -104,6 +105,7 @@ public class HttpGetPrintContents {
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 //                ToastUtils.showToast(mContext, "获取商品消费打印参数失败");
                 com.blankj.utilcode.util.ToastUtils.showShort("获取商品消费打印参数失败");
+                LogUtils.e("======== Error ========", error.getMessage());
 
             }
 
@@ -120,10 +122,9 @@ public class HttpGetPrintContents {
             //打印小票
             PrinterUtils printerUtils = new PrinterUtils(mContext, mPrintNum, print_hycz_bean, "HYCZ");
             printerUtils.print();
-
-
         } catch (Exception e) {
             e.printStackTrace();
+            LogUtils.e("======== Error ========", e.getMessage());
         }
     }
 //
@@ -258,9 +259,9 @@ public class HttpGetPrintContents {
             HandDutyBean bean = gson.fromJson(responseString, HandDutyBean.class);
             PrinterUtils printerUtils = new PrinterUtils(mContext, mPrintNum, bean, "JB");
             printerUtils.print();
-
         } catch (Exception e) {
             e.printStackTrace();
+            LogUtils.e("======== Error ========", e.getMessage());
         }
 
     }

@@ -33,7 +33,6 @@ import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.http.VolleyResponse;
 import com.wycd.yushangpu.model.ImpOrderPay;
 import com.wycd.yushangpu.model.ImpPreLoading;
 import com.wycd.yushangpu.model.ImpSaoma;
@@ -258,8 +257,8 @@ public class JiesuanBFragment extends Fragment {
             this.isMember = true;
 
             int couponCount = 0;
-            VolleyResponse.instance().getInternetImg(context, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(
-                    mVipMsg.getVIP_HeadImg()).toString()), mIvViptx, R.mipmap.member_head_nohead);
+            Glide.with(context).load(ImgUrlTools.obtainUrl(NullUtils.noNullHandle(
+                    mVipMsg.getVIP_HeadImg()).toString())).error(R.mipmap.member_head_nohead).into(mIvViptx);
             mTvVipname.setText(NullUtils.noNullHandle(mVipMsg.getVIP_Name()).toString());
             tvBlance.setText("余额:" + StringUtil.twoNum(NullUtils.noNullHandle(mVipMsg.getMA_AvailableBalance()).toString()));
             tvIntegral.setText("积分:" + Double.parseDouble(NullUtils.noNullHandle(mVipMsg.getMA_AvailableIntegral()).toString()) + "");
@@ -836,6 +835,7 @@ public class JiesuanBFragment extends Fragment {
             }
         } catch (Exception e) {
             cbMessage.setVisibility(View.INVISIBLE);
+            LogUtils.e("======== Error ========", e.getMessage());
         }
     }
 

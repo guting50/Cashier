@@ -9,10 +9,10 @@ import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.ShopInfoBean;
 import com.wycd.yushangpu.http.ImgUrlTools;
-import com.wycd.yushangpu.http.VolleyResponse;
 import com.wycd.yushangpu.tools.NullUtils;
 
 /**
@@ -55,7 +55,7 @@ public class ShowStorePopWindow extends PopupWindow implements View.OnClickListe
         mShopInfo.setOnClickListener(this);
 
         if (shopInfoBean.getShopImg() != null) {
-            VolleyResponse.instance().getInternetImg(ac, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(shopInfoBean.getShopImg()).toString()), imgHead, R.drawable.defalut_store);
+            Glide.with(context).load(ImgUrlTools.obtainUrl(NullUtils.noNullHandle(shopInfoBean.getShopImg()).toString())).error(R.drawable.defalut_store).into(imgHead);
         }
         mShopName.setText(NullUtils.noNullHandle(shopInfoBean.getShopName()).toString());
         mEndTime.setText("到期：" + NullUtils.noNullHandle(shopInfoBean.getShopOverTime()).toString());

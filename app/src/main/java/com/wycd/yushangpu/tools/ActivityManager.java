@@ -28,6 +28,7 @@ public class ActivityManager {
             hashSet.add(activity);
         } catch (Exception e) {
             e.printStackTrace();
+            LogUtils.e("======== Error ========", e.getMessage());
         }
     }
 
@@ -42,6 +43,7 @@ public class ActivityManager {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            LogUtils.e("======== Error ========", e.getMessage());
         }
     }
 
@@ -55,6 +57,7 @@ public class ActivityManager {
             hashSet.remove(activity);
         } catch (Exception e) {
             e.printStackTrace();
+            LogUtils.e("======== Error ========", e.getMessage());
         }
     }
 

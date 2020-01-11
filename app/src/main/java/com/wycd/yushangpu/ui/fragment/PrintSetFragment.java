@@ -50,6 +50,7 @@ import com.wycd.yushangpu.printutil.bean.PrintSetBean;
 import com.wycd.yushangpu.tools.CacheData;
 import com.wycd.yushangpu.tools.DeviceConnFactoryManager;
 import com.wycd.yushangpu.tools.DeviceReceiver;
+import com.wycd.yushangpu.tools.LogUtils;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.UpdateAppVersion;
 import com.wycd.yushangpu.tools.Utils;
@@ -837,6 +838,7 @@ public class PrintSetFragment extends Fragment {
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
+                    LogUtils.e("======== Error ========", e.getMessage());
                 }
             }
         });
@@ -860,6 +862,7 @@ public class PrintSetFragment extends Fragment {
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
+                    LogUtils.e("======== Error ========", e.getMessage());
                 }
             }
         });

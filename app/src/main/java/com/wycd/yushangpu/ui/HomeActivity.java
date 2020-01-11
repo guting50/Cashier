@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.reflect.TypeToken;
 import com.gt.utils.view.BgFrameLayout;
 import com.loopj.android.http.RequestParams;
@@ -44,7 +45,6 @@ import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.http.InterfaceThreeBack;
-import com.wycd.yushangpu.http.VolleyResponse;
 import com.wycd.yushangpu.model.ImpOnlyVipMsg;
 import com.wycd.yushangpu.model.ImpOutLogin;
 import com.wycd.yushangpu.model.ImpShopInfo;
@@ -61,7 +61,6 @@ import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.PreferenceHelper;
 import com.wycd.yushangpu.tools.PrintContent;
-import com.wycd.yushangpu.tools.PrinterCommand;
 import com.wycd.yushangpu.tools.StringUtil;
 import com.wycd.yushangpu.tools.SystemUIUtils;
 import com.wycd.yushangpu.tools.ThreadPool;
@@ -108,6 +107,7 @@ import static com.wycd.yushangpu.MyApplication.ISLABELCONNECT;
 import static com.wycd.yushangpu.MyApplication.LABELPRINT_IS_OPEN;
 import static com.wycd.yushangpu.MyApplication.myBinder;
 import static com.wycd.yushangpu.tools.Constant.ACTION_USB_PERMISSION;
+import static com.wycd.yushangpu.tools.DeviceConnFactoryManager.PrinterCommand.TSC;
 
 public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.OnItemClickListener, ShowStorePopWindow.OnItemStoreClickListener {
     @BindView(R.id.ig_exchange)
@@ -228,7 +228,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         setContentView(R.layout.activity_home);
         isFirstLaunch = true;
         ButterKnife.bind(this);
-//        ActivityStack.create().addActivity(HomeActivity.this);
         EventBus.getDefault().register(this);
 
         initBroadcast();
@@ -424,7 +423,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
         if (MyApplication.loginBean != null) {
             if (MyApplication.loginBean.getUM_ChatHead() != null) {
-                VolleyResponse.instance().getInternetImg(ac, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(MyApplication.loginBean.getUM_ChatHead()).toString()), imgHedimg, R.mipmap.member_head_nohead);
+                Glide.with(ac).load(ImgUrlTools.obtainUrl(NullUtils.noNullHandle(MyApplication.loginBean.getUM_ChatHead()).toString())).error(R.mipmap.member_head_nohead).into(imgHedimg);
             }
             tvStoreName.setText(MyApplication.loginBean.getUM_Name());
         }
@@ -1498,7 +1497,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             switch (msg.what) {
                 case 1:
                     if (msg.obj != null) {
-                        VolleyResponse.instance().getInternetImg(ac, ImgUrlTools.obtainUrl(String.valueOf(msg.obj)), imgHedimg, R.mipmap.member_head_nohead);
+                        Glide.with(ac).load(ImgUrlTools.obtainUrl(String.valueOf(msg.obj))).error(R.mipmap.member_head_nohead).into(imgHedimg);
 //                        ToastUtils.showToast(ac,"修改头像成功");
                         com.blankj.utilcode.util.ToastUtils.showShort("修改头像成功");
                     }
@@ -1550,7 +1549,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     mHandler.obtainMessage(CONN_PRINTER).sendToTarget();
                     return;
                 }
-                if (DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id].getCurrentPrinterCommand() == PrinterCommand.TSC) {
+                if (DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id].getCurrentPrinterCommand() == TSC) {
                     DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id].sendDataImmediately(PrintContent.getLabel(shopMsg));
                 }
             }

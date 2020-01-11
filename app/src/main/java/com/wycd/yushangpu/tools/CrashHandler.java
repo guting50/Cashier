@@ -3,9 +3,9 @@ package com.wycd.yushangpu.tools;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Looper;
-import android.util.Log;
-import android.widget.Toast;
 
+import com.gt.utils.LogsUtils;
+import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.ui.BaseActivity;
 
 import java.io.PrintWriter;
@@ -93,7 +93,9 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
                 Looper.prepare();
                 //Toast.makeText(mContext, "很抱歉,程序出现异常,即将退出.哈哈哈", Toast.LENGTH_LONG).show();
                 AlertDialog.Builder builder = new AlertDialog.Builder(BaseActivity.ac);
-                builder.setTitle("程序出现异常").setMessage(exceptionToString(ex))
+                String msg = exceptionToString(ex);
+                LogsUtils.writeEooroLog(MyApplication.getContext(), MyApplication.loginBean == null ? "" : MyApplication.loginBean.getUM_Acount(), msg);
+                builder.setTitle("程序出现异常").setMessage(msg)
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

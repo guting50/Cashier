@@ -1,6 +1,6 @@
 package com.wycd.yushangpu.http;
 
-import com.wycd.yushangpu.tools.GsonUtils;
+import com.gt.utils.GsonUtils;
 
 import java.lang.reflect.Type;
 

@@ -284,7 +284,6 @@ public class YouhuiquanDialog {
                 @Override
                 public void onClick(View v) {
                     if (Double.parseDouble(pamoney) < vipMsg.getEC_Denomination()) {
-//                    ToastUtils.showToast(context,"未达到使用金额");
                         com.blankj.utilcode.util.ToastUtils.showShort("未达到使用金额");
                         return;
                     }

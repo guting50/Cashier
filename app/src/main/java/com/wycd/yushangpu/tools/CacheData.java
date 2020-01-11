@@ -4,12 +4,10 @@ import android.os.Environment;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
 
 
 /**
@@ -39,10 +37,9 @@ public class CacheData {
             fos = new FileOutputStream(f + "/" + fileName);
             oos = new ObjectOutputStream(fos);
             oos.writeObject(saveObject);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+            LogUtils.e("======== Error ========", e.getMessage());
         } finally {
             try {
                 if (oos != null) {
@@ -53,6 +50,7 @@ public class CacheData {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                LogUtils.e("======== Error ========", e.getMessage());
             }
         }
     }
@@ -71,21 +69,18 @@ public class CacheData {
             String filePath = Environment.getExternalStorageDirectory().getCanonicalPath() + "/cache";
             File f = new File(filePath + "/" + fileName);
             if (!f.exists()) {
-                LogUtils.i("CacheData.restoreObject",fileName + "文件不存在");
+                LogUtils.i("CacheData.restoreObject", fileName + "文件不存在");
                 return null;
             } else {
-                LogUtils.i("CacheData.restoreObject",fileName + "文件存在");
+                LogUtils.i("CacheData.restoreObject", fileName + "文件存在");
             }
             fis = new FileInputStream(f);
             ois = new ObjectInputStream(fis);
             object = ois.readObject();
             return object;
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            LogUtils.e("======== Error ========", e.getMessage());
         } finally {
             try {
                 if (ois != null) {
@@ -96,6 +91,7 @@ public class CacheData {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                LogUtils.e("======== Error ========", e.getMessage());
             }
         }
         return object;
@@ -113,12 +109,13 @@ public class CacheData {
     }
 
     public static void deleteDir() {
-       try {
+        try {
             String filePath = Environment.getExternalStorageDirectory().getCanonicalPath() + "/cache";
             File dir = new File(filePath);
             deleteDirWithFile(dir);
         } catch (IOException e) {
             e.printStackTrace();
+            LogUtils.e("======== Error ========", e.getMessage());
         }
     }
 
@@ -143,6 +140,7 @@ public class CacheData {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            LogUtils.e("======== Error ========", e.getMessage());
         }
     }
 }

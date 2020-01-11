@@ -46,6 +46,7 @@ public class DeviceReceiver extends BroadcastReceiver {
                          listView.notify();
                     }catch (Exception e){
                         e.printStackTrace();
+                        LogUtils.e("======== Error ========", e.getMessage());
                     }
                 }
             }
@@ -57,6 +58,7 @@ public class DeviceReceiver extends BroadcastReceiver {
                     adapter.notifyDataSetChanged();
                 }catch (Exception e){
                     e.printStackTrace();
+                    LogUtils.e("======== Error ========", e.getMessage());
                 }
             }
 

@@ -2,13 +2,13 @@ package com.wycd.yushangpu.http;
 
 import android.content.Intent;
 
+import com.gt.utils.GsonUtils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.tools.ActivityManager;
-import com.wycd.yushangpu.tools.GsonUtils;
 import com.wycd.yushangpu.tools.LogUtils;
 import com.wycd.yushangpu.ui.LoginActivity;
 
@@ -80,6 +80,7 @@ public class AsyncHttpUtils {
                     back.onErrorResponse(errorMsg + error.getMessage());
                     com.blankj.utilcode.util.ToastUtils.showShort("服务异常，请稍后再试");
                 } catch (UnsupportedEncodingException e) {
+                    LogUtils.e("======== Error ========", e.getMessage());
                     e.printStackTrace();
                 }
             }

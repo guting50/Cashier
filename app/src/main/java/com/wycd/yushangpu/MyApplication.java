@@ -22,7 +22,6 @@ import com.wycd.yushangpu.bean.LoginBean;
 import com.wycd.yushangpu.tools.AppLanguageUtils;
 import com.wycd.yushangpu.tools.CrashHandler;
 import com.wycd.yushangpu.tools.LogUtils;
-import com.wycd.yushangpu.tools.ObtainSystemLanguage;
 import com.wycd.yushangpu.tools.PreferenceHelper;
 import com.wycd.yushangpu.wxapi.Constants;
 
@@ -32,6 +31,7 @@ import net.posprinter.service.PosprinterService;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -284,7 +284,8 @@ public class MyApplication extends MultiDexApplication {
     private String getAppLanguage(Context context) {
         String language;
         if (PreferenceHelper.readString(context, "lottery", "lagavage", "").equals("")) {
-            language = ObtainSystemLanguage.obainLanguage(context);
+            Locale locale = context.getResources().getConfiguration().locale;
+            language = locale.getLanguage();
         } else {
             language = PreferenceHelper.readString(context, "lottery", "lagavage", "");
         }
@@ -317,7 +318,6 @@ public class MyApplication extends MultiDexApplication {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
 
         return loginResultString;
     }

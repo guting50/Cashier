@@ -19,6 +19,7 @@ import com.wycd.yushangpu.printutil.bean.RK_Success_Bean;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.Decima2KeeplUtil;
 import com.wycd.yushangpu.tools.ESCUtil;
+import com.wycd.yushangpu.tools.LogUtils;
 
 import net.posprinter.posprinterface.ProcessData;
 import net.posprinter.posprinterface.TaskCallback;
@@ -393,6 +394,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
             return list;
         } catch (Exception e) {
             e.printStackTrace();
+            LogUtils.e("======== Error ========", e.getMessage());
         }
         return null;
     }
@@ -694,6 +696,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
 
         } catch (Exception e) {
             e.printStackTrace();
+            LogUtils.e("======== Error ========", e.getMessage());
         }
         return null;
     }
@@ -1013,6 +1016,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            LogUtils.e("======== Error ========", e.getMessage());
         }
         return null;
     }
@@ -1345,6 +1349,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            LogUtils.e("======== Error ========", e.getMessage());
         }
         return null;
     }
@@ -1576,6 +1581,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            LogUtils.e("======== Error ========", e.getMessage());
         }
         return null;
     }
@@ -1826,6 +1832,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            LogUtils.e("======== Error ========", e.getMessage());
         }
         return null;
     }
@@ -2050,6 +2057,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            LogUtils.e("======== Error ========", e.getMessage());
         }
         return null;
     }
@@ -2331,6 +2339,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            LogUtils.e("======== Error ========", e.getMessage());
         }
         return null;
     }
@@ -2603,6 +2612,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            LogUtils.e("======== Error ========", e.getMessage());
         }
         return null;
     }
@@ -2962,6 +2972,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            LogUtils.e("======== Error ========", e.getMessage());
         }
         return null;
     }
@@ -3258,6 +3269,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
 
         } catch (Exception e) {
             e.printStackTrace();
+            LogUtils.e("======== Error ========", e.getMessage());
         }
         return null;
     }

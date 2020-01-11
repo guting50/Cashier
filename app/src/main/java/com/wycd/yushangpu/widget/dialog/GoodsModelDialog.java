@@ -11,16 +11,15 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.adapter.ShopRulesAdapter;
 import com.wycd.yushangpu.bean.GoodsModelBean;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.http.VolleyResponse;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.StringUtil;
@@ -183,8 +182,7 @@ public class GoodsModelDialog {
 
         if (goodsitem != null) {
             //头像
-            VolleyResponse.instance().getInternetImg(context, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(goodsitem.getPM_BigImg()).toString()), ivGoodsImage, R.mipmap.messge_nourl);
-
+            Glide.with(context).load(ImgUrlTools.obtainUrl(NullUtils.noNullHandle(goodsitem.getPM_BigImg()).toString())).error(R.mipmap.messge_nourl).into(ivGoodsImage);
             tvName.setText(goodsitem.getPM_Name() + "");
             tvCode.setText("编码:" + goodsitem.getPM_Code() + "");
 

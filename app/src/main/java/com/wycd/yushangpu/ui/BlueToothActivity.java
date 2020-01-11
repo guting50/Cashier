@@ -23,10 +23,11 @@ import android.widget.Toast;
 
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.adapter.BlueToothListAdapter;
+import com.wycd.yushangpu.tools.LogUtils;
+import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.widget.dialog.NoticeDialog;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.printutil.uSharedPreferencesUtiles;
-import com.wycd.yushangpu.tools.NoDoubleClickListener;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -103,6 +104,7 @@ public class BlueToothActivity extends BaseActivity {
             this.registerReceiver(receiver, filter3);
         } catch (Exception e) {
             e.printStackTrace();
+            LogUtils.e("======== Error ========", e.getMessage());
         }
 
     }
@@ -245,6 +247,7 @@ public class BlueToothActivity extends BaseActivity {
                                 }
                             });
                         } catch (Exception e) {
+                            LogUtils.e("======== Error ========", e.getMessage());
                             e.printStackTrace();
                             mBluetoothSocket = null;
                             mDevice = null;
@@ -328,6 +331,7 @@ public class BlueToothActivity extends BaseActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(ac, "发送失败！", Toast.LENGTH_SHORT).show();
+                    LogUtils.e("======== Error ========", e.getMessage());
                 }
             }
         }

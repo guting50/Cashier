@@ -6,30 +6,27 @@ import android.app.ActivityManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.gt.utils.FileUtils;
 import com.gt.utils.MuchThreadDown;
 import com.gt.utils.PermissionUtils;
-import com.wycd.yushangpu.BuildConfig;
 import com.wycd.yushangpu.R;
 
 import java.io.File;
 import java.util.List;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.FileProvider;
 
 /**
  * 版本升级
  *
- * @author hongsir
+ * @author gt
  * Created by Administrator on 2017/4/1.
  */
 
@@ -90,25 +87,6 @@ public class UpdateAppVersion {
     }
 
     /**
-     * 安装apk
-     *
-     * @param file 文件
-     */
-    protected void installApk(File file) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            Uri contentUri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".gt_utils.fileprovider", file);
-            intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
-        } else {
-            Uri contentUri = Uri.fromFile(file);
-            intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        }
-        context.startActivity(intent);
-    }
-
-    /**
      * 版本升级核心处理函数
      *
      * @param force true-强制升级
@@ -152,7 +130,7 @@ public class UpdateAppVersion {
     public static final String KMS_DIR = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath() + File.separator + "apk";
 
     public void downLoadNewApk(String apkUri) {
-        new MuchThreadDown(apkUri, KMS_DIR).isShowLog(true).download(new MuchThreadDown.OnDownloadListener() {
+        new MuchThreadDown(apkUri, KMS_DIR).isShowLog(true).isCover(true).download(new MuchThreadDown.OnDownloadListener() {
             @Override
             protected void onDownloadComplete(String name, String url, String filePath) {
                 context.runOnUiThread(new Runnable() {
@@ -163,7 +141,7 @@ public class UpdateAppVersion {
                             pd.setProgress(100);
                             pd.cancel();
                             String[] path = filePath.split("/");
-                            installApk(new File(KMS_DIR + File.separator + path[path.length - 1]));
+                            new FileUtils().installApk(context, new File(KMS_DIR + File.separator + path[path.length - 1]));
                         }
                     }
                 });
@@ -171,6 +149,7 @@ public class UpdateAppVersion {
 
             protected void onDownloadError(String url, Exception e) {
                 e.printStackTrace();
+                LogUtils.e("======== Error ========", e.getMessage());
                 context.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

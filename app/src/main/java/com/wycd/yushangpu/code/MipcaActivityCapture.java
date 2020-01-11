@@ -25,7 +25,6 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
-import com.wycd.yushangpu.tools.ActivityStack;
 import com.wycd.yushangpu.tools.LogUtils;
 import com.wycd.yushangpu.tools.PreferenceHelper;
 import com.wycd.yushangpu.zxing.camera.CameraManager;
@@ -92,8 +91,6 @@ public class MipcaActivityCapture extends Activity implements Callback {
         ac = this;
         mTvTitle.setText(getResources().getString(R.string.code_title));
         ac = this;
-        ActivityStack.create().addActivity(ac);
-//        StatusBarCompat.setStatusBarColor(ac, getResources().getColor(R.color.theme_color));
         money = getIntent().getStringExtra("money");
         payway = getIntent().getStringExtra("payway");
         mTvMoney.setText(money);
@@ -162,7 +159,6 @@ public class MipcaActivityCapture extends Activity implements Callback {
             intent.putExtra("codedata", resultString);
             intent.putExtra("payway", payway);
             setResult(RESULT_OK, intent);
-            ActivityStack.create().finishActivity(ac);
 //			Intent resultIntent = new Intent();
 //			Bundle bundle = new Bundle();
 //			bundle.putString("result", resultString);
@@ -302,7 +298,6 @@ public class MipcaActivityCapture extends Activity implements Callback {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_left:
-                ActivityStack.create().finishActivity(ac);
                 break;
 //            case R.id.tv_mycode:
 //                Intent intent = new Intent(ac, ShoukuanActivity.class);

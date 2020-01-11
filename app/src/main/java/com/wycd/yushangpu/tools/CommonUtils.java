@@ -7,11 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.AudioFormat;
-import android.media.AudioManager;
-import android.media.AudioTrack;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
@@ -24,20 +19,11 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -72,49 +58,6 @@ public class CommonUtils {
         return !m.matches();
     }
 
-    public static String getAppInfo(Context context) {
-        try {
-            String pkName = context.getPackageName();
-            String versionName = context.getPackageManager().getPackageInfo(
-                    pkName, 0).versionName;
-            int versionCode = context.getPackageManager()
-                    .getPackageInfo(pkName, 0).versionCode;
-            return pkName + "   " + versionName + "  " + versionCode;
-        } catch (Exception e) {
-        }
-        return null;
-    }
-
-    /**
-     * 获取本地缓存的图片
-     */
-    public static Bitmap getBitmap2(String fileName, Context cxt) {
-        String bitmapName = fileName.substring(fileName.lastIndexOf("/") + 1);
-        FileInputStream fis = null;
-        try {
-            fis = cxt.openFileInput(bitmapName);
-            byte[] b = new byte[fis.available()];
-            fis.read(b);
-            fis.close();
-            Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
-            return bitmap;
-        } catch (Exception e) {
-            e.printStackTrace();
-            // 这里是读取文件产生异常
-        } finally {
-            if (fis != null) {
-                try {
-                    fis.close();
-                } catch (IOException e) {
-                    // fis流关闭异常
-                    e.printStackTrace();
-                }
-            }
-        }
-        // 读取产生异常，返回null
-        return null;
-    }
-
     /**
      * 判断本地的私有文件夹里面是否存在当前名字的文件
      */
@@ -127,35 +70,6 @@ public class CommonUtils {
             return false;
         }
 
-    }
-
-    /**
-     * 把图片保存到本地
-     */
-    public static void saveBitmap2(Bitmap mBitmap, String imageURL, Context cxt) {
-
-        String bitmapName = imageURL.substring(imageURL.lastIndexOf("/") + 1);
-
-        FileOutputStream fos = null;
-
-        try {
-            fos = cxt.openFileOutput(bitmapName, Context.MODE_PRIVATE);
-            mBitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
-            fos.flush();
-            fos.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            // 这里是保存文件产生异常
-        } finally {
-            if (fos != null) {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    // fos流关闭异常
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
     /**
@@ -377,56 +291,6 @@ public class CommonUtils {
         return false;
     }
 
-
-    public static String getIpAddress() {
-        try {
-            for (Enumeration<NetworkInterface> en = NetworkInterface
-                    .getNetworkInterfaces(); en.hasMoreElements(); ) {
-                NetworkInterface intf = en.nextElement();
-                for (Enumeration<InetAddress> enumIpAddr = intf
-                        .getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
-                    InetAddress inetAddress = enumIpAddr.nextElement();
-                    if (!inetAddress.isLoopbackAddress()) {
-                        // if (!inetAddress.isLoopbackAddress() && inetAddress
-                        // instanceof Inet6Address) {
-                        return inetAddress.getHostAddress().toString();
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static void playMusic(File file) {
-
-        try {
-            FileInputStream fis = new FileInputStream(file);
-            byte[] buffer = new byte[1024 * 1024 * 2];// 2M
-            int len = fis.read(buffer);
-            int pcmlen = 0;
-            pcmlen += buffer[0x2b];
-            pcmlen = pcmlen * 256 + buffer[0x2a];
-            pcmlen = pcmlen * 256 + buffer[0x29];
-            pcmlen = pcmlen * 256 + buffer[0x28];
-
-            int channel = buffer[0x17];
-            channel = channel * 256 + buffer[0x16];
-
-            int bits = buffer[0x23];
-            bits = bits * 256 + buffer[0x22];
-            AudioTrack at = new AudioTrack(AudioManager.STREAM_MUSIC, 44100,
-                    channel, AudioFormat.ENCODING_PCM_16BIT, pcmlen,
-                    AudioTrack.MODE_STATIC);
-            at.write(buffer, 0x2C, pcmlen);
-            at.play();
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
     /**
      * 删除保存于手机上的缓存
      */
@@ -592,29 +456,6 @@ public class CommonUtils {
             return true;
         }
         return false;
-    }
-
-    /**
-     * MD5加密
-     */
-    public static String md5(String string) {
-        byte[] hash;
-        try {
-            hash = MessageDigest.getInstance("MD5").digest(
-                    string.getBytes("UTF-8"));
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Huh, MD5 should be supported?", e);
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException("Huh, UTF-8 should be supported?", e);
-        }
-
-        StringBuilder hex = new StringBuilder(hash.length * 2);
-        for (byte b : hash) {
-            if ((b & 0xFF) < 0x10)
-                hex.append("0");
-            hex.append(Integer.toHexString(b & 0xFF));
-        }
-        return hex.toString();
     }
 
     // public static String Base64ss(String string) {

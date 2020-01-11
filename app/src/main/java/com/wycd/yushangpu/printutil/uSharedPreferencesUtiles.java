@@ -3,7 +3,8 @@ package com.wycd.yushangpu.printutil;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import java.lang.reflect.InvocationTargetException;
+import com.wycd.yushangpu.tools.LogUtils;
+
 import java.lang.reflect.Method;
 import java.util.Map;
 
@@ -152,6 +153,8 @@ public class uSharedPreferencesUtiles {
                 Class clz = SharedPreferences.Editor.class;
                 return clz.getMethod("apply");
             } catch (NoSuchMethodException e) {
+                LogUtils.e("======== Error ========", e.getMessage());
+                e.printStackTrace();
             }
 
             return null;
@@ -168,9 +171,9 @@ public class uSharedPreferencesUtiles {
                     sApplyMethod.invoke(editor);
                     return;
                 }
-            } catch (IllegalArgumentException e) {
-            } catch (IllegalAccessException e) {
-            } catch (InvocationTargetException e) {
+            } catch (Exception e) {
+                LogUtils.e("======== Error ========", e.getMessage());
+                e.printStackTrace();
             }
             editor.commit();
         }

@@ -8,6 +8,7 @@ import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.LoginBean;
@@ -17,7 +18,6 @@ import com.wycd.yushangpu.http.BaseRes;
 import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.ImgUrlTools;
-import com.wycd.yushangpu.http.VolleyResponse;
 import com.wycd.yushangpu.tools.NullUtils;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -74,7 +74,7 @@ public class ShowMemberPopWindow extends PopupWindow implements View.OnClickList
         mChangeHead.setOnClickListener(this);
 
         if (loginBean.getUM_ChatHead() != null) {
-            VolleyResponse.instance().getInternetImg(ac, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(loginBean.getUM_ChatHead()).toString()), imgHead, R.mipmap.member_head_nohead);
+            Glide.with(context).load(ImgUrlTools.obtainUrl(NullUtils.noNullHandle(loginBean.getUM_ChatHead()).toString())).error(R.mipmap.member_head_nohead).into(imgHead);
         }
         if (loginBean.getUM_Name().equals(loginBean.getUM_Acount())) {
             mStoreName.setText("暂无名称");

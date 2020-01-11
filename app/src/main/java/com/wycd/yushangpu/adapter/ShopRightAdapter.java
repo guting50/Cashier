@@ -9,10 +9,10 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.http.ImgUrlTools;
-import com.wycd.yushangpu.http.VolleyResponse;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.StringUtil;
@@ -66,7 +66,7 @@ public class ShopRightAdapter extends BaseAdapter {
         }
         ShopMsg ts = list.get(i);
         vh.mTvName.setText(NullUtils.noNullHandle(ts.getPM_Name()).toString());
-        VolleyResponse.instance().getInternetImg(context, ImgUrlTools.obtainUrl(NullUtils.noNullHandle(ts.getPM_BigImg()).toString()), vh.mIvShop, R.mipmap.messge_nourl);
+        Glide.with(context).load(ImgUrlTools.obtainUrl(NullUtils.noNullHandle(ts.getPM_BigImg()).toString())).error(R.mipmap.messge_nourl).into(vh.mIvShop);
         vh.mTvXinghao.setText(NullUtils.noNullHandle(ts.getPM_Modle()).toString());
         //库存
 //        if (ts.getPM_Metering() != null) {

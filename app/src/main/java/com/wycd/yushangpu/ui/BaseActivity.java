@@ -10,23 +10,17 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.gyf.barlibrary.ImmersionBar;
-import com.wycd.yushangpu.http.PermissionListener;
 import com.wycd.yushangpu.tools.ActivityManager;
-import com.wycd.yushangpu.tools.SystemUIUtils;
 import com.wycd.yushangpu.widget.dialog.LoadingDialog;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 
 /**
@@ -36,7 +30,6 @@ import androidx.core.content.ContextCompat;
 public abstract class BaseActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
 
-    private static PermissionListener mListener;
     public static Dialog dialog;
     public Resources res;
     public static Activity ac;
@@ -117,29 +110,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         // 必须调用该方法，防止内存泄漏
         ImmersionBar.with(this).destroy();
         ActivityManager.getInstance().removeActivity(this);
-    }
-
-    /**
-     * 申请权限
-     */
-    public static void requestRuntimePermissions(
-            String[] permissions, PermissionListener listener) {
-        mListener = listener;
-        List<String> permissionList = new ArrayList<>();
-        // 遍历每一个申请的权限，把没有通过的权限放在集合中
-        for (String permission : permissions) {
-            if (ContextCompat.checkSelfPermission(ac, permission) !=
-                    PackageManager.PERMISSION_GRANTED) {
-                permissionList.add(permission);
-            } else {
-                mListener.granted();
-            }
-        }
-        // 申请权限
-        if (!permissionList.isEmpty()) {
-            ActivityCompat.requestPermissions(ac,
-                    permissionList.toArray(new String[permissionList.size()]), 1);
-        }
     }
 
     /**
