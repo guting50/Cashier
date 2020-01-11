@@ -24,7 +24,7 @@ public class LogUtils {
         if (LEVEL <= DEBUG) {
             Log.d(tag, msg);
             System.out.println(tag + " : " + msg);
-            LogsUtils.writeInfoLog(MyApplication.getContext(), MyApplication.loginBean == null ? "" : MyApplication.loginBean.getUM_Acount(), tag + msg);
+            //LogsUtils.writeInfoLog(MyApplication.getContext(), MyApplication.loginBean == null ? "" : MyApplication.loginBean.getUM_Acount(), tag + msg);
         }
     }
 
