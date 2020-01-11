@@ -13,6 +13,8 @@ import com.wycd.yushangpu.tools.LogUtils;
 import com.wycd.yushangpu.ui.LoginActivity;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
+import java.util.concurrent.ConcurrentHashMap;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -31,15 +33,24 @@ public class AsyncHttpUtils {
         AsyncHttpClient client = new AsyncHttpClient();
         final PersistentCookieStore myCookieStore = new PersistentCookieStore(MyApplication.getContext());
         client.setCookieStore(myCookieStore);
-        LogUtils.d("======== url ======== >>>", url);
-        LogUtils.d("======== params ======== >>>", map.toString());
+        LogUtils.d(">>> ======== url    ======== >>>", url);
+        Class clazz = map.getClass();
+        try {
+            Field field = clazz.getDeclaredField("urlParams");
+            field.setAccessible(true);
+            ConcurrentHashMap hashMap = (ConcurrentHashMap) field.get(map);
+            LogUtils.d(">>> ======== params ======== >>>", GsonUtils.getGson().toJson(hashMap));
+        } catch (Exception e) {
+            e.printStackTrace();
+            LogUtils.d(">>> ======== params ======== >>>", map.toString());
+        }
         client.post(url, map, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
                     String result = new String(responseBody, "UTF-8");
-                    LogUtils.d("<<< ======== url ======== ", url);
-                    LogUtils.d("<<< ======== result ======== ", result);
+                    LogUtils.d("<<< ======== url    ======== <<<", url);
+                    LogUtils.d("<<< ======== result ======== <<<", result);
                     BaseRes baseRes = GsonUtils.getGson().fromJson(result, BaseRes.class);
                     if (baseRes.isSuccess()) {
                         back.onResponse(baseRes);
