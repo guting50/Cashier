@@ -12,7 +12,7 @@ public class LogUtils {
     public static final int WARN = 4;
     public static final int ERROR = 5;
     public static final int NOTHING = 6;
-    public static final int LEVEL = 0;
+    public static final int LEVEL = 10;
 
     public static void v(String tag, String msg) {
         if (LEVEL <= VERBOSE) {
@@ -44,7 +44,7 @@ public class LogUtils {
         if (LEVEL <= ERROR) {
             Log.e(tag, msg);
             System.out.println(tag + " : " + msg);
-            LogsUtils.writeEooroLog(MyApplication.getContext(), MyApplication.loginBean == null ? "" : MyApplication.loginBean.getUM_Acount(), tag + msg);
         }
+        LogsUtils.writeEooroLog(MyApplication.getContext(), MyApplication.loginBean == null ? "" : MyApplication.loginBean.getUM_Acount(), tag + msg);
     }
 }

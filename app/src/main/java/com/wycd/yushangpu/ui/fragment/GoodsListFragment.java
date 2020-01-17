@@ -234,15 +234,12 @@ public class GoodsListFragment extends Fragment {
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            System.out.println("onCreateViewHolder start === >>> " + new SimpleDateFormat("HH:mm:ss SSS").format(new Date()));
             View view = LayoutInflater.from(getContext()).inflate(R.layout.item_home_rightshop, parent, false);
-            System.out.println("onCreateViewHolder end   === >>> " + new SimpleDateFormat("HH:mm:ss SSS").format(new Date()));
             return new Holder(view);
         }
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            System.out.println("onBindViewHolder " + position + " start === >>> " + new SimpleDateFormat("HH:mm:ss SSS").format(new Date()));
             ShopMsg ts = shopMsgList.get(position);
             Holder myHolser = (Holder) holder;
             myHolser.mTvName.setText(NullUtils.noNullHandle(ts.getPM_Name()).toString());
@@ -286,7 +283,6 @@ public class GoodsListFragment extends Fragment {
                     homeActivity.addCashierList(ts);
                 }
             });
-            System.out.println("onBindViewHolder " + position + " end   === >>> " + new SimpleDateFormat("HH:mm:ss SSS").format(new Date()));
         }
 
         public List<ShopMsg> getShopMsgList() {
