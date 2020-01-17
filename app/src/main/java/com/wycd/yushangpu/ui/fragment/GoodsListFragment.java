@@ -1,6 +1,5 @@
 package com.wycd.yushangpu.ui.fragment;
 
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,14 +25,15 @@ import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpShopHome;
-import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.GlideTransform;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.StringUtil;
 import com.wycd.yushangpu.ui.HomeActivity;
 
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -200,6 +200,7 @@ public class GoodsListFragment extends Fragment {
                     if (NullUtils.noNullHandle(msg.getPM_IsService()).toString().equals("2")) {
                         adapter.getShopMsgList().remove(msg);
                     }
+                    msg.init();
                 }
                 adapter.notifyDataSetChanged();
                 homeActivity.dialog.dismiss();
@@ -233,12 +234,15 @@ public class GoodsListFragment extends Fragment {
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            System.out.println("onCreateViewHolder start === >>> " + new SimpleDateFormat("HH:mm:ss SSS").format(new Date()));
             View view = LayoutInflater.from(getContext()).inflate(R.layout.item_home_rightshop, parent, false);
+            System.out.println("onCreateViewHolder end   === >>> " + new SimpleDateFormat("HH:mm:ss SSS").format(new Date()));
             return new Holder(view);
         }
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+            System.out.println("onBindViewHolder " + position + " start === >>> " + new SimpleDateFormat("HH:mm:ss SSS").format(new Date()));
             ShopMsg ts = shopMsgList.get(position);
             Holder myHolser = (Holder) holder;
             myHolser.mTvName.setText(NullUtils.noNullHandle(ts.getPM_Name()).toString());
@@ -256,44 +260,11 @@ public class GoodsListFragment extends Fragment {
             myHolser.mTvKunum.setText(ts.getStock_Number() + "");
 //        }
 
-//        myHolser.mTvKunum.setText(NullUtils.noNullHandle(ts.getPM_Repertory()).toString());
-//        int  0  表示普通商品    1表示服务商品  2表示礼品   3普通套餐   4充次套餐
-            switch (NullUtils.noNullHandle(ts.getPM_IsService()).toString()) {
-                case "0":
-                    myHolser.mIvState.setText("普");
-                    myHolser.mIvState.setTextColor(getContext().getResources().getColor(R.color.textblue));
-//                myHolser.mIvState.setBackgroundResource(R.drawable.home_pu);
-                    myHolser.mIvKu.setVisibility(View.VISIBLE);
-                    myHolser.mTvKunum.setVisibility(View.VISIBLE);
-                    break;
-                case "1":
-                    myHolser.mIvState.setText("服");
-                    myHolser.mIvState.setTextColor(getContext().getResources().getColor(R.color.textgreen));
-                    myHolser.mIvKu.setVisibility(View.INVISIBLE);
-                    myHolser.mTvKunum.setVisibility(View.INVISIBLE);
-                    break;
-                case "2":
-                    myHolser.mIvState.setText("礼");
-                    myHolser.mIvState.setTextColor(getContext().getResources().getColor(R.color.textred));
-//                myHolser.mIvState.setBackgroundResource(R.drawable.shop_li);
-                    myHolser.mIvKu.setVisibility(View.VISIBLE);
-                    myHolser.mTvKunum.setVisibility(View.VISIBLE);
-                    break;
-                case "3":
-                    myHolser.mIvState.setText("套");
-                    myHolser.mIvState.setTextColor(getContext().getResources().getColor(R.color.textblue));
-//                myHolser.mIvState.setBackgroundResource(R.drawable.shop_pt);
-                    myHolser.mIvKu.setVisibility(View.INVISIBLE);
-                    myHolser.mTvKunum.setVisibility(View.INVISIBLE);
-                    break;
-                case "4":
-                    myHolser.mIvState.setText("套");
-                    myHolser.mIvState.setTextColor(getContext().getResources().getColor(R.color.textgreen));
-//                myHolser.mIvState.setBackgroundResource(R.drawable.shop_ci);
-                    myHolser.mIvKu.setVisibility(View.INVISIBLE);
-                    myHolser.mTvKunum.setVisibility(View.INVISIBLE);
-                    break;
-            }
+            myHolser.mIvState.setText(ts.PM_IsServiceText);
+            myHolser.mIvState.setTextColor(getContext().getResources().getColor(ts.StateTextColor));
+            myHolser.mIvKu.setVisibility(ts.KuVisibility);
+            myHolser.mTvKunum.setVisibility(ts.KuVisibility);
+
 //        PM_IsDiscount	商品折扣	int	0关闭 1开启
 
 //        2、textView设置中划线
@@ -303,60 +274,19 @@ public class GoodsListFragment extends Fragment {
 //        3、textView取消中划线或者下划线
 //        myHolser.mTvVipprice.getPaint().setFlags(0); // 取消设置的的划线
 
-            if (NullUtils.noNullHandle(ts.getPM_IsDiscount()).toString().equals("1")) {
-                if (!NullUtils.noNullHandle(ts.getPM_SpecialOfferMoney()).toString().equals("0.0") && ts.getPM_SpecialOfferMoney() != -1) {
-                    //无最低折扣
-                    myHolser.mTvVipprice.setText("特：" + ts.getPM_SpecialOfferMoney());
-                    myHolser.mTvSanprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); //中划线
-                    myHolser.mTvSanprice.setTextColor(getContext().getResources().getColor(R.color.a5a5a5));
 
-                } else if (!NullUtils.noNullHandle(ts.getPM_SpecialOfferValue()).toString().equals("0.0")) {
-                    //有特价折扣
-                    if (NullUtils.noNullHandle(ts.getPM_MinDisCountValue()).toString().equals("0.0")) {
-                        //无最低折扣
-                        myHolser.mTvVipprice.setText("特：" + StringUtil.twoNum(CommonUtils.multiply(ts.getPM_UnitPrice(), ts.getPM_SpecialOfferValue())));
-                    } else {
-                        //有最低折扣
-                        if (ts.getPM_SpecialOfferValue() > ts.getPM_MinDisCountValue()) {
-                            myHolser.mTvVipprice.setText("特：" + StringUtil.twoNum(CommonUtils.multiply(ts.getPM_UnitPrice(), ts.getPM_SpecialOfferValue())));
-                        } else {
-                            myHolser.mTvVipprice.setText("特：" + StringUtil.twoNum(CommonUtils.multiply(ts.getPM_UnitPrice(), ts.getPM_MinDisCountValue())));
-                        }
-                    }
-                    myHolser.mTvSanprice.setTextColor(getContext().getResources().getColor(R.color.a5a5a5));
-                    myHolser.mTvSanprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); //中划线
-                } else {
-                    //无特价折扣
-                    if (!NullUtils.noNullHandle(ts.getPM_MemPrice()).toString().equals("")) {
-                        //有会员价
-                        myHolser.mTvVipprice.setText("会：" + StringUtil.twoNum(NullUtils.noNullHandle(ts.getPM_MemPrice()).toString()));
-                    } else {
-                        myHolser.mTvVipprice.setText("");
-                    }
-                    myHolser.mTvSanprice.getPaint().setFlags(0 | Paint.ANTI_ALIAS_FLAG); // 取消设置的的划线
-//                    myHolser.mTvSanprice.setTextColor(getContext().getResources().getColor(R.color.textred));
-                }
-            } else {
-                if (!NullUtils.noNullHandle(ts.getPM_MemPrice()).toString().equals("")) {
-                    myHolser.mTvVipprice.setText("会：" + StringUtil.twoNum(NullUtils.noNullHandle(ts.getPM_MemPrice()).toString()));
-                } else {
-                    myHolser.mTvVipprice.setText("");
-                }
-                myHolser.mTvSanprice.getPaint().setFlags(0 | Paint.ANTI_ALIAS_FLAG); // 取消设置的的划线
-//                myHolser.mTvSanprice.setTextColor(getContext().getResources().getColor(R.color.textred));
-            }
+            myHolser.mTvVipprice.setText("特：" + ts.TvVippriceText);
+            myHolser.mTvSanprice.getPaint().setFlags(ts.TvSanpriceFlags); //中划线
+            myHolser.mTvSanprice.setTextColor(getContext().getResources().getColor(ts.TvSanpriceTextColor));
+
             myHolser.mTvSanprice.setText("售：" + StringUtil.twoNum(NullUtils.noNullHandle(ts.getPM_UnitPrice()).toString()));
-
             myHolser.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     homeActivity.addCashierList(ts);
                 }
             });
-        }
-
-        public void setShopMsgList(List<ShopMsg> shopMsgList) {
-            this.shopMsgList = shopMsgList;
+            System.out.println("onBindViewHolder " + position + " end   === >>> " + new SimpleDateFormat("HH:mm:ss SSS").format(new Date()));
         }
 
         public List<ShopMsg> getShopMsgList() {

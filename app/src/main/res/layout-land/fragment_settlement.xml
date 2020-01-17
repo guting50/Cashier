@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#d0000000">
+
+    <com.gt.utils.view.BgFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginBottom="@dimen/dp_5"
+        app:corners_radius_left_bottom="3dp"
+        app:corners_radius_left_top="3dp"
+        app:solid_color="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_60"
+                android:gravity="center_vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_viptx"
+                    android:layout_width="@dimen/dp_35"
+                    android:layout_height="@dimen/dp_35"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:src="@mipmap/member_head_nohead" />
+
+                <TextView
+                    android:id="@+id/tv_vipname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp_5"
+                    android:layout_toEndOf="@+id/iv_viptx"
+                    android:maxWidth="@dimen/dp_55"
+                    android:text="散客"
+                    android:textColor="@color/text60"
+                    android:textSize="@dimen/dp_17" />
+
+                <LinearLayout
+                    android:id="@+id/vip_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toStartOf="@+id/ll_home_massage"
+                    android:layout_toEndOf="@+id/tv_vipname"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:text="余额:"
+                        android:textColor="@color/text60"
+                        android:textSize="@dimen/dp_14" />
+
+                    <TextView
+                        android:id="@+id/tv_blance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="0.00"
+                        android:textColor="@color/textred"
+                        android:textSize="@dimen/dp_14" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:text="积分:"
+                        android:textColor="@color/text60"
+                        android:textSize="@dimen/dp_14" />
+
+                    <TextView
+                        android:id="@+id/tv_integral"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="0"
+                        android:textColor="@color/textred"
+                        android:textSize="@dimen/dp_14" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_home_massage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/cb_short_message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:button="@null"
+                        android:drawableLeft="@drawable/rember_password"
+                        android:drawablePadding="5dp"
+                        android:text="短信" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_34"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="@dimen/dp_10"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="积分："
+                    android:textColor="@color/text60"
+                    android:textSize="@dimen/dp_13" />
+
+                <TextView
+                    android:id="@+id/tv_get_integral"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="0"
+                    android:textColor="@color/text60"
+                    android:textSize="@dimen/dp_13" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </com.gt.utils.view.BgFrameLayout>
+</FrameLayout>

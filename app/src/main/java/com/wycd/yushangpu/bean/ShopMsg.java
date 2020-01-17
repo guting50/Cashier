@@ -1,7 +1,14 @@
 package com.wycd.yushangpu.bean;
 
+import android.graphics.Paint;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.View;
+
+import com.wycd.yushangpu.R;
+import com.wycd.yushangpu.tools.CommonUtils;
+import com.wycd.yushangpu.tools.NullUtils;
+import com.wycd.yushangpu.tools.StringUtil;
 
 import java.io.Serializable;
 import java.util.List;
@@ -399,6 +406,84 @@ public class ShopMsg implements Serializable, Parcelable {
     }
 
     public ShopMsg() {
+    }
+
+    public String PM_IsServiceText;
+    public int StateTextColor;
+    public int KuVisibility;
+    public String TvVippriceText;
+    public int TvSanpriceFlags, TvSanpriceTextColor;
+
+    public void init() {
+        switch (NullUtils.noNullHandle(getPM_IsService()).toString()) {
+            case "0":
+                PM_IsServiceText = "普";
+                StateTextColor = R.color.textblue;
+                KuVisibility = View.VISIBLE;
+                break;
+            case "1":
+                PM_IsServiceText = "服";
+                StateTextColor = R.color.textgreen;
+                KuVisibility = View.INVISIBLE;
+                break;
+            case "2":
+                PM_IsServiceText = "礼";
+                StateTextColor = R.color.textred;
+                KuVisibility = View.VISIBLE;
+                break;
+            case "3":
+                PM_IsServiceText = "套";
+                StateTextColor = R.color.textblue;
+                KuVisibility = View.INVISIBLE;
+                break;
+            case "4":
+                PM_IsServiceText = "套";
+                StateTextColor = R.color.textgreen;
+                KuVisibility = View.INVISIBLE;
+                break;
+        }
+
+        if (NullUtils.noNullHandle(getPM_IsDiscount()).toString().equals("1")) {
+            if (!NullUtils.noNullHandle(getPM_SpecialOfferMoney()).toString().equals("0.0") && getPM_SpecialOfferMoney() != -1) {
+                //无最低折扣
+                TvVippriceText = "特：" + getPM_SpecialOfferMoney();
+                TvSanpriceFlags = (Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); //中划线
+                TvSanpriceTextColor = (R.color.a5a5a5);
+            } else if (!NullUtils.noNullHandle(getPM_SpecialOfferValue()).toString().equals("0.0")) {
+                //有特价折扣
+                if (NullUtils.noNullHandle(getPM_MinDisCountValue()).toString().equals("0.0")) {
+                    //无最低折扣
+                    TvVippriceText = ("特：" + StringUtil.twoNum(CommonUtils.multiply(getPM_UnitPrice(), getPM_SpecialOfferValue())));
+                } else {
+                    //有最低折扣
+                    if (getPM_SpecialOfferValue() > getPM_MinDisCountValue()) {
+                        TvVippriceText = ("特：" + StringUtil.twoNum(CommonUtils.multiply(getPM_UnitPrice(), getPM_SpecialOfferValue())));
+                    } else {
+                        TvVippriceText = ("特：" + StringUtil.twoNum(CommonUtils.multiply(getPM_UnitPrice(), getPM_MinDisCountValue())));
+                    }
+                }
+                TvSanpriceTextColor = (R.color.a5a5a5);
+                TvSanpriceFlags = (Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); //中划线
+            } else {
+                //无特价折扣
+                if (!NullUtils.noNullHandle(getPM_MemPrice()).toString().equals("")) {
+                    //有会员价
+                    TvVippriceText = ("会：" + StringUtil.twoNum(NullUtils.noNullHandle(getPM_MemPrice()).toString()));
+                } else {
+                    TvVippriceText = ("");
+                }
+                TvSanpriceFlags = (0 | Paint.ANTI_ALIAS_FLAG); // 取消设置的的划线
+                TvSanpriceTextColor = (R.color.textred);
+            }
+        } else {
+            if (!NullUtils.noNullHandle(getPM_MemPrice()).toString().equals("")) {
+                TvVippriceText = ("会：" + StringUtil.twoNum(NullUtils.noNullHandle(getPM_MemPrice()).toString()));
+            } else {
+                TvVippriceText = ("");
+            }
+            TvSanpriceFlags = (0 | Paint.ANTI_ALIAS_FLAG); // 取消设置的的划线
+            TvSanpriceTextColor = (R.color.textred);
+        }
     }
 
     @Override
