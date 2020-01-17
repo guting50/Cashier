@@ -31,9 +31,7 @@ import com.wycd.yushangpu.tools.StringUtil;
 import com.wycd.yushangpu.ui.HomeActivity;
 
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -55,7 +53,7 @@ public class GoodsListFragment extends Fragment {
 
     private List<ClassMsg> mClassMsgList = new ArrayList<>();//分类数据列表
     private int PageIndex = 1;
-    private int PageSize = 50;
+    private int PageSize = 20;
 
     HomeActivity homeActivity;
     Adapter adapter;
