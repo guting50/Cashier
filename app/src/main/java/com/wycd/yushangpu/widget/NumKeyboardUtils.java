@@ -129,8 +129,7 @@ public class NumKeyboardUtils {
                         break;
                     case R.id.num_keyboard_dot:
                         if (!TextUtils.isEmpty(numInputView.getText()) && !numInputView.isSelectAll()) {
-                            if (!numInputView.getText().toString().contains("."))
-                                numInputView.addText(".");
+                            numInputView.addText(".");
                         } else
                             numInputView.setText("0.");
                         break;

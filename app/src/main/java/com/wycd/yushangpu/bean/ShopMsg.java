@@ -473,7 +473,8 @@ public class ShopMsg implements Serializable, Parcelable {
                     TvVippriceText = ("");
                 }
                 TvSanpriceFlags = (0 | Paint.ANTI_ALIAS_FLAG); // 取消设置的的划线
-                TvSanpriceTextColor = (R.color.textred);
+//                TvSanpriceTextColor = (R.color.textred);
+                TvSanpriceTextColor = (R.color.text66);
             }
         } else {
             if (!NullUtils.noNullHandle(getPM_MemPrice()).toString().equals("")) {
@@ -482,7 +483,8 @@ public class ShopMsg implements Serializable, Parcelable {
                 TvVippriceText = ("");
             }
             TvSanpriceFlags = (0 | Paint.ANTI_ALIAS_FLAG); // 取消设置的的划线
-            TvSanpriceTextColor = (R.color.textred);
+//            TvSanpriceTextColor = (R.color.textred);
+            TvSanpriceTextColor = (R.color.text66);
         }
     }
 

@@ -147,13 +147,13 @@ public class CommonUtils {
      */
 
     public static double add(double v1, double v2) {
+        return add(Double.toString(v1), Double.toString(v2));
+    }
 
-        BigDecimal b1 = new BigDecimal(Double.toString(v1));
-
-        BigDecimal b2 = new BigDecimal(Double.toString(v2));
-
+    public static double add(String v1, String v2) {
+        BigDecimal b1 = new BigDecimal(v1);
+        BigDecimal b2 = new BigDecimal(v2);
         return b1.add(b2).doubleValue();
-
     }
 
     /**

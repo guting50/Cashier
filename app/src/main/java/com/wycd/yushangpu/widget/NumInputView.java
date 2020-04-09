@@ -162,11 +162,25 @@ public class NumInputView extends RelativeLayout {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!StringUtil.isTwoPoint(s.toString())) {
+                String text = s.toString(), lastText = s.toString();
+
+                if (text.contains("+")) {
+                    String[] list = text.split("\\+");
+                    lastText = list[list.length - 1];
+                }
+
+                if(lastText.equals(".")){
+                    s = text.substring(0, text.length() - 1) + "0.";
+                    setText(s.toString());
+                }else if (StringUtil.countString(lastText,".") > 1) {
+                    s = text.substring(0, text.length() - 1);
+                    setText(s.toString());
+                }else if (!StringUtil.isTwoPoint(lastText)) {
                     com.blankj.utilcode.util.ToastUtils.showShort("只能输入两位小数");
-                    s = s.toString().substring(0, s.toString().length() - 1);
+                    s = text.substring(0, text.length() - 1);
                     setText(s.toString());
                 }
+
                 if (textWatcher != null)
                     textWatcher.onTextChanged(s, start, before, count);
             }
@@ -258,7 +272,7 @@ public class NumInputView extends RelativeLayout {
             if (drawables != null && drawablesSize > 0) {
                 rootView.setBackgroundDrawable(drawables[0]);
             }
-            timer = new Timer(){
+            timer = new Timer() {
                 @Override
                 public void cancel() {
                     super.cancel();

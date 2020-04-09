@@ -5,8 +5,8 @@ android {
         applicationId "com.wycd.yunshangpu"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 3
-        versionName "1.0.3"
+        versionCode 9
+        versionName "1.0.9"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled = true

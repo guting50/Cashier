@@ -98,8 +98,8 @@ public class ShopLeftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
         vh.mTvName.setTextColor(context.getResources().getColor(R.color.textcolor));
-        vh.mTvVipprice.setText("￥" + StringUtil.twoNum(NullUtils.noNullHandle(ts.getJisuanPrice()).toString()) + "/"
-                + (TextUtils.isEmpty(ts.getPM_Metering()) ? "" : ts.getPM_Metering()));
+        vh.mTvVipprice.setText("￥" + StringUtil.twoNum(NullUtils.noNullHandle(ts.getJisuanPrice()).toString())
+                + (TextUtils.isEmpty(ts.getPM_Metering()) ? "" : "/" + ts.getPM_Metering()));
         if (TextUtils.isEmpty(ts.getGID())) {
             vh.mTvName.setTextColor(context.getResources().getColor(R.color.textred));
             vh.mTvVipprice.setText("无码商品");

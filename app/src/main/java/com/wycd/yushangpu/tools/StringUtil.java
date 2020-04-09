@@ -99,7 +99,14 @@ public class StringUtil {
             }
         }
         return true;
+    }
 
-
+    public static int countString(String str, String s) {
+        int count = 0, len = str.length();
+        while (str.indexOf(s) != -1) {
+            str = str.substring(str.indexOf(s) + 1, str.length());
+            count++;
+        }
+        return count;
     }
 }

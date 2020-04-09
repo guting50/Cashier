@@ -309,7 +309,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 case ACTION_USB_DEVICE_DETACHED:
                     UsbDevice usbDevice = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
                     String ReceiptUSBName = (String) CacheData.restoreObject("ReceiptUSBName");
-                    if (ReceiptUSBName.equals(usbDevice.getDeviceName())) {
+                    if (ReceiptUSBName != null && ReceiptUSBName.equals(usbDevice.getDeviceName())) {
                         ISCONNECT = false;
                     }
                     String LabelUSBName = (String) CacheData.restoreObject("LabelUSBName");

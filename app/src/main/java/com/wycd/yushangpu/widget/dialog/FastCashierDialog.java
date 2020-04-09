@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.event.HomeButtonColorChangeEvent;
 import com.wycd.yushangpu.http.InterfaceBack;
+import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.widget.NumInputView;
 import com.wycd.yushangpu.widget.NumKeyboardUtils;
@@ -78,12 +79,12 @@ public class FastCashierDialog {
             @Override
             public void onClick(View v) {
                 String text = edit_view.getText().toString();
-                if (!TextUtils.isEmpty(text) && !TextUtils.equals("+", text.substring(text.length() - 1))) {
+                if (!TextUtils.isEmpty(text) &&
+                        !TextUtils.equals("+", text.substring(text.length() - 1)) &&
+                        !TextUtils.equals(".", text.substring(text.length() - 1))) {
                     edit_view.addText("+");
                     String[] strList = text.split("\\+");
-                    tv_total.setText(
-                            Double.parseDouble(strList[strList.length - 1]) +
-                                    Double.parseDouble(tv_total.getText().toString()) + "");
+                    tv_total.setText(CommonUtils.add(strList[strList.length - 1], tv_total.getText().toString()) + "");
                 }
             }
         });

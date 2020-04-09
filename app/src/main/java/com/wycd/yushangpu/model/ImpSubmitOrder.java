@@ -11,8 +11,8 @@ import com.wycd.yushangpu.http.BaseRes;
 import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.tools.Decima2KeeplUtil;
 import com.wycd.yushangpu.tools.CreateOrder;
+import com.wycd.yushangpu.tools.Decima2KeeplUtil;
 
 import java.util.List;
 
@@ -53,7 +53,10 @@ public class ImpSubmitOrder {
 
             @Override
             public void onErrorResponse(Object msg) {
-                super.onErrorResponse(msg);
+                if (msg.toString().contains("该会员卡已过期")) {
+                    com.blankj.utilcode.util.ToastUtils.showShort("该会员卡已过期");
+                } else
+                    super.onErrorResponse(msg);
                 back.onErrorResponse(msg);
             }
         });
@@ -128,7 +131,10 @@ public class ImpSubmitOrder {
 
             @Override
             public void onErrorResponse(Object msg) {
-                super.onErrorResponse(msg);
+                if (msg.toString().contains("该会员卡已过期")) {
+                    com.blankj.utilcode.util.ToastUtils.showShort("该会员卡已过期");
+                } else
+                    super.onErrorResponse(msg);
                 back.onErrorResponse(msg);
             }
         });

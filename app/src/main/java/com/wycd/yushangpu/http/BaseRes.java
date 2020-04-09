@@ -49,4 +49,14 @@ public class BaseRes {
     public <T> T getData(Type type) {
         return GsonUtils.getGson().fromJson(GsonUtils.getGson().toJson(data), type);
     }
+
+    @Override
+    public String toString() {
+        return "BaseRes{" +
+                "success=" + success +
+                ", code='" + code + '\'' +
+                ", msg='" + msg + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }

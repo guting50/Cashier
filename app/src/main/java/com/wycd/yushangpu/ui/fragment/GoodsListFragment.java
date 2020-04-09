@@ -270,7 +270,7 @@ public class GoodsListFragment extends Fragment {
 //        myHolser.mTvVipprice.getPaint().setFlags(0); // 取消设置的的划线
 
 
-            myHolser.mTvVipprice.setText("特：" + ts.TvVippriceText);
+            myHolser.mTvVipprice.setText(ts.TvVippriceText);
             myHolser.mTvSanprice.getPaint().setFlags(ts.TvSanpriceFlags); //中划线
             myHolser.mTvSanprice.setTextColor(getContext().getResources().getColor(ts.TvSanpriceTextColor));
 
