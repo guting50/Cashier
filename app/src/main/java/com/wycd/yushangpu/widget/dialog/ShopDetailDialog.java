@@ -93,7 +93,8 @@ public class ShopDetailDialog {
                 if (!editTextLayout.getText().toString().equals("")) {
                     mEmplMsgList.clear();
                     for (EmplMsg emplMsg : emplist) {
-                        if (emplMsg.getEM_Name().contains(editTextLayout.getText().toString())) {
+                        if (emplMsg.getEM_Code().contains(editTextLayout.getText().toString()) ||
+                                emplMsg.getEM_Name().contains(editTextLayout.getText().toString())) {
                             mEmplMsgList.add(emplMsg);
                         }
                     }

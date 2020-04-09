@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.google.gson.reflect.TypeToken;
 import com.gt.utils.view.BgFrameLayout;
@@ -350,9 +351,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
             //加减
             @Override
             public void onResponse(Object response) {
-                ShopMsg shopMsg = (ShopMsg) response;
-                mShopLeftList.set(shopMsg.getChosePosion(), shopMsg);
-                jisuanAllPrice();
+
             }
 
             //移除
@@ -823,6 +822,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     }
 
     private void addShopLeftList(ShopMsg shopMsg, double addnum) {
+        String json = JSON.toJSONString(shopMsg);
+        shopMsg = JSON.parseObject(json, ShopMsg.class);
         double num = 0;
         int pos = 0;
 
