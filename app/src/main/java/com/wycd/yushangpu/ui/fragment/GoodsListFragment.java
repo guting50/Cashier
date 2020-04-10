@@ -194,12 +194,11 @@ public class GoodsListFragment extends Fragment {
                 }
                 adapter.addShopMsgList(sllist);
 //                 int  0  表示普通商品    1表示服务商品  2表示礼品   3普通套餐   4充次套餐
-                for (ShopMsg msg : sllist) {
-                    if (NullUtils.noNullHandle(msg.getPM_IsService()).toString().equals("2")) {
-                        adapter.getShopMsgList().remove(msg);
-                    }
-                    msg.init();
-                }
+//                for (ShopMsg msg : sllist) {
+//                    if (NullUtils.noNullHandle(msg.getPM_IsService()).toString().equals("2")) {
+//                        adapter.getShopMsgList().remove(msg);
+//                    }
+//                }
                 adapter.notifyDataSetChanged();
                 homeActivity.dialog.dismiss();
                 emptyStateLayout.setVisibility(View.GONE);
@@ -239,6 +238,7 @@ public class GoodsListFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             ShopMsg ts = shopMsgList.get(position);
+            ts.init();
             Holder myHolser = (Holder) holder;
             myHolser.mTvName.setText(NullUtils.noNullHandle(ts.getPM_Name()).toString());
             Glide.with(getContext()).load(ImgUrlTools.obtainUrl(NullUtils.noNullHandle(ts.getPM_BigImg()).toString()))

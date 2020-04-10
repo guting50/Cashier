@@ -413,8 +413,13 @@ public class ShopMsg implements Serializable, Parcelable {
     public int KuVisibility;
     public String TvVippriceText;
     public int TvSanpriceFlags, TvSanpriceTextColor;
+    private boolean initialized = false;
 
     public void init() {
+        if (initialized) {
+            return;
+        }
+        initialized = true;
         switch (NullUtils.noNullHandle(getPM_IsService()).toString()) {
             case "0":
                 PM_IsServiceText = "普";
