@@ -78,11 +78,11 @@ public class AsyncHttpUtils {
                 try {
                     String errorMsg = new String(responseBody, "UTF-8");
                     back.onErrorResponse(errorMsg + error.getMessage());
-                    com.blankj.utilcode.util.ToastUtils.showShort("服务异常，请稍后再试");
                 } catch (Exception e) {
                     LogUtils.e("======== Error ========", e.getMessage());
                     e.printStackTrace();
                 }
+                com.blankj.utilcode.util.ToastUtils.showShort("服务异常，请稍后再试");
             }
         });
     }
