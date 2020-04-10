@@ -6,17 +6,39 @@
     android:background="@drawable/background_texte0"
     android:orientation="vertical">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab_layout"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        app:tabBackground="@drawable/selector_tab_view"
-        app:tabIndicatorColor="@color/colorPrimary"
-        app:tabMaxWidth="120dp"
-        app:tabMode="scrollable"
-        app:tabSelectedTextColor="@color/colorPrimary"
-        app:tabTextAppearance="@style/tab_layout"
-        app:tabTextColor="@color/text66" />
+        android:layout_height="70dp">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            app:tabBackground="@drawable/selector_tab_view"
+            app:tabIndicatorColor="@color/colorPrimary"
+            app:tabMaxWidth="120dp"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/colorPrimary"
+            app:tabTextAppearance="@style/tab_layout"
+            app:tabTextColor="@color/text66" />
+
+        <TextView
+            android:id="@+id/tab_all"
+            android:layout_width="120dp"
+            android:layout_height="70dp"
+            android:gravity="center"
+            android:text="全部"
+            android:textSize="18sp"
+            android:background="@color/texted"
+            app:tabTextColor="@color/colorPrimary" />
+
+        <View
+            android:id="@+id/tab_all_indicator"
+            android:layout_width="120dp"
+            android:layout_height="2dp"
+            android:layout_gravity="bottom"
+            android:background="@color/colorPrimary" />
+    </FrameLayout>
 
     <View
         android:id="@+id/view_line"

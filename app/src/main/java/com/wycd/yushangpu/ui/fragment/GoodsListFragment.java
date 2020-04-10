@@ -5,12 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.reflect.TypeToken;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -22,12 +19,9 @@ import com.wycd.yushangpu.http.BasePageRes;
 import com.wycd.yushangpu.http.BaseRes;
 import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
-import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpShopHome;
-import com.wycd.yushangpu.tools.GlideTransform;
 import com.wycd.yushangpu.tools.NullUtils;
-import com.wycd.yushangpu.tools.StringUtil;
 import com.wycd.yushangpu.ui.HomeActivity;
 
 import java.lang.reflect.Type;
@@ -38,6 +32,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,6 +41,10 @@ public class GoodsListFragment extends Fragment {
 
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
+    @BindView(R.id.tab_all)
+    TextView tabAll;
+    @BindView(R.id.tab_all_indicator)
+    View tabAllIndicator;
     @BindView(R.id.goods_list)
     XRecyclerView goodsList;
     @BindView(R.id.empty_state_layout)
@@ -88,7 +87,8 @@ public class GoodsListFragment extends Fragment {
 //            spanCount = 3;
 //        }
         GridLayoutManager glm = new GridLayoutManager(getContext(), spanCount);
-        goodsList.setLayoutManager(glm);
+        glm.setAutoMeasureEnabled(false);
+        goodsList.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new Adapter();
         goodsList.setAdapter(adapter);
 
@@ -143,6 +143,8 @@ public class GoodsListFragment extends Fragment {
 
                 for (ClassMsg item : mClassMsgList) {
                     TabLayout.Tab tab = tabLayout.newTab();
+                    LinearLayout layout = tab.view;
+                    layout.setBackgroundResource(R.color.transparent);
                     tab.setText(item.getPT_Name());
                     tab.setTag(item.getGID());
                     tabLayout.addTab(tab);
@@ -152,6 +154,11 @@ public class GoodsListFragment extends Fragment {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
                         obtainHomeShop(tab.getTag().toString(), "");
+                        if (tab.getPosition() > 0) {
+                            tabAll.setTextColor(getContext().getResources().getColor(R.color.text66));
+                            tabAll.setBackgroundResource(R.color.textf5);
+                            tabAllIndicator.setVisibility(View.GONE);
+                        }
                     }
 
                     @Override
@@ -162,6 +169,16 @@ public class GoodsListFragment extends Fragment {
                     @Override
                     public void onTabReselected(TabLayout.Tab tab) {
                         obtainHomeShop(tab.getTag().toString(), "");
+                    }
+                });
+                tabAll.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        tabLayout.getTabAt(0).select();
+                        tabAll.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
+                        tabAll.setBackgroundResource(R.color.texted);
+                        tabAllIndicator.setVisibility(View.VISIBLE);
+//                        startActivity(new Intent(getContext(), TestActivity.class));
                     }
                 });
             }

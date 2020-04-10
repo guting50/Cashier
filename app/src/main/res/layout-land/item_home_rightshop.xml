@@ -1,21 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/dp_110"
     android:layout_margin="@dimen/dp_5"
-    android:background="@drawable/bg_gvline"
-    tools:ignore="MissingDefaultResource">
+    android:background="@drawable/bg_gvline">
+
+    <ImageView
+        android:id="@+id/iv_shop"
+        android:layout_width="@dimen/dp_110"
+        android:layout_height="@dimen/dp_110"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="0.01dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/messge_nourl" />
+
+    <!--<com.facebook.drawee.view.SimpleDraweeView-->
+    <!--android:id="@+id/iv_shop"-->
+    <!--android:layout_width="@dimen/dp_80"-->
+    <!--android:layout_height="@dimen/dp_80"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--fresco:actualImageScaleType="centerInside"-->
+    <!--fresco:failureImage="@mipmap/messge_nourl"-->
+    <!--fresco:failureImageScaleType="centerCrop"-->
+    <!--fresco:placeholderImage="@mipmap/messge_nourl"-->
+    <!--fresco:placeholderImageScaleType="centerCrop" />-->
+
+    <TextView
+        android:id="@+id/iv_state"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginLeft="@dimen/dp_5"
+        android:layout_marginTop="@dimen/dp_5"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="普"
+        android:textColor="@color/textblue"
+        android:textSize="@dimen/dp_12" />
+
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/iv_shop"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="超值小吃拼盘"
         android:textColor="@color/textcolor"
         android:textSize="@dimen/sp_16"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_xinghao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_name"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_toRightOf="@id/iv_shop"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="M/8寸"
+        android:textColor="@color/text66"
+        android:textSize="@dimen/sp_14" />
+
+    <TextView
+        android:id="@+id/tv_vipprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_xinghao"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_toRightOf="@id/iv_shop"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="会：8.00"
+        android:textColor="@color/textred1"
+        android:textSize="@dimen/sp_14" />
+
+    <TextView
+        android:id="@+id/tv_sanprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_vipprice"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_toRightOf="@id/iv_shop"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="售：8.00"
+        android:textColor="@color/text66"
+        android:textSize="@dimen/sp_14" />
+
+    <TextView
+        android:id="@+id/iv_ku"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_below="@+id/tv_vipprice"
+        android:layout_marginTop="7.3dp"
+        android:layout_toLeftOf="@+id/tv_kunum"
+        android:background="@drawable/background_bule"
+        android:gravity="center"
+        android:text="库"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_12" />
+
+    <TextView
+        android:id="@+id/tv_kunum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_vipprice"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginRight="@dimen/dp_10"
+        android:text="10000"
+        android:textColor="@color/text66"
+        android:textSize="@dimen/sp_14" />
 </RelativeLayout>

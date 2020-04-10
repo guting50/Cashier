@@ -367,7 +367,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
 
                     mShopLeftList.remove(po);
                     leftpos = leftpos - 1;
-                    mShopLeftAdapter.notifyDataSetChanged();
+                    mShopLeftAdapter.notifyItemRemoved(po);
+                    mShopLeftAdapter.notifyItemRangeChanged(po, mShopLeftAdapter.getItemCount());
                     jisuanAllPrice();
 
                     updateBttGetOrder();
