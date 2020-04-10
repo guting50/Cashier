@@ -55,7 +55,6 @@ public class ShopDetailDialog {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.dialog_shopdetail, null);
         ListView listView = (ListView) view.findViewById(R.id.listview);
-        TextView iv_state = (TextView) view.findViewById(R.id.iv_state);
         BgFrameLayout rl_confirm = (BgFrameLayout) view.findViewById(R.id.rl_confirm);
         ImageView rl_cancle = (ImageView) view.findViewById(R.id.rl_cancle);
         NumInputView editTextLayout = (NumInputView) view.findViewById(R.id.edit_text_layout);
