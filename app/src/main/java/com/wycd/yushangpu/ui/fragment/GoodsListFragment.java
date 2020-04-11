@@ -38,7 +38,6 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -60,6 +59,7 @@ public class GoodsListFragment extends Fragment {
     private List<ClassMsg> mClassMsgList = new ArrayList<>();//分类数据列表
     private int PageIndex = 1;
     private int PageSize = 20;
+    public String PT_GID = "";
 
     HomeActivity homeActivity;
     Adapter adapter;
@@ -81,21 +81,11 @@ public class GoodsListFragment extends Fragment {
         initView();
         obtainShopClass();
 
-        obtainHomeShop("", "");
+        obtainHomeShop(true);
     }
 
     private void initView() {
-        int spanCount = 3;
-//        WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
-//        int width = wm.getDefaultDisplay().getWidth();
-//        if (width > 1600) {
-//            spanCount = 5;
-//        } else if (width < 1300) {
-//            spanCount = 3;
-//        }
-        GridLayoutManager glm = new GridLayoutManager(getContext(), spanCount);
-        glm.setAutoMeasureEnabled(true);
-        goodsList.setLayoutManager(glm);
+        goodsList.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new Adapter();
         goodsList.setAdapter(adapter);
 
@@ -104,13 +94,13 @@ public class GoodsListFragment extends Fragment {
         goodsList.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                obtainHomeShop("", "", false);
+                obtainHomeShop(false);
             }
 
             @Override
             public void onLoadMore() {
                 // load more data here
-                obtainHomeShop("", "", ++PageIndex, false);
+                obtainHomeShop("", ++PageIndex, false);
             }
         });
     }
@@ -160,7 +150,8 @@ public class GoodsListFragment extends Fragment {
                 tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
-                        obtainHomeShop(tab.getTag().toString(), "");
+                        PT_GID = tab.getTag().toString();
+                        obtainHomeShop(true);
                         if (tab.getPosition() > 0) {
                             tabAll.setTextColor(getContext().getResources().getColor(R.color.text66));
                             tabAll.setBackgroundResource(R.color.textf5);
@@ -175,7 +166,7 @@ public class GoodsListFragment extends Fragment {
 
                     @Override
                     public void onTabReselected(TabLayout.Tab tab) {
-                        obtainHomeShop(tab.getTag().toString(), "");
+                        obtainHomeShop(true);
                     }
                 });
                 tabAll.setOnClickListener(new View.OnClickListener() {
@@ -185,23 +176,22 @@ public class GoodsListFragment extends Fragment {
                         tabAll.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
                         tabAll.setBackgroundResource(R.color.texted);
                         tabAllIndicator.setVisibility(View.VISIBLE);
-//                        startActivity(new Intent(getContext(), TestActivity.class));
                     }
                 });
             }
         });
     }
 
-    public void obtainHomeShop(String PT_GID, String PM_CodeOrNameOrSimpleCode) {
-        obtainHomeShop(PT_GID, PM_CodeOrNameOrSimpleCode, true);
+    public void obtainHomeShop(boolean isShowDialog) {
+        obtainHomeShop("", isShowDialog);
     }
 
-    public void obtainHomeShop(String PT_GID, String PM_CodeOrNameOrSimpleCode, boolean isShowDialog) {
+    public void obtainHomeShop(String PM_CodeOrNameOrSimpleCode, boolean isShowDialog) {
         PageIndex = 1;
-        obtainHomeShop(PT_GID, PM_CodeOrNameOrSimpleCode, PageIndex, isShowDialog);
+        obtainHomeShop(PM_CodeOrNameOrSimpleCode, PageIndex, isShowDialog);
     }
 
-    public void obtainHomeShop(String PT_GID, String PM_CodeOrNameOrSimpleCode, int pageIndex, boolean isShowDialog) {
+    public void obtainHomeShop(String PM_CodeOrNameOrSimpleCode, int pageIndex, boolean isShowDialog) {
         if (isShowDialog)
             homeActivity.dialog.show();
         ImpShopHome shopHome = new ImpShopHome();
@@ -251,55 +241,64 @@ public class GoodsListFragment extends Fragment {
     class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         List<ShopMsg> shopMsgList = new ArrayList<>();
+        int spanCount = 15;
 
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(getContext()).inflate(R.layout.item_home_rightshop, parent, false);
-            return new Holder(view);
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.item_home_rightshop_root, parent, false);
+            return new RootHolder(view);
         }
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            ShopMsg ts = shopMsgList.get(position);
+            RootHolder myRootHolder = (RootHolder) holder;
+            myRootHolder.init();
+            for (int i = 0; i < (position < getItemCount() - 1 ? spanCount : shopMsgList.size() - (position * spanCount)); i++) {
+                onBindViewHolder(myRootHolder.itemViews.get(i), shopMsgList.get(position * spanCount + i));
+            }
+        }
+
+        private void onBindViewHolder(Holder myHolder, ShopMsg ts) {
+            myHolder.rootView.setVisibility(View.VISIBLE);
+            ((View) myHolder.rootView.getParent()).setVisibility(View.VISIBLE);
             ts.init();
-            Holder myHolser = (Holder) holder;
-            myHolser.mTvName.setText(NullUtils.noNullHandle(ts.getPM_Name()).toString());
+            myHolder.mTvName.setText(NullUtils.noNullHandle(ts.getPM_Name()).toString());
             Glide.with(getContext()).load(ImgUrlTools.obtainUrl(NullUtils.noNullHandle(ts.getPM_BigImg()).toString()))
                     .placeholder(R.mipmap.messge_nourl)
                     .transform(new CenterCrop(getContext()), new GlideTransform.GlideCornersTransform(getContext(), 4))
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(myHolser.mIvShop);
+                    .into(myHolder.mIvShop);
 
-            myHolser.mTvXinghao.setText(NullUtils.noNullHandle(ts.getPM_Modle()).toString());
+            myHolder.mTvXinghao.setText(NullUtils.noNullHandle(ts.getPM_Modle()).toString());
             //库存
 //        if (ts.getPM_Metering() != null) {
-//            myHolser.mTvKunum.setText(String.valueOf(ts.getCurrtStock_Number()) + ts.getPM_Metering());
+//            myHolder.mTvKunum.setText(String.valueOf(ts.getCurrtStock_Number()) + ts.getPM_Metering());
 //        } else {
-            myHolser.mTvKunum.setText(ts.getStock_Number() + "");
+            myHolder.mTvKunum.setText(ts.getStock_Number() + "");
 //        }
 
-            myHolser.mIvState.setText(ts.PM_IsServiceText);
-            myHolser.mIvState.setTextColor(getContext().getResources().getColor(ts.StateTextColor));
-            myHolser.mIvKu.setVisibility(ts.KuVisibility);
-            myHolser.mTvKunum.setVisibility(ts.KuVisibility);
+            myHolder.mIvState.setText(ts.PM_IsServiceText);
+            myHolder.mIvState.setTextColor(getContext().getResources().getColor(ts.StateTextColor));
+            myHolder.mIvKu.setVisibility(ts.KuVisibility);
+            myHolder.mTvKunum.setVisibility(ts.KuVisibility);
 
 //        PM_IsDiscount	商品折扣	int	0关闭 1开启
 
 //        2、textView设置中划线
-//        myHolser.mTvVipprice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG); //中划线
-//        myHolser.mTvVipprice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
+//        myHolder.mTvVipprice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG); //中划线
+//        myHolder.mTvVipprice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
 //
 //        3、textView取消中划线或者下划线
-//        myHolser.mTvVipprice.getPaint().setFlags(0); // 取消设置的的划线
+//        myHolder.mTvVipprice.getPaint().setFlags(0); // 取消设置的的划线
 
 
-            myHolser.mTvVipprice.setText(ts.TvVippriceText);
-            myHolser.mTvSanprice.getPaint().setFlags(ts.TvSanpriceFlags); //中划线
-            myHolser.mTvSanprice.setTextColor(getContext().getResources().getColor(ts.TvSanpriceTextColor));
+            myHolder.mTvVipprice.setText(ts.TvVippriceText);
+            myHolder.mTvSanprice.getPaint().setFlags(ts.TvSanpriceFlags); //中划线
+            myHolder.mTvSanprice.setTextColor(getContext().getResources().getColor(ts.TvSanpriceTextColor));
 
-            myHolser.mTvSanprice.setText("售：" + StringUtil.twoNum(NullUtils.noNullHandle(ts.getPM_UnitPrice()).toString()));
-            myHolser.rootView.setOnClickListener(new View.OnClickListener() {
+            myHolder.mTvSanprice.setText("售：" + StringUtil.twoNum(NullUtils.noNullHandle(ts.getPM_UnitPrice()).toString()));
+            myHolder.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     homeActivity.addCashierList(ts);
@@ -317,7 +316,35 @@ public class GoodsListFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return shopMsgList.size();
+//            return shopMsgList.size();
+            return shopMsgList.size() % spanCount == 0 ? shopMsgList.size() / spanCount : shopMsgList.size() / spanCount + 1;
+        }
+    }
+
+    class RootHolder extends RecyclerView.ViewHolder {
+
+        List<View> rowViews = new ArrayList<>();
+        List<Holder> itemViews = new ArrayList<>();
+
+        public RootHolder(@NonNull View itemView) {
+            super(itemView);
+            int rows = ((ViewGroup) itemView).getChildCount();
+            for (int i = 0; i < rows; i++) {
+                ViewGroup rowView = (ViewGroup) ((ViewGroup) itemView).getChildAt(i);
+                rowViews.add(rowView);
+                for (int j = 0; j < rowView.getChildCount(); j++) {
+                    itemViews.add(new Holder(rowView.getChildAt(j)));
+                }
+            }
+        }
+
+        public void init() {
+            for (View view : rowViews) {
+                view.setVisibility(View.GONE);
+            }
+            for (Holder holder : itemViews) {
+                holder.rootView.setVisibility(View.INVISIBLE);
+            }
         }
     }
 

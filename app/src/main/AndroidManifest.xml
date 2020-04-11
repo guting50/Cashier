@@ -92,17 +92,12 @@
             android:name=".web.WebActivity"
             android:exported="false"
             android:label="@string/app_name"
-            android:screenOrientation="landscape" />TestActivity
+            android:screenOrientation="landscape" />
         <activity
             android:name=".ui.HtmlActivity"
             android:exported="false"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustResize" /> <!-- wx pay -->
-        <activity
-            android:name=".ui.TestActivity"
-            android:exported="false"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"

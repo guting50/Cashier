@@ -938,7 +938,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     if (imm.isActive()) {//如果开启
                         imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_NOT_ALWAYS);//关闭软键盘，开启方法相同，这个方法是切换开启与关闭状态的
                     }
-                    goodsListFragment.obtainHomeShop("", mEtLoginAccount.getText().toString());
+                    goodsListFragment.obtainHomeShop(mEtLoginAccount.getText().toString(),true);
                 }
                 return false;
             }
@@ -952,7 +952,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     @Override
                     public void onResponse(Object response) {
                         String search = (String) response;
-                        goodsListFragment.obtainHomeShop("", search + "");
+                        goodsListFragment.obtainHomeShop(search + "",true);
                     }
                 });
             }
