@@ -1,7 +1,5 @@
 package com.wycd.yushangpu.model;
 
-import android.app.Activity;
-
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.bean.ReportMessageBean;
 import com.wycd.yushangpu.http.AsyncHttpUtils;

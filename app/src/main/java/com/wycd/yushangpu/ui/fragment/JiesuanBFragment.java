@@ -153,6 +153,9 @@ public class JiesuanBFragment extends Fragment {
     private Dialog dialog;
     private double promotionMoney; // 优惠活动金额
 
+    private int consumeCheck = 0;//1 余额消费密码验证 ；2 余额消费短信验证码验证
+    private double yueMoney = 0;
+
     View rootView;
     NumKeyboardUtils numKeyboardUtils;
 
@@ -280,6 +283,13 @@ public class JiesuanBFragment extends Fragment {
                         promotionMsg = active;
                         tvPromotion.setText(promotionMsg.getRP_Name());
                     }
+                }
+            }
+            for (ReportMessageBean.GetSysSwitchListBean bean : ImpPreLoading.REPORT_BEAN.getGetSysSwitchList()) {
+                if (TextUtils.equals(bean.getSS_Code(), "204") && bean.getSS_State() == 1) {// 消费密码验证
+                    consumeCheck = 1;
+                } else if (TextUtils.equals(bean.getSS_Code(), "217") && bean.getSS_State() == 1) { //消费短信验证码验证
+                    consumeCheck = 2;
                 }
             }
         }
@@ -430,20 +440,18 @@ public class JiesuanBFragment extends Fragment {
                 } else {
                     //结算
                     obtainOrderPayResult();
-                    dialog.show();
-                    ImpOrderPay orderPay = new ImpOrderPay();
-                    orderPay.orderpay(context, GID, result, orderType, new InterfaceBack<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            dialog.dismiss();
-                            back.onResponse(response);
+                    if (consumeCheck > 0 && yueMoney > 0) {
+                        switch (consumeCheck) {
+                            case 1:
+                                com.blankj.utilcode.util.ToastUtils.showShort("余额消费密码验证");
+                                break;
+                            case 2:
+                                com.blankj.utilcode.util.ToastUtils.showShort("余额消费短信验证码验证");
+                                break;
                         }
-
-                        @Override
-                        public void onErrorResponse(Object msg) {
-                            dialog.dismiss();
-                        }
-                    });
+                        return;
+                    }
+                    orderPay();
                 }
             }
         });
@@ -483,6 +491,23 @@ public class JiesuanBFragment extends Fragment {
         payModeListAdapter = new PayModeListAdapter();
         payModeListView.setLayoutManager(new LinearLayoutManager(getContext()));
         payModeListView.setAdapter(payModeListAdapter);
+    }
+
+    private void orderPay() {
+        dialog.show();
+        ImpOrderPay orderPay = new ImpOrderPay();
+        orderPay.orderpay(context, GID, result, orderType, new InterfaceBack<String>() {
+            @Override
+            public void onResponse(String response) {
+                dialog.dismiss();
+                back.onResponse(response);
+            }
+
+            @Override
+            public void onErrorResponse(Object msg) {
+                dialog.dismiss();
+            }
+        });
     }
 
     private void obtainOrderPayResult() {
@@ -756,6 +781,9 @@ public class JiesuanBFragment extends Fragment {
                     p.setPayMoney(modeMoney);
                     p.setPayName(m.getSS_Name());
                     p.setPayPoint(0.00);
+                    if (modeMoney > 0) {
+                        yueMoney = modeMoney;
+                    }
                 } else if (TextUtils.equals(name, PayMode.YLZF.getStr())
                         && m.getSS_Name().equals("银联支付")) {
                     p.setGID(new String[0]);
@@ -1023,7 +1051,7 @@ public class JiesuanBFragment extends Fragment {
                     if (TextUtils.equals(itemData.getPayName(), name)) {
                         if (itemData.getValue() != value) {
                             if (TextUtils.equals(name, PayMode.YEZF.getStr())) {
-                                double yueLimit = CommonUtils.multiply(CommonUtils.div(ysMoney, TextUtils.isEmpty(yuePayXz) ? "0" : yuePayXz, 2), 100);
+                                double yueLimit = CommonUtils.multiply(CommonUtils.div(ysMoney, TextUtils.isEmpty(yuePayXz) ? "0" : yuePayXz, 100000), 100);
                                 if (value > yueLimit) {
                                     myHolder.etValue.setText(StringUtil.onlyTwoNum(yueLimit + ""));
                                     com.blankj.utilcode.util.ToastUtils.showShort("超过余额支付限制");

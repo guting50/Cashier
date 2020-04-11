@@ -76,7 +76,7 @@
                             android:layout_above="@+id/edit_layout"
                             android:layout_gravity="center"
                             android:gravity="center_vertical"
-                            android:hint="员工工号/姓名" />
+                            android:hint="员工工号" />
 
                     </com.gt.utils.view.BgFrameLayout>
 

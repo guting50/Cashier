@@ -165,7 +165,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     private String allmoney, totalMoney;
     private double mPoint;//积分
     private long firstTime = 0;
-    private String jifendkbfb = "0", jinfenzfxzbfb = "0";
+    private String jifendk = "0", jinfenzfxz = "0";
     //    private double PD_Discount = 0;
     private int leftpos = -1;// 购物车选中位子 -1表示没有选中
     private int mPD_Discount = 0;
@@ -583,11 +583,11 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     paytypelist.add(p);
                     break;
                 case "积分支付":
-                    jifendkbfb = p.getSS_Value();
+                    jifendk = p.getSS_Value();
                     paytypelist.add(p);
                     break;
                 case "积分支付限制":
-                    jinfenzfxzbfb = p.getSS_Value();
+                    jinfenzfxz = p.getSS_Value();
                     paytypelist.add(p);
                     break;
                 case "禁止0库存销售":
@@ -1188,8 +1188,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
         String jifen = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableIntegral() + "";
 //        可抵扣金额 = 会员积分 / 积分抵扣百分比 * 积分支付限制百分比
         double dkmoney = CommonUtils.div(CommonUtils.div(CommonUtils.multiply(jifen,
-                TextUtils.isEmpty(jinfenzfxzbfb) ? "0" : jinfenzfxzbfb), 100, 2),
-                Double.parseDouble(TextUtils.isEmpty(jifendkbfb) ? "0" : jifendkbfb), 2);//可抵扣金额
+                TextUtils.isEmpty(jinfenzfxz) ? "0" : jinfenzfxz), 100, 2),
+                Double.parseDouble(TextUtils.isEmpty(jifendk) ? "0" : jifendk), 2);//可抵扣金额
 
         if (jiesuanBFragment == null) {
             jiesuanBFragment = new JiesuanBFragment();
