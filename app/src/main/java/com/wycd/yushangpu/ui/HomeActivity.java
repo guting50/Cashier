@@ -889,7 +889,9 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     } else {
                         for (int j = 0; j < modelList.size(); j++) {
                             if (modelList.get(j).get(0).getPM_Name().equals(ModelList.get(i).getPM_Name())) {
-                                modelList.get(j).add(ModelList.get(i));
+                                if (ModelList.get(i).isEnable()) {/*不可点击的不显示2020.4.11*/
+                                    modelList.get(j).add(ModelList.get(i));
+                                }
                             }
                         }
                     }
@@ -938,7 +940,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     if (imm.isActive()) {//如果开启
                         imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_NOT_ALWAYS);//关闭软键盘，开启方法相同，这个方法是切换开启与关闭状态的
                     }
-                    goodsListFragment.obtainHomeShop(mEtLoginAccount.getText().toString(),true);
+                    goodsListFragment.obtainHomeShop(mEtLoginAccount.getText().toString(), true);
                 }
                 return false;
             }
@@ -952,7 +954,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                     @Override
                     public void onResponse(Object response) {
                         String search = (String) response;
-                        goodsListFragment.obtainHomeShop(search + "",true);
+                        goodsListFragment.obtainHomeShop(search + "", true);
                     }
                 });
             }

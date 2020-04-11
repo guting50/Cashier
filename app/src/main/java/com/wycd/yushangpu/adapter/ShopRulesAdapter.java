@@ -91,13 +91,11 @@ public class ShopRulesAdapter extends RecyclerView.Adapter<ShopRulesAdapter.MyHo
 
             if (!beans.isEnable()) {
                 holder.cbWeek.setBackgroundResource(R.drawable.shap_enable_not);
-
                 holder.cbWeek.setEnabled(false);
             } else {
                 holder.cbWeek.setEnabled(true);
                 if (beans.isChecked()) {
                     holder.cbWeek.setBackgroundResource(R.drawable.ysl_lab_selected);
-
                 } else {
                     holder.cbWeek.setBackgroundResource(R.drawable.ysl_lab_unselected);
                 }

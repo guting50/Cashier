@@ -26,10 +26,11 @@
             android:id="@+id/tab_all"
             android:layout_width="120dp"
             android:layout_height="70dp"
+            android:background="@color/texted"
             android:gravity="center"
             android:text="全部"
             android:textSize="18sp"
-            android:background="@color/texted"
+            android:visibility="gone"
             app:tabTextColor="@color/colorPrimary" />
 
         <View
@@ -37,7 +38,8 @@
             android:layout_width="120dp"
             android:layout_height="2dp"
             android:layout_gravity="bottom"
-            android:background="@color/colorPrimary" />
+            android:background="@color/colorPrimary"
+            android:visibility="gone" />
     </FrameLayout>
 
     <View

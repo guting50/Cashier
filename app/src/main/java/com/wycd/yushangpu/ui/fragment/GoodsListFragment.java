@@ -169,6 +169,8 @@ public class GoodsListFragment extends Fragment {
                         obtainHomeShop(true);
                     }
                 });
+                tabAll.setVisibility(View.VISIBLE);
+                tabAllIndicator.setVisibility(View.VISIBLE);
                 tabAll.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
