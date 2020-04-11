@@ -12,11 +12,11 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.gt.utils.view.BgFrameLayout;
 import com.loopj.android.http.RequestParams;
+import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.adapter.YuangongAdapter;
 import com.wycd.yushangpu.bean.EmplMsg;
@@ -24,6 +24,7 @@ import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.bean.ValiRuleMsg;
 import com.wycd.yushangpu.bean.event.HomeButtonColorChangeEvent;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
+import com.wycd.yushangpu.http.BasePageRes;
 import com.wycd.yushangpu.http.BaseRes;
 import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
@@ -208,13 +209,17 @@ public class ShopDetailDialog {
                 bumenlist.addAll(mValiRuleMsgList);
                 ValiRuleMsg.addAll(mValiRuleMsgList);
                 //预加载接口获取员工列表
-                AsyncHttpUtils.postHttp(HttpAPI.API().GET_EMPLLIST, new CallBack() {
+                RequestParams params = new RequestParams();
+                params.put("PageIndex", 1);
+                params.put("PageSize", 10000);
+                params.put("SM_GID", MyApplication.loginBean.getShopID());
+                AsyncHttpUtils.postHttp(HttpAPI.API().GET_EMPLLIST, params, new CallBack() {
                     @Override
                     public void onResponse(BaseRes response) {
                         loadingdialog.dismiss();
                         Type listType = new TypeToken<List<EmplMsg>>() {
                         }.getType();
-                        List<EmplMsg> sllist = response.getData(listType);
+                        List<EmplMsg> sllist = response.getData(BasePageRes.class).getData(listType);
                         choseEmplList(ValiRuleMsg, sllist, emplMsgList, yuangongAdapter);
                         HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
                         event.setMsg("Change_color");
@@ -253,7 +258,7 @@ public class ShopDetailDialog {
         emplist.clear();
         List<EmplMsg> first = new ArrayList<>();
         for (EmplMsg emplMsg : sllist) {
-            if (emplMsg.getEM_TipGoodsConsume() == 1) {
+            if (emplMsg.getEM_TipGoodsConsume() > 0) {
                 first.add(emplMsg);
             }
         }

@@ -69,7 +69,7 @@ public class HttpAPI {
         public static final String EDIT_USERPWD = MyApplication.BASE_URL + "api/UserManager/EditUsersPwd";
 
         //员工列表
-        public static final String GET_EMPLLIST = MyApplication.BASE_URL + "api/Empl/GetEmplList";
+        public static final String GET_EMPLLIST = MyApplication.BASE_URL + "api/Empl/QueryEmplListPaging";
 
         //查询商品规格
         public static final String GOODSMODEL = MyApplication.BASE_URL + "api/ProductConfig/GetModelList";
