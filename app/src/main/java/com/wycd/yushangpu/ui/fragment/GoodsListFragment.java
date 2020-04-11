@@ -5,9 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.reflect.TypeToken;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -19,9 +23,12 @@ import com.wycd.yushangpu.http.BasePageRes;
 import com.wycd.yushangpu.http.BaseRes;
 import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
+import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpShopHome;
+import com.wycd.yushangpu.tools.GlideTransform;
 import com.wycd.yushangpu.tools.NullUtils;
+import com.wycd.yushangpu.tools.StringUtil;
 import com.wycd.yushangpu.ui.HomeActivity;
 
 import java.lang.reflect.Type;
@@ -87,8 +94,8 @@ public class GoodsListFragment extends Fragment {
 //            spanCount = 3;
 //        }
         GridLayoutManager glm = new GridLayoutManager(getContext(), spanCount);
-        glm.setAutoMeasureEnabled(false);
-        goodsList.setLayoutManager(new LinearLayoutManager(getContext()));
+        glm.setAutoMeasureEnabled(true);
+        goodsList.setLayoutManager(glm);
         adapter = new Adapter();
         goodsList.setAdapter(adapter);
 
@@ -258,6 +265,40 @@ public class GoodsListFragment extends Fragment {
             ts.init();
             Holder myHolser = (Holder) holder;
             myHolser.mTvName.setText(NullUtils.noNullHandle(ts.getPM_Name()).toString());
+            Glide.with(getContext()).load(ImgUrlTools.obtainUrl(NullUtils.noNullHandle(ts.getPM_BigImg()).toString()))
+                    .placeholder(R.mipmap.messge_nourl)
+                    .transform(new CenterCrop(getContext()), new GlideTransform.GlideCornersTransform(getContext(), 4))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(myHolser.mIvShop);
+
+            myHolser.mTvXinghao.setText(NullUtils.noNullHandle(ts.getPM_Modle()).toString());
+            //库存
+//        if (ts.getPM_Metering() != null) {
+//            myHolser.mTvKunum.setText(String.valueOf(ts.getCurrtStock_Number()) + ts.getPM_Metering());
+//        } else {
+            myHolser.mTvKunum.setText(ts.getStock_Number() + "");
+//        }
+
+            myHolser.mIvState.setText(ts.PM_IsServiceText);
+            myHolser.mIvState.setTextColor(getContext().getResources().getColor(ts.StateTextColor));
+            myHolser.mIvKu.setVisibility(ts.KuVisibility);
+            myHolser.mTvKunum.setVisibility(ts.KuVisibility);
+
+//        PM_IsDiscount	商品折扣	int	0关闭 1开启
+
+//        2、textView设置中划线
+//        myHolser.mTvVipprice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG); //中划线
+//        myHolser.mTvVipprice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
+//
+//        3、textView取消中划线或者下划线
+//        myHolser.mTvVipprice.getPaint().setFlags(0); // 取消设置的的划线
+
+
+            myHolser.mTvVipprice.setText(ts.TvVippriceText);
+            myHolser.mTvSanprice.getPaint().setFlags(ts.TvSanpriceFlags); //中划线
+            myHolser.mTvSanprice.setTextColor(getContext().getResources().getColor(ts.TvSanpriceTextColor));
+
+            myHolser.mTvSanprice.setText("售：" + StringUtil.twoNum(NullUtils.noNullHandle(ts.getPM_UnitPrice()).toString()));
             myHolser.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -283,8 +324,22 @@ public class GoodsListFragment extends Fragment {
     class Holder extends RecyclerView.ViewHolder {
 
         View rootView;
+        @BindView(R.id.iv_shop)
+        ImageView mIvShop;
+        @BindView(R.id.iv_state)
+        TextView mIvState;
         @BindView(R.id.tv_name)
         TextView mTvName;
+        @BindView(R.id.tv_xinghao)
+        TextView mTvXinghao;
+        @BindView(R.id.tv_sanprice)
+        TextView mTvSanprice;
+        @BindView(R.id.tv_vipprice)
+        TextView mTvVipprice;
+        @BindView(R.id.iv_ku)
+        TextView mIvKu;
+        @BindView(R.id.tv_kunum)
+        TextView mTvKunum;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
