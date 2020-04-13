@@ -1152,7 +1152,7 @@ public class JiesuanBFragment extends Fragment {
                             int dy = intArray[1];
                             int distance = dy - nestedScrollViewTop;//必须算上nestedScrollView本身与屏幕的距离
                             nestedScrollView.fling(distance);//添加上这句滑动才有效
-                            nestedScrollView.smoothScrollBy(0, distance);
+                            nestedScrollView.scrollBy(0, distance);
                         }
                     });
                 }
