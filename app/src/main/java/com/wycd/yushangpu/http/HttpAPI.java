@@ -173,6 +173,13 @@ public class HttpAPI {
         //短信开关
         public static final String SMS_LIST = MyApplication.BASE_URL + "api/SysSMSTemp/GetList";
 
+        //验证密码
+        public static final String PASSWORD_VERIFY = MyApplication.BASE_URL + "api/VIP/PasswordVerify";
+        //获取短信验证码
+        public static final String GET_VIP_SMS_VERIFY = MyApplication.BASE_URL + "api/VIP/GetVIPSmsVerify";
+        //验证短信验证码
+        public static final String CHECK_VERIFY = MyApplication.BASE_URL + "api/VIP/CheckVerify";
+
     }
 
 }

@@ -64,7 +64,7 @@ public class AsyncHttpUtils {
                             com.blankj.utilcode.util.ToastUtils.showShort(baseRes.getMsg());
                             return;
                         }
-                        com.blankj.utilcode.util.ToastUtils.showShort(baseRes.getMsg());
+//                        com.blankj.utilcode.util.ToastUtils.showShort(baseRes.getMsg());
                         back.onErrorResponse(baseRes);
                     }
                 } catch (Exception e) {

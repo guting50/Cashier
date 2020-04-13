@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.gt.utils.view.OnNoDoubleClickListener;
+import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.OrderPayResult;
@@ -130,6 +133,8 @@ public class JiesuanBFragment extends Fragment {
     View liClose;
     @BindView(R.id.pay_mode_list)
     RecyclerView payModeListView;
+    @BindView(R.id.lz_layout)
+    FrameLayout lzLayout;
 
     PayModeListAdapter payModeListAdapter;
 
@@ -441,17 +446,9 @@ public class JiesuanBFragment extends Fragment {
                     //结算
                     obtainOrderPayResult();
                     if (consumeCheck > 0 && yueMoney > 0) {
-                        switch (consumeCheck) {
-                            case 1:
-                                com.blankj.utilcode.util.ToastUtils.showShort("余额消费密码验证");
-                                break;
-                            case 2:
-                                com.blankj.utilcode.util.ToastUtils.showShort("余额消费短信验证码验证");
-                                break;
-                        }
-                        return;
-                    }
-                    orderPay();
+                        checkVerify();
+                    } else
+                        orderPay();
                 }
             }
         });
@@ -491,6 +488,109 @@ public class JiesuanBFragment extends Fragment {
         payModeListAdapter = new PayModeListAdapter();
         payModeListView.setLayoutManager(new LinearLayoutManager(getContext()));
         payModeListView.setAdapter(payModeListAdapter);
+    }
+
+    private void checkVerify() {
+        lzLayout.setVisibility(View.VISIBLE);
+        EditText editText = (EditText) lzLayout.findViewById(R.id.lz_edit_view);
+        TextView getVipSmsVerify = lzLayout.findViewById(R.id.get_vip_sms_verify);
+        switch (consumeCheck) {
+            case 1:
+                getVipSmsVerify.setVisibility(View.GONE);
+                lzLayout.findViewById(R.id.ly_yz_ok).setOnClickListener(new OnNoDoubleClickListener() {
+                    @Override
+                    public void onNoDoubleClick(View v) {
+                        if (TextUtils.isEmpty(editText.getText())) {
+                            com.blankj.utilcode.util.ToastUtils.showShort("请输入密码");
+                            return;
+                        }
+                        dialog.show();
+                        RequestParams params = new RequestParams();
+                        params.put("VCH_Card", mVipMsg.getVCH_Card());
+                        params.put("VCH_Pwd", editText.getText().toString());
+                        AsyncHttpUtils.postHttp(HttpAPI.API().PASSWORD_VERIFY, params, new CallBack() {
+                            @Override
+                            public void onResponse(BaseRes response) {
+                                dialog.dismiss();
+                                editText.setText("");
+                                orderPay();
+                            }
+
+                            @Override
+                            public void onErrorResponse(Object msg) {
+                                dialog.dismiss();
+                                com.blankj.utilcode.util.ToastUtils.showShort("密码错误");
+                            }
+                        });
+                    }
+                });
+                break;
+            case 2:
+                getVipSmsVerify.setVisibility(View.VISIBLE);
+                getVipSmsVerify.setOnClickListener(new OnNoDoubleClickListener() {
+                    @Override
+                    public void onNoDoubleClick(View v) {
+                        if (v.getTag() != null) {
+                            return;
+                        }
+                        v.setTag("isGet");
+                        final int[] count = {60};
+                        Timer timer = new Timer();
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                if (count[0] > 0) {
+                                    count[0]--;
+                                } else {
+                                    v.setTag(null);
+                                    timer.cancel();
+                                }
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        getVipSmsVerify.setText(count[0] == 0 ? "获取验证码" : count[0] + "秒后再试");
+                                    }
+                                });
+                            }
+                        }, 1000, 1000);
+                        RequestParams params = new RequestParams();
+                        params.put("Phone", mVipMsg.getVIP_CellPhone());
+                        AsyncHttpUtils.postHttp(HttpAPI.API().GET_VIP_SMS_VERIFY, params, new CallBack() {
+                            @Override
+                            public void onResponse(BaseRes response) {
+                            }
+                        });
+                    }
+                });
+                lzLayout.findViewById(R.id.ly_yz_ok).setOnClickListener(new OnNoDoubleClickListener() {
+                    @Override
+                    public void onNoDoubleClick(View v) {
+                        if (TextUtils.isEmpty(editText.getText())) {
+                            com.blankj.utilcode.util.ToastUtils.showShort("请输入验证码");
+                            return;
+                        }
+                        dialog.show();
+                        RequestParams params = new RequestParams();
+                        params.put("Phone", mVipMsg.getVIP_CellPhone());
+                        params.put("Verify", editText.getText().toString());
+                        AsyncHttpUtils.postHttp(HttpAPI.API().CHECK_VERIFY, params, new CallBack() {
+                            @Override
+                            public void onResponse(BaseRes response) {
+                                dialog.dismiss();
+                                editText.setText("");
+                                orderPay();
+                            }
+
+                            @Override
+                            public void onErrorResponse(Object msg) {
+                                dialog.dismiss();
+                                com.blankj.utilcode.util.ToastUtils.showShort("验证码错误");
+                            }
+                        });
+                    }
+                });
+                break;
+        }
     }
 
     private void orderPay() {
