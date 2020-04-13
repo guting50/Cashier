@@ -139,10 +139,10 @@ public class JiesuanBFragment extends Fragment {
     private boolean isMember;
     //            原价总金额，折后金额  , 总共优惠金额 ， 应收金额
     private String totalMoney, zhMoney, totalYhMoney, ysMoney;
-    //                 订单号       订单GID  会员积分  会员积分可抵扣金额   余额
-    private String CO_OrderCode, CO_Type, GID, jifen, dkmoney, yue;
+    //                 订单号       订单GID  会员积分  余额
+    private String CO_OrderCode, CO_Type, GID, jifen, yue;
     private OrderPayResult result;
-    private String jifendkbfb;
+    private String jifendk, jinfenzfxz;
     private String yuePayXz;
     private Dialog yhqDialog;
     private Dialog promotionDialog;
@@ -208,13 +208,12 @@ public class JiesuanBFragment extends Fragment {
         dialog = LoadingDialog.loadingDialog(context, 1);
     }
 
-    public void setData(String totalMoney, String money, VipInfoMsg vipMsg, String dkmoney,
+    public void setData(String totalMoney, String money, VipInfoMsg vipMsg,
                         String GID, String CO_Type, String CO_OrderCode, ArrayList<ShopMsg> list, PayTypeMsg moren, ArrayList<PayTypeMsg> paylist,
                         OrderType orderType, InterfaceBack back) {
         this.totalMoney = totalMoney;
         this.zhMoney = money;
         this.mVipMsg = vipMsg;
-        this.dkmoney = dkmoney;
         this.GID = GID;
         this.CO_Type = CO_Type;
         this.CO_OrderCode = CO_OrderCode;
@@ -642,7 +641,10 @@ public class JiesuanBFragment extends Fragment {
                         mLiJifen.setBackgroundResource(R.drawable.shap_enable_not);
                         mLiJifen.setEnabled(false);
                     }
-                    jifendkbfb = NullUtils.noNullHandle(msg.getSS_Value()).toString();
+                    jifendk = NullUtils.noNullHandle(msg.getSS_Value()).toString();
+                    break;
+                case "109"://积分支付限制
+                    jinfenzfxz = NullUtils.noNullHandle(msg.getSS_Value()).toString();
                     break;
                 case "111"://扫码支付
                     mLiSaoma.setEnabled(true);
@@ -812,7 +814,7 @@ public class JiesuanBFragment extends Fragment {
                     p.setPayMoney(modeMoney);
                     p.setPayName(m.getSS_Name());
                     String jifenm = String.valueOf(modeMoney);
-                    String jifennumber = CommonUtils.multiply(jifenm, TextUtils.isEmpty(jifendkbfb) ? "0" : jifendkbfb) + "";
+                    String jifennumber = CommonUtils.multiply(jifenm, TextUtils.isEmpty(jifendk) ? "0" : jifendk) + "";
                     p.setPayPoint(Double.parseDouble(jifennumber));
                 } else if (TextUtils.equals(name, PayMode.QTZF.getStr())
                         && m.getSS_Name().equals("其他支付")) {
@@ -1051,7 +1053,8 @@ public class JiesuanBFragment extends Fragment {
                     if (TextUtils.equals(itemData.getPayName(), name)) {
                         if (itemData.getValue() != value) {
                             if (TextUtils.equals(name, PayMode.YEZF.getStr())) {
-                                double yueLimit = CommonUtils.multiply(CommonUtils.div(ysMoney, TextUtils.isEmpty(yuePayXz) ? "0" : yuePayXz, 100000), 100);
+                                double yueLimit = CommonUtils.multiply(CommonUtils.div(ysMoney, 100 + "", 100000) + "",
+                                        TextUtils.isEmpty(yuePayXz) ? "0" : yuePayXz);
                                 if (value > yueLimit) {
                                     myHolder.etValue.setText(StringUtil.onlyTwoNum(yueLimit + ""));
                                     com.blankj.utilcode.util.ToastUtils.showShort("超过余额支付限制");
@@ -1065,7 +1068,11 @@ public class JiesuanBFragment extends Fragment {
                             }
 
                             if (TextUtils.equals(name, PayMode.JFZF.getStr())) {
-                                if (value > Double.parseDouble(dkmoney)) {
+                                //        可抵扣金额 = 会员积分 / 积分抵扣百分比 * 积分支付限制百分比
+                                double dkmoney = CommonUtils.div(CommonUtils.div(CommonUtils.multiply(jifen,
+                                        TextUtils.isEmpty(jinfenzfxz) ? "0" : jinfenzfxz), 100, 2),
+                                        Double.parseDouble(TextUtils.isEmpty(jifendk) ? "0" : jifendk), 2);//可抵扣金额
+                                if (value > dkmoney) {
                                     myHolder.etValue.setText(StringUtil.onlyTwoNum(dkmoney + ""));
                                     com.blankj.utilcode.util.ToastUtils.showShort("超过积分支付限制");
                                     return;

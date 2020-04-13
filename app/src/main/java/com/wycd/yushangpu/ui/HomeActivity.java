@@ -169,7 +169,6 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     private String allmoney, totalMoney;
     private double mPoint;//积分
     private long firstTime = 0;
-    private String jifendk = "0", jinfenzfxz = "0";
     //    private double PD_Discount = 0;
     private int leftpos = -1;// 购物车选中位子 -1表示没有选中
     private int mPD_Discount = 0;
@@ -584,14 +583,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 case "优惠券":
                 case "扫码支付":
                 case "其他支付":
-                    paytypelist.add(p);
-                    break;
                 case "积分支付":
-                    jifendk = p.getSS_Value();
-                    paytypelist.add(p);
-                    break;
-                case "积分支付限制":
-                    jinfenzfxz = p.getSS_Value();
+                case "积分支付限制": // 加入积分支付限制是为了在结算界面中获取积分计算规则
                     paytypelist.add(p);
                     break;
                 case "禁止0库存销售":
@@ -1189,19 +1182,12 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     }
 
     private void toJieSuan(OrderCanshhu jso, JiesuanBFragment.OrderType orderType) {
-        String jifen = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableIntegral() + "";
-//        可抵扣金额 = 会员积分 / 积分抵扣百分比 * 积分支付限制百分比
-        double dkmoney = CommonUtils.div(CommonUtils.div(CommonUtils.multiply(jifen,
-                TextUtils.isEmpty(jinfenzfxz) ? "0" : jinfenzfxz), 100, 2),
-                Double.parseDouble(TextUtils.isEmpty(jifendk) ? "0" : jifendk), 2);//可抵扣金额
-
         if (jiesuanBFragment == null) {
             jiesuanBFragment = new JiesuanBFragment();
             fragmentManager.beginTransaction().add(R.id.fragment_content, jiesuanBFragment).commit();
         } else
             fragmentManager.beginTransaction().show(jiesuanBFragment).commit();
-        jiesuanBFragment.setData(totalMoney, allmoney, mVipMsg,
-                dkmoney + "", jso.getGID(), jso.getCO_Type(), jso.getCO_OrderCode(),
+        jiesuanBFragment.setData(totalMoney, allmoney, mVipMsg, jso.getGID(), jso.getCO_Type(), jso.getCO_OrderCode(),
                 mShopLeftList, moren, paytypelist, orderType, new InterfaceBack() {
                     @Override
                     public void onResponse(Object response) {

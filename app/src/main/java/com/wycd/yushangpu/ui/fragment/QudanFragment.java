@@ -63,12 +63,10 @@ public class QudanFragment extends Fragment {
     private List<GuadanList> list = new ArrayList<>();
     private HomeActivity homeActivity;
     private GuadanListAdapter guadanListAdapter;
-    private double dkmoney;
     private VipInfoMsg mVipMsg;
     private ArrayList<ShopMsg> mShopLeftList = new ArrayList<>();
     private PayTypeMsg moren;//默认支付
     private ArrayList<PayTypeMsg> paytypelist;
-    private String jifendkbfb, jinfenzfxzbfb;
     private int refreshnum = 2;
     private boolean mIsLoadMore;
     private int mPageTotal;//数据总页数
@@ -129,15 +127,6 @@ public class QudanFragment extends Fragment {
         this.paytypelist = paytypelist;
         this.back = back;
         this.isGuaDan = false;
-
-        for (PayTypeMsg msg : paytypelist) {
-            if (msg.getSS_Name().equals("积分支付")) {
-                jifendkbfb = msg.getSS_Value();
-            }
-            if (msg.getSS_Name().equals("积分支付限制")) {
-                jinfenzfxzbfb = msg.getSS_Value();
-            }
-        }
         obtainGuadanList();
     }
 
@@ -149,7 +138,7 @@ public class QudanFragment extends Fragment {
             homeActivity.getSupportFragmentManager().beginTransaction().show(homeActivity.jiesuanBFragment).commit();
 
         homeActivity.jiesuanBFragment.setData(guadanList.getCO_TotalPrice(), guadanList.getCO_TotalPrice(), mVipMsg,
-                dkmoney + "", guadanList.getGID(), guadanList.getCO_Type(), guadanList.getCO_OrderCode(),
+                guadanList.getGID(), guadanList.getCO_Type(), guadanList.getCO_OrderCode(),
                 mShopLeftList, moren, paytypelist, JiesuanBFragment.OrderType.GUAZHANG_ORDER, new InterfaceBack() {
                     @Override
                     public void onResponse(Object response) {
@@ -454,8 +443,6 @@ public class QudanFragment extends Fragment {
                             public void onResponse(VipInfoMsg response) {
                                 mVipMsg = response;
                                 homeActivity.dialog.dismiss();
-                                String jifen = null == mVipMsg ? "0.00" : mVipMsg.getMA_AvailableIntegral() + "";
-                                dkmoney = CommonUtils.div(CommonUtils.multiply(jifen, jinfenzfxzbfb), Double.parseDouble(jifendkbfb), 2);//可抵扣金额
                                 jiesuan(guadanList, mVipMsg);
                                 HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
                                 event.setMsg("Change_color");
@@ -469,7 +456,6 @@ public class QudanFragment extends Fragment {
                             }
                         });
                     } else {
-                        dkmoney = 0.00;//可抵扣金额
                         jiesuan(guadanList, null);
                         homeActivity.dialog.dismiss();
                     }
