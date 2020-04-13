@@ -131,18 +131,18 @@ public class QudanFragment extends Fragment {
     }
 
     private void jiesuan(GuadanList guadanList, VipInfoMsg mVipMsg) {
-        if (homeActivity.jiesuanBFragment == null) {
-            homeActivity.jiesuanBFragment = new JiesuanBFragment();
-            homeActivity.getSupportFragmentManager().beginTransaction().add(R.id.fragment_content, homeActivity.jiesuanBFragment).commit();
+        if (homeActivity.cashierFragment.jiesuanBFragment == null) {
+            homeActivity.cashierFragment.jiesuanBFragment = new JiesuanBFragment();
+            homeActivity.getSupportFragmentManager().beginTransaction().add(R.id.fragment_content, homeActivity.cashierFragment.jiesuanBFragment).commit();
         } else
-            homeActivity.getSupportFragmentManager().beginTransaction().show(homeActivity.jiesuanBFragment).commit();
+            homeActivity.getSupportFragmentManager().beginTransaction().show(homeActivity.cashierFragment.jiesuanBFragment).commit();
 
-        homeActivity.jiesuanBFragment.setData(guadanList.getCO_TotalPrice(), guadanList.getCO_TotalPrice(), mVipMsg,
+        homeActivity.cashierFragment.jiesuanBFragment.setData(guadanList.getCO_TotalPrice(), guadanList.getCO_TotalPrice(), mVipMsg,
                 guadanList.getGID(), guadanList.getCO_Type(), guadanList.getCO_OrderCode(),
                 mShopLeftList, moren, paytypelist, JiesuanBFragment.OrderType.GUAZHANG_ORDER, new InterfaceBack() {
                     @Override
                     public void onResponse(Object response) {
-                        homeActivity.getSupportFragmentManager().beginTransaction().hide(homeActivity.jiesuanBFragment).commit();
+                        homeActivity.getSupportFragmentManager().beginTransaction().hide(homeActivity.cashierFragment.jiesuanBFragment).commit();
                         if (response != null) {
                             com.blankj.utilcode.util.ToastUtils.showShort("结算成功");
                             mShopLeftList.clear();
@@ -229,7 +229,7 @@ public class QudanFragment extends Fragment {
                     }
                 }
                 updateData();
-                homeActivity.updateBttGetOrder();
+                homeActivity.cashierFragment.updateBttGetOrder();
             }
 
             @Override

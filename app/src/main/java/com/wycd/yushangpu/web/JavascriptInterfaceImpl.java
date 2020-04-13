@@ -105,17 +105,6 @@ public class JavascriptInterfaceImpl {
         }
     }
 
-
-    /***
-     * 更新手机端用户头像
-     */
-
-    @JavascriptInterface
-    public void ts_SetUserHead(String headurl) {
-        HomeActivity.loadHeadImg(headurl);
-
-    }
-
     /***
      * 后台退出登录
      */
@@ -133,23 +122,6 @@ public class JavascriptInterfaceImpl {
     @JavascriptInterface
     public void ts_GotoDesk() {
         WebActivity.close();
-
-    }
-
-
-    /**
-     * 交班打印
-     */
-    @JavascriptInterface
-    public void ts_PrintShift(String data) {
-
-        if (!data.equals("undefined")) {
-            new HttpGetPrintContents().JB(mContext, data);
-            HomeActivity.closeJbDialog();
-        } else {
-//			ToastUtils.showToast(mContext,"获取打印数据失败");
-            com.blankj.utilcode.util.ToastUtils.showShort("获取打印数据失败");
-        }
 
     }
 

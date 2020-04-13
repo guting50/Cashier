@@ -146,7 +146,7 @@ public class EditCashierGoodsFragment extends Fragment {
                 editTextLayout.selectAll();
                 break;
             case R.id.bn_edit_price:
-                if (homeActivity.mModifyPrice == 0 || homeActivity.mChangePrice == 0) {
+                if (homeActivity.cashierFragment.mModifyPrice == 0 || homeActivity.cashierFragment.mChangePrice == 0) {
                     com.blankj.utilcode.util.ToastUtils.showShort("请开启 商品消费改单价 后再操作");
                     return;
                 }
@@ -161,7 +161,7 @@ public class EditCashierGoodsFragment extends Fragment {
                 editTextLayout.selectAll();
                 break;
             case R.id.bn_edit_subtotal:
-                if (homeActivity.mModifyPrice == 0 || homeActivity.mChangeSubtotal == 0) {
+                if (homeActivity.cashierFragment.mModifyPrice == 0 || homeActivity.cashierFragment.mChangeSubtotal == 0) {
                     com.blankj.utilcode.util.ToastUtils.showShort("请开启 商品消费改小计 后再操作");
                     return;
                 }
@@ -178,7 +178,7 @@ public class EditCashierGoodsFragment extends Fragment {
                 editTextLayout.selectAll();
                 break;
             case R.id.bn_edit_discount:
-                if (homeActivity.mModifyPrice == 0 || homeActivity.mChangeDiscount == 0) {
+                if (homeActivity.cashierFragment.mModifyPrice == 0 || homeActivity.cashierFragment.mChangeDiscount == 0) {
                     com.blankj.utilcode.util.ToastUtils.showShort("请开启 商品消费改折扣 后再操作");
                     return;
                 }
@@ -203,8 +203,8 @@ public class EditCashierGoodsFragment extends Fragment {
                         shopBean.setIsgive(true);
                         shopBean.setPD_Discount(discount);
                         shopBean.setAllprice(0);
-                        homeActivity.mShopLeftAdapter.notifyDataSetChanged();
-                        homeActivity.jisuanAllPrice();
+                        homeActivity.cashierFragment.mShopLeftAdapter.notifyDataSetChanged();
+                        homeActivity.cashierFragment.jisuanAllPrice();
                     }
 
                     @Override
@@ -218,7 +218,7 @@ public class EditCashierGoodsFragment extends Fragment {
                 editLayout.setVisibility(View.GONE);
                 //提成员工
                 ShopDetailDialog.shopdetailDialog(getActivity(), shopBean,
-                        null == homeActivity.mVipMsg ? "" : homeActivity.mVipMsg.getVG_GID(),
+                        null == homeActivity.cashierFragment.mVipMsg ? "" : homeActivity.cashierFragment.mVipMsg.getVG_GID(),
                         shopBean.getEM_GIDList(), MyApplication.loginBean.getShopID(), 1, new InterfaceBack() {
                             @Override
                             public void onResponse(Object response) {
@@ -240,8 +240,8 @@ public class EditCashierGoodsFragment extends Fragment {
 
                                 shopBean.setEM_GIDList(tcGID);
                                 shopBean.setEM_NameList(mStaffName.toString());
-                                homeActivity.mShopLeftAdapter.notifyDataSetChanged();
-                                homeActivity.jisuanAllPrice();
+                                homeActivity.cashierFragment.mShopLeftAdapter.notifyDataSetChanged();
+                                homeActivity.cashierFragment.jisuanAllPrice();
                             }
 
                             @Override
@@ -314,8 +314,8 @@ public class EditCashierGoodsFragment extends Fragment {
                             break;
                     }
                 }
-                homeActivity.mShopLeftAdapter.notifyDataSetChanged();
-                homeActivity.jisuanAllPrice();
+                homeActivity.cashierFragment.mShopLeftAdapter.notifyDataSetChanged();
+                homeActivity.cashierFragment.jisuanAllPrice();
 
                 resetBnEdit(null);
                 getFragmentManager().beginTransaction().hide(this).commit();

@@ -204,7 +204,7 @@ public class GoodsListFragment extends Fragment {
                 }.getType();
                 List<ShopMsg> sllist = response.getData(listType);
 
-                homeActivity.mEtLoginAccount.setText("");
+                homeActivity.cashierFragment.mEtLoginAccount.setText("");
                 if (PageIndex == 1) {
                     adapter.getShopMsgList().clear();
                 }
@@ -303,7 +303,7 @@ public class GoodsListFragment extends Fragment {
             myHolder.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    homeActivity.addCashierList(ts);
+                    homeActivity.cashierFragment.addCashierList(ts);
                 }
             });
         }
