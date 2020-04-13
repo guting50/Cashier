@@ -205,9 +205,8 @@ public class GoodsListFragment extends Fragment {
                 List<ShopMsg> sllist = response.getData(listType);
 
                 homeActivity.cashierFragment.mEtLoginAccount.setText("");
-                if (PageIndex == 1) {
-                    adapter.getShopMsgList().clear();
-                }
+//                if (PageIndex == 1)
+                adapter.getShopMsgList().clear();
                 adapter.addShopMsgList(sllist);
 //                 int  0  表示普通商品    1表示服务商品  2表示礼品   3普通套餐   4充次套餐
 //                for (ShopMsg msg : sllist) {
