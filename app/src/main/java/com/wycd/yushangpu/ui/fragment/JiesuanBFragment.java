@@ -3,12 +3,12 @@ package com.wycd.yushangpu.ui.fragment;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.Html;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -66,6 +66,7 @@ import java.util.TimerTask;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -136,6 +137,8 @@ public class JiesuanBFragment extends Fragment {
     RecyclerView payModeListView;
     @BindView(R.id.lz_layout)
     FrameLayout lzLayout;
+    @BindView(R.id.nested_scroll_view)
+    NestedScrollView nestedScrollView;
 
     PayModeListAdapter payModeListAdapter;
 
@@ -1131,24 +1134,52 @@ public class JiesuanBFragment extends Fragment {
             MyHolder myHolder = (MyHolder) holder;
             numKeyboardUtils.addEditView(myHolder.etValue);
             MyPayMode itemData = payModeList.get(position);
-            String payXzHibt = "<font color=\"#676a6c\">%1$s</font><font color=\"#ff0000\"><small>%2$s</small></font>";
+            myHolder.payHint.setVisibility(View.GONE);
+            myHolder.payHintIcon.setVisibility(View.GONE);
+            myHolder.hintLayout.setVisibility(View.GONE);
+            View.OnClickListener payHintListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    myHolder.hintLayout.setVisibility(myHolder.hintLayout.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+                    myHolder.hintLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                        @Override
+                        public void onGlobalLayout() {
+                            myHolder.hintLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                            int[] intArray = new int[2];
+                            nestedScrollView.getLocationOnScreen(intArray);
+                            int nestedScrollViewTop = intArray[1];
+                            myHolder.hintLayout.getLocationOnScreen(intArray);
+                            int dy = intArray[1];
+                            int distance = dy - nestedScrollViewTop;//必须算上nestedScrollView本身与屏幕的距离
+                            nestedScrollView.fling(distance);//添加上这句滑动才有效
+                            nestedScrollView.smoothScrollBy(0, distance);
+                        }
+                    });
+                }
+            };
             if (TextUtils.equals(itemData.getPayName(), PayMode.YEZF.getStr())) {
                 myHolder.hintText.setText("1.可用余额不得超过每单金额的" + yuePayXz + "%\n2.可用余额不得超过账户余额");
                 yueLimit = CommonUtils.multiply(CommonUtils.div(ysMoney, 100 + "", 100000) + "",
                         TextUtils.isEmpty(yuePayXz) ? "0" : yuePayXz);
                 yueLimit = yueLimit > Double.parseDouble(yue) ? Double.parseDouble(yue) : yueLimit;
-                myHolder.tvPayName.setText(Html.fromHtml(String.format(payXzHibt, PayMode.YEZF.getStr(),
-                        " &nbsp;  可用金额&nbsp;" + yueLimit)));
+                myHolder.payHint.setText("可用金额 " + yueLimit);
+                myHolder.payHint.setVisibility(View.VISIBLE);
+                myHolder.payHintIcon.setVisibility(View.VISIBLE);
+                myHolder.payHint.setOnClickListener(payHintListener);
+                myHolder.payHintIcon.setOnClickListener(payHintListener);
             } else if (TextUtils.equals(itemData.getPayName(), PayMode.JFZF.getStr())) {
                 myHolder.hintText.setText("1." + jifendk + "抵扣1元\n2.积分支付不得超过剩余积分的" + jinfenzfxz + "%");
                 //可抵扣金额 = 会员积分 / 积分抵扣百分比 * 积分支付限制百分比
                 dkmoney = CommonUtils.div(CommonUtils.div(CommonUtils.multiply(jifen,
                         TextUtils.isEmpty(jinfenzfxz) ? "0" : jinfenzfxz), 100, 2),
                         Double.parseDouble(TextUtils.isEmpty(jifendk) ? "0" : jifendk), 2);//可抵扣金额
-                myHolder.tvPayName.setText(Html.fromHtml(String.format(payXzHibt, PayMode.JFZF.getStr(),
-                        " &nbsp;  可抵扣金额&nbsp;" + (dkmoney))));
-            } else
-                myHolder.tvPayName.setText(Html.fromHtml(itemData.getPayName()));
+                myHolder.payHint.setText("可抵扣金额 " + dkmoney);
+                myHolder.payHint.setVisibility(View.VISIBLE);
+                myHolder.payHintIcon.setVisibility(View.VISIBLE);
+                myHolder.payHint.setOnClickListener(payHintListener);
+                myHolder.payHintIcon.setOnClickListener(payHintListener);
+            }
+            myHolder.tvPayName.setText(itemData.getPayName());
             myHolder.etValue.setText(itemData.getValue() + "");
             myHolder.etValue.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
@@ -1182,14 +1213,12 @@ public class JiesuanBFragment extends Fragment {
                 public void afterTextChanged(Editable s) {
                     String name = myHolder.tvPayName.getText().toString();
                     double value = Double.parseDouble(TextUtils.isEmpty(s) ? "0" : s.toString());
-                    myHolder.hintLayout.setVisibility(View.GONE);
                     if (name.contains(itemData.getPayName())) {
                         if (itemData.getValue() != value) {
                             if (name.contains(PayMode.YEZF.getStr())) {
                                 if (value > yueLimit) {
                                     myHolder.etValue.setText(StringUtil.onlyTwoNum(yueLimit + ""));
 //                                    com.blankj.utilcode.util.ToastUtils.showShort("超过余额支付限制");
-                                    myHolder.hintLayout.setVisibility(View.VISIBLE);
                                     return;
                                 }
                             }
@@ -1198,7 +1227,6 @@ public class JiesuanBFragment extends Fragment {
                                 if (value > dkmoney) {
                                     myHolder.etValue.setText(StringUtil.onlyTwoNum(dkmoney + ""));
 //                                    com.blankj.utilcode.util.ToastUtils.showShort("超过积分支付限制");
-                                    myHolder.hintLayout.setVisibility(View.VISIBLE);
                                     return;
                                 }
                             }
@@ -1248,6 +1276,10 @@ public class JiesuanBFragment extends Fragment {
             TextView tvPayName;
             @BindView(R.id.et_value)
             NumInputView etValue;
+            @BindView(R.id.pay_hint)
+            TextView payHint;
+            @BindView(R.id.pay_hint_icon)
+            ImageView payHintIcon;
             @BindView(R.id.hint_layout)
             FrameLayout hintLayout;
             @BindView(R.id.hint_text)

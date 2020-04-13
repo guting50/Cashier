@@ -98,6 +98,7 @@
                     android:background="@drawable/shap_jiesunnot">
 
                     <androidx.core.widget.NestedScrollView
+                        android:id="@+id/nested_scroll_view"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_above="@+id/tv_zhaoling"
@@ -869,7 +870,8 @@
         android:id="@+id/lz_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#a0000000">
+        android:background="#a0000000"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="500dp"
