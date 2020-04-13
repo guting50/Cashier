@@ -3,6 +3,7 @@ package com.wycd.yushangpu.ui.fragment;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -151,7 +152,7 @@ public class JiesuanBFragment extends Fragment {
     private OrderType orderType;
     private VipInfoMsg mVipMsg;
     private Dialog dialog;
-    private double promotionMoney; // 优惠活动金额
+    private double promotionMoney, yueLimit, dkmoney; // 优惠活动金额 ,可用余额，积分可抵扣金额
 
     private int consumeCheck = 0;//1 余额消费密码验证 ；2 余额消费短信验证码验证
     private double yueMoney = 0;
@@ -752,7 +753,7 @@ public class JiesuanBFragment extends Fragment {
             view.setTag(null);
             view.setBackgroundResource(R.drawable.shap_jiesunnot);
             for (PayModeListAdapter.MyPayMode payMode : payModeListAdapter.getData()) {
-                if (TextUtils.equals(payMode.getPayName(), name)) {
+                if (payMode.getPayName().contains(name)) {
                     payModeListAdapter.getData().remove(payMode);
                     computeYsMoney();
                     break;
@@ -1016,7 +1017,24 @@ public class JiesuanBFragment extends Fragment {
             MyHolder myHolder = (MyHolder) holder;
             numKeyboardUtils.addEditView(myHolder.etValue);
             MyPayMode itemData = payModeList.get(position);
-            myHolder.tvPayName.setText(itemData.getPayName());
+            String payXzHibt = "<font color=\"#676a6c\">%1$s</font><font color=\"#ff0000\"><small>%2$s</small></font>";
+            if (TextUtils.equals(itemData.getPayName(), PayMode.YEZF.getStr())) {
+                myHolder.hintText.setText("1.可用余额不得超过每单金额的" + yuePayXz + "%\n2.可用余额不得超过账户余额");
+                yueLimit = CommonUtils.multiply(CommonUtils.div(ysMoney, 100 + "", 100000) + "",
+                        TextUtils.isEmpty(yuePayXz) ? "0" : yuePayXz);
+                yueLimit = yueLimit > Double.parseDouble(yue) ? Double.parseDouble(yue) : yueLimit;
+                myHolder.tvPayName.setText(Html.fromHtml(String.format(payXzHibt, PayMode.YEZF.getStr(),
+                        " &nbsp;  可用金额&nbsp;" + yueLimit)));
+            } else if (TextUtils.equals(itemData.getPayName(), PayMode.JFZF.getStr())) {
+                myHolder.hintText.setText("1." + jifendk + "抵扣1元\n2.积分支付不得超过剩余积分的" + jinfenzfxz + "%");
+                //可抵扣金额 = 会员积分 / 积分抵扣百分比 * 积分支付限制百分比
+                dkmoney = CommonUtils.div(CommonUtils.div(CommonUtils.multiply(jifen,
+                        TextUtils.isEmpty(jinfenzfxz) ? "0" : jinfenzfxz), 100, 2),
+                        Double.parseDouble(TextUtils.isEmpty(jifendk) ? "0" : jifendk), 2);//可抵扣金额
+                myHolder.tvPayName.setText(Html.fromHtml(String.format(payXzHibt, PayMode.JFZF.getStr(),
+                        " &nbsp;  可抵扣金额&nbsp;" + (dkmoney))));
+            } else
+                myHolder.tvPayName.setText(Html.fromHtml(itemData.getPayName()));
             myHolder.etValue.setText(itemData.getValue() + "");
             myHolder.etValue.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
@@ -1050,36 +1068,23 @@ public class JiesuanBFragment extends Fragment {
                 public void afterTextChanged(Editable s) {
                     String name = myHolder.tvPayName.getText().toString();
                     double value = Double.parseDouble(TextUtils.isEmpty(s) ? "0" : s.toString());
-                    if (TextUtils.equals(itemData.getPayName(), name)) {
+                    myHolder.hintLayout.setVisibility(View.GONE);
+                    if (name.contains(itemData.getPayName())) {
                         if (itemData.getValue() != value) {
-                            if (TextUtils.equals(name, PayMode.YEZF.getStr())) {
-                                double yueLimit = CommonUtils.multiply(CommonUtils.div(ysMoney, 100 + "", 100000) + "",
-                                        TextUtils.isEmpty(yuePayXz) ? "0" : yuePayXz);
+                            if (name.contains(PayMode.YEZF.getStr())) {
                                 if (value > yueLimit) {
                                     myHolder.etValue.setText(StringUtil.onlyTwoNum(yueLimit + ""));
-                                    com.blankj.utilcode.util.ToastUtils.showShort("超过余额支付限制");
-                                    return;
-                                }
-                                if (value > Double.parseDouble(yue)) {
-                                    com.blankj.utilcode.util.ToastUtils.showShort("余额不足");
-                                    myHolder.etValue.setText(StringUtil.onlyTwoNum(yue + ""));
+//                                    com.blankj.utilcode.util.ToastUtils.showShort("超过余额支付限制");
+                                    myHolder.hintLayout.setVisibility(View.VISIBLE);
                                     return;
                                 }
                             }
 
-                            if (TextUtils.equals(name, PayMode.JFZF.getStr())) {
-                                //        可抵扣金额 = 会员积分 / 积分抵扣百分比 * 积分支付限制百分比
-                                double dkmoney = CommonUtils.div(CommonUtils.div(CommonUtils.multiply(jifen,
-                                        TextUtils.isEmpty(jinfenzfxz) ? "0" : jinfenzfxz), 100, 2),
-                                        Double.parseDouble(TextUtils.isEmpty(jifendk) ? "0" : jifendk), 2);//可抵扣金额
+                            if (name.contains(PayMode.JFZF.getStr())) {
                                 if (value > dkmoney) {
                                     myHolder.etValue.setText(StringUtil.onlyTwoNum(dkmoney + ""));
-                                    com.blankj.utilcode.util.ToastUtils.showShort("超过积分支付限制");
-                                    return;
-                                }
-                                if (value > Double.parseDouble(jifen)) {
-                                    com.blankj.utilcode.util.ToastUtils.showShort("积分不足");
-                                    myHolder.etValue.setText(StringUtil.onlyTwoNum(jifen + ""));
+//                                    com.blankj.utilcode.util.ToastUtils.showShort("超过积分支付限制");
+                                    myHolder.hintLayout.setVisibility(View.VISIBLE);
                                     return;
                                 }
                             }
@@ -1129,6 +1134,10 @@ public class JiesuanBFragment extends Fragment {
             TextView tvPayName;
             @BindView(R.id.et_value)
             NumInputView etValue;
+            @BindView(R.id.hint_layout)
+            FrameLayout hintLayout;
+            @BindView(R.id.hint_text)
+            TextView hintText;
             View holderRootView;
 
             public MyHolder(@NonNull View itemView) {

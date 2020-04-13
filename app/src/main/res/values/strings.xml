@@ -17,13 +17,13 @@
     <string name="str_printer_out_of_paper">打印机缺纸</string>
     <string name="str_printer_open_cover">打印机开盖</string>
     <string name="str_state">状态：</string>
-<!--    <string name="str_cpclmode">面单模式</string>-->
-<!--    <string name="str_escmode">票据模式</string>-->
-<!--    <string name="str_tscmode">标签模式</string>-->
-<!--    <string name="default_mode">默认模式，小票模式</string>-->
-<!--    <string name="str_printer_printmode_esc">打印模式:ESC</string>-->
-<!--    <string name="str_printer_printmode_tsc">打印模式:TSC</string>-->
-<!--    <string name="str_printer_printmode_cpcl">打印模式:CPCL</string>-->
+    <!--    <string name="str_cpclmode">面单模式</string>-->
+    <!--    <string name="str_escmode">票据模式</string>-->
+    <!--    <string name="str_tscmode">标签模式</string>-->
+    <!--    <string name="default_mode">默认模式，小票模式</string>-->
+    <!--    <string name="str_printer_printmode_esc">打印模式:ESC</string>-->
+    <!--    <string name="str_printer_printmode_tsc">打印模式:TSC</string>-->
+    <!--    <string name="str_printer_printmode_cpcl">打印模式:CPCL</string>-->
     <string name="str_printer_conn_normal">打印机连接正常</string>
     <string name="none_ble_device">没有找到设备</string>
 
