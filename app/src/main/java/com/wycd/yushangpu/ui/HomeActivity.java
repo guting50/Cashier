@@ -91,6 +91,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -151,6 +153,8 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     BgFrameLayout orderCountLayout;
     @BindView(R.id.vip_name_layout)
     BgFrameLayout vipNameLayout;
+    @BindView(R.id.img_pay_success)
+    ImageView imgPaySuccess;
 
     private static CircleImageView imgHedimg;
     //    private List<ClassMsg> twoClassList;
@@ -1204,7 +1208,18 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                         fragmentManager.beginTransaction().hide(jiesuanBFragment).commit();
                         if (response != null) {
                             String gid = (String) response;
-                            com.blankj.utilcode.util.ToastUtils.showShort("结算成功");
+                            imgPaySuccess.setVisibility(View.VISIBLE);
+                            new Timer().schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    HomeActivity.this.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            imgPaySuccess.setVisibility(View.GONE);
+                                        }
+                                    });
+                                }
+                            }, 2000);
 
                             //打印小票
                             if (MyApplication.PRINT_IS_OPEN) {
