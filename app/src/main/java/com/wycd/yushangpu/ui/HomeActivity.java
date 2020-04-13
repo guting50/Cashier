@@ -176,51 +176,49 @@ public class HomeActivity extends BaseActivity {
 //        filter.addAction(ACTION_QUERY_PRINTER_STATE);//查询打印机缓冲区状态广播，用于一票一控
         filter.addAction(DeviceConnFactoryManager.ACTION_CONN_STATE);//与打印机连接状态
         filter.addAction(ACTION_USB_DEVICE_ATTACHED);//USB线插入
-        registerReceiver(receiver, filter);
-    }
+        registerReceiver(new BroadcastReceiver() {
 
-    private BroadcastReceiver receiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            switch (action) {
-                //Usb连接断开广播
-                case ACTION_USB_DEVICE_DETACHED:
-                    UsbDevice usbDevice = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
-                    String ReceiptUSBName = (String) CacheData.restoreObject("ReceiptUSBName");
-                    if (ReceiptUSBName != null && ReceiptUSBName.equals(usbDevice.getDeviceName())) {
-                        ISCONNECT = false;
-                    }
-                    String LabelUSBName = (String) CacheData.restoreObject("LabelUSBName");
-                    if (LabelUSBName.equals(usbDevice.getDeviceName())) {
-                        ISLABELCONNECT = false;
-                    }
-                    break;
-                case DeviceConnFactoryManager.ACTION_CONN_STATE:
-                    int state = intent.getIntExtra(DeviceConnFactoryManager.STATE, -1);
-                    int deviceId = intent.getIntExtra(DeviceConnFactoryManager.DEVICE_ID, -1);
-                    switch (state) {
-                        case DeviceConnFactoryManager.CONN_STATE_DISCONNECT:
-                            if (id == deviceId) {
-                                Log.e(TAG, "connection is lost");
-                            }
-                            break;
-                        case DeviceConnFactoryManager.CONN_STATE_CONNECTING:
-                            break;
-                        case DeviceConnFactoryManager.CONN_STATE_CONNECTED:
-                            ISLABELCONNECT = true;
-                            break;
-                        case DeviceConnFactoryManager.CONN_STATE_FAILED:
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+                switch (action) {
+                    //Usb连接断开广播
+                    case ACTION_USB_DEVICE_DETACHED:
+                        UsbDevice usbDevice = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                        String ReceiptUSBName = (String) CacheData.restoreObject("ReceiptUSBName");
+                        if (ReceiptUSBName != null && ReceiptUSBName.equals(usbDevice.getDeviceName())) {
+                            ISCONNECT = false;
+                        }
+                        String LabelUSBName = (String) CacheData.restoreObject("LabelUSBName");
+                        if (LabelUSBName.equals(usbDevice.getDeviceName())) {
                             ISLABELCONNECT = false;
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
+                        }
+                        break;
+                    case DeviceConnFactoryManager.ACTION_CONN_STATE:
+                        int state = intent.getIntExtra(DeviceConnFactoryManager.STATE, -1);
+                        int deviceId = intent.getIntExtra(DeviceConnFactoryManager.DEVICE_ID, -1);
+                        switch (state) {
+                            case DeviceConnFactoryManager.CONN_STATE_DISCONNECT:
+                                if (id == deviceId) {
+                                    Log.e(TAG, "connection is lost");
+                                }
+                                break;
+                            case DeviceConnFactoryManager.CONN_STATE_CONNECTING:
+                                break;
+                            case DeviceConnFactoryManager.CONN_STATE_CONNECTED:
+                                ISLABELCONNECT = true;
+                                break;
+                            case DeviceConnFactoryManager.CONN_STATE_FAILED:
+                                ISLABELCONNECT = false;
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                }
             }
-        }
-    };
+        }, filter);
+    }
 
     private void initFragment() {
         fragmentManager = getSupportFragmentManager();
@@ -418,7 +416,7 @@ public class HomeActivity extends BaseActivity {
             public void run() {
                 if (DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id] == null ||
                         !DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id].getConnState()) {
-                    cashierFragment.mHandler.obtainMessage(CONN_PRINTER).sendToTarget();
+//                    cashierFragment.obtainMessage(CONN_PRINTER).sendToTarget();
                     return;
                 }
                 if (DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id].getCurrentPrinterCommand() == TSC) {

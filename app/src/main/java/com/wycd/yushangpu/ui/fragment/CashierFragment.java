@@ -2,8 +2,6 @@ package com.wycd.yushangpu.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.KeyEvent;
@@ -138,7 +136,6 @@ public class CashierFragment extends Fragment {
     private List<GoodsModelBean> ModelList;
     private List<List<GoodsModelBean>> modelList = new ArrayList<>();
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -157,44 +154,23 @@ public class CashierFragment extends Fragment {
         getProductModel();
 
         //更新订单时间
-        new TimeThread().start();
-    }
-
-    public class TimeThread extends Thread {
-        @Override
-        public void run() {
-            do {
-                try {
-                    Thread.sleep(1000);
-                    Message msg = new Message();
-                    msg.what = 1;
-                    mHandler.sendMessage(msg);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            } while (true);
-        }
-    }
-
-    public Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case 1:
-                    long sysTime = System.currentTimeMillis();
-                    CharSequence ordertime2 = DateFormat
-                            .format("MM/dd  HH:mm:ss", sysTime);
-                    ordertime = DateFormat
-                            .format("yyyy-MM-dd HH:mm:ss", sysTime);
-                    tv_ordertime.setText("" + ordertime2);
-                    break;
-                default:
-                    break;
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                long sysTime = System.currentTimeMillis();
+                CharSequence ordertime2 = DateFormat
+                        .format("MM/dd  HH:mm:ss", sysTime);
+                ordertime = DateFormat
+                        .format("yyyy-MM-dd HH:mm:ss", sysTime);
+                homeActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tv_ordertime.setText("" + ordertime2);
+                    }
+                });
             }
-        }
-    };
-
+        }, 1000, 1000);
+    }
 
     public void initView() {
         order = CreateOrder.createOrder("SP");
@@ -259,7 +235,6 @@ public class CashierFragment extends Fragment {
         qudanFragment = new QudanFragment(homeActivity);
         qudanFragment.obtainGuadanList();
     }
-
 
     private void obtainSystemCanshu() {
         String url = HttpAPI.API().GET_SWITCH_LIST;
@@ -889,7 +864,6 @@ public class CashierFragment extends Fragment {
         }
     }
 
-
     private void initVIP(String VIP_Card) {
         ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
         onlyVipMsg.vipMsg(VIP_Card, new InterfaceBack<VipInfoMsg>() {
@@ -1102,7 +1076,6 @@ public class CashierFragment extends Fragment {
                 PD_Discount = sllist.get(i).getPD_Discount();
             }
         }
-
         return PD_Discount;
     }
 
