@@ -26,7 +26,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:paddingLeft="@dimen/dp_10"
-            android:text="现金："
+            android:text="现金"
             android:textColor="@color/text60"
             android:textSize="@dimen/sp_13" />
     </FrameLayout>

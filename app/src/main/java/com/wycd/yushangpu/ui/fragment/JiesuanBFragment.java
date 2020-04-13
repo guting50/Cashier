@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -492,8 +493,21 @@ public class JiesuanBFragment extends Fragment {
 
     private void checkVerify() {
         lzLayout.setVisibility(View.VISIBLE);
-        EditText editText = (EditText) lzLayout.findViewById(R.id.lz_edit_view);
+        EditText editText = lzLayout.findViewById(R.id.lz_edit_view);
         TextView getVipSmsVerify = lzLayout.findViewById(R.id.get_vip_sms_verify);
+        ImageView ivChose = lzLayout.findViewById(R.id.iv_chose);
+        lzLayout.setOnClickListener(new OnNoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+
+            }
+        });
+        ivChose.setOnClickListener(new OnNoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                lzLayout.setVisibility(View.GONE);
+            }
+        });
         switch (consumeCheck) {
             case 1:
                 getVipSmsVerify.setVisibility(View.GONE);
