@@ -71,6 +71,7 @@ import com.wycd.yushangpu.ui.fragment.GoodsListFragment;
 import com.wycd.yushangpu.ui.fragment.JiesuanBFragment;
 import com.wycd.yushangpu.ui.fragment.PrintSetFragment;
 import com.wycd.yushangpu.ui.fragment.QudanFragment;
+import com.wycd.yushangpu.ui.fragment.VipMemberFragment;
 import com.wycd.yushangpu.web.WebDialog;
 import com.wycd.yushangpu.widget.dialog.ChangePwdDialog;
 import com.wycd.yushangpu.widget.dialog.FastCashierDialog;
@@ -194,6 +195,7 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
     public JiesuanBFragment jiesuanBFragment;
     private QudanFragment qudanFragment;
     public PrintSetFragment printSetFragment;
+    public VipMemberFragment vipMemberFragment;
     private boolean isFirstLaunch = false;
 
     private BluetoothAdapter bluetoothAdapter;
@@ -1271,6 +1273,12 @@ public class HomeActivity extends BaseActivity implements ShowMemberPopWindow.On
                 break;
             case R.id.btn_member:
                 btn_member.setImageResource(R.mipmap.btn_member_true);
+                if (vipMemberFragment == null) {
+                    vipMemberFragment = new VipMemberFragment();
+                    fragmentManager.beginTransaction().add(R.id.subsidiary_fragment, vipMemberFragment).commit();
+                } else {
+                    fragmentManager.beginTransaction().show(vipMemberFragment).commit();
+                }
                 break;
             case R.id.btn_goods:
                 btn_goods.setImageResource(R.mipmap.btn_goods_true);
