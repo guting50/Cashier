@@ -4,40 +4,40 @@ import java.io.Serializable;
 import java.util.List;
 
 public class VipInfoMsg implements Serializable {
-    private String   GID;//	会员GID	string
-    private String     VIP_HeadImg;//	头像地址	string
-    private String     VCH_Card;//	会员卡号	string
-    private String     VIP_Name;//	会员姓名	string
-    private int   VIP_Sex;//	会员性别	Int32
-    private String      VCH_CreateTime;//	开卡时间	DateTime
-    private String     VIP_Birthday;//	生日	string
-    private String     VIP_CellPhone;//	手机号	string
-    private String     VIP_ICCard;//	身份证号	string
-    private String     VIP_Email;//	电子邮箱	string
-    private String     VIP_Remark;//	备注	string
-    private int   VIP_IsForver;//	是否永久有效	Int32
-    private String    VIP_Overdue;//	过期时间	DateTime?
-    private int    VIP_State;//	会员状态	Int32
-    private String       VIP_FaceNumber;//	卡面号码	string
-    private String     VIP_Label;//	会员标签	string
-    private String    VG_GID;//	等级GID	string
-    private String     VIP_Referee;//	推荐人卡号	string
-    private String     VIP_Addr;//	会员地址	string
-    private String    VIP_FixedPhone;//	固定电话	string
-    private String    VG_Name;//	等级名称	string
-    private double   MA_AvailableBalance;//	可用余额	decimal
-    private double    MA_AvailableIntegral;//	可用积分	decimal
-    private int    MCA_HowMany;//	剩余充次总数	int
+    private String GID;//	会员GID	string
+    private String VIP_HeadImg;//	头像地址	string
+    private String VCH_Card;//	会员卡号	string
+    private String VIP_Name;//	会员姓名	string
+    private int VIP_Sex;//	会员性别	Int32
+    private String VCH_CreateTime;//	开卡时间	DateTime
+    private String VIP_Birthday;//	生日	string
+    private String VIP_CellPhone;//	手机号	string
+    private String VIP_ICCard;//	身份证号	string
+    private String VIP_Email;//	电子邮箱	string
+    private String VIP_Remark;//	备注	string
+    private int VIP_IsForver;//	是否永久有效	Int32
+    private String VIP_Overdue;//	过期时间	DateTime?
+    private int VIP_State;//	会员状态	0正常1锁定2挂失
+    private String VIP_FaceNumber;//	卡面号码	string
+    private String VIP_Label;//	会员标签	string
+    private String VG_GID;//	等级GID	string
+    private String VIP_Referee;//	推荐人卡号	string
+    private String VIP_Addr;//	会员地址	string
+    private String VIP_FixedPhone;//	固定电话	string
+    private String VG_Name;//	等级名称	string
+    private double MA_AvailableBalance;//	可用余额	decimal
+    private double MA_AvailableIntegral;//	可用积分	decimal
+    private int MCA_HowMany;//	剩余充次总数	int
+    private int VCH_Fee; //开卡费
+    private Object SM_GID;//开卡店铺
+    private String SM_Name;
+    private String EM_Name; //办卡人员
 
     private Object VIP_RegSource;
-    private Object EM_Name;
     private int VIP_IsLunarCalendar;
     private Object EM_ID;
     private String VIP_Creator;
-    private String SM_Name;
-    private Object SM_GID;
-    private int VCH_Fee;
-    private Object VIP_OpenID;
+    private String VIP_OpenID;
     private int VIP_InterCalaryMonth;
     private Object MCA_HowManyDetail;
     private Object CY_GID;
@@ -77,7 +77,7 @@ public class VipInfoMsg implements Serializable {
     }
 
     public String getVIP_HeadImg() {
-        return VIP_HeadImg;
+        return VIP_HeadImg == null ? "http://pc.yunvip123.com/img/nohead.png" : VIP_HeadImg;
     }
 
     public void setVIP_HeadImg(String VIP_HeadImg) {
@@ -268,11 +268,11 @@ public class VipInfoMsg implements Serializable {
         this.VIP_RegSource = VIP_RegSource;
     }
 
-    public Object getEM_Name() {
+    public String getEM_Name() {
         return EM_Name;
     }
 
-    public void setEM_Name(Object EM_Name) {
+    public void setEM_Name(String EM_Name) {
         this.EM_Name = EM_Name;
     }
 
@@ -324,11 +324,11 @@ public class VipInfoMsg implements Serializable {
         this.VCH_Fee = VCH_Fee;
     }
 
-    public Object getVIP_OpenID() {
+    public String getVIP_OpenID() {
         return VIP_OpenID;
     }
 
-    public void setVIP_OpenID(Object VIP_OpenID) {
+    public void setVIP_OpenID(String VIP_OpenID) {
         this.VIP_OpenID = VIP_OpenID;
     }
 

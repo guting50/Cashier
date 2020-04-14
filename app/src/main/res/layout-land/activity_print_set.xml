@@ -356,7 +356,7 @@
                                 android:textSize="16sp" />
 
                             <TextView
-                                android:id="@+id/tv_contacter"
+                                android:id="@+id/tv_create_time"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/tv_shop_name"
@@ -366,10 +366,10 @@
                                 android:textSize="16sp" />
 
                             <TextView
-                                android:id="@+id/tv_industry"
+                                android:id="@+id/tv_referee"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/tv_contacter"
+                                android:layout_below="@+id/tv_create_time"
                                 android:layout_marginLeft="30dp"
                                 android:layout_marginTop="45dp"
                                 android:text="所属行业："
@@ -379,7 +379,7 @@
                                 android:id="@+id/tv_address"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/tv_industry"
+                                android:layout_below="@+id/tv_referee"
                                 android:layout_marginLeft="30dp"
                                 android:layout_marginTop="45dp"
                                 android:lineSpacingExtra="10dp"
