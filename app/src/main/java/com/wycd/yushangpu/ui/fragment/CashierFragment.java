@@ -1,13 +1,10 @@
 package com.wycd.yushangpu.ui.fragment;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -44,7 +41,6 @@ import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.PreferenceHelper;
 import com.wycd.yushangpu.tools.StringUtil;
-import com.wycd.yushangpu.ui.HomeActivity;
 import com.wycd.yushangpu.widget.dialog.FastCashierDialog;
 import com.wycd.yushangpu.widget.dialog.GoodsModelDialog;
 import com.wycd.yushangpu.widget.dialog.KeyboardDialog;
@@ -58,22 +54,15 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.wycd.yushangpu.MyApplication.ISLABELCONNECT;
 import static com.wycd.yushangpu.MyApplication.LABELPRINT_IS_OPEN;
 
-public class CashierFragment extends Fragment {
-    private HomeActivity homeActivity;
-    View rootView;
-
+public class CashierFragment extends BaseFragment {
     @BindView(R.id.tv_ordernum)
     TextView tv_ordernum;
     @BindView(R.id.tv_ordertime)
@@ -136,18 +125,12 @@ public class CashierFragment extends Fragment {
     private List<GoodsModelBean> ModelList;
     private List<List<GoodsModelBean>> modelList = new ArrayList<>();
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_cashier, null);
-        homeActivity = (HomeActivity) getActivity();
-        return rootView;
+    public int getContentView() {
+        return R.layout.fragment_cashier;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        ButterKnife.bind(this, rootView);
+    public void onCreated() {
         initView();
         initEvent();
         obtainSystemCanshu();
@@ -1005,8 +988,8 @@ public class CashierFragment extends Fragment {
             homeActivity.fragmentManager.beginTransaction().hide(editCashierGoodsFragment).commit();
     }
 
-    @OnClick({R.id.im_clear, R.id.member_bg_layout,})
-    public void onaClick(View view) {
+    @OnClick({R.id.im_clear, R.id.member_bg_layout})
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.im_clear:
                 //清空
@@ -1029,21 +1012,7 @@ public class CashierFragment extends Fragment {
                 VipChooseDialog vipChooseDialog = new VipChooseDialog(homeActivity, mVipMsg, new InterfaceBack() {
                     @Override
                     public void onResponse(Object response) {
-                        mVipMsg = (VipInfoMsg) response;
-
-                        if (mVipMsg != null) {
-                            PreferenceHelper.write(homeActivity, "yunshangpu", "vip", true);
-
-                            mPD_Discount = obtainVipPD_Discount(mVipMsg.getVG_GID(), mVipMsg.getVGInfo());
-                            jisuanAllPrice();
-
-                            if (!TextUtils.isEmpty(mVipMsg.getVIP_Name())) {
-                                vipNameLayout.setVisibility(View.VISIBLE);
-                                ((TextView) vipNameLayout.getChildAt(0)).setText(mVipMsg.getVIP_Name().substring(0, 1));
-                            } else {
-                                com.blankj.utilcode.util.ToastUtils.showShort("会员名为空");
-                            }
-                        }
+                        selectedVIP((VipInfoMsg) response);
                     }
 
                     @Override
@@ -1066,6 +1035,23 @@ public class CashierFragment extends Fragment {
                 });
                 vipChooseDialog.show();
                 break;
+        }
+    }
+
+    public void selectedVIP(VipInfoMsg infoMsg) {
+        mVipMsg = infoMsg;
+        if (mVipMsg != null) {
+            PreferenceHelper.write(homeActivity, "yunshangpu", "vip", true);
+
+            mPD_Discount = obtainVipPD_Discount(mVipMsg.getVG_GID(), mVipMsg.getVGInfo());
+            jisuanAllPrice();
+
+            if (!TextUtils.isEmpty(mVipMsg.getVIP_Name())) {
+                vipNameLayout.setVisibility(View.VISIBLE);
+                ((TextView) vipNameLayout.getChildAt(0)).setText(mVipMsg.getVIP_Name().substring(0, 1));
+            } else {
+                com.blankj.utilcode.util.ToastUtils.showShort("会员名为空");
+            }
         }
     }
 

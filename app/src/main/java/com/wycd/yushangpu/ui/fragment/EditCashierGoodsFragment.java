@@ -1,10 +1,7 @@
 package com.wycd.yushangpu.ui.fragment;
 
 import android.graphics.Color;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,7 +14,6 @@ import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.StringUtil;
-import com.wycd.yushangpu.ui.HomeActivity;
 import com.wycd.yushangpu.widget.NumInputView;
 import com.wycd.yushangpu.widget.NumKeyboardUtils;
 import com.wycd.yushangpu.widget.dialog.NoticeDialog;
@@ -26,14 +22,10 @@ import com.wycd.yushangpu.widget.dialog.ShopDetailDialog;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class EditCashierGoodsFragment extends Fragment {
+public class EditCashierGoodsFragment extends BaseFragment {
     @BindView(R.id.info_goods_name)
     TextView infoGoodsName;
     @BindView(R.id.goods_code)
@@ -69,46 +61,24 @@ public class EditCashierGoodsFragment extends Fragment {
     @BindView(R.id.edit_text_layout)
     NumInputView editTextLayout;
 
-
-    HomeActivity homeActivity;
-
     ShopMsg shopBean;
-    View rootView;
-    private boolean isInit;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_edit_cashier_goods, null);
-        return rootView;
+    public int getContentView() {
+        return R.layout.fragment_edit_cashier_goods;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        ButterKnife.bind(this, rootView);
-
-        homeActivity = (HomeActivity) getActivity();
-
+    public void onCreated() {
         new NumKeyboardUtils(getActivity(), rootView, editTextLayout);
     }
 
     public void setData(ShopMsg shopBean) {
         this.shopBean = shopBean;
-        if (isInit) {
-            updateData();
-        }
+        super.setData();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (!isInit)
-            updateData();
-        isInit = true;
-    }
-
-    private void updateData() {
+    public void updateData() {
         if (shopBean != null) {
             infoGoodsName.setText(shopBean.getPM_Name());
             goodsCode.setText("条码：" + shopBean.getPM_Code());

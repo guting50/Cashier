@@ -1,6 +1,5 @@
 package com.wycd.yushangpu.ui.fragment;
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,21 +28,18 @@ import com.wycd.yushangpu.model.ImpShopHome;
 import com.wycd.yushangpu.tools.GlideTransform;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.StringUtil;
-import com.wycd.yushangpu.ui.HomeActivity;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class GoodsListFragment extends Fragment {
+public class GoodsListFragment extends BaseFragment {
 
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
@@ -61,26 +57,17 @@ public class GoodsListFragment extends Fragment {
     private int PageSize = 20;
     public String PT_GID = "";
 
-    HomeActivity homeActivity;
-    Adapter adapter;
-    View rootView;
+    private Adapter adapter;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_goods_list, null);
-        return rootView;
+    public int getContentView() {
+        return R.layout.fragment_goods_list;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        homeActivity = (HomeActivity) getActivity();
-
+    public void onCreated() {
         initView();
         obtainShopClass();
-
         obtainHomeShop(true);
     }
 

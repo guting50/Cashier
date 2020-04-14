@@ -1,6 +1,5 @@
 package com.wycd.yushangpu.ui.fragment;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,25 +23,19 @@ import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpOnlyVipMsg;
 import com.wycd.yushangpu.tools.GlideTransform;
 import com.wycd.yushangpu.tools.NullUtils;
-import com.wycd.yushangpu.ui.HomeActivity;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class VipMemberFragment extends Fragment {
-    private HomeActivity homeActivity;
-    View rootView;
-
+public class VipMemberFragment extends BaseFragment {
     @BindView(R.id.search_list)
     XRecyclerView searchList;
     @BindView(R.id.edit_text_layout)
@@ -56,26 +49,17 @@ public class VipMemberFragment extends Fragment {
     @BindView(R.id.null_state_layout)
     LinearLayout nullStateLayout;
 
-    MemberAdapter memberAdapter;
+    private MemberAdapter memberAdapter;
     private int pageIndex = 1;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_vip_member, null);
-        homeActivity = (HomeActivity) getActivity();
-        return rootView;
+    private AddOrEditMemberFragment addOrEditMemberFragment;
+    private VipInfoMsg infoMsg;
+
+    public int getContentView() {
+        return R.layout.fragment_vip_member;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        ButterKnife.bind(this, rootView);
-
-        init();
-    }
-
-    private void init() {
+    public void onCreated() {
         searchList.setLayoutManager(new LinearLayoutManager(homeActivity));
         memberAdapter = new MemberAdapter();
         searchList.setAdapter(memberAdapter);
@@ -109,12 +93,35 @@ public class VipMemberFragment extends Fragment {
                     memberAdapter.selectedHolder.rootView.setBackgroundResource(R.color.white);
                 break;
             case R.id.iv_add_member://新增会员
+                if (addOrEditMemberFragment == null) {
+                    addOrEditMemberFragment = new AddOrEditMemberFragment();
+                    homeActivity.fragmentManager.beginTransaction().add(R.id.fragment_vip_content, addOrEditMemberFragment).commit();
+                } else
+                    homeActivity.fragmentManager.beginTransaction().show(addOrEditMemberFragment).commit();
+                addOrEditMemberFragment.setData(null);
+                break;
+            case R.id.ly_update_info://修改资料
+                if (addOrEditMemberFragment == null) {
+                    addOrEditMemberFragment = new AddOrEditMemberFragment();
+                    homeActivity.fragmentManager.beginTransaction().add(R.id.fragment_vip_content, addOrEditMemberFragment).commit();
+                } else
+                    homeActivity.fragmentManager.beginTransaction().show(addOrEditMemberFragment).commit();
+                addOrEditMemberFragment.setData(infoMsg);
                 break;
             case R.id.ly_vip_recharge://会员充值
                 break;
             case R.id.ly_goods_consume://商品消费
-                break;
-            case R.id.ly_update_info://修改资料
+                homeActivity.onTaskbarClick(homeActivity.btn_cashier);
+                ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
+                homeActivity.dialog.show();
+                onlyVipMsg.vipMsg(infoMsg.getVCH_Card(), new InterfaceBack<VipInfoMsg>() {
+                    @Override
+                    public void onResponse(VipInfoMsg response) {
+                        homeActivity.dialog.dismiss();
+                        infoMsg = response;
+                        homeActivity.cashierFragment.selectedVIP(infoMsg);
+                    }
+                });
                 break;
         }
     }
@@ -161,6 +168,7 @@ public class VipMemberFragment extends Fragment {
     }
 
     private void showMemberInfo(VipInfoMsg info) {
+        infoMsg = info;
         memberHeadInfoLayout.setVisibility(View.VISIBLE);
         memberInfoLayout.setVisibility(View.VISIBLE);
         Glide.with(getContext()).load(ImgUrlTools.obtainUrl(NullUtils.noNullHandle(info.getVIP_HeadImg()).toString()))

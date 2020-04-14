@@ -12,7 +12,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -20,7 +19,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -54,7 +52,6 @@ import com.wycd.yushangpu.tools.LogUtils;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.UpdateAppVersion;
 import com.wycd.yushangpu.tools.Utils;
-import com.wycd.yushangpu.ui.HomeActivity;
 import com.wycd.yushangpu.ui.LoginActivity;
 import com.wycd.yushangpu.ui.LogoActivity;
 import com.wycd.yushangpu.widget.dialog.NoticeDialog;
@@ -69,11 +66,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.fragment.app.Fragment;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static android.hardware.usb.UsbManager.ACTION_USB_DEVICE_ATTACHED;
@@ -85,7 +78,7 @@ import static com.wycd.yushangpu.MyApplication.LABELPRINT_IS_OPEN;
 import static com.wycd.yushangpu.MyApplication.myBinder;
 import static com.wycd.yushangpu.tools.Constant.ACTION_USB_PERMISSION;
 
-public class PrintSetFragment extends Fragment {
+public class PrintSetFragment extends BaseFragment {
 
     private String TAG = "PrintSetFragment";
 
@@ -138,45 +131,25 @@ public class PrintSetFragment extends Fragment {
     private UsbManager usbManager;
     private PendingIntent mPermissionIntent;
 
-    ShopInfoBean shopInfoBean;
+    private ShopInfoBean shopInfoBean;
 
-    private HomeActivity homeActivity;
-    View rootView;
-    private boolean isInit;
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.activity_print_set, null);
-        homeActivity = (HomeActivity) getActivity();
-        return rootView;
+    public int getContentView() {
+        return R.layout.activity_print_set;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        ButterKnife.bind(this, rootView);
-
+    public void onCreated() {
         usbManager = (UsbManager) getActivity().getSystemService(Context.USB_SERVICE);
 
         initView();
         setListener();
         initBroadcast();
-
     }
 
     public void setData(ShopInfoBean shopInfoBean) {
         this.shopInfoBean = shopInfoBean;
-        if (isInit)
-            updateData();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (!isInit)
-            updateData();
-        isInit = true;
+        super.setData();
     }
 
     private void initView() {
@@ -239,7 +212,7 @@ public class PrintSetFragment extends Fragment {
 
     }
 
-    private void updateData() {
+    public void updateData() {
         mEtGoodsConsume.requestFocus();
         if (LABELPRINT_IS_OPEN) {
             rbPrinterLabel.setVisibility(View.VISIBLE);

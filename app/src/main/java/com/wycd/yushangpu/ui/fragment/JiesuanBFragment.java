@@ -1,7 +1,6 @@
 package com.wycd.yushangpu.ui.fragment;
 
 import android.app.Dialog;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -64,10 +63,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -77,7 +74,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.wycd.yushangpu.MyApplication.shortMessage;
 
-public class JiesuanBFragment extends Fragment {
+public class JiesuanBFragment extends BaseFragment {
 
     private List<ShopMsg> list;
     private AppCompatActivity context;
@@ -142,7 +139,6 @@ public class JiesuanBFragment extends Fragment {
 
     PayModeListAdapter payModeListAdapter;
 
-    private boolean isInit;
     private InterfaceBack back;
     private List<PayTypeMsg> payModeList;
     private PayTypeMsg defaultMode;
@@ -166,7 +162,6 @@ public class JiesuanBFragment extends Fragment {
     private int consumeCheck = 0;//1 余额消费密码验证 ；2 余额消费短信验证码验证
     private double yueMoney = 0;
 
-    View rootView;
     NumKeyboardUtils numKeyboardUtils;
 
     public enum OrderType {
@@ -196,24 +191,17 @@ public class JiesuanBFragment extends Fragment {
         }
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.dialog_jiesuan_new, null);
-        return rootView;
+    public int getContentView() {
+        return R.layout.dialog_jiesuan_new;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        ButterKnife.bind(this, rootView);
-
+    public void onCreated() {
         numKeyboardUtils = new NumKeyboardUtils(getActivity(), rootView, et_moling);
-
         this.context = (AppCompatActivity) getActivity();
 
         setView();
-
         setCbShortMessage("011");
         dialog = LoadingDialog.loadingDialog(context, 1);
     }
@@ -232,19 +220,10 @@ public class JiesuanBFragment extends Fragment {
         this.payModeList = paylist;
         this.orderType = orderType;
         this.back = back;
-        if (isInit)
-            updateData();
+        super.setData();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (!TextUtils.isEmpty(totalMoney) && !isInit)
-            updateData();
-        isInit = true;
-    }
-
-    private void updateData() {
+    public void updateData() {
         et_moling.setText("");
         tv_zhaoling.setText("");
         tvCouponMoney.setText("");

@@ -1,6 +1,5 @@
 package com.wycd.yushangpu.ui.fragment;
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +27,6 @@ import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpOnlyVipMsg;
 import com.wycd.yushangpu.model.ImpSubmitOrder;
-import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.StringUtil;
@@ -42,26 +40,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
 /**
  * Created by songxiaotao on 2017/12/21.
  */
 
-public class QudanFragment extends Fragment {
+public class QudanFragment extends BaseFragment {
     @BindView(R.id.listview)
     XRecyclerView listview;
     @BindView(R.id.iv_close)
     ImageView ivClose;
     private InterfaceBack back;
     private List<GuadanList> list = new ArrayList<>();
-    private HomeActivity homeActivity;
     private GuadanListAdapter guadanListAdapter;
     private VipInfoMsg mVipMsg;
     private ArrayList<ShopMsg> mShopLeftList = new ArrayList<>();
@@ -70,7 +64,6 @@ public class QudanFragment extends Fragment {
     private int refreshnum = 2;
     private boolean mIsLoadMore;
     private int mPageTotal;//数据总页数
-    View rootView;
 
     private boolean isGuaDan;
     private String orderCode, orderTime, vipCard;
@@ -81,21 +74,15 @@ public class QudanFragment extends Fragment {
     }
 
     public QudanFragment(HomeActivity activity) {
-        this.homeActivity = activity;
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.dialog_gualist, container, false);
-        return rootView;
+        homeActivity = activity;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        ButterKnife.bind(this, rootView);
+    public int getContentView() {
+        return R.layout.dialog_gualist;
+    }
 
+    public void onCreated() {
         guadanListAdapter = new GuadanListAdapter();
         listview.setLayoutManager(new GridLayoutManager(homeActivity, 3));
         listview.setAdapter(guadanListAdapter);
@@ -228,7 +215,7 @@ public class QudanFragment extends Fragment {
                         list.add(guadanList);
                     }
                 }
-                updateData();
+                upData();
                 homeActivity.cashierFragment.updateBttGetOrder();
             }
 
@@ -241,7 +228,7 @@ public class QudanFragment extends Fragment {
         });
     }
 
-    private void updateData() {
+    public void upData() {
         if (this.isResumed()) {
             guadanListAdapter.notifyDataSetChanged();
             mIsLoadMore = false;

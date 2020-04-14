@@ -271,7 +271,7 @@ public class HomeActivity extends BaseActivity {
     }
 
     @BindView(R.id.btn_cashier)
-    ImageView btn_cashier;
+    public ImageView btn_cashier;
     @BindView(R.id.btn_home_set)
     ImageView btn_home_set;
     @BindView(R.id.btn_member)
