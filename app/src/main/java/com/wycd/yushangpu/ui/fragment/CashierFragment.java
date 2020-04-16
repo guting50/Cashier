@@ -328,7 +328,6 @@ public class CashierFragment extends BaseFragment {
                                     @Override
                                     public void onResponse(OrderCanshhu response) {
                                         toJieSuan(response, JiesuanBFragment.OrderType.CELERITY_ORDER);
-                                        homeActivity.dialog.dismiss();
                                     }
 
                                     @Override
@@ -342,7 +341,6 @@ public class CashierFragment extends BaseFragment {
                                     @Override
                                     public void onResponse(OrderCanshhu response) {
                                         toJieSuan(response, JiesuanBFragment.OrderType.CONSUM_ORDER);
-                                        homeActivity.dialog.dismiss();
                                     }
 
                                     @Override

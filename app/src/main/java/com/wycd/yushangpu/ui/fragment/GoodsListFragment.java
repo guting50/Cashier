@@ -32,6 +32,8 @@ import com.wycd.yushangpu.tools.StringUtil;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -202,7 +204,6 @@ public class GoodsListFragment extends BaseFragment {
 //                    }
 //                }
                 adapter.notifyDataSetChanged();
-                homeActivity.dialog.dismiss();
                 emptyStateLayout.setVisibility(View.GONE);
                 if (adapter.getShopMsgList().size() <= 0) {
                     emptyStateLayout.setVisibility(View.VISIBLE);
@@ -215,6 +216,17 @@ public class GoodsListFragment extends BaseFragment {
                 } else {
                     goodsList.setLoadingMoreEnabled(true);
                 }
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        homeActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                homeActivity.dialog.dismiss();
+                            }
+                        });
+                    }
+                }, 500);
             }
 
             @Override

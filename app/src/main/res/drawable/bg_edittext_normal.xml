@@ -5,6 +5,4 @@
     <stroke
         android:width="0.3dp"
         android:color="@color/view_gray_line" />
-
-
 </shape>

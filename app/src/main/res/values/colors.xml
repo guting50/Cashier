@@ -101,9 +101,10 @@
     <color name="color_8492a6">#8492a6</color>
     <color name="color_fe3d51">#fe3d51</color>
     <color name="color_999999">#999999</color>
+    <color name="color_149f4a">#149f4a</color>
     <color name="transparent">#00000000</color>
 
 
-<!--    <color name="mtrl_textinput_default_box_stroke_color">@color/textgreen</color>-->
+    <!--    <color name="mtrl_textinput_default_box_stroke_color">@color/textgreen</color>-->
 
 </resources>

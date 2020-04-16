@@ -30,7 +30,6 @@ public class YuangongAdapter extends BaseAdapter {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
-
     }
 
     @Override

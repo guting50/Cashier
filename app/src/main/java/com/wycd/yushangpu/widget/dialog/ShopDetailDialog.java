@@ -45,13 +45,18 @@ import java.util.List;
  */
 
 public class ShopDetailDialog {
-    private static List<ValiRuleMsg> bumenlist = new ArrayList<>();
     private static List<EmplMsg> emplist = new ArrayList<>();
     private static List<String> mEmplMsgList3;
     private static String mSmGid;
+    private static boolean isSingle;
 
     public static Dialog shopdetailDialog(final Activity context, final ShopMsg mShopMsg, String VGID, List<String> mEmplGidList,
                                           String SmGid, int showingLocation, final InterfaceBack back) {
+        return shopdetailDialog(context, mShopMsg, VGID, mEmplGidList, SmGid, showingLocation, false, back);
+    }
+
+    public static Dialog shopdetailDialog(final Activity context, final ShopMsg mShopMsg, String VGID, List<String> mEmplGidList,
+                                          String SmGid, int showingLocation, boolean single, final InterfaceBack back) {
         final Dialog dialog;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.dialog_shopdetail, null);
@@ -72,6 +77,7 @@ public class ShopDetailDialog {
         final List<EmplMsg> mEmplMsgList = new ArrayList<>();
         mEmplMsgList3 = mEmplGidList;
         mSmGid = SmGid;
+        isSingle = single;
 
         //员工适配器
         final YuangongAdapter yuangongAdapter = new YuangongAdapter(context, mEmplMsgList);
@@ -116,6 +122,9 @@ public class ShopDetailDialog {
                     mEmplMsgList.get(i).setIschose(true);
                 }
                 yuangongAdapter.notifyDataSetChanged();
+                if (isSingle) {
+                    rl_confirm.performClick();
+                }
             }
         });
 
@@ -184,8 +193,13 @@ public class ShopDetailDialog {
     }
 
     private static void obtainBumenList(Dialog loadingdialog, ShopMsg mShopMsg, String VGID,
-                                        List<ValiRuleMsg> ValiRuleMsg, List<EmplMsg> emplMsgList, YuangongAdapter yuangongAdapter) {
+                                        List<ValiRuleMsg> valiRuleMsg, List<EmplMsg> emplMsgList, YuangongAdapter yuangongAdapter) {
         loadingdialog.show();
+
+        if (mShopMsg == null) {
+            obtainEmpList(loadingdialog, null, emplMsgList, yuangongAdapter);
+            return;
+        }
 
         RequestParams params = new RequestParams();
 //        Type	提成类型	int	否
@@ -205,40 +219,43 @@ public class ShopDetailDialog {
                 Type listType = new TypeToken<List<ValiRuleMsg>>() {
                 }.getType();
                 List<ValiRuleMsg> mValiRuleMsgList = response.getData(listType);
-                bumenlist.clear();
-                bumenlist.addAll(mValiRuleMsgList);
-                ValiRuleMsg.addAll(mValiRuleMsgList);
-                //预加载接口获取员工列表
-                RequestParams params = new RequestParams();
-                params.put("PageIndex", 1);
-                params.put("PageSize", 10000);
-                params.put("SM_GID", MyApplication.loginBean.getShopID());
-                AsyncHttpUtils.postHttp(HttpAPI.API().GET_EMPLLIST, params, new CallBack() {
-                    @Override
-                    public void onResponse(BaseRes response) {
-                        loadingdialog.dismiss();
-                        Type listType = new TypeToken<List<EmplMsg>>() {
-                        }.getType();
-                        List<EmplMsg> sllist = response.getData(BasePageRes.class).getData(listType);
-                        choseEmplList(ValiRuleMsg, sllist, emplMsgList, yuangongAdapter);
-                        HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
-                        event.setMsg("Change_color");
-                        EventBus.getDefault().post(event);
-                    }
-
-                    @Override
-                    public void onErrorResponse(Object msg) {
-                        loadingdialog.dismiss();
-                        HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
-                        event.setMsg("Change_color");
-                        EventBus.getDefault().post(event);
-                    }
-                });
+                valiRuleMsg.addAll(mValiRuleMsgList);
+                obtainEmpList(loadingdialog, valiRuleMsg, emplMsgList, yuangongAdapter);
             }
 
             @Override
             public void onErrorResponse(Object msg) {
                 super.onErrorResponse(msg);
+                loadingdialog.dismiss();
+                HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
+                event.setMsg("Change_color");
+                EventBus.getDefault().post(event);
+            }
+        });
+    }
+
+    private static void obtainEmpList(Dialog loadingdialog, List<ValiRuleMsg> valiRuleMsg,
+                                      List<EmplMsg> emplMsgList, YuangongAdapter yuangongAdapter) {
+        //预加载接口获取员工列表
+        RequestParams params = new RequestParams();
+        params.put("PageIndex", 1);
+        params.put("PageSize", 10000);
+        params.put("SM_GID", MyApplication.loginBean.getShopID());
+        AsyncHttpUtils.postHttp(HttpAPI.API().GET_EMPLLIST, params, new CallBack() {
+            @Override
+            public void onResponse(BaseRes response) {
+                loadingdialog.dismiss();
+                Type listType = new TypeToken<List<EmplMsg>>() {
+                }.getType();
+                List<EmplMsg> sllist = response.getData(BasePageRes.class).getData(listType);
+                choseEmplList(valiRuleMsg, sllist, emplMsgList, yuangongAdapter);
+                HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
+                event.setMsg("Change_color");
+                EventBus.getDefault().post(event);
+            }
+
+            @Override
+            public void onErrorResponse(Object msg) {
                 loadingdialog.dismiss();
                 HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
                 event.setMsg("Change_color");
@@ -262,14 +279,18 @@ public class ShopDetailDialog {
                 first.add(emplMsg);
             }
         }
-        //   过滤调没有提成部门的员工
-        for (EmplMsg em : first) {
-            for (ValiRuleMsg valiRuleMsg : valiRuleMsgList) {
-                if (em.getDM_GID().equals(valiRuleMsg.getGID())) {
-                    emplMsgList.add(em);
-                    emplist.add(em);
+        if (valiRuleMsgList != null) {
+            //   过滤调没有提成部门的员工
+            for (EmplMsg em : first) {
+                for (ValiRuleMsg valiRuleMsg : valiRuleMsgList) {
+                    if (em.getDM_GID().equals(valiRuleMsg.getGID())) {
+                        emplMsgList.add(em);
+                        emplist.add(em);
+                    }
                 }
             }
+        } else {
+            emplist.addAll(first);
         }
         if (mEmplMsgList3 != null && mEmplMsgList3.size() > 0) {
             for (int i = 0; i < mEmplMsgList3.size(); i++) {

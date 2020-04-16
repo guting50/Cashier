@@ -13,7 +13,7 @@ import com.wycd.yushangpu.http.HttpAPI;
  */
 
 public class ImpPreLoading {
-    public static ReportMessageBean REPORT_BEAN;
+    public static ReportMessageBean REPORT_BEAN = new ReportMessageBean();
 
     public static void preLoad() {
         AsyncHttpUtils.postHttp(HttpAPI.API().PRE_LOAD, new CallBack() {

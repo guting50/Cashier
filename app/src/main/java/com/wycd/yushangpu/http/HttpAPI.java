@@ -179,6 +179,8 @@ public class HttpAPI {
         public static final String GET_VIP_SMS_VERIFY = MyApplication.BASE_URL + "api/VIP/GetVIPSmsVerify";
         //验证短信验证码
         public static final String CHECK_VERIFY = MyApplication.BASE_URL + "api/VIP/CheckVerify";
+        //会员标签
+        public static final String MEMBER_LABEL = MyApplication.BASE_URL + "api/MemberLabel/QueryDataList";
 
     }
 

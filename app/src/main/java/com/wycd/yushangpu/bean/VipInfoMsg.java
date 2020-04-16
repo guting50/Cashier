@@ -32,6 +32,7 @@ public class VipInfoMsg implements Serializable {
     private Object SM_GID;//开卡店铺
     private String SM_Name;
     private String EM_Name; //办卡人员
+    private double MA_AggregateAmount;//初始金额
 
     private Object VIP_RegSource;
     private int VIP_IsLunarCalendar;
@@ -53,7 +54,6 @@ public class VipInfoMsg implements Serializable {
     private Object MberChargeList;
     private Object CustomeFieldList;
     private int VIP_IsDeleted;
-    private double MA_AggregateAmount;
     private double MA_AggregateStoredValue;
     private int MCA_TotalCharge;
     private String MA_UpdateTime;
