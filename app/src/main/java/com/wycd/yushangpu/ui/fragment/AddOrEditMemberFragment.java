@@ -131,7 +131,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
     private List<ReportMessageBean.GetCustomFieldsVIPBean> costomfields;
     private List<MemberLabel> mModelLabel;
     private List<String> mGradeNameList = new ArrayList<>();//会员等级名称集合
-    private List<String> mModelLabelList = new ArrayList<>();//会员等级名称集合
+    private List<String> mModelLabelList = new ArrayList<>();
     private List<String> mPayWayList = new ArrayList<>();
     private List<LabelBean> mLabList = new ArrayList<>();
 
@@ -280,6 +280,25 @@ public class AddOrEditMemberFragment extends BaseFragment {
             et_SM_Name.setText(vipInfoMsg.getSM_Name());
             et_VCH_Fee.setText(vipInfoMsg.getVCH_Fee() + "");
             et_VIP_Label.setText(vipInfoMsg.getVIP_Label());
+            //标签
+            StringBuilder mLabName = new StringBuilder();
+            if (!TextUtils.isEmpty(vipInfoMsg.getVIP_Label())) {
+                Type listType = new TypeToken<List<LabelBean>>() {
+                }.getType();
+                List<LabelBean> varLabBean = new Gson().fromJson(vipInfoMsg.getVIP_Label(), listType);
+                if (varLabBean != null) {
+                    mLabList.clear();
+                    for (int i = 0; i < varLabBean.size(); i++) {
+                        mLabList.add(varLabBean.get(i));
+                        if (i == varLabBean.size() - 1 || i == 0) {
+                            mLabName.append(varLabBean.get(i).getItemName());
+                        } else {
+                            mLabName.append(varLabBean.get(i).getItemName() + "、");
+                        }
+                    }
+                }
+            }
+            et_VIP_Label.setText(mLabName);
             et_VIP_Remark.setText(vipInfoMsg.getVIP_Remark());
 
             for (int i = 0; i < costomfields.size(); i++) {
@@ -395,7 +414,6 @@ public class AddOrEditMemberFragment extends BaseFragment {
                 }
             }
         });
-        mLabList.clear();
 
         onClick(rootView.findViewById(R.id.tv_basic_data));
     }
@@ -590,6 +608,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
 
                         @Override
                         public void onResponse(Object response) {
+                            mLabList.clear();
                             et_VIP_Label.setText(mModelLabel.get((int) response).getML_Name());
                             LabelBean labelBean = new LabelBean();
                             labelBean.setItemName(mModelLabel.get((int) response).getML_Name());
@@ -792,7 +811,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
         params.put("VIP_FixedPhone", "");
         params.put("SM_Name", "默认店铺");//店铺名称
         params.put("VIP_Referee", mRecommendCardNum);//推荐人卡号
-        params.put("VIP_Label", getLab(mLabList));//标签
+        params.put("VIP_Label", new Gson().toJson(mLabList));//标签
         params.put("VIP_Addr", mAddress);
         params.put("VIP_Remark", mRemark);
         params.put("VIP_FaceNumber", mcardId);//卡面号码
@@ -861,19 +880,6 @@ public class AddOrEditMemberFragment extends BaseFragment {
                 }
             }
         });
-    }
-
-    private String getLab(List<LabelBean> labList) {
-        String labString = "";
-        List<LabelBean> list = new ArrayList<>();
-        Gson gson = new Gson();
-        for (int i = 0; i < labList.size(); i++) {
-            if (labList.get(i).isChecked()) {
-                list.add(labList.get(i));
-            }
-        }
-        labString = gson.toJson(list);
-        return labString;
     }
 
     private void warnDialog(String msg) {

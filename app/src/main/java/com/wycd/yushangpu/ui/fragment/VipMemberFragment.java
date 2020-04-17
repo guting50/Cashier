@@ -13,9 +13,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wycd.yushangpu.R;
+import com.wycd.yushangpu.bean.LabelBean;
 import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.http.BasePageRes;
 import com.wycd.yushangpu.http.ImgUrlTools;
@@ -194,7 +196,22 @@ public class VipMemberFragment extends BaseFragment {
         ((TextView) rootView.findViewById(R.id.tv_email)).setText(info.getVIP_Email());
         ((TextView) rootView.findViewById(R.id.tv_fee)).setText(info.getVCH_Fee() + "");
         ((TextView) rootView.findViewById(R.id.tv_addr)).setText(info.getVIP_Addr());
-        ((TextView) rootView.findViewById(R.id.tv_label)).setText(info.getVIP_Label());
+        StringBuilder mLabName = new StringBuilder();
+        if (!TextUtils.isEmpty(info.getVIP_Label())) {
+            Type listType = new TypeToken<List<LabelBean>>() {
+            }.getType();
+            List<LabelBean> varLabBean = new Gson().fromJson(info.getVIP_Label(), listType);
+            if (varLabBean != null) {
+                for (int i = 0; i < varLabBean.size(); i++) {
+                    if (i == varLabBean.size() - 1 || i == 0) {
+                        mLabName.append(varLabBean.get(i).getItemName());
+                    } else {
+                        mLabName.append(varLabBean.get(i).getItemName() + "、");
+                    }
+                }
+            }
+        }
+        ((TextView) rootView.findViewById(R.id.tv_label)).setText(mLabName);
         String VIP_State = "";
         switch (info.getVIP_State()) {
             case 0:
