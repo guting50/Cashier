@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.gt.utils.view.BgFrameLayout
+        android:layout_width="135dp"
+        android:layout_height="78dp"
+        android:orientation="vertical"
+        app:corners_radius="5dp"
+        app:solid_color="@color/white"
+        app:stroke_color="@color/view_color"
+        app:stroke_width="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_RechargeMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/title_color"
+                android:textSize="26sp" />
+
+            <TextView
+                android:id="@+id/tv_RP_GiveMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/title_color"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/ed_RechargeMoney"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/selector_edit_green_gray"
+            android:gravity="center"
+            android:hint="其他金额"
+            android:inputType="number"
+            android:visibility="gone" />
+
+    </com.gt.utils.view.BgFrameLayout>
+</FrameLayout>

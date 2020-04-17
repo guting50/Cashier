@@ -189,6 +189,8 @@ public class HttpAPI {
         public static final String EDIVIP = MyApplication.BASE_URL + "api/VIP/EditVIP";
         //上传会员头像
         public static final String UPLOAD_MEMBER_PHOTO = MyApplication.BASE_URL + "api/RecvImage/UploadImg";
+        //获取有效优惠活动
+        public static final String DISSCOUNT_ACTIVITY = MyApplication.BASE_URL + "api/RechargePackage/GetValidList";
     }
 
 }

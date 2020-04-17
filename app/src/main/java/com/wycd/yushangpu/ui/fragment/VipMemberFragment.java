@@ -55,6 +55,7 @@ public class VipMemberFragment extends BaseFragment {
     private int pageIndex = 1;
 
     private AddOrEditMemberFragment addOrEditMemberFragment;
+    private MemberRechargeFragment memberRechargeFragment;
     private VipInfoMsg infoMsg;
     private ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
 
@@ -120,6 +121,20 @@ public class VipMemberFragment extends BaseFragment {
                 });
                 break;
             case R.id.ly_vip_recharge://会员充值
+                if (memberRechargeFragment == null) {
+                    memberRechargeFragment = new MemberRechargeFragment();
+                    homeActivity.fragmentManager.beginTransaction().add(R.id.fragment_vip_content, memberRechargeFragment).commit();
+                } else
+                    homeActivity.fragmentManager.beginTransaction().show(memberRechargeFragment).commit();
+                homeActivity.dialog.show();
+                onlyVipMsg.vipMsg(infoMsg.getVCH_Card(), new InterfaceBack<VipInfoMsg>() {
+                    @Override
+                    public void onResponse(VipInfoMsg response) {
+                        homeActivity.dialog.dismiss();
+                        infoMsg = response;
+                        memberRechargeFragment.setData(infoMsg);
+                    }
+                });
                 break;
             case R.id.ly_goods_consume://商品消费
                 homeActivity.onTaskbarClick(homeActivity.btn_cashier);

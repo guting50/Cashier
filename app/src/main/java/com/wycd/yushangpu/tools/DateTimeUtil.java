@@ -36,6 +36,15 @@ public class DateTimeUtil {
         return currentTime;
     }
 
+    public static String getReallyTimeNow(String pattern) {
+        SimpleDateFormat format = new SimpleDateFormat(pattern);
+        format.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+//        Date curDate = new Date(System.currentTimeMillis());
+
+        String currentTime = format.format(System.currentTimeMillis());
+        return currentTime;
+    }
+
     /**
      * 获取昨天日期
      *
