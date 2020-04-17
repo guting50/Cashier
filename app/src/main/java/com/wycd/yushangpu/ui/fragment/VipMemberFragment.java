@@ -54,6 +54,7 @@ public class VipMemberFragment extends BaseFragment {
 
     private AddOrEditMemberFragment addOrEditMemberFragment;
     private VipInfoMsg infoMsg;
+    private ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
 
     public int getContentView() {
         return R.layout.fragment_vip_member;
@@ -106,13 +107,20 @@ public class VipMemberFragment extends BaseFragment {
                     homeActivity.fragmentManager.beginTransaction().add(R.id.fragment_vip_content, addOrEditMemberFragment).commit();
                 } else
                     homeActivity.fragmentManager.beginTransaction().show(addOrEditMemberFragment).commit();
-                addOrEditMemberFragment.setData(infoMsg);
+                homeActivity.dialog.show();
+                onlyVipMsg.vipMsg(infoMsg.getVCH_Card(), new InterfaceBack<VipInfoMsg>() {
+                    @Override
+                    public void onResponse(VipInfoMsg response) {
+                        homeActivity.dialog.dismiss();
+                        infoMsg = response;
+                        addOrEditMemberFragment.setData(infoMsg);
+                    }
+                });
                 break;
             case R.id.ly_vip_recharge://会员充值
                 break;
             case R.id.ly_goods_consume://商品消费
                 homeActivity.onTaskbarClick(homeActivity.btn_cashier);
-                ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
                 homeActivity.dialog.show();
                 onlyVipMsg.vipMsg(infoMsg.getVCH_Card(), new InterfaceBack<VipInfoMsg>() {
                     @Override

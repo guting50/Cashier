@@ -1,20 +1,36 @@
 package com.wycd.yushangpu.ui.fragment;
 
+import android.net.Uri;
+import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.gt.photopicker.PhotoPickerActivity;
+import com.gt.photopicker.SelectModel;
+import com.gt.photopicker.intent.PhotoPickerIntent;
+import com.gt.utils.PermissionUtils;
+import com.gt.utils.view.OnNoDoubleClickListener;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.EmplMsg;
+import com.wycd.yushangpu.bean.LabelBean;
 import com.wycd.yushangpu.bean.MemberLabel;
 import com.wycd.yushangpu.bean.ReportMessageBean;
 import com.wycd.yushangpu.bean.VipInfoMsg;
@@ -22,15 +38,23 @@ import com.wycd.yushangpu.http.AsyncHttpUtils;
 import com.wycd.yushangpu.http.BaseRes;
 import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
+import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpPreLoading;
+import com.wycd.yushangpu.printutil.HttpGetPrintContents;
 import com.wycd.yushangpu.tools.DateTimeUtil;
 import com.wycd.yushangpu.tools.Decima2KeeplUtil;
+import com.wycd.yushangpu.tools.GlideTransform;
+import com.wycd.yushangpu.tools.NullUtils;
+import com.wycd.yushangpu.tools.RegexUtil;
+import com.wycd.yushangpu.widget.MaxHeightRecyclerView;
 import com.wycd.yushangpu.widget.calendarselecter.CalendarSelector;
 import com.wycd.yushangpu.widget.calendarselecter.DateUtil;
 import com.wycd.yushangpu.widget.dialog.ShopDetailDialog;
 import com.wycd.yushangpu.widget.dialog.VipChooseDialog;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,6 +64,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -72,23 +97,28 @@ public class AddOrEditMemberFragment extends BaseFragment {
     EditText et_VIP_CellPhone;
     @BindView(R.id.et_VG_GID)
     TextView et_VG_GID;
+    @BindView(R.id.et_VCH_Pwd)
+    EditText et_VCH_Pwd;
+    @BindView(R.id.et_VCH_Pwd_Confirm)
+    EditText et_VCH_Pwd_Confirm;
     @BindView(R.id.et_VIP_Birthday)
     TextView et_VIP_Birthday;
-    @BindView(R.id.et_VIP_Email)
-    EditText et_VIP_Email;
-    @BindView(R.id.et_VIP_FixedPhone)
-    EditText et_VIP_FixedPhone;
     @BindView(R.id.et_MA_AvailableIntegral)
     EditText et_MA_AvailableIntegral;
     @BindView(R.id.et_SM_Name)
-    EditText et_SM_Name;
+    TextView et_SM_Name;
     @BindView(R.id.et_VCH_Fee)
     EditText et_VCH_Fee;
     @BindView(R.id.et_VIP_Label)
     TextView et_VIP_Label;
     @BindView(R.id.et_VIP_Remark)
     EditText et_VIP_Remark;
-
+    @BindView(R.id.tv_select_Pay_Way)
+    TextView tv_select_Pay_Way;
+    @BindView(R.id.recycler_view_costomfields)
+    RecyclerView recycler_view_costomfields;
+    @BindView(R.id.iv_edit_head_img)
+    ImageView iv_edit_head_img;
 
     @BindView(R.id.select_recycler_view)
     RecyclerView select_recycler_view;
@@ -97,10 +127,13 @@ public class AddOrEditMemberFragment extends BaseFragment {
     private boolean mCardContactPhone, mIsfilltel = true;//会员卡号同手机号
     private boolean isCardNum;
     private SelectAdapter selectAdapter;
-    List<ReportMessageBean.VIPGradeListBean> mMemberGrade;
-    List<MemberLabel> mModelLabel;
+    private List<ReportMessageBean.VIPGradeListBean> mMemberGrade;
+    private List<ReportMessageBean.GetCustomFieldsVIPBean> costomfields;
+    private List<MemberLabel> mModelLabel;
     private List<String> mGradeNameList = new ArrayList<>();//会员等级名称集合
     private List<String> mModelLabelList = new ArrayList<>();//会员等级名称集合
+    private List<String> mPayWayList = new ArrayList<>();
+    private List<LabelBean> mLabList = new ArrayList<>();
 
     @Override
     public int getContentView() {
@@ -116,6 +149,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
         et_EM_Name.setOnFocusChangeListener(onFocusChangeListener);
         et_MA_AvailableIntegral.setOnFocusChangeListener(onFocusChangeListener);
         et_VIP_Birthday.setOnFocusChangeListener(onFocusChangeListener);
+        et_VCH_Fee.setOnFocusChangeListener(onFocusChangeListener);
 
         rootView.findViewById(R.id.tv_VIP_Sex_0).setSelected(true);
         rootView.findViewById(R.id.et_select_VIP_Referee).setSelected(true);
@@ -174,6 +208,10 @@ public class AddOrEditMemberFragment extends BaseFragment {
     }
 
     protected void updateData() {
+        mMemberGrade = ImpPreLoading.REPORT_BEAN.getVIPGradeList();
+        costomfields = ImpPreLoading.REPORT_BEAN.getGetCustomFieldsVIP();
+        mPayWayList.clear();
+        mPayWayList.add("现金支付");
         if (vipInfoMsg == null) {
             ((TextView) rootView.findViewById(R.id.tv_title)).setText("新增会员");
             et_VCH_Card.setText("");
@@ -189,27 +227,84 @@ public class AddOrEditMemberFragment extends BaseFragment {
             et_VIP_Addr.setText("");
             et_VIP_CellPhone.setText("");
             et_VG_GID.setText("");
+            et_VCH_Pwd.setText("");
+            et_VCH_Pwd_Confirm.setText("");
             et_VIP_Birthday.setText("");
-            et_VIP_Email.setText("");
-            et_VIP_FixedPhone.setText("");
             et_MA_AvailableIntegral.setText("0");
             et_SM_Name.setText(MyApplication.loginBean.getSM_Name());
             et_SM_Name.setTag(MyApplication.loginBean.getShopID());
             et_VCH_Fee.setText("");
             et_VIP_Label.setText("");
             et_VIP_Remark.setText("");
+
+            et_VCH_Card.setEnabled(true);
+            et_VCH_Pwd.setText("");
+            et_VCH_Pwd_Confirm.setText("");
+            et_VCH_Pwd.setEnabled(true);
+            et_VCH_Pwd_Confirm.setEnabled(true);
+            rootView.findViewById(R.id.et_select_EM_Name).setEnabled(false);
+            mPayTypeCode = "XJZF";
+            mPayTypeName = mPayWayList.get(0);
+
+            iv_edit_head_img.setImageResource(R.mipmap.member_head_nohead);
         } else {
             ((TextView) rootView.findViewById(R.id.tv_title)).setText("编辑会员");
+            et_VCH_Card.setEnabled(false);
+            et_VCH_Pwd.setEnabled(false);
+            et_VCH_Pwd_Confirm.setEnabled(false);
+            et_MA_AggregateAmount.setEnabled(false);
+            rootView.findViewById(R.id.et_select_EM_Name).setEnabled(false);
+            et_MA_AvailableIntegral.setEnabled(false);
+            et_VCH_Fee.setEnabled(false);
+            tv_select_Pay_Way.setEnabled(false);
+
+            mGradeGid = vipInfoMsg.getVG_GID();
+            mPayTypeName = vipInfoMsg.getVCH_Fee_PayTypeText();
+
+            et_VCH_Card.setText(vipInfoMsg.getVCH_Card());
+            et_VIP_Name.setText(vipInfoMsg.getVIP_Name());
+            et_VIP_FaceNumber.setText(vipInfoMsg.getVIP_FaceNumber());
+            et_VIP_Overdue.setText(vipInfoMsg.getVIP_Overdue());
+            et_VIP_ICCard.setText(vipInfoMsg.getVIP_ICCard());
+            et_MA_AggregateAmount.setText(vipInfoMsg.getMA_AggregateAmount() + "");
+            et_VIP_Referee.setText(vipInfoMsg.getVIP_Referee());
+            et_EM_Name.setText(vipInfoMsg.getEM_Name());
+            et_VCH_CreateTime.setText(vipInfoMsg.getVCH_CreateTime());
+            et_VIP_Addr.setText(vipInfoMsg.getVIP_Addr());
+            et_VIP_CellPhone.setText(vipInfoMsg.getVIP_CellPhone());
+            et_VG_GID.setText(vipInfoMsg.getVG_GID());
+            et_VCH_Pwd.setText("......");
+            et_VCH_Pwd_Confirm.setText("......");
+            et_VIP_Birthday.setText(vipInfoMsg.getVIP_Birthday());
+            et_MA_AvailableIntegral.setText(vipInfoMsg.getMA_AvailableIntegral() + "");
+            et_SM_Name.setText(vipInfoMsg.getSM_Name());
+            et_VCH_Fee.setText(vipInfoMsg.getVCH_Fee() + "");
+            et_VIP_Label.setText(vipInfoMsg.getVIP_Label());
+            et_VIP_Remark.setText(vipInfoMsg.getVIP_Remark());
+
+            for (int i = 0; i < costomfields.size(); i++) {
+                if (vipInfoMsg.getCustomeFieldList() != null && vipInfoMsg.getCustomeFieldList().size() > 0) {
+                    for (int j = 0; j < vipInfoMsg.getCustomeFieldList().size(); j++) {
+                        if (costomfields.get(i).getCF_FieldName().equals(vipInfoMsg.getCustomeFieldList().get(j).getCF_FieldName())) {
+                            costomfields.get(i).setM_ItemsValue(vipInfoMsg.getCustomeFieldList().get(j).getCF_Value());
+                        }
+                    }
+                }
+            }
+
+            Glide.with(getContext()).load(ImgUrlTools.obtainUrl(NullUtils.noNullHandle(vipInfoMsg.getVIP_HeadImg()).toString()))
+                    .placeholder(R.mipmap.member_head_nohead)
+                    .transform(new CenterCrop(homeActivity), new GlideTransform.GlideCornersTransform(homeActivity, 4))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(iv_edit_head_img);
         }
         List<ReportMessageBean.GetSysSwitchListBean> mSwitchEntity = ImpPreLoading.REPORT_BEAN.getGetSysSwitchList();
 
         mCardContactPhone = false;
-        et_VCH_Card.setEnabled(true);
         mIsfilltel = false;
         ((ViewGroup) et_VIP_CellPhone.getParent()).getChildAt(1).setVisibility(View.INVISIBLE);
         et_VIP_FaceNumber.setEnabled(false);
         isCardNum = false;
-        rootView.findViewById(R.id.et_select_EM_Name).setEnabled(false);
         if (mSwitchEntity != null && mSwitchEntity.size() > 0) {
             for (ReportMessageBean.GetSysSwitchListBean sysSwitchListBean : mSwitchEntity) {
                 switch (sysSwitchListBean.getSS_Code()) {
@@ -232,32 +327,33 @@ public class AddOrEditMemberFragment extends BaseFragment {
                         }
                         break;
                     case "202"://初始密码
-                        if (sysSwitchListBean.getSS_State() == 1) {
-
+                        if (vipInfoMsg == null && sysSwitchListBean.getSS_State() == 1) {
+                            et_VCH_Pwd.setText(sysSwitchListBean.getSS_Value());
+                            et_VCH_Pwd_Confirm.setText(sysSwitchListBean.getSS_Value());
                         }
                         break;
                     case "103"://银联支付
                         if (sysSwitchListBean.getSS_State() == 1) {
-
+                            mPayWayList.add("银联支付");
                         }
                         break;
                     case "101"://现金支付
                         if (sysSwitchListBean.getSS_State() == 1) {
-
+//                            mPayWayList.add("现金支付");
                         }
                         break;
                     case "106"://支付宝记账
                         if (sysSwitchListBean.getSS_State() == 1) {
-
+                            mPayWayList.add("支付宝记账");
                         }
                         break;
                     case "105"://微信记账
                         if (sysSwitchListBean.getSS_State() == 1) {
-
+                            mPayWayList.add("微信记账");
                         }
                         break;
                     case "301": //员工提成
-                        if (sysSwitchListBean.getSS_State() == 1) {
+                        if (vipInfoMsg == null && sysSwitchListBean.getSS_State() == 1) {
                             rootView.findViewById(R.id.et_select_EM_Name).setEnabled(true);
                         }
                         break;
@@ -265,8 +361,10 @@ public class AddOrEditMemberFragment extends BaseFragment {
             }
         }
 
+        tv_select_Pay_Way.setText(mPayTypeName);
+
         getMemberLabel();
-        mMemberGrade = ImpPreLoading.REPORT_BEAN.getVIPGradeList();
+        initCostomfieldsAdapter();
         mGradeNameList.clear();
         if (mMemberGrade != null && mMemberGrade.size() > 0) {
             selectedMemberGrade(mMemberGrade.get(0));
@@ -274,14 +372,49 @@ public class AddOrEditMemberFragment extends BaseFragment {
                 mGradeNameList.add(mMemberGrade.get(i).getVG_Name());
             }
         }
+
+        et_VIP_CellPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (mCardContactPhone) {
+                    if (!TextUtils.isEmpty(s.toString())) {
+                        et_VCH_Card.setText(s.toString());
+                    } else {
+                        et_VCH_Card.setText("");
+                    }
+                }
+            }
+        });
+        mLabList.clear();
+
+        onClick(rootView.findViewById(R.id.tv_basic_data));
+    }
+
+    private void initCostomfieldsAdapter() {
+        recycler_view_costomfields.setLayoutManager(new GridLayoutManager(homeActivity, 2));
+        CostomfieldsAdapter adapter = new CostomfieldsAdapter();
+        recycler_view_costomfields.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     private void selectedMemberGrade(ReportMessageBean.VIPGradeListBean vipGradeListBean) {
+        mGradeGid = vipGradeListBean.getGID();
         et_VG_GID.setText(vipGradeListBean.getVG_Name());
         et_VG_GID.setTag(vipGradeListBean.getGID());
         et_MA_AggregateAmount.setText(Decima2KeeplUtil.stringToDecimal(vipGradeListBean.getVG_InitialAmount() + ""));//会员初始金额
         et_VCH_Fee.setText(vipGradeListBean.getVG_CardAmount() + "");//售卡金额
-        et_MA_AvailableIntegral.setText(vipGradeListBean.getVG_InitialIntegral() + "");//初始积分
+        mInitPoint = (int) vipGradeListBean.getVG_InitialIntegral() + "";//初始积分
+        et_MA_AvailableIntegral.setText(mInitPoint + "");
         if (vipGradeListBean.getVG_IsTime() == 1 && vipGradeListBean.getVG_IsTimeNum() != null) {
             et_VIP_Overdue.setText(addTime(vipGradeListBean.getVG_IsTimeUnit(), Double.parseDouble(vipGradeListBean.getVG_IsTimeNum() + "")));
             et_VIP_Overdue.setEnabled(false);
@@ -314,14 +447,24 @@ public class AddOrEditMemberFragment extends BaseFragment {
         return sdf.format(c.getTime());
     }
 
-    @OnClick({R.id.tv_title, R.id.fl_cancel, R.id.tv_VIP_Sex_0, R.id.tv_VIP_Sex_1, R.id.et_select_VIP_Referee,
-            R.id.et_select_EM_Name, R.id.fl_submit, R.id.et_VIP_Overdue, R.id.et_VIP_Birthday, R.id.et_VCH_CreateTime,
-            R.id.et_VG_GID, R.id.et_VIP_Label})
+    @OnClick({R.id.tv_title, R.id.fl_cancel, R.id.tv_basic_data, R.id.tv_costomfields, R.id.tv_VIP_Sex_0, R.id.tv_VIP_Sex_1,
+            R.id.et_select_VIP_Referee, R.id.et_select_EM_Name, R.id.fl_submit, R.id.et_VIP_Overdue, R.id.et_VIP_Birthday,
+            R.id.et_VCH_CreateTime, R.id.et_VG_GID, R.id.et_VIP_Label, R.id.tv_select_Pay_Way, R.id.bg_upload_img})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_title:
             case R.id.fl_cancel:
                 homeActivity.fragmentManager.beginTransaction().hide(this).commit();
+                break;
+            case R.id.tv_basic_data:
+                ((TextView) rootView.findViewById(R.id.tv_basic_data)).setTextColor(homeActivity.getResources().getColor(R.color.color_149f4a));
+                ((TextView) rootView.findViewById(R.id.tv_costomfields)).setTextColor(homeActivity.getResources().getColor(R.color.color_999999));
+                rootView.findViewById(R.id.fl_costomfields_layout).setVisibility(View.GONE);
+                break;
+            case R.id.tv_costomfields:
+                ((TextView) rootView.findViewById(R.id.tv_basic_data)).setTextColor(homeActivity.getResources().getColor(R.color.color_999999));
+                ((TextView) rootView.findViewById(R.id.tv_costomfields)).setTextColor(homeActivity.getResources().getColor(R.color.color_149f4a));
+                rootView.findViewById(R.id.fl_costomfields_layout).setVisibility(View.VISIBLE);
                 break;
             case R.id.tv_VIP_Sex_0://男
                 rootView.findViewById(R.id.tv_VIP_Sex_1).setSelected(false);
@@ -329,6 +472,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                         .setTextColor(homeActivity.getResources().getColor(R.color.title_color));
                 view.setSelected(true);
                 ((TextView) view).setTextColor(homeActivity.getResources().getColor(R.color.white));
+                mSex = 0;
                 break;
             case R.id.tv_VIP_Sex_1://女
                 rootView.findViewById(R.id.tv_VIP_Sex_0).setSelected(false);
@@ -336,6 +480,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                         .setTextColor(homeActivity.getResources().getColor(R.color.title_color));
                 view.setSelected(true);
                 ((TextView) view).setTextColor(homeActivity.getResources().getColor(R.color.white));
+                mSex = 1;
                 break;
             case R.id.et_select_VIP_Referee://选择推荐人
                 VipChooseDialog vipChooseDialog = new VipChooseDialog(homeActivity, null, new InterfaceBack() {
@@ -344,6 +489,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                         VipInfoMsg vipInfoMsg = (VipInfoMsg) response;
                         et_VIP_Referee.setText(vipInfoMsg.getVIP_Name());
                         et_VIP_Referee.setTag(vipInfoMsg.getVCH_Card());
+                        mRecommendCardNum = vipInfoMsg.getVCH_Card();
                     }
 
                     @Override
@@ -362,6 +508,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                                 if (mEmplMsgList != null && mEmplMsgList.size() == 1) {
                                     et_EM_Name.setText(mEmplMsgList.get(0).getEM_Name());
                                     et_EM_Name.setTag(mEmplMsgList.get(0).getGID());
+                                    mStaffListGid = mEmplMsgList.get(0).getGID();
                                 }
                             }
 
@@ -380,7 +527,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                     }
                 });
                 mCalendarSelector.show(et_VIP_Overdue);
-                if (et_VIP_Overdue.getText().toString().isEmpty()) {
+                if (TextUtils.isEmpty(et_VIP_Overdue.getText().toString())) {
                     mCalendarSelector.setPosition(DateUtil.getDateForString(DateTimeUtil.getNowDate()), "0", "0");
                 } else {
                     mCalendarSelector.setPosition(DateUtil.getDateForString(et_VIP_Overdue.getTag().toString()), "0", "0");
@@ -394,13 +541,14 @@ public class AddOrEditMemberFragment extends BaseFragment {
                         et_VIP_Birthday.setTag(result.get("yearval") + "-" + result.get("monthval") + "-" + result.get("dayval"));
                         ((TextView) rootView.findViewById(R.id.tv_select_birthday_type))
                                 .setText(TextUtils.equals("1", result.get("islunar")) ? "农历" : "公历");
-//                        calaryMonth = result.get("CalaryMonth");
-//                        isLunar = result.get("islunar");
+                        calaryMonth = result.get("CalaryMonth");
+                        isLunar = result.get("islunar");
+                        mBirthday = result.get("yearval") + "-" + result.get("monthval") + "-" + result.get("dayval");
                     }
                 });
                 mCalendarSelector1.show(et_VIP_Birthday);
                 mCalendarSelector1.showSelectType();
-                if (et_VIP_Birthday.getText().toString().isEmpty()) {
+                if (TextUtils.isEmpty(et_VIP_Birthday.getText().toString())) {
                     mCalendarSelector1.setPosition(DateUtil.getDateForString(DateTimeUtil.getNowDate()), "0", "0");
                 } else {
                     mCalendarSelector1.setPosition(DateUtil.getDateForString(et_VIP_Birthday.getTag().toString()), "0", "0");
@@ -415,7 +563,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                     }
                 });
                 mCalendarSelector2.show(et_VCH_CreateTime);
-                if (et_VCH_CreateTime.getText().toString().isEmpty()) {
+                if (TextUtils.isEmpty(et_VCH_CreateTime.getText().toString())) {
                     mCalendarSelector2.setPosition(DateUtil.getDateForString(DateTimeUtil.getNowDate()), "0", "0");
                 } else {
                     mCalendarSelector2.setPosition(DateUtil.getDateForString(et_VCH_CreateTime.getTag().toString()), "0", "0");
@@ -423,32 +571,536 @@ public class AddOrEditMemberFragment extends BaseFragment {
                 break;
             case R.id.et_VG_GID://会员等级
                 View viewParent = (View) select_recycler_view.getParent();
-                viewParent.setVisibility(View.VISIBLE);
-                ((RelativeLayout.LayoutParams) viewParent.getLayoutParams())
-                        .addRule(RelativeLayout.BELOW, R.id.ly_VG_GID);
-                selectAdapter.setData(mGradeNameList, et_VG_GID.getText().toString(), new InterfaceBack() {
+                if (viewParent.getVisibility() == View.GONE) {
+                    selectAdapter.setData(mGradeNameList, et_VG_GID.getText().toString(), new InterfaceBack() {
 
-                    @Override
-                    public void onResponse(Object response) {
-                        selectedMemberGrade(mMemberGrade.get((int) response));
-                    }
-                });
+                        @Override
+                        public void onResponse(Object response) {
+                            selectedMemberGrade(mMemberGrade.get((int) response));
+                        }
+                    }).show(viewParent, RelativeLayout.BELOW, R.id.ly_VG_GID);
+                } else {
+                    viewParent.setVisibility(View.GONE);
+                }
                 break;
-            case R.id.et_VIP_Label:
+            case R.id.et_VIP_Label://会员标签
                 View viewParent1 = (View) select_recycler_view.getParent();
-                viewParent1.setVisibility(View.VISIBLE);
-                ((RelativeLayout.LayoutParams) viewParent1.getLayoutParams())
-                        .addRule(RelativeLayout.ALIGN_BOTTOM, R.id.ly_VIP_Label);
-                selectAdapter.setData(mModelLabelList, et_VIP_Label.getText().toString(), new InterfaceBack() {
+                if (viewParent1.getVisibility() == View.GONE) {
+                    selectAdapter.setData(mModelLabelList, et_VIP_Label.getText().toString(), new InterfaceBack() {
 
+                        @Override
+                        public void onResponse(Object response) {
+                            et_VIP_Label.setText(mModelLabel.get((int) response).getML_Name());
+                            LabelBean labelBean = new LabelBean();
+                            labelBean.setItemName(mModelLabel.get((int) response).getML_Name());
+                            labelBean.setItemGID(mModelLabel.get((int) response).getML_GID());
+                            labelBean.setItemColor(mModelLabel.get((int) response).getML_ColorValue());
+                            mLabList.add(labelBean);
+                        }
+                    }).show(viewParent1, RelativeLayout.ALIGN_BOTTOM, R.id.ly_VCH_Fee);
+                } else {
+                    viewParent1.setVisibility(View.GONE);
+                }
+                break;
+            case R.id.tv_select_Pay_Way://选择支付方式
+                View viewParent3 = (View) select_recycler_view.getParent();
+                if (viewParent3.getVisibility() == View.GONE) {
+                    selectAdapter.setData(mPayWayList, tv_select_Pay_Way.getText().toString(), new InterfaceBack() {
+
+                        @Override
+                        public void onResponse(Object response) {
+                            tv_select_Pay_Way.setText(mPayWayList.get((int) response));
+                            mPayTypeName = mPayWayList.get((int) response);
+                            switch (mPayWayList.get((int) response)) {
+                                case "现金支付":
+                                    mPayTypeCode = "XJZF";
+                                    break;
+                                case "银联支付":
+                                    mPayTypeCode = "YLZF";
+                                    break;
+                                case "微信记账":
+                                    mPayTypeCode = "WX_JZ";
+                                    break;
+                                case "支付宝记账":
+                                    mPayTypeCode = "ZFB_JZ";
+                                    break;
+                            }
+                        }
+                    }).show(viewParent3, RelativeLayout.ALIGN_BOTTOM, R.id.ly_SM_Name);
+                } else {
+                    viewParent3.setVisibility(View.GONE);
+                }
+                break;
+            case R.id.bg_upload_img:
+                PermissionUtils.requestPermission(homeActivity, PermissionUtils.CODE_READ_EXTERNAL_STORAGE, new PermissionUtils.PermissionGrant() {
                     @Override
-                    public void onResponse(Object response) {
-                        et_VIP_Label.setText(mModelLabel.get((int) response).getML_Name());
+                    public void onPermissionGranted(int... requestCode) {
+                        PhotoPickerIntent intent = new PhotoPickerIntent(homeActivity);
+                        intent.setSelectModel(SelectModel.MULTI);
+                        intent.setMaxTotal(1);
+                        intent.gotoPhotoPickerActivity(homeActivity, new PhotoPickerActivity.OnSelectedCallbackListener() {
+                            @Override
+                            public void onSelectedCallback(ArrayList<String> resultList) {
+                                for (String str : resultList) {
+                                    iv_edit_head_img.setImageURI(Uri.fromFile(new File(str)));
+                                    postUploadMemberPhoto(new File(str));
+                                }
+                            }
+                        });
                     }
                 });
                 break;
             case R.id.fl_submit://提交
+                if (getTextValue()) {
+                    addMemberPost();
+                }
                 break;
+        }
+    }
+
+    /**
+     * 获取文本框中的值
+     */
+    private boolean getTextValue() {
+        mPhoneNum = et_VIP_CellPhone.getText().toString();
+        if (mIsfilltel) {
+            if (!TextUtils.isEmpty(et_VIP_CellPhone.getText())) {
+                if (!RegexUtil.isTelPhoneNumber(mPhoneNum)) {
+                    mPhoneNum = "";
+                    warnDialog("【手机号码】格式不正确");
+                    return false;
+                }
+            } else {
+                warnDialog("【手机号】不能为空");
+                mPhoneNum = "";
+            }
+        } else {
+            if (mCardContactPhone && TextUtils.isEmpty(et_VIP_CellPhone.getText())) {
+                warnDialog("您开启了会员卡同手机号，请填写手机号");
+                return false;
+            }
+        }
+
+        if (!TextUtils.isEmpty(et_VIP_Name.getText())) {
+            mMemberName = et_VIP_Name.getText().toString();
+        } else {
+            warnDialog("【姓名】不能为空");
+            return false;
+        }
+
+        if (!TextUtils.isEmpty(et_VCH_Card.getText())) {
+            mCardNum = et_VCH_Card.getText().toString();
+        } else {
+            warnDialog("【卡号】不能为空");
+            return false;
+        }
+
+        if (isCardNum) {
+            if (!TextUtils.isEmpty(et_VIP_FaceNumber.getText())) {
+                if (et_VIP_FaceNumber.getText().toString().length() > 1) {
+                    mcardId = et_VIP_FaceNumber.getText().toString();
+                } else {
+                    warnDialog("【卡面号码】不能少于两位");
+                    return false;
+                }
+            } else {
+                warnDialog("【卡面号码】不能为空");
+                return false;
+            }
+        }
+        if (TextUtils.isEmpty(et_VCH_Pwd.getText())) {
+            warnDialog("必须输入初始密码");
+            return false;
+        }
+        if (!TextUtils.equals(et_VCH_Pwd.getText(), et_VCH_Pwd_Confirm.getText())) {
+            warnDialog("两次输入的密码不一致");
+            return false;
+        }
+
+        if (!TextUtils.isEmpty(et_VCH_Fee.getText())) {
+            mMoney = Double.parseDouble(et_VCH_Fee.getText().toString());
+        } else {
+            mMoney = 0;
+        }
+        if (!TextUtils.isEmpty(et_MA_AggregateAmount.getText())) {
+            mInitMoney = Decima2KeeplUtil.stringToDecimal(et_MA_AggregateAmount.getText().toString());
+        }
+        if (!TextUtils.isEmpty(et_MA_AvailableIntegral.getText())) {
+            mInitPoint = et_MA_AvailableIntegral.getText().toString();
+        } else {
+            mInitPoint = "0";
+        }
+
+        if (!TextUtils.isEmpty(et_VIP_Overdue.getText())) {//过期时间存在，不为永久会员
+            mOverdueDate = et_VIP_Overdue.getText().toString();
+            mIsForver = 0;
+        } else {//过期时间不存在，则为永久会员
+            if (((CheckBox) rootView.findViewById(R.id.cb_is_perpetual)).isChecked()) {
+
+            }
+            mIsForver = 1;
+        }
+        if (!TextUtils.isEmpty(et_VIP_ICCard.getText())) {
+            mId = et_VIP_ICCard.getText().toString();
+            if (!RegexUtil.isLegalId(mId)) {
+                warnDialog("【身份证号】格式不正确");
+                mId = "";
+                return false;
+            }
+        }
+        if (!TextUtils.isEmpty(et_VIP_Addr.getText())) {
+            mAddress = et_VIP_Addr.getText().toString();
+        }
+        if (!TextUtils.isEmpty(et_VIP_Remark.getText())) {
+            mRemark = et_VIP_Remark.getText().toString();
+        }
+
+        if (mMoney > 0 && vipInfoMsg == null && TextUtils.isEmpty(tv_select_Pay_Way.getText().toString())) {
+            warnDialog("请选择支付方式！");
+            return false;
+        }
+        for (int i = 0; i < costomfields.size(); i++) {
+            if (costomfields.get(i).getCF_Required().equals("是")
+                    && (costomfields.get(i).getM_ItemsValue() == null || costomfields.get(i).getM_ItemsValue().equals(""))) {
+                warnDialog("请填写" + costomfields.get(i).getCF_FieldName() + "!");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private String mCardNum, mPhoneNum, mMemberName, mcardId, mInitMoney, mInitPoint, mOverdueDate,
+            mId, mAddress, mRemark, calaryMonth, isLunar, mBirthday, mRecommendCardNum, mStaffListGid,
+            mGradeGid, mPayTypeCode, mPayTypeName, mMemberPhotoAddress = "/img/nohead.png";
+    private double mMoney;
+    private int mIsForver, mSex;
+
+    private void addMemberPost() {
+        RequestParams params = new RequestParams();
+        params.put("VCH_Card", mCardNum);
+        params.put("VG_GID", mGradeGid);
+        params.put("VT_Code", "IntegerCard");
+        params.put("VIP_Name", mMemberName);
+        params.put("VIP_Sex", mSex);
+        params.put("VIP_CellPhone", mPhoneNum);
+        params.put("VIP_Email", "");
+        params.put("VIP_InterCalaryMonth", calaryMonth);
+        params.put("VIP_Birthday", mBirthday);
+        params.put("VIP_IsLunarCalendar", isLunar);
+        params.put("VIP_ICCard", mId);
+        params.put("VIP_IsForver", mIsForver);//永久会员
+        params.put("VIP_FixedPhone", "");
+        params.put("SM_Name", "默认店铺");//店铺名称
+        params.put("VIP_Referee", mRecommendCardNum);//推荐人卡号
+        params.put("VIP_Label", getLab(mLabList));//标签
+        params.put("VIP_Addr", mAddress);
+        params.put("VIP_Remark", mRemark);
+        params.put("VIP_FaceNumber", mcardId);//卡面号码
+        params.put("VIP_Overdue", mOverdueDate + " 23:59:59");//过期日期
+        for (int i = 0; i < costomfields.size(); i++) {//自定义属性
+            params.put("FildsId[" + i + "]", costomfields.get(i).getCF_GID());
+            params.put("FildsValue[" + i + "]", costomfields.get(i).getM_ItemsValue() == null ? ""
+                    : costomfields.get(i).getM_ItemsValue());
+        }
+
+        if (mMemberPhotoAddress != null) {
+            params.put("VIP_HeadImg", mMemberPhotoAddress);
+        } else {
+            params.put("VIP_HeadImg", HttpAPI.API().DEFALUT_HEAD_IMAGE);
+        }
+
+        String url = HttpAPI.API().ADDUSER;
+        if (vipInfoMsg == null) {
+            params.put("VIP_State", 1);
+            params.put("VCH_Fee", mMoney);//开卡费用
+            params.put("VCH_Fee_PayType", mPayTypeCode);
+            params.put("VCH_Fee_PayTypeText", mPayTypeName);
+            params.put("MA_AvailableIntegral", Integer.parseInt(mInitPoint));//初始积分
+            params.put("MA_AggregateAmount", mInitMoney);//初始金额
+            if (TextUtils.isEmpty(mStaffListGid)) {//提成员工GID
+                params.put("EM_GIDList[]", mStaffListGid);
+            }
+            if (!TextUtils.isEmpty(et_VCH_Pwd.getText().toString())) {
+                params.put("VCH_Pwd", et_VCH_Pwd.getText().toString());
+            }
+            params.put("IS_Sms", true);
+            params.put("VIP_RegSource", 2);
+        } else {
+            url = HttpAPI.API().EDIVIP;
+            params.put("GID", vipInfoMsg.getGID());
+            params.put("VIP_State", 0);
+            params.put("MA_AvailableIntegral", "");
+            params.put("MA_AggregateAmount", "");
+            params.put("EM_Name", "");
+        }
+
+
+        homeActivity.dialog.show();
+        AsyncHttpUtils.postHttp(url, params, new CallBack() {
+            String msgStr = vipInfoMsg == null ? "添加会员" : "修改会员";
+
+            @Override
+            public void onResponse(BaseRes response) {
+                homeActivity.dialog.dismiss();
+                new HttpGetPrintContents().HYKK(homeActivity, new Gson().toJson(response));
+                warnDialog(msgStr + "成功");
+                homeActivity.fragmentManager.beginTransaction().hide(AddOrEditMemberFragment.this).commit();
+            }
+
+            @Override
+            public void onErrorResponse(Object msg) {
+                homeActivity.dialog.dismiss();
+                if (msg.toString().contains("SmsSign")) {
+                    warnDialog(msgStr + "成功,短信未发送，未设置默认签名！");
+                } else if (msg.toString().contains("BuySms")) {
+                    warnDialog(msgStr + "成功，短信未发送，短信库存不足！");
+                } else if (msg.toString().contains("UpgradeShop")) {
+                    warnDialog("会员数已达上限,请升级店铺！");
+                } else {
+                    warnDialog(((BaseRes) msg).getMsg());
+                }
+            }
+        });
+    }
+
+    private String getLab(List<LabelBean> labList) {
+        String labString = "";
+        List<LabelBean> list = new ArrayList<>();
+        Gson gson = new Gson();
+        for (int i = 0; i < labList.size(); i++) {
+            if (labList.get(i).isChecked()) {
+                list.add(labList.get(i));
+            }
+        }
+        labString = gson.toJson(list);
+        return labString;
+    }
+
+    private void warnDialog(String msg) {
+        com.blankj.utilcode.util.ToastUtils.showShort(msg);
+    }
+
+    /**
+     * 上传图片
+     */
+    private void postUploadMemberPhoto(File file) {
+        RequestParams params = new RequestParams();
+        try {
+            params.put("photo", file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        AsyncHttpUtils.postHttp(HttpAPI.API().UPLOAD_MEMBER_PHOTO, params, new CallBack() {
+
+            @Override
+            public void onResponse(BaseRes response) {
+                Log.e("imgPath", (String) response.getData());
+                mMemberPhotoAddress = (String) response.getData();
+                warnDialog("上传成功");
+            }
+        });
+    }
+
+    class CostomfieldsAdapter extends RecyclerView.Adapter {
+        final int TYPE_1 = 0;
+        final int TYPE_2 = 1;
+        final int TYPE_3 = 2;
+        final int TYPE_4 = 3;
+        final int TYPE_5 = 5;
+
+        @NonNull
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view;
+            switch (viewType) {
+                case TYPE_1:
+                case TYPE_2:
+                    view = LayoutInflater.from(homeActivity).inflate(R.layout.item_costomfields_input, parent, false);
+                    return new InputHolder(view);
+                case TYPE_3:
+                case TYPE_4:
+                case TYPE_5:
+                    view = LayoutInflater.from(homeActivity).inflate(R.layout.item_costomfields_select, parent, false);
+                    return new SelectHolder(view);
+                default:
+                    return null;
+            }
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+            ReportMessageBean.GetCustomFieldsVIPBean vipBean = costomfields.get(position);
+            CostomfieldsHolder myHolder = (CostomfieldsHolder) holder;
+            myHolder.tv_costomfields_name.setText(vipBean.getCF_FieldName());
+            if (vipBean.getCF_Required().equals("是")) {
+                myHolder.isFill.setVisibility(View.VISIBLE);
+            } else if (vipBean.getCF_Required().equals("否")) {
+                myHolder.isFill.setVisibility(View.GONE);
+            }
+            if (vipBean.getM_ItemsValue() != null && !vipBean.getM_ItemsValue().equals("null")) {
+                myHolder.et_costomfields_value.setText(vipBean.getM_ItemsValue());
+            } else {
+                myHolder.et_costomfields_value.setText("");
+            }
+            myHolder.et_costomfields_value.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    vipBean.setM_ItemsValue(s.toString());
+                }
+            });
+
+            if (holder instanceof InputHolder) {
+                InputHolder inputHolder = (InputHolder) holder;
+                inputHolder.et_costomfields_value.setHint("请输入" + vipBean.getCF_FieldName());
+                inputHolder.et_costomfields_value.setInputType(InputType.TYPE_CLASS_TEXT);
+                if (getItemViewType(position) == TYPE_2) {
+                    inputHolder.et_costomfields_value.setInputType(InputType.TYPE_CLASS_NUMBER);
+                }
+            } else if (holder instanceof SelectHolder) {
+                SelectHolder selectHolder = (SelectHolder) holder;
+                selectHolder.et_costomfields_value.setOnClickListener(new OnNoDoubleClickListener() {
+                    @Override
+                    public void onNoDoubleClick(View v) {
+                        switch (getItemViewType(position)) {
+                            case TYPE_3:
+                                MaxHeightRecyclerView recyclerView = rootView.findViewById(R.id.select_recycler_costomfields_view);
+                                View viewParent = (View) recyclerView.getParent();
+                                if (viewParent.getVisibility() == View.GONE) {
+                                    SelectAdapter selectAdapter = new SelectAdapter();
+                                    recyclerView.setLayoutManager(new LinearLayoutManager(homeActivity));
+                                    recyclerView.setAdapter(selectAdapter);
+                                    selectAdapter.setData(vipBean.getCF_ItemsValue().split("\\,"),
+                                            selectHolder.et_costomfields_value.getText().toString(), new InterfaceBack() {
+
+                                                @Override
+                                                public void onResponse(Object response) {
+                                                    selectHolder.et_costomfields_value.setText(selectAdapter.data.get((int) response));
+                                                }
+                                            }).show(viewParent, RelativeLayout.CENTER_IN_PARENT, -1);
+                                } else {
+                                    viewParent.setVisibility(View.GONE);
+                                }
+                                break;
+                            case TYPE_4:
+                                CalendarSelector mCalendarSelector = new CalendarSelector(homeActivity, 0,
+                                        new CalendarSelector.ICalendarSelectorCallBack() {
+                                            @Override
+                                            public void transmitPeriod(HashMap<String, String> result) {
+                                                selectHolder.et_costomfields_value.setText(
+                                                        result.get("yearval") + "-" + result.get("monthval") + "-" + result.get("dayval"));
+                                            }
+                                        });
+                                mCalendarSelector.show(selectHolder.et_costomfields_value);
+                                if (TextUtils.isEmpty(selectHolder.et_costomfields_value.getText().toString())) {
+                                    mCalendarSelector.setPosition(DateUtil.getDateForString(DateTimeUtil.getNowDate()), "0", "0");
+                                } else {
+                                    mCalendarSelector.setPosition(DateUtil.getDateForString(
+                                            selectHolder.et_costomfields_value.getText().toString()), "0", "0");
+                                }
+                                break;
+                            case TYPE_5:
+                                PermissionUtils.requestPermission(homeActivity, PermissionUtils.CODE_READ_EXTERNAL_STORAGE,
+                                        new PermissionUtils.PermissionGrant() {
+                                            @Override
+                                            public void onPermissionGranted(int... requestCode) {
+                                                PhotoPickerIntent intent = new PhotoPickerIntent(homeActivity);
+                                                intent.setSelectModel(SelectModel.MULTI);
+                                                intent.setMaxTotal(1);
+                                                intent.gotoPhotoPickerActivity(homeActivity, new PhotoPickerActivity.OnSelectedCallbackListener() {
+                                                    @Override
+                                                    public void onSelectedCallback(ArrayList<String> resultList) {
+                                                        for (String str : resultList) {
+                                                            RequestParams params = new RequestParams();
+                                                            try {
+                                                                params.put("photo", new File(str));
+                                                            } catch (FileNotFoundException e) {
+                                                                e.printStackTrace();
+                                                            }
+                                                            AsyncHttpUtils.postHttp(HttpAPI.API().UPLOAD_MEMBER_PHOTO, params, new CallBack() {
+
+                                                                @Override
+                                                                public void onResponse(BaseRes response) {
+                                                                    selectHolder.et_costomfields_value.setText((String) response.getData());
+                                                                    warnDialog("上传成功");
+                                                                }
+                                                            });
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        });
+                                break;
+                        }
+                    }
+                });
+            }
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return costomfields == null ? 0 : costomfields.size();
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            String type = costomfields.get(position).getCF_FieldType();
+            if (type.contains("文本"))
+                return TYPE_1;
+            else if (type.contains("数字"))
+                return TYPE_2;
+            else if (type.contains("选项"))
+                return TYPE_3;
+            else if (type.contains("日期"))
+                return TYPE_4;
+            else if (type.contains("图片"))
+                return TYPE_5;
+            else
+                return TYPE_1;
+        }
+
+        class CostomfieldsHolder extends RecyclerView.ViewHolder {
+            @BindView(R.id.tv_costomfields_name)
+            TextView tv_costomfields_name;
+            @BindView(R.id.isFill)
+            TextView isFill;
+            @BindView(R.id.et_costomfields_value)
+            TextView et_costomfields_value;
+
+            public CostomfieldsHolder(@NonNull View itemView) {
+                super(itemView);
+                ButterKnife.bind(this, itemView);
+            }
+        }
+
+        class InputHolder extends CostomfieldsHolder {
+
+            @BindView(R.id.et_costomfields_value)
+            EditText et_costomfields_value;
+
+            public InputHolder(@NonNull View itemView) {
+                super(itemView);
+            }
+        }
+
+        class SelectHolder extends CostomfieldsHolder {
+
+            @BindView(R.id.et_costomfields_value)
+            TextView et_costomfields_value;
+
+            public SelectHolder(@NonNull View itemView) {
+                super(itemView);
+            }
         }
     }
 
@@ -458,6 +1110,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
         String positionId = "";
         Holder selectedHolser;
         InterfaceBack back;
+        View viewParent;
 
         @NonNull
         @Override
@@ -488,7 +1141,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                     selectedHolser = myHolder;
                     selectedHolser.tv_select_lable.setTextColor(homeActivity.getResources().getColor(R.color.white));
                     selectedHolser.tv_select_lable.setBackgroundResource(R.color.color_149f4a);
-                    ((View) select_recycler_view.getParent()).setVisibility(View.GONE);
+                    viewParent.setVisibility(View.GONE);
                     back.onResponse(position);
                 }
             });
@@ -499,11 +1152,33 @@ public class AddOrEditMemberFragment extends BaseFragment {
             return data.size();
         }
 
-        public void setData(List<String> data, String positionId, InterfaceBack back) {
+        public SelectAdapter setData(String[] data, String positionId, InterfaceBack back) {
+            List<String> list = new ArrayList<>();
+            for (int i = 0; i < data.length; i++) {
+                list.add(data[i]);
+            }
+            return setData(list, positionId, back);
+        }
+
+        public SelectAdapter setData(List<String> data, String positionId, InterfaceBack back) {
             this.data = data;
             this.positionId = positionId;
             this.back = back;
             notifyDataSetChanged();
+            return this;
+        }
+
+        public void show(View viewParent, int verb, int subject) {
+            this.viewParent = viewParent;
+            viewParent.setVisibility(View.VISIBLE);
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(324, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(0, 3, 0, -3);
+            if (subject > 0) {
+                layoutParams.addRule(verb, subject);
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
+            } else
+                layoutParams.addRule(verb);
+            viewParent.setLayoutParams(layoutParams);
         }
 
         class Holder extends RecyclerView.ViewHolder {

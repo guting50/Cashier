@@ -1,6 +1,10 @@
 package com.wycd.yushangpu.bean;
 
+import com.alibaba.fastjson.JSON;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Objects;
 
@@ -59,7 +63,10 @@ public class ReportMessageBean implements Serializable {
     }
 
     public List<GetCustomFieldsVIPBean> getGetCustomFieldsVIP() {
-        return GetCustomFieldsVIP;
+        Type listType = new TypeToken<List<GetCustomFieldsVIPBean>>() {
+        }.getType();
+        String json = JSON.toJSONString(GetCustomFieldsVIP);
+        return JSON.parseObject(json, listType);
     }
 
     public void setGetCustomFieldsVIP(List<GetCustomFieldsVIPBean> GetCustomFieldsVIP) {
@@ -83,7 +90,10 @@ public class ReportMessageBean implements Serializable {
     }
 
     public List<GetSysSwitchListBean> getGetSysSwitchList() {
-        return GetSysSwitchList;
+        Type listType = new TypeToken<List<GetSysSwitchListBean>>() {
+        }.getType();
+        String json = JSON.toJSONString(GetSysSwitchList);
+        return JSON.parseObject(json, listType);
     }
 
     public void setGetSysSwitchList(List<GetSysSwitchListBean> GetSysSwitchList) {
@@ -91,7 +101,10 @@ public class ReportMessageBean implements Serializable {
     }
 
     public List<VIPGradeListBean> getVIPGradeList() {
-        return VIPGradeList;
+        Type listType = new TypeToken<List<VIPGradeListBean>>() {
+        }.getType();
+        String json = JSON.toJSONString(VIPGradeList);
+        return JSON.parseObject(json, listType);
     }
 
     public void setVIPGradeList(List<VIPGradeListBean> VIPGradeList) {
@@ -131,7 +144,10 @@ public class ReportMessageBean implements Serializable {
     }
 
     public List<ActiveBean> getActive() {
-        return Active;
+        Type listType = new TypeToken<List<ActiveBean>>() {
+        }.getType();
+        String json = JSON.toJSONString(Active);
+        return JSON.parseObject(json, listType);
     }
 
     public void setActive(List<ActiveBean> Active) {

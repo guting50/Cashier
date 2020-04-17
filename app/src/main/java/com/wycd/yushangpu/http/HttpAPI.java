@@ -60,6 +60,8 @@ public class HttpAPI {
 
         static final HttpAPIOfficial instance = new HttpAPIOfficial();
 
+        public static final String DEFALUT_HEAD_IMAGE = "/img/nohead.png";
+
         // 静态方法返回该类的实例
         static HttpAPIOfficial getHttpAPIOfficial() {
             return instance;
@@ -181,7 +183,12 @@ public class HttpAPI {
         public static final String CHECK_VERIFY = MyApplication.BASE_URL + "api/VIP/CheckVerify";
         //会员标签
         public static final String MEMBER_LABEL = MyApplication.BASE_URL + "api/MemberLabel/QueryDataList";
-
+        //添加会员
+        public static final String ADDUSER = MyApplication.BASE_URL + "api/VIP/AddVIP";
+        //修改会员信息
+        public static final String EDIVIP = MyApplication.BASE_URL + "api/VIP/EditVIP";
+        //上传会员头像
+        public static final String UPLOAD_MEMBER_PHOTO = MyApplication.BASE_URL + "api/RecvImage/UploadImg";
     }
 
 }

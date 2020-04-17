@@ -12,6 +12,7 @@ import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.printutil.bean.HandDutyBean;
 import com.wycd.yushangpu.printutil.bean.Print_HYCZ_Bean;
+import com.wycd.yushangpu.printutil.bean.Print_HYKK_Bean;
 import com.wycd.yushangpu.printutil.bean.Print_SPXF_Bean;
 import com.wycd.yushangpu.tools.ActivityManager;
 import com.wycd.yushangpu.tools.LogUtils;
@@ -127,7 +128,8 @@ public class HttpGetPrintContents {
             LogUtils.e("======== Error ========", e.getMessage());
         }
     }
-//
+
+    //
 //    /**
 //     * 进行会员充次的打印
 //     */
@@ -184,18 +186,16 @@ public class HttpGetPrintContents {
 //    /**
 //     * 进行会员开卡的打印
 //     */
-//    public static void HYKK(Activity mContext, String responseString) {
-//
-//        try {
-//
-//            Print_HYKK_Bean bean = gson.fromJson(responseString, Print_HYKK_Bean.class);
-//            PrinterUtils printerUtils = new PrinterUtils(mContext, mPrintNum, bean, "HYKK");
-//            printerUtils.print();
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public static void HYKK(Activity mContext, String responseString) {
+        try {
+            Print_HYKK_Bean bean = gson.fromJson(responseString, Print_HYKK_Bean.class);
+            PrinterUtils printerUtils = new PrinterUtils(mContext, mPrintNum, bean, "HYKK");
+            printerUtils.print();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 //
 //
 //    /**

@@ -25,6 +25,16 @@ public class MemberLabel implements Serializable {
     private String ML_Remark;
     private int ML_Type;
 
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
+
+    private boolean isChecked;
+
     public String getML_GID() {
         return ML_GID;
     }

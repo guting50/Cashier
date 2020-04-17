@@ -29,6 +29,7 @@ public class VipInfoMsg implements Serializable {
     private double MA_AvailableIntegral;//	可用积分	decimal
     private int MCA_HowMany;//	剩余充次总数	int
     private int VCH_Fee; //开卡费
+    private String VCH_Fee_PayTypeText;//支付方式
     private Object SM_GID;//开卡店铺
     private String SM_Name;
     private String EM_Name; //办卡人员
@@ -52,7 +53,7 @@ public class VipInfoMsg implements Serializable {
     private double VS_Value;
     private double RS_Value;
     private Object MberChargeList;
-    private Object CustomeFieldList;
+    private List<ReportMessageBean.GetCustomFieldsVIPBean> CustomeFieldList;
     private int VIP_IsDeleted;
     private double MA_AggregateStoredValue;
     private int MCA_TotalCharge;
@@ -324,6 +325,14 @@ public class VipInfoMsg implements Serializable {
         this.VCH_Fee = VCH_Fee;
     }
 
+    public String getVCH_Fee_PayTypeText() {
+        return VCH_Fee_PayTypeText;
+    }
+
+    public void setVCH_Fee_PayTypeText(String VCH_Fee_PayTypeText) {
+        this.VCH_Fee_PayTypeText = VCH_Fee_PayTypeText;
+    }
+
     public String getVIP_OpenID() {
         return VIP_OpenID;
     }
@@ -436,11 +445,11 @@ public class VipInfoMsg implements Serializable {
         MberChargeList = mberChargeList;
     }
 
-    public Object getCustomeFieldList() {
+    public List<ReportMessageBean.GetCustomFieldsVIPBean> getCustomeFieldList() {
         return CustomeFieldList;
     }
 
-    public void setCustomeFieldList(Object customeFieldList) {
+    public void setCustomeFieldList(List<ReportMessageBean.GetCustomFieldsVIPBean> customeFieldList) {
         CustomeFieldList = customeFieldList;
     }
 
