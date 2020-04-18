@@ -98,12 +98,12 @@ public class CashierFragment extends BaseFragment {
 
     public ShopLeftAdapter mShopLeftAdapter;
     private ArrayList<ShopMsg> mShopLeftList = new ArrayList<>();
-    private EditCashierGoodsFragment editCashierGoodsFragment;
+    private EditCashierGoodsFragment editCashierGoodsFragment = new EditCashierGoodsFragment();
+    private QudanFragment qudanFragment;
+    private GoodsListFragment goodsListFragment = new GoodsListFragment();
     private int leftpos = -1;// 购物车选中位子 -1表示没有选中
     private String order;
     private CharSequence ordertime;
-    private GoodsListFragment goodsListFragment;
-    private QudanFragment qudanFragment;
     public VipInfoMsg mVipMsg;
     private String allmoney, totalMoney;
     private PayTypeMsg moren;
@@ -170,11 +170,10 @@ public class CashierFragment extends BaseFragment {
             public void onErrorResponse(Object msg) {
                 int po = (int) msg;
                 if (mShopLeftList.size() > 0) {
-                    if (editCashierGoodsFragment != null)
-                        if (editCashierGoodsFragment.getShopBean() != null &&
-                                TextUtils.equals(mShopLeftList.get(po).getGID(),
-                                        editCashierGoodsFragment.getShopBean().getGID()))
-                            homeActivity.fragmentManager.beginTransaction().hide(editCashierGoodsFragment).commit();
+                    if (editCashierGoodsFragment.getShopBean() != null &&
+                            TextUtils.equals(mShopLeftList.get(po).getGID(),
+                                    editCashierGoodsFragment.getShopBean().getGID()))
+                        editCashierGoodsFragment.hide();
 
                     mShopLeftList.remove(po);
                     leftpos = leftpos - 1;
@@ -197,12 +196,8 @@ public class CashierFragment extends BaseFragment {
                 mShopLeftList.get(i).setCheck(true);
                 mShopLeftAdapter.notifyDataSetChanged();
 
-                if (editCashierGoodsFragment == null) {
-                    editCashierGoodsFragment = new EditCashierGoodsFragment();
-                    homeActivity.fragmentManager.beginTransaction().add(R.id.right_fragment_layout, editCashierGoodsFragment).commit();
-                } else
-                    homeActivity.fragmentManager.beginTransaction().show(editCashierGoodsFragment).commit();
                 editCashierGoodsFragment.setData(mShopLeftList.get(i));
+                editCashierGoodsFragment.show(homeActivity, R.id.right_fragment_layout);
             }
         });
         LinearLayoutManager llm = new LinearLayoutManager(homeActivity, LinearLayoutManager.VERTICAL, false);
@@ -211,8 +206,7 @@ public class CashierFragment extends BaseFragment {
 
         mEtLoginAccount.requestFocus();
 
-        goodsListFragment = new GoodsListFragment();
-        homeActivity.fragmentManager.beginTransaction().add(R.id.right_fragment_layout, goodsListFragment).commit();
+        goodsListFragment.show(homeActivity, R.id.right_fragment_layout);
 
         qudanFragment = new QudanFragment(homeActivity);
         qudanFragment.obtainGuadanList();
@@ -413,22 +407,19 @@ public class CashierFragment extends BaseFragment {
                     com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
                     return;
                 }
-                if (!qudanFragment.isAdded())
-                    homeActivity.fragmentManager.beginTransaction().add(R.id.fragment_content, qudanFragment).commit();
-                else
-                    homeActivity.fragmentManager.beginTransaction().show(qudanFragment).commit();
+                qudanFragment.show(homeActivity, R.id.fragment_content);
                 //挂单
                 if (mShopLeftList.size() > 0) {
                     qudanFragment.guaDan(order, ordertime.toString(), null == mVipMsg ? "00000" : mVipMsg.getVCH_Card(), mShopLeftList, new InterfaceBack() {
                         @Override
                         public void onResponse(Object response) {
-                            homeActivity.fragmentManager.beginTransaction().hide(qudanFragment).commit();
+                            qudanFragment.hide();
                             resetCashier();
                         }
 
                         @Override
                         public void onErrorResponse(Object msg) {
-                            homeActivity.fragmentManager.beginTransaction().hide(qudanFragment).commit();
+                            qudanFragment.hide();
                         }
                     });
 
@@ -465,7 +456,7 @@ public class CashierFragment extends BaseFragment {
                     qudanFragment.getGuaDan(moren, paytypelist, new InterfaceBack() {
                         @Override
                         public void onResponse(Object response) {
-                            homeActivity.fragmentManager.beginTransaction().hide(qudanFragment).commit();
+                            qudanFragment.hide();
                             if (response != null) {
                                 homeActivity.dialog.dismiss();
                                 order = CreateOrder.createOrder("SP");
@@ -486,7 +477,7 @@ public class CashierFragment extends BaseFragment {
 
                         @Override
                         public void onErrorResponse(Object msg) {
-                            homeActivity.fragmentManager.beginTransaction().hide(qudanFragment).commit();
+                            qudanFragment.hide();
                             updateBttGetOrder();
                         }
                     });
@@ -907,16 +898,12 @@ public class CashierFragment extends BaseFragment {
     }
 
     private void toJieSuan(OrderCanshhu jso, JiesuanBFragment.OrderType orderType) {
-        if (homeActivity.jiesuanBFragment == null) {
-            homeActivity.jiesuanBFragment = new JiesuanBFragment();
-            homeActivity.fragmentManager.beginTransaction().add(R.id.fragment_content, homeActivity.jiesuanBFragment).commit();
-        } else
-            homeActivity.fragmentManager.beginTransaction().show(homeActivity.jiesuanBFragment).commit();
+        homeActivity.jiesuanBFragment.show(homeActivity, R.id.fragment_content);
         homeActivity.jiesuanBFragment.setData(totalMoney, allmoney, mVipMsg, jso.getGID(), jso.getCO_Type(), jso.getCO_OrderCode(),
                 mShopLeftList, moren, paytypelist, orderType, new InterfaceBack() {
                     @Override
                     public void onResponse(Object response) {
-                        homeActivity.fragmentManager.beginTransaction().hide(homeActivity.jiesuanBFragment).commit();
+                        homeActivity.jiesuanBFragment.hide();
                         if (response != null) {
                             String gid = (String) response;
                             homeActivity.imgPaySuccess.setVisibility(View.VISIBLE);
@@ -981,8 +968,7 @@ public class CashierFragment extends BaseFragment {
         tvNumTotal.setText("0");
         updateBttGetOrder();
 
-        if (editCashierGoodsFragment != null)
-            homeActivity.fragmentManager.beginTransaction().hide(editCashierGoodsFragment).commit();
+        editCashierGoodsFragment.hide();
     }
 
     @OnClick({R.id.im_clear, R.id.member_bg_layout})
@@ -1002,8 +988,7 @@ public class CashierFragment extends BaseFragment {
 
                 updateBttGetOrder();
 
-                if (editCashierGoodsFragment != null)
-                    homeActivity.fragmentManager.beginTransaction().hide(editCashierGoodsFragment).commit();
+                editCashierGoodsFragment.hide();
                 break;
             case R.id.member_bg_layout:
                 VipChooseDialog vipChooseDialog = new VipChooseDialog(homeActivity, mVipMsg, new InterfaceBack() {

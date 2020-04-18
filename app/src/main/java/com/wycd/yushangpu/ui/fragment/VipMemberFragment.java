@@ -54,8 +54,8 @@ public class VipMemberFragment extends BaseFragment {
     private MemberAdapter memberAdapter;
     private int pageIndex = 1;
 
-    private AddOrEditMemberFragment addOrEditMemberFragment;
-    private MemberRechargeFragment memberRechargeFragment;
+    private AddOrEditMemberFragment addOrEditMemberFragment = new AddOrEditMemberFragment();
+    private MemberRechargeFragment memberRechargeFragment = new MemberRechargeFragment();
     private VipInfoMsg infoMsg;
     private ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
 
@@ -97,19 +97,11 @@ public class VipMemberFragment extends BaseFragment {
                     memberAdapter.selectedHolder.rootView.setBackgroundResource(R.color.white);
                 break;
             case R.id.iv_add_member://新增会员
-                if (addOrEditMemberFragment == null) {
-                    addOrEditMemberFragment = new AddOrEditMemberFragment();
-                    homeActivity.fragmentManager.beginTransaction().add(R.id.fragment_vip_content, addOrEditMemberFragment).commit();
-                } else
-                    homeActivity.fragmentManager.beginTransaction().show(addOrEditMemberFragment).commit();
                 addOrEditMemberFragment.setData(null);
+                addOrEditMemberFragment.show(homeActivity, R.id.fragment_vip_content);
                 break;
             case R.id.ly_update_info://修改资料
-                if (addOrEditMemberFragment == null) {
-                    addOrEditMemberFragment = new AddOrEditMemberFragment();
-                    homeActivity.fragmentManager.beginTransaction().add(R.id.fragment_vip_content, addOrEditMemberFragment).commit();
-                } else
-                    homeActivity.fragmentManager.beginTransaction().show(addOrEditMemberFragment).commit();
+                addOrEditMemberFragment.show(homeActivity, R.id.fragment_vip_content);
                 homeActivity.dialog.show();
                 onlyVipMsg.vipMsg(infoMsg.getVCH_Card(), new InterfaceBack<VipInfoMsg>() {
                     @Override
@@ -121,11 +113,7 @@ public class VipMemberFragment extends BaseFragment {
                 });
                 break;
             case R.id.ly_vip_recharge://会员充值
-                if (memberRechargeFragment == null) {
-                    memberRechargeFragment = new MemberRechargeFragment();
-                    homeActivity.fragmentManager.beginTransaction().add(R.id.fragment_vip_content, memberRechargeFragment).commit();
-                } else
-                    homeActivity.fragmentManager.beginTransaction().show(memberRechargeFragment).commit();
+                memberRechargeFragment.show(homeActivity, R.id.fragment_vip_content);
                 homeActivity.dialog.show();
                 onlyVipMsg.vipMsg(infoMsg.getVCH_Card(), new InterfaceBack<VipInfoMsg>() {
                     @Override

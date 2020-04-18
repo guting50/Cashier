@@ -43,7 +43,6 @@ import com.wycd.yushangpu.web.WebDialog;
 
 import net.posprinter.posprinterface.TaskCallback;
 
-import androidx.fragment.app.FragmentManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -79,11 +78,10 @@ public class HomeActivity extends BaseActivity {
     private static final int CONN_PRINTER = 0x12;
     private int id = 0;
 
-    public FragmentManager fragmentManager;
     public CashierFragment cashierFragment = new CashierFragment();
-    public JiesuanBFragment jiesuanBFragment;
-    public PrintSetFragment printSetFragment;
-    public VipMemberFragment vipMemberFragment;
+    public JiesuanBFragment jiesuanBFragment = new JiesuanBFragment();
+    public PrintSetFragment printSetFragment = new PrintSetFragment();
+    public VipMemberFragment vipMemberFragment = new VipMemberFragment();
     private boolean isFirstLaunch = false;
 
     private BluetoothAdapter bluetoothAdapter;
@@ -223,7 +221,6 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void initFragment() {
-        fragmentManager = getSupportFragmentManager();
         cashierFragment.show(this, R.id.subsidiary_fragment);
     }
 
@@ -292,36 +289,22 @@ public class HomeActivity extends BaseActivity {
         btn_goods.setImageResource(R.mipmap.btn_goods_false);
         btn_sale.setImageResource(R.mipmap.btn_sale_false);
         btn_houtai.setImageResource(R.mipmap.btn_houtai_false);
-        if (cashierFragment != null)
-            fragmentManager.beginTransaction().hide(cashierFragment).commit();
-        if (printSetFragment != null)
-            fragmentManager.beginTransaction().hide(printSetFragment).commit();
-        if (vipMemberFragment != null)
-            fragmentManager.beginTransaction().hide(vipMemberFragment).commit();
+        cashierFragment.hide();
+        printSetFragment.hide();
+        vipMemberFragment.hide();
         switch (view.getId()) {
             case R.id.btn_cashier:
                 btn_cashier.setImageResource(R.mipmap.btn_cashier_true);
-                fragmentManager.beginTransaction().show(cashierFragment).commit();
+                cashierFragment.show(this, R.id.subsidiary_fragment);
                 break;
             case R.id.btn_home_set:
                 btn_home_set.setImageResource(R.mipmap.btn_home_set_true);
-                if (printSetFragment == null) {
-                    printSetFragment = new PrintSetFragment();
-                    printSetFragment.setData(shopInfoBean);
-                    fragmentManager.beginTransaction().add(R.id.subsidiary_fragment, printSetFragment).commit();
-                } else {
-                    printSetFragment.setData(shopInfoBean);
-                    fragmentManager.beginTransaction().show(printSetFragment).commit();
-                }
+                printSetFragment.setData(shopInfoBean);
+                printSetFragment.show(this, R.id.subsidiary_fragment);
                 break;
             case R.id.btn_member:
                 btn_member.setImageResource(R.mipmap.btn_member_true);
-                if (vipMemberFragment == null) {
-                    vipMemberFragment = new VipMemberFragment();
-                    fragmentManager.beginTransaction().add(R.id.subsidiary_fragment, vipMemberFragment).commit();
-                } else {
-                    fragmentManager.beginTransaction().show(vipMemberFragment).commit();
-                }
+                vipMemberFragment.show(this, R.id.subsidiary_fragment);
                 break;
             case R.id.btn_goods:
                 btn_goods.setImageResource(R.mipmap.btn_goods_true);

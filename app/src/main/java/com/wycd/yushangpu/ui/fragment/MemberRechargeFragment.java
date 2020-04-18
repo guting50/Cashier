@@ -22,8 +22,6 @@ import com.wycd.yushangpu.http.BaseRes;
 import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.printutil.GetPrintSet;
-import com.wycd.yushangpu.printutil.HttpGetPrintContents;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.CreateOrder;
 import com.wycd.yushangpu.tools.DateTimeUtil;
@@ -31,14 +29,9 @@ import com.wycd.yushangpu.widget.dialog.ShopDetailDialog;
 
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-
-import static com.wycd.yushangpu.MyApplication.ISLABELCONNECT;
-import static com.wycd.yushangpu.MyApplication.LABELPRINT_IS_OPEN;
 
 public class MemberRechargeFragment extends BaseFragment {
 
@@ -106,7 +99,7 @@ public class MemberRechargeFragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.tv_title:
             case R.id.fl_cancel:
-                homeActivity.fragmentManager.beginTransaction().hide(this).commit();
+                hide();
                 break;
             case R.id.fl_submit:
 
@@ -133,11 +126,7 @@ public class MemberRechargeFragment extends BaseFragment {
     }
 
     private void toJieSuan(OrderCanshhu jso, JiesuanBFragment.OrderType orderType) {
-        if (homeActivity.jiesuanBFragment == null) {
-            homeActivity.jiesuanBFragment = new JiesuanBFragment();
-            homeActivity.fragmentManager.beginTransaction().add(R.id.fragment_content, homeActivity.jiesuanBFragment).commit();
-        } else
-            homeActivity.fragmentManager.beginTransaction().show(homeActivity.jiesuanBFragment).commit();
+        homeActivity.jiesuanBFragment.show(homeActivity, R.id.fragment_content);
 //        homeActivity.jiesuanBFragment.setData(totalMoney, allmoney, mVipMsg, jso.getGID(), jso.getCO_Type(), jso.getCO_OrderCode(),
 //                mShopLeftList, moren, paytypelist, orderType, new InterfaceBack() {
 //                    @Override

@@ -472,7 +472,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.tv_title:
             case R.id.fl_cancel:
-                homeActivity.fragmentManager.beginTransaction().hide(this).commit();
+                this.hide();
                 break;
             case R.id.tv_basic_data:
                 ((TextView) rootView.findViewById(R.id.tv_basic_data)).setTextColor(homeActivity.getResources().getColor(R.color.color_149f4a));
@@ -863,7 +863,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                 homeActivity.dialog.dismiss();
                 new HttpGetPrintContents().HYKK(homeActivity, new Gson().toJson(response));
                 warnDialog(msgStr + "成功");
-                homeActivity.fragmentManager.beginTransaction().hide(AddOrEditMemberFragment.this).commit();
+                hide();
             }
 
             @Override

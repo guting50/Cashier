@@ -31,7 +31,8 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public void hide() {
-        fragmentManager.beginTransaction().hide(this).commit();
+        if (fragmentManager != null)
+            fragmentManager.beginTransaction().hide(this).commit();
     }
 
     @Nullable

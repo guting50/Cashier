@@ -118,18 +118,13 @@ public class QudanFragment extends BaseFragment {
     }
 
     private void jiesuan(GuadanList guadanList, VipInfoMsg mVipMsg) {
-        if (homeActivity.jiesuanBFragment == null) {
-            homeActivity.jiesuanBFragment = new JiesuanBFragment();
-            homeActivity.getSupportFragmentManager().beginTransaction().add(R.id.fragment_content, homeActivity.jiesuanBFragment).commit();
-        } else
-            homeActivity.getSupportFragmentManager().beginTransaction().show(homeActivity.jiesuanBFragment).commit();
-
+        homeActivity.jiesuanBFragment.show(homeActivity, R.id.fragment_content);
         homeActivity.jiesuanBFragment.setData(guadanList.getCO_TotalPrice(), guadanList.getCO_TotalPrice(), mVipMsg,
                 guadanList.getGID(), guadanList.getCO_Type(), guadanList.getCO_OrderCode(),
                 mShopLeftList, moren, paytypelist, JiesuanBFragment.OrderType.GUAZHANG_ORDER, new InterfaceBack() {
                     @Override
                     public void onResponse(Object response) {
-                        homeActivity.getSupportFragmentManager().beginTransaction().hide(homeActivity.jiesuanBFragment).commit();
+                        homeActivity.jiesuanBFragment.hide();
                         if (response != null) {
                             com.blankj.utilcode.util.ToastUtils.showShort("结算成功");
                             mShopLeftList.clear();

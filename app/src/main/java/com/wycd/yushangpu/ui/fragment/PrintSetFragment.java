@@ -494,8 +494,7 @@ public class PrintSetFragment extends BaseFragment {
                         outLogin.outLogin(new InterfaceBack() {
                             @Override
                             public void onResponse(Object response) {
-                                homeActivity.getSupportFragmentManager().beginTransaction()
-                                        .hide(homeActivity.printSetFragment).commit();
+                                hide();
                                 homeActivity.dialog.dismiss();
                                 Intent intent = new Intent(homeActivity, LoginActivity.class);
                                 startActivity(intent);
