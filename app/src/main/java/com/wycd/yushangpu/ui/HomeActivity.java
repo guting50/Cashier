@@ -36,6 +36,7 @@ import com.wycd.yushangpu.tools.SystemUIUtils;
 import com.wycd.yushangpu.tools.ThreadPool;
 import com.wycd.yushangpu.tools.Utils;
 import com.wycd.yushangpu.ui.fragment.CashierFragment;
+import com.wycd.yushangpu.ui.fragment.JiesuanBFragment;
 import com.wycd.yushangpu.ui.fragment.PrintSetFragment;
 import com.wycd.yushangpu.ui.fragment.VipMemberFragment;
 import com.wycd.yushangpu.web.WebDialog;
@@ -79,7 +80,8 @@ public class HomeActivity extends BaseActivity {
     private int id = 0;
 
     public FragmentManager fragmentManager;
-    public CashierFragment cashierFragment;
+    public CashierFragment cashierFragment = new CashierFragment();
+    public JiesuanBFragment jiesuanBFragment;
     public PrintSetFragment printSetFragment;
     public VipMemberFragment vipMemberFragment;
     private boolean isFirstLaunch = false;
@@ -222,8 +224,7 @@ public class HomeActivity extends BaseActivity {
 
     private void initFragment() {
         fragmentManager = getSupportFragmentManager();
-        cashierFragment = new CashierFragment();
-        fragmentManager.beginTransaction().add(R.id.subsidiary_fragment, cashierFragment).commit();
+        cashierFragment.show(this, R.id.subsidiary_fragment);
     }
 
     private void initData() {

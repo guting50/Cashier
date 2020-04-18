@@ -10,13 +10,29 @@ import com.wycd.yushangpu.ui.HomeActivity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import butterknife.ButterKnife;
 
 public abstract class BaseFragment extends Fragment {
 
-    HomeActivity homeActivity;
-    View rootView;
+    protected HomeActivity homeActivity;
+    protected FragmentManager fragmentManager;
+    protected View rootView;
     private boolean isInit;
+
+    public void show(FragmentActivity fragmentActivity, int containerViewId) {
+        fragmentManager = fragmentActivity.getSupportFragmentManager();
+        if (!isAdded()) {
+            fragmentManager.beginTransaction().add(containerViewId, this).commit();
+        } else {
+            fragmentManager.beginTransaction().show(this).commit();
+        }
+    }
+
+    public void hide() {
+        fragmentManager.beginTransaction().hide(this).commit();
+    }
 
     @Nullable
     @Override

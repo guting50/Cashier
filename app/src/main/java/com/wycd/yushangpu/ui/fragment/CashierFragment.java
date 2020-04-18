@@ -104,7 +104,6 @@ public class CashierFragment extends BaseFragment {
     private CharSequence ordertime;
     private GoodsListFragment goodsListFragment;
     private QudanFragment qudanFragment;
-    public JiesuanBFragment jiesuanBFragment;
     public VipInfoMsg mVipMsg;
     private String allmoney, totalMoney;
     private PayTypeMsg moren;
@@ -908,16 +907,16 @@ public class CashierFragment extends BaseFragment {
     }
 
     private void toJieSuan(OrderCanshhu jso, JiesuanBFragment.OrderType orderType) {
-        if (jiesuanBFragment == null) {
-            jiesuanBFragment = new JiesuanBFragment();
-            homeActivity.fragmentManager.beginTransaction().add(R.id.fragment_content, jiesuanBFragment).commit();
+        if (homeActivity.jiesuanBFragment == null) {
+            homeActivity.jiesuanBFragment = new JiesuanBFragment();
+            homeActivity.fragmentManager.beginTransaction().add(R.id.fragment_content, homeActivity.jiesuanBFragment).commit();
         } else
-            homeActivity.fragmentManager.beginTransaction().show(jiesuanBFragment).commit();
-        jiesuanBFragment.setData(totalMoney, allmoney, mVipMsg, jso.getGID(), jso.getCO_Type(), jso.getCO_OrderCode(),
+            homeActivity.fragmentManager.beginTransaction().show(homeActivity.jiesuanBFragment).commit();
+        homeActivity.jiesuanBFragment.setData(totalMoney, allmoney, mVipMsg, jso.getGID(), jso.getCO_Type(), jso.getCO_OrderCode(),
                 mShopLeftList, moren, paytypelist, orderType, new InterfaceBack() {
                     @Override
                     public void onResponse(Object response) {
-                        homeActivity.fragmentManager.beginTransaction().hide(jiesuanBFragment).commit();
+                        homeActivity.fragmentManager.beginTransaction().hide(homeActivity.jiesuanBFragment).commit();
                         if (response != null) {
                             String gid = (String) response;
                             homeActivity.imgPaySuccess.setVisibility(View.VISIBLE);

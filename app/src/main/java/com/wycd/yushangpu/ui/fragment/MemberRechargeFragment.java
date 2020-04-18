@@ -15,12 +15,15 @@ import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.DiscountTypeBean;
 import com.wycd.yushangpu.bean.EmplMsg;
+import com.wycd.yushangpu.bean.OrderCanshhu;
 import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
 import com.wycd.yushangpu.http.BaseRes;
 import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
+import com.wycd.yushangpu.printutil.GetPrintSet;
+import com.wycd.yushangpu.printutil.HttpGetPrintContents;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.CreateOrder;
 import com.wycd.yushangpu.tools.DateTimeUtil;
@@ -28,9 +31,14 @@ import com.wycd.yushangpu.widget.dialog.ShopDetailDialog;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static com.wycd.yushangpu.MyApplication.ISLABELCONNECT;
+import static com.wycd.yushangpu.MyApplication.LABELPRINT_IS_OPEN;
 
 public class MemberRechargeFragment extends BaseFragment {
 
@@ -101,6 +109,7 @@ public class MemberRechargeFragment extends BaseFragment {
                 homeActivity.fragmentManager.beginTransaction().hide(this).commit();
                 break;
             case R.id.fl_submit:
+
                 break;
             case R.id.et_recharge_select_em_name:
                 ShopDetailDialog.shopdetailDialog(getActivity(), null, "",
@@ -121,6 +130,56 @@ public class MemberRechargeFragment extends BaseFragment {
                         });
                 break;
         }
+    }
+
+    private void toJieSuan(OrderCanshhu jso, JiesuanBFragment.OrderType orderType) {
+        if (homeActivity.jiesuanBFragment == null) {
+            homeActivity.jiesuanBFragment = new JiesuanBFragment();
+            homeActivity.fragmentManager.beginTransaction().add(R.id.fragment_content, homeActivity.jiesuanBFragment).commit();
+        } else
+            homeActivity.fragmentManager.beginTransaction().show(homeActivity.jiesuanBFragment).commit();
+//        homeActivity.jiesuanBFragment.setData(totalMoney, allmoney, mVipMsg, jso.getGID(), jso.getCO_Type(), jso.getCO_OrderCode(),
+//                mShopLeftList, moren, paytypelist, orderType, new InterfaceBack() {
+//                    @Override
+//                    public void onResponse(Object response) {
+//                        homeActivity.fragmentManager.beginTransaction().hide(jiesuanBFragment).commit();
+//                        if (response != null) {
+//                            String gid = (String) response;
+//                            homeActivity.imgPaySuccess.setVisibility(View.VISIBLE);
+//                            new Timer().schedule(new TimerTask() {
+//                                @Override
+//                                public void run() {
+//                                    homeActivity.runOnUiThread(new Runnable() {
+//                                        @Override
+//                                        public void run() {
+//                                            homeActivity.imgPaySuccess.setVisibility(View.GONE);
+//                                        }
+//                                    });
+//                                }
+//                            }, 2000);
+//
+//                            //打印小票
+//                            if (MyApplication.PRINT_IS_OPEN) {
+//                                if (MyApplication.mGoodsConsumeMap.isEmpty()) {
+//                                    GetPrintSet.getPrintParamSet();
+//                                }
+//                                new HttpGetPrintContents().SPXF(homeActivity, gid);
+//                            }
+//
+//                            if (ISLABELCONNECT && LABELPRINT_IS_OPEN) {
+//                                for (int i = 0; i < mShopLeftList.size(); i++) {
+//                                    homeActivity.labelPrint(mShopLeftList.get(i));
+//                                }
+//                            }
+//                            resetCashier();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onErrorResponse(Object msg) {
+//                    }
+//
+//                });
     }
 
 
