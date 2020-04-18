@@ -22,12 +22,13 @@ import com.google.gson.reflect.TypeToken;
 import com.gt.utils.view.OnNoDoubleClickListener;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
+import com.wycd.yushangpu.Presenter.BasicEucalyptusPresnter;
 import com.wycd.yushangpu.R;
+import com.wycd.yushangpu.bean.OrderCanshu;
 import com.wycd.yushangpu.bean.OrderPayResult;
 import com.wycd.yushangpu.bean.PayType;
 import com.wycd.yushangpu.bean.PayTypeMsg;
 import com.wycd.yushangpu.bean.ReportMessageBean;
-import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.bean.SmsSwitch;
 import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.bean.YhqMsg;
@@ -73,10 +74,10 @@ import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.wycd.yushangpu.MyApplication.shortMessage;
+import static com.wycd.yushangpu.ui.fragment.JiesuanBFragment.OrderType.MEM_RECHARGE_PAY;
 
 public class JiesuanBFragment extends BaseFragment {
 
-    private List<ShopMsg> list;
     private AppCompatActivity context;
 
     @BindView(R.id.et_ys_money)
@@ -137,7 +138,7 @@ public class JiesuanBFragment extends BaseFragment {
     @BindView(R.id.nested_scroll_view)
     NestedScrollView nestedScrollView;
 
-    PayModeListAdapter payModeListAdapter;
+    private PayModeListAdapter payModeListAdapter;
 
     private InterfaceBack back;
     private List<PayTypeMsg> payModeList;
@@ -146,7 +147,7 @@ public class JiesuanBFragment extends BaseFragment {
     //            原价总金额，折后金额  , 总共优惠金额 ， 应收金额
     private String totalMoney, zhMoney, totalYhMoney, ysMoney;
     //                 订单号       订单GID  会员积分  余额
-    private String CO_OrderCode, CO_Type, GID, jifen, yue;
+    private String CO_OrderCode, GID, jifen, yue;
     private OrderPayResult result;
     private String jifendk, jinfenzfxz;
     private String yuePayXz;
@@ -162,12 +163,13 @@ public class JiesuanBFragment extends BaseFragment {
     private int consumeCheck = 0;//1 余额消费密码验证 ；2 余额消费短信验证码验证
     private double yueMoney = 0;
 
-    NumKeyboardUtils numKeyboardUtils;
+    private NumKeyboardUtils numKeyboardUtils;
 
     public enum OrderType {
         CONSUM_ORDER, //商品消费订单
         CELERITY_ORDER, // 快速消费订单
-        GUAZHANG_ORDER //挂账订单
+        GUAZHANG_ORDER, //挂账订单
+        MEM_RECHARGE_PAY //会员充值
     }
 
     public enum PayMode {
@@ -206,18 +208,23 @@ public class JiesuanBFragment extends BaseFragment {
         dialog = LoadingDialog.loadingDialog(context, 1);
     }
 
-    public void setData(String totalMoney, String money, VipInfoMsg vipMsg,
-                        String GID, String CO_Type, String CO_OrderCode, ArrayList<ShopMsg> list, PayTypeMsg moren, ArrayList<PayTypeMsg> paylist,
+    /**
+     * @param totalMoney  合计
+     * @param zhMoney     折后金额
+     * @param vipMsg      会员对象
+     * @param orderCanshu 提交订单后的订单参数
+     * @param orderType   结算类型
+     * @param back
+     */
+    public void setData(String totalMoney, String zhMoney, VipInfoMsg vipMsg, OrderCanshu orderCanshu,
                         OrderType orderType, InterfaceBack back) {
         this.totalMoney = totalMoney;
-        this.zhMoney = money;
+        this.zhMoney = zhMoney;
         this.mVipMsg = vipMsg;
-        this.GID = GID;
-        this.CO_Type = CO_Type;
-        this.CO_OrderCode = CO_OrderCode;
-        this.list = list;
-        this.defaultMode = moren;
-        this.payModeList = paylist;
+        this.GID = orderCanshu.getGID();
+        this.CO_OrderCode = orderCanshu.getCO_OrderCode();
+        this.defaultMode = BasicEucalyptusPresnter.defaultMode;
+        this.payModeList = BasicEucalyptusPresnter.payModeList;
         this.orderType = orderType;
         this.back = back;
         super.setData();
@@ -242,6 +249,12 @@ public class JiesuanBFragment extends BaseFragment {
         tvPromotion.setText("");
         promotionMoney = 0;
         yhqMsgs = null;
+
+        if (orderType == MEM_RECHARGE_PAY) {// 会员充值不能使用优惠券\优惠活动\抹零
+            rootView.findViewById(R.id.li_yhq).setEnabled(false);
+            rootView.findViewById(R.id.li_promotion).setEnabled(false);
+            rootView.findViewById(R.id.et_moling).setEnabled(false);
+        }
 
         this.yue = "0.00";
         this.jifen = "0.00";
@@ -270,20 +283,22 @@ public class JiesuanBFragment extends BaseFragment {
                     couponCount++;
                 }
             }
-            tvCouponMoney.setHint("有" + couponCount + "张优惠券可用");
+            if (orderType != MEM_RECHARGE_PAY) // 会员充值不能使用优惠券
+                tvCouponMoney.setHint("有" + couponCount + "张优惠券可用");
         }
 
         if (ImpPreLoading.REPORT_BEAN != null) {
-            for (ReportMessageBean.ActiveBean active : ImpPreLoading.REPORT_BEAN.getActive()) {
-                if (active.getRP_Type() != 1 && Double.parseDouble(zhMoney) >= active.getRP_RechargeMoney()) {
-                    double temp = computePromotionMoney(active);
-                    if (promotionMoney < temp) {
-                        promotionMoney = temp;
-                        promotionMsg = active;
-                        tvPromotion.setText(promotionMsg.getRP_Name());
+            if (orderType != MEM_RECHARGE_PAY) // 会员充值不能使用优惠活动
+                for (ReportMessageBean.ActiveBean active : ImpPreLoading.REPORT_BEAN.getActive()) {
+                    if (active.getRP_Type() != 1 && Double.parseDouble(zhMoney) >= active.getRP_RechargeMoney()) {
+                        double temp = computePromotionMoney(active);
+                        if (promotionMoney < temp) {
+                            promotionMoney = temp;
+                            promotionMsg = active;
+                            tvPromotion.setText(promotionMsg.getRP_Name());
+                        }
                     }
                 }
-            }
             for (ReportMessageBean.GetSysSwitchListBean bean : ImpPreLoading.REPORT_BEAN.getGetSysSwitchList()) {
                 if (TextUtils.equals(bean.getSS_Code(), "204") && bean.getSS_State() == 1) {// 消费密码验证
                     consumeCheck = 1;
@@ -298,7 +313,7 @@ public class JiesuanBFragment extends BaseFragment {
         tvBillCount.setText(StringUtil.twoNum(totalMoney));
 
         setDefaultPayMode(defaultMode);
-        resetPayModeList(payModeList);
+        resetPayModeList();
         computeYsMoney();
 
         yhqDialog = YouhuiquanDialog.showDialog(context, zhMoney, mVipMsg, /*yhqMsgs*/null, 1, new InterfaceBack() {
@@ -606,7 +621,7 @@ public class JiesuanBFragment extends BaseFragment {
         orderPay.orderpay(context, GID, result, orderType, new InterfaceBack<String>() {
             @Override
             public void onResponse(String response) {
-                dialog.dismiss();
+                paySuccess();
                 back.onResponse(response);
             }
 
@@ -702,10 +717,9 @@ public class JiesuanBFragment extends BaseFragment {
 
     /***
      * 判断支付是否开启
-     * @param list
      */
-    private void resetPayModeList(List<PayTypeMsg> list) {
-        for (PayTypeMsg msg : list) {
+    private void resetPayModeList() {
+        for (PayTypeMsg msg : payModeList) {
             switch (NullUtils.noNullHandle(msg.getSS_Code()).toString()) {
                 case "101"://现金
                     mLiXianjin.setEnabled(true);
@@ -716,7 +730,7 @@ public class JiesuanBFragment extends BaseFragment {
                     break;
                 case "102"://余额
                     mLiYue.setEnabled(true);
-                    if (msg.getSS_State() != 1 || !isMember) {
+                    if (msg.getSS_State() != 1 || !isMember || orderType == MEM_RECHARGE_PAY) {
                         mLiYue.setBackgroundResource(R.drawable.shap_enable_not);
                         mLiYue.setEnabled(false);
                     }
@@ -745,7 +759,7 @@ public class JiesuanBFragment extends BaseFragment {
                     break;
                 case "107"://积分支付
                     mLiJifen.setEnabled(true);
-                    if (msg.getSS_State() != 1 || !isMember) {
+                    if (msg.getSS_State() != 1 || !isMember || orderType == MEM_RECHARGE_PAY) {
                         mLiJifen.setBackgroundResource(R.drawable.shap_enable_not);
                         mLiJifen.setEnabled(false);
                     }
@@ -802,7 +816,7 @@ public class JiesuanBFragment extends BaseFragment {
                 name = PayMode.XJZF.getStr();
                 break;
             case "YEZF"://余额
-                if (isMember) {
+                if (isMember || orderType == MEM_RECHARGE_PAY) {
                     view = mLiYue;
                     name = PayMode.YEZF.getStr();
                 } else {
@@ -824,7 +838,7 @@ public class JiesuanBFragment extends BaseFragment {
                 name = PayMode.ZFBJZ.getStr();
                 break;
             case "JFZF"://积分支付
-                if (isMember) {
+                if (isMember || orderType == MEM_RECHARGE_PAY) {
                     view = mLiJifen;
                     name = PayMode.JFZF.getStr();
                 } else {
@@ -1019,77 +1033,80 @@ public class JiesuanBFragment extends BaseFragment {
                 public void onResponse(Object response) {
                     obtainOrderPayResult();
                     ImpSaoma saoma = new ImpSaoma();
-                    saoma.saomaPay(response.toString(), smPayMoney + "", GID, CO_OrderCode, result, new InterfaceBack<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            System.out.println("==========扫码支付成功 (免密) =============== ");
-                            back.onResponse(response);
-                            if (saomaDialog != null)
-                                saomaDialog.dismiss();
-                        }
+                    saoma.saomaPay(response.toString(), smPayMoney + "", GID, CO_OrderCode, result,
+                            orderType, new InterfaceBack<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    System.out.println("==========扫码支付成功 (免密) =============== ");
+                                    paySuccess();
+                                    back.onResponse(response);
+                                    if (saomaDialog != null)
+                                        saomaDialog.dismiss();
+                                }
 
-                        @Override
-                        public void onErrorResponse(Object msg) {
-                            if (msg instanceof BaseRes) {
-                                BaseRes baseRes = (BaseRes) msg;
-                                if (("410004").equals(baseRes.getCode())) {
-                                    Type type = new TypeToken<Map<String, Object>>() {
-                                    }.getType();
-                                    Map<String, Object> map = baseRes.getData(type);
-                                    String gid = map.get("GID").toString();
-                                    Timer timer = new Timer();
-                                    timer.schedule(new TimerTask() {
-                                        @Override
-                                        public void run() {
-                                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void onErrorResponse(Object msg) {
+                                    if (msg instanceof BaseRes) {
+                                        BaseRes baseRes = (BaseRes) msg;
+                                        if (("410004").equals(baseRes.getCode())) {
+                                            Type type = new TypeToken<Map<String, Object>>() {
+                                            }.getType();
+                                            Map<String, Object> map = baseRes.getData(type);
+                                            String gid = map.get("GID").toString();
+                                            Timer timer = new Timer();
+                                            timer.schedule(new TimerTask() {
                                                 @Override
                                                 public void run() {
-                                                    saoma.saomaPayQuery(gid, new InterfaceBack<BaseRes>() {
+                                                    getActivity().runOnUiThread(new Runnable() {
                                                         @Override
-                                                        public void onResponse(BaseRes response) {
-                                                            checkPayResult(response);
-                                                        }
-
-                                                        @Override
-                                                        public void onErrorResponse(Object msg) {
-                                                            if (msg instanceof BaseRes) {
-                                                                checkPayResult((BaseRes) msg);
-                                                            } else {
-                                                                timer.cancel();
-                                                                saomaPayError();
-                                                            }
-                                                        }
-
-                                                        public void checkPayResult(BaseRes response) {
-                                                            if (!("410004").equals(response.getCode())) {
-                                                                timer.cancel();
-                                                                if (response.isSuccess()) {
-                                                                    System.out.println("==========扫码支付成功=============== ");
-                                                                    Map<String, Object> map = response.getData(type);
-                                                                    String Order_GID = map.get("Order_GID").toString();
-                                                                    back.onResponse(Order_GID);
-                                                                    if (saomaDialog != null)
-                                                                        saomaDialog.dismiss();
-                                                                } else {
-                                                                    saomaPayError();
+                                                        public void run() {
+                                                            saoma.saomaPayQuery(gid, new InterfaceBack<BaseRes>() {
+                                                                @Override
+                                                                public void onResponse(BaseRes response) {
+                                                                    checkPayResult(response);
                                                                 }
-                                                            } else {
-                                                                com.blankj.utilcode.util.ToastUtils.showShort("支付中");
-                                                            }
+
+                                                                @Override
+                                                                public void onErrorResponse(Object msg) {
+                                                                    if (msg instanceof BaseRes) {
+                                                                        checkPayResult((BaseRes) msg);
+                                                                    } else {
+                                                                        timer.cancel();
+                                                                        saomaPayError(null);
+                                                                    }
+                                                                }
+
+                                                                public void checkPayResult(BaseRes response) {
+                                                                    if (!("410004").equals(response.getCode())) {
+                                                                        timer.cancel();
+                                                                        if (response.isSuccess()) {
+                                                                            System.out.println("==========扫码支付成功=============== ");
+                                                                            Map<String, Object> map = response.getData(type);
+                                                                            String Order_GID = map.get("Order_GID").toString();
+                                                                            paySuccess();
+                                                                            back.onResponse(Order_GID);
+                                                                            if (saomaDialog != null)
+                                                                                saomaDialog.dismiss();
+                                                                        } else {
+                                                                            saomaPayError(response.getMsg());
+                                                                        }
+                                                                    } else {
+                                                                        com.blankj.utilcode.util.ToastUtils.showShort("支付中");
+                                                                    }
+                                                                }
+                                                            });
                                                         }
                                                     });
                                                 }
-                                            });
+                                            }, 2000, 2000);
+                                        } else {
+                                            saomaPayError(baseRes.getMsg());
                                         }
-                                    }, 2000, 2000);
-                                } else {
-                                    saomaPayError();
+                                    } else {
+                                        saomaPayError(null);
+                                    }
                                 }
-                            } else {
-                                saomaPayError();
-                            }
-                        }
-                    });
+                            });
                 }
 
                 @Override
@@ -1097,14 +1114,33 @@ public class JiesuanBFragment extends BaseFragment {
                     resetPayBg(mLiSaoma, PayMode.SMZF.getStr(), false);
                 }
 
-                public void saomaPayError() {
-                    com.blankj.utilcode.util.ToastUtils.showShort("扫码支付失败");
+                public void saomaPayError(String msg) {
+                    if (TextUtils.isEmpty(msg)) {
+                        msg = "扫码支付失败";
+                    }
+                    com.blankj.utilcode.util.ToastUtils.showShort(msg);
                     resetPayBg(mLiSaoma, PayMode.SMZF.getStr(), false);
                     if (saomaDialog != null && saomaDialog.isShowing())
                         saomaDialog.dismiss();
                 }
             });
         }
+    }
+
+    private void paySuccess() {
+        homeActivity.imgPaySuccess.setVisibility(View.VISIBLE);
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                homeActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        homeActivity.imgPaySuccess.setVisibility(View.GONE);
+                    }
+                });
+            }
+        }, 2000);
+        dialog.dismiss();
     }
 
     class PayModeListAdapter extends RecyclerView.Adapter {

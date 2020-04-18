@@ -1,9 +1,12 @@
 package com.wycd.yushangpu.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.util.List;
 
-public class GuadanList implements Serializable {
+public class OrderCanshu implements Parcelable {
 
     private List<ViewGoodsDetailBean> ViewGoodsDetail;//	商品信息 	IList	返回订单详情
     private String CC_GID;//		活动GID	string
@@ -36,6 +39,51 @@ public class GuadanList implements Serializable {
     private String SM_Contacter;//		联系人	string
     private String CO_Identifying; //订单状态名
     private String CO_IdentifyingState; //订单状态码 1 挂单  8挂账
+
+    protected OrderCanshu(Parcel in) {
+        CC_GID = in.readString();
+        EM_GIDList = in.readString();
+        PayPoint = in.readString();
+        DisMoney = in.readString();
+        VCH_Money = in.readString();
+        VCH_Point = in.readString();
+        CO_SSMoney = in.readString();
+        CO_ZLMoney = in.readString();
+        CO_ActivityName = in.readString();
+        CO_ActivityValue = in.readString();
+        CO_Discount = in.readString();
+        GID = in.readString();
+        VIP_GID = in.readString();
+        VIP_Card = in.readString();
+        VIP_Name = in.readString();
+        VIP_Phone = in.readString();
+        VIP_FaceNumber = in.readString();
+        CO_OrderCode = in.readString();
+        CO_ConsumeWay = in.readString();
+        CO_Monetary = in.readString();
+        CO_TotalPrice = in.readString();
+        CO_Integral = in.readString();
+        CO_Type = in.readString();
+        CO_Creator = in.readString();
+        CO_UpdateTime = in.readString();
+        CY_GID = in.readString();
+        SM_Name = in.readString();
+        SM_Contacter = in.readString();
+        CO_Identifying = in.readString();
+        CO_IdentifyingState = in.readString();
+    }
+
+    public static final Creator<OrderCanshu> CREATOR = new Creator<OrderCanshu>() {
+        @Override
+        public OrderCanshu createFromParcel(Parcel in) {
+            return new OrderCanshu(in);
+        }
+
+        @Override
+        public OrderCanshu[] newArray(int size) {
+            return new OrderCanshu[size];
+        }
+    };
 
     public String getCO_Identifying() {
         return CO_Identifying;
@@ -285,6 +333,45 @@ public class GuadanList implements Serializable {
         this.SM_Contacter = SM_Contacter;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(CC_GID);
+        parcel.writeString(EM_GIDList);
+        parcel.writeString(PayPoint);
+        parcel.writeString(DisMoney);
+        parcel.writeString(VCH_Money);
+        parcel.writeString(VCH_Point);
+        parcel.writeString(CO_SSMoney);
+        parcel.writeString(CO_ZLMoney);
+        parcel.writeString(CO_ActivityName);
+        parcel.writeString(CO_ActivityValue);
+        parcel.writeString(CO_Discount);
+        parcel.writeString(GID);
+        parcel.writeString(VIP_GID);
+        parcel.writeString(VIP_Card);
+        parcel.writeString(VIP_Name);
+        parcel.writeString(VIP_Phone);
+        parcel.writeString(VIP_FaceNumber);
+        parcel.writeString(CO_OrderCode);
+        parcel.writeString(CO_ConsumeWay);
+        parcel.writeString(CO_Monetary);
+        parcel.writeString(CO_TotalPrice);
+        parcel.writeString(CO_Integral);
+        parcel.writeString(CO_Type);
+        parcel.writeString(CO_Creator);
+        parcel.writeString(CO_UpdateTime);
+        parcel.writeString(CY_GID);
+        parcel.writeString(SM_Name);
+        parcel.writeString(SM_Contacter);
+        parcel.writeString(CO_Identifying);
+        parcel.writeString(CO_IdentifyingState);
+    }
+
     public static class ViewGoodsDetailBean implements Serializable {
 
         private String GID;//
@@ -495,7 +582,5 @@ public class GuadanList implements Serializable {
         public void setGOD_Type(int GOD_Type) {
             this.GOD_Type = GOD_Type;
         }
-
-
     }
 }

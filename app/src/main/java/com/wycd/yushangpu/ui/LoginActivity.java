@@ -17,6 +17,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.gt.utils.base64.BASE64Decoder;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
+import com.wycd.yushangpu.Presenter.BasicEucalyptusPresnter;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.LoginBean;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
@@ -151,6 +152,7 @@ public class LoginActivity extends BaseActivity {
                             finish();
 
                             ImpPreLoading.preLoad();
+                            BasicEucalyptusPresnter.init();
                         }
 
                         @Override

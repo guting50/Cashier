@@ -16,11 +16,11 @@ import com.google.gson.reflect.TypeToken;
 import com.gt.utils.view.BgFrameLayout;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
+import com.wycd.yushangpu.Presenter.BasicEucalyptusPresnter;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.adapter.ShopLeftAdapter;
 import com.wycd.yushangpu.bean.GoodsModelBean;
-import com.wycd.yushangpu.bean.OrderCanshhu;
-import com.wycd.yushangpu.bean.PayTypeMsg;
+import com.wycd.yushangpu.bean.OrderCanshu;
 import com.wycd.yushangpu.bean.RevokeGuaDanBean;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.bean.VipInfoMsg;
@@ -106,18 +106,6 @@ public class CashierFragment extends BaseFragment {
     private CharSequence ordertime;
     public VipInfoMsg mVipMsg;
     private String allmoney, totalMoney;
-    private PayTypeMsg moren;
-    private ArrayList<PayTypeMsg> paytypelist = new ArrayList<>();
-    private boolean isZeroStock;
-
-    //商品数据修改(修改单价/修改折扣/修改小计/修改数量)
-    public int mModifyPrice = 0;
-    //修改改价
-    public int mChangePrice = 0;
-    //修改折扣
-    public int mChangeDiscount = 0;
-    //修改小计
-    public int mChangeSubtotal = 0;
 
     private double mPoint;//积分
     private int mPD_Discount = 0;
@@ -132,7 +120,6 @@ public class CashierFragment extends BaseFragment {
     public void onCreated() {
         initView();
         initEvent();
-        obtainSystemCanshu();
         getProductModel();
 
         //更新订单时间
@@ -212,18 +199,6 @@ public class CashierFragment extends BaseFragment {
         qudanFragment.obtainGuadanList();
     }
 
-    private void obtainSystemCanshu() {
-        String url = HttpAPI.API().GET_SWITCH_LIST;
-        AsyncHttpUtils.postHttp(url, new CallBack() {
-            @Override
-            public void onResponse(BaseRes response) {
-                Type listType = new TypeToken<List<PayTypeMsg>>() {
-                }.getType();
-                handleSystem(response.getData(listType));
-            }
-        });
-    }
-
     private void getProductModel() {
         String url = HttpAPI.API().GOODSMODEL;
         AsyncHttpUtils.postHttp(url, new CallBack() {
@@ -234,48 +209,6 @@ public class CashierFragment extends BaseFragment {
                 ModelList = response.getData(listType);
             }
         });
-    }
-
-    private void handleSystem(List<PayTypeMsg> sllist) {
-        for (PayTypeMsg p : sllist) {
-            switch (p.getSS_Name()) {
-                case "默认支付":
-                    moren = p;
-                    break;
-                case "现金支付":
-                case "余额支付":
-                case "银联支付":
-                case "微信记账":
-                case "支付宝记账":
-                case "优惠券":
-                case "扫码支付":
-                case "其他支付":
-                case "积分支付":
-                case "积分支付限制": // 加入积分支付限制是为了在结算界面中获取积分计算规则
-                    paytypelist.add(p);
-                    break;
-                case "禁止0库存销售":
-                    if (p.getSS_State() == 1) {
-                        isZeroStock = true;
-                    } else {
-                        isZeroStock = false;
-                    }
-                    break;
-            }
-            if (p.getSS_Code() == 601) {
-                //商品数据修改
-                mModifyPrice = p.getSS_State();
-            } else if (p.getSS_Code() == 900) {
-                //修改单价
-                mChangePrice = p.getSS_State();
-            } else if (p.getSS_Code() == 901) {
-                //修改折扣
-                mChangeDiscount = p.getSS_State();
-            } else if (p.getSS_Code() == 902) {
-                //修改小计
-                mChangeSubtotal = p.getSS_State();
-            }
-        }
     }
 
     private void initEvent() {
@@ -317,9 +250,9 @@ public class CashierFragment extends BaseFragment {
 
                     if (mShopLeftList.size() == 1 && TextUtils.isEmpty(mShopLeftList.get(0).getGID()))
                         submitOrder.submitCelerityOrder(homeActivity, order, ordertime.toString(),
-                                null == mVipMsg ? "00000" : mVipMsg.getVCH_Card(), allmoney, new InterfaceBack<OrderCanshhu>() {
+                                null == mVipMsg ? "00000" : mVipMsg.getVCH_Card(), allmoney, new InterfaceBack<OrderCanshu>() {
                                     @Override
-                                    public void onResponse(OrderCanshhu response) {
+                                    public void onResponse(OrderCanshu response) {
                                         toJieSuan(response, JiesuanBFragment.OrderType.CELERITY_ORDER);
                                     }
 
@@ -330,9 +263,9 @@ public class CashierFragment extends BaseFragment {
                                 });
                     else
                         submitOrder.submitOrder(homeActivity, order, ordertime.toString(), null == mVipMsg ? "00000" : mVipMsg.getVCH_Card(),
-                                mShopLeftList, false, new InterfaceBack<OrderCanshhu>() {
+                                mShopLeftList, false, new InterfaceBack<OrderCanshu>() {
                                     @Override
-                                    public void onResponse(OrderCanshhu response) {
+                                    public void onResponse(OrderCanshu response) {
                                         toJieSuan(response, JiesuanBFragment.OrderType.CONSUM_ORDER);
                                     }
 
@@ -453,7 +386,7 @@ public class CashierFragment extends BaseFragment {
                     });*/
                 } else if (qudanFragment.getListCount() > 0) {
                     //取单
-                    qudanFragment.getGuaDan(moren, paytypelist, new InterfaceBack() {
+                    qudanFragment.getGuaDan(new InterfaceBack() {
                         @Override
                         public void onResponse(Object response) {
                             qudanFragment.hide();
@@ -687,12 +620,12 @@ public class CashierFragment extends BaseFragment {
             //如果有快速收银商品 ，就不在添加其他的商品
             return;
         }
-        if (shopMsg.getStock_Number() <= 0 && isZeroStock && shopMsg.getPM_IsService() == 0) {
+        if (shopMsg.getStock_Number() <= 0 && BasicEucalyptusPresnter.isZeroStock && shopMsg.getPM_IsService() == 0) {
             com.blankj.utilcode.util.ToastUtils.showShort("当前库存不足");
             return;
         }
         double addnum = 1;
-        if (isZeroStock && shopMsg.getPM_IsService() == 0) {//禁止0库存销售的普通商品
+        if (BasicEucalyptusPresnter.isZeroStock && shopMsg.getPM_IsService() == 0) {//禁止0库存销售的普通商品
             if (shopMsg.getStock_Number() - 1 >= 0) { //库存大于等于1
                 addnum = 1;
             } else {//库存大于0小于1
@@ -821,13 +754,14 @@ public class CashierFragment extends BaseFragment {
             }
 
             homeActivity.dialog.dismiss();
-            GoodsModelDialog.goodsModelDialog(homeActivity, 1, modelList, sllist, isZeroStock, new InterfaceBack() {
-                @Override
-                public void onResponse(Object response) {
-                    ShopMsg goodsitem = (ShopMsg) response;
-                    addShopLeftList(goodsitem, addnum);
-                }
-            });
+            GoodsModelDialog.goodsModelDialog(homeActivity, 1, modelList, sllist,
+                    BasicEucalyptusPresnter.isZeroStock, new InterfaceBack() {
+                        @Override
+                        public void onResponse(Object response) {
+                            ShopMsg goodsitem = (ShopMsg) response;
+                            addShopLeftList(goodsitem, addnum);
+                        }
+                    });
 
         } else {
             com.blankj.utilcode.util.ToastUtils.showShort("没有获取到规格列表，请稍后再尝试");
@@ -897,50 +831,32 @@ public class CashierFragment extends BaseFragment {
         }
     }
 
-    private void toJieSuan(OrderCanshhu jso, JiesuanBFragment.OrderType orderType) {
+    private void toJieSuan(OrderCanshu jso, JiesuanBFragment.OrderType orderType) {
         homeActivity.jiesuanBFragment.show(homeActivity, R.id.fragment_content);
-        homeActivity.jiesuanBFragment.setData(totalMoney, allmoney, mVipMsg, jso.getGID(), jso.getCO_Type(), jso.getCO_OrderCode(),
-                mShopLeftList, moren, paytypelist, orderType, new InterfaceBack() {
-                    @Override
-                    public void onResponse(Object response) {
-                        homeActivity.jiesuanBFragment.hide();
-                        if (response != null) {
-                            String gid = (String) response;
-                            homeActivity.imgPaySuccess.setVisibility(View.VISIBLE);
-                            new Timer().schedule(new TimerTask() {
-                                @Override
-                                public void run() {
-                                    homeActivity.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            homeActivity.imgPaySuccess.setVisibility(View.GONE);
-                                        }
-                                    });
-                                }
-                            }, 2000);
+        homeActivity.jiesuanBFragment.setData(totalMoney, allmoney, mVipMsg, jso, orderType, new InterfaceBack() {
+            @Override
+            public void onResponse(Object response) {
+                homeActivity.jiesuanBFragment.hide();
+                if (response != null) {
+                    String gid = (String) response;
 
-                            //打印小票
-                            if (MyApplication.PRINT_IS_OPEN) {
-                                if (MyApplication.mGoodsConsumeMap.isEmpty()) {
-                                    GetPrintSet.getPrintParamSet();
-                                }
-                                new HttpGetPrintContents().SPXF(homeActivity, gid);
-                            }
+                    //打印小票
+                    if (MyApplication.PRINT_IS_OPEN) {
+                        if (MyApplication.mGoodsConsumeMap.isEmpty()) {
+                            GetPrintSet.getPrintParamSet();
+                        }
+                        new HttpGetPrintContents().SPXF(homeActivity, gid);
+                    }
 
-                            if (ISLABELCONNECT && LABELPRINT_IS_OPEN) {
-                                for (int i = 0; i < mShopLeftList.size(); i++) {
-                                    homeActivity.labelPrint(mShopLeftList.get(i));
-                                }
-                            }
-                            resetCashier();
+                    if (ISLABELCONNECT && LABELPRINT_IS_OPEN) {
+                        for (int i = 0; i < mShopLeftList.size(); i++) {
+                            homeActivity.labelPrint(mShopLeftList.get(i));
                         }
                     }
-
-                    @Override
-                    public void onErrorResponse(Object msg) {
-                    }
-
-                });
+                    resetCashier();
+                }
+            }
+        });
     }
 
     public void updateBttGetOrder() {

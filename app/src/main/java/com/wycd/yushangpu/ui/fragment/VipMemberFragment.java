@@ -84,6 +84,12 @@ public class VipMemberFragment extends BaseFragment {
         });
     }
 
+    public void reset() {
+        obtainVipList();
+        memberHeadInfoLayout.setVisibility(View.GONE);
+        memberInfoLayout.setVisibility(View.GONE);
+    }
+
     @OnClick({R.id.li_search, R.id.iv_clone, R.id.iv_add_member, R.id.ly_vip_recharge, R.id.ly_goods_consume, R.id.ly_update_info})
     public void onClick(View view) {
         switch (view.getId()) {

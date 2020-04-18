@@ -191,6 +191,11 @@ public class HttpAPI {
         public static final String UPLOAD_MEMBER_PHOTO = MyApplication.BASE_URL + "api/RecvImage/UploadImg";
         //获取有效优惠活动
         public static final String DISSCOUNT_ACTIVITY = MyApplication.BASE_URL + "api/RechargePackage/GetValidList";
+        //会员充值接口提交
+        public static final String MEM_RECHARGE_SUB = MyApplication.BASE_URL + "api/Recharge/SubmitRecharge";
+        //会员充值接口支付
+        public static final String MEM_RECHARGE_PAY = MyApplication.BASE_URL + "api/Recharge/PaymentRecharge";
+
     }
 
 }

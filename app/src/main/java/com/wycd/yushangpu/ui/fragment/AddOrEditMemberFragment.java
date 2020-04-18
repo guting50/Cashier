@@ -863,6 +863,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                 homeActivity.dialog.dismiss();
                 new HttpGetPrintContents().HYKK(homeActivity, new Gson().toJson(response));
                 warnDialog(msgStr + "成功");
+                homeActivity.vipMemberFragment.reset();
                 hide();
             }
 

@@ -12,9 +12,7 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
-import com.wycd.yushangpu.bean.GuadanList;
-import com.wycd.yushangpu.bean.OrderCanshhu;
-import com.wycd.yushangpu.bean.PayTypeMsg;
+import com.wycd.yushangpu.bean.OrderCanshu;
 import com.wycd.yushangpu.bean.RevokeGuaDanBean;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.bean.VipInfoMsg;
@@ -55,12 +53,10 @@ public class QudanFragment extends BaseFragment {
     @BindView(R.id.iv_close)
     ImageView ivClose;
     private InterfaceBack back;
-    private List<GuadanList> list = new ArrayList<>();
+    private List<OrderCanshu> list = new ArrayList<>();
     private GuadanListAdapter guadanListAdapter;
     private VipInfoMsg mVipMsg;
     private ArrayList<ShopMsg> mShopLeftList = new ArrayList<>();
-    private PayTypeMsg moren;//默认支付
-    private ArrayList<PayTypeMsg> paytypelist;
     private int refreshnum = 2;
     private boolean mIsLoadMore;
     private int mPageTotal;//数据总页数
@@ -109,19 +105,16 @@ public class QudanFragment extends BaseFragment {
         obtainGuadanList();
     }
 
-    public void getGuaDan(PayTypeMsg moren, ArrayList<PayTypeMsg> paytypelist, InterfaceBack back) {
-        this.moren = moren;
-        this.paytypelist = paytypelist;
+    public void getGuaDan(InterfaceBack back) {
         this.back = back;
         this.isGuaDan = false;
         obtainGuadanList();
     }
 
-    private void jiesuan(GuadanList guadanList, VipInfoMsg mVipMsg) {
+    private void jiesuan(OrderCanshu orderCanshu, VipInfoMsg mVipMsg) {
         homeActivity.jiesuanBFragment.show(homeActivity, R.id.fragment_content);
-        homeActivity.jiesuanBFragment.setData(guadanList.getCO_TotalPrice(), guadanList.getCO_TotalPrice(), mVipMsg,
-                guadanList.getGID(), guadanList.getCO_Type(), guadanList.getCO_OrderCode(),
-                mShopLeftList, moren, paytypelist, JiesuanBFragment.OrderType.GUAZHANG_ORDER, new InterfaceBack() {
+        homeActivity.jiesuanBFragment.setData(orderCanshu.getCO_TotalPrice(), orderCanshu.getCO_TotalPrice(), mVipMsg,
+                orderCanshu, JiesuanBFragment.OrderType.GUAZHANG_ORDER, new InterfaceBack() {
                     @Override
                     public void onResponse(Object response) {
                         homeActivity.jiesuanBFragment.hide();
@@ -132,18 +125,14 @@ public class QudanFragment extends BaseFragment {
                         }
                     }
 
-                    @Override
-                    public void onErrorResponse(Object msg) {
-                    }
-
                 });
 
     }
 
-    private void initGetOrder(GuadanList guadanDetail) {
+    private void initGetOrder(OrderCanshu guadanDetail) {
         mShopLeftList.clear();
 
-        for (GuadanList.ViewGoodsDetailBean msg : guadanDetail.getViewGoodsDetail()) {
+        for (OrderCanshu.ViewGoodsDetailBean msg : guadanDetail.getViewGoodsDetail()) {
             if (msg.getGOD_Type() != 11) {
                 ShopMsg newmsg = new ShopMsg();
                 newmsg.setJisuanPrice(msg.getPM_UnitPrice());
@@ -198,14 +187,14 @@ public class QudanFragment extends BaseFragment {
             @Override
             public void onResponse(BaseRes response) {
                 BasePageRes basePageRes = response.getData(BasePageRes.class);
-                Type listType = new TypeToken<List<GuadanList>>() {
+                Type listType = new TypeToken<List<OrderCanshu>>() {
                 }.getType();
                 mPageTotal = basePageRes.getPageTotal();
-                List<GuadanList> sllist = basePageRes.getData(listType);
+                List<OrderCanshu> sllist = basePageRes.getData(listType);
                 if (!mIsLoadMore) {
                     list.clear();
                 }
-                for (GuadanList guadanList : sllist) {
+                for (OrderCanshu guadanList : sllist) {
                     if (guadanList.getCO_IdentifyingState().equals("1") || guadanList.getCO_IdentifyingState().equals("8")) {
                         list.add(guadanList);
                     }
@@ -307,7 +296,7 @@ public class QudanFragment extends BaseFragment {
                     }
                 });
             } else {
-                GuadanList guadanList = list.get(isGuaDan ? position - 1 : position);
+                OrderCanshu guadanList = list.get(isGuaDan ? position - 1 : position);
                 holder1.tvCount.setText("数量：" + guadanList.getViewGoodsDetail().size() + "");
                 holder1.tvTime.setText("挂单时间：" + guadanList.getCO_UpdateTime());
                 if (!NullUtils.noNullHandle(guadanList.getVIP_Phone()).toString().equals("")) {
@@ -349,7 +338,7 @@ public class QudanFragment extends BaseFragment {
             }
         }
 
-        private void itemClick(Holder holder1, GuadanList guadanList) {
+        private void itemClick(Holder holder1, OrderCanshu guadanList) {
             homeActivity.dialog.show();
             if (selectedHolder != null) {
                 selectedHolder.rootView.setBackgroundResource(R.drawable.bg_edittext_normal);
@@ -446,9 +435,9 @@ public class QudanFragment extends BaseFragment {
         }
 
         private void submitGuaOrder(String message) {
-            new ImpSubmitOrder().submitGuaOrder(homeActivity, orderCode, orderTime, vipCard, newShoplist, new InterfaceBack<OrderCanshhu>() {
+            new ImpSubmitOrder().submitGuaOrder(homeActivity, orderCode, orderTime, vipCard, newShoplist, new InterfaceBack<OrderCanshu>() {
                 @Override
-                public void onResponse(OrderCanshhu response) {
+                public void onResponse(OrderCanshu response) {
                     com.blankj.utilcode.util.ToastUtils.showShort(message + "成功");
 
                     obtainGuadanList();

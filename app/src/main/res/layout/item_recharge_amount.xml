@@ -43,7 +43,7 @@
             android:background="@drawable/selector_edit_green_gray"
             android:gravity="center"
             android:hint="其他金额"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:visibility="gone" />
 
     </com.gt.utils.view.BgFrameLayout>

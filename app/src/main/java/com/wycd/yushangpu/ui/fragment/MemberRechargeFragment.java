@@ -2,6 +2,7 @@ package com.wycd.yushangpu.ui.fragment;
 
 import android.text.Editable;
 import android.text.Html;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,19 +16,22 @@ import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.DiscountTypeBean;
 import com.wycd.yushangpu.bean.EmplMsg;
-import com.wycd.yushangpu.bean.OrderCanshhu;
+import com.wycd.yushangpu.bean.OrderCanshu;
 import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
 import com.wycd.yushangpu.http.BaseRes;
 import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
+import com.wycd.yushangpu.model.ImpSubmitOrder;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.CreateOrder;
 import com.wycd.yushangpu.tools.DateTimeUtil;
+import com.wycd.yushangpu.tools.StringUtil;
 import com.wycd.yushangpu.widget.dialog.ShopDetailDialog;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -62,6 +66,8 @@ public class MemberRechargeFragment extends BaseFragment {
     private String orderNumber;
     private String mStaffListGid;
     private List<DiscountTypeBean> mRechargeTypeList;
+    private String rechargeMoney, giveMoney, mDiscountActivityGid;
+    private double getPoints;
 
     @Override
 
@@ -91,6 +97,11 @@ public class MemberRechargeFragment extends BaseFragment {
         et_recharge_order_number.setText(orderNumber);
         et_recharge_create_timer.setText(DateTimeUtil.getReallyTimeNow());
 
+        et_recharge_em_name.setText("");
+        mStaffListGid = "";
+        et_recharge_total.setText("");
+        et_recharge_integral.setText("");
+
         getDiscountActivity();
     }
 
@@ -102,7 +113,23 @@ public class MemberRechargeFragment extends BaseFragment {
                 hide();
                 break;
             case R.id.fl_submit:
-
+                if (TextUtils.isEmpty(rechargeMoney)) {
+                    com.blankj.utilcode.util.ToastUtils.showShort("请选择充值金额");
+                    return;
+                }
+                List<String> mStaffListGids = new ArrayList<>();
+                if (!TextUtils.isEmpty(mStaffListGid))
+                    mStaffListGids.add(mStaffListGid);
+                homeActivity.dialog.show();
+                new ImpSubmitOrder().submitRechargeOrder(homeActivity, orderNumber, et_recharge_create_timer.getText().toString(),
+                        vipInfoMsg.getVCH_Card(), mDiscountActivityGid, rechargeMoney, giveMoney, getPoints,
+                        mStaffListGids, et_recharge_remark.getText().toString(), new InterfaceBack<OrderCanshu>() {
+                            @Override
+                            public void onResponse(OrderCanshu response) {
+                                response.setCO_OrderCode(orderNumber);
+                                toJieSuan(response);
+                            }
+                        });
                 break;
             case R.id.et_recharge_select_em_name:
                 ShopDetailDialog.shopdetailDialog(getActivity(), null, "",
@@ -125,50 +152,17 @@ public class MemberRechargeFragment extends BaseFragment {
         }
     }
 
-    private void toJieSuan(OrderCanshhu jso, JiesuanBFragment.OrderType orderType) {
+    private void toJieSuan(OrderCanshu jso) {
         homeActivity.jiesuanBFragment.show(homeActivity, R.id.fragment_content);
-//        homeActivity.jiesuanBFragment.setData(totalMoney, allmoney, mVipMsg, jso.getGID(), jso.getCO_Type(), jso.getCO_OrderCode(),
-//                mShopLeftList, moren, paytypelist, orderType, new InterfaceBack() {
-//                    @Override
-//                    public void onResponse(Object response) {
-//                        homeActivity.fragmentManager.beginTransaction().hide(jiesuanBFragment).commit();
-//                        if (response != null) {
-//                            String gid = (String) response;
-//                            homeActivity.imgPaySuccess.setVisibility(View.VISIBLE);
-//                            new Timer().schedule(new TimerTask() {
-//                                @Override
-//                                public void run() {
-//                                    homeActivity.runOnUiThread(new Runnable() {
-//                                        @Override
-//                                        public void run() {
-//                                            homeActivity.imgPaySuccess.setVisibility(View.GONE);
-//                                        }
-//                                    });
-//                                }
-//                            }, 2000);
-//
-//                            //打印小票
-//                            if (MyApplication.PRINT_IS_OPEN) {
-//                                if (MyApplication.mGoodsConsumeMap.isEmpty()) {
-//                                    GetPrintSet.getPrintParamSet();
-//                                }
-//                                new HttpGetPrintContents().SPXF(homeActivity, gid);
-//                            }
-//
-//                            if (ISLABELCONNECT && LABELPRINT_IS_OPEN) {
-//                                for (int i = 0; i < mShopLeftList.size(); i++) {
-//                                    homeActivity.labelPrint(mShopLeftList.get(i));
-//                                }
-//                            }
-//                            resetCashier();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onErrorResponse(Object msg) {
-//                    }
-//
-//                });
+        homeActivity.jiesuanBFragment.setData(rechargeMoney, rechargeMoney, vipInfoMsg, jso,
+                JiesuanBFragment.OrderType.MEM_RECHARGE_PAY, new InterfaceBack() {
+                    @Override
+                    public void onResponse(Object response) {
+                        homeActivity.jiesuanBFragment.hide();
+                        homeActivity.vipMemberFragment.reset();
+                        hide();
+                    }
+                });
     }
 
 
@@ -226,11 +220,14 @@ public class MemberRechargeFragment extends BaseFragment {
                                         .setTextColor(0xffffffff);
                                 ((TextView) frameLayout.findViewById(R.id.tv_RP_GiveMoney))
                                         .setTextColor(0xffffffff);
-                                ((TextView) frameLayout.findViewById(R.id.tv_RP_GiveMoney))
-                                        .setText("赠送" + discountTypeBean.getRP_GiveMoney() + "元");
-                                et_recharge_total.setText(
-                                        CommonUtils.add(discountTypeBean.getRP_RechargeMoney(), discountTypeBean.getRP_GiveMoney()) + "");
-                                et_recharge_integral.setText(discountTypeBean.getRP_GivePoint() + "");
+                                rechargeMoney = discountTypeBean.getRP_RechargeMoney() + "";
+                                giveMoney = discountTypeBean.getRP_GiveMoney() + "";
+                                getPoints = discountTypeBean.getRP_GivePoint();
+                                mDiscountActivityGid = discountTypeBean.getGID();
+                                ((TextView) frameLayout.findViewById(R.id.tv_RP_GiveMoney)).setText("赠送" + giveMoney + "元");
+                                et_recharge_total.setText(CommonUtils.add(rechargeMoney, giveMoney) + "");
+                                et_recharge_integral.setText(
+                                        StringUtil.twoNum(CommonUtils.add(CommonUtils.multiply(rechargeMoney, vipInfoMsg.getRS_Value() + ""), getPoints) + ""));
 
                                 bgFrameLayout.setFocusable(true);
                                 bgFrameLayout.setFocusableInTouchMode(true);
@@ -270,12 +267,21 @@ public class MemberRechargeFragment extends BaseFragment {
 
                     @Override
                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                        String text = charSequence.toString();
+                        if (!StringUtil.isTwoPoint(text)) {
+                            charSequence = text.substring(0, text.length() - 1);
+                            ed_RechargeMoney.setText(charSequence.toString());
+                            ed_RechargeMoney.setSelection(charSequence.length());
+                        }
                     }
 
                     @Override
                     public void afterTextChanged(Editable editable) {
                         et_recharge_total.setText(editable);
+                        rechargeMoney = editable.toString();
+                        giveMoney = "";
+                        getPoints = 0;
+                        mDiscountActivityGid = "1";
                     }
                 });
                 fl_recharge_amount.addView(view);

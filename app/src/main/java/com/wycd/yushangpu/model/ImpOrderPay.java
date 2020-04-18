@@ -58,6 +58,9 @@ public class ImpOrderPay {
             case GUAZHANG_ORDER:
                 url = HttpAPI.API().GUAZHANG;
                 break;
+            case MEM_RECHARGE_PAY:
+                url = HttpAPI.API().MEM_RECHARGE_PAY;
+                break;
         }
 
         AsyncHttpUtils.postHttp(url, params, new CallBack() {

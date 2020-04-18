@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.gt.utils.view.BgFrameLayout;
 import com.wycd.yushangpu.MyApplication;
+import com.wycd.yushangpu.Presenter.BasicEucalyptusPresnter;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.EmplMsg;
 import com.wycd.yushangpu.bean.ShopMsg;
@@ -116,7 +117,7 @@ public class EditCashierGoodsFragment extends BaseFragment {
                 editTextLayout.selectAll();
                 break;
             case R.id.bn_edit_price:
-                if (homeActivity.cashierFragment.mModifyPrice == 0 || homeActivity.cashierFragment.mChangePrice == 0) {
+                if (BasicEucalyptusPresnter.mModifyPrice == 0 || BasicEucalyptusPresnter.mChangePrice == 0) {
                     com.blankj.utilcode.util.ToastUtils.showShort("请开启 商品消费改单价 后再操作");
                     return;
                 }
@@ -131,7 +132,7 @@ public class EditCashierGoodsFragment extends BaseFragment {
                 editTextLayout.selectAll();
                 break;
             case R.id.bn_edit_subtotal:
-                if (homeActivity.cashierFragment.mModifyPrice == 0 || homeActivity.cashierFragment.mChangeSubtotal == 0) {
+                if (BasicEucalyptusPresnter.mModifyPrice == 0 || BasicEucalyptusPresnter.mChangeSubtotal == 0) {
                     com.blankj.utilcode.util.ToastUtils.showShort("请开启 商品消费改小计 后再操作");
                     return;
                 }
@@ -148,7 +149,7 @@ public class EditCashierGoodsFragment extends BaseFragment {
                 editTextLayout.selectAll();
                 break;
             case R.id.bn_edit_discount:
-                if (homeActivity.cashierFragment.mModifyPrice == 0 || homeActivity.cashierFragment.mChangeDiscount == 0) {
+                if (BasicEucalyptusPresnter.mModifyPrice == 0 || BasicEucalyptusPresnter.mChangeDiscount == 0) {
                     com.blankj.utilcode.util.ToastUtils.showShort("请开启 商品消费改折扣 后再操作");
                     return;
                 }

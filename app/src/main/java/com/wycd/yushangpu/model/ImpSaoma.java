@@ -10,22 +10,24 @@ import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.tools.Decima2KeeplUtil;
+import com.wycd.yushangpu.ui.fragment.JiesuanBFragment;
 
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
 import static com.wycd.yushangpu.MyApplication.shortMessage;
+import static com.wycd.yushangpu.ui.fragment.JiesuanBFragment.OrderType.MEM_RECHARGE_PAY;
 
 /**
- * 首页商品数据
+ * 扫码支付
  * Created by songxiaotao on 2018/6/19.
  */
 
 public class ImpSaoma {
 
     public void saomaPay(String Code, String Money, String OrderGID, String OrderNo, OrderPayResult orderPayResult,
-                         InterfaceBack back) {
+                         JiesuanBFragment.OrderType orderType, InterfaceBack back) {
         // TODO 自动生成的方法存根
         RequestParams params = new RequestParams();
 //        Code	条码(授权码)	string	否
@@ -37,7 +39,12 @@ public class ImpSaoma {
         params.put("Code", Code);
         params.put("Money", Money);
         params.put("OrderGID", OrderGID);
-        params.put("OrderType", 10);
+        //10商品消费 20充次 30计时消费 40 充值 50 套餐消费 60快速消费
+        if (orderType == MEM_RECHARGE_PAY) {
+            params.put("OrderType", 40);
+        } else {
+            params.put("OrderType", 10);
+        }
         params.put("OrderNo", OrderNo);
         params.put("Smsg", shortMessage);
 
