@@ -12,7 +12,6 @@ import com.wycd.yushangpu.tools.ActivityManager;
 import com.wycd.yushangpu.tools.LogUtils;
 import com.wycd.yushangpu.ui.LoginActivity;
 
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.util.concurrent.ConcurrentHashMap;
 
