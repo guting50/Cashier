@@ -262,24 +262,26 @@ public class PrintSetFragment extends BaseFragment {
             }
         });
 
-        Glide.with(getContext()).load(ImgUrlTools.obtainUrl(NullUtils.noNullHandle(shopInfoBean.getShopImg()).toString()))
+        if (shopInfoBean != null) {
+            Glide.with(getContext()).load(ImgUrlTools.obtainUrl(NullUtils.noNullHandle(shopInfoBean.getShopImg()).toString()))
 //                .placeholder(R.mipmap.messge_nourl)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(sm_picture);
-        tv_sm_edition.setText(NullUtils.noNullHandle(shopInfoBean.getShopType()).toString().split("\\(")[0]);
-        tv_sersion_life.setText(NullUtils.noNullHandle(shopInfoBean.getSM_SersionLife()).toString() + "年");
-        tv_create_time.setText("开通时间\n" + NullUtils.noNullHandle(shopInfoBean.getShopCreateTime()).toString());
-        tv_end_time.setText("到期时间：" + NullUtils.noNullHandle(shopInfoBean.getShopOverTime()).toString());
-        tv_shop_users.setText("用户数\n" + NullUtils.noNullHandle(shopInfoBean.getShopUsers()).toString());
-        tv_shop_mbers.setText("会员人数\n" + NullUtils.noNullHandle(shopInfoBean.getShopMbers()).toString());
-        tv_shop_goods.setText("商品数量\n" + NullUtils.noNullHandle(shopInfoBean.getShopGoods()).toString());
-        tv_shop_name.setText("店铺名称：" + NullUtils.noNullHandle(shopInfoBean.getShopName()).toString());
-        tv_contacter.setText("联  系  人：" + NullUtils.noNullHandle(shopInfoBean.getShopContact()).toString());
-        tv_industry.setText("所属行业：" + NullUtils.noNullHandle(shopInfoBean.getSM_Industry()).toString());
-        tv_address.setText("店铺地址：" + NullUtils.noNullHandle(shopInfoBean.getSM_DetailAddr()).toString());
-        tv_range.setText("经营范围：" + NullUtils.noNullHandle(shopInfoBean.getSM_Range()).toString());
-        tv_phone.setText("联系电话：" + NullUtils.noNullHandle(shopInfoBean.getShopTel()).toString());
-        tv_remarks.setText("备注信息：" + NullUtils.noNullHandle(shopInfoBean.getSM_Remark()).toString());
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(sm_picture);
+            tv_sm_edition.setText(NullUtils.noNullHandle(shopInfoBean.getShopType()).toString().split("\\(")[0]);
+            tv_sersion_life.setText(NullUtils.noNullHandle(shopInfoBean.getSM_SersionLife()).toString() + "年");
+            tv_create_time.setText("开通时间\n" + NullUtils.noNullHandle(shopInfoBean.getShopCreateTime()).toString());
+            tv_end_time.setText("到期时间：" + NullUtils.noNullHandle(shopInfoBean.getShopOverTime()).toString());
+            tv_shop_users.setText("用户数\n" + NullUtils.noNullHandle(shopInfoBean.getShopUsers()).toString());
+            tv_shop_mbers.setText("会员人数\n" + NullUtils.noNullHandle(shopInfoBean.getShopMbers()).toString());
+            tv_shop_goods.setText("商品数量\n" + NullUtils.noNullHandle(shopInfoBean.getShopGoods()).toString());
+            tv_shop_name.setText("店铺名称：" + NullUtils.noNullHandle(shopInfoBean.getShopName()).toString());
+            tv_contacter.setText("联  系  人：" + NullUtils.noNullHandle(shopInfoBean.getShopContact()).toString());
+            tv_industry.setText("所属行业：" + NullUtils.noNullHandle(shopInfoBean.getSM_Industry()).toString());
+            tv_address.setText("店铺地址：" + NullUtils.noNullHandle(shopInfoBean.getSM_DetailAddr()).toString());
+            tv_range.setText("经营范围：" + NullUtils.noNullHandle(shopInfoBean.getSM_Range()).toString());
+            tv_phone.setText("联系电话：" + NullUtils.noNullHandle(shopInfoBean.getShopTel()).toString());
+            tv_remarks.setText("备注信息：" + NullUtils.noNullHandle(shopInfoBean.getSM_Remark()).toString());
+        }
 
     }
 

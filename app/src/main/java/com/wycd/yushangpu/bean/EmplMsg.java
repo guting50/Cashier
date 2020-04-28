@@ -24,6 +24,7 @@ public class EmplMsg {
     private int EM_TipFastConsume;//	快速消费提成
     private int EM_TipTimesConsume;//	签到提成
     private int EM_TipComboConsume;//	套餐消费提成
+    private int staffProportion;//提成比例或者固定提成金额
     private boolean ischose;
 
     public boolean isIschose() {
@@ -208,5 +209,13 @@ public class EmplMsg {
 
     public void setEM_TipComboConsume(int EM_TipComboConsume) {
         this.EM_TipComboConsume = EM_TipComboConsume;
+    }
+
+    public int getStaffProportion() {
+        return staffProportion;
+    }
+
+    public void setStaffProportion(int staffProportion) {
+        this.staffProportion = staffProportion;
     }
 }

@@ -11,6 +11,7 @@ import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.StringUtil;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShopMsg implements Serializable, Parcelable {
@@ -45,6 +46,7 @@ public class ShopMsg implements Serializable, Parcelable {
     private double PM_MinDisCountValue;//	最低折扣开关的值	decimal
     private double PM_FixedIntegralValue;//	固定积分开关的值	decimal
     private List<String> EM_GIDList;//	提成员工	List<string>
+    private List<Integer> GOD_Proportion;//	提成员工（比例或者固定金额）	List<string>
     private String EM_NameList;//	提成员工	List<string>
     private double num;
     private int chosePosion;
@@ -122,6 +124,14 @@ public class ShopMsg implements Serializable, Parcelable {
 
     public void setEM_GIDList(List<String> EM_GIDList) {
         this.EM_GIDList = EM_GIDList;
+    }
+
+    public List<Integer> getGOD_Proportion() {
+        return GOD_Proportion;
+    }
+
+    public void setGOD_Proportion(List<Integer> GOD_Proportion) {
+        this.GOD_Proportion = GOD_Proportion;
     }
 
     public String getEM_NameList() {
@@ -494,55 +504,6 @@ public class ShopMsg implements Serializable, Parcelable {
     }
 
     @Override
-    public String toString() {
-        return "ShopMsg{" +
-                "PM_GroupGID='" + PM_GroupGID + '\'' +
-                ", GroupCount='" + GroupCount + '\'' +
-                ", GID='" + GID + '\'' +
-                ", PT_ID='" + PT_ID + '\'' +
-                ", SM_ID='" + SM_ID + '\'' +
-                ", PT_Name='" + PT_Name + '\'' +
-                ", PM_Code='" + PM_Code + '\'' +
-                ", PM_Name='" + PM_Name + '\'' +
-                ", PM_SimpleCode='" + PM_SimpleCode + '\'' +
-                ", PM_Metering='" + PM_Metering + '\'' +
-                ", PM_UnitPrice=" + PM_UnitPrice +
-                ", PM_BigImg='" + PM_BigImg + '\'' +
-                ", PM_SmallImg='" + PM_SmallImg + '\'' +
-                ", PM_Description='" + PM_Description + '\'' +
-                ", PM_Modle='" + PM_Modle + '\'' +
-                ", PM_Brand='" + PM_Brand + '\'' +
-                ", PM_Repertory=" + PM_Repertory +
-                ", Stock_Number=" + Stock_Number +
-                ", currtStock_Number=" + currtStock_Number +
-                ", PM_PurchasePrice=" + PM_PurchasePrice +
-                ", PM_MemPrice='" + PM_MemPrice + '\'' +
-                ", PM_IsDiscount=" + PM_IsDiscount +
-                ", PM_IsPoint=" + PM_IsPoint +
-                ", PM_IsService=" + PM_IsService +
-                ", SP_GID='" + SP_GID + '\'' +
-                ", PM_SpecialOfferMoney=" + PM_SpecialOfferMoney +
-                ", PM_SpecialOfferValue=" + PM_SpecialOfferValue +
-                ", PM_MinDisCountValue=" + PM_MinDisCountValue +
-                ", PM_FixedIntegralValue=" + PM_FixedIntegralValue +
-                ", EM_GIDList=" + EM_GIDList +
-                ", EM_NameList='" + EM_NameList + '\'' +
-                ", num=" + num +
-                ", chosePosion=" + chosePosion +
-                ", allprice=" + allprice +
-                ", totalPrice=" + totalPrice +
-                ", PD_Discount=" + PD_Discount +
-                ", jisuanPrice=" + jisuanPrice +
-                ", EachPoint=" + EachPoint +
-                ", isCheck=" + isCheck +
-                ", hasvipDiscount=" + hasvipDiscount +
-                ", isgive=" + isgive +
-                ", Type=" + Type +
-                ", ischanged=" + ischanged +
-                '}';
-    }
-
-    @Override
     public int describeContents() {
         return 0;
     }
@@ -579,6 +540,7 @@ public class ShopMsg implements Serializable, Parcelable {
         dest.writeDouble(this.PM_MinDisCountValue);
         dest.writeDouble(this.PM_FixedIntegralValue);
         dest.writeStringList(this.EM_GIDList);
+        dest.writeList(this.GOD_Proportion);
         dest.writeString(this.EM_NameList);
         dest.writeDouble(this.num);
         dest.writeInt(this.chosePosion);
@@ -592,6 +554,13 @@ public class ShopMsg implements Serializable, Parcelable {
         dest.writeByte(this.isgive ? (byte) 1 : (byte) 0);
         dest.writeInt(this.Type);
         dest.writeByte(this.ischanged ? (byte) 1 : (byte) 0);
+        dest.writeString(this.PM_IsServiceText);
+        dest.writeInt(this.StateTextColor);
+        dest.writeInt(this.KuVisibility);
+        dest.writeString(this.TvVippriceText);
+        dest.writeInt(this.TvSanpriceFlags);
+        dest.writeInt(this.TvSanpriceTextColor);
+        dest.writeByte(this.initialized ? (byte) 1 : (byte) 0);
     }
 
     protected ShopMsg(Parcel in) {
@@ -625,6 +594,8 @@ public class ShopMsg implements Serializable, Parcelable {
         this.PM_MinDisCountValue = in.readDouble();
         this.PM_FixedIntegralValue = in.readDouble();
         this.EM_GIDList = in.createStringArrayList();
+        this.GOD_Proportion = new ArrayList<Integer>();
+        in.readList(this.GOD_Proportion, Integer.class.getClassLoader());
         this.EM_NameList = in.readString();
         this.num = in.readDouble();
         this.chosePosion = in.readInt();
@@ -638,6 +609,13 @@ public class ShopMsg implements Serializable, Parcelable {
         this.isgive = in.readByte() != 0;
         this.Type = in.readInt();
         this.ischanged = in.readByte() != 0;
+        this.PM_IsServiceText = in.readString();
+        this.StateTextColor = in.readInt();
+        this.KuVisibility = in.readInt();
+        this.TvVippriceText = in.readString();
+        this.TvSanpriceFlags = in.readInt();
+        this.TvSanpriceTextColor = in.readInt();
+        this.initialized = in.readByte() != 0;
     }
 
     public static final Creator<ShopMsg> CREATOR = new Creator<ShopMsg>() {

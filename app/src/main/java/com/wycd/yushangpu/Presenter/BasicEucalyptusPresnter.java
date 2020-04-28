@@ -1,7 +1,8 @@
 package com.wycd.yushangpu.Presenter;
 
+import com.blankj.utilcode.util.CacheDiskUtils;
 import com.google.gson.reflect.TypeToken;
-import com.wycd.yushangpu.bean.PayTypeMsg;
+import com.wycd.yushangpu.bean.SysSwitchRes;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
 import com.wycd.yushangpu.http.BaseRes;
 import com.wycd.yushangpu.http.CallBack;
@@ -13,8 +14,8 @@ import java.util.List;
 
 public class BasicEucalyptusPresnter {
 
-    public static PayTypeMsg defaultMode;// 默认支付方式
-    public static ArrayList<PayTypeMsg> payModeList = new ArrayList<>(); // 支付方式列表
+    public static SysSwitchRes defaultMode;// 默认支付方式
+    public static ArrayList<SysSwitchRes> payModeList = new ArrayList<>(); // 支付方式列表
     public static boolean isZeroStock; //是否禁止0库存销售
     public static int mModifyPrice = 0;//商品数据修改(修改单价/修改折扣/修改小计/修改数量)
     public static int mChangePrice = 0;//修改改价
@@ -30,16 +31,16 @@ public class BasicEucalyptusPresnter {
         AsyncHttpUtils.postHttp(url, new CallBack() {
             @Override
             public void onResponse(BaseRes response) {
-                Type listType = new TypeToken<List<PayTypeMsg>>() {
+                Type listType = new TypeToken<List<SysSwitchRes>>() {
                 }.getType();
                 handleSystem(response.getData(listType));
             }
         });
     }
 
-    private static void handleSystem(List<PayTypeMsg> sllist) {
+    private static void handleSystem(List<SysSwitchRes> sllist) {
         payModeList.clear();
-        for (PayTypeMsg p : sllist) {
+        for (SysSwitchRes p : sllist) {
             switch (p.getSS_Name()) {
                 case "默认支付":
                     defaultMode = p;
@@ -77,6 +78,9 @@ public class BasicEucalyptusPresnter {
                 //修改小计
                 mChangeSubtotal = p.getSS_State();
             }
+
+            //保存到本地缓存
+            CacheDiskUtils.getInstance().put(p.getSS_Code() + "", p);
         }
     }
 }

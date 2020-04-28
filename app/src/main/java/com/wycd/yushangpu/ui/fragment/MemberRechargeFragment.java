@@ -65,6 +65,7 @@ public class MemberRechargeFragment extends BaseFragment {
     private VipInfoMsg vipInfoMsg;
     private String orderNumber;
     private String mStaffListGid;
+    private int taffProportion;
     private List<DiscountTypeBean> mRechargeTypeList;
     private String rechargeMoney, giveMoney, mDiscountActivityGid;
     private double getPoints;
@@ -118,12 +119,14 @@ public class MemberRechargeFragment extends BaseFragment {
                     return;
                 }
                 List<String> mStaffListGids = new ArrayList<>();
+                List<Integer> staffProportionList = new ArrayList<>();
                 if (!TextUtils.isEmpty(mStaffListGid))
                     mStaffListGids.add(mStaffListGid);
+                staffProportionList.add(taffProportion);
                 homeActivity.dialog.show();
                 new ImpSubmitOrder().submitRechargeOrder(homeActivity, orderNumber, et_recharge_create_timer.getText().toString(),
                         vipInfoMsg.getVCH_Card(), mDiscountActivityGid, rechargeMoney, giveMoney, getPoints,
-                        mStaffListGids, et_recharge_remark.getText().toString(), new InterfaceBack<OrderCanshu>() {
+                        mStaffListGids, staffProportionList, et_recharge_remark.getText().toString(), new InterfaceBack<OrderCanshu>() {
                             @Override
                             public void onResponse(OrderCanshu response) {
                                 response.setCO_OrderCode(orderNumber);
@@ -140,6 +143,7 @@ public class MemberRechargeFragment extends BaseFragment {
                                 if (mEmplMsgList != null && mEmplMsgList.size() == 1) {
                                     et_recharge_em_name.setText(mEmplMsgList.get(0).getEM_Name());
                                     mStaffListGid = mEmplMsgList.get(0).getGID();
+                                    taffProportion = mEmplMsgList.get(0).getStaffProportion();
                                 }
                             }
 

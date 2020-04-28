@@ -48,6 +48,7 @@ public class ImpSubmitOrder {
             params.put("Goods[" + i + "][PM_Number]", shoplist.get(i).getNum());
             params.put("Goods[" + i + "][PM_Money]", Decima2KeeplUtil.stringToDecimal(shoplist.get(i).getAllprice() + ""));
             params.put("Goods[" + i + "][EM_GIDList]", shoplist.get(i).getEM_GIDList());
+            params.put("Goods[" + i + "][GOD_Proportion]", shoplist.get(i).getGOD_Proportion());
             params.put("Goods[" + i + "][Type]", shoplist.get(i).getType());
             params.put("Goods[" + i + "][ExpiryTime]", "");
             params.put("Goods[" + i + "][WR_GIDList]", "");
@@ -102,6 +103,7 @@ public class ImpSubmitOrder {
             params.put("Goods[" + i + "][PM_Number]", shoplist.get(i).getNum());
             params.put("Goods[" + i + "][PM_Money]", Decima2KeeplUtil.stringToDecimal(shoplist.get(i).getAllprice() + ""));
             params.put("Goods[" + i + "][EM_GIDList]", shoplist.get(i).getEM_GIDList());
+            params.put("Goods[" + i + "][GOD_Proportion]", shoplist.get(i).getGOD_Proportion());
             params.put("Goods[" + i + "][Type]", shoplist.get(i).getType());
             params.put("Goods[" + i + "][ExpiryTime]", "");
             params.put("Goods[" + i + "][WR_GIDList]", "");
@@ -216,7 +218,7 @@ public class ImpSubmitOrder {
      */
     public void submitRechargeOrder(final Context ac, String mOrderNo, String OrderTime, String VCH_Card,
                                     String mDiscountActivityGid, String mRechargeMoney, String mGiveMoney,
-                                    double mGetPoints, List<String> mStaffListGid, String remark, final InterfaceBack back) {
+                                    double mGetPoints, List<String> mStaffListGid, List<Integer> staffProportion, String remark, final InterfaceBack back) {
         // TODO 自动生成的方法存根
         RequestParams params = new RequestParams();
         //订单号
@@ -237,6 +239,7 @@ public class ImpSubmitOrder {
         if (mStaffListGid != null) {
             for (int j = 0; j < mStaffListGid.size(); j++) {
                 params.put("EM_GIDList[" + j + "]", mStaffListGid.get(j));
+                params.put("GOD_Proportion[" + j + "]", staffProportion.get(j));
             }
         }
         //备注

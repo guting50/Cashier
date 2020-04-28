@@ -5,12 +5,14 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.CacheDiskUtils;
 import com.gt.utils.view.BgFrameLayout;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.Presenter.BasicEucalyptusPresnter;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.EmplMsg;
 import com.wycd.yushangpu.bean.ShopMsg;
+import com.wycd.yushangpu.bean.SysSwitchRes;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.NullUtils;
@@ -85,6 +87,12 @@ public class EditCashierGoodsFragment extends BaseFragment {
             goodsCode.setText("条码：" + shopBean.getPM_Code());
             tvPrice.setText("售价：￥" + shopBean.getPM_UnitPrice() + "");
             bnEditNum.performClick();
+        }
+
+        bnEditRoyalty.setEnabled(false);
+        //判断员工提成是否打开
+        if (CacheDiskUtils.getInstance().getParcelable("301", SysSwitchRes.CREATOR).getSS_State() == 1) {
+            bnEditRoyalty.setEnabled(true);
         }
     }
 
@@ -198,9 +206,11 @@ public class EditCashierGoodsFragment extends BaseFragment {
 
                                 StringBuilder mStaffName = new StringBuilder("");//提成员工姓名
                                 List<String> tcGID = new ArrayList<>();
+                                List<Integer> tcProportion = new ArrayList<>();
                                 for (int i = 0; i < mEmplMsgList.size(); i++) {
                                     if (mEmplMsgList.get(i).isIschose()) {
                                         tcGID.add(mEmplMsgList.get(i).getGID());
+                                        tcProportion.add(mEmplMsgList.get(i).getStaffProportion());
                                         if (i == mEmplMsgList.size() - 1) {
                                             mStaffName.append(mEmplMsgList.get(i).getEM_Name());
                                         } else {
@@ -210,6 +220,7 @@ public class EditCashierGoodsFragment extends BaseFragment {
                                 }
 
                                 shopBean.setEM_GIDList(tcGID);
+                                shopBean.setGOD_Proportion(tcProportion);
                                 shopBean.setEM_NameList(mStaffName.toString());
                                 homeActivity.cashierFragment.mShopLeftAdapter.notifyDataSetChanged();
                                 homeActivity.cashierFragment.jisuanAllPrice();

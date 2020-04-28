@@ -13,6 +13,8 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.blankj.utilcode.util.CacheDiskUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.reflect.TypeToken;
 import com.gt.utils.view.BgFrameLayout;
 import com.loopj.android.http.RequestParams;
@@ -21,6 +23,7 @@ import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.adapter.YuangongAdapter;
 import com.wycd.yushangpu.bean.EmplMsg;
 import com.wycd.yushangpu.bean.ShopMsg;
+import com.wycd.yushangpu.bean.SysSwitchRes;
 import com.wycd.yushangpu.bean.ValiRuleMsg;
 import com.wycd.yushangpu.bean.event.HomeButtonColorChangeEvent;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
@@ -117,9 +120,11 @@ public class ShopDetailDialog {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (mEmplMsgList.get(i).isIschose()) {
+                    mEmplMsgList.get(i).setStaffProportion(0);
                     mEmplMsgList.get(i).setIschose(false);
                 } else {
                     mEmplMsgList.get(i).setIschose(true);
+                    mEmplMsgList.get(i).setStaffProportion(10);
                 }
                 yuangongAdapter.notifyDataSetChanged();
                 if (isSingle) {
@@ -140,6 +145,17 @@ public class ShopDetailDialog {
         rl_confirm.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
+                //员工提成按比例分成
+                SysSwitchRes switchRes302 = CacheDiskUtils.getInstance().getParcelable("302", SysSwitchRes.CREATOR);
+                //员工提成按固定
+                SysSwitchRes switchRes303 = CacheDiskUtils.getInstance().getParcelable("303", SysSwitchRes.CREATOR);
+                if (switchRes302.getSS_State() == 1) {
+                    ToastUtils.showLong("员工提成按比例分成");
+                } else if (switchRes303.getSS_State() == 1) {
+                    ToastUtils.showLong("员工提成按固定");
+                } else {
+
+                }
                 List<EmplMsg> mEmplMsgList2 = new ArrayList<>();
                 for (EmplMsg emp : mEmplMsgList) {
                     if (emp.isIschose()) {
@@ -151,7 +167,6 @@ public class ShopDetailDialog {
                 HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
                 event.setMsg("Change_color");
                 EventBus.getDefault().post(event);
-
             }
         });
         switch (showingLocation) {
@@ -280,7 +295,7 @@ public class ShopDetailDialog {
             }
         }
         if (valiRuleMsgList != null) {
-            //   过滤调没有提成部门的员工
+            //   过滤掉没有提成部门的员工
             for (EmplMsg em : first) {
                 for (ValiRuleMsg valiRuleMsg : valiRuleMsgList) {
                     if (em.getDM_GID().equals(valiRuleMsg.getGID())) {
@@ -295,8 +310,10 @@ public class ShopDetailDialog {
         if (mEmplMsgList3 != null && mEmplMsgList3.size() > 0) {
             for (int i = 0; i < mEmplMsgList3.size(); i++) {
                 for (int j = 0; j < emplMsgList.size(); j++) {
+                    emplMsgList.get(j).setStaffProportion(0);
                     if (mEmplMsgList3.get(i).equals(emplMsgList.get(j).getGID())) {
                         emplMsgList.get(j).setIschose(true);
+                        emplMsgList.get(j).setStaffProportion(emplMsgList.get(i).getStaffProportion());
                     }
                 }
             }

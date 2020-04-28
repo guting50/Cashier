@@ -3,7 +3,7 @@ package com.wycd.yushangpu.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class PayTypeMsg implements Parcelable {
+public class SysSwitchRes implements Parcelable {
     private String GID;//	开关设置GID	string
     private String SS_Name;//	开关名称	string
     private int SS_Code;//	开关编码	Int32?
@@ -124,10 +124,10 @@ public class PayTypeMsg implements Parcelable {
         dest.writeByte(this.isMoren ? (byte) 1 : (byte) 0);
     }
 
-    public PayTypeMsg() {
+    public SysSwitchRes() {
     }
 
-    protected PayTypeMsg(Parcel in) {
+    protected SysSwitchRes(Parcel in) {
         this.GID = in.readString();
         this.SS_Name = in.readString();
         this.SS_Code = in.readInt();
@@ -141,15 +141,15 @@ public class PayTypeMsg implements Parcelable {
         this.isMoren = in.readByte() != 0;
     }
 
-    public static final Parcelable.Creator<PayTypeMsg> CREATOR = new Parcelable.Creator<PayTypeMsg>() {
+    public static final Parcelable.Creator<SysSwitchRes> CREATOR = new Parcelable.Creator<SysSwitchRes>() {
         @Override
-        public PayTypeMsg createFromParcel(Parcel source) {
-            return new PayTypeMsg(source);
+        public SysSwitchRes createFromParcel(Parcel source) {
+            return new SysSwitchRes(source);
         }
 
         @Override
-        public PayTypeMsg[] newArray(int size) {
-            return new PayTypeMsg[size];
+        public SysSwitchRes[] newArray(int size) {
+            return new SysSwitchRes[size];
         }
     };
 }

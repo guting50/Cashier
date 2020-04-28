@@ -27,7 +27,7 @@ import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.OrderCanshu;
 import com.wycd.yushangpu.bean.OrderPayResult;
 import com.wycd.yushangpu.bean.PayType;
-import com.wycd.yushangpu.bean.PayTypeMsg;
+import com.wycd.yushangpu.bean.SysSwitchRes;
 import com.wycd.yushangpu.bean.ReportMessageBean;
 import com.wycd.yushangpu.bean.SmsSwitch;
 import com.wycd.yushangpu.bean.VipInfoMsg;
@@ -141,8 +141,8 @@ public class JiesuanBFragment extends BaseFragment {
     private PayModeListAdapter payModeListAdapter;
 
     private InterfaceBack back;
-    private List<PayTypeMsg> payModeList;
-    private PayTypeMsg defaultMode;
+    private List<SysSwitchRes> payModeList;
+    private SysSwitchRes defaultMode;
     private boolean isMember;
     //            原价总金额，折后金额  , 总共优惠金额 ， 应收金额
     private String totalMoney, zhMoney, totalYhMoney, ysMoney;
@@ -719,7 +719,7 @@ public class JiesuanBFragment extends BaseFragment {
      * 判断支付是否开启
      */
     private void resetPayModeList() {
-        for (PayTypeMsg msg : payModeList) {
+        for (SysSwitchRes msg : payModeList) {
             switch (NullUtils.noNullHandle(msg.getSS_Code()).toString()) {
                 case "101"://现金
                     mLiXianjin.setEnabled(true);
@@ -790,7 +790,7 @@ public class JiesuanBFragment extends BaseFragment {
      * 设置默认支付
      * @param msg
      */
-    private void setDefaultPayMode(PayTypeMsg msg) {
+    private void setDefaultPayMode(SysSwitchRes msg) {
         payModeListAdapter.getData().clear();
         payModeListAdapter.notifyDataSetChanged();
         mLiXianjin.setTag(null);
@@ -886,7 +886,7 @@ public class JiesuanBFragment extends BaseFragment {
 
     private List<PayType> payWay() {
         List<PayType> typeList = new ArrayList<>();
-        for (PayTypeMsg m : payModeList) {
+        for (SysSwitchRes m : payModeList) {
             for (PayModeListAdapter.MyPayMode payMode : payModeListAdapter.getData()) {
                 PayType p = new PayType();
                 String name = payMode.getPayName();
