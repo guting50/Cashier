@@ -78,7 +78,7 @@ public class HttpGetPrintContents {
                     if (jso.getBoolean("success")) {
                         Print_SPXF_Bean print_spxf_bean = gson.fromJson(jso.toString(), Print_SPXF_Bean.class);
                         //打印小票
-                        PrinterUtils printerUtils = new PrinterUtils(mContext, mPrintNum, print_spxf_bean, "SPXF");
+                        PrinterUtils printerUtils = new PrinterUtils(mContext, MyApplication.SPXF_PRINT_TIMES, print_spxf_bean, "SPXF");
                         printerUtils.print();
 
                     } else {
@@ -257,7 +257,7 @@ public class HttpGetPrintContents {
     public static void JB(Activity mContext, String responseString) {
         try {
             HandDutyBean bean = gson.fromJson(responseString, HandDutyBean.class);
-            PrinterUtils printerUtils = new PrinterUtils(mContext, mPrintNum, bean, "JB");
+            PrinterUtils printerUtils = new PrinterUtils(mContext, MyApplication.JB_PRINT_TIMES, bean, "JB");
             printerUtils.print();
         } catch (Exception e) {
             e.printStackTrace();
