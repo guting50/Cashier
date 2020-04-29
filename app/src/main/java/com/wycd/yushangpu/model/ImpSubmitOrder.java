@@ -239,7 +239,7 @@ public class ImpSubmitOrder {
         if (mStaffListGid != null) {
             for (int j = 0; j < mStaffListGid.size(); j++) {
                 params.put("EM_GIDList[" + j + "]", mStaffListGid.get(j));
-                params.put("GOD_Proportion[" + j + "]", staffProportion.get(j));
+                params.put("ProportionList[" + j + "]", staffProportion.get(j));
             }
         }
         //备注
