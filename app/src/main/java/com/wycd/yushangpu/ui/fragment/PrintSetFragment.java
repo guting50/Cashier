@@ -193,7 +193,7 @@ public class PrintSetFragment extends BaseFragment {
         tv_shop_mbers = (TextView) rootView.findViewById(R.id.tv_shop_mbers);
         tv_shop_goods = (TextView) rootView.findViewById(R.id.tv_shop_goods);
         tv_shop_name = (TextView) rootView.findViewById(R.id.tv_shop_name);
-        tv_contacter = (TextView) rootView.findViewById(R.id.tv_create_time);
+        tv_contacter = (TextView) rootView.findViewById(R.id.tv_contacter);
         tv_industry = (TextView) rootView.findViewById(R.id.tv_referee);
         tv_address = (TextView) rootView.findViewById(R.id.tv_address);
         tv_range = (TextView) rootView.findViewById(R.id.tv_range);
