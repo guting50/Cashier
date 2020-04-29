@@ -1,7 +1,8 @@
 package com.wycd.yushangpu.tools;
 
 import com.wycd.yushangpu.bean.SmsSwitch;
-import com.wycd.yushangpu.tools.CacheData;
+
+import java.util.List;
 
 public class YSLUtils {
 
@@ -19,15 +20,15 @@ public class YSLUtils {
      * @return ，
      * 获取开关
      */
-    public static SmsSwitch.DataBean getSmsSwitch(String code) {
+    public static SmsSwitch getSmsSwitch(String code) {
         if (smsSwitch == null) {
             smsSwitch = null;
         }
-        smsSwitch = (SmsSwitch) CacheData.restoreObject("shortmessage");
-        if (smsSwitch!=null){
-            for (int i=0;i<smsSwitch.getData().size();i++){
-                if (smsSwitch.getData().get(i).getST_Code().equals(code)){//商品消费011 快速消费 010 计次消费 012  礼品兑换 013 添加会员001  会员充值 002 会员充次003 积分变动007
-                    return smsSwitch.getData().get(i);
+        List<SmsSwitch> smsSwitch = (List<SmsSwitch>) CacheData.restoreObject("shortmessage");
+        if (smsSwitch != null) {
+            for (int i = 0; i < smsSwitch.size(); i++) {
+                if (smsSwitch.get(i).getST_Code().equals(code)) {//商品消费011 快速消费 010 计次消费 012  礼品兑换 013 添加会员001  会员充值 002 会员充次003 积分变动007
+                    return smsSwitch.get(i);
                 }
             }
         }

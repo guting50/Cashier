@@ -117,6 +117,7 @@
                     android:orientation="horizontal">
 
                     <com.gt.utils.view.BgFrameLayout
+                        android:id="@+id/bgReset"
                         android:layout_width="80dp"
                         android:layout_height="@dimen/dp_40"
                         android:layout_below="@+id/tv_ordernum"
@@ -167,8 +168,94 @@
     </RelativeLayout>
 
     <FrameLayout
+        android:id="@+id/flProportionLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#50000000"
+        android:visibility="gone">
 
+        <FrameLayout
+            android:layout_width="500dp"
+            android:layout_height="@dimen/dp_350"
+            android:background="@color/white">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_50"
+                android:background="@drawable/shap_homeviptop">
+
+                <TextView
+                    android:id="@+id/tv_title_proportion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_18"
+                    android:text="提成类型"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/sp_20" />
+
+                <ImageView
+                    android:id="@+id/iv_cancle_proportion"
+                    android:layout_width="@dimen/dp_25"
+                    android:layout_height="@dimen/dp_25"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:padding="@dimen/dp_4"
+                    android:src="@drawable/ty_close" />
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_proportion"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="50dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginTop="14dp"
+                android:orientation="horizontal">
+
+                <com.gt.utils.view.BgFrameLayout
+                    android:id="@+id/bg_cancle_proportion"
+                    android:layout_width="80dp"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_below="@+id/tv_ordernum"
+                    android:layout_marginRight="15dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    app:corners_radius="3dp"
+                    app:solid_color="@color/text0050">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="取消"
+                        android:textColor="@color/white" />
+                </com.gt.utils.view.BgFrameLayout>
+
+                <com.gt.utils.view.BgFrameLayout
+                    android:id="@+id/bg_confirm_proportion"
+                    android:layout_width="80dp"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_below="@+id/tv_ordernum"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    app:corners_radius="3dp"
+                    app:solid_color="@color/colorPrimary">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="确认"
+                        android:textColor="@color/white" />
+                </com.gt.utils.view.BgFrameLayout>
+            </LinearLayout>
+        </FrameLayout>
     </FrameLayout>
 </FrameLayout>

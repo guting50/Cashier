@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="65dp"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:paddingLeft="20dp"
+    android:paddingTop="20dp"
+    android:paddingRight="20dp">
+
+    <TextView
+        android:id="@+id/tvTcName"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="20dp"
+        android:gravity="center_vertical|right"
+        android:text="姓名"
+        android:textColor="@color/color_main_text_black" />
+
+    <EditText
+        android:id="@+id/etTcValue"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/selector_edit_green_gray"
+        android:gravity="center_vertical"
+        android:inputType="numberDecimal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:textColor="@color/color_main_text_black" />
+
+    <TextView
+        android:id="@+id/tvTcType"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/selector_edit_green_gray"
+        android:gravity="center"
+        android:text="%提成"
+        android:textColor="@color/color_main_text_black" />
+</LinearLayout>

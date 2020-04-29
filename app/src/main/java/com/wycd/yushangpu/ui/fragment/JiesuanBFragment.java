@@ -27,9 +27,9 @@ import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.OrderCanshu;
 import com.wycd.yushangpu.bean.OrderPayResult;
 import com.wycd.yushangpu.bean.PayType;
-import com.wycd.yushangpu.bean.SysSwitchRes;
 import com.wycd.yushangpu.bean.ReportMessageBean;
 import com.wycd.yushangpu.bean.SmsSwitch;
+import com.wycd.yushangpu.bean.SysSwitchRes;
 import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.bean.YhqMsg;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
@@ -969,7 +969,7 @@ public class JiesuanBFragment extends BaseFragment {
      */
     private void setCbShortMessage(String code) {
         try {
-            SmsSwitch.DataBean smsSwitch = YSLUtils.getSmsSwitch(code);
+            SmsSwitch smsSwitch = YSLUtils.getSmsSwitch(code);
             if (smsSwitch != null) {
                 if (smsSwitch.getST_State() == null || !smsSwitch.getST_State().equals("1")) {
                     cbMessage.setOnClickListener(new View.OnClickListener() {
@@ -998,10 +998,12 @@ public class JiesuanBFragment extends BaseFragment {
         AsyncHttpUtils.postHttp(HttpAPI.API().SMS_LIST, new CallBack() {
             @Override
             public void onResponse(BaseRes response) {
-                SmsSwitch bean = response.getData(SmsSwitch.class);
-                for (int i = 0; i < bean.getData().size(); i++) {
-                    if (bean.getData().get(i).getST_Code().equals(code)) {
-                        if (bean.getData().get(i).getST_State() == null || !bean.getData().get(i).getST_State().equals("1")) {
+                Type type = new TypeToken<List<SmsSwitch>>() {
+                }.getType();
+                List<SmsSwitch> bean = response.getData(type);
+                for (int i = 0; i < bean.size(); i++) {
+                    if (bean.get(i).getST_Code().equals(code)) {
+                        if (bean.get(i).getST_State() == null || !bean.get(i).getST_State().equals("1")) {
                             cbMessage.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {

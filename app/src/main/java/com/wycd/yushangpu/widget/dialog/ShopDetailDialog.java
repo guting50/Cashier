@@ -3,15 +3,22 @@ package com.wycd.yushangpu.widget.dialog;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.CacheDiskUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -25,22 +32,26 @@ import com.wycd.yushangpu.bean.EmplMsg;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.bean.SysSwitchRes;
 import com.wycd.yushangpu.bean.ValiRuleMsg;
-import com.wycd.yushangpu.bean.event.HomeButtonColorChangeEvent;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
 import com.wycd.yushangpu.http.BasePageRes;
 import com.wycd.yushangpu.http.BaseRes;
 import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
+import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.widget.NumInputView;
 import com.wycd.yushangpu.widget.NumKeyboardUtils;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 /**
@@ -67,6 +78,9 @@ public class ShopDetailDialog {
         BgFrameLayout rl_confirm = (BgFrameLayout) view.findViewById(R.id.rl_confirm);
         ImageView rl_cancle = (ImageView) view.findViewById(R.id.rl_cancle);
         NumInputView editTextLayout = (NumInputView) view.findViewById(R.id.edit_text_layout);
+        FrameLayout flProportionLayout = view.findViewById(R.id.flProportionLayout);
+        TextView tv_title_proportion = view.findViewById(R.id.tv_title_proportion);
+        RecyclerView recyclerProportion = view.findViewById(R.id.recycler_proportion);
 
         BgFrameLayout li_search = (BgFrameLayout) view.findViewById(R.id.li_search);
 
@@ -119,12 +133,11 @@ public class ShopDetailDialog {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                mEmplMsgList.get(i).setStaffProportion(0);
                 if (mEmplMsgList.get(i).isIschose()) {
-                    mEmplMsgList.get(i).setStaffProportion(0);
                     mEmplMsgList.get(i).setIschose(false);
                 } else {
                     mEmplMsgList.get(i).setIschose(true);
-                    mEmplMsgList.get(i).setStaffProportion(10);
                 }
                 yuangongAdapter.notifyDataSetChanged();
                 if (isSingle) {
@@ -137,11 +150,17 @@ public class ShopDetailDialog {
             @Override
             protected void onNoDoubleClick(View view) {
                 dialog.dismiss();
-                HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
+                /*HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
                 event.setMsg("Change_color");
-                EventBus.getDefault().post(event);
+                EventBus.getDefault().post(event);*/
             }
         });
+
+        ProportionAdapter adapter = new ProportionAdapter(context);
+        recyclerProportion.setLayoutManager(new LinearLayoutManager(context));
+        recyclerProportion.setAdapter(adapter);
+
+        //选择员工后的确定
         rl_confirm.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
@@ -149,24 +168,68 @@ public class ShopDetailDialog {
                 SysSwitchRes switchRes302 = CacheDiskUtils.getInstance().getParcelable("302", SysSwitchRes.CREATOR);
                 //员工提成按固定
                 SysSwitchRes switchRes303 = CacheDiskUtils.getInstance().getParcelable("303", SysSwitchRes.CREATOR);
-                if (switchRes302.getSS_State() == 1) {
-                    ToastUtils.showLong("员工提成按比例分成");
-                } else if (switchRes303.getSS_State() == 1) {
-                    ToastUtils.showLong("员工提成按固定");
-                } else {
 
-                }
                 List<EmplMsg> mEmplMsgList2 = new ArrayList<>();
                 for (EmplMsg emp : mEmplMsgList) {
                     if (emp.isIschose()) {
                         mEmplMsgList2.add(emp);
                     }
                 }
+                adapter.setData(mEmplMsgList2);
+                if (switchRes302.getSS_State() == 1) {
+                    tv_title_proportion.setText("提成比例");
+                    flProportionLayout.setVisibility(View.VISIBLE);
+                    adapter.setType(1);
+                } else if (switchRes303.getSS_State() == 1) {
+                    tv_title_proportion.setText("固定提成");
+                    flProportionLayout.setVisibility(View.VISIBLE);
+                    adapter.setType(2);
+                } else {
+                    dialog.dismiss();
+                    back.onResponse(mEmplMsgList2);
+                   /* HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
+                    event.setMsg("Change_color");
+                    EventBus.getDefault().post(event);*/
+                }
+            }
+        });
+        //清除
+        view.findViewById(R.id.bgReset).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 dialog.dismiss();
-                back.onResponse(mEmplMsgList2);
-                HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
-                event.setMsg("Change_color");
-                EventBus.getDefault().post(event);
+                back.onResponse(new ArrayList<>());
+            }
+        });
+        //关闭提成框 右上角关闭按钮
+        view.findViewById(R.id.iv_cancle_proportion).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                flProportionLayout.setVisibility(View.GONE);
+            }
+        });
+        //关闭提成框 取消按钮
+        view.findViewById(R.id.bg_cancle_proportion).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                flProportionLayout.setVisibility(View.GONE);
+            }
+        });
+        // 输入提成后的确定
+        view.findViewById(R.id.bg_confirm_proportion).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (adapter.check()) {
+                    flProportionLayout.setVisibility(View.GONE);
+                    dialog.dismiss();
+                    back.onResponse(adapter.getData());
+                }
+            }
+        });
+        flProportionLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
         switch (showingLocation) {
@@ -242,9 +305,9 @@ public class ShopDetailDialog {
             public void onErrorResponse(Object msg) {
                 super.onErrorResponse(msg);
                 loadingdialog.dismiss();
-                HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
+                /*HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
                 event.setMsg("Change_color");
-                EventBus.getDefault().post(event);
+                EventBus.getDefault().post(event);*/
             }
         });
     }
@@ -264,17 +327,17 @@ public class ShopDetailDialog {
                 }.getType();
                 List<EmplMsg> sllist = response.getData(BasePageRes.class).getData(listType);
                 choseEmplList(valiRuleMsg, sllist, emplMsgList, yuangongAdapter);
-                HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
+                /*HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
                 event.setMsg("Change_color");
-                EventBus.getDefault().post(event);
+                EventBus.getDefault().post(event);*/
             }
 
             @Override
             public void onErrorResponse(Object msg) {
                 loadingdialog.dismiss();
-                HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
+                /*HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
                 event.setMsg("Change_color");
-                EventBus.getDefault().post(event);
+                EventBus.getDefault().post(event);*/
             }
         });
     }
@@ -320,5 +383,115 @@ public class ShopDetailDialog {
         }
         yuangongAdapter.notifyDataSetChanged();
 
+    }
+
+    static class ProportionAdapter extends RecyclerView.Adapter<ProportionAdapter.ProportionHolder> {
+        private List<EmplMsg> data = new ArrayList<>();
+        private Activity context;
+        private int type;
+
+        public ProportionAdapter(Activity context) {
+            this.context = context;
+        }
+
+        @NonNull
+        @Override
+        public ProportionHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(context).inflate(R.layout.item_proportion, parent, false);
+            return new ProportionHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ProportionHolder holder, int position) {
+            EmplMsg item = data.get(position);
+            holder.tvTcName.setText(item.getEM_Name());
+            if (type == 1) {
+                holder.tvTcType.setText("%提成");
+            } else if (type == 2) {
+                holder.tvTcType.setText("元");
+            }
+            holder.etTcValue.addTextChangedListener(new TextWatcher() {
+                CharSequence before;
+
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    before = s;
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    int val = 0;
+                    if (!TextUtils.isEmpty(s)) {
+                        val = Integer.valueOf(s.toString());
+                    }
+                    if (type == 1) {
+                        if (val > 100) {
+                            holder.etTcValue.setText(before);
+                            ToastUtils.showLong("比例不能大于 100");
+                            return;
+                        }
+                    } else if (type == 2)
+                        if (val > 999999.99) {
+                            holder.etTcValue.setText(before);
+                            ToastUtils.showLong("金额不能大于 999999.99");
+                            return;
+                        }
+                    item.setStaffProportion(val);
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return data.size();
+        }
+
+        public List<EmplMsg> getData() {
+            return data;
+        }
+
+        public void setData(List<EmplMsg> data) {
+            this.data = data;
+            notifyDataSetChanged();
+        }
+
+        public void setType(int type) {
+            this.type = type;
+        }
+
+        public boolean check() {
+            if (type == 1) {
+                double total = 0;
+                for (EmplMsg item : data) {
+                    total = CommonUtils.add(total, item.getStaffProportion());
+                }
+                if (total == 100) {
+                    return true;
+                }
+                ToastUtils.showLong("员工提成比例总和应为100");
+                return false;
+            }
+            return true;
+        }
+
+        class ProportionHolder extends RecyclerView.ViewHolder {
+
+            @BindView(R.id.tvTcName)
+            TextView tvTcName;
+            @BindView(R.id.etTcValue)
+            EditText etTcValue;
+            @BindView(R.id.tvTcType)
+            TextView tvTcType;
+
+            public ProportionHolder(@NonNull View itemView) {
+                super(itemView);
+                ButterKnife.bind(this, itemView);
+            }
+        }
     }
 }
