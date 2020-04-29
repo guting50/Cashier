@@ -40,7 +40,7 @@ import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.model.ImpPreLoading;
+import com.wycd.yushangpu.model.ImpParamLoading;
 import com.wycd.yushangpu.printutil.HttpGetPrintContents;
 import com.wycd.yushangpu.tools.DateTimeUtil;
 import com.wycd.yushangpu.tools.Decima2KeeplUtil;
@@ -208,8 +208,8 @@ public class AddOrEditMemberFragment extends BaseFragment {
     }
 
     protected void updateData() {
-        mMemberGrade = ImpPreLoading.REPORT_BEAN.getVIPGradeList();
-        costomfields = ImpPreLoading.REPORT_BEAN.getGetCustomFieldsVIP();
+        mMemberGrade = ImpParamLoading.REPORT_BEAN.getVIPGradeList();
+        costomfields = ImpParamLoading.REPORT_BEAN.getGetCustomFieldsVIP();
         mPayWayList.clear();
         mPayWayList.add("现金支付");
         if (vipInfoMsg == null) {
@@ -317,7 +317,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(iv_edit_head_img);
         }
-        List<ReportMessageBean.GetSysSwitchListBean> mSwitchEntity = ImpPreLoading.REPORT_BEAN.getGetSysSwitchList();
+        List<ReportMessageBean.GetSysSwitchListBean> mSwitchEntity = ImpParamLoading.REPORT_BEAN.getGetSysSwitchList();
 
         mCardContactPhone = false;
         mIsfilltel = false;

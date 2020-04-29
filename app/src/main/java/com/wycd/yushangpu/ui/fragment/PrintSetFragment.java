@@ -43,7 +43,7 @@ import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpOutLogin;
-import com.wycd.yushangpu.model.ImpPreLoading;
+import com.wycd.yushangpu.model.ImpParamLoading;
 import com.wycd.yushangpu.printutil.bean.PrintSetBean;
 import com.wycd.yushangpu.tools.CacheData;
 import com.wycd.yushangpu.tools.DeviceConnFactoryManager;
@@ -318,7 +318,7 @@ public class PrintSetFragment extends BaseFragment {
                     AsyncHttpUtils.postHttp(HttpAPI.API().EDIT_PRINT_SET, params, new CallBack() {
                         @Override
                         public void onResponse(BaseRes response) {
-                            ImpPreLoading.preLoad();
+                            ImpParamLoading.preLoad();
                             NoticeDialog.noticeDialog(getActivity(), "设置", "打印设置保存成功!", 1, new InterfaceBack() {
                                 @Override
                                 public void onResponse(Object response) {

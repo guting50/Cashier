@@ -64,8 +64,8 @@ public class MemberRechargeFragment extends BaseFragment {
 
     private VipInfoMsg vipInfoMsg;
     private String orderNumber;
-    private String mStaffListGid;
-    private int taffProportion;
+    private List<String> mStaffListGids = new ArrayList<>();
+    private List<Integer> staffProportionList = new ArrayList<>();
     private List<DiscountTypeBean> mRechargeTypeList;
     private String rechargeMoney, giveMoney, mDiscountActivityGid;
     private double getPoints;
@@ -99,7 +99,8 @@ public class MemberRechargeFragment extends BaseFragment {
         et_recharge_create_timer.setText(DateTimeUtil.getReallyTimeNow());
 
         et_recharge_em_name.setText("");
-        mStaffListGid = "";
+        mStaffListGids.clear();
+        staffProportionList.clear();
         et_recharge_total.setText("");
         et_recharge_integral.setText("");
 
@@ -118,11 +119,6 @@ public class MemberRechargeFragment extends BaseFragment {
                     com.blankj.utilcode.util.ToastUtils.showShort("请选择充值金额");
                     return;
                 }
-                List<String> mStaffListGids = new ArrayList<>();
-                List<Integer> staffProportionList = new ArrayList<>();
-                if (!TextUtils.isEmpty(mStaffListGid))
-                    mStaffListGids.add(mStaffListGid);
-                staffProportionList.add(taffProportion);
                 homeActivity.dialog.show();
                 new ImpSubmitOrder().submitRechargeOrder(homeActivity, orderNumber, et_recharge_create_timer.getText().toString(),
                         vipInfoMsg.getVCH_Card(), mDiscountActivityGid, rechargeMoney, giveMoney, getPoints,
@@ -136,14 +132,26 @@ public class MemberRechargeFragment extends BaseFragment {
                 break;
             case R.id.et_recharge_select_em_name:
                 ShopDetailDialog.shopdetailDialog(getActivity(), null, "",
-                        null, MyApplication.loginBean.getShopID(), 1, true, new InterfaceBack() {
+                        null, MyApplication.loginBean.getShopID(), 1, new InterfaceBack() {
                             @Override
                             public void onResponse(Object response) {
                                 List<EmplMsg> mEmplMsgList = (List<EmplMsg>) response;
                                 if (mEmplMsgList != null && mEmplMsgList.size() == 1) {
-                                    et_recharge_em_name.setText(mEmplMsgList.get(0).getEM_Name());
-                                    mStaffListGid = mEmplMsgList.get(0).getGID();
-                                    taffProportion = mEmplMsgList.get(0).getStaffProportion();
+                                    StringBuilder mStaffName = new StringBuilder("");//提成员工姓名
+                                    mStaffListGids.clear();
+                                    staffProportionList.clear();
+                                    for (int i = 0; i < mEmplMsgList.size(); i++) {
+                                        if (mEmplMsgList.get(i).isIschose()) {
+                                            mStaffListGids.add(mEmplMsgList.get(i).getGID());
+                                            staffProportionList.add(mEmplMsgList.get(i).getStaffProportion());
+                                            if (i == mEmplMsgList.size() - 1) {
+                                                mStaffName.append(mEmplMsgList.get(i).getEM_Name());
+                                            } else {
+                                                mStaffName.append(mEmplMsgList.get(i).getEM_Name() + "、");
+                                            }
+                                        }
+                                    }
+                                    et_recharge_em_name.setText(mStaffName.toString());
                                 }
                             }
 

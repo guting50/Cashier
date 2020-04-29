@@ -12,7 +12,7 @@ import com.wycd.yushangpu.http.HttpAPI;
  * 首页预加载数据
  */
 
-public class ImpPreLoading {
+public class ImpParamLoading {
     public static ReportMessageBean REPORT_BEAN = new ReportMessageBean();
 
     public static void preLoad() {

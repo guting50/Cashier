@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.ReportMessageBean;
 import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.model.ImpPreLoading;
+import com.wycd.yushangpu.model.ImpParamLoading;
 import com.wycd.yushangpu.tools.NullUtils;
 
 import java.util.ArrayList;
@@ -110,8 +110,8 @@ public class PromotionDialog {
         private InterfaceBack back;
 
         public PromotionAdapter(Context context, String payMoney, ReportMessageBean.ActiveBean active, InterfaceBack back) {
-            if (ImpPreLoading.REPORT_BEAN != null) {
-                for (ReportMessageBean.ActiveBean bean : ImpPreLoading.REPORT_BEAN.getActive()) {
+            if (ImpParamLoading.REPORT_BEAN != null) {
+                for (ReportMessageBean.ActiveBean bean : ImpParamLoading.REPORT_BEAN.getActive()) {
                     if (bean.getRP_Type() != 1) {
                         list.add(bean);
                     }

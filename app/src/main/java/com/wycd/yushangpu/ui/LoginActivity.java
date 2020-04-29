@@ -24,7 +24,7 @@ import com.wycd.yushangpu.http.AsyncHttpUtils;
 import com.wycd.yushangpu.http.BaseRes;
 import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
-import com.wycd.yushangpu.model.ImpPreLoading;
+import com.wycd.yushangpu.model.ImpParamLoading;
 import com.wycd.yushangpu.model.ImpShopHome;
 import com.wycd.yushangpu.tools.GlideTransform;
 import com.wycd.yushangpu.tools.KeyBoardHelper;
@@ -151,7 +151,7 @@ public class LoginActivity extends BaseActivity {
                             startActivity(new Intent(ac, HomeActivity.class));
                             finish();
 
-                            ImpPreLoading.preLoad();
+                            ImpParamLoading.preLoad();
                             BasicEucalyptusPresnter.init();
                         }
 

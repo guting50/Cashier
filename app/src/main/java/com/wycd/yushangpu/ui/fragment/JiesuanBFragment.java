@@ -39,7 +39,7 @@ import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpOrderPay;
-import com.wycd.yushangpu.model.ImpPreLoading;
+import com.wycd.yushangpu.model.ImpParamLoading;
 import com.wycd.yushangpu.model.ImpSaoma;
 import com.wycd.yushangpu.tools.CacheData;
 import com.wycd.yushangpu.tools.CommonUtils;
@@ -287,9 +287,9 @@ public class JiesuanBFragment extends BaseFragment {
                 tvCouponMoney.setHint("有" + couponCount + "张优惠券可用");
         }
 
-        if (ImpPreLoading.REPORT_BEAN != null) {
+        if (ImpParamLoading.REPORT_BEAN != null) {
             if (orderType != MEM_RECHARGE_PAY) // 会员充值不能使用优惠活动
-                for (ReportMessageBean.ActiveBean active : ImpPreLoading.REPORT_BEAN.getActive()) {
+                for (ReportMessageBean.ActiveBean active : ImpParamLoading.REPORT_BEAN.getActive()) {
                     if (active.getRP_Type() != 1 && Double.parseDouble(zhMoney) >= active.getRP_RechargeMoney()) {
                         double temp = computePromotionMoney(active);
                         if (promotionMoney < temp) {
@@ -299,7 +299,7 @@ public class JiesuanBFragment extends BaseFragment {
                         }
                     }
                 }
-            for (ReportMessageBean.GetSysSwitchListBean bean : ImpPreLoading.REPORT_BEAN.getGetSysSwitchList()) {
+            for (ReportMessageBean.GetSysSwitchListBean bean : ImpParamLoading.REPORT_BEAN.getGetSysSwitchList()) {
                 if (TextUtils.equals(bean.getSS_Code(), "204") && bean.getSS_State() == 1) {// 消费密码验证
                     consumeCheck = 1;
                 } else if (TextUtils.equals(bean.getSS_Code(), "217") && bean.getSS_State() == 1) { //消费短信验证码验证
