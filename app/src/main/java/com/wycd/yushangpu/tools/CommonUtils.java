@@ -125,19 +125,6 @@ public class CommonUtils {
         return false;
     }
 
-    public static boolean activityIs(Context context) {
-        Intent intent = new Intent();
-        intent.setClassName("com.yk.wy", "com.yk.wy.HostActivity");
-        boolean isAppRunning = false;
-        if (intent.resolveActivity(context.getPackageManager()) == null) {
-            // 说明系统中不存在这个activity
-            isAppRunning = false;
-        } else {
-            isAppRunning = true;
-        }
-        return isAppRunning;
-    }
-
     /**
      * 提供精确的加法运算。
      *
@@ -334,51 +321,7 @@ public class CommonUtils {
         cookieManager.removeAllCookie();
     }
 
-//	/**
-//	 * 获取软件版本号
-//	 *
-//	 * @param context
-//	 * @return
-//	 */
-//	public static String getVersionCode(Context context) {
-//		String versionCode = 1 + "";
-//		try {
-//			// 获取软件版本号，对应AndroidManifest.xml下android:versionCode
-//			versionCode = context.getPackageManager().getPackageInfo(
-//					ContansUtils.PACKAGE, 0).versionName;
-//		} catch (NameNotFoundException e) {
-//			e.printStackTrace();
-//		}
-//		return String.valueOf(versionCode);
-//	}
-
     // 以下是获得版本信息的工具方法
-
-    // 版本名
-    public static String getVersionName(Context context) {
-        return getPackageInfo(context).versionName;
-    }
-
-    // 版本号
-    public static int getVersionCode2(Context context) {
-        return getPackageInfo(context).versionCode;
-    }
-
-    public static PackageInfo getPackageInfo(Context context) {
-        PackageInfo pi = null;
-
-        try {
-            PackageManager pm = context.getPackageManager();
-            pi = pm.getPackageInfo(context.getPackageName(),
-                    PackageManager.GET_CONFIGURATIONS);
-
-            return pi;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return pi;
-    }
 
     /**
      * 检测当的网络（WLAN、3G/2G）状态

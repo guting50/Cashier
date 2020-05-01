@@ -34,6 +34,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.loopj.android.http.RequestParams;
+import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.ShopInfoBean;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
@@ -223,13 +224,7 @@ public class PrintSetFragment extends BaseFragment {
             mTvConnect.setText(getString(R.string.con_success));
         }
 
-        PackageManager manager = getContext().getPackageManager();
-        try {
-            PackageInfo info = manager.getPackageInfo(getContext().getPackageName(), 0);
-            tv_version_number.setText("版本" + info.versionName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        tv_version_number.setText("版本号:" + MyApplication.versionCode);
 
         mPrintMap.put("SPXF", "1");
         mPrintMap.put("JB", "1");

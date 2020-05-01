@@ -6,8 +6,6 @@ import android.app.ActivityManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
 import android.text.TextUtils;
@@ -16,6 +14,7 @@ import android.widget.Toast;
 import com.gt.utils.FileUtils;
 import com.gt.utils.MuchThreadDown;
 import com.gt.utils.PermissionUtils;
+import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 
 import java.io.File;
@@ -59,15 +58,36 @@ public class UpdateAppVersion {
      *
      * @return 版本号
      */
-    private int getLocalVersion() {
-        PackageManager manager = context.getPackageManager();
+    private double getLocalVersion() {
+        /*PackageManager manager = context.getPackageManager();
         try {
             PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
             return info.versionCode;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return 0;
+        return 0;*/
+
+        return MyApplication.versionCode;
+    }
+
+
+    /**
+     * 当前版本信息
+     *
+     * @return 版本代号
+     */
+    public static String getLocalVersionName(Context context) {
+        /*PackageManager manager = context.getPackageManager();
+        try {
+            PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
+            return info.versionName;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";*/
+
+        return MyApplication.versionCode + "";
     }
 
     /**
@@ -196,22 +216,6 @@ public class UpdateAppVersion {
      */
     public interface OnUpdateVersionBackListener {
         void onBackListener();
-    }
-
-    /**
-     * 当前版本信息
-     *
-     * @return 版本代号
-     */
-    public static String getLocalVersionName(Context context) {
-        PackageManager manager = context.getPackageManager();
-        try {
-            PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
-            return info.versionName;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "";
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

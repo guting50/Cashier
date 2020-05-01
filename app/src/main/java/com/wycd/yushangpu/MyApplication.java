@@ -43,6 +43,9 @@ import cz.msebera.android.httpclient.cookie.Cookie;
  */
 
 public class MyApplication extends MultiDexApplication {
+
+    public static final double versionCode = 3.010;//版本号
+
     public static IWXAPI mWxApi;
     private static Context sContext;
 

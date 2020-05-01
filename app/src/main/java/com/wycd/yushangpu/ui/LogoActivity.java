@@ -1,9 +1,10 @@
 package com.wycd.yushangpu.ui;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.os.Bundle;
 
+import com.gt.utils.PermissionActivity;
+import com.gt.utils.PermissionUtils;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
@@ -33,11 +34,9 @@ public class LogoActivity extends BaseActivity {
                 try {
                     // 获取包信息
                     // 参1 包名 参2 获取额外信息的flag 不需要的话 写0
-                    PackageInfo packageInfo = getPackageManager().getPackageInfo(
-                            getPackageName(), 0);
                     Map<String, Object> baen = response.getData(Map.class);
                     String version = baen.get("VA_Version").toString();
-                    if (Double.parseDouble(version) > packageInfo.versionCode) {
+                    if (Double.parseDouble(version) > MyApplication.versionCode) {
                         VERSION_ADDRESS = MyApplication.CTMONEY_URL + baen.get("VA_VersionAddress").toString();
                         if (Double.parseDouble(baen.get("VA_UpdateMechanism").toString()) == 0) {
                             //自动升级
@@ -47,12 +46,17 @@ public class LogoActivity extends BaseActivity {
                             updateInfoBean.setMinversionrequire(Double.parseDouble(version));
                             //updateInfoBean.setCurrentversiondesc(baen.get("VA_VersionName").toString());
                             updateInfoBean.setUrl(VERSION_ADDRESS);
-                            new UpdateAppVersion(LogoActivity.this, updateInfoBean, new UpdateAppVersion.OnUpdateVersionBackListener() {
+                            PermissionUtils.requestPermission(ac, PermissionUtils.CODE_READ_EXTERNAL_STORAGE, new PermissionUtils.PermissionGrant() {
                                 @Override
-                                public void onBackListener() {
-                                    toLoginActivity();
+                                public void onPermissionGranted(int... requestCode) {
+                                    new UpdateAppVersion(LogoActivity.this, updateInfoBean, new UpdateAppVersion.OnUpdateVersionBackListener() {
+                                        @Override
+                                        public void onBackListener() {
+                                            toLoginActivity();
+                                        }
+                                    }).compareVersion();
                                 }
-                            }).compareVersion();
+                            });
                             return;
                         }
                     }

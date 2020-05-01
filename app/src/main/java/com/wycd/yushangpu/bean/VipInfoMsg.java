@@ -28,7 +28,7 @@ public class VipInfoMsg implements Serializable {
     private double MA_AvailableBalance;//	可用余额	decimal
     private double MA_AvailableIntegral;//	可用积分	decimal
     private int MCA_HowMany;//	剩余充次总数	int
-    private int VCH_Fee; //开卡费
+    private double VCH_Fee; //开卡费
     private String VCH_Fee_PayTypeText;//支付方式
     private Object SM_GID;//开卡店铺
     private String SM_Name;
@@ -317,11 +317,11 @@ public class VipInfoMsg implements Serializable {
         this.SM_GID = SM_GID;
     }
 
-    public int getVCH_Fee() {
+    public double getVCH_Fee() {
         return VCH_Fee;
     }
 
-    public void setVCH_Fee(int VCH_Fee) {
+    public void setVCH_Fee(double VCH_Fee) {
         this.VCH_Fee = VCH_Fee;
     }
 
