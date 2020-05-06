@@ -98,7 +98,12 @@
             android:name=".ui.HtmlActivity"
             android:exported="false"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustResize" /> <!-- wx pay -->
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.WebActivity"
+            android:exported="false"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"

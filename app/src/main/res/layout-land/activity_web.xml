@@ -21,7 +21,6 @@
     <com.wycd.yushangpu.web.X5WebView
         android:id="@+id/xweb"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"/>
 
-    </com.wycd.yushangpu.web.X5WebView>
 </LinearLayout>

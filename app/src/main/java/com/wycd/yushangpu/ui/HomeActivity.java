@@ -330,8 +330,9 @@ public class HomeActivity extends BaseActivity {
 //                //http://192.168.1.240:807/login.html
 //                startActivity(intent);
 
-                Intent intent = new Intent(ac, HtmlActivity.class);
-                intent.putExtra("html_url", "https://pc.yunvip123.com/login.html");
+                Intent intent = new Intent(ac, WebActivity.class);
+//                intent.putExtra("html_url", "https://pc.yunvip123.com/login.html");
+                intent.putExtra("html_url", "https://pc.yunvip123.com/loginTSCash.html");
                 startActivity(intent);
                 break;
             case R.id.subsidiary_fragment:
