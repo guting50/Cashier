@@ -71,6 +71,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 添加或编辑会员
+ */
 public class AddOrEditMemberFragment extends BaseFragment {
 
     @BindView(R.id.et_VCH_Card)
@@ -519,7 +522,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                 break;
             case R.id.et_select_EM_Name://选择人员
                 ShopDetailDialog.shopdetailDialog(getActivity(), null, "",
-                        null, MyApplication.loginBean.getShopID(), 1, true, new InterfaceBack() {
+                        null, MyApplication.loginBean.getShopID(), 1, true, 2, new InterfaceBack() {
                             @Override
                             public void onResponse(Object response) {
                                 List<EmplMsg> mEmplMsgList = (List<EmplMsg>) response;

@@ -60,17 +60,18 @@ import butterknife.ButterKnife;
 
 public class ShopDetailDialog {
     private static List<EmplMsg> emplist = new ArrayList<>();
-    private static List<String> mEmplMsgList3;
+    private static List<String> mEmplMsgList3;// 已选员工列表
     private static String mSmGid;
     private static boolean isSingle;
+    private static int mType = 0;//1:商品消费，2：会员开卡，3：会员充值
 
     public static Dialog shopdetailDialog(final Activity context, final ShopMsg mShopMsg, String VGID, List<String> mEmplGidList,
-                                          String SmGid, int showingLocation, final InterfaceBack back) {
-        return shopdetailDialog(context, mShopMsg, VGID, mEmplGidList, SmGid, showingLocation, false, back);
+                                          String SmGid, int showingLocation, int type, final InterfaceBack back) {
+        return shopdetailDialog(context, mShopMsg, VGID, mEmplGidList, SmGid, showingLocation, false, type, back);
     }
 
     public static Dialog shopdetailDialog(final Activity context, final ShopMsg mShopMsg, String VGID, List<String> mEmplGidList,
-                                          String SmGid, int showingLocation, boolean single, final InterfaceBack back) {
+                                          String SmGid, int showingLocation, boolean single, int type, final InterfaceBack back) {
         final Dialog dialog;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.dialog_shopdetail, null);
@@ -95,6 +96,7 @@ public class ShopDetailDialog {
         mEmplMsgList3 = mEmplGidList;
         mSmGid = SmGid;
         isSingle = single;
+        mType = type;
 
         //员工适配器
         final YuangongAdapter yuangongAdapter = new YuangongAdapter(context, mEmplMsgList);
@@ -349,12 +351,28 @@ public class ShopDetailDialog {
                 sllist.remove(i);
             }
         }
-//        过滤调没有开启商品消费提成的员工
-        emplist.clear();
         List<EmplMsg> first = new ArrayList<>();
+        emplist.clear();
         for (EmplMsg emplMsg : sllist) {
-            if (emplMsg.getEM_TipGoodsConsume() > 0) {
-                first.add(emplMsg);
+            switch (mType) {
+                case 1:
+//                  过滤调没有开启商品消费提成的员工
+                    if (emplMsg.getEM_TipGoodsConsume() > 0) {
+                        first.add(emplMsg);
+                    }
+                    break;
+                case 2:
+//                  过滤调没有开启售卡提成的员工
+                    if (emplMsg.getEM_TipCard() > 0) {
+                        first.add(emplMsg);
+                    }
+                    break;
+                case 3:
+//                  过滤调没有开启充值提成的员工
+                    if (emplMsg.getEM_TipRecharge() > 0) {
+                        first.add(emplMsg);
+                    }
+                    break;
             }
         }
         if (valiRuleMsgList != null) {
@@ -370,6 +388,10 @@ public class ShopDetailDialog {
         } else {
             emplist.addAll(first);
         }
+        emplMsgList.clear();
+        emplMsgList.addAll(emplist);
+
+        //回显
         if (mEmplMsgList3 != null && mEmplMsgList3.size() > 0) {
             for (int i = 0; i < mEmplMsgList3.size(); i++) {
                 for (int j = 0; j < emplMsgList.size(); j++) {

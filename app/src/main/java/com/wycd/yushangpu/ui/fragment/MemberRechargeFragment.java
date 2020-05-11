@@ -37,6 +37,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+/**
+ * 会员充值
+ */
 public class MemberRechargeFragment extends BaseFragment {
 
     @BindView(R.id.tv_member_recharge_name)
@@ -130,9 +133,9 @@ public class MemberRechargeFragment extends BaseFragment {
                             }
                         });
                 break;
-            case R.id.et_recharge_select_em_name:
+            case R.id.et_recharge_select_em_name://选择员工
                 ShopDetailDialog.shopdetailDialog(getActivity(), null, "",
-                        null, MyApplication.loginBean.getShopID(), 1, new InterfaceBack() {
+                        null, MyApplication.loginBean.getShopID(), 1, 3, new InterfaceBack() {
                             @Override
                             public void onResponse(Object response) {
                                 List<EmplMsg> mEmplMsgList = (List<EmplMsg>) response;
