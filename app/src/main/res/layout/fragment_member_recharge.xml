@@ -224,7 +224,7 @@
                             android:background="@drawable/selector_edit_green_gray_o"
                             android:gravity="center"
                             android:paddingLeft="3dp"
-                            android:text="选择人员"
+                            android:text="选择员工"
                             android:textColor="@color/graeen_botton"
                             android:textSize="17sp" />
                     </FrameLayout>

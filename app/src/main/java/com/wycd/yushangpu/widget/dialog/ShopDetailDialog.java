@@ -28,6 +28,7 @@ import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.adapter.YuangongAdapter;
+import com.wycd.yushangpu.bean.DeductRuleBean;
 import com.wycd.yushangpu.bean.EmplMsg;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.bean.SysSwitchRes;
@@ -38,6 +39,7 @@ import com.wycd.yushangpu.http.BaseRes;
 import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
+import com.wycd.yushangpu.model.ImpParamLoading;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.widget.NumInputView;
@@ -72,6 +74,33 @@ public class ShopDetailDialog {
 
     public static Dialog shopdetailDialog(final Activity context, final ShopMsg mShopMsg, String VGID, List<String> mEmplGidList,
                                           String SmGid, int showingLocation, boolean single, int type, final InterfaceBack back) {
+        boolean allow = false;
+        if (ImpParamLoading.REPORT_BEAN != null) {
+            List<DeductRuleBean> deductRuleBeans = ImpParamLoading.REPORT_BEAN.getDeductRule();
+            for (DeductRuleBean bean : deductRuleBeans) {
+                switch (type) {
+                    case 1:
+                        if (bean.getSS_Type() == 50) {
+                            allow = true;
+                        }
+                        break;
+                    case 2:
+                        if (bean.getSS_Type() == 10) {
+                            allow = true;
+                        }
+                        break;
+                    case 3:
+                        if (bean.getSS_Type() == 20) {
+                            allow = true;
+                        }
+                        break;
+                }
+            }
+        }
+        if (!allow) {
+            ToastUtils.showLong("没有提成规则");
+            return null;
+        }
         final Dialog dialog;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.dialog_shopdetail, null);
@@ -449,7 +478,12 @@ public class ShopDetailDialog {
                 public void afterTextChanged(Editable s) {
                     int val = 0;
                     if (!TextUtils.isEmpty(s)) {
-                        val = Integer.valueOf(s.toString());
+                        try {
+                            val = Integer.valueOf(s.toString());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            ToastUtils.showLong("金额只能输入数字");
+                        }
                     }
                     if (type == 1) {
                         if (val > 100) {

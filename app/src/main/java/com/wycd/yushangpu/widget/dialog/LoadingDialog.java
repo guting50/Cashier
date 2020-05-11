@@ -23,14 +23,23 @@ public class LoadingDialog {
         final Dialog dialog;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.dialog_loading, null);
-        dialog = new Dialog(context, R.style.DialogNotitle1);
+        dialog = new Dialog(context, R.style.DialogNotitle1) {
+            @Override
+            public void show() {
+                try {
+                    super.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
         dialog.setCancelable(true);//是否返回键消失
         dialog.setCanceledOnTouchOutside(true);//是否点击边缘消失
         int screenWidth = ((WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay()
                 .getWidth();
         dialog.setContentView(view, new LinearLayout.LayoutParams(
-                screenWidth-100, LinearLayout.LayoutParams.WRAP_CONTENT));
+                screenWidth - 100, LinearLayout.LayoutParams.WRAP_CONTENT));
         Window window = dialog.getWindow();
         switch (showingLocation) {
             case 0:
@@ -45,7 +54,7 @@ public class LoadingDialog {
             case 3:
                 WindowManager.LayoutParams params = window.getAttributes();
                 dialog.onWindowAttributesChanged(params);
-                params.x = screenWidth-dip2px(context,100);// 设置x坐标
+                params.x = screenWidth - dip2px(context, 100);// 设置x坐标
                 params.gravity = Gravity.TOP;
                 params.y = dip2px(context, 45);// 设置y坐标
                 Log.d("xx", params.y + "");
@@ -58,11 +67,11 @@ public class LoadingDialog {
         }
         return dialog;
     }
+
     /**
      * 将dip或dp值转换为px值，保证尺寸大小不变
      *
-     * @param dipValue
-     *            （DisplayMetrics类中属性density）
+     * @param dipValue （DisplayMetrics类中属性density）
      * @return
      */
     public static int dip2px(Context context, float dipValue) {

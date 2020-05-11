@@ -346,6 +346,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                     case 208://卡面号码
                         if (sysSwitchListBean.getSS_State() == 1) {
                             et_VIP_FaceNumber.setEnabled(true);
+                            ((ViewGroup) et_VIP_FaceNumber.getParent()).getChildAt(1).setVisibility(View.VISIBLE);
                             isCardNum = true;
                         }
                         break;
@@ -447,7 +448,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
             et_VIP_Overdue.setEnabled(false);
         } else {
             rootView.findViewById(R.id.cb_is_perpetual).setEnabled(true);
-            ((CheckBox) rootView.findViewById(R.id.cb_is_perpetual)).setChecked(false);
+            ((CheckBox) rootView.findViewById(R.id.cb_is_perpetual)).setChecked(true);
             et_VIP_Overdue.setEnabled(true);
         }
     }
@@ -549,7 +550,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                     }
                 });
                 mCalendarSelector.show(et_VIP_Overdue);
-                if (TextUtils.isEmpty(et_VIP_Overdue.getText().toString())) {
+                if (TextUtils.isEmpty(et_VIP_Overdue.getText())) {
                     mCalendarSelector.setPosition(DateUtil.getDateForString(DateTimeUtil.getNowDate()), "0", "0");
                 } else {
                     mCalendarSelector.setPosition(DateUtil.getDateForString(et_VIP_Overdue.getTag().toString()), "0", "0");

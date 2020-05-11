@@ -239,13 +239,17 @@ public class VipMemberFragment extends BaseFragment {
                 break;
         }
         ((TextView) rootView.findViewById(R.id.tv_state)).setText(VIP_State);
-        ((TextView) rootView.findViewById(R.id.tv_overdue)).setText(info.getVIP_Overdue());
+        if (info.getVIP_IsForver() == 1) {
+            ((TextView) rootView.findViewById(R.id.tv_overdue)).setText("永久");
+        } else
+            ((TextView) rootView.findViewById(R.id.tv_overdue)).setText(info.getVIP_Overdue());
         ((TextView) rootView.findViewById(R.id.tv_face_number)).setText(info.getVIP_FaceNumber());
         ((TextView) rootView.findViewById(R.id.tv_ic_card)).setText(info.getVIP_ICCard());
         ((TextView) rootView.findViewById(R.id.tv_g_id)).setText(info.getSM_Name());
         ((TextView) rootView.findViewById(R.id.tv_fixed_phone)).setText(info.getVIP_FixedPhone());
         ((TextView) rootView.findViewById(R.id.tv_em_name)).setText(info.getEM_Name());
-        ((TextView) rootView.findViewById(R.id.tv_wx_vip)).setText(info.getVIP_OpenID());
+        if (!TextUtils.isEmpty(info.getVIP_OpenID()))
+            ((TextView) rootView.findViewById(R.id.tv_wx_vip)).setText("已绑定");
     }
 
     class MemberAdapter extends RecyclerView.Adapter {
