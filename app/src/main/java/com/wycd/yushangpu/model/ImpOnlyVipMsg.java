@@ -1,5 +1,7 @@
 package com.wycd.yushangpu.model;
 
+import android.text.TextUtils;
+
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
@@ -50,12 +52,17 @@ public class ImpOnlyVipMsg {
     }
 
     public void vipMsgs(final String VCH_Card, int pageIndex, int pageSize, final InterfaceBack back) {
+        vipMsgs(VCH_Card, pageIndex, pageSize, MyApplication.loginBean.getShopID(), back);
+    }
+
+    public void vipMsgs(final String VCH_Card, int pageIndex, int pageSize, String SM_GID, final InterfaceBack back) {
         // TODO 自动生成的方法存根
         RequestParams params = new RequestParams();
         params.put("PageIndex", pageIndex);
         params.put("PageSize", pageSize);
         params.put("CardOrNameOrCellPhoneOrFace", VCH_Card);
-        params.put("SM_GID", MyApplication.loginBean.getShopID());
+        if (!TextUtils.isEmpty(SM_GID))
+            params.put("SM_GID", SM_GID);
         String url = HttpAPI.API().VIPLIST;
         AsyncHttpUtils.postHttp(url, params, new CallBack() {
             @Override

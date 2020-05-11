@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -162,6 +163,7 @@ public class JiesuanBFragment extends BaseFragment {
 
     private int consumeCheck = 0;//1 余额消费密码验证 ；2 余额消费短信验证码验证
     private double yueMoney = 0;
+    private int count = 60;
 
     private NumKeyboardUtils numKeyboardUtils;
 
@@ -299,10 +301,10 @@ public class JiesuanBFragment extends BaseFragment {
                         }
                     }
                 }
-            for (ReportMessageBean.GetSysSwitchListBean bean : ImpParamLoading.REPORT_BEAN.getGetSysSwitchList()) {
-                if (TextUtils.equals(bean.getSS_Code(), "204") && bean.getSS_State() == 1) {// 消费密码验证
+            for (SysSwitchRes bean : ImpParamLoading.REPORT_BEAN.getGetSysSwitchList()) {
+                if (bean.getSS_Code() == 204 && bean.getSS_State() == 1) {// 消费密码验证
                     consumeCheck = 1;
-                } else if (TextUtils.equals(bean.getSS_Code(), "217") && bean.getSS_State() == 1) { //消费短信验证码验证
+                } else if (bean.getSS_Code() == 217 && bean.getSS_State() == 1) { //消费短信验证码验证
                     consumeCheck = 2;
                 }
             }
@@ -513,6 +515,7 @@ public class JiesuanBFragment extends BaseFragment {
         ivChose.setOnClickListener(new OnNoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
+                count = 0;
                 lzLayout.setVisibility(View.GONE);
             }
         });
@@ -555,31 +558,35 @@ public class JiesuanBFragment extends BaseFragment {
                         if (v.getTag() != null) {
                             return;
                         }
-                        v.setTag("isGet");
-                        final int[] count = {60};
-                        Timer timer = new Timer();
-                        timer.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                if (count[0] > 0) {
-                                    count[0]--;
-                                } else {
-                                    v.setTag(null);
-                                    timer.cancel();
-                                }
-                                getActivity().runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        getVipSmsVerify.setText(count[0] == 0 ? "获取验证码" : count[0] + "秒后再试");
-                                    }
-                                });
-                            }
-                        }, 1000, 1000);
+                        if (TextUtils.isEmpty(mVipMsg.getVIP_CellPhone())) {
+                            ToastUtils.showLong("没有会员手机号");
+                            return;
+                        }
                         RequestParams params = new RequestParams();
                         params.put("Phone", mVipMsg.getVIP_CellPhone());
                         AsyncHttpUtils.postHttp(HttpAPI.API().GET_VIP_SMS_VERIFY, params, new CallBack() {
                             @Override
                             public void onResponse(BaseRes response) {
+                                v.setTag("isGet");
+                                count = 60;
+                                Timer timer = new Timer();
+                                timer.schedule(new TimerTask() {
+                                    @Override
+                                    public void run() {
+                                        if (count > 0) {
+                                            count--;
+                                        } else {
+                                            v.setTag(null);
+                                            timer.cancel();
+                                        }
+                                        getActivity().runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                getVipSmsVerify.setText(count == 0 ? "获取验证码" : count + "秒后再试");
+                                            }
+                                        });
+                                    }
+                                }, 0, 1000);
                             }
                         });
                     }
@@ -816,7 +823,7 @@ public class JiesuanBFragment extends BaseFragment {
                 name = PayMode.XJZF.getStr();
                 break;
             case "YEZF"://余额
-                if (isMember || orderType == MEM_RECHARGE_PAY) {
+                if (isMember || orderType != MEM_RECHARGE_PAY) {
                     view = mLiYue;
                     name = PayMode.YEZF.getStr();
                 } else {
@@ -838,7 +845,7 @@ public class JiesuanBFragment extends BaseFragment {
                 name = PayMode.ZFBJZ.getStr();
                 break;
             case "JFZF"://积分支付
-                if (isMember || orderType == MEM_RECHARGE_PAY) {
+                if (isMember || orderType != MEM_RECHARGE_PAY) {
                     view = mLiJifen;
                     name = PayMode.JFZF.getStr();
                 } else {
@@ -905,9 +912,7 @@ public class JiesuanBFragment extends BaseFragment {
                     p.setPayMoney(modeMoney);
                     p.setPayName(m.getSS_Name());
                     p.setPayPoint(0.00);
-                    if (modeMoney > 0) {
-                        yueMoney = modeMoney;
-                    }
+                    yueMoney = modeMoney;
                 } else if (TextUtils.equals(name, PayMode.YLZF.getStr())
                         && m.getSS_Name().equals("银联支付")) {
                     p.setGID(new String[0]);

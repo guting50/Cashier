@@ -1,11 +1,18 @@
 package com.wycd.yushangpu.model;
 
+import android.os.Parcelable;
+import android.util.Log;
+
+import com.blankj.utilcode.util.CacheDoubleUtils;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.bean.ReportMessageBean;
+import com.wycd.yushangpu.bean.SysSwitchRes;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
 import com.wycd.yushangpu.http.BaseRes;
 import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
+
+import java.util.List;
 
 /**
  * Created by songxiaotao on 2018/6/19.
@@ -37,6 +44,11 @@ public class ImpParamLoading {
                                 MyApplication.JB_PRINT_TIMES = bean.getPT_Times();
                             }
                         }
+                    }
+                    List<SysSwitchRes> sysSwitchListList = REPORT_BEAN.getGetSysSwitchList();
+                    for (SysSwitchRes bean : sysSwitchListList) {
+                        CacheDoubleUtils.getInstance().put(bean.getSS_Code() + "", (Parcelable) bean);
+                        Log.e("==========", "Type" + bean.getSS_Code() + "(" + bean.getSS_Code() + "),//" + bean.getSS_Name());
                     }
                 }
             }
