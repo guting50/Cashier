@@ -33,6 +33,7 @@ import com.wycd.yushangpu.bean.EmplMsg;
 import com.wycd.yushangpu.bean.LabelBean;
 import com.wycd.yushangpu.bean.MemberLabel;
 import com.wycd.yushangpu.bean.ReportMessageBean;
+import com.wycd.yushangpu.bean.SysSwitchRes;
 import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
 import com.wycd.yushangpu.http.BaseRes;
@@ -320,7 +321,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(iv_edit_head_img);
         }
-        List<ReportMessageBean.GetSysSwitchListBean> mSwitchEntity = ImpParamLoading.REPORT_BEAN.getGetSysSwitchList();
+        List<SysSwitchRes> mSwitchEntity = ImpParamLoading.REPORT_BEAN.getGetSysSwitchList();
 
         mCardContactPhone = false;
         mIsfilltel = false;
@@ -328,53 +329,53 @@ public class AddOrEditMemberFragment extends BaseFragment {
         et_VIP_FaceNumber.setEnabled(false);
         isCardNum = false;
         if (mSwitchEntity != null && mSwitchEntity.size() > 0) {
-            for (ReportMessageBean.GetSysSwitchListBean sysSwitchListBean : mSwitchEntity) {
+            for (SysSwitchRes sysSwitchListBean : mSwitchEntity) {
                 switch (sysSwitchListBean.getSS_Code()) {
-                    case "201"://会员卡号同手机号
+                    case 201://会员卡号同手机号
                         if (sysSwitchListBean.getSS_State() == 1) {
                             mCardContactPhone = true;
                             et_VCH_Card.setEnabled(false);
                         }
                         break;
-                    case "211"://是否必填手机号
+                    case 211://是否必填手机号
                         if (sysSwitchListBean.getSS_State() == 1) {
                             mIsfilltel = true;
                             ((ViewGroup) et_VIP_CellPhone.getParent()).getChildAt(1).setVisibility(View.VISIBLE);
                         }
                         break;
-                    case "208"://卡面号码
+                    case 208://卡面号码
                         if (sysSwitchListBean.getSS_State() == 1) {
                             et_VIP_FaceNumber.setEnabled(true);
                             isCardNum = true;
                         }
                         break;
-                    case "202"://初始密码
+                    case 202://初始密码
                         if (vipInfoMsg == null && sysSwitchListBean.getSS_State() == 1) {
                             et_VCH_Pwd.setText(sysSwitchListBean.getSS_Value());
                             et_VCH_Pwd_Confirm.setText(sysSwitchListBean.getSS_Value());
                         }
                         break;
-                    case "103"://银联支付
+                    case 103://银联支付
                         if (sysSwitchListBean.getSS_State() == 1) {
                             mPayWayList.add("银联支付");
                         }
                         break;
-                    case "101"://现金支付
+                    case 101://现金支付
                         if (sysSwitchListBean.getSS_State() == 1) {
 //                            mPayWayList.add("现金支付");
                         }
                         break;
-                    case "106"://支付宝记账
+                    case 106://支付宝记账
                         if (sysSwitchListBean.getSS_State() == 1) {
                             mPayWayList.add("支付宝记账");
                         }
                         break;
-                    case "105"://微信记账
+                    case 105://微信记账
                         if (sysSwitchListBean.getSS_State() == 1) {
                             mPayWayList.add("微信记账");
                         }
                         break;
-                    case "301": //员工提成
+                    case 301: //员工提成
                         if (vipInfoMsg == null && sysSwitchListBean.getSS_State() == 1) {
                             rootView.findViewById(R.id.et_select_EM_Name).setEnabled(true);
                         }

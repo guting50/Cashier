@@ -948,7 +948,9 @@ public class CashierFragment extends BaseFragment {
                 vipNameLayout.setVisibility(View.VISIBLE);
                 ((TextView) vipNameLayout.getChildAt(0)).setText(mVipMsg.getVIP_Name().substring(0, 1));
             } else {
-                com.blankj.utilcode.util.ToastUtils.showShort("会员名为空");
+//                com.blankj.utilcode.util.ToastUtils.showShort("会员名为空");
+                vipNameLayout.setVisibility(View.VISIBLE);
+                ((TextView) vipNameLayout.getChildAt(0)).setText(mVipMsg.getVCH_Card().substring(0, 1) + "");
             }
         }
     }

@@ -22,7 +22,7 @@ public class ReportMessageBean implements Serializable {
     private List<GetCustomFieldsVIPBean> GetCustomFieldsVIP;
     private List<GetCustomFieldsBean> GetCustomFields;
     private List<GetLoginHistoryListBean> GetLoginHistoryList;
-    private List<GetSysSwitchListBean> GetSysSwitchList;
+    private List<SysSwitchRes> GetSysSwitchList;
     private List<VIPGradeListBean> VIPGradeList;
     private List<EmplistBean> Emplist;
     private List<DepartmentListBean> DepartmentList;
@@ -89,14 +89,14 @@ public class ReportMessageBean implements Serializable {
         this.GetLoginHistoryList = GetLoginHistoryList;
     }
 
-    public List<GetSysSwitchListBean> getGetSysSwitchList() {
-        Type listType = new TypeToken<List<GetSysSwitchListBean>>() {
+    public List<SysSwitchRes> getGetSysSwitchList() {
+        Type listType = new TypeToken<List<SysSwitchRes>>() {
         }.getType();
         String json = JSON.toJSONString(GetSysSwitchList);
         return JSON.parseObject(json, listType);
     }
 
-    public void setGetSysSwitchList(List<GetSysSwitchListBean> GetSysSwitchList) {
+    public void setGetSysSwitchList(List<SysSwitchRes> GetSysSwitchList) {
         this.GetSysSwitchList = GetSysSwitchList;
     }
 
@@ -777,112 +777,6 @@ public class ReportMessageBean implements Serializable {
 
         public void setLM_Type(String LM_Type) {
             this.LM_Type = LM_Type;
-        }
-    }
-
-    public static class GetSysSwitchListBean implements Serializable {
-        /**
-         * SS_Value : null
-         * GID : 4f3aefbe-172e-4839-b81e-3ace7da00007
-         * SS_Name : 会员卡号同手机号
-         * SS_Code : 201
-         * SS_State : 1
-         * SS_Remark : null
-         * SS_Update : 1058346971@qq.com
-         * SS_UpdateTime : 2018-06-29 16:11:42
-         * CY_GID : null
-         * SS_Sort : 1
-         */
-
-        private String SS_Value;
-        private String GID;
-        private String SS_Name;
-        private String SS_Code;
-        private int SS_State;
-        private Object SS_Remark;
-        private String SS_Update;
-        private String SS_UpdateTime;
-        private Object CY_GID;
-        private int SS_Sort;
-
-        public String getSS_Value() {
-            return SS_Value;
-        }
-
-        public void setSS_Value(String SS_Value) {
-            this.SS_Value = SS_Value;
-        }
-
-        public String getGID() {
-            return GID;
-        }
-
-        public void setGID(String GID) {
-            this.GID = GID;
-        }
-
-        public String getSS_Name() {
-            return SS_Name;
-        }
-
-        public void setSS_Name(String SS_Name) {
-            this.SS_Name = SS_Name;
-        }
-
-        public String getSS_Code() {
-            return SS_Code;
-        }
-
-        public void setSS_Code(String SS_Code) {
-            this.SS_Code = SS_Code;
-        }
-
-        public int getSS_State() {
-            return SS_State;
-        }
-
-        public void setSS_State(int SS_State) {
-            this.SS_State = SS_State;
-        }
-
-        public Object getSS_Remark() {
-            return SS_Remark;
-        }
-
-        public void setSS_Remark(Object SS_Remark) {
-            this.SS_Remark = SS_Remark;
-        }
-
-        public String getSS_Update() {
-            return SS_Update;
-        }
-
-        public void setSS_Update(String SS_Update) {
-            this.SS_Update = SS_Update;
-        }
-
-        public String getSS_UpdateTime() {
-            return SS_UpdateTime;
-        }
-
-        public void setSS_UpdateTime(String SS_UpdateTime) {
-            this.SS_UpdateTime = SS_UpdateTime;
-        }
-
-        public Object getCY_GID() {
-            return CY_GID;
-        }
-
-        public void setCY_GID(Object CY_GID) {
-            this.CY_GID = CY_GID;
-        }
-
-        public int getSS_Sort() {
-            return SS_Sort;
-        }
-
-        public void setSS_Sort(int SS_Sort) {
-            this.SS_Sort = SS_Sort;
         }
     }
 

@@ -10,14 +10,17 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.CacheDoubleUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.LabelBean;
+import com.wycd.yushangpu.bean.SysSwitchRes;
 import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.http.BasePageRes;
 import com.wycd.yushangpu.http.ImgUrlTools;
@@ -151,7 +154,9 @@ public class VipMemberFragment extends BaseFragment {
             memberAdapter.getList().clear();
         }
         ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
-        onlyVipMsg.vipMsgs(editTextLayout.getText().toString(), pageIndex, 20, new InterfaceBack<BasePageRes>() {
+        String SM_GID = CacheDoubleUtils.getInstance().
+                getParcelable(SysSwitchRes.Type.Type210.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0 ? MyApplication.loginBean.getShopID() : "";
+        onlyVipMsg.vipMsgs(editTextLayout.getText().toString(), pageIndex, 20, SM_GID, new InterfaceBack<BasePageRes>() {
             @Override
             public void onResponse(BasePageRes response) {
                 homeActivity.dialog.dismiss();
