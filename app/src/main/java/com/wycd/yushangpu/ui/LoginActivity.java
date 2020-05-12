@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 import com.gt.utils.base64.BASE64Decoder;
@@ -162,6 +163,7 @@ public class LoginActivity extends BaseActivity {
                                 String massage = ((BaseRes) msg).getMsg();
                                 if (TextUtils.equals(massage, "请输入验证码"))
                                     getCode();
+                                ToastUtils.showLong(massage);
                             }
                         }
                     });

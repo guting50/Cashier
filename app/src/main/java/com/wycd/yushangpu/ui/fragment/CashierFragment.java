@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.google.gson.reflect.TypeToken;
 import com.gt.utils.GsonUtils;
 import com.gt.utils.widget.BgFrameLayout;
+import com.gt.utils.widget.BgTextView;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.Presenter.BasicEucalyptusPresnter;
@@ -70,7 +71,7 @@ public class CashierFragment extends BaseFragment {
     @BindView(R.id.iv_search)
     ImageView ivSearch;
     @BindView(R.id.vip_name_layout)
-    BgFrameLayout vipNameLayout;
+    BgTextView vipNameLayout;
     @BindView(R.id.et_login_account)
     public ClearEditText mEtLoginAccount;
     @BindView(R.id.recyclerview_shoplist)
@@ -79,12 +80,12 @@ public class CashierFragment extends BaseFragment {
     TextView tvNumTotal;
     @BindView(R.id.tv_heji)
     TextView mTvHeji;
-    @BindView(R.id.btt_get_order)
-    TextView bttGetOrder;
+    @BindView(R.id.btt_hung_order)
+    BgTextView bttGetOrder;
     @BindView(R.id.order_count_layout)
-    BgFrameLayout orderCountLayout;
+    BgTextView orderCountLayout;
     @BindView(R.id.tv_shoukuan)
-    BgFrameLayout tvShoukuan;
+    BgTextView tvShoukuan;
     @BindView(R.id.btt_hung_money)
     Button bttHungMoney;
     @BindView(R.id.btt_reture_goods)
@@ -529,10 +530,10 @@ public class CashierFragment extends BaseFragment {
         tvNumTotal.setText(num + "");
         if (num != 0) {
             tvShoukuan.setTag(1);
-            ((TextView) tvShoukuan.getChildAt(0)).setText("结账[Enter]");
+            tvShoukuan.setText("结账[Enter]");
         } else {
             tvShoukuan.setTag(0);
-            ((TextView) tvShoukuan.getChildAt(0)).setText("快速收银[Enter]");
+            tvShoukuan.setText("快速收银[Enter]");
         }
 
         mShopLeftAdapter.notifyDataSetChanged();
@@ -783,7 +784,7 @@ public class CashierFragment extends BaseFragment {
 //                jisuanDiscount(mPD_Discount, mShopLeftList);
                     if (!TextUtils.isEmpty(mVipMsg.getVIP_Name())) {
                         vipNameLayout.setVisibility(View.VISIBLE);
-                        ((TextView) vipNameLayout.getChildAt(0)).setText(mVipMsg.getVIP_Name().substring(0, 1));
+                        vipNameLayout.setText(mVipMsg.getVIP_Name().substring(0, 1));
                     } else {
                         com.blankj.utilcode.util.ToastUtils.showShort("会员名为空");
                     }
@@ -865,7 +866,7 @@ public class CashierFragment extends BaseFragment {
             bttGetOrder.setText("挂单[F1]");
         } else if (qudanFragment.getListCount() > 0) {
             orderCountLayout.setVisibility(View.VISIBLE);
-            ((TextView) orderCountLayout.getChildAt(0)).setText(qudanFragment.getListCount() + "");
+            orderCountLayout.setText(qudanFragment.getListCount() + "");
             bttGetOrder.setText("取单[F1]");
         }
     }
@@ -880,7 +881,7 @@ public class CashierFragment extends BaseFragment {
         PreferenceHelper.write(homeActivity, "yunshangpu", "vip", false);
         mTvHeji.setText("0.00");
         tvShoukuan.setTag(0);
-        ((TextView) tvShoukuan.getChildAt(0)).setText("快速收银[Enter]");
+        tvShoukuan.setText("快速收银[Enter]");
         tvNumTotal.setText("0");
         updateBttGetOrder();
 
@@ -898,7 +899,7 @@ public class CashierFragment extends BaseFragment {
                 tv_ordernum.setText(order);
                 mTvHeji.setText("0.00");
                 tvShoukuan.setTag(0);
-                ((TextView) tvShoukuan.getChildAt(0)).setText("快速收银[Enter]");
+                tvShoukuan.setText("快速收银[Enter]");
                 tvNumTotal.setText("0");
                 leftpos = -1;
 
@@ -946,11 +947,11 @@ public class CashierFragment extends BaseFragment {
 
             if (!TextUtils.isEmpty(mVipMsg.getVIP_Name())) {
                 vipNameLayout.setVisibility(View.VISIBLE);
-                ((TextView) vipNameLayout.getChildAt(0)).setText(mVipMsg.getVIP_Name().substring(0, 1));
+                vipNameLayout.setText(mVipMsg.getVIP_Name().substring(0, 1));
             } else {
 //                com.blankj.utilcode.util.ToastUtils.showShort("会员名为空");
                 vipNameLayout.setVisibility(View.VISIBLE);
-                ((TextView) vipNameLayout.getChildAt(0)).setText(mVipMsg.getVCH_Card().substring(0, 1) + "");
+                vipNameLayout.setText(mVipMsg.getVCH_Card().substring(0, 1) + "");
             }
         }
     }

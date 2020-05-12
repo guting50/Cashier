@@ -68,48 +68,37 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp">
 
-                <com.gt.utils.widget.BgFrameLayout
+                <com.gt.utils.widget.BgTextView
                     android:id="@+id/member_bg_layout"
                     android:layout_width="120dp"
                     android:layout_height="@dimen/dp_50"
                     android:layout_gravity="bottom"
                     android:layout_marginTop="15dp"
                     android:layout_marginRight="@dimen/dp_12"
+                    android:gravity="center"
+                    android:text="会员[F2]"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_20"
                     app:corners_radius="3dp"
-                    app:solid_color="@color/colorPrimary">
+                    app:solid_color="@color/colorPrimary" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="会员[F2]"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/sp_20" />
-                </com.gt.utils.widget.BgFrameLayout>
-
-                <com.gt.utils.widget.BgFrameLayout
+                <com.gt.utils.widget.BgTextView
                     android:id="@+id/vip_name_layout"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="right"
                     android:layout_marginTop="3dp"
                     android:layout_marginRight="2dp"
+                    android:gravity="center"
+                    android:text="李"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_14"
                     android:visibility="gone"
                     app:corners_radius="20dp"
-                    app:solid_color="@android:color/holo_red_dark">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="李"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/sp_14" />
-
-                </com.gt.utils.widget.BgFrameLayout>
+                    app:solid_color="@android:color/holo_red_dark" />
             </FrameLayout>
 
-            <com.gt.utils.widget.BgFrameLayout
+            <com.gt.utils.widget.BgLayout
                 android:id="@+id/account_bg_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -117,9 +106,7 @@
                 android:layout_marginRight="@dimen/dp_10"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
-                app:corners_radius="3dp"
-                app:stroke_color="@color/colorPrimary"
-                app:stroke_width="1dp">
+                android:background="@drawable/lab_selected">
 
                 <com.wycd.yushangpu.widget.views.ClearEditText
                     android:id="@+id/et_login_account"
@@ -133,7 +120,7 @@
                     android:textColor="@color/textcolor"
                     android:textColorHint="@color/textbb"
                     android:textSize="@dimen/sp_16" />
-            </com.gt.utils.widget.BgFrameLayout>
+            </com.gt.utils.widget.BgLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -226,50 +213,38 @@
             android:textSize="@dimen/sp_42"
             android:textStyle="bold" />
 
-        <com.gt.utils.widget.BgFrameLayout
+        <com.gt.utils.widget.BgTextView
             android:id="@+id/btt_hung_order"
             android:layout_width="140dp"
             android:layout_height="@dimen/dp_60"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/dp_10"
             android:layout_marginBottom="@dimen/dp_10"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingRight="20dp"
+            android:text="挂单[F1]"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_22"
             app:corners_radius="2dp"
-            app:solid_color="@color/title_color">
+            app:solid_color="@color/title_color" />
 
-            <TextView
-                android:id="@+id/btt_get_order"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:paddingLeft="15dp"
-                android:paddingRight="20dp"
-                android:text="挂单[F1]"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_22" />
-        </com.gt.utils.widget.BgFrameLayout>
-
-        <com.gt.utils.widget.BgFrameLayout
+        <com.gt.utils.widget.BgTextView
             android:id="@+id/order_count_layout"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_above="@+id/btt_hung_order"
+            android:layout_gravity="center"
             android:layout_marginLeft="-18dp"
             android:layout_marginBottom="-18dp"
             android:layout_toRightOf="@+id/btt_hung_order"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16"
             android:visibility="gone"
             app:corners_radius="20dp"
-            app:solid_color="@android:color/holo_red_dark">
+            app:solid_color="@android:color/holo_red_dark" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_16" />
-
-        </com.gt.utils.widget.BgFrameLayout>
-
-        <com.gt.utils.widget.BgFrameLayout
+        <com.gt.utils.widget.BgTextView
             android:id="@+id/tv_shoukuan"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_60"
@@ -278,19 +253,14 @@
             android:layout_marginRight="@dimen/dp_10"
             android:layout_marginBottom="@dimen/dp_10"
             android:layout_toRightOf="@+id/btt_hung_order"
+            android:gravity="center"
             android:tag="0"
+            android:text="快速收银[Enter]"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_22"
+            android:textStyle="bold"
             app:corners_radius="3dp"
-            app:solid_color="@color/colorPrimary">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="快速收银[Enter]"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_22"
-                android:textStyle="bold" />
-        </com.gt.utils.widget.BgFrameLayout>
+            app:solid_color="@color/colorPrimary" />
     </RelativeLayout>
 
     <ScrollView
