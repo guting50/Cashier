@@ -11,9 +11,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
 import com.google.gson.reflect.TypeToken;
-import com.gt.utils.view.BgFrameLayout;
+import com.gt.utils.GsonUtils;
+import com.gt.utils.widget.BgFrameLayout;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.Presenter.BasicEucalyptusPresnter;
@@ -661,8 +661,8 @@ public class CashierFragment extends BaseFragment {
     }
 
     private void addShopLeftList(ShopMsg shopMsg, double addnum) {
-        String json = JSON.toJSONString(shopMsg);
-        shopMsg = JSON.parseObject(json, ShopMsg.class);
+        shopMsg = GsonUtils.getGson().fromJson(GsonUtils.getGson().toJson(shopMsg), ShopMsg.class);
+
         double num = 0;
         int pos = 0;
 

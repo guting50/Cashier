@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
-import com.gt.utils.view.BgFrameLayout;
+import com.gt.utils.widget.BgFrameLayout;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;

@@ -38,7 +38,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_18" />
 
-            <com.gt.utils.view.BgFrameLayout
+            <com.gt.utils.widget.BgFrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_store_name"
@@ -59,7 +59,7 @@
                     android:text="高级版"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_18" />
-            </com.gt.utils.view.BgFrameLayout>
+            </com.gt.utils.widget.BgFrameLayout>
         </RelativeLayout>
 
         <ImageView

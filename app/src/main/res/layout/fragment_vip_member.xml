@@ -28,7 +28,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <com.gt.utils.view.BgFrameLayout
+                    <com.gt.utils.widget.BgFrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -48,9 +48,9 @@
                             android:gravity="center_vertical"
                             android:hint="会员卡号/姓名/手机号/卡面号" />
 
-                    </com.gt.utils.view.BgFrameLayout>
+                    </com.gt.utils.widget.BgFrameLayout>
 
-                    <com.gt.utils.view.BgFrameLayout
+                    <com.gt.utils.widget.BgFrameLayout
                         android:id="@+id/li_search"
                         android:layout_width="@dimen/dp_70"
                         android:layout_height="match_parent"
@@ -65,7 +65,7 @@
                             android:layout_gravity="center"
                             android:src="@mipmap/search" />
 
-                    </com.gt.utils.view.BgFrameLayout>
+                    </com.gt.utils.widget.BgFrameLayout>
 
                 </LinearLayout>
 
@@ -180,7 +180,7 @@
                     android:textColor="@color/title_color"
                     android:textSize="22sp" />
 
-                <com.gt.utils.view.BgFrameLayout
+                <com.gt.utils.widget.BgFrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="22dp"
                     android:layout_alignTop="@+id/tv_info_name"
@@ -200,7 +200,7 @@
                         android:text="Lv.青铜会员"
                         android:textColor="@color/white"
                         android:textSize="13sp" />
-                </com.gt.utils.view.BgFrameLayout>
+                </com.gt.utils.widget.BgFrameLayout>
 
                 <TextView
                     android:id="@+id/tv_info_phone"

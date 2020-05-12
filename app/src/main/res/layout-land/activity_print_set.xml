@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <com.gt.utils.view.BgFrameLayout
+        <com.gt.utils.widget.BgFrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -139,7 +139,7 @@
                         android:layout_marginLeft="15dp"
                         android:src="@mipmap/icon_software_info" />
 
-                    <com.gt.utils.view.BgFrameLayout
+                    <com.gt.utils.widget.BgFrameLayout
                         android:id="@+id/upgrade_sign"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
@@ -159,13 +159,13 @@
                             android:textColor="@color/white"
                             android:textSize="@dimen/sp_13" />
 
-                    </com.gt.utils.view.BgFrameLayout>
+                    </com.gt.utils.widget.BgFrameLayout>
 
                 </FrameLayout>
 
             </LinearLayout>
 
-            <com.gt.utils.view.BgFrameLayout
+            <com.gt.utils.widget.BgFrameLayout
                 android:id="@+id/sigin_out"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -182,10 +182,10 @@
                     android:textColor="@color/white"
                     android:textSize="26sp" />
 
-            </com.gt.utils.view.BgFrameLayout>
-        </com.gt.utils.view.BgFrameLayout>
+            </com.gt.utils.widget.BgFrameLayout>
+        </com.gt.utils.widget.BgFrameLayout>
 
-        <com.gt.utils.view.BgFrameLayout
+        <com.gt.utils.widget.BgFrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
@@ -193,7 +193,7 @@
             app:corners_radius="5dp"
             app:solid_color="@color/texte5">
 
-            <com.gt.utils.view.BgFrameLayout
+            <com.gt.utils.widget.BgFrameLayout
                 android:id="@+id/about_shop_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -226,7 +226,7 @@
                                 android:layout_centerVertical="true"
                                 android:src="@mipmap/icon_shop_logo" />
 
-                            <com.gt.utils.view.BgFrameLayout
+                            <com.gt.utils.widget.BgFrameLayout
                                 android:id="@+id/sm_edition"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -247,9 +247,9 @@
                                     android:textColor="@color/white"
                                     android:textSize="16sp" />
 
-                            </com.gt.utils.view.BgFrameLayout>
+                            </com.gt.utils.widget.BgFrameLayout>
 
-                            <com.gt.utils.view.BgFrameLayout
+                            <com.gt.utils.widget.BgFrameLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
@@ -269,7 +269,7 @@
                                     android:textColor="@color/white"
                                     android:textSize="16sp" />
 
-                            </com.gt.utils.view.BgFrameLayout>
+                            </com.gt.utils.widget.BgFrameLayout>
 
                             <TextView
                                 android:id="@+id/tv_end_time"
@@ -434,7 +434,7 @@
 
                 </LinearLayout>
 
-            </com.gt.utils.view.BgFrameLayout>
+            </com.gt.utils.widget.BgFrameLayout>
 
             <LinearLayout
                 android:id="@+id/setting_layout"
@@ -774,7 +774,7 @@
 
             </LinearLayout>
 
-            <com.gt.utils.view.BgFrameLayout
+            <com.gt.utils.widget.BgFrameLayout
                 android:id="@+id/software_info_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -816,7 +816,7 @@
                         android:textColor="#999999"
                         android:textSize="18sp" />
 
-                    <com.gt.utils.view.BgFrameLayout
+                    <com.gt.utils.widget.BgFrameLayout
                         android:id="@+id/upgrade"
                         android:layout_width="120dp"
                         android:layout_height="48dp"
@@ -838,12 +838,12 @@
                             android:text="立即升级"
                             android:textColor="@color/title_color"
                             android:textSize="18sp" />
-                    </com.gt.utils.view.BgFrameLayout>
+                    </com.gt.utils.widget.BgFrameLayout>
 
                 </RelativeLayout>
 
-            </com.gt.utils.view.BgFrameLayout>
-        </com.gt.utils.view.BgFrameLayout>
+            </com.gt.utils.widget.BgFrameLayout>
+        </com.gt.utils.widget.BgFrameLayout>
 
     </LinearLayout>
 

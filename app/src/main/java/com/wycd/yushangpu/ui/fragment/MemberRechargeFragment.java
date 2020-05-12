@@ -10,8 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
-import com.gt.utils.view.BgFrameLayout;
-import com.gt.utils.view.FlowLayout;
+import com.gt.utils.widget.BgFrameLayout;
+import com.gt.utils.widget.FlowLayout;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.DiscountTypeBean;

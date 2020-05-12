@@ -20,7 +20,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.gt.utils.view.OnNoDoubleClickListener;
+import com.gt.utils.widget.OnNoDoubleClickListener;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.Presenter.BasicEucalyptusPresnter;
@@ -44,6 +44,7 @@ import com.wycd.yushangpu.model.ImpParamLoading;
 import com.wycd.yushangpu.model.ImpSaoma;
 import com.wycd.yushangpu.tools.CacheData;
 import com.wycd.yushangpu.tools.CommonUtils;
+import com.wycd.yushangpu.tools.DateTimeUtil;
 import com.wycd.yushangpu.tools.LogUtils;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.NullUtils;
@@ -290,9 +291,18 @@ public class JiesuanBFragment extends BaseFragment {
         }
 
         if (ImpParamLoading.REPORT_BEAN != null) {
-            if (orderType != MEM_RECHARGE_PAY) // 会员充值不能使用优惠活动
-                for (ReportMessageBean.ActiveBean active : ImpParamLoading.REPORT_BEAN.getActive()) {
+            if (orderType != MEM_RECHARGE_PAY)
+                for (ReportMessageBean.ActiveBean active : ImpParamLoading.REPORT_BEAN.getActiveOth()) {
+                    // 会员充值不能使用优惠活动
                     if (active.getRP_Type() != 1 && Double.parseDouble(zhMoney) >= active.getRP_RechargeMoney()) {
+                        if (active.getRP_ValidType() == 4) {//生日当天使用
+                            if (mVipMsg == null) {
+                                continue;
+                            }
+                            if (!DateTimeUtil.isBirthday(mVipMsg.getVIP_Birthday(), mVipMsg.getVIP_IsLunarCalendar())) {
+                                continue;
+                            }
+                        }
                         double temp = computePromotionMoney(active);
                         if (promotionMoney < temp) {
                             promotionMoney = temp;
@@ -346,7 +356,7 @@ public class JiesuanBFragment extends BaseFragment {
                 yhqDialog.dismiss();
             }
         });
-        promotionDialog = PromotionDialog.showDialog(context, zhMoney, promotionMsg, 1, new InterfaceBack() {
+        promotionDialog = PromotionDialog.showDialog(context, zhMoney, promotionMsg, mVipMsg, 1, new InterfaceBack() {
             @Override
             public void onResponse(Object response) {
                 promotionDialog.dismiss();

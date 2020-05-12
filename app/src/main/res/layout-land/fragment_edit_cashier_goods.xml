@@ -58,7 +58,7 @@
             android:textColor="@color/title_color"
             android:textSize="@dimen/sp_16" />
 
-        <com.gt.utils.view.BgFrameLayout
+        <com.gt.utils.widget.BgFrameLayout
             android:id="@+id/bn_edit_num"
             android:layout_width="@dimen/dp_112"
             android:layout_height="@dimen/dp_54"
@@ -78,9 +78,9 @@
                 android:text="数量"
                 android:textSize="@dimen/sp_20" />
 
-        </com.gt.utils.view.BgFrameLayout>
+        </com.gt.utils.widget.BgFrameLayout>
 
-        <com.gt.utils.view.BgFrameLayout
+        <com.gt.utils.widget.BgFrameLayout
             android:id="@+id/bn_edit_price"
             android:layout_width="@dimen/dp_112"
             android:layout_height="@dimen/dp_54"
@@ -100,9 +100,9 @@
                 android:text="单价"
                 android:textSize="@dimen/sp_20" />
 
-        </com.gt.utils.view.BgFrameLayout>
+        </com.gt.utils.widget.BgFrameLayout>
 
-        <com.gt.utils.view.BgFrameLayout
+        <com.gt.utils.widget.BgFrameLayout
             android:id="@+id/bn_edit_give"
             android:layout_width="@dimen/dp_112"
             android:layout_height="@dimen/dp_54"
@@ -122,9 +122,9 @@
                 android:text="赠送"
                 android:textSize="@dimen/sp_20" />
 
-        </com.gt.utils.view.BgFrameLayout>
+        </com.gt.utils.widget.BgFrameLayout>
 
-        <com.gt.utils.view.BgFrameLayout
+        <com.gt.utils.widget.BgFrameLayout
             android:id="@+id/bn_edit_subtotal"
             android:layout_width="@dimen/dp_112"
             android:layout_height="@dimen/dp_54"
@@ -144,9 +144,9 @@
                 android:text="小计"
                 android:textSize="@dimen/sp_20" />
 
-        </com.gt.utils.view.BgFrameLayout>
+        </com.gt.utils.widget.BgFrameLayout>
 
-        <com.gt.utils.view.BgFrameLayout
+        <com.gt.utils.widget.BgFrameLayout
             android:id="@+id/bn_edit_discount"
             android:layout_width="@dimen/dp_112"
             android:layout_height="@dimen/dp_54"
@@ -166,9 +166,9 @@
                 android:text="折扣"
                 android:textSize="@dimen/sp_20" />
 
-        </com.gt.utils.view.BgFrameLayout>
+        </com.gt.utils.widget.BgFrameLayout>
 
-        <com.gt.utils.view.BgFrameLayout
+        <com.gt.utils.widget.BgFrameLayout
             android:id="@+id/bn_edit_royalty"
             android:layout_width="@dimen/dp_112"
             android:layout_height="@dimen/dp_54"
@@ -188,7 +188,7 @@
                 android:text="提成"
                 android:textSize="@dimen/sp_20" />
 
-        </com.gt.utils.view.BgFrameLayout>
+        </com.gt.utils.widget.BgFrameLayout>
 
         <LinearLayout
             android:id="@+id/edit_layout"
@@ -200,7 +200,7 @@
             android:layout_marginBottom="15dp"
             android:orientation="horizontal">
 
-            <com.gt.utils.view.BgFrameLayout
+            <com.gt.utils.widget.BgFrameLayout
                 android:id="@+id/edit_num_del"
                 android:layout_width="48dp"
                 android:layout_height="match_parent"
@@ -217,9 +217,9 @@
                     android:textSize="30sp"
                     android:textStyle="bold" />
 
-            </com.gt.utils.view.BgFrameLayout>
+            </com.gt.utils.widget.BgFrameLayout>
 
-            <com.gt.utils.view.BgFrameLayout
+            <com.gt.utils.widget.BgFrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="10dp"
@@ -266,9 +266,9 @@
                         android:text="折" />
                 </LinearLayout>
 
-            </com.gt.utils.view.BgFrameLayout>
+            </com.gt.utils.widget.BgFrameLayout>
 
-            <com.gt.utils.view.BgFrameLayout
+            <com.gt.utils.widget.BgFrameLayout
                 android:id="@+id/edit_num_add"
                 android:layout_width="48dp"
                 android:layout_height="match_parent"
@@ -285,9 +285,9 @@
                     android:textSize="30sp"
                     android:textStyle="bold" />
 
-            </com.gt.utils.view.BgFrameLayout>
+            </com.gt.utils.widget.BgFrameLayout>
 
-            <com.gt.utils.view.BgFrameLayout
+            <com.gt.utils.widget.BgFrameLayout
                 android:id="@+id/edit_confirm"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
@@ -301,7 +301,7 @@
                     android:text="确定"
                     android:textColor="@color/white" />
 
-            </com.gt.utils.view.BgFrameLayout>
+            </com.gt.utils.widget.BgFrameLayout>
 
             <View
                 android:id="@+id/edit_layout_place"

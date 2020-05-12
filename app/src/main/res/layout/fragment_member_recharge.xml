@@ -262,7 +262,7 @@
 
                 </LinearLayout>
 
-                <com.gt.utils.view.FlowLayout
+                <com.gt.utils.widget.FlowLayout
                     android:id="@+id/fl_recharge_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -411,7 +411,7 @@
 
         </androidx.core.widget.NestedScrollView>
 
-        <com.gt.utils.view.BgFrameLayout
+        <com.gt.utils.widget.BgFrameLayout
             android:id="@+id/fl_cancel"
             android:layout_width="100dp"
             android:layout_height="48dp"
@@ -429,9 +429,9 @@
                 android:textColor="@color/white"
                 android:textSize="22sp" />
 
-        </com.gt.utils.view.BgFrameLayout>
+        </com.gt.utils.widget.BgFrameLayout>
 
-        <com.gt.utils.view.BgFrameLayout
+        <com.gt.utils.widget.BgFrameLayout
             android:id="@+id/fl_submit"
             android:layout_width="100dp"
             android:layout_height="48dp"
@@ -451,7 +451,7 @@
                 android:textColor="@color/white"
                 android:textSize="22sp" />
 
-        </com.gt.utils.view.BgFrameLayout>
+        </com.gt.utils.widget.BgFrameLayout>
     </FrameLayout>
 
 </LinearLayout>

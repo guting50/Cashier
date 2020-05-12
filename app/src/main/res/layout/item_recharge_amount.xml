@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <com.gt.utils.view.BgFrameLayout
+    <com.gt.utils.widget.BgFrameLayout
         android:layout_width="135dp"
         android:layout_height="78dp"
         android:orientation="vertical"
@@ -46,5 +46,5 @@
             android:inputType="numberDecimal"
             android:visibility="gone" />
 
-    </com.gt.utils.view.BgFrameLayout>
+    </com.gt.utils.widget.BgFrameLayout>
 </FrameLayout>

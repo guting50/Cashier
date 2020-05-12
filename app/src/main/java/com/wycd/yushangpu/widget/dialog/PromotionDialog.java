@@ -16,8 +16,10 @@ import android.widget.TextView;
 
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.ReportMessageBean;
+import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpParamLoading;
+import com.wycd.yushangpu.tools.DateTimeUtil;
 import com.wycd.yushangpu.tools.NullUtils;
 
 import java.util.ArrayList;
@@ -36,7 +38,7 @@ import butterknife.ButterKnife;
 
 public class PromotionDialog {
 
-    public static Dialog showDialog(final Activity context, String payMoney, ReportMessageBean.ActiveBean active, int showingLocation, final InterfaceBack back) {
+    public static Dialog showDialog(final Activity context, String payMoney, ReportMessageBean.ActiveBean active, VipInfoMsg vipMsg, int showingLocation, final InterfaceBack back) {
         final Dialog dialog;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.dialog_youhuiquan, null);
@@ -44,7 +46,7 @@ public class PromotionDialog {
         ((TextView) view.findViewById(R.id.tv_title)).setText("优惠活动");
 
         RecyclerView gridView = view.findViewById(R.id.gridview);
-        PromotionAdapter adapter = new PromotionAdapter(context, payMoney, active, back);
+        PromotionAdapter adapter = new PromotionAdapter(context, payMoney, active, vipMsg, back);
         gridView.setLayoutManager(new GridLayoutManager(context, 3));
         gridView.setAdapter(adapter);
 
@@ -109,10 +111,18 @@ public class PromotionDialog {
         private String payMoney;
         private InterfaceBack back;
 
-        public PromotionAdapter(Context context, String payMoney, ReportMessageBean.ActiveBean active, InterfaceBack back) {
+        public PromotionAdapter(Context context, String payMoney, ReportMessageBean.ActiveBean active, VipInfoMsg vipMsg, InterfaceBack back) {
             if (ImpParamLoading.REPORT_BEAN != null) {
-                for (ReportMessageBean.ActiveBean bean : ImpParamLoading.REPORT_BEAN.getActive()) {
+                for (ReportMessageBean.ActiveBean bean : ImpParamLoading.REPORT_BEAN.getActiveOth()) {
                     if (bean.getRP_Type() != 1) {
+                        if (active.getRP_ValidType() == 4) {//生日当天使用
+                            if (vipMsg == null) {
+                                continue;
+                            }
+                            if (!DateTimeUtil.isBirthday(vipMsg.getVIP_Birthday(), vipMsg.getVIP_IsLunarCalendar())) {
+                                continue;
+                            }
+                        }
                         list.add(bean);
                     }
                 }

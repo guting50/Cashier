@@ -6,7 +6,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.CacheDiskUtils;
-import com.gt.utils.view.BgFrameLayout;
+import com.gt.utils.widget.BgFrameLayout;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.Presenter.BasicEucalyptusPresnter;
 import com.wycd.yushangpu.R;

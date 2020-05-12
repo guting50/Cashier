@@ -25,7 +25,7 @@ import com.gt.photopicker.PhotoPickerActivity;
 import com.gt.photopicker.SelectModel;
 import com.gt.photopicker.intent.PhotoPickerIntent;
 import com.gt.utils.PermissionUtils;
-import com.gt.utils.view.OnNoDoubleClickListener;
+import com.gt.utils.widget.OnNoDoubleClickListener;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
@@ -656,7 +656,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                 }
                 break;
             case R.id.bg_upload_img:
-                PermissionUtils.requestPermission(homeActivity, PermissionUtils.CODE_READ_EXTERNAL_STORAGE, new PermissionUtils.PermissionGrant() {
+                PermissionUtils.requestPermission(homeActivity, PermissionUtils.READ_EXTERNAL_STORAGE, new PermissionUtils.PermissionGrant() {
                     @Override
                     public void onPermissionGranted(int... requestCode) {
                         PhotoPickerIntent intent = new PhotoPickerIntent(homeActivity);
@@ -1021,7 +1021,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                                 }
                                 break;
                             case TYPE_5:
-                                PermissionUtils.requestPermission(homeActivity, PermissionUtils.CODE_READ_EXTERNAL_STORAGE,
+                                PermissionUtils.requestPermission(homeActivity, PermissionUtils.READ_EXTERNAL_STORAGE,
                                         new PermissionUtils.PermissionGrant() {
                                             @Override
                                             public void onPermissionGranted(int... requestCode) {

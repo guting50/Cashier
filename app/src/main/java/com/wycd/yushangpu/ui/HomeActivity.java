@@ -103,6 +103,7 @@ public class HomeActivity extends BaseActivity {
 
     //usb连接相关
     private ThreadPool threadPool;
+    private BroadcastReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,7 +178,7 @@ public class HomeActivity extends BaseActivity {
 //        filter.addAction(ACTION_QUERY_PRINTER_STATE);//查询打印机缓冲区状态广播，用于一票一控
             filter.addAction(DeviceConnFactoryManager.ACTION_CONN_STATE);//与打印机连接状态
             filter.addAction(ACTION_USB_DEVICE_ATTACHED);//USB线插入
-            registerReceiver(new BroadcastReceiver() {
+            registerReceiver(receiver = new BroadcastReceiver() {
 
                 @Override
                 public void onReceive(Context context, Intent intent) {
@@ -415,4 +416,9 @@ public class HomeActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiver);
+    }
 }

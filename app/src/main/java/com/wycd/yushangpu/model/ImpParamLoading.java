@@ -1,7 +1,6 @@
 package com.wycd.yushangpu.model;
 
 import android.os.Parcelable;
-import android.util.Log;
 
 import com.blankj.utilcode.util.CacheDoubleUtils;
 import com.wycd.yushangpu.MyApplication;
@@ -48,10 +47,16 @@ public class ImpParamLoading {
                     List<SysSwitchRes> sysSwitchListList = REPORT_BEAN.getGetSysSwitchList();
                     for (SysSwitchRes bean : sysSwitchListList) {
                         CacheDoubleUtils.getInstance().put(bean.getSS_Code() + "", (Parcelable) bean);
-                        Log.e("==========", "Type" + bean.getSS_Code() + "(" + bean.getSS_Code() + "),//" + bean.getSS_Name());
+//                        Log.e("==========", "Type" + bean.getSS_Code() + "(" + bean.getSS_Code() + "),//" + bean.getSS_Name());
                     }
+
+//                    List<ReportMessageBean.ActiveBean> actives = REPORT_BEAN.getActiveOth();
+//                    for (ReportMessageBean.ActiveBean bean : actives) {
+//                        Log.e("==========" + bean.getRP_Type(), bean.getRP_Name());
+//                    }
                 }
             }
         });
+
     }
 }

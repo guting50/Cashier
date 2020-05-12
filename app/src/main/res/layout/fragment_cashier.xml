@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp">
 
-                <com.gt.utils.view.BgFrameLayout
+                <com.gt.utils.widget.BgFrameLayout
                     android:id="@+id/member_bg_layout"
                     android:layout_width="120dp"
                     android:layout_height="@dimen/dp_50"
@@ -85,9 +85,9 @@
                         android:text="会员[F2]"
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp_20" />
-                </com.gt.utils.view.BgFrameLayout>
+                </com.gt.utils.widget.BgFrameLayout>
 
-                <com.gt.utils.view.BgFrameLayout
+                <com.gt.utils.widget.BgFrameLayout
                     android:id="@+id/vip_name_layout"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
@@ -106,10 +106,10 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp_14" />
 
-                </com.gt.utils.view.BgFrameLayout>
+                </com.gt.utils.widget.BgFrameLayout>
             </FrameLayout>
 
-            <com.gt.utils.view.BgFrameLayout
+            <com.gt.utils.widget.BgFrameLayout
                 android:id="@+id/account_bg_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -133,7 +133,7 @@
                     android:textColor="@color/textcolor"
                     android:textColorHint="@color/textbb"
                     android:textSize="@dimen/sp_16" />
-            </com.gt.utils.view.BgFrameLayout>
+            </com.gt.utils.widget.BgFrameLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -226,7 +226,7 @@
             android:textSize="@dimen/sp_42"
             android:textStyle="bold" />
 
-        <com.gt.utils.view.BgFrameLayout
+        <com.gt.utils.widget.BgFrameLayout
             android:id="@+id/btt_hung_order"
             android:layout_width="140dp"
             android:layout_height="@dimen/dp_60"
@@ -246,9 +246,9 @@
                 android:text="挂单[F1]"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_22" />
-        </com.gt.utils.view.BgFrameLayout>
+        </com.gt.utils.widget.BgFrameLayout>
 
-        <com.gt.utils.view.BgFrameLayout
+        <com.gt.utils.widget.BgFrameLayout
             android:id="@+id/order_count_layout"
             android:layout_width="25dp"
             android:layout_height="25dp"
@@ -267,9 +267,9 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_16" />
 
-        </com.gt.utils.view.BgFrameLayout>
+        </com.gt.utils.widget.BgFrameLayout>
 
-        <com.gt.utils.view.BgFrameLayout
+        <com.gt.utils.widget.BgFrameLayout
             android:id="@+id/tv_shoukuan"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_60"
@@ -290,7 +290,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_22"
                 android:textStyle="bold" />
-        </com.gt.utils.view.BgFrameLayout>
+        </com.gt.utils.widget.BgFrameLayout>
     </RelativeLayout>
 
     <ScrollView

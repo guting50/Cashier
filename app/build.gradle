@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "com.wycd.yunshangpu"
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 9
         versionName "3.010"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        multiDexEnabled = true
+        multiDexEnabled true
 //        ndk {
 //            abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
 //        }
@@ -55,18 +55,16 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.material:material:1.1.0'
 
     testImplementation 'junit:junit:4.12'
     implementation 'ren.yale.android:cachewebviewlib:1.4.0'
     implementation files('libs/core-3.3.0.jar')
-    implementation 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
     implementation 'com.mamengmami.android:waveswiperefreshlayout:1.0.0'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.loopj.android:android-async-http:1.4.9'
-    implementation 'com.jakewharton:butterknife:10.0.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.jakewharton:butterknife:10.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
     implementation 'org.greenrobot:eventbus:3.0.0'
     annotationProcessor 'org.greenrobot:eventbus-annotation-processor:3.0.1'
     implementation 'com.zzhoujay.richtext:richtext:2.5.2'
@@ -74,7 +72,7 @@ dependencies {
     implementation 'com.facebook.fresco:fresco:0.12.0'
     implementation 'com.gyf.immersionbar:immersionbar:2.3.3-beta15'
     implementation files('libs/volly-1.0.11.jar')
-    implementation 'com.youth.banner:banner:1.4.10'
+    implementation 'com.youth.banner:banner:2.0.7'
     //下拉刷新
     implementation 'com.mamengmami.android:waveswiperefreshlayout:1.0.0'
     implementation 'com.jcodecraeer:xrecyclerview:1.6.0'
@@ -100,7 +98,7 @@ dependencies {
     implementation 'com.just.agentweb:agentweb:4.1.2'
     implementation 'com.just.agentweb:filechooser:4.1.2'
 
-    implementation 'com.github.guting50:GtUtils:1.1.6'
-    implementation 'com.github.guting50:PhotoPicker:1.1.0'
+    implementation 'com.github.guting50:GtUtils:1.2.21'
+    implementation 'com.github.guting50:PhotoPicker:1.1.5'
     implementation 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
 }

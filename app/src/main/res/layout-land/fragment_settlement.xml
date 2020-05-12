@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#d0000000">
 
-    <com.gt.utils.view.BgFrameLayout
+    <com.gt.utils.widget.BgFrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="250dp"
@@ -140,5 +140,5 @@
             </LinearLayout>
         </LinearLayout>
 
-    </com.gt.utils.view.BgFrameLayout>
+    </com.gt.utils.widget.BgFrameLayout>
 </FrameLayout>

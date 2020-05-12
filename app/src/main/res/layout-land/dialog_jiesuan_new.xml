@@ -10,7 +10,7 @@
     tools:ignore="MissingDefaultResource">
 
     <!--        android:layout_marginLeft="350dp"-->
-    <com.gt.utils.view.BgFrameLayout
+    <com.gt.utils.widget.BgFrameLayout
         android:id="@+id/jiesuan_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -823,7 +823,7 @@
                     android:layout_weight="2"
                     android:orientation="horizontal">
 
-                    <com.gt.utils.view.BgFrameLayout
+                    <com.gt.utils.widget.BgFrameLayout
                         android:id="@+id/li_close"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -840,9 +840,9 @@
                             android:textColor="@color/white"
                             android:textSize="@dimen/sp_18" />
 
-                    </com.gt.utils.view.BgFrameLayout>
+                    </com.gt.utils.widget.BgFrameLayout>
 
-                    <com.gt.utils.view.BgFrameLayout
+                    <com.gt.utils.widget.BgFrameLayout
                         android:id="@+id/li_jiesuan"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -859,12 +859,12 @@
                             android:textColor="@color/white"
                             android:textSize="@dimen/sp_18" />
 
-                    </com.gt.utils.view.BgFrameLayout>
+                    </com.gt.utils.widget.BgFrameLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
-    </com.gt.utils.view.BgFrameLayout>
+    </com.gt.utils.widget.BgFrameLayout>
 
     <FrameLayout
         android:id="@+id/lz_layout"
@@ -917,7 +917,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <com.gt.utils.view.BgFrameLayout
+                <com.gt.utils.widget.BgFrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -946,9 +946,9 @@
                         android:paddingRight="15dp"
                         android:text="获取验证码" />
 
-                </com.gt.utils.view.BgFrameLayout>
+                </com.gt.utils.widget.BgFrameLayout>
 
-                <com.gt.utils.view.BgFrameLayout
+                <com.gt.utils.widget.BgFrameLayout
                     android:id="@+id/ly_yz_ok"
                     android:layout_width="@dimen/dp_70"
                     android:layout_height="match_parent"
@@ -964,7 +964,7 @@
                         android:text="确定"
                         android:textColor="@color/white" />
 
-                </com.gt.utils.view.BgFrameLayout>
+                </com.gt.utils.widget.BgFrameLayout>
 
             </LinearLayout>
         </LinearLayout>

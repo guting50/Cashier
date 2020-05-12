@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.gt.utils.view.OnNoDoubleClickListener;
+import com.gt.utils.widget.OnNoDoubleClickListener;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.http.InterfaceBack;

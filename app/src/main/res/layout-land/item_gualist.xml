@@ -26,7 +26,7 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <com.gt.utils.view.BgFrameLayout
+        <com.gt.utils.widget.BgFrameLayout
             android:id="@+id/delete_layout"
             android:layout_width="66dp"
             android:layout_height="34dp"
@@ -43,7 +43,7 @@
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
-        </com.gt.utils.view.BgFrameLayout>
+        </com.gt.utils.widget.BgFrameLayout>
 
         <TextView
             android:id="@+id/tv_count"
@@ -70,7 +70,7 @@
             android:textColor="@color/title_color"
             android:textSize="16sp" />
 
-        <com.gt.utils.view.BgFrameLayout
+        <com.gt.utils.widget.BgFrameLayout
             android:layout_width="match_parent"
             android:layout_height="38dp"
             android:layout_alignParentBottom="true"
@@ -88,7 +88,7 @@
                 android:textColor="@color/title_color"
                 android:textSize="16sp" />
 
-        </com.gt.utils.view.BgFrameLayout>
+        </com.gt.utils.widget.BgFrameLayout>
 
     </RelativeLayout>
 

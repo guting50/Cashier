@@ -3,7 +3,6 @@ package com.wycd.yushangpu.ui;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.gt.utils.PermissionActivity;
 import com.gt.utils.PermissionUtils;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
@@ -46,7 +45,7 @@ public class LogoActivity extends BaseActivity {
                             updateInfoBean.setMinversionrequire(Double.parseDouble(version));
                             //updateInfoBean.setCurrentversiondesc(baen.get("VA_VersionName").toString());
                             updateInfoBean.setUrl(VERSION_ADDRESS);
-                            PermissionUtils.requestPermission(ac, PermissionUtils.CODE_READ_EXTERNAL_STORAGE, new PermissionUtils.PermissionGrant() {
+                            PermissionUtils.requestPermission(ac, PermissionUtils.READ_EXTERNAL_STORAGE, new PermissionUtils.PermissionGrant() {
                                 @Override
                                 public void onPermissionGranted(int... requestCode) {
                                     new UpdateAppVersion(LogoActivity.this, updateInfoBean, new UpdateAppVersion.OnUpdateVersionBackListener() {

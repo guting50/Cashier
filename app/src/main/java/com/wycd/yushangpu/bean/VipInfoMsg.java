@@ -11,6 +11,7 @@ public class VipInfoMsg implements Serializable {
     private int VIP_Sex;//	会员性别	Int32
     private String VCH_CreateTime;//	开卡时间	DateTime
     private String VIP_Birthday;//	生日	string
+    private int VIP_IsLunarCalendar;//农历生日:0:否,1:是
     private String VIP_CellPhone;//	手机号	string
     private String VIP_ICCard;//	身份证号	string
     private String VIP_Email;//	电子邮箱	string
@@ -36,7 +37,6 @@ public class VipInfoMsg implements Serializable {
     private double MA_AggregateAmount;//初始金额
 
     private Object VIP_RegSource;
-    private int VIP_IsLunarCalendar;
     private Object EM_ID;
     private String VIP_Creator;
     private String VIP_OpenID;

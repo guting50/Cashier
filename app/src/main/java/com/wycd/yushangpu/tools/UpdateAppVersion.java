@@ -122,7 +122,7 @@ public class UpdateAppVersion {
                 .setPositiveButton("现在升级", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        PermissionUtils.requestPermission(context, PermissionUtils.CODE_WRITE_EXTERNAL_STORAGE, new PermissionUtils.PermissionGrant() {
+                        PermissionUtils.requestPermission(context, PermissionUtils.WRITE_EXTERNAL_STORAGE, new PermissionUtils.PermissionGrant() {
                             @Override
                             public void onPermissionGranted(int... requestCode) {
                                 Toast.makeText(context, "正在升级中...", Toast.LENGTH_LONG).show();

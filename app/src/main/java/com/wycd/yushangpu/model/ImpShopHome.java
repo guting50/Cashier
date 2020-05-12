@@ -2,8 +2,8 @@ package com.wycd.yushangpu.model;
 
 import android.text.TextUtils;
 
-import com.alibaba.fastjson.JSON;
 import com.google.gson.reflect.TypeToken;
+import com.gt.utils.GsonUtils;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
@@ -59,10 +59,9 @@ public class ImpShopHome {
     public static List<ShopMsg> cacheList = new ArrayList<>();
 
     public void getShopCacheList(final String PT_GID, final String PM_CodeOrNameOrSimpleCode, InterfaceBack back) {
-        String json = JSON.toJSONString(cacheList);
         Type listType = new TypeToken<List<ShopMsg>>() {
         }.getType();
-        List<ShopMsg> tempList = JSON.parseObject(json, listType);
+        List<ShopMsg> tempList = GsonUtils.getGson().fromJson(GsonUtils.getGson().toJson(cacheList), listType);
 
         BasePageRes basePageRes = new BasePageRes();
         List<ShopMsg> newList = new ArrayList<>();

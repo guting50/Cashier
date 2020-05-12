@@ -85,7 +85,7 @@
                     android:layout_marginTop="48dp"
                     android:src="@mipmap/member_head_nohead" />
 
-                <com.gt.utils.view.BgFrameLayout
+                <com.gt.utils.widget.BgFrameLayout
                     android:id="@+id/bg_upload_img"
                     android:layout_width="138dp"
                     android:layout_height="42dp"
@@ -102,7 +102,7 @@
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 
-                </com.gt.utils.view.BgFrameLayout>
+                </com.gt.utils.widget.BgFrameLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -1174,7 +1174,7 @@
                 </FrameLayout>
             </RelativeLayout>
 
-            <com.gt.utils.view.BgFrameLayout
+            <com.gt.utils.widget.BgFrameLayout
                 android:id="@+id/fl_cancel"
                 android:layout_width="100dp"
                 android:layout_height="48dp"
@@ -1192,9 +1192,9 @@
                     android:textColor="@color/white"
                     android:textSize="22sp" />
 
-            </com.gt.utils.view.BgFrameLayout>
+            </com.gt.utils.widget.BgFrameLayout>
 
-            <com.gt.utils.view.BgFrameLayout
+            <com.gt.utils.widget.BgFrameLayout
                 android:id="@+id/fl_submit"
                 android:layout_width="100dp"
                 android:layout_height="48dp"
@@ -1214,7 +1214,7 @@
                     android:textColor="@color/white"
                     android:textSize="22sp" />
 
-            </com.gt.utils.view.BgFrameLayout>
+            </com.gt.utils.widget.BgFrameLayout>
         </FrameLayout>
     </androidx.core.widget.NestedScrollView>
 

@@ -1,6 +1,6 @@
 package com.wycd.yushangpu.bean;
 
-import com.alibaba.fastjson.JSON;
+import com.blankj.utilcode.util.GsonUtils;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.Serializable;
@@ -65,8 +65,7 @@ public class ReportMessageBean implements Serializable {
     public List<GetCustomFieldsVIPBean> getGetCustomFieldsVIP() {
         Type listType = new TypeToken<List<GetCustomFieldsVIPBean>>() {
         }.getType();
-        String json = JSON.toJSONString(GetCustomFieldsVIP);
-        return JSON.parseObject(json, listType);
+        return GsonUtils.getGson().fromJson(GsonUtils.getGson().toJson(GetCustomFieldsVIP), listType);
     }
 
     public void setGetCustomFieldsVIP(List<GetCustomFieldsVIPBean> GetCustomFieldsVIP) {
@@ -92,8 +91,7 @@ public class ReportMessageBean implements Serializable {
     public List<SysSwitchRes> getGetSysSwitchList() {
         Type listType = new TypeToken<List<SysSwitchRes>>() {
         }.getType();
-        String json = JSON.toJSONString(GetSysSwitchList);
-        return JSON.parseObject(json, listType);
+        return GsonUtils.getGson().fromJson(GsonUtils.getGson().toJson(GetSysSwitchList), listType);
     }
 
     public void setGetSysSwitchList(List<SysSwitchRes> GetSysSwitchList) {
@@ -103,8 +101,7 @@ public class ReportMessageBean implements Serializable {
     public List<VIPGradeListBean> getVIPGradeList() {
         Type listType = new TypeToken<List<VIPGradeListBean>>() {
         }.getType();
-        String json = JSON.toJSONString(VIPGradeList);
-        return JSON.parseObject(json, listType);
+        return GsonUtils.getGson().fromJson(GsonUtils.getGson().toJson(VIPGradeList), listType);
     }
 
     public void setVIPGradeList(List<VIPGradeListBean> VIPGradeList) {
@@ -144,10 +141,13 @@ public class ReportMessageBean implements Serializable {
     }
 
     public List<ActiveBean> getActive() {
+        return Active;
+    }
+
+    public List<ActiveBean> getActiveOth() {
         Type listType = new TypeToken<List<ActiveBean>>() {
         }.getType();
-        String json = JSON.toJSONString(Active);
-        return JSON.parseObject(json, listType);
+        return GsonUtils.getGson().fromJson(GsonUtils.getGson().toJson(Active), listType);
     }
 
     public void setActive(List<ActiveBean> Active) {
@@ -1969,7 +1969,7 @@ public class ReportMessageBean implements Serializable {
         private double RP_GiveMoney;
         private int RP_GivePoint;
         private double RP_ReduceMoney;
-        private int RP_ValidType;
+        private int RP_ValidType;//期限类型 1固定时间断2按每周3按每月4会员生日当天
         private String RP_ValidWeekMonth;
         private Object RP_ValidStartTime;
         private Object RP_ValidEndTime;

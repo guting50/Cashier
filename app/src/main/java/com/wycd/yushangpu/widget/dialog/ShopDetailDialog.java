@@ -23,7 +23,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.CacheDiskUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.reflect.TypeToken;
-import com.gt.utils.view.BgFrameLayout;
+import com.gt.utils.widget.BgFrameLayout;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
