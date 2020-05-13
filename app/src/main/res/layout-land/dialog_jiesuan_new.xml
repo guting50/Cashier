@@ -10,7 +10,7 @@
     tools:ignore="MissingDefaultResource">
 
     <!--        android:layout_marginLeft="350dp"-->
-    <com.gt.utils.widget.BgFrameLayout
+    <com.gt.utils.widget.BgLayout
         android:id="@+id/jiesuan_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -823,48 +823,34 @@
                     android:layout_weight="2"
                     android:orientation="horizontal">
 
-                    <com.gt.utils.widget.BgFrameLayout
+                    <com.gt.utils.widget.BgTextView
                         android:id="@+id/li_close"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="horizontal"
-                        app:solid_color="#999999">
+                        android:text="取消\n收款"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_18"
+                        app:solid_color="#999999" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="取消\n收款"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/sp_18" />
-
-                    </com.gt.utils.widget.BgFrameLayout>
-
-                    <com.gt.utils.widget.BgFrameLayout
+                    <com.gt.utils.widget.BgTextView
                         android:id="@+id/li_jiesuan"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:gravity="center"
                         android:orientation="horizontal"
-                        app:solid_color="@color/colorPrimary">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="完成结账[F3]"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/sp_18" />
-
-                    </com.gt.utils.widget.BgFrameLayout>
+                        android:text="完成结账[F3]"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_18"
+                        app:solid_color="@color/colorPrimary" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
-    </com.gt.utils.widget.BgFrameLayout>
+    </com.gt.utils.widget.BgLayout>
 
     <FrameLayout
         android:id="@+id/lz_layout"
@@ -917,7 +903,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <com.gt.utils.widget.BgFrameLayout
+                <com.gt.utils.widget.BgLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -946,25 +932,19 @@
                         android:paddingRight="15dp"
                         android:text="获取验证码" />
 
-                </com.gt.utils.widget.BgFrameLayout>
+                </com.gt.utils.widget.BgLayout>
 
-                <com.gt.utils.widget.BgFrameLayout
+                <com.gt.utils.widget.BgTextView
                     android:id="@+id/ly_yz_ok"
                     android:layout_width="@dimen/dp_70"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="-1dp"
+                    android:gravity="center"
+                    android:text="确定"
+                    android:textColor="@color/white"
                     app:corners_radius_right_bottom="2dp"
                     app:corners_radius_right_top="2dp"
-                    app:solid_color="@color/colorPrimary">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="确定"
-                        android:textColor="@color/white" />
-
-                </com.gt.utils.widget.BgFrameLayout>
+                    app:solid_color="@color/colorPrimary" />
 
             </LinearLayout>
         </LinearLayout>

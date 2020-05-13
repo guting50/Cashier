@@ -1,7 +1,5 @@
 package com.wycd.yushangpu.model;
 
-import android.app.Activity;
-
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.bean.OrderPayResult;
 import com.wycd.yushangpu.bean.PayType;
@@ -18,14 +16,14 @@ import java.util.List;
 import static com.wycd.yushangpu.MyApplication.shortMessage;
 
 public class ImpOrderPay {
-    public void orderpay(final Activity ac, String OrderGID, OrderPayResult orderPayResult, JiesuanBFragment.OrderType orderType,
+    public void orderpay(String OrderGID, OrderPayResult orderPayResult, JiesuanBFragment.OrderType orderType,
                          final InterfaceBack back) {
         // TODO 自动生成的方法存根
         RequestParams params = new RequestParams();
 //        OrderGID	订单GID	String
 //        PayResult	收银台信息	OrderPayResult
         params.put("OrderGID", OrderGID);
-        params.put("Smsg", shortMessage);
+        params.put("Smsg", shortMessage ? 1 : 0);
 
         params.put("PayResult[GiveChange]", Decima2KeeplUtil.stringToDecimal(orderPayResult.getGiveChange() + ""));
         params.put("PayResult[PayTotalMoney]", Decima2KeeplUtil.stringToDecimal(orderPayResult.getPayTotalMoney() + ""));

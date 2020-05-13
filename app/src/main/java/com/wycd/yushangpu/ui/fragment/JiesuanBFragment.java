@@ -20,6 +20,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.gt.utils.widget.BgTextView;
 import com.gt.utils.widget.OnNoDoubleClickListener;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
@@ -130,7 +131,7 @@ public class JiesuanBFragment extends BaseFragment {
     @BindView(R.id.tv_bill_count)
     TextView tvBillCount;
     @BindView(R.id.li_jiesuan)
-    FrameLayout li_jiesuan;
+    BgTextView li_jiesuan;
     @BindView(R.id.li_close)
     View liClose;
     @BindView(R.id.pay_mode_list)
@@ -207,7 +208,6 @@ public class JiesuanBFragment extends BaseFragment {
         this.context = (AppCompatActivity) getActivity();
 
         setView();
-        setCbShortMessage("011");
         dialog = LoadingDialog.loadingDialog(context, 1);
     }
 
@@ -245,6 +245,9 @@ public class JiesuanBFragment extends BaseFragment {
                 });
             }
         }, 500);
+
+        setCbShortMessage("011");
+
         et_moling.setText("");
         tv_zhaoling.setText("");
         tvCouponMoney.setText("");
@@ -635,7 +638,7 @@ public class JiesuanBFragment extends BaseFragment {
     private void orderPay() {
         dialog.show();
         ImpOrderPay orderPay = new ImpOrderPay();
-        orderPay.orderpay(context, GID, result, orderType, new InterfaceBack<String>() {
+        orderPay.orderpay(GID, result, orderType, new InterfaceBack<String>() {
             @Override
             public void onResponse(String response) {
                 paySuccess();
@@ -659,7 +662,7 @@ public class JiesuanBFragment extends BaseFragment {
         result.setDisMoney(Double.parseDouble(ysMoney));
         result.setMolingMoney(getMoling());
         result.setPayTypeList(typeList);
-        result.setPrint(cbSmallTicket.isChecked());
+        result.setPrint(MyApplication.PRINT_IS_OPEN = cbSmallTicket.isChecked());
         result.setYhqList(yhqMsgs);
         result.setActive(promotionMsg);
     }
