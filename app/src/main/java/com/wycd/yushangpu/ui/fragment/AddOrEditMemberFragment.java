@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.CacheDoubleUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -216,6 +217,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
         costomfields = ImpParamLoading.REPORT_BEAN.getGetCustomFieldsVIP();
         mPayWayList.clear();
         mPayWayList.add("现金支付");
+        showAttr();
         if (vipInfoMsg == null) {
             ((TextView) rootView.findViewById(R.id.tv_title)).setText("新增会员");
             et_VCH_Card.setText("");
@@ -1202,6 +1204,34 @@ public class AddOrEditMemberFragment extends BaseFragment {
                 super(itemView);
                 ButterKnife.bind(this, itemView);
             }
+        }
+    }
+
+    private void showAttr() {
+        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T451.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//会员生日
+            rootView.findViewById(R.id.ly_VIP_Birthday).setVisibility(View.GONE);
+        }
+        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T452.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//电子邮箱
+        }
+        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T451.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//身份证号
+            rootView.findViewById(R.id.ly_VIP_ICCard).setVisibility(View.GONE);
+        }
+        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T454.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {////固定电话
+        }
+        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T455.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//推荐人
+            rootView.findViewById(R.id.ly_VIP_Referee).setVisibility(View.GONE);
+        }
+        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T456.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//开卡人
+            rootView.findViewById(R.id.ly_EM_Name).setVisibility(View.GONE);
+        }
+        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T457.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//会员标签
+            rootView.findViewById(R.id.ly_VIP_Label).setVisibility(View.GONE);
+        }
+        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T458.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//会员地址
+            rootView.findViewById(R.id.ly_VIP_Addr).setVisibility(View.GONE);
+        }
+        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T459.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//备注信息
+            rootView.findViewById(R.id.ly_VIP_Remark).setVisibility(View.GONE);
         }
     }
 }

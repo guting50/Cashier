@@ -4,12 +4,13 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <com.gt.utils.widget.BgFrameLayout
+    <com.gt.utils.widget.BgLayout
         android:layout_width="135dp"
         android:layout_height="78dp"
         android:orientation="vertical"
         app:corners_radius="5dp"
         app:solid_color="@color/white"
+        app:solid_color_checked="#ff149f4a"
         app:stroke_color="@color/view_color"
         app:stroke_width="1dp">
 
@@ -46,5 +47,5 @@
             android:inputType="numberDecimal"
             android:visibility="gone" />
 
-    </com.gt.utils.widget.BgFrameLayout>
+    </com.gt.utils.widget.BgLayout>
 </FrameLayout>

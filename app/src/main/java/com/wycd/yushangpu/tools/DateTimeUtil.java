@@ -67,7 +67,7 @@ public class DateTimeUtil {
                     return true;
                 }
             }
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;

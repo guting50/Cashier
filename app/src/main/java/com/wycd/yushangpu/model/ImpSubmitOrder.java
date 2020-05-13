@@ -1,8 +1,5 @@
 package com.wycd.yushangpu.model;
 
-import android.app.Activity;
-import android.content.Context;
-
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.bean.OrderCanshu;
 import com.wycd.yushangpu.bean.ShopMsg;
@@ -20,28 +17,19 @@ public class ImpSubmitOrder {
     /**
      * 商品消费订单提交
      *
-     * @param ac
-     * @param CO_OrderCode
      * @param OrderTime
      * @param VIP_Card
      * @param shoplist
-     * @param isGuadan
      * @param back
      */
-    public void submitOrder(final Activity ac, String CO_OrderCode, String OrderTime, String VIP_Card, List<ShopMsg> shoplist, boolean isGuadan,
+    public void submitOrder(String OrderTime, String VIP_Card, List<ShopMsg> shoplist,
                             final InterfaceBack back) {
         // TODO 自动生成的方法存根
         RequestParams params = new RequestParams();
-//        params.put("CO_OrderCode", CO_OrderCode);
         params.put("CO_OrderCode", CreateOrder.createOrder("SP"));
         params.put("OrderTime", OrderTime);
         params.put("VIP_Card", VIP_Card);
-        if (VIP_Card.equals("00000")) {
-            params.put("OrderType", 2);
-        } else {
-            params.put("OrderType", 1);
-        }
-        params.put("isGuadan", isGuadan);
+        params.put("CO_Remark", "");
         for (int i = 0; i < shoplist.size(); i++) {
             params.put("Goods[" + i + "][PM_GID]", shoplist.get(i).getGID());
             params.put("Goods[" + i + "][PM_Name]", shoplist.get(i).getPM_Name());
@@ -77,26 +65,19 @@ public class ImpSubmitOrder {
     /**
      * 挂单\替换挂单
      *
-     * @param ac
-     * @param CO_OrderCode
      * @param OrderTime
      * @param VIP_Card
      * @param shoplist
      * @param back
      */
-    public void submitGuaOrder(final Activity ac, String CO_OrderCode, String OrderTime, String VIP_Card, List<ShopMsg> shoplist,
+    public void submitGuaOrder(String OrderTime, String VIP_Card, List<ShopMsg> shoplist,
                                final InterfaceBack back) {
         // TODO 自动生成的方法存根
         RequestParams params = new RequestParams();
-//        params.put("CO_OrderCode", CO_OrderCode);
         params.put("CO_OrderCode", CreateOrder.createOrder("SP"));
         params.put("OrderTime", OrderTime);
         params.put("VIP_Card", VIP_Card);
-        if (VIP_Card.equals("00000")) {
-            params.put("OrderType", 2);
-        } else {
-            params.put("OrderType", 1);
-        }
+        params.put("CO_Remark", "");
         for (int i = 0; i < shoplist.size(); i++) {
             params.put("Goods[" + i + "][PM_GID]", shoplist.get(i).getGID());
             params.put("Goods[" + i + "][PM_Name]", shoplist.get(i).getPM_Name());
@@ -130,27 +111,19 @@ public class ImpSubmitOrder {
     /**
      * 快速消费订单提交
      *
-     * @param ac
-     * @param CO_OrderCode
      * @param OrderTime
      * @param VIP_Card
      * @param mone
      * @param back
      */
-    public void submitCelerityOrder(final Activity ac, String CO_OrderCode, String OrderTime, String VIP_Card, String mone,
+    public void submitCelerityOrder(String OrderTime, String VIP_Card, String mone,
                                     final InterfaceBack back) {
         // TODO 自动生成的方法存根
         RequestParams params = new RequestParams();
-//        params.put("CO_OrderCode", CO_OrderCode);
         params.put("CO_OrderCode", CreateOrder.createOrder("SP"));
         params.put("OrderTime", OrderTime);
         params.put("VIP_Card", VIP_Card);
-        if (VIP_Card.equals("00000")) {
-            params.put("OrderType", 2);
-        } else {
-            params.put("OrderType", 1);
-        }
-        //CO_Monetary CO_TotalPrice EM_GIDList
+        params.put("CO_Remark", "");
         params.put("CO_Monetary", mone);
         params.put("CO_TotalPrice", mone);
 
@@ -176,11 +149,10 @@ public class ImpSubmitOrder {
     /**
      * 删除挂单
      *
-     * @param ac
      * @param GID
      * @param back
      */
-    public void closeGuadanOrder(final Context ac, String GID, final InterfaceBack back) {
+    public void closeGuadanOrder(String GID, final InterfaceBack back) {
         // TODO 自动生成的方法存根
         RequestParams params = new RequestParams();
         params.put("GID", GID);
@@ -204,7 +176,6 @@ public class ImpSubmitOrder {
     /**
      * 会员充值订单提交
      *
-     * @param ac
      * @param mOrderNo
      * @param OrderTime
      * @param VCH_Card
@@ -216,7 +187,7 @@ public class ImpSubmitOrder {
      * @param remark
      * @param back
      */
-    public void submitRechargeOrder(final Context ac, String mOrderNo, String OrderTime, String VCH_Card,
+    public void submitRechargeOrder(String mOrderNo, String OrderTime, String VCH_Card,
                                     String mDiscountActivityGid, String mRechargeMoney, String mGiveMoney,
                                     double mGetPoints, List<String> mStaffListGid, List<Integer> staffProportion, String remark, final InterfaceBack back) {
         // TODO 自动生成的方法存根

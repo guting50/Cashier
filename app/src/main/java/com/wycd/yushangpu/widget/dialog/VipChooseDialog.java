@@ -149,7 +149,7 @@ public class VipChooseDialog extends Dialog {
         }
         ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
         String SM_GID = CacheDoubleUtils.getInstance().
-                getParcelable(SysSwitchRes.Type.Type210.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0 ? MyApplication.loginBean.getShopID() : "";
+                getParcelable(SysSwitchRes.Type.T210.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0 ? MyApplication.loginBean.getShopID() : "";
         onlyVipMsg.vipMsgs(editTextLayout.getText().toString(), pageIndex, 20, SM_GID, new InterfaceBack<BasePageRes>() {
             @Override
             public void onResponse(BasePageRes response) {

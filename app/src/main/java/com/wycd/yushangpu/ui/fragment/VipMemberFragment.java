@@ -85,6 +85,7 @@ public class VipMemberFragment extends BaseFragment {
                 obtainVipList();
             }
         });
+        showAttr();
     }
 
     public void reset() {
@@ -155,7 +156,7 @@ public class VipMemberFragment extends BaseFragment {
         }
         ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
         String SM_GID = CacheDoubleUtils.getInstance().
-                getParcelable(SysSwitchRes.Type.Type210.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0 ? MyApplication.loginBean.getShopID() : "";
+                getParcelable(SysSwitchRes.Type.T210.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0 ? MyApplication.loginBean.getShopID() : "";
         onlyVipMsg.vipMsgs(editTextLayout.getText().toString(), pageIndex, 20, SM_GID, new InterfaceBack<BasePageRes>() {
             @Override
             public void onResponse(BasePageRes response) {
@@ -175,9 +176,8 @@ public class VipMemberFragment extends BaseFragment {
                 searchList.refreshComplete();
 
                 tvMemberCount.setText("共有" + response.getDataCount() + "个会员");
-                if (!TextUtils.isEmpty(editTextLayout.getText().toString()) && response.getDataCount() > 0) {
-                    nullStateLayout.setVisibility(View.VISIBLE);
-                } else {
+                nullStateLayout.setVisibility(View.VISIBLE);
+                if (response.getDataCount() > 0) {
                     nullStateLayout.setVisibility(View.GONE);
                 }
             }
@@ -319,6 +319,40 @@ public class VipMemberFragment extends BaseFragment {
             super(itemView);
             ButterKnife.bind(this, itemView);
             rootView = itemView;
+        }
+    }
+
+
+    private void showAttr() {
+        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T451.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//会员生日
+            rootView.findViewById(R.id.tv_birthday).setVisibility(View.GONE);
+            rootView.findViewById(R.id.tv_birthday_title).setVisibility(View.GONE);
+        }
+        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T452.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//电子邮箱
+        }
+        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T451.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//身份证号
+            rootView.findViewById(R.id.tv_ic_card).setVisibility(View.GONE);
+            rootView.findViewById(R.id.tv_ic_card_title).setVisibility(View.GONE);
+        }
+        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T454.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {////固定电话
+        }
+        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T455.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//推荐人
+            rootView.findViewById(R.id.tv_referee).setVisibility(View.GONE);
+            rootView.findViewById(R.id.tv_referee_title).setVisibility(View.GONE);
+        }
+        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T456.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//开卡人
+            rootView.findViewById(R.id.tv_em_name).setVisibility(View.GONE);
+            rootView.findViewById(R.id.tv_em_name_title).setVisibility(View.GONE);
+        }
+        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T457.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//会员标签
+            rootView.findViewById(R.id.tv_label).setVisibility(View.GONE);
+            rootView.findViewById(R.id.tv_label_title).setVisibility(View.GONE);
+        }
+        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T458.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//会员地址
+            rootView.findViewById(R.id.tv_addr).setVisibility(View.GONE);
+            rootView.findViewById(R.id.tv_addr_title).setVisibility(View.GONE);
+        }
+        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T459.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//备注信息
         }
     }
 }

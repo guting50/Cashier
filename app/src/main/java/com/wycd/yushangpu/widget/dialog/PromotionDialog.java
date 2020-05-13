@@ -115,7 +115,7 @@ public class PromotionDialog {
             if (ImpParamLoading.REPORT_BEAN != null) {
                 for (ReportMessageBean.ActiveBean bean : ImpParamLoading.REPORT_BEAN.getActiveOth()) {
                     if (bean.getRP_Type() != 1) {
-                        if (active.getRP_ValidType() == 4) {//生日当天使用
+                        if (bean.getRP_ValidType() == 4) {//生日当天使用
                             if (vipMsg == null) {
                                 continue;
                             }

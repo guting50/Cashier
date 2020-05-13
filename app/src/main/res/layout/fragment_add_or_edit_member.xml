@@ -85,24 +85,19 @@
                     android:layout_marginTop="48dp"
                     android:src="@mipmap/member_head_nohead" />
 
-                <com.gt.utils.widget.BgFrameLayout
+                <com.gt.utils.widget.BgTextView
                     android:id="@+id/bg_upload_img"
                     android:layout_width="138dp"
                     android:layout_height="42dp"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="76dp"
                     android:layout_marginTop="228dp"
+                    android:gravity="center"
+                    android:text="点击上传"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
                     app:corners_radius="5dp"
-                    app:solid_color="@color/color_149f4a">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="点击上传"
-                        android:textColor="@color/white"
-                        android:textSize="20sp" />
-
-                </com.gt.utils.widget.BgFrameLayout>
+                    app:solid_color="@color/color_149f4a" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -1174,27 +1169,21 @@
                 </FrameLayout>
             </RelativeLayout>
 
-            <com.gt.utils.widget.BgFrameLayout
+            <com.gt.utils.widget.BgTextView
                 android:id="@+id/fl_cancel"
                 android:layout_width="100dp"
                 android:layout_height="48dp"
                 android:layout_gravity="bottom|right"
                 android:layout_marginRight="150dp"
                 android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:text="取消"
+                android:textColor="@color/white"
+                android:textSize="22sp"
                 app:corners_radius="4dp"
-                app:solid_color="@color/textcc">
+                app:solid_color="@color/textcc" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="取消"
-                    android:textColor="@color/white"
-                    android:textSize="22sp" />
-
-            </com.gt.utils.widget.BgFrameLayout>
-
-            <com.gt.utils.widget.BgFrameLayout
+            <com.gt.utils.widget.BgTextView
                 android:id="@+id/fl_submit"
                 android:layout_width="100dp"
                 android:layout_height="48dp"
@@ -1203,18 +1192,12 @@
                 android:layout_gravity="bottom|right"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:text="确定"
+                android:textColor="@color/white"
+                android:textSize="22sp"
                 app:corners_radius="4dp"
-                app:solid_color="@color/color_149f4a">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="确定"
-                    android:textColor="@color/white"
-                    android:textSize="22sp" />
-
-            </com.gt.utils.widget.BgFrameLayout>
+                app:solid_color="@color/color_149f4a" />
         </FrameLayout>
     </androidx.core.widget.NestedScrollView>
 

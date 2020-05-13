@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
-import com.gt.utils.widget.BgFrameLayout;
+import com.gt.utils.widget.BgLayout;
 import com.gt.utils.widget.FlowLayout;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
@@ -123,7 +123,7 @@ public class MemberRechargeFragment extends BaseFragment {
                     return;
                 }
                 homeActivity.dialog.show();
-                new ImpSubmitOrder().submitRechargeOrder(homeActivity, orderNumber, et_recharge_create_timer.getText().toString(),
+                new ImpSubmitOrder().submitRechargeOrder(orderNumber, et_recharge_create_timer.getText().toString(),
                         vipInfoMsg.getVCH_Card(), mDiscountActivityGid, rechargeMoney, giveMoney, getPoints,
                         mStaffListGids, staffProportionList, et_recharge_remark.getText().toString(), new InterfaceBack<OrderCanshu>() {
                             @Override
@@ -184,7 +184,7 @@ public class MemberRechargeFragment extends BaseFragment {
     /**
      * 获取充值优惠活动
      */
-    private BgFrameLayout frameLayout;
+    private BgLayout frameLayout;
     private EditText ed_RechargeMoney;
 
     private void getDiscountActivity() {
@@ -219,7 +219,7 @@ public class MemberRechargeFragment extends BaseFragment {
                             public void onClick(View view) {
                                 ed_RechargeMoney.setText("");
                                 if (frameLayout != null) {
-                                    frameLayout.setSolidColor(0xffffffff);
+                                    frameLayout.setChecked(false);
                                     ((TextView) frameLayout.findViewById(R.id.tv_RechargeMoney))
                                             .setTextColor(homeActivity.getResources().getColor(R.color.title_color));
                                     ((TextView) frameLayout.findViewById(R.id.tv_RP_GiveMoney))
@@ -228,9 +228,9 @@ public class MemberRechargeFragment extends BaseFragment {
                                     ((TextView) frameLayout.findViewById(R.id.tv_RP_GiveMoney))
                                             .setText(Html.fromHtml(str));
                                 }
-                                BgFrameLayout bgFrameLayout = (BgFrameLayout) viewRoot.getParent();
+                                BgLayout bgFrameLayout = (BgLayout) viewRoot.getParent();
                                 frameLayout = bgFrameLayout;
-                                frameLayout.setSolidColor(0xff149f4a);
+                                frameLayout.setChecked(true);
                                 ((TextView) frameLayout.findViewById(R.id.tv_RechargeMoney))
                                         .setTextColor(0xffffffff);
                                 ((TextView) frameLayout.findViewById(R.id.tv_RP_GiveMoney))
@@ -260,7 +260,7 @@ public class MemberRechargeFragment extends BaseFragment {
                     public void onFocusChange(View view, boolean b) {
                         if (b) {
                             if (frameLayout != null) {
-                                frameLayout.setSolidColor(0xffffffff);
+                                frameLayout.setChecked(false);
                                 ((TextView) frameLayout.findViewById(R.id.tv_RechargeMoney))
                                         .setTextColor(homeActivity.getResources().getColor(R.color.title_color));
                                 ((TextView) frameLayout.findViewById(R.id.tv_RP_GiveMoney))

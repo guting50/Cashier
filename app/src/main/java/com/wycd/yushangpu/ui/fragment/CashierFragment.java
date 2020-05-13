@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.gt.utils.GsonUtils;
-import com.gt.utils.widget.BgFrameLayout;
 import com.gt.utils.widget.BgTextView;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
@@ -250,7 +249,7 @@ public class CashierFragment extends BaseFragment {
                     ImpSubmitOrder submitOrder = new ImpSubmitOrder();
 
                     if (mShopLeftList.size() == 1 && TextUtils.isEmpty(mShopLeftList.get(0).getGID()))
-                        submitOrder.submitCelerityOrder(homeActivity, order, ordertime.toString(),
+                        submitOrder.submitCelerityOrder(ordertime.toString(),
                                 null == mVipMsg ? "00000" : mVipMsg.getVCH_Card(), allmoney, new InterfaceBack<OrderCanshu>() {
                                     @Override
                                     public void onResponse(OrderCanshu response) {
@@ -263,8 +262,8 @@ public class CashierFragment extends BaseFragment {
                                     }
                                 });
                     else
-                        submitOrder.submitOrder(homeActivity, order, ordertime.toString(), null == mVipMsg ? "00000" : mVipMsg.getVCH_Card(),
-                                mShopLeftList, false, new InterfaceBack<OrderCanshu>() {
+                        submitOrder.submitOrder(ordertime.toString(), null == mVipMsg ? "00000" : mVipMsg.getVCH_Card(),
+                                mShopLeftList, new InterfaceBack<OrderCanshu>() {
                                     @Override
                                     public void onResponse(OrderCanshu response) {
                                         toJieSuan(response, JiesuanBFragment.OrderType.CONSUM_ORDER);

@@ -346,6 +346,7 @@
                         android:textSize="17sp" />
 
                     <TextView
+                        android:id="@+id/tv_referee_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_create_time"
@@ -367,6 +368,7 @@
                         android:textSize="17sp" />
 
                     <TextView
+                        android:id="@+id/tv_birthday_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_referee"
@@ -433,6 +435,7 @@
                         android:textSize="17sp" />
 
                     <TextView
+                        android:id="@+id/tv_addr_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_fee"
@@ -455,6 +458,7 @@
                         android:textSize="17sp" />
 
                     <TextView
+                        android:id="@+id/tv_label_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_addr"
@@ -552,6 +556,7 @@
                         android:textSize="17sp" />
 
                     <TextView
+                        android:id="@+id/tv_ic_card_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_face_number"
@@ -618,6 +623,7 @@
                         android:textSize="17sp" />
 
                     <TextView
+                        android:id="@+id/tv_em_name_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_fixed_phone"

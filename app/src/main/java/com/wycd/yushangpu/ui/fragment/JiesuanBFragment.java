@@ -701,8 +701,8 @@ public class JiesuanBFragment extends BaseFragment {
         totalYhMoney = tempTotalYhMoney + "";
 
         tvAllCouponMoney.setText(StringUtil.twoNum(totalYhMoney));
-        ysMoney = CommonUtils.del(Double.parseDouble(totalMoney), Double.parseDouble(totalYhMoney)) + "";
-        mEtYsMoney.setText(StringUtil.twoNum(ysMoney));
+        ysMoney = StringUtil.twoNum(CommonUtils.del(Double.parseDouble(totalMoney), Double.parseDouble(totalYhMoney)) + "");
+        mEtYsMoney.setText(ysMoney);
 
         double zlMoney = CommonUtils.del(0, CommonUtils.del(Double.parseDouble(ysMoney), payTotal));
         tv_zhaoling.setText(StringUtil.twoNum(zlMoney + ""));

@@ -315,7 +315,7 @@ public class QudanFragment extends BaseFragment {
                 holder1.deleteLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new ImpSubmitOrder().closeGuadanOrder(homeActivity, guadanList.getGID(), new InterfaceBack() {
+                        new ImpSubmitOrder().closeGuadanOrder(guadanList.getGID(), new InterfaceBack() {
                             @Override
                             public void onResponse(Object response) {
                                 list.remove(guadanList);
@@ -357,7 +357,7 @@ public class QudanFragment extends BaseFragment {
                     NoticeDialog.noticeDialog(homeActivity, "提示", "您确定要替换该销售单吗？", 1, new InterfaceBack() {
                         @Override
                         public void onResponse(Object response) {
-                            new ImpSubmitOrder().closeGuadanOrder(homeActivity, guadanList.getGID(), new InterfaceBack() {
+                            new ImpSubmitOrder().closeGuadanOrder(guadanList.getGID(), new InterfaceBack() {
                                 @Override
                                 public void onResponse(Object response) {
                                     list.remove(guadanList);
@@ -435,7 +435,7 @@ public class QudanFragment extends BaseFragment {
         }
 
         private void submitGuaOrder(String message) {
-            new ImpSubmitOrder().submitGuaOrder(homeActivity, orderCode, orderTime, vipCard, newShoplist, new InterfaceBack<OrderCanshu>() {
+            new ImpSubmitOrder().submitGuaOrder(orderTime, vipCard, newShoplist, new InterfaceBack<OrderCanshu>() {
                 @Override
                 public void onResponse(OrderCanshu response) {
                     com.blankj.utilcode.util.ToastUtils.showShort(message + "成功");
