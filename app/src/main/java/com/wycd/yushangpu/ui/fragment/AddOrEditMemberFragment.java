@@ -258,11 +258,11 @@ public class AddOrEditMemberFragment extends BaseFragment {
             et_VCH_Card.setEnabled(false);
             et_VCH_Pwd.setEnabled(false);
             et_VCH_Pwd_Confirm.setEnabled(false);
-//            et_MA_AggregateAmount.setEnabled(false);
+            et_MA_AggregateAmount.setEnabled(false);
             rootView.findViewById(R.id.et_select_EM_Name).setEnabled(false);
-//            et_MA_AvailableIntegral.setEnabled(false);
-//            et_VCH_Fee.setEnabled(false);
-//            tv_select_Pay_Way.setEnabled(false);
+            et_MA_AvailableIntegral.setEnabled(false);
+            et_VCH_Fee.setEnabled(false);
+            tv_select_Pay_Way.setEnabled(false);
 
             mGradeGid = vipInfoMsg.getVG_GID();
             mPayTypeName = vipInfoMsg.getVCH_Fee_PayTypeText();

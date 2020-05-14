@@ -17,6 +17,7 @@ import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.http.BasePageRes;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpOnlyVipMsg;
+import com.wycd.yushangpu.tools.DateTimeUtil;
 import com.wycd.yushangpu.widget.NumInputView;
 import com.wycd.yushangpu.widget.NumKeyboardUtils;
 
@@ -157,8 +158,12 @@ public class VipChooseDialog extends Dialog {
                 Type listType = new TypeToken<List<VipInfoMsg>>() {
                 }.getType();
                 List<VipInfoMsg> vipDengjiMsg = response.getData(listType);
+                for (VipInfoMsg vipInfoMsg : vipDengjiMsg) {
+                    if (!DateTimeUtil.isOverTime(vipInfoMsg.getVCH_CreateTime())) {
+                        searchVipPopAdapter.addList(vipInfoMsg);
+                    }
+                }
 
-                searchVipPopAdapter.addAllList(vipDengjiMsg);
                 searchVipPopAdapter.notifyDataSetChanged();
                 if (response.getDataCount() <= searchVipPopAdapter.getList().size()) {
                     searchList.setLoadingMoreEnabled(false);

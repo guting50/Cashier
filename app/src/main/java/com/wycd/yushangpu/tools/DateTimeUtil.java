@@ -56,13 +56,13 @@ public class DateTimeUtil {
             if (isLunar == 1) {
                 //农历生日
                 LunarUtil lunar = new LunarUtil(Calendar.getInstance());
-                if (TextUtils.equals(dateFormat.format(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(data1)),
+                if (TextUtils.equals(dateFormat.format(new SimpleDateFormat("yyyy-MM-dd下·").parse(data1)),
                         (lunar.month < 10 ? ("0" + lunar.month) : lunar.month) + "-" + lunar.day)) {
                     return true;
                 }
             } else {
                 //公历生日
-                if (TextUtils.equals(dateFormat.format(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(data1)),
+                if (TextUtils.equals(dateFormat.format(new SimpleDateFormat("yyyy-MM-dd").parse(data1)),
                         dateFormat.format(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(data2)))) {
                     return true;
                 }

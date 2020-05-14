@@ -209,8 +209,8 @@ public class ImpSubmitOrder {
         //提成员工
         if (mStaffListGid != null) {
             for (int j = 0; j < mStaffListGid.size(); j++) {
-                params.put("EM_GIDList[" + j + "]", mStaffListGid.get(j));
-                params.put("ProportionList[" + j + "]", staffProportion.get(j));
+                params.put("EM_GIDList[]", mStaffListGid.get(j));
+                params.put("ProportionList[]", staffProportion.get(j));
             }
         }
         //备注

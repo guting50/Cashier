@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.CacheDoubleUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -26,6 +27,7 @@ import com.wycd.yushangpu.http.BasePageRes;
 import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpOnlyVipMsg;
+import com.wycd.yushangpu.tools.DateTimeUtil;
 import com.wycd.yushangpu.tools.GlideTransform;
 import com.wycd.yushangpu.tools.NullUtils;
 
@@ -248,6 +250,7 @@ public class VipMemberFragment extends BaseFragment {
         ((TextView) rootView.findViewById(R.id.tv_g_id)).setText(info.getSM_Name());
         ((TextView) rootView.findViewById(R.id.tv_fixed_phone)).setText(info.getVIP_FixedPhone());
         ((TextView) rootView.findViewById(R.id.tv_em_name)).setText(info.getEM_Name());
+        ((TextView) rootView.findViewById(R.id.tv_wx_vip)).setText("");
         if (!TextUtils.isEmpty(info.getVIP_OpenID()))
             ((TextView) rootView.findViewById(R.id.tv_wx_vip)).setText("已绑定");
     }
@@ -280,6 +283,10 @@ public class VipMemberFragment extends BaseFragment {
             myHolder.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (DateTimeUtil.isOverTime(item.getVCH_CreateTime())) {
+                        ToastUtils.showLong("该会员还未到激活时间");
+                        return;
+                    }
                     if (selectedHolder != null)
                         selectedHolder.rootView.setBackgroundResource(R.color.white);
                     selectedHolder = myHolder;

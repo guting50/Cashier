@@ -258,10 +258,15 @@ public class JiesuanBFragment extends BaseFragment {
         consumeCheck = 0;
         yueMoney = 0;
 
+        rootView.findViewById(R.id.li_yhq).setEnabled(true);
+        rootView.findViewById(R.id.li_promotion).setEnabled(true);
+        rootView.findViewById(R.id.et_moling).setVisibility(View.VISIBLE);
+        rootView.findViewById(R.id.li_moling).setEnabled(true);
         if (orderType == MEM_RECHARGE_PAY) {// 会员充值不能使用优惠券\优惠活动\抹零
             rootView.findViewById(R.id.li_yhq).setEnabled(false);
             rootView.findViewById(R.id.li_promotion).setEnabled(false);
-            rootView.findViewById(R.id.et_moling).setEnabled(false);
+            rootView.findViewById(R.id.et_moling).setVisibility(View.GONE);
+            rootView.findViewById(R.id.li_moling).setEnabled(false);
         }
 
         this.yue = "0.00";
@@ -838,7 +843,7 @@ public class JiesuanBFragment extends BaseFragment {
                 name = PayMode.XJZF.getStr();
                 break;
             case "YEZF"://余额
-                if (isMember || orderType != MEM_RECHARGE_PAY) {
+                if (isMember && orderType != MEM_RECHARGE_PAY) {
                     view = mLiYue;
                     name = PayMode.YEZF.getStr();
                 } else {
@@ -860,7 +865,7 @@ public class JiesuanBFragment extends BaseFragment {
                 name = PayMode.ZFBJZ.getStr();
                 break;
             case "JFZF"://积分支付
-                if (isMember || orderType != MEM_RECHARGE_PAY) {
+                if (isMember && orderType != MEM_RECHARGE_PAY) {
                     view = mLiJifen;
                     name = PayMode.JFZF.getStr();
                 } else {

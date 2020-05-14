@@ -334,7 +334,6 @@ public class GetPrintSet {
 
             @Override
             public void onErrorResponse(Object msg) {
-                super.onErrorResponse(msg);
                 com.blankj.utilcode.util.ToastUtils.showShort("获取打印模板失败");
             }
         });
@@ -372,8 +371,6 @@ public class GetPrintSet {
             public void onErrorResponse(Object msg) {
                 super.onErrorResponse(msg);
                 MyApplication.PRINT_IS_OPEN = false;
-                if (msg instanceof String)
-                    com.blankj.utilcode.util.ToastUtils.showShort((String) msg);
             }
         });
     }
