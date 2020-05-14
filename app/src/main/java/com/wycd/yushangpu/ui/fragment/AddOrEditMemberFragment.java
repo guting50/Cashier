@@ -276,6 +276,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
             et_VIP_Referee.setText(vipInfoMsg.getVIP_Referee());
             et_EM_Name.setText(vipInfoMsg.getEM_Name());
             et_VCH_CreateTime.setText(vipInfoMsg.getVCH_CreateTime());
+            et_VCH_CreateTime.setTag(vipInfoMsg.getVCH_CreateTime());
             et_VIP_Addr.setText(vipInfoMsg.getVIP_Addr());
             et_VIP_CellPhone.setText(vipInfoMsg.getVIP_CellPhone());
             et_VG_GID.setText(vipInfoMsg.getVG_GID());
@@ -323,13 +324,13 @@ public class AddOrEditMemberFragment extends BaseFragment {
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(iv_edit_head_img);
         }
-        List<SysSwitchRes> mSwitchEntity = ImpParamLoading.REPORT_BEAN.getGetSysSwitchList();
 
         mCardContactPhone = false;
         mIsfilltel = false;
         ((ViewGroup) et_VIP_CellPhone.getParent()).getChildAt(1).setVisibility(View.INVISIBLE);
         et_VIP_FaceNumber.setEnabled(false);
         isCardNum = false;
+        List<SysSwitchRes> mSwitchEntity = ImpParamLoading.REPORT_BEAN.getGetSysSwitchList();
         if (mSwitchEntity != null && mSwitchEntity.size() > 0) {
             for (SysSwitchRes sysSwitchListBean : mSwitchEntity) {
                 switch (sysSwitchListBean.getSS_Code()) {
@@ -376,6 +377,16 @@ public class AddOrEditMemberFragment extends BaseFragment {
                     case 105://微信记账
                         if (sysSwitchListBean.getSS_State() == 1) {
                             mPayWayList.add("微信记账");
+                        }
+                        break;
+                    case 111://扫码支付
+                        if (sysSwitchListBean.getSS_State() == 1) {
+                            mPayWayList.add("扫码支付");
+                        }
+                        break;
+                    case 113://其他支付
+                        if (sysSwitchListBean.getSS_State() == 1) {
+                            mPayWayList.add("其他支付");
                         }
                         break;
                     case 301: //员工提成
@@ -451,7 +462,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
         } else {
             rootView.findViewById(R.id.cb_is_perpetual).setEnabled(true);
             ((CheckBox) rootView.findViewById(R.id.cb_is_perpetual)).setChecked(true);
-            et_VIP_Overdue.setEnabled(true);
+            et_VIP_Overdue.setEnabled(false);
         }
     }
 
@@ -823,6 +834,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
         params.put("VIP_Remark", mRemark);
         params.put("VIP_FaceNumber", mcardId);//卡面号码
         params.put("VIP_Overdue", mOverdueDate + " 23:59:59");//过期日期
+        params.put("VCH_CreateTime", et_VCH_CreateTime.getTag());//开发日期
         for (int i = 0; i < costomfields.size(); i++) {//自定义属性
             params.put("FildsId[" + i + "]", costomfields.get(i).getCF_GID());
             params.put("FildsValue[" + i + "]", costomfields.get(i).getM_ItemsValue() == null ? ""
@@ -850,7 +862,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                 params.put("VCH_Pwd", et_VCH_Pwd.getText().toString());
             }
             params.put("IS_Sms", true);
-            params.put("VIP_RegSource", 2);
+            params.put("VIP_RegSource", 5);
         } else {
             url = HttpAPI.API().EDIVIP;
             params.put("GID", vipInfoMsg.getGID());

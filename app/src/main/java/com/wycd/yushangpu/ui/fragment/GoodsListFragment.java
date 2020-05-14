@@ -275,7 +275,7 @@ public class GoodsListFragment extends BaseFragment {
 //        if (ts.getPM_Metering() != null) {
 //            myHolder.mTvKunum.setText(String.valueOf(ts.getCurrtStock_Number()) + ts.getPM_Metering());
 //        } else {
-            myHolder.mTvKunum.setText(((int) ts.getStock_Number()) + "");
+            myHolder.mTvKunum.setText((ts.getStock_Number() > 99 ? ">99" : ((int) ts.getStock_Number())) + "");
 //        }
 
             myHolder.mIvState.setText(ts.PM_IsServiceText);

@@ -240,6 +240,7 @@
             android:layout_toRightOf="@+id/btt_hung_order"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_16"
+            android:gravity="center"
             android:visibility="gone"
             app:corners_radius="20dp"
             app:solid_color="@android:color/holo_red_dark" />

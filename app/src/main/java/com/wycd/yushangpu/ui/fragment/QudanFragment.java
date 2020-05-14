@@ -297,7 +297,11 @@ public class QudanFragment extends BaseFragment {
                 });
             } else {
                 OrderCanshu guadanList = list.get(isGuaDan ? position - 1 : position);
-                holder1.tvCount.setText("数量：" + guadanList.getViewGoodsDetail().size() + "");
+                double count = 0;
+                for (OrderCanshu.ViewGoodsDetailBean bean : guadanList.getViewGoodsDetail()) {
+                    count += bean.getPM_Number();
+                }
+                holder1.tvCount.setText("数量：" + (int) count);
                 holder1.tvTime.setText("挂单时间：" + guadanList.getCO_UpdateTime());
                 if (!NullUtils.noNullHandle(guadanList.getVIP_Phone()).toString().equals("")) {
                     holder1.tvVipmsg.setText("会员：" + NullUtils.noNullHandle(guadanList.getVIP_Name()).toString() + "/" + NullUtils.noNullHandle(guadanList.getVIP_Phone()).toString());

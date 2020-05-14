@@ -255,6 +255,8 @@ public class JiesuanBFragment extends BaseFragment {
         tvPromotion.setText("");
         promotionMoney = 0;
         yhqMsgs = null;
+        consumeCheck = 0;
+        yueMoney = 0;
 
         if (orderType == MEM_RECHARGE_PAY) {// 会员充值不能使用优惠券\优惠活动\抹零
             rootView.findViewById(R.id.li_yhq).setEnabled(false);

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.CacheDoubleUtils;
 import com.google.gson.reflect.TypeToken;
 import com.gt.utils.widget.BgLayout;
 import com.gt.utils.widget.FlowLayout;
@@ -17,6 +18,7 @@ import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.DiscountTypeBean;
 import com.wycd.yushangpu.bean.EmplMsg;
 import com.wycd.yushangpu.bean.OrderCanshu;
+import com.wycd.yushangpu.bean.SysSwitchRes;
 import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
 import com.wycd.yushangpu.http.BaseRes;
@@ -252,54 +254,56 @@ public class MemberRechargeFragment extends BaseFragment {
                         });
                     }
                 }
-                View view = LayoutInflater.from(homeActivity).inflate(R.layout.item_recharge_amount, null);
-                ed_RechargeMoney = view.findViewById(R.id.ed_RechargeMoney);
-                ed_RechargeMoney.setVisibility(View.VISIBLE);
-                ed_RechargeMoney.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                    @Override
-                    public void onFocusChange(View view, boolean b) {
-                        if (b) {
-                            if (frameLayout != null) {
-                                frameLayout.setChecked(false);
-                                ((TextView) frameLayout.findViewById(R.id.tv_RechargeMoney))
-                                        .setTextColor(homeActivity.getResources().getColor(R.color.title_color));
-                                ((TextView) frameLayout.findViewById(R.id.tv_RP_GiveMoney))
-                                        .setTextColor(homeActivity.getResources().getColor(R.color.title_color));
-                                String str = "赠送<font color=\"#ff0000\">" + (String) frameLayout.findViewById(R.id.tv_RP_GiveMoney).getTag() + "</font>元";
-                                ((TextView) frameLayout.findViewById(R.id.tv_RP_GiveMoney))
-                                        .setText(Html.fromHtml(str));
+                if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T219.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 1) {
+                    View view = LayoutInflater.from(homeActivity).inflate(R.layout.item_recharge_amount, null);
+                    ed_RechargeMoney = view.findViewById(R.id.ed_RechargeMoney);
+                    ed_RechargeMoney.setVisibility(View.VISIBLE);
+                    ed_RechargeMoney.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                        @Override
+                        public void onFocusChange(View view, boolean b) {
+                            if (b) {
+                                if (frameLayout != null) {
+                                    frameLayout.setChecked(false);
+                                    ((TextView) frameLayout.findViewById(R.id.tv_RechargeMoney))
+                                            .setTextColor(homeActivity.getResources().getColor(R.color.title_color));
+                                    ((TextView) frameLayout.findViewById(R.id.tv_RP_GiveMoney))
+                                            .setTextColor(homeActivity.getResources().getColor(R.color.title_color));
+                                    String str = "赠送<font color=\"#ff0000\">" + (String) frameLayout.findViewById(R.id.tv_RP_GiveMoney).getTag() + "</font>元";
+                                    ((TextView) frameLayout.findViewById(R.id.tv_RP_GiveMoney))
+                                            .setText(Html.fromHtml(str));
+                                }
+                                et_recharge_total.setText("");
+                                et_recharge_integral.setText("");
                             }
-                            et_recharge_total.setText("");
-                            et_recharge_integral.setText("");
                         }
-                    }
-                });
-                ed_RechargeMoney.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    });
+                    ed_RechargeMoney.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                        String text = charSequence.toString();
-                        if (!StringUtil.isTwoPoint(text)) {
-                            charSequence = text.substring(0, text.length() - 1);
-                            ed_RechargeMoney.setText(charSequence.toString());
-                            ed_RechargeMoney.setSelection(charSequence.length());
                         }
-                    }
 
-                    @Override
-                    public void afterTextChanged(Editable editable) {
-                        et_recharge_total.setText(editable);
-                        rechargeMoney = editable.toString();
-                        giveMoney = "";
-                        getPoints = 0;
-                        mDiscountActivityGid = "1";
-                    }
-                });
-                fl_recharge_amount.addView(view);
+                        @Override
+                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                            String text = charSequence.toString();
+                            if (!StringUtil.isTwoPoint(text)) {
+                                charSequence = text.substring(0, text.length() - 1);
+                                ed_RechargeMoney.setText(charSequence.toString());
+                                ed_RechargeMoney.setSelection(charSequence.length());
+                            }
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable editable) {
+                            et_recharge_total.setText(editable);
+                            rechargeMoney = editable.toString();
+                            giveMoney = "";
+                            getPoints = 0;
+                            mDiscountActivityGid = "1";
+                        }
+                    });
+                    fl_recharge_amount.addView(view);
+                }
             }
         });
     }

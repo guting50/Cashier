@@ -461,20 +461,20 @@ public class ShopMsg implements Serializable, Parcelable {
         if (NullUtils.noNullHandle(getPM_IsDiscount()).toString().equals("1")) {
             if (!NullUtils.noNullHandle(getPM_SpecialOfferMoney()).toString().equals("0.0") && getPM_SpecialOfferMoney() != -1) {
                 //无最低折扣
-                TvVippriceText = "特：" + getPM_SpecialOfferMoney();
+                TvVippriceText = "特:" + getPM_SpecialOfferMoney();
                 TvSanpriceFlags = (Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); //中划线
                 TvSanpriceTextColor = (R.color.a5a5a5);
             } else if (!NullUtils.noNullHandle(getPM_SpecialOfferValue()).toString().equals("0.0")) {
                 //有特价折扣
                 if (NullUtils.noNullHandle(getPM_MinDisCountValue()).toString().equals("0.0")) {
                     //无最低折扣
-                    TvVippriceText = ("特：" + StringUtil.twoNum(CommonUtils.multiply(getPM_UnitPrice(), getPM_SpecialOfferValue())));
+                    TvVippriceText = ("特:" + StringUtil.twoNum(CommonUtils.multiply(getPM_UnitPrice(), getPM_SpecialOfferValue())));
                 } else {
                     //有最低折扣
                     if (getPM_SpecialOfferValue() > getPM_MinDisCountValue()) {
-                        TvVippriceText = ("特：" + StringUtil.twoNum(CommonUtils.multiply(getPM_UnitPrice(), getPM_SpecialOfferValue())));
+                        TvVippriceText = ("特:" + StringUtil.twoNum(CommonUtils.multiply(getPM_UnitPrice(), getPM_SpecialOfferValue())));
                     } else {
-                        TvVippriceText = ("特：" + StringUtil.twoNum(CommonUtils.multiply(getPM_UnitPrice(), getPM_MinDisCountValue())));
+                        TvVippriceText = ("特:" + StringUtil.twoNum(CommonUtils.multiply(getPM_UnitPrice(), getPM_MinDisCountValue())));
                     }
                 }
                 TvSanpriceTextColor = (R.color.a5a5a5);
@@ -483,7 +483,7 @@ public class ShopMsg implements Serializable, Parcelable {
                 //无特价折扣
                 if (!NullUtils.noNullHandle(getPM_MemPrice()).toString().equals("")) {
                     //有会员价
-                    TvVippriceText = ("会：" + StringUtil.twoNum(NullUtils.noNullHandle(getPM_MemPrice()).toString()));
+                    TvVippriceText = ("会:" + StringUtil.twoNum(NullUtils.noNullHandle(getPM_MemPrice()).toString()));
                 } else {
                     TvVippriceText = ("");
                 }
@@ -493,7 +493,7 @@ public class ShopMsg implements Serializable, Parcelable {
             }
         } else {
             if (!NullUtils.noNullHandle(getPM_MemPrice()).toString().equals("")) {
-                TvVippriceText = ("会：" + StringUtil.twoNum(NullUtils.noNullHandle(getPM_MemPrice()).toString()));
+                TvVippriceText = ("会:" + StringUtil.twoNum(NullUtils.noNullHandle(getPM_MemPrice()).toString()));
             } else {
                 TvVippriceText = ("");
             }
