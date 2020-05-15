@@ -220,21 +220,23 @@ public class MemberRechargeFragment extends BaseFragment {
                                 .setText(Html.fromHtml(str));
                         view.findViewById(R.id.tv_RP_GiveMoney).setTag(discountTypeBean.getRP_GiveMoney() + "");
                         View viewRoot = (View) view.findViewById(R.id.tv_RechargeMoney).getParent();
-                        viewRoot.setVisibility(View.VISIBLE);
                         viewRoot.setOnClickListener(new View.OnClickListener() {
 
                             @Override
                             public void onClick(View view) {
                                 ed_RechargeMoney.setText("");
                                 if (frameLayout != null) {
+                                    frameLayout.setFocused(false);
                                     frameLayout.setChecked(false);
-                                    ((TextView) frameLayout.findViewById(R.id.tv_RechargeMoney))
-                                            .setTextColor(homeActivity.getResources().getColor(R.color.title_color));
-                                    ((TextView) frameLayout.findViewById(R.id.tv_RP_GiveMoney))
-                                            .setTextColor(homeActivity.getResources().getColor(R.color.title_color));
-                                    String str = "赠送<font color=\"#ff0000\">" + (String) frameLayout.findViewById(R.id.tv_RP_GiveMoney).getTag() + "</font>元";
-                                    ((TextView) frameLayout.findViewById(R.id.tv_RP_GiveMoney))
-                                            .setText(Html.fromHtml(str));
+                                    TextView tv = frameLayout.findViewById(R.id.tv_RechargeMoney);
+                                    if (tv != null) {
+                                        tv.setTextColor(homeActivity.getResources().getColor(R.color.title_color));
+                                        ((TextView) frameLayout.findViewById(R.id.tv_RP_GiveMoney))
+                                                .setTextColor(homeActivity.getResources().getColor(R.color.title_color));
+                                        String str = "赠送<font color=\"#ff0000\">" + (String) frameLayout.findViewById(R.id.tv_RP_GiveMoney).getTag() + "</font>元";
+                                        ((TextView) frameLayout.findViewById(R.id.tv_RP_GiveMoney))
+                                                .setText(Html.fromHtml(str));
+                                    }
                                 }
                                 BgLayout bgFrameLayout = (BgLayout) viewRoot.getParent();
                                 frameLayout = bgFrameLayout;
@@ -251,37 +253,42 @@ public class MemberRechargeFragment extends BaseFragment {
                                 et_recharge_total.setText(CommonUtils.add(rechargeMoney, giveMoney) + "");
                                 et_recharge_integral.setText(
                                         StringUtil.twoNum(CommonUtils.add(CommonUtils.multiply(rechargeMoney, vipInfoMsg.getRS_Value() + ""), getPoints) + ""));
-
-                                bgFrameLayout.setFocusable(true);
-                                bgFrameLayout.setFocusableInTouchMode(true);
-                                bgFrameLayout.requestFocus();
-                                bgFrameLayout.requestFocusFromTouch();
                             }
                         });
                     }
                 }
-                View view = LayoutInflater.from(homeActivity).inflate(R.layout.item_recharge_amount, null);
+                View view = LayoutInflater.from(homeActivity).inflate(R.layout.item_recharge_edit_amount, null);
+                View viewRoot = (View) view.findViewById(R.id.ed_RechargeMoney).getParent();
                 ed_RechargeMoney = view.findViewById(R.id.ed_RechargeMoney);
-                ed_RechargeMoney.setVisibility(View.VISIBLE);
-                ed_RechargeMoney.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                ed_RechargeMoney.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onFocusChange(View view, boolean b) {
-                        if (b) {
-                            if (frameLayout != null) {
-                                frameLayout.setChecked(false);
-                                ((TextView) frameLayout.findViewById(R.id.tv_RechargeMoney))
-                                        .setTextColor(homeActivity.getResources().getColor(R.color.title_color));
+                    public void onClick(View v) {
+                        if (frameLayout != null) {
+                            frameLayout.setChecked(false);
+                            TextView tv = frameLayout.findViewById(R.id.tv_RechargeMoney);
+                            if (tv != null) {
+                                tv.setTextColor(homeActivity.getResources().getColor(R.color.title_color));
                                 ((TextView) frameLayout.findViewById(R.id.tv_RP_GiveMoney))
                                         .setTextColor(homeActivity.getResources().getColor(R.color.title_color));
                                 String str = "赠送<font color=\"#ff0000\">" + (String) frameLayout.findViewById(R.id.tv_RP_GiveMoney).getTag() + "</font>元";
                                 ((TextView) frameLayout.findViewById(R.id.tv_RP_GiveMoney))
                                         .setText(Html.fromHtml(str));
                             }
-                            et_recharge_total.setText("");
-                            et_recharge_integral.setText("");
                         }
+
+                        frameLayout = (BgLayout) viewRoot;
+                        frameLayout.setChecked(true);
+                        et_recharge_total.setText("");
+                        et_recharge_integral.setText("");
                     }
                 });
+                ed_RechargeMoney.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View v, boolean hasFocus) {
+                        ed_RechargeMoney.performClick();
+                    }
+                });
+
                 ed_RechargeMoney.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -308,8 +315,10 @@ public class MemberRechargeFragment extends BaseFragment {
                     }
                 });
                 fl_recharge_amount.addView(view);
+                viewRoot.setEnabled(true);
                 ed_RechargeMoney.setEnabled(true);
                 if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T219.getValueStr(), SysSwitchRes.CREATOR).getSS_State() != 1) {
+                    viewRoot.setEnabled(false);
                     ed_RechargeMoney.setEnabled(false);
                 }
             }

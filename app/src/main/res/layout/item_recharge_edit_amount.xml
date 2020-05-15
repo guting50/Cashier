@@ -10,31 +10,19 @@
         android:orientation="vertical"
         app:corners_radius="5dp"
         app:solid_color="@color/white"
-        app:solid_color_checked="#ff149f4a"
+        app:solid_color_no_enabled="@color/backgroud_color"
         app:stroke_color="@color/view_color"
+        app:stroke_color_checked="#ff149f4a"
         app:stroke_width="1dp">
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/ed_RechargeMoney"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
+            android:background="@color/transparent"
             android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_RechargeMoney"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/title_color"
-                android:textSize="26sp" />
-
-            <TextView
-                android:id="@+id/tv_RP_GiveMoney"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/title_color"
-                android:textSize="13sp" />
-        </LinearLayout>
+            android:hint="其他金额"
+            android:inputType="numberDecimal" />
 
     </com.gt.utils.widget.BgLayout>
 </FrameLayout>

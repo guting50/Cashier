@@ -250,7 +250,7 @@ public class VipMemberFragment extends BaseFragment {
         ((TextView) rootView.findViewById(R.id.tv_g_id)).setText(info.getSM_Name());
         ((TextView) rootView.findViewById(R.id.tv_fixed_phone)).setText(info.getVIP_FixedPhone());
         ((TextView) rootView.findViewById(R.id.tv_em_name)).setText(info.getEM_Name());
-        ((TextView) rootView.findViewById(R.id.tv_wx_vip)).setText("");
+        ((TextView) rootView.findViewById(R.id.tv_wx_vip)).setText("未绑定");
         if (!TextUtils.isEmpty(info.getVIP_OpenID()))
             ((TextView) rootView.findViewById(R.id.tv_wx_vip)).setText("已绑定");
     }

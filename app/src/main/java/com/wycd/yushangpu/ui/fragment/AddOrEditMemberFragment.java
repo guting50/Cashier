@@ -248,7 +248,11 @@ public class AddOrEditMemberFragment extends BaseFragment {
             et_VCH_Pwd_Confirm.setText("");
             et_VCH_Pwd.setEnabled(true);
             et_VCH_Pwd_Confirm.setEnabled(true);
+            et_MA_AggregateAmount.setEnabled(true);
             rootView.findViewById(R.id.et_select_EM_Name).setEnabled(false);
+            et_MA_AvailableIntegral.setEnabled(true);
+            et_VCH_Fee.setEnabled(true);
+            tv_select_Pay_Way.setEnabled(true);
             mPayTypeCode = "XJZF";
             mPayTypeName = mPayWayList.get(0);
 
