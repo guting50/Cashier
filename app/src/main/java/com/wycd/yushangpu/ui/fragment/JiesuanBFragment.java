@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.CacheDoubleUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -102,6 +103,8 @@ public class JiesuanBFragment extends BaseFragment {
 
     @BindView(R.id.et_moling)
     NumInputView et_moling;
+    @BindView(R.id.tv_moling)
+    TextView tv_moling;
 
     @BindView(R.id.li_xianjin)
     LinearLayout mLiXianjin;
@@ -249,6 +252,7 @@ public class JiesuanBFragment extends BaseFragment {
         setCbShortMessage("011");
 
         et_moling.setText("");
+        tv_moling.setText("");
         tv_zhaoling.setText("");
         tvCouponMoney.setText("");
         tvCouponMoney.setHint("请选择优惠券");
@@ -259,14 +263,8 @@ public class JiesuanBFragment extends BaseFragment {
 
         rootView.findViewById(R.id.li_yhq).setEnabled(true);
         rootView.findViewById(R.id.li_promotion).setEnabled(true);
-        rootView.findViewById(R.id.et_moling).setVisibility(View.VISIBLE);
-        rootView.findViewById(R.id.li_moling).setEnabled(true);
-        if (orderType == MEM_RECHARGE_PAY) {// 会员充值不能使用优惠券\优惠活动\抹零
-            rootView.findViewById(R.id.li_yhq).setEnabled(false);
-            rootView.findViewById(R.id.li_promotion).setEnabled(false);
-            rootView.findViewById(R.id.et_moling).setVisibility(View.GONE);
-            rootView.findViewById(R.id.li_moling).setEnabled(false);
-        }
+        rootView.findViewById(R.id.li_moling).setEnabled(false);
+        et_moling.setVisibility(View.GONE);
 
         this.yue = "0.00";
         this.jifen = "0.00";
@@ -299,7 +297,7 @@ public class JiesuanBFragment extends BaseFragment {
                 tvCouponMoney.setHint("有" + couponCount + "张优惠券可用");
         }
 
-        if (ImpParamLoading.REPORT_BEAN != null) {
+        if (ImpParamLoading.REPORT_BEAN != null && ImpParamLoading.REPORT_BEAN != null) {
             if (orderType != MEM_RECHARGE_PAY)
                 for (ReportMessageBean.ActiveBean active : ImpParamLoading.REPORT_BEAN.getActiveOth()) {
                     // 会员充值不能使用优惠活动
@@ -336,6 +334,18 @@ public class JiesuanBFragment extends BaseFragment {
         setDefaultPayMode(defaultMode);
         resetPayModeList();
         computeYsMoney();
+
+        if (orderType == MEM_RECHARGE_PAY) {// 会员充值不能使用优惠券\优惠活动\抹零
+            rootView.findViewById(R.id.li_yhq).setEnabled(false);
+            rootView.findViewById(R.id.li_promotion).setEnabled(false);
+            et_moling.setVisibility(View.GONE);
+            rootView.findViewById(R.id.li_moling).setEnabled(false);
+        } else {
+            if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T801.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 1) {//自由抹零
+                rootView.findViewById(R.id.li_moling).setEnabled(true);
+                et_moling.setVisibility(View.VISIBLE);
+            }
+        }
 
         yhqDialog = YouhuiquanDialog.showDialog(context, zhMoney, mVipMsg, /*yhqMsgs*/null, 1, new InterfaceBack() {
             @Override
@@ -721,6 +731,16 @@ public class JiesuanBFragment extends BaseFragment {
         double tempTotalYhMoney = CommonUtils.del(Double.parseDouble(totalMoney), Double.parseDouble(zhMoney));//折扣优惠
         tempTotalYhMoney = CommonUtils.add(tempTotalYhMoney, getCouponMoney()); // + 优惠券
         tempTotalYhMoney = CommonUtils.add(tempTotalYhMoney, promotionMoney); // + 优惠活动
+        double ysMoney_ = CommonUtils.del(Double.parseDouble(totalMoney), tempTotalYhMoney);
+        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T802.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 1) {//四舍五入到“角”
+            tv_moling.setText(StringUtil.twoNum(CommonUtils.del(ysMoney_, CommonUtils.div(ysMoney_, 1, 1, BigDecimal.ROUND_HALF_UP)) + ""));
+        } else if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T803.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 1) {//四舍五入到“元”
+            tv_moling.setText(StringUtil.twoNum(CommonUtils.del(ysMoney_, CommonUtils.div(ysMoney_, 1, 0, BigDecimal.ROUND_HALF_UP)) + ""));
+        } else if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T804.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 1) {//直接舍弃“角”
+            tv_moling.setText(StringUtil.twoNum(CommonUtils.del(ysMoney_, CommonUtils.div(ysMoney_, 1, 0, BigDecimal.ROUND_DOWN)) + ""));
+        } else if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T805.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 1) {//直接舍弃“分”
+            tv_moling.setText(StringUtil.twoNum(CommonUtils.del(ysMoney_, CommonUtils.div(ysMoney_, 1, 1, BigDecimal.ROUND_DOWN)) + ""));
+        }
         tempTotalYhMoney = CommonUtils.add(tempTotalYhMoney, getMoling());// + 抹零
         totalYhMoney = tempTotalYhMoney + "";
 
@@ -733,7 +753,10 @@ public class JiesuanBFragment extends BaseFragment {
     }
 
     private double getMoling() {
-        return et_moling.getText().toString().equals("") ? 0.00 : Double.parseDouble(et_moling.getText().toString());
+        if (et_moling.getVisibility() == View.VISIBLE)
+            return et_moling.getText().toString().equals("") ? 0.00 : Double.parseDouble(et_moling.getText().toString());
+        else
+            return tv_moling.getText().toString().equals("") ? 0.00 : Double.parseDouble(tv_moling.getText().toString());
     }
 
     private double getCouponMoney() {

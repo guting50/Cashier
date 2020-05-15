@@ -71,7 +71,7 @@
                 <com.gt.utils.widget.BgTextView
                     android:id="@+id/member_bg_layout"
                     android:layout_width="120dp"
-                    android:layout_height="@dimen/dp_50"
+                    android:layout_height="45dp"
                     android:layout_gravity="bottom"
                     android:layout_marginTop="15dp"
                     android:layout_marginRight="@dimen/dp_12"
@@ -80,7 +80,9 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_20"
                     app:corners_radius="3dp"
-                    app:solid_color="@color/colorPrimary" />
+                    app:solid_color="@color/colorPrimary"
+                    app:solid_color_no_enabled="@color/enablenot"
+                    app:textColor_no_enabled="@color/text66" />
 
                 <com.gt.utils.widget.BgTextView
                     android:id="@+id/vip_name_layout"
@@ -101,12 +103,12 @@
             <com.gt.utils.widget.BgLayout
                 android:id="@+id/account_bg_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:layout_gravity="bottom"
                 android:layout_marginRight="@dimen/dp_10"
+                android:background="@drawable/lab_selected"
                 android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:background="@drawable/lab_selected">
+                android:paddingRight="8dp">
 
                 <com.wycd.yushangpu.widget.views.ClearEditText
                     android:id="@+id/et_login_account"
@@ -238,9 +240,9 @@
             android:layout_marginLeft="-18dp"
             android:layout_marginBottom="-18dp"
             android:layout_toRightOf="@+id/btt_hung_order"
+            android:gravity="center"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_16"
-            android:gravity="center"
             android:visibility="gone"
             app:corners_radius="20dp"
             app:solid_color="@android:color/holo_red_dark" />

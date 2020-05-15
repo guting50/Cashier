@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.CacheDoubleUtils;
 import com.google.gson.reflect.TypeToken;
 import com.gt.utils.GsonUtils;
 import com.gt.utils.widget.BgTextView;
@@ -23,6 +24,7 @@ import com.wycd.yushangpu.bean.GoodsModelBean;
 import com.wycd.yushangpu.bean.OrderCanshu;
 import com.wycd.yushangpu.bean.RevokeGuaDanBean;
 import com.wycd.yushangpu.bean.ShopMsg;
+import com.wycd.yushangpu.bean.SysSwitchRes;
 import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
 import com.wycd.yushangpu.http.BaseRes;
@@ -197,6 +199,11 @@ public class CashierFragment extends BaseFragment {
 
         qudanFragment = new QudanFragment(homeActivity);
         qudanFragment.obtainGuadanList();
+
+        rootView.findViewById(R.id.member_bg_layout).setEnabled(true);
+        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T214.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 1) {
+            rootView.findViewById(R.id.member_bg_layout).setEnabled(false);
+        }
     }
 
     private void getProductModel() {

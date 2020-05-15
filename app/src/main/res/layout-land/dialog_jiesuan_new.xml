@@ -264,8 +264,18 @@
                                 android:layout_below="@+id/li_promotion"
                                 android:layout_marginLeft="60dp"
                                 android:layout_marginTop="5dp"
-                                android:background="@drawable/select_edit_green_gray"
-                                android:layout_marginRight="60dp">
+                                android:layout_marginRight="60dp"
+                                android:background="@drawable/select_edit_green_gray">
+
+                                <TextView
+                                    android:id="@+id/tv_moling"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center|right"
+                                    android:paddingLeft="@dimen/dp_10"
+                                    android:paddingRight="@dimen/dp_10"
+                                    android:textColor="@color/title_color"
+                                    android:textSize="@dimen/sp_18" />
 
                                 <com.wycd.yushangpu.widget.NumInputView
                                     android:id="@+id/et_moling"
