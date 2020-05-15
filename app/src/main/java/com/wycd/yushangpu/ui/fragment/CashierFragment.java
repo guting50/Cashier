@@ -511,10 +511,11 @@ public class CashierFragment extends BaseFragment {
                         break;
                 }
                 shopMsg.setType(type);
-            }
 
+            }
             allprice += shopMsg.getAllprice();
             totalPrice += shopMsg.getTotalPrice();
+
             onepoint += shopMsg.getEachPoint() * shopMsg.getNum();
             num += shopMsg.getNum();
         }
@@ -825,6 +826,7 @@ public class CashierFragment extends BaseFragment {
                     newmsg.setEM_GIDList(eMlist);
                     newmsg.setEM_NameList(msg.getGOD_EMName());
                 }
+                newmsg.setTotalPrice(CommonUtils.multiply(msg.getPM_OriginalPrice(), msg.getPM_Number()));
                 mShopLeftList.add(newmsg);
                 updateBttGetOrder();
             }

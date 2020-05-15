@@ -256,7 +256,6 @@ public class JiesuanBFragment extends BaseFragment {
         promotionMoney = 0;
         yhqMsgs = null;
         consumeCheck = 0;
-        yueMoney = 0;
 
         rootView.findViewById(R.id.li_yhq).setEnabled(true);
         rootView.findViewById(R.id.li_promotion).setEnabled(true);
@@ -608,6 +607,13 @@ public class JiesuanBFragment extends BaseFragment {
                                     }
                                 }, 0, 1000);
                             }
+
+                            @Override
+                            public void onErrorResponse(Object msg) {
+                                if (msg instanceof BaseRes && ((BaseRes) msg).getMsg().contains("BuySms")) {
+                                    ToastUtils.showLong("短信余额不足，请立即充值");
+                                }
+                            }
                         });
                     }
                 });
@@ -655,11 +661,19 @@ public class JiesuanBFragment extends BaseFragment {
             @Override
             public void onErrorResponse(Object msg) {
                 dialog.dismiss();
+                if (msg instanceof BaseRes && ((BaseRes) msg).getMsg().contains("BuySms")) {
+                    ToastUtils.showLong("支付成功，但短信发送失败，企业短信库存不足");
+                    paySuccess();
+                    back.onResponse(((BaseRes) msg).getData());
+                } else {
+                    super.onErrorResponse(msg);
+                }
             }
         });
     }
 
     private void obtainOrderPayResult() {
+        yueMoney = 0;
         shortMessage = cbMessage.isChecked();
         result = new OrderPayResult();
         //找零

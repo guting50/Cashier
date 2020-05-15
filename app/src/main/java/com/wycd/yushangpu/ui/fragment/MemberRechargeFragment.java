@@ -143,7 +143,7 @@ public class MemberRechargeFragment extends BaseFragment {
                 break;
             case R.id.et_recharge_select_em_name://选择员工
                 ShopDetailDialog.shopdetailDialog(getActivity(), null, "",
-                        null, MyApplication.loginBean.getShopID(), 1, 3, new InterfaceBack() {
+                        mStaffListGids, MyApplication.loginBean.getShopID(), 1, true, 3, new InterfaceBack() {
                             @Override
                             public void onResponse(Object response) {
                                 List<EmplMsg> mEmplMsgList = (List<EmplMsg>) response;

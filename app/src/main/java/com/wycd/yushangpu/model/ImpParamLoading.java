@@ -48,7 +48,7 @@ public class ImpParamLoading {
                     List<SysSwitchRes> sysSwitchListList = REPORT_BEAN.getGetSysSwitchList();
                     for (SysSwitchRes bean : sysSwitchListList) {
                         CacheDoubleUtils.getInstance().put(bean.getSS_Code() + "", (Parcelable) bean);
-                        Log.e("==========", "T" + bean.getSS_Code() + "(" + bean.getSS_Code() + "),//" + bean.getSS_Name());
+                        Log.e("==========", "T" + bean.getSS_Code() + "(" + bean.getSS_Code() + "),//" + bean.getSS_Name() + "==>" + bean.getSS_State());
                     }
 
 //                    List<ReportMessageBean.ActiveBean> actives = REPORT_BEAN.getActiveOth();

@@ -210,7 +210,7 @@ public class ImpSubmitOrder {
         if (mStaffListGid != null) {
             for (int j = 0; j < mStaffListGid.size(); j++) {
                 params.put("EM_GIDList[]", mStaffListGid.get(j));
-                params.put("ProportionList[]", staffProportion.get(j));
+                params.put("ProportionList[]", staffProportion.get(j).intValue());
             }
         }
         //备注

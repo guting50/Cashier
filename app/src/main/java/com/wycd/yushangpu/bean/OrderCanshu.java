@@ -4,13 +4,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderCanshu implements Parcelable {
 
     private List<ViewGoodsDetailBean> ViewGoodsDetail;//	商品信息 	IList	返回订单详情
     private String CC_GID;//		活动GID	string
-    private String EM_GIDList;//		提成员工	List<string>
+    private List<String> EM_GIDList;//		提成员工	List<string>
     private String PayPoint;//		抵扣积分	decimal
     private String DisMoney;//		折后金额/应收金额	decimal
     private String VCH_Money;//		卡内余额	decimal	打印用
@@ -39,51 +40,6 @@ public class OrderCanshu implements Parcelable {
     private String SM_Contacter;//		联系人	string
     private String CO_Identifying; //订单状态名
     private String CO_IdentifyingState; //订单状态码 1 挂单  8挂账
-
-    protected OrderCanshu(Parcel in) {
-        CC_GID = in.readString();
-        EM_GIDList = in.readString();
-        PayPoint = in.readString();
-        DisMoney = in.readString();
-        VCH_Money = in.readString();
-        VCH_Point = in.readString();
-        CO_SSMoney = in.readString();
-        CO_ZLMoney = in.readString();
-        CO_ActivityName = in.readString();
-        CO_ActivityValue = in.readString();
-        CO_Discount = in.readString();
-        GID = in.readString();
-        VIP_GID = in.readString();
-        VIP_Card = in.readString();
-        VIP_Name = in.readString();
-        VIP_Phone = in.readString();
-        VIP_FaceNumber = in.readString();
-        CO_OrderCode = in.readString();
-        CO_ConsumeWay = in.readString();
-        CO_Monetary = in.readString();
-        CO_TotalPrice = in.readString();
-        CO_Integral = in.readString();
-        CO_Type = in.readString();
-        CO_Creator = in.readString();
-        CO_UpdateTime = in.readString();
-        CY_GID = in.readString();
-        SM_Name = in.readString();
-        SM_Contacter = in.readString();
-        CO_Identifying = in.readString();
-        CO_IdentifyingState = in.readString();
-    }
-
-    public static final Creator<OrderCanshu> CREATOR = new Creator<OrderCanshu>() {
-        @Override
-        public OrderCanshu createFromParcel(Parcel in) {
-            return new OrderCanshu(in);
-        }
-
-        @Override
-        public OrderCanshu[] newArray(int size) {
-            return new OrderCanshu[size];
-        }
-    };
 
     public String getCO_Identifying() {
         return CO_Identifying;
@@ -117,11 +73,11 @@ public class OrderCanshu implements Parcelable {
         this.CC_GID = CC_GID;
     }
 
-    public String getEM_GIDList() {
+    public List<String> getEM_GIDList() {
         return EM_GIDList;
     }
 
-    public void setEM_GIDList(String EM_GIDList) {
+    public void setEM_GIDList(List<String> EM_GIDList) {
         this.EM_GIDList = EM_GIDList;
     }
 
@@ -331,45 +287,6 @@ public class OrderCanshu implements Parcelable {
 
     public void setSM_Contacter(String SM_Contacter) {
         this.SM_Contacter = SM_Contacter;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(CC_GID);
-        parcel.writeString(EM_GIDList);
-        parcel.writeString(PayPoint);
-        parcel.writeString(DisMoney);
-        parcel.writeString(VCH_Money);
-        parcel.writeString(VCH_Point);
-        parcel.writeString(CO_SSMoney);
-        parcel.writeString(CO_ZLMoney);
-        parcel.writeString(CO_ActivityName);
-        parcel.writeString(CO_ActivityValue);
-        parcel.writeString(CO_Discount);
-        parcel.writeString(GID);
-        parcel.writeString(VIP_GID);
-        parcel.writeString(VIP_Card);
-        parcel.writeString(VIP_Name);
-        parcel.writeString(VIP_Phone);
-        parcel.writeString(VIP_FaceNumber);
-        parcel.writeString(CO_OrderCode);
-        parcel.writeString(CO_ConsumeWay);
-        parcel.writeString(CO_Monetary);
-        parcel.writeString(CO_TotalPrice);
-        parcel.writeString(CO_Integral);
-        parcel.writeString(CO_Type);
-        parcel.writeString(CO_Creator);
-        parcel.writeString(CO_UpdateTime);
-        parcel.writeString(CY_GID);
-        parcel.writeString(SM_Name);
-        parcel.writeString(SM_Contacter);
-        parcel.writeString(CO_Identifying);
-        parcel.writeString(CO_IdentifyingState);
     }
 
     public static class ViewGoodsDetailBean implements Serializable {
@@ -583,4 +500,94 @@ public class OrderCanshu implements Parcelable {
             this.GOD_Type = GOD_Type;
         }
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeList(this.ViewGoodsDetail);
+        dest.writeString(this.CC_GID);
+        dest.writeStringList(this.EM_GIDList);
+        dest.writeString(this.PayPoint);
+        dest.writeString(this.DisMoney);
+        dest.writeString(this.VCH_Money);
+        dest.writeString(this.VCH_Point);
+        dest.writeString(this.CO_SSMoney);
+        dest.writeString(this.CO_ZLMoney);
+        dest.writeString(this.CO_ActivityName);
+        dest.writeString(this.CO_ActivityValue);
+        dest.writeString(this.CO_Discount);
+        dest.writeString(this.GID);
+        dest.writeString(this.VIP_GID);
+        dest.writeString(this.VIP_Card);
+        dest.writeString(this.VIP_Name);
+        dest.writeString(this.VIP_Phone);
+        dest.writeString(this.VIP_FaceNumber);
+        dest.writeString(this.CO_OrderCode);
+        dest.writeString(this.CO_ConsumeWay);
+        dest.writeString(this.CO_Monetary);
+        dest.writeString(this.CO_TotalPrice);
+        dest.writeString(this.CO_Integral);
+        dest.writeString(this.CO_Type);
+        dest.writeString(this.CO_Creator);
+        dest.writeString(this.CO_UpdateTime);
+        dest.writeString(this.CY_GID);
+        dest.writeString(this.SM_Name);
+        dest.writeString(this.SM_Contacter);
+        dest.writeString(this.CO_Identifying);
+        dest.writeString(this.CO_IdentifyingState);
+    }
+
+    public OrderCanshu() {
+    }
+
+    protected OrderCanshu(Parcel in) {
+        this.ViewGoodsDetail = new ArrayList<ViewGoodsDetailBean>();
+        in.readList(this.ViewGoodsDetail, ViewGoodsDetailBean.class.getClassLoader());
+        this.CC_GID = in.readString();
+        this.EM_GIDList = in.createStringArrayList();
+        this.PayPoint = in.readString();
+        this.DisMoney = in.readString();
+        this.VCH_Money = in.readString();
+        this.VCH_Point = in.readString();
+        this.CO_SSMoney = in.readString();
+        this.CO_ZLMoney = in.readString();
+        this.CO_ActivityName = in.readString();
+        this.CO_ActivityValue = in.readString();
+        this.CO_Discount = in.readString();
+        this.GID = in.readString();
+        this.VIP_GID = in.readString();
+        this.VIP_Card = in.readString();
+        this.VIP_Name = in.readString();
+        this.VIP_Phone = in.readString();
+        this.VIP_FaceNumber = in.readString();
+        this.CO_OrderCode = in.readString();
+        this.CO_ConsumeWay = in.readString();
+        this.CO_Monetary = in.readString();
+        this.CO_TotalPrice = in.readString();
+        this.CO_Integral = in.readString();
+        this.CO_Type = in.readString();
+        this.CO_Creator = in.readString();
+        this.CO_UpdateTime = in.readString();
+        this.CY_GID = in.readString();
+        this.SM_Name = in.readString();
+        this.SM_Contacter = in.readString();
+        this.CO_Identifying = in.readString();
+        this.CO_IdentifyingState = in.readString();
+    }
+
+    public static final Creator<OrderCanshu> CREATOR = new Creator<OrderCanshu>() {
+        @Override
+        public OrderCanshu createFromParcel(Parcel source) {
+            return new OrderCanshu(source);
+        }
+
+        @Override
+        public OrderCanshu[] newArray(int size) {
+            return new OrderCanshu[size];
+        }
+    };
 }

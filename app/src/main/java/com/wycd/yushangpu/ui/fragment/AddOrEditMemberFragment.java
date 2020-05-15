@@ -224,6 +224,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
             et_VIP_Name.setText("");
             et_VIP_FaceNumber.setText("");
             et_VIP_Overdue.setText("");
+            et_VIP_Overdue.setTag("");
             et_VIP_ICCard.setText("");
             et_MA_AggregateAmount.setText("0");
             et_VIP_Referee.setText("");
@@ -236,6 +237,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
             et_VCH_Pwd.setText("");
             et_VCH_Pwd_Confirm.setText("");
             et_VIP_Birthday.setText("");
+            et_VIP_Birthday.setTag("");
             et_MA_AvailableIntegral.setText("0");
             et_SM_Name.setText(MyApplication.loginBean.getSM_Name());
             et_SM_Name.setTag(MyApplication.loginBean.getShopID());
@@ -250,6 +252,9 @@ public class AddOrEditMemberFragment extends BaseFragment {
             et_VCH_Pwd_Confirm.setEnabled(true);
             et_MA_AggregateAmount.setEnabled(true);
             rootView.findViewById(R.id.et_select_EM_Name).setEnabled(false);
+            rootView.findViewById(R.id.et_select_EM_Name).setSelected(false);
+            ((TextView) rootView.findViewById(R.id.et_select_EM_Name))
+                    .setTextColor(homeActivity.getResources().getColor(R.color.color_999999));
             et_MA_AvailableIntegral.setEnabled(true);
             et_VCH_Fee.setEnabled(true);
             tv_select_Pay_Way.setEnabled(true);
@@ -264,6 +269,9 @@ public class AddOrEditMemberFragment extends BaseFragment {
             et_VCH_Pwd_Confirm.setEnabled(false);
             et_MA_AggregateAmount.setEnabled(false);
             rootView.findViewById(R.id.et_select_EM_Name).setEnabled(false);
+            rootView.findViewById(R.id.et_select_EM_Name).setSelected(false);
+            ((TextView) rootView.findViewById(R.id.et_select_EM_Name))
+                    .setTextColor(homeActivity.getResources().getColor(R.color.color_999999));
             et_MA_AvailableIntegral.setEnabled(false);
             et_VCH_Fee.setEnabled(false);
             tv_select_Pay_Way.setEnabled(false);
@@ -275,6 +283,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
             et_VIP_Name.setText(vipInfoMsg.getVIP_Name());
             et_VIP_FaceNumber.setText(vipInfoMsg.getVIP_FaceNumber());
             et_VIP_Overdue.setText(vipInfoMsg.getVIP_Overdue());
+            et_VIP_Overdue.setTag(vipInfoMsg.getVIP_Overdue());
             et_VIP_ICCard.setText(vipInfoMsg.getVIP_ICCard());
             et_MA_AggregateAmount.setText(vipInfoMsg.getMA_AggregateAmount() + "");
             et_VIP_Referee.setText(vipInfoMsg.getVIP_Referee());
@@ -287,6 +296,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
             et_VCH_Pwd.setText("......");
             et_VCH_Pwd_Confirm.setText("......");
             et_VIP_Birthday.setText(vipInfoMsg.getVIP_Birthday());
+            et_VIP_Birthday.setTag(vipInfoMsg.getVIP_Birthday());
             et_MA_AvailableIntegral.setText(vipInfoMsg.getMA_AvailableIntegral() + "");
             et_SM_Name.setText(vipInfoMsg.getSM_Name());
             et_VCH_Fee.setText(vipInfoMsg.getVCH_Fee() + "");
@@ -396,6 +406,9 @@ public class AddOrEditMemberFragment extends BaseFragment {
                     case 301: //员工提成
                         if (vipInfoMsg == null && sysSwitchListBean.getSS_State() == 1) {
                             rootView.findViewById(R.id.et_select_EM_Name).setEnabled(true);
+                            rootView.findViewById(R.id.et_select_EM_Name).setSelected(true);
+                            ((TextView) rootView.findViewById(R.id.et_select_EM_Name))
+                                    .setTextColor(homeActivity.getResources().getColor(R.color.white));
                         }
                         break;
                 }
@@ -489,7 +502,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
 
     @OnClick({R.id.tv_title, R.id.fl_cancel, R.id.tv_basic_data, R.id.tv_costomfields, R.id.tv_VIP_Sex_0, R.id.tv_VIP_Sex_1,
             R.id.et_select_VIP_Referee, R.id.et_select_EM_Name, R.id.fl_submit, R.id.et_VIP_Overdue, R.id.et_VIP_Birthday,
-            R.id.et_VCH_CreateTime, R.id.et_VG_GID, R.id.et_VIP_Label, R.id.tv_select_Pay_Way, R.id.bg_upload_img})
+            R.id.tv_select_birthday_type, R.id.et_VCH_CreateTime, R.id.et_VG_GID, R.id.et_VIP_Label, R.id.tv_select_Pay_Way, R.id.bg_upload_img})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_title:
@@ -574,6 +587,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                 }
                 break;
             case R.id.et_VIP_Birthday://会员生日
+            case R.id.tv_select_birthday_type:
                 CalendarSelector mCalendarSelector1 = new CalendarSelector(homeActivity, 0, new CalendarSelector.ICalendarSelectorCallBack() {
                     @Override
                     public void transmitPeriod(HashMap<String, String> result) {
@@ -837,11 +851,11 @@ public class AddOrEditMemberFragment extends BaseFragment {
         params.put("VIP_Addr", mAddress);
         params.put("VIP_Remark", mRemark);
         params.put("VIP_FaceNumber", mcardId);//卡面号码
-        params.put("VIP_Overdue", mOverdueDate + " 23:59:59");//过期日期
+        params.put("VIP_Overdue", mOverdueDate == null ? "" : (mOverdueDate + " 23:59:59"));//过期日期
         params.put("VCH_CreateTime", et_VCH_CreateTime.getTag());//开发日期
         for (int i = 0; i < costomfields.size(); i++) {//自定义属性
-            params.put("FildsId[" + i + "]", costomfields.get(i).getCF_GID());
-            params.put("FildsValue[" + i + "]", costomfields.get(i).getM_ItemsValue() == null ? ""
+            params.put("FildsId[]", costomfields.get(i).getCF_GID());
+            params.put("FildsValue[]", costomfields.get(i).getM_ItemsValue() == null ? ""
                     : costomfields.get(i).getM_ItemsValue());
         }
 
@@ -859,7 +873,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
             params.put("VCH_Fee_PayTypeText", mPayTypeName);
             params.put("MA_AvailableIntegral", Integer.parseInt(mInitPoint));//初始积分
             params.put("MA_AggregateAmount", mInitMoney);//初始金额
-            if (TextUtils.isEmpty(mStaffListGid)) {//提成员工GID
+            if (!TextUtils.isEmpty(mStaffListGid)) {//提成员工GID
                 params.put("EM_GIDList[]", mStaffListGid);
             }
             if (!TextUtils.isEmpty(et_VCH_Pwd.getText().toString())) {
@@ -1229,7 +1243,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
         }
         if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T452.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//电子邮箱
         }
-        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T451.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//身份证号
+        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T453.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//身份证号
             rootView.findViewById(R.id.ly_VIP_ICCard).setVisibility(View.GONE);
         }
         if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T454.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {////固定电话

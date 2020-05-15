@@ -337,11 +337,11 @@ public class VipMemberFragment extends BaseFragment {
         }
         if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T452.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//电子邮箱
         }
-        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T451.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//身份证号
+        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T453.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//身份证号
             rootView.findViewById(R.id.tv_ic_card).setVisibility(View.GONE);
             rootView.findViewById(R.id.tv_ic_card_title).setVisibility(View.GONE);
         }
-        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T454.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {////固定电话
+        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T454.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//固定电话
         }
         if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T455.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//推荐人
             rootView.findViewById(R.id.tv_referee).setVisibility(View.GONE);

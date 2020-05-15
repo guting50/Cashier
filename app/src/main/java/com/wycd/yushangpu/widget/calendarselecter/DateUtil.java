@@ -46,7 +46,8 @@ public class DateUtil {
         }
         return m;
     }
-    public static String dayToDayName(String day){
+
+    public static String dayToDayName(String day) {
         String n = day;
 
         if ("1".equals(day)) {
@@ -73,7 +74,7 @@ public class DateUtil {
             n = "十一";
         } else if ("12".equals(day)) {
             n = "十二";
-        }else if ("13".equals(day)) {
+        } else if ("13".equals(day)) {
             n = "十三";
         } else if ("14".equals(day)) {
             n = "十四";
@@ -93,7 +94,7 @@ public class DateUtil {
             n = "廿一";
         } else if ("22".equals(day)) {
             n = "廿二";
-        }else if ("23".equals(day)) {
+        } else if ("23".equals(day)) {
             n = "廿三";
         } else if ("24".equals(day)) {
             n = "廿四";
@@ -143,7 +144,7 @@ public class DateUtil {
         List<Integer> list = new ArrayList<>();
         list.add(Integer.parseInt(dates[0]));
         list.add(Integer.parseInt(dates[1]));
-        list.add(Integer.parseInt(dates[2]));
+        list.add(Integer.parseInt(dates[2].split(" ")[0]));
         Log.e("dialog------", list.toString());
         return list;
     }
@@ -151,7 +152,7 @@ public class DateUtil {
     public static List<String> getStringForlist(String str) {
         String[] strs = str.split("\\|");
         List<String> list = new ArrayList<>();
-        for (int i = 0;i<strs.length;i++){
+        for (int i = 0; i < strs.length; i++) {
             list.add(strs[i]);
         }
         return list;
