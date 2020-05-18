@@ -1094,6 +1094,7 @@ public class JiesuanBFragment extends BaseFragment {
 
                 @Override
                 public void onResponse(Object response) {
+                    homeActivity.dialog.show();
                     obtainOrderPayResult();
                     saomaDialog.saomaPay(response.toString(), smPayMoney + "", GID, CO_OrderCode, result,
                             orderType, new InterfaceBack() {
@@ -1101,6 +1102,9 @@ public class JiesuanBFragment extends BaseFragment {
                                 public void onResponse(Object response) {
                                     paySuccess();
                                     saomaDialog.dismiss();
+                                    back.onResponse(response);
+
+                                    homeActivity.dialog.dismiss();
                                 }
 
                                 @Override
@@ -1112,6 +1116,7 @@ public class JiesuanBFragment extends BaseFragment {
                                     resetPayBg(mLiSaoma, PayMode.SMZF.getStr(), false);
                                     if (saomaDialog != null && saomaDialog.isShowing())
                                         saomaDialog.dismiss();
+                                    homeActivity.dialog.dismiss();
                                 }
                             });
                 }
