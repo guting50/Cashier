@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.reflect.TypeToken;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
@@ -202,7 +203,7 @@ public class SaomaDialog {
                                                                 back.onErrorResponse(response.getMsg());
                                                             }
                                                         } else {
-                                                            com.blankj.utilcode.util.ToastUtils.showShort("支付中");
+                                                            ToastUtils.showLong("支付中");
                                                         }
                                                     }
                                                 });

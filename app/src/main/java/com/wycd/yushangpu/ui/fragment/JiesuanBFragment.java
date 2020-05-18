@@ -43,7 +43,6 @@ import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpOrderPay;
 import com.wycd.yushangpu.model.ImpParamLoading;
-import com.wycd.yushangpu.model.ImpSaoma;
 import com.wycd.yushangpu.tools.CacheData;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.DateTimeUtil;
@@ -63,7 +62,6 @@ import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -1096,6 +1094,7 @@ public class JiesuanBFragment extends BaseFragment {
 
                 @Override
                 public void onResponse(Object response) {
+                    obtainOrderPayResult();
                     saomaDialog.saomaPay(response.toString(), smPayMoney + "", GID, CO_OrderCode, result,
                             orderType, new InterfaceBack() {
                                 @Override
