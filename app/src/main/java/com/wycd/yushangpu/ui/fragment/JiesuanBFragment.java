@@ -1088,87 +1088,31 @@ public class JiesuanBFragment extends BaseFragment {
      *
      * @param smPayMoney
      */
-    Dialog saomaDialog;
+    SaomaDialog saomaDialog;
 
     private void showSaomaDialog(final double smPayMoney) {
         if (mLiSaoma.getTag() != null && (saomaDialog == null || !saomaDialog.isShowing())) {
-            saomaDialog = SaomaDialog.saomaDialog(context, smPayMoney + "", 1, new InterfaceBack() {
+            saomaDialog = new SaomaDialog(context, smPayMoney + "", 1, new InterfaceBack() {
+
                 @Override
                 public void onResponse(Object response) {
-                    obtainOrderPayResult();
-                    ImpSaoma saoma = new ImpSaoma();
-                    saoma.saomaPay(response.toString(), smPayMoney + "", GID, CO_OrderCode, result,
-                            orderType, new InterfaceBack<String>() {
+                    saomaDialog.saomaPay(response.toString(), smPayMoney + "", GID, CO_OrderCode, result,
+                            orderType, new InterfaceBack() {
                                 @Override
-                                public void onResponse(String response) {
-                                    System.out.println("==========扫码支付成功 (免密) =============== ");
+                                public void onResponse(Object response) {
                                     paySuccess();
-                                    back.onResponse(response);
-                                    if (saomaDialog != null)
-                                        saomaDialog.dismiss();
+                                    saomaDialog.dismiss();
                                 }
 
                                 @Override
                                 public void onErrorResponse(Object msg) {
-                                    if (msg instanceof BaseRes) {
-                                        BaseRes baseRes = (BaseRes) msg;
-                                        if (("410004").equals(baseRes.getCode())) {
-                                            Type type = new TypeToken<Map<String, Object>>() {
-                                            }.getType();
-                                            Map<String, Object> map = baseRes.getData(type);
-                                            String gid = map.get("GID").toString();
-                                            Timer timer = new Timer();
-                                            timer.schedule(new TimerTask() {
-                                                @Override
-                                                public void run() {
-                                                    getActivity().runOnUiThread(new Runnable() {
-                                                        @Override
-                                                        public void run() {
-                                                            saoma.saomaPayQuery(gid, new InterfaceBack<BaseRes>() {
-                                                                @Override
-                                                                public void onResponse(BaseRes response) {
-                                                                    checkPayResult(response);
-                                                                }
-
-                                                                @Override
-                                                                public void onErrorResponse(Object msg) {
-                                                                    if (msg instanceof BaseRes) {
-                                                                        checkPayResult((BaseRes) msg);
-                                                                    } else {
-                                                                        timer.cancel();
-                                                                        saomaPayError(null);
-                                                                    }
-                                                                }
-
-                                                                public void checkPayResult(BaseRes response) {
-                                                                    if (!("410004").equals(response.getCode())) {
-                                                                        timer.cancel();
-                                                                        if (response.isSuccess()) {
-                                                                            System.out.println("==========扫码支付成功=============== ");
-                                                                            Map<String, Object> map = response.getData(type);
-                                                                            String Order_GID = map.get("Order_GID").toString();
-                                                                            paySuccess();
-                                                                            back.onResponse(Order_GID);
-                                                                            if (saomaDialog != null)
-                                                                                saomaDialog.dismiss();
-                                                                        } else {
-                                                                            saomaPayError(response.getMsg());
-                                                                        }
-                                                                    } else {
-                                                                        com.blankj.utilcode.util.ToastUtils.showShort("支付中");
-                                                                    }
-                                                                }
-                                                            });
-                                                        }
-                                                    });
-                                                }
-                                            }, 2000, 2000);
-                                        } else {
-                                            saomaPayError(baseRes.getMsg());
-                                        }
-                                    } else {
-                                        saomaPayError(null);
+                                    if (msg == null) {
+                                        msg = "扫码支付失败";
                                     }
+                                    ToastUtils.showLong(msg.toString());
+                                    resetPayBg(mLiSaoma, PayMode.SMZF.getStr(), false);
+                                    if (saomaDialog != null && saomaDialog.isShowing())
+                                        saomaDialog.dismiss();
                                 }
                             });
                 }
@@ -1176,16 +1120,6 @@ public class JiesuanBFragment extends BaseFragment {
                 @Override
                 public void onErrorResponse(Object msg) {
                     resetPayBg(mLiSaoma, PayMode.SMZF.getStr(), false);
-                }
-
-                public void saomaPayError(String msg) {
-                    if (TextUtils.isEmpty(msg)) {
-                        msg = "扫码支付失败";
-                    }
-                    com.blankj.utilcode.util.ToastUtils.showShort(msg);
-                    resetPayBg(mLiSaoma, PayMode.SMZF.getStr(), false);
-                    if (saomaDialog != null && saomaDialog.isShowing())
-                        saomaDialog.dismiss();
                 }
             });
         }

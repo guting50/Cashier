@@ -9,7 +9,6 @@
     android:orientation="vertical"
     tools:ignore="MissingDefaultResource">
 
-    <!--        android:layout_marginLeft="350dp"-->
     <com.gt.utils.widget.BgLayout
         android:id="@+id/jiesuan_layout"
         android:layout_width="match_parent"

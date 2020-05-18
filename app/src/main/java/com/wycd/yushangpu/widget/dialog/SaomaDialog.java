@@ -15,11 +15,22 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ActivityUtils;
+import com.google.gson.reflect.TypeToken;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
+import com.wycd.yushangpu.bean.OrderPayResult;
+import com.wycd.yushangpu.http.BaseRes;
 import com.wycd.yushangpu.http.InterfaceBack;
+import com.wycd.yushangpu.model.ImpSaoma;
 import com.wycd.yushangpu.tools.LogUtils;
+import com.wycd.yushangpu.ui.fragment.JiesuanBFragment;
 import com.wycd.yushangpu.widget.views.ClearEditText;
+
+import java.lang.reflect.Type;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -27,8 +38,9 @@ import com.wycd.yushangpu.widget.views.ClearEditText;
  */
 
 public class SaomaDialog {
-    public static Dialog saomaDialog(final Activity context, String money, int showingLocation, final InterfaceBack back) {
-        final Dialog dialog;
+    private Dialog dialog;
+
+    public SaomaDialog(final Activity context, String money, int showingLocation, final InterfaceBack back) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.dialog_saomapay, null);
         final ClearEditText et_saoma = (ClearEditText) view.findViewById(R.id.et_saoma);
@@ -125,7 +137,87 @@ public class SaomaDialog {
             }
         }
         et_saoma.requestFocus();
-        return dialog;
+    }
+
+    public boolean isShowing() {
+        return dialog.isShowing();
+    }
+
+    public void dismiss() {
+        dialog.dismiss();
+    }
+
+    public void saomaPay(String Code, String smPayMoney, String OrderGID, String OrderNo, OrderPayResult orderPayResult,
+                         JiesuanBFragment.OrderType orderType, InterfaceBack back) {
+        ImpSaoma saoma = new ImpSaoma();
+        saoma.saomaPay(Code, smPayMoney, OrderGID, OrderNo, orderPayResult,
+                orderType, new InterfaceBack<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        System.out.println("==========扫码支付成功 (免密) =============== ");
+                        back.onResponse(response);
+                    }
+
+                    @Override
+                    public void onErrorResponse(Object msg) {
+                        if (msg instanceof BaseRes) {
+                            BaseRes baseRes = (BaseRes) msg;
+                            if (("410004").equals(baseRes.getCode())) {
+                                Type type = new TypeToken<Map<String, Object>>() {
+                                }.getType();
+                                Map<String, Object> map = baseRes.getData(type);
+                                String gid = map.get("GID").toString();
+                                Timer timer = new Timer();
+                                timer.schedule(new TimerTask() {
+                                    @Override
+                                    public void run() {
+                                        ActivityUtils.getTopActivity().runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                saoma.saomaPayQuery(gid, new InterfaceBack<BaseRes>() {
+                                                    @Override
+                                                    public void onResponse(BaseRes response) {
+                                                        checkPayResult(response);
+                                                    }
+
+                                                    @Override
+                                                    public void onErrorResponse(Object msg) {
+                                                        if (msg instanceof BaseRes) {
+                                                            checkPayResult((BaseRes) msg);
+                                                        } else {
+                                                            timer.cancel();
+                                                            back.onErrorResponse(null);
+                                                        }
+                                                    }
+
+                                                    public void checkPayResult(BaseRes response) {
+                                                        if (!("410004").equals(response.getCode())) {
+                                                            timer.cancel();
+                                                            if (response.isSuccess()) {
+                                                                System.out.println("==========扫码支付成功=============== ");
+                                                                Map<String, Object> map = response.getData(type);
+                                                                String Order_GID = map.get("Order_GID").toString();
+                                                                back.onResponse(Order_GID);
+                                                            } else {
+                                                                back.onErrorResponse(response.getMsg());
+                                                            }
+                                                        } else {
+                                                            com.blankj.utilcode.util.ToastUtils.showShort("支付中");
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                }, 2000, 2000);
+                            } else {
+                                back.onErrorResponse(baseRes.getMsg());
+                            }
+                        } else {
+                            back.onErrorResponse(null);
+                        }
+                    }
+                });
     }
 
     /**
