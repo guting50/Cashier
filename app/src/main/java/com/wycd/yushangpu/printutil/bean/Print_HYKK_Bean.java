@@ -119,7 +119,7 @@ public class Print_HYKK_Bean {
         private Object TS_SurplusTimes;
         private String VIP_FaceNumber;
         private Object PayInfo;
-        private int VCH_Fee;
+        private double VCH_Fee;
         private double InitialAmount;
         private double InitialIntegral;
         private String Remark;
@@ -374,11 +374,11 @@ public class Print_HYKK_Bean {
             this.PayInfo = PayInfo;
         }
 
-        public int getVCH_Fee() {
+        public double getVCH_Fee() {
             return VCH_Fee;
         }
 
-        public void setVCH_Fee(int VCH_Fee) {
+        public void setVCH_Fee(double VCH_Fee) {
             this.VCH_Fee = VCH_Fee;
         }
 

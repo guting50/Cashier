@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.CacheDoubleUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -33,6 +34,8 @@ import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.EmplMsg;
 import com.wycd.yushangpu.bean.LabelBean;
 import com.wycd.yushangpu.bean.MemberLabel;
+import com.wycd.yushangpu.bean.OrderPayResult;
+import com.wycd.yushangpu.bean.PayType;
 import com.wycd.yushangpu.bean.ReportMessageBean;
 import com.wycd.yushangpu.bean.SysSwitchRes;
 import com.wycd.yushangpu.bean.VipInfoMsg;
@@ -52,6 +55,7 @@ import com.wycd.yushangpu.tools.RegexUtil;
 import com.wycd.yushangpu.widget.MaxHeightRecyclerView;
 import com.wycd.yushangpu.widget.calendarselecter.CalendarSelector;
 import com.wycd.yushangpu.widget.calendarselecter.DateUtil;
+import com.wycd.yushangpu.widget.dialog.SaomaDialog;
 import com.wycd.yushangpu.widget.dialog.ShopDetailDialog;
 import com.wycd.yushangpu.widget.dialog.VipChooseDialog;
 
@@ -710,7 +714,10 @@ public class AddOrEditMemberFragment extends BaseFragment {
                 break;
             case R.id.fl_submit://提交
                 if (getTextValue()) {
-                    addMemberPost();
+                    if ("SMZF".equals(mPayTypeCode)) {
+                        showSaomaDialog(mMoney);
+                    } else
+                        addMemberPost();
                 }
                 break;
         }
@@ -925,6 +932,54 @@ public class AddOrEditMemberFragment extends BaseFragment {
                 }
             }
         });
+    }
+
+    SaomaDialog saomaDialog;
+
+    private void showSaomaDialog(final double smPayMoney) {
+        if (saomaDialog == null || !saomaDialog.isShowing()) {
+            saomaDialog = new SaomaDialog(homeActivity, smPayMoney + "", 1, new InterfaceBack() {
+
+                @Override
+                public void onResponse(Object response) {
+                    homeActivity.dialog.show();
+                    OrderPayResult result = new OrderPayResult();
+                    result = new OrderPayResult();
+                    //找零
+                    result.setGiveChange(0);
+                    result.setPayTotalMoney(smPayMoney);
+                    result.setDisMoney(smPayMoney);
+                    List<PayType> typeList = new ArrayList<>();
+                    PayType p = new PayType();
+                    p.setPayCode("SMZF");
+                    p.setPayMoney(smPayMoney);
+                    p.setPayName("扫码支付");
+                    result.setPayTypeList(typeList);
+                    String OrderCode = "202041215117";
+                    saomaDialog.saomaPay(response.toString(), smPayMoney + "", OrderCode, OrderCode, result,
+                            JiesuanBFragment.OrderType.ADDO_MEMBER, new InterfaceBack() {
+                                @Override
+                                public void onResponse(Object response) {
+                                    saomaDialog.dismiss();
+                                    addMemberPost();
+
+                                    homeActivity.dialog.dismiss();
+                                }
+
+                                @Override
+                                public void onErrorResponse(Object msg) {
+                                    if (msg == null) {
+                                        msg = "扫码支付失败";
+                                    }
+                                    ToastUtils.showLong(msg.toString());
+                                    if (saomaDialog != null && saomaDialog.isShowing())
+                                        saomaDialog.dismiss();
+                                    homeActivity.dialog.dismiss();
+                                }
+                            });
+                }
+            });
+        }
     }
 
     private void warnDialog(String msg) {

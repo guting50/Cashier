@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 import static com.wycd.yushangpu.MyApplication.shortMessage;
-import static com.wycd.yushangpu.ui.fragment.JiesuanBFragment.OrderType.MEM_RECHARGE_PAY;
 
 /**
  * 扫码支付
@@ -39,11 +38,20 @@ public class ImpSaoma {
         params.put("Code", Code);
         params.put("Money", Money);
         params.put("OrderGID", OrderGID);
-        //10商品消费 20充次 30计时消费 40 充值 50 套餐消费 60快速消费
-        if (orderType == MEM_RECHARGE_PAY) {
-            params.put("OrderType", 40);
-        } else {
-            params.put("OrderType", 10);
+        //10商品消费 15会员开卡 20充次 30计时消费 40 充值 50 套餐消费 60快速消费 70:一键加油
+        switch (orderType) {
+            case CONSUM_ORDER:
+                params.put("OrderType", 10);
+                break;
+            case ADDO_MEMBER:
+                params.put("OrderType", 15);
+                break;
+            case MEM_RECHARGE_PAY:
+                params.put("OrderType", 40);
+                break;
+            case CELERITY_ORDER:
+                params.put("OrderType", 60);
+                break;
         }
         params.put("OrderNo", OrderNo);
         params.put("Smsg", shortMessage);

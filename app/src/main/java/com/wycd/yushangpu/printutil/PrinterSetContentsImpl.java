@@ -3,7 +3,6 @@ package com.wycd.yushangpu.printutil;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.printutil.bean.CK_Success_Bean;
 import com.wycd.yushangpu.printutil.bean.HandDutyBean;
@@ -76,7 +75,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
     }
 
 
-    private List<byte[]> getSPXFList(Print_SPXF_Bean printBean){
+    private List<byte[]> getSPXFList(Print_SPXF_Bean printBean) {
         try {
             List<Print_SPXF_Bean.DataBean.GoodsListBean> goodList = printBean.getData().getGoodsList();
             List<byte[]> list = new ArrayList<>();
@@ -144,10 +143,10 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                     list.add(left);
                     list.add(goodList.get(i).getPM_Name().getBytes("gb2312"));
                     list.add(nextLine1);
-                    list.add((bank + "      ￥" + Decima2KeeplUtil.stringToDecimal(goodList.get(i).getPM_UnitPrice()+"")).getBytes("gb2312"));
-                    list.add((bank + Decima2KeeplUtil.stringToDecimal(goodList.get(i).getPM_Number()+"")).getBytes("gb2312"));
+                    list.add((bank + "      ￥" + Decima2KeeplUtil.stringToDecimal(goodList.get(i).getPM_UnitPrice() + "")).getBytes("gb2312"));
+                    list.add((bank + Decima2KeeplUtil.stringToDecimal(goodList.get(i).getPM_Number() + "")).getBytes("gb2312"));
                     if (MyApplication.mGoodsConsumeMap.containsKey("折扣")) {
-                        list.add((bank + " " + Decima2KeeplUtil.stringToDecimal(goodList.get(i).getPM_Discount()+"")).getBytes("gb2312"));
+                        list.add((bank + " " + Decima2KeeplUtil.stringToDecimal(goodList.get(i).getPM_Discount() + "")).getBytes("gb2312"));
                     }
                     list.add((bank + "￥" + Decima2KeeplUtil.stringToDecimal(goodList.get(i).getGOD_DiscountPrice() + "")).getBytes("gb2312"));
                     list.add(nextLine1);
@@ -335,9 +334,9 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                     list.add(left);
                     list.add(goodList.get(i).getPM_Name().getBytes("gb2312"));
                     list.add(nextLine1);
-                    list.add((bank + "       ￥" + Decima2KeeplUtil.stringToDecimal(goodList.get(i).getPM_UnitPrice()+"")).getBytes("gb2312"));
-                    list.add((bank + Decima2KeeplUtil.stringToDecimal(goodList.get(i).getPM_Number()+"")).getBytes("gb2312"));
-                    list.add((bank + " " + Decima2KeeplUtil.stringToDecimal(goodList.get(i).getPM_Discount()+"")).getBytes("gb2312"));
+                    list.add((bank + "       ￥" + Decima2KeeplUtil.stringToDecimal(goodList.get(i).getPM_UnitPrice() + "")).getBytes("gb2312"));
+                    list.add((bank + Decima2KeeplUtil.stringToDecimal(goodList.get(i).getPM_Number() + "")).getBytes("gb2312"));
+                    list.add((bank + " " + Decima2KeeplUtil.stringToDecimal(goodList.get(i).getPM_Discount() + "")).getBytes("gb2312"));
                     list.add((bank + "￥" + Decima2KeeplUtil.stringToDecimal(goodList.get(i).getGOD_DiscountPrice() + "")).getBytes("gb2312"));
                     list.add(nextLine1);
                 }
@@ -468,7 +467,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 list.add(("折后金额:" + "￥" + Decima2KeeplUtil.stringToDecimal(String.valueOf(printBean.getData()
                         .getYSMoney()))).getBytes("gb2312"));
 
-                String str1 = printBean.getData().getActivityName()==null?"无":printBean.getData().getActivityName()+"";
+                String str1 = printBean.getData().getActivityName() == null ? "无" : printBean.getData().getActivityName() + "";
                 if (MyApplication.mFastConsumeMap.containsKey("优惠活动")) {
                     list.add(nextLine1);
                     list.add(left);
@@ -486,9 +485,9 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 if (MyApplication.mFastConsumeMap.containsKey("优惠金额")) {
                     list.add(nextLine1);
                     list.add(left);
-                    list.add(("优惠金额:" + Decima2KeeplUtil.stringToDecimal(String.valueOf(printBean.getData().getConsumeMoney()-printBean.getData()
-                                    .getYSMoney()
-                            ))).getBytes("gb2312"));
+                    list.add(("优惠金额:" + Decima2KeeplUtil.stringToDecimal(String.valueOf(printBean.getData().getConsumeMoney() - printBean.getData()
+                            .getYSMoney()
+                    ))).getBytes("gb2312"));
                 }
 
                 list.add(nextLine1);
@@ -523,22 +522,22 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 list.add(left);
                 list.add(mLine.getBytes("gb2312"));
 
-                String str =printBean.getData().getRemark()==null?"无":printBean.getData().getRemark();
+                String str = printBean.getData().getRemark() == null ? "无" : printBean.getData().getRemark();
                 if (MyApplication.mFastConsumeMap.containsKey("备注")) {
                     list.add(nextLine1);
                     list.add(left);
                     list.add(("备    注:" + str).getBytes("gb2312"));
                 }
                 String str2;
-                if (printBean.getData().getEMName()==null||printBean.getData().getEMName().equals("")){
+                if (printBean.getData().getEMName() == null || printBean.getData().getEMName().equals("")) {
                     str2 = "无";
-                }else {
+                } else {
                     str2 = printBean.getData().getEMName();
                 }
                 if (MyApplication.mFastConsumeMap.containsKey("服务员工")) {
                     list.add(nextLine1);
                     list.add(left);
-                    list.add(("服务员工:" +str2).getBytes("gb2312"));
+                    list.add(("服务员工:" + str2).getBytes("gb2312"));
                 }
                 if (MyApplication.mFastConsumeMap.containsKey("会员卡号")) {
                     list.add(nextLine1);
@@ -546,14 +545,14 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                     list.add(("会员卡号:" + printBean.getData().getVCH_Card()).getBytes("gb2312"));
                 }
 
-                String facenum = printBean.getData().getVIP_FaceNumber()==null?"无":printBean.getData().getVIP_FaceNumber();
+                String facenum = printBean.getData().getVIP_FaceNumber() == null ? "无" : printBean.getData().getVIP_FaceNumber();
                 if (MyApplication.mFastConsumeMap.containsKey("卡面卡号")) {
                     list.add(nextLine1);
                     list.add(left);
                     list.add(("卡面卡号:" + facenum).getBytes("gb2312"));
                 }
                 String memName = printBean.getData().getVIP_Name();
-                if (memName ==null||memName.equals("")){
+                if (memName == null || memName.equals("")) {
                     memName = "无";
                 }
                 if (MyApplication.mFastConsumeMap.containsKey("会员姓名")) {
@@ -709,25 +708,24 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
      */
     @Override
     public byte[] printBlueTooth_SPXF(final Print_SPXF_Bean printBean) {
-            myBinder.writeDataByUSB(new TaskCallback() {
-                @Override
-                public void OnSucceed() {
+        myBinder.writeDataByUSB(new TaskCallback() {
+            @Override
+            public void OnSucceed() {
 //                    Toast.makeText(MyApplication.getContext(),getString(R.string.con_success),Toast.LENGTH_SHORT).show();
-                }
+            }
 
-                @Override
-                public void OnFailed() {
+            @Override
+            public void OnFailed() {
 //                    Toast.makeText(MyApplication.getContext(),getString(R.string.con_failed),Toast.LENGTH_SHORT).show();
-                }
-                }, new ProcessData() {
-                @Override
-                public List<byte[]> processDataBeforeSend() {
-                    return getSPXFList(printBean);
-                }
-            });
+            }
+        }, new ProcessData() {
+            @Override
+            public List<byte[]> processDataBeforeSend() {
+                return getSPXFList(printBean);
+            }
+        });
         return null;
     }
-
 
 
     /**
@@ -742,7 +740,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
             List<byte[]> list = new ArrayList<>();
 
             if (!MyApplication.mRechargeMap.isEmpty()) {
-                if (MyApplication.mRechargeMap.containsKey("LOGO") && MyApplication.HYCZ_LOGO != null&& !MyApplication.HYCZ_LOGO.equals("")) {
+                if (MyApplication.mRechargeMap.containsKey("LOGO") && MyApplication.HYCZ_LOGO != null && !MyApplication.HYCZ_LOGO.equals("")) {
                     Bitmap bitmap = ESCUtil.scaleImage(MyApplication.HYCZ_LOGO);
                     list.add(nextLine1);
                     list.add(center);
@@ -796,11 +794,11 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 list.add(("充值合计:" + "￥" + Decima2KeeplUtil.stringToDecimal(String.valueOf(printBean
                         .getRechargeTotal()))).getBytes("gb2312"));
 
-                String STR = printBean.getActivityName() ==null?"无":printBean.getActivityName();
+                String STR = printBean.getActivityName() == null ? "无" : printBean.getActivityName();
                 if (MyApplication.mRechargeMap.containsKey("优惠活动")) {
                     list.add(nextLine1);
                     list.add(left);
-                    list.add(("优惠活动:" +STR).getBytes("gb2312"));
+                    list.add(("优惠活动:" + STR).getBytes("gb2312"));
                 }
 
                 if (MyApplication.mRechargeMap.containsKey("赠送积分")) {
@@ -842,7 +840,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 list.add(left);
                 list.add(mLine.getBytes("gb2312"));
 
-                String str =printBean.getRemark()==null?"无":printBean.getRemark();
+                String str = printBean.getRemark() == null ? "无" : printBean.getRemark();
                 if (MyApplication.mRechargeMap.containsKey("备注")) {
                     list.add(nextLine1);
                     list.add(left);
@@ -850,9 +848,9 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 }
 
                 String str2;
-                if (printBean.getEMName()==null||printBean.getEMName().equals("")){
+                if (printBean.getEMName() == null || printBean.getEMName().equals("")) {
                     str2 = "无";
-                }else {
+                } else {
                     str2 = printBean.getEMName();
                 }
                 if (MyApplication.mRechargeMap.containsKey("服务员工")) {
@@ -869,10 +867,10 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 if (MyApplication.mRechargeMap.containsKey("卡面卡号")) {
                     list.add(nextLine1);
                     list.add(left);
-                    list.add(("卡面卡号:" + (printBean.getVIP_FaceNumber() ==null?"无":printBean.getVIP_FaceNumber())).getBytes("gb2312"));
+                    list.add(("卡面卡号:" + (printBean.getVIP_FaceNumber() == null ? "无" : printBean.getVIP_FaceNumber())).getBytes("gb2312"));
                 }
                 String memName = printBean.getVIP_Name();
-                if (memName ==null||memName.equals("")){
+                if (memName == null || memName.equals("")) {
                     memName = "无";
                 }
                 if (MyApplication.mRechargeMap.containsKey("会员姓名")) {
@@ -915,7 +913,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                     list.add("谢谢惠顾,欢迎下次光临！".getBytes("gb2312"));
                 }
 
-                if (MyApplication.mRechargeMap.containsKey("二维码") && MyApplication.HYCZ_QR != null&& !MyApplication.HYCZ_QR.equals("")) {
+                if (MyApplication.mRechargeMap.containsKey("二维码") && MyApplication.HYCZ_QR != null && !MyApplication.HYCZ_QR.equals("")) {
                     Bitmap bitmap = ESCUtil.scaleImage(MyApplication.HYCZ_QR);
                     list.add(nextLine1);
                     list.add(center);
@@ -1097,23 +1095,23 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                     list.add(serviceList.get(i).getPM_Name().getBytes("gb2312"));
                     if (MyApplication.mTimesRechargeMap.containsKey("到期时间")) {
                         if (serviceList.get(i).getGOD_ExpireDate() != null) {
-                            list.add(("(" + serviceList.get(i).getGOD_ExpireDate()+"到期)").getBytes("gb2312"));
-                        }else {
+                            list.add(("(" + serviceList.get(i).getGOD_ExpireDate() + "到期)").getBytes("gb2312"));
+                        } else {
                             list.add(("(永久有效)").getBytes("gb2312"));
                         }
                     }
 
                     list.add(nextLine1);
-                    list.add((bank+"      ￥"+  Decima2KeeplUtil.stringToDecimal(serviceList.get(i).getPM_UnitPrice()+"")).getBytes("gb2312"));
+                    list.add((bank + "      ￥" + Decima2KeeplUtil.stringToDecimal(serviceList.get(i).getPM_UnitPrice() + "")).getBytes("gb2312"));
                     list.add((bank + serviceList.get(i).getPM_Number()).getBytes("gb2312"));
-                    list.add((bank+ "  "+serviceList.get(i).getPM_Discount()).getBytes("gb2312"));
-                    list.add((bank+"￥" + total).getBytes("gb2312"));
+                    list.add((bank + "  " + serviceList.get(i).getPM_Discount()).getBytes("gb2312"));
+                    list.add((bank + "￥" + total).getBytes("gb2312"));
                     list.add(nextLine1);
                 }
                 list.add(left);
                 list.add(mLine.getBytes("gb2312"));
 
-                String str1 = printBean.getData().getActivityName()==null?"无":printBean.getData().getActivityName()+"";
+                String str1 = printBean.getData().getActivityName() == null ? "无" : printBean.getData().getActivityName() + "";
                 if (MyApplication.mTimesRechargeMap.containsKey("优惠活动")) {
                     list.add(nextLine1);
                     list.add(left);
@@ -1130,7 +1128,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 if (MyApplication.mTimesRechargeMap.containsKey("优惠金额")) {
                     list.add(nextLine1);
                     list.add(left);
-                    list.add(("优惠金额:" + Decima2KeeplUtil.stringToDecimal(String.valueOf(alltatol-printBean.getData().getYSMoney()))).getBytes("gb2312"));
+                    list.add(("优惠金额:" + Decima2KeeplUtil.stringToDecimal(String.valueOf(alltatol - printBean.getData().getYSMoney()))).getBytes("gb2312"));
                 }
 
                 list.add(nextLine1);
@@ -1166,7 +1164,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 list.add(left);
                 list.add(mLine.getBytes("gb2312"));
 
-                String str =printBean.getData().getRemark()==null?"无":printBean.getData().getRemark();
+                String str = printBean.getData().getRemark() == null ? "无" : printBean.getData().getRemark();
                 if (MyApplication.mTimesRechargeMap.containsKey("备注")) {
                     list.add(nextLine1);
                     list.add(left);
@@ -1174,9 +1172,9 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 }
 
                 String str2;
-                if (printBean.getData().getEMName()==null||printBean.getData().getEMName().equals("")){
+                if (printBean.getData().getEMName() == null || printBean.getData().getEMName().equals("")) {
                     str2 = "无";
-                }else {
+                } else {
                     str2 = printBean.getData().getEMName();
                 }
                 if (MyApplication.mTimesRechargeMap.containsKey("服务员工")) {
@@ -1193,10 +1191,10 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 if (MyApplication.mTimesRechargeMap.containsKey("卡面卡号")) {
                     list.add(nextLine1);
                     list.add(left);
-                    list.add(("卡面卡号:" + (printBean.getData().getVIP_FaceNumber() ==null?"无":printBean.getData().getVIP_FaceNumber())).getBytes("gb2312"));
+                    list.add(("卡面卡号:" + (printBean.getData().getVIP_FaceNumber() == null ? "无" : printBean.getData().getVIP_FaceNumber())).getBytes("gb2312"));
                 }
                 String memName = printBean.getData().getVIP_Name();
-                if (memName ==null||memName.equals("")){
+                if (memName == null || memName.equals("")) {
                     memName = "无";
                 }
                 if (MyApplication.mTimesRechargeMap.containsKey("会员姓名")) {
@@ -1207,7 +1205,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 if (MyApplication.mTimesRechargeMap.containsKey("卡内余额")) {
                     list.add(nextLine1);
                     list.add(left);
-                    list.add(("卡内余额:" +  Decima2KeeplUtil.stringToDecimal(printBean.getData().getVCH_Money()+"")).getBytes("gb2312"));
+                    list.add(("卡内余额:" + Decima2KeeplUtil.stringToDecimal(printBean.getData().getVCH_Money() + "")).getBytes("gb2312"));
                 }
                 if (MyApplication.mTimesRechargeMap.containsKey("卡内积分")) {
                     list.add(nextLine1);
@@ -1274,10 +1272,10 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
 
                 list.add(nextLine1);
                 list.add(boldOn);
-                list.add(("商品名称"+bank).getBytes("gb2312"));
-                list.add(("单价"+bank).getBytes("gb2312"));
-                list.add(("数量"+bank).getBytes("gb2312"));
-                list.add(("折扣"+bank).getBytes("gb2312"));
+                list.add(("商品名称" + bank).getBytes("gb2312"));
+                list.add(("单价" + bank).getBytes("gb2312"));
+                list.add(("数量" + bank).getBytes("gb2312"));
+                list.add(("折扣" + bank).getBytes("gb2312"));
                 list.add("小计".getBytes("gb2312"));
                 list.add(boldOff);
                 list.add(nextLine1);
@@ -1286,13 +1284,13 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                     double price = serviceList.get(i).getPM_UnitPrice();
                     int num = serviceList.get(i).getPM_Number();
                     double discount = serviceList.get(i).getPM_Discount();
-                    String total =  Decima2KeeplUtil.stringToDecimal(CommonUtils.mul(CommonUtils.mul(price, num), discount)+"");
+                    String total = Decima2KeeplUtil.stringToDecimal(CommonUtils.mul(CommonUtils.mul(price, num), discount) + "");
                     list.add(serviceList.get(i).getPM_Name().getBytes("gb2312"));
                     list.add(nextLine1);
-                    list.add((bank+"      ￥" +  Decima2KeeplUtil.stringToDecimal(serviceList.get(i).getPM_UnitPrice()+"")).getBytes("gb2312"));
+                    list.add((bank + "      ￥" + Decima2KeeplUtil.stringToDecimal(serviceList.get(i).getPM_UnitPrice() + "")).getBytes("gb2312"));
                     list.add((bank + serviceList.get(i).getPM_Number()).getBytes("gb2312"));
-                    list.add((bank +"  " +serviceList.get(i).getPM_Discount()).getBytes("gb2312"));
-                    list.add((bank+"￥" + String.valueOf(total)).getBytes("gb2312"));
+                    list.add((bank + "  " + serviceList.get(i).getPM_Discount()).getBytes("gb2312"));
+                    list.add((bank + "￥" + String.valueOf(total)).getBytes("gb2312"));
                     list.add(nextLine1);
                 }
                 list.add(left);
@@ -1408,8 +1406,8 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
 
                 list.add(nextLine1);
                 list.add(boldOn);
-                list.add(("服务名称    "+bank+bank+bank).getBytes("gb2312"));
-                list.add(("使用  "+bank+bank).getBytes("gb2312"));
+                list.add(("服务名称    " + bank + bank + bank).getBytes("gb2312"));
+                list.add(("使用  " + bank + bank).getBytes("gb2312"));
                 list.add("剩余".getBytes("gb2312"));
                 list.add(boldOff);
 
@@ -1417,15 +1415,15 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 for (int i = 0; i < serviceList.size(); i++) {
                     list.add(serviceList.get(i).getSG_Name().getBytes("gb2312"));
                     list.add(nextLine1);
-                    list.add(("            "+bank+bank+bank+ + serviceList.get(i).getWOD_UseNumber() + "次").getBytes("gb2312"));
-                    list.add(("  "+bank+bank + serviceList.get(i).getWOD_ResidueDegree() + "次").getBytes("gb2312"));
+                    list.add(("            " + bank + bank + bank + +serviceList.get(i).getWOD_UseNumber() + "次").getBytes("gb2312"));
+                    list.add(("  " + bank + bank + serviceList.get(i).getWOD_ResidueDegree() + "次").getBytes("gb2312"));
                     list.add(nextLine1);
                 }
                 list.add(left);
                 list.add(mLine.getBytes("gb2312"));
 
 
-                String str1 = printBean.getData().getActivityName()==null?"无":printBean.getData().getActivityName()+"";
+                String str1 = printBean.getData().getActivityName() == null ? "无" : printBean.getData().getActivityName() + "";
                 if (MyApplication.mTimesConsumeMap.containsKey("优惠活动")) {
                     list.add(nextLine1);
                     list.add(left);
@@ -1439,16 +1437,16 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                             .getIntegralAdd()))).getBytes("gb2312"));
                 }
 
-                String str =printBean.getData().getRemark()==null?"无":printBean.getData().getRemark();
+                String str = printBean.getData().getRemark() == null ? "无" : printBean.getData().getRemark();
                 if (MyApplication.mTimesConsumeMap.containsKey("备注")) {
                     list.add(nextLine1);
                     list.add(left);
                     list.add(("备    注:" + str).getBytes("gb2312"));
                 }
                 String str2;
-                if (printBean.getData().getEMName()==null||printBean.getData().getEMName().equals("")){
+                if (printBean.getData().getEMName() == null || printBean.getData().getEMName().equals("")) {
                     str2 = "无";
-                }else {
+                } else {
                     str2 = printBean.getData().getEMName();
                 }
                 if (MyApplication.mTimesConsumeMap.containsKey("服务员工")) {
@@ -1465,10 +1463,10 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 if (MyApplication.mTimesConsumeMap.containsKey("卡面卡号")) {
                     list.add(nextLine1);
                     list.add(left);
-                    list.add(("卡面卡号:" + (printBean.getData().getVIP_FaceNumber() ==null?"无":printBean.getData().getVIP_FaceNumber())).getBytes("gb2312"));
+                    list.add(("卡面卡号:" + (printBean.getData().getVIP_FaceNumber() == null ? "无" : printBean.getData().getVIP_FaceNumber())).getBytes("gb2312"));
                 }
                 String memName = printBean.getData().getVIP_Name();
-                if (memName ==null||memName.equals("")){
+                if (memName == null || memName.equals("")) {
                     memName = "无";
                 }
                 if (MyApplication.mTimesConsumeMap.containsKey("会员姓名")) {
@@ -1547,8 +1545,8 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
 
                 list.add(nextLine1);
                 list.add(boldOn);
-                list.add(("服务名称    "+bank+bank+bank).getBytes("gb2312"));
-                list.add(("使用  "+bank+bank).getBytes("gb2312"));
+                list.add(("服务名称    " + bank + bank + bank).getBytes("gb2312"));
+                list.add(("使用  " + bank + bank).getBytes("gb2312"));
                 list.add("剩余".getBytes("gb2312"));
                 list.add(boldOff);
 
@@ -1556,8 +1554,8 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 for (int i = 0; i < serviceList.size(); i++) {
                     list.add(serviceList.get(i).getSG_Name().getBytes("gb2312"));
                     list.add(nextLine1);
-                    list.add(("            " +bank+bank+bank+ serviceList.get(i).getWOD_UseNumber() + "次").getBytes("gb2312"));
-                    list.add(("  "+bank+bank + serviceList.get(i).getWOD_ResidueDegree() + "次").getBytes("gb2312"));
+                    list.add(("            " + bank + bank + bank + serviceList.get(i).getWOD_UseNumber() + "次").getBytes("gb2312"));
+                    list.add(("  " + bank + bank + serviceList.get(i).getWOD_ResidueDegree() + "次").getBytes("gb2312"));
                     list.add(nextLine1);
                 }
                 list.add(left);
@@ -1585,7 +1583,6 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
         }
         return null;
     }
-
 
 
     /**
@@ -1641,9 +1638,9 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
 
                 list.add(nextLine1);
                 list.add(boldOn);
-                list.add(("礼品名称"+bank+bank).getBytes("gb2312"));
-                list.add(("数量 "+bank+bank).getBytes("gb2312"));
-                list.add(("积分 "+bank+bank).getBytes("gb2312"));
+                list.add(("礼品名称" + bank + bank).getBytes("gb2312"));
+                list.add(("数量 " + bank + bank).getBytes("gb2312"));
+                list.add(("积分 " + bank + bank).getBytes("gb2312"));
                 list.add("合计".getBytes("gb2312"));
                 list.add(boldOff);
 
@@ -1651,9 +1648,9 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 for (int i = 0; i < goodList.size(); i++) {
                     list.add(goodList.get(i).getGM_Name().getBytes("gb2312"));
                     list.add(nextLine1);
-                    list.add(("         "+bank+bank + goodList.get(i).getGM_Acount()).getBytes("gb2312"));
-                    list.add(("   "+bank+bank + goodList.get(i).getGM_Integral()).getBytes("gb2312"));
-                    list.add(("  "+bank+bank + goodList.get(i).getEGD_Score()).getBytes("gb2312"));
+                    list.add(("         " + bank + bank + goodList.get(i).getGM_Acount()).getBytes("gb2312"));
+                    list.add(("   " + bank + bank + goodList.get(i).getGM_Integral()).getBytes("gb2312"));
+                    list.add(("  " + bank + bank + goodList.get(i).getEGD_Score()).getBytes("gb2312"));
                     list.add(nextLine1);
                 }
                 list.add(left);
@@ -1680,7 +1677,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 list.add(left);
                 list.add(mLine.getBytes("gb2312"));
 
-                String str =printBean.getData().getRemark()==null?"无":printBean.getData().getRemark();
+                String str = printBean.getData().getRemark() == null ? "无" : printBean.getData().getRemark();
                 if (MyApplication.mIntegralExchangeMap.containsKey("备注")) {
                     list.add(nextLine1);
                     list.add(left);
@@ -1696,11 +1693,11 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 if (MyApplication.mIntegralExchangeMap.containsKey("卡面卡号")) {
                     list.add(nextLine1);
                     list.add(left);
-                    list.add(("卡面卡号:" + (printBean.getData().getVIP_FaceNumber() ==null?"无":printBean.getData().getVIP_FaceNumber())).getBytes("gb2312"));
+                    list.add(("卡面卡号:" + (printBean.getData().getVIP_FaceNumber() == null ? "无" : printBean.getData().getVIP_FaceNumber())).getBytes("gb2312"));
                 }
 
                 String memName = printBean.getData().getVIP_Name();
-                if (memName ==null||memName.equals("")){
+                if (memName == null || memName.equals("")) {
                     memName = "无";
                 }
                 if (MyApplication.mIntegralExchangeMap.containsKey("会员姓名")) {
@@ -1775,9 +1772,9 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
 
                 list.add(nextLine1);
                 list.add(boldOn);
-                list.add(("礼品名称"+bank).getBytes("gb2312"));
-                list.add(("数量 "+bank+bank).getBytes("gb2312"));
-                list.add(("积分 "+bank+bank).getBytes("gb2312"));
+                list.add(("礼品名称" + bank).getBytes("gb2312"));
+                list.add(("数量 " + bank + bank).getBytes("gb2312"));
+                list.add(("积分 " + bank + bank).getBytes("gb2312"));
                 list.add("合计".getBytes("gb2312"));
                 list.add(boldOff);
 
@@ -1785,9 +1782,9 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 for (int i = 0; i < goodList.size(); i++) {
                     list.add(goodList.get(i).getGM_Name().getBytes("gb2312"));
                     list.add(nextLine1);
-                    list.add(("         "+bank + goodList.get(i).getGM_Acount()).getBytes("gb2312"));
-                    list.add(("   " +bank+bank+ goodList.get(i).getGM_Integral()).getBytes("gb2312"));
-                    list.add(("  "+bank+bank + goodList.get(i).getEGD_Score()).getBytes("gb2312"));
+                    list.add(("         " + bank + goodList.get(i).getGM_Acount()).getBytes("gb2312"));
+                    list.add(("   " + bank + bank + goodList.get(i).getGM_Integral()).getBytes("gb2312"));
+                    list.add(("  " + bank + bank + goodList.get(i).getEGD_Score()).getBytes("gb2312"));
                     list.add(nextLine1);
                 }
                 list.add(left);
@@ -1836,7 +1833,6 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
         }
         return null;
     }
-
 
 
     /**
@@ -1914,16 +1910,16 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 list.add(left);
                 list.add(mLine.getBytes("gb2312"));
 
-                String str =printBean.getData().getRemark()==null?"无":printBean.getData().getRemark();
+                String str = printBean.getData().getRemark() == null ? "无" : printBean.getData().getRemark();
                 if (MyApplication.mCardOpenMap.containsKey("备注")) {
                     list.add(nextLine1);
                     list.add(left);
                     list.add(("备    注:" + str).getBytes("gb2312"));
                 }
                 String str2;
-                if (printBean.getData().getEMName()==null||printBean.getData().getEMName().equals("")){
+                if (printBean.getData().getEMName() == null || printBean.getData().getEMName().equals("")) {
                     str2 = "无";
-                }else {
+                } else {
                     str2 = printBean.getData().getEMName();
                 }
                 if (MyApplication.mCardOpenMap.containsKey("服务员工")) {
@@ -1939,7 +1935,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 list.add(boldOff);
                 list.add(printBean.getData().getVCH_Card().getBytes("gb2312"));//
 
-                String facenum = printBean.getData().getVIP_FaceNumber()==null?"无":printBean.getData().getVIP_FaceNumber();
+                String facenum = printBean.getData().getVIP_FaceNumber() == null ? "无" : printBean.getData().getVIP_FaceNumber();
                 list.add(nextLine1);
                 list.add(left);
                 list.add(boldOn);
@@ -1948,7 +1944,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 list.add((facenum).getBytes("gb2312"));//
 
                 String memName = printBean.getData().getVIP_Name();
-                if (memName ==null||memName.equals("")){
+                if (memName == null || memName.equals("")) {
                     memName = "无";
                 }
 
@@ -2027,7 +2023,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 list.add(boldOff);
                 list.add(printBean.getData().getVCH_Card().getBytes("gb2312"));//
 
-                String facenum = printBean.getData().getVIP_FaceNumber()==null?"无":printBean.getData().getVIP_FaceNumber();
+                String facenum = printBean.getData().getVIP_FaceNumber() == null ? "无" : printBean.getData().getVIP_FaceNumber();
                 list.add(nextLine1);
                 list.add(left);
                 list.add(boldOn);
@@ -2096,7 +2092,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                     list.add("欢迎光临".getBytes("gb2312"));
                     list.add(titlesmall);
                 }
-                String STR = printBean.getData().getSI_Hander()==null?"":printBean.getData().getSI_Hander();
+                String STR = printBean.getData().getSI_Hander() == null ? "" : printBean.getData().getSI_Hander();
                 if (MyApplication.mGoodsIn.containsKey("经手人")) {
                     list.add(nextLine1);
                     list.add(left);
@@ -2140,9 +2136,9 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
 
                 list.add(nextLine1);
                 list.add(boldOn);
-                list.add(("商品名称"+bank+bank+bank).getBytes("gb2312"));
-                list.add(("进价 "+bank+bank).getBytes("gb2312"));
-                list.add(("数量 "+bank+bank).getBytes("gb2312"));
+                list.add(("商品名称" + bank + bank + bank).getBytes("gb2312"));
+                list.add(("进价 " + bank + bank).getBytes("gb2312"));
+                list.add(("数量 " + bank + bank).getBytes("gb2312"));
                 list.add("小计".getBytes("gb2312"));
                 list.add(boldOff);
 
@@ -2176,7 +2172,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                             list.add(nextLine1);
                         }
                     }
-                    totalPrice +=bean.getStockInDetailList().get(i).getSID_TotalPrice();
+                    totalPrice += bean.getStockInDetailList().get(i).getSID_TotalPrice();
                     totalNum += bean.getStockInDetailList().get(i).getSID_Amount();
                 }
                 list.add(left);
@@ -2194,7 +2190,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                     list.add(left);
                     list.add(("其他金额:" + printBean.getData().getSI_OtherMoney()).getBytes("gb2312"));
                 }
-                String all = Decima2KeeplUtil.stringToDecimal(String.valueOf(totalPrice+ printBean.getData().getSI_OtherMoney()));
+                String all = Decima2KeeplUtil.stringToDecimal(String.valueOf(totalPrice + printBean.getData().getSI_OtherMoney()));
                 list.add(nextLine1);
                 list.add(boldOn);
                 list.add(left);
@@ -2202,20 +2198,20 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 list.add(boldOff);
 
                 String str1 = null;
-                if (printBean.getData().getSI_PayCode().equals("XJZF")){
+                if (printBean.getData().getSI_PayCode().equals("XJZF")) {
                     str1 = "现金支付";
-                }else if (printBean.getData().getSI_PayCode().equals("YLZF")){
+                } else if (printBean.getData().getSI_PayCode().equals("YLZF")) {
                     str1 = "银联支付";
-                }else if (printBean.getData().getSI_PayCode().equals("WX_JZ")){
+                } else if (printBean.getData().getSI_PayCode().equals("WX_JZ")) {
                     str1 = "微信记账";
-                }else if (printBean.getData().getSI_PayCode().equals("ZFB_JZ")){
+                } else if (printBean.getData().getSI_PayCode().equals("ZFB_JZ")) {
                     str1 = "支付宝记账";
                 }
 
                 if (MyApplication.mGoodsIn.containsKey("支付方式")) {
                     list.add(nextLine1);
                     list.add(left);
-                    list.add(("支付方式:" + str1+"("+all+")").getBytes("gb2312"));
+                    list.add(("支付方式:" + str1 + "(" + all + ")").getBytes("gb2312"));
                 }
 
                 if (MyApplication.mGoodsIn.containsKey("合计数量")) {
@@ -2224,7 +2220,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                     list.add(("合计数量:" + totalNum).getBytes("gb2312"));
                 }
 
-                String STR1 = printBean.getData().getSI_Remark()==null?"":printBean.getData().getSI_Remark();
+                String STR1 = printBean.getData().getSI_Remark() == null ? "" : printBean.getData().getSI_Remark();
                 if (MyApplication.mGoodsIn.containsKey("备注信息")) {
                     list.add(nextLine1);
                     list.add(left);
@@ -2265,7 +2261,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 list.add(breakPartial);
                 list.add(nextLine1);
 
-            }else {
+            } else {
                 list.add(nextLine1);
                 list.add(center);
                 list.add(boldOn);
@@ -2315,7 +2311,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 list.add(boldOn);
                 list.add("备    注:".getBytes("gb2312"));
                 list.add(boldOff);
-                list.add(printBean.getData().getSI_Remark() .getBytes("gb2312"));//
+                list.add(printBean.getData().getSI_Remark().getBytes("gb2312"));//
 
                 list.add(nextLine1);
                 list.add(left);
@@ -2380,7 +2376,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                     list.add("欢迎光临".getBytes("gb2312"));
                     list.add(titlesmall);
                 }
-                String STR = printBean.getData().getSO_Hander()==null?"": (String) printBean.getData().getSO_Hander();
+                String STR = printBean.getData().getSO_Hander() == null ? "" : (String) printBean.getData().getSO_Hander();
                 if (MyApplication.mGoodsOut.containsKey("经手人")) {
                     list.add(nextLine1);
                     list.add(left);
@@ -2394,7 +2390,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                     str = "商品报废";
                 } else if (printBean.getData().getSO_OutType().equals("3")) {
                     str = "其它";
-                }else if (printBean.getData().getSO_OutType().equals("1")) {
+                } else if (printBean.getData().getSO_OutType().equals("1")) {
                     str = "商品消费";
                 }
 
@@ -2422,9 +2418,9 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
 
                 list.add(nextLine1);
                 list.add(boldOn);
-                list.add(("商品名称"+bank+bank+bank).getBytes("gb2312"));
-                list.add(("单价/原价"+bank).getBytes("gb2312"));
-                list.add(("数量 "+bank).getBytes("gb2312"));
+                list.add(("商品名称" + bank + bank + bank).getBytes("gb2312"));
+                list.add(("单价/原价" + bank).getBytes("gb2312"));
+                list.add(("数量 " + bank).getBytes("gb2312"));
                 list.add("小计".getBytes("gb2312"));
                 list.add(boldOff);
 
@@ -2433,7 +2429,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
 
                 list.add(nextLine1);
                 for (int i = 0; i < bean.getStockOutDetailList().size(); i++) {
-                    double siglePrice= bean.getStockOutDetailList().get(i).getSOD_DiscountPrice()/bean.getStockOutDetailList().get(i).getSOD_Amount();
+                    double siglePrice = bean.getStockOutDetailList().get(i).getSOD_DiscountPrice() / bean.getStockOutDetailList().get(i).getSOD_Amount();
                     list.add(bean.getStockOutDetailList().get(i).getPM_Name().getBytes("gb2312"));
                     list.add(nextLine1);
 
@@ -2446,14 +2442,14 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                     } else {
                         pmcode1 = pmcode;
                     }
-                    if (MyApplication.mGoodsOut.containsKey("商品编码")){
+                    if (MyApplication.mGoodsOut.containsKey("商品编码")) {
                         list.add(pmcode1.getBytes("gb2312"));
-                        list.add((bank +siglePrice+"/" + bean.getStockOutDetailList().get(i).getPM_UnitPrice()).getBytes("gb2312"));
-                    }else {
-                        list.add(("         "+bank+bank+bank +siglePrice+"/"+ bean.getStockOutDetailList().get(i).getPM_UnitPrice()).getBytes("gb2312"));
+                        list.add((bank + siglePrice + "/" + bean.getStockOutDetailList().get(i).getPM_UnitPrice()).getBytes("gb2312"));
+                    } else {
+                        list.add(("         " + bank + bank + bank + siglePrice + "/" + bean.getStockOutDetailList().get(i).getPM_UnitPrice()).getBytes("gb2312"));
                     }
-                    list.add(("   "+bank + bean.getStockOutDetailList().get(i).getSOD_Amount()).getBytes("gb2312"));
-                    list.add(("  "+bank + bean.getStockOutDetailList().get(i).getSOD_TotalPrice()).getBytes("gb2312"));
+                    list.add(("   " + bank + bean.getStockOutDetailList().get(i).getSOD_Amount()).getBytes("gb2312"));
+                    list.add(("  " + bank + bean.getStockOutDetailList().get(i).getSOD_TotalPrice()).getBytes("gb2312"));
                     list.add(nextLine1);
                     if (MyApplication.mGoodsOut.containsKey("商品编码")) {
                         if (pmcode.length() > 11) {
@@ -2479,7 +2475,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                     list.add(left);
                     list.add(("其他金额:" + printBean.getData().getSO_OtherMoney()).getBytes("gb2312"));
                 }
-                String all = Decima2KeeplUtil.stringToDecimal(String.valueOf(totalPrice+ printBean.getData().getSO_OtherMoney()));
+                String all = Decima2KeeplUtil.stringToDecimal(String.valueOf(totalPrice + printBean.getData().getSO_OtherMoney()));
                 list.add(nextLine1);
                 list.add(boldOn);
                 list.add(left);
@@ -2487,13 +2483,13 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 list.add(boldOff);
 
                 String str1 = null;
-                if (printBean.getData().getSO_PayCode().equals("XJZF")){
+                if (printBean.getData().getSO_PayCode().equals("XJZF")) {
                     str1 = "现金支付";
-                }else if (printBean.getData().getSO_PayCode().equals("YLZF")){
+                } else if (printBean.getData().getSO_PayCode().equals("YLZF")) {
                     str1 = "银联支付";
-                }else if (printBean.getData().getSO_PayCode().equals("WX_JZ")){
+                } else if (printBean.getData().getSO_PayCode().equals("WX_JZ")) {
                     str1 = "微信记账";
-                }else if (printBean.getData().getSO_PayCode().equals("ZFB_JZ")){
+                } else if (printBean.getData().getSO_PayCode().equals("ZFB_JZ")) {
                     str1 = "支付宝记账";
                 }
 
@@ -2503,7 +2499,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                     list.add(("支付方式:" + str1).getBytes("gb2312"));
                 }
 
-                String STR1 = printBean.getData().getSO_Remark()==null?"": (String) printBean.getData().getSO_Remark();
+                String STR1 = printBean.getData().getSO_Remark() == null ? "" : (String) printBean.getData().getSO_Remark();
                 if (MyApplication.mGoodsOut.containsKey("备注信息")) {
                     list.add(nextLine1);
                     list.add(left);
@@ -2544,7 +2540,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 list.add(breakPartial);
                 list.add(nextLine1);
 
-            }else {
+            } else {
                 list.add(nextLine1);
                 list.add(center);
                 list.add(boldOn);
@@ -2588,7 +2584,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 list.add(boldOn);
                 list.add("备    注:".getBytes("gb2312"));
                 list.add(boldOff);
-                list.add((printBean.getData().getSO_Remark()+"").getBytes("gb2312"));//
+                list.add((printBean.getData().getSO_Remark() + "").getBytes("gb2312"));//
 
                 list.add(nextLine1);
                 list.add(left);
@@ -2835,7 +2831,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 list.add(breakPartial);
                 list.add(nextLine1);
 
-            }else {
+            } else {
                 list.add(nextLine1);
                 list.add(center);
                 list.add(titlebigger);
@@ -3031,10 +3027,10 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 list.add(nextLine1);
                 list.add(left);
                 list.add(boldOn);
-                list.add(("商品名称"+bank).getBytes("gb2312"));
-                list.add(("单价"+bank).getBytes("gb2312"));
-                list.add(("数量"+bank).getBytes("gb2312"));
-                list.add(("折扣"+bank).getBytes("gb2312"));
+                list.add(("商品名称" + bank).getBytes("gb2312"));
+                list.add(("单价" + bank).getBytes("gb2312"));
+                list.add(("数量" + bank).getBytes("gb2312"));
+                list.add(("折扣" + bank).getBytes("gb2312"));
                 list.add("小计".getBytes("gb2312"));
                 list.add(boldOff);
 
@@ -3050,10 +3046,10 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                     list.add(left);
                     list.add(goodList.get(i).getPM_Name().getBytes("gb2312"));
                     list.add(nextLine1);
-                    list.add((bank+"      ￥" + goodList.get(i).getPM_UnitPrice()).getBytes("gb2312"));
+                    list.add((bank + "      ￥" + goodList.get(i).getPM_UnitPrice()).getBytes("gb2312"));
                     list.add((bank + goodList.get(i).getPM_Number()).getBytes("gb2312"));
-                    list.add((bank+" "+ goodList.get(i).getPM_Discount()).getBytes("gb2312"));
-                    list.add((bank+"￥" + Decima2KeeplUtil.stringToDecimal( goodList.get(i).getRO_Monetary()+"")).getBytes("gb2312"));
+                    list.add((bank + " " + goodList.get(i).getPM_Discount()).getBytes("gb2312"));
+                    list.add((bank + "￥" + Decima2KeeplUtil.stringToDecimal(goodList.get(i).getRO_Monetary() + "")).getBytes("gb2312"));
                     list.add(nextLine1);
                 }
 
@@ -3065,21 +3061,21 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 list.add(boldOn);
                 list.add("合计数量:".getBytes("gb2312"));
                 list.add(boldOff);
-                list.add((totalnum+"").getBytes("gb2312"));//
+                list.add((totalnum + "").getBytes("gb2312"));//
 
                 list.add(nextLine1);
                 list.add(left);
                 list.add(boldOn);
                 list.add("扣除积分:".getBytes("gb2312"));
                 list.add(boldOff);
-                list.add((printBean.getData().getIntegralDeduct()+"").getBytes("gb2312"));//
+                list.add((printBean.getData().getIntegralDeduct() + "").getBytes("gb2312"));//
 
                 list.add(nextLine1);
                 list.add(left);
                 list.add(boldOn);
                 list.add("退款总额:".getBytes("gb2312"));
                 list.add(boldOff);
-                list.add(("￥"+printBean.getData().getYSMoney()).getBytes("gb2312"));//
+                list.add(("￥" + printBean.getData().getYSMoney()).getBytes("gb2312"));//
 
                 list.add(nextLine1);
                 list.add(left);
@@ -3092,7 +3088,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 list.add(left);
                 list.add(mLine.getBytes("gb2312"));
 
-                String str =printBean.getData().getRemark()==null?"无":printBean.getData().getRemark();
+                String str = printBean.getData().getRemark() == null ? "无" : printBean.getData().getRemark();
                 if (MyApplication.mReTureOrder.containsKey("备注")) {
                     list.add(nextLine1);
                     list.add(left);
@@ -3104,14 +3100,14 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                     list.add(left);
                     list.add(("会员卡号:" + printBean.getData().getVCH_Card()).getBytes("gb2312"));
                 }
-                String facenum = printBean.getData().getVIP_FaceNumber()==null?"无":printBean.getData().getVIP_FaceNumber();
+                String facenum = printBean.getData().getVIP_FaceNumber() == null ? "无" : printBean.getData().getVIP_FaceNumber();
                 if (MyApplication.mReTureOrder.containsKey("卡面卡号")) {
                     list.add(nextLine1);
                     list.add(left);
-                    list.add(("卡面卡号:" + (printBean.getData().getVIP_FaceNumber() ==null?"无":printBean.getData().getVIP_FaceNumber())).getBytes("gb2312"));
+                    list.add(("卡面卡号:" + (printBean.getData().getVIP_FaceNumber() == null ? "无" : printBean.getData().getVIP_FaceNumber())).getBytes("gb2312"));
                 }
                 String memName = printBean.getData().getVIP_Name();
-                if (memName ==null||memName.equals("")){
+                if (memName == null || memName.equals("")) {
                     memName = "无";
                 }
 
@@ -3192,9 +3188,9 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 list.add(nextLine1);
                 list.add(left);
                 list.add(boldOn);
-                list.add(("商品名称"+bank).getBytes("gb2312"));
-                list.add(("单价"+bank+bank).getBytes("gb2312"));
-                list.add(("数量"+bank+bank).getBytes("gb2312"));
+                list.add(("商品名称" + bank).getBytes("gb2312"));
+                list.add(("单价" + bank + bank).getBytes("gb2312"));
+                list.add(("数量" + bank + bank).getBytes("gb2312"));
                 list.add("小计".getBytes("gb2312"));
                 list.add(boldOff);
 
@@ -3210,9 +3206,9 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                     list.add(left);
                     list.add(goodList.get(i).getPM_Name().getBytes("gb2312"));
                     list.add(nextLine1);
-                    list.add((bank+"      ￥" + goodList.get(i).getPM_UnitPrice()).getBytes("gb2312"));
-                    list.add((bank+bank + goodList.get(i).getPM_Number()).getBytes("gb2312"));
-                    list.add((bank+bank+"￥" + Decima2KeeplUtil.stringToDecimal( goodList.get(i).getROD_DiscountPrice()+"")).getBytes("gb2312"));
+                    list.add((bank + "      ￥" + goodList.get(i).getPM_UnitPrice()).getBytes("gb2312"));
+                    list.add((bank + bank + goodList.get(i).getPM_Number()).getBytes("gb2312"));
+                    list.add((bank + bank + "￥" + Decima2KeeplUtil.stringToDecimal(goodList.get(i).getROD_DiscountPrice() + "")).getBytes("gb2312"));
                     list.add(nextLine1);
                 }
 
@@ -3224,21 +3220,21 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 list.add(boldOn);
                 list.add("合计数量:".getBytes("gb2312"));
                 list.add(boldOff);
-                list.add((totalnum+"").getBytes("gb2312"));//
+                list.add((totalnum + "").getBytes("gb2312"));//
 
                 list.add(nextLine1);
                 list.add(left);
                 list.add(boldOn);
                 list.add("扣除积分:".getBytes("gb2312"));
                 list.add(boldOff);
-                list.add((printBean.getData().getIntegralDeduct()+"").getBytes("gb2312"));//
+                list.add((printBean.getData().getIntegralDeduct() + "").getBytes("gb2312"));//
 
                 list.add(nextLine1);
                 list.add(left);
                 list.add(boldOn);
                 list.add("退款总额:".getBytes("gb2312"));
                 list.add(boldOff);
-                list.add(("￥"+printBean.getData().getYSMoney()).getBytes("gb2312"));//
+                list.add(("￥" + printBean.getData().getYSMoney()).getBytes("gb2312"));//
 
                 list.add(nextLine1);
                 list.add(left);

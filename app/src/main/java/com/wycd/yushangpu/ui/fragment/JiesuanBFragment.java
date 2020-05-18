@@ -174,7 +174,8 @@ public class JiesuanBFragment extends BaseFragment {
         CONSUM_ORDER, //商品消费订单
         CELERITY_ORDER, // 快速消费订单
         GUAZHANG_ORDER, //挂账订单
-        MEM_RECHARGE_PAY //会员充值
+        MEM_RECHARGE_PAY,//会员充值
+        ADDO_MEMBER,//新增会员
     }
 
     public enum PayMode {
