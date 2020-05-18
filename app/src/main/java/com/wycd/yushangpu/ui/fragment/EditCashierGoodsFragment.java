@@ -206,7 +206,7 @@ public class EditCashierGoodsFragment extends BaseFragment {
 
                                 StringBuilder mStaffName = new StringBuilder("");//提成员工姓名
                                 List<String> tcGID = new ArrayList<>();
-                                List<Integer> tcProportion = new ArrayList<>();
+                                List<Double> tcProportion = new ArrayList<>();
                                 for (int i = 0; i < mEmplMsgList.size(); i++) {
                                     if (mEmplMsgList.get(i).isIschose()) {
                                         tcGID.add(mEmplMsgList.get(i).getGID());

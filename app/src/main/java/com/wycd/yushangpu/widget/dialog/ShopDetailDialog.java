@@ -476,13 +476,13 @@ public class ShopDetailDialog {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    int val = 0;
+                    double val = 0;
                     if (!TextUtils.isEmpty(s)) {
                         try {
-                            val = Integer.valueOf(s.toString());
+                            val = Double.valueOf(s.toString());
                         } catch (Exception e) {
                             e.printStackTrace();
-                            ToastUtils.showLong("金额只能输入数字");
+                            ToastUtils.showLong("只能输入数字");
                         }
                     }
                     if (type == 1) {
@@ -520,6 +520,10 @@ public class ShopDetailDialog {
             this.type = type;
         }
 
+        public int getType() {
+            return type;
+        }
+
         public boolean check() {
             if (type == 1) {
                 double total = 0;
@@ -531,6 +535,13 @@ public class ShopDetailDialog {
                 }
                 ToastUtils.showLong("员工提成比例总和应为100");
                 return false;
+            } else {
+                for (EmplMsg item : data) {
+                    if (item.getStaffProportion() == 0) {
+                        ToastUtils.showLong("请输入金额");
+                        return false;
+                    }
+                }
             }
             return true;
         }

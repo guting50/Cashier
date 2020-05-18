@@ -218,6 +218,10 @@ public class AddOrEditMemberFragment extends BaseFragment {
         mPayWayList.clear();
         mPayWayList.add("现金支付");
         showAttr();
+        rootView.findViewById(R.id.et_select_EM_Name).setEnabled(false);
+        rootView.findViewById(R.id.et_select_EM_Name).setSelected(false);
+        ((TextView) rootView.findViewById(R.id.et_select_EM_Name))
+                .setTextColor(homeActivity.getResources().getColor(R.color.color_999999));
         if (vipInfoMsg == null) {
             ((TextView) rootView.findViewById(R.id.tv_title)).setText("新增会员");
             et_VCH_Card.setText("");
@@ -251,10 +255,6 @@ public class AddOrEditMemberFragment extends BaseFragment {
             et_VCH_Pwd.setEnabled(true);
             et_VCH_Pwd_Confirm.setEnabled(true);
             et_MA_AggregateAmount.setEnabled(true);
-            rootView.findViewById(R.id.et_select_EM_Name).setEnabled(false);
-            rootView.findViewById(R.id.et_select_EM_Name).setSelected(false);
-            ((TextView) rootView.findViewById(R.id.et_select_EM_Name))
-                    .setTextColor(homeActivity.getResources().getColor(R.color.color_999999));
             et_MA_AvailableIntegral.setEnabled(true);
             et_VCH_Fee.setEnabled(true);
             tv_select_Pay_Way.setEnabled(true);
@@ -268,10 +268,6 @@ public class AddOrEditMemberFragment extends BaseFragment {
             et_VCH_Pwd.setEnabled(false);
             et_VCH_Pwd_Confirm.setEnabled(false);
             et_MA_AggregateAmount.setEnabled(false);
-            rootView.findViewById(R.id.et_select_EM_Name).setEnabled(false);
-            rootView.findViewById(R.id.et_select_EM_Name).setSelected(false);
-            ((TextView) rootView.findViewById(R.id.et_select_EM_Name))
-                    .setTextColor(homeActivity.getResources().getColor(R.color.color_999999));
             et_MA_AvailableIntegral.setEnabled(false);
             et_VCH_Fee.setEnabled(false);
             tv_select_Pay_Way.setEnabled(false);
@@ -562,6 +558,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                                     et_EM_Name.setText(mEmplMsgList.get(0).getEM_Name());
                                     et_EM_Name.setTag(mEmplMsgList.get(0).getGID());
                                     mStaffListGid = mEmplMsgList.get(0).getGID();
+                                    mStaffListPercent = mEmplMsgList.get(0).getStaffProportion();
                                 }
                             }
 
@@ -678,6 +675,12 @@ public class AddOrEditMemberFragment extends BaseFragment {
                                     break;
                                 case "支付宝记账":
                                     mPayTypeCode = "ZFB_JZ";
+                                    break;
+                                case "扫码支付":
+                                    mPayTypeCode = "SMZF";
+                                    break;
+                                case "其他支付":
+                                    mPayTypeCode = "QTZF";
                                     break;
                             }
                         }
@@ -827,7 +830,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
     private String mCardNum, mPhoneNum, mMemberName, mcardId, mInitMoney, mInitPoint, mOverdueDate,
             mId, mAddress, mRemark, calaryMonth, isLunar, mBirthday, mRecommendCardNum, mStaffListGid,
             mGradeGid, mPayTypeCode, mPayTypeName, mMemberPhotoAddress = "/img/nohead.png";
-    private double mMoney;
+    private double mStaffListPercent, mMoney;
     private int mIsForver, mSex;
 
     private void addMemberPost() {
@@ -858,11 +861,16 @@ public class AddOrEditMemberFragment extends BaseFragment {
             params.put("FildsValue[]", costomfields.get(i).getM_ItemsValue() == null ? ""
                     : costomfields.get(i).getM_ItemsValue());
         }
+        params.put("Smsg", 1);
 
         if (mMemberPhotoAddress != null) {
             params.put("VIP_HeadImg", mMemberPhotoAddress);
         } else {
             params.put("VIP_HeadImg", HttpAPI.API().DEFALUT_HEAD_IMAGE);
+        }
+        if (!TextUtils.isEmpty(mStaffListGid)) {//提成员工GID
+            params.put("EM_GIDList[]", mStaffListGid);
+            params.put("VIP_Percent[]", mStaffListPercent + "");
         }
 
         String url = HttpAPI.API().ADDUSER;
@@ -873,9 +881,6 @@ public class AddOrEditMemberFragment extends BaseFragment {
             params.put("VCH_Fee_PayTypeText", mPayTypeName);
             params.put("MA_AvailableIntegral", Integer.parseInt(mInitPoint));//初始积分
             params.put("MA_AggregateAmount", mInitMoney);//初始金额
-            if (!TextUtils.isEmpty(mStaffListGid)) {//提成员工GID
-                params.put("EM_GIDList[]", mStaffListGid);
-            }
             if (!TextUtils.isEmpty(et_VCH_Pwd.getText().toString())) {
                 params.put("VCH_Pwd", et_VCH_Pwd.getText().toString());
             }
@@ -909,8 +914,10 @@ public class AddOrEditMemberFragment extends BaseFragment {
                 homeActivity.dialog.dismiss();
                 if (msg.toString().contains("SmsSign")) {
                     warnDialog(msgStr + "成功,短信未发送，未设置默认签名！");
+                    homeActivity.vipMemberFragment.reset();
                 } else if (msg.toString().contains("BuySms")) {
                     warnDialog(msgStr + "成功，短信未发送，短信库存不足！");
+                    homeActivity.vipMemberFragment.reset();
                 } else if (msg.toString().contains("UpgradeShop")) {
                     warnDialog("会员数已达上限,请升级店铺！");
                 } else {

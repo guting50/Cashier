@@ -70,7 +70,7 @@ public class MemberRechargeFragment extends BaseFragment {
     private VipInfoMsg vipInfoMsg;
     private String orderNumber;
     private List<String> mStaffListGids = new ArrayList<>();
-    private List<Integer> staffProportionList = new ArrayList<>();
+    private List<Double> staffProportionList = new ArrayList<>();
     private List<DiscountTypeBean> mRechargeTypeList;
     private String rechargeMoney, giveMoney, mDiscountActivityGid;
     private double getPoints;

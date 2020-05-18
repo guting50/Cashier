@@ -621,7 +621,7 @@ public class JiesuanBFragment extends BaseFragment {
                             @Override
                             public void onErrorResponse(Object msg) {
                                 if (msg instanceof BaseRes && ((BaseRes) msg).getMsg().contains("BuySms")) {
-                                    ToastUtils.showLong("短信余额不足，请立即充值");
+                                    ToastUtils.showLong("短信余额不足，请前往后台充值");
                                 }
                             }
                         });

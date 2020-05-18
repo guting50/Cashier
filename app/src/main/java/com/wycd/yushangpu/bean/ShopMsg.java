@@ -46,7 +46,7 @@ public class ShopMsg implements Serializable, Parcelable {
     private double PM_MinDisCountValue;//	最低折扣开关的值	decimal
     private double PM_FixedIntegralValue;//	固定积分开关的值	decimal
     private List<String> EM_GIDList;//	提成员工	List<string>
-    private List<Integer> GOD_Proportion;//	提成员工（比例或者固定金额）	List<string>
+    private List<Double> GOD_Proportion;//	提成员工（比例或者固定金额）	List<string>
     private String EM_NameList;//	提成员工	List<string>
     private double num;
     private int chosePosion;
@@ -126,11 +126,11 @@ public class ShopMsg implements Serializable, Parcelable {
         this.EM_GIDList = EM_GIDList;
     }
 
-    public List<Integer> getGOD_Proportion() {
+    public List<Double> getGOD_Proportion() {
         return GOD_Proportion;
     }
 
-    public void setGOD_Proportion(List<Integer> GOD_Proportion) {
+    public void setGOD_Proportion(List<Double> GOD_Proportion) {
         this.GOD_Proportion = GOD_Proportion;
     }
 
@@ -594,8 +594,8 @@ public class ShopMsg implements Serializable, Parcelable {
         this.PM_MinDisCountValue = in.readDouble();
         this.PM_FixedIntegralValue = in.readDouble();
         this.EM_GIDList = in.createStringArrayList();
-        this.GOD_Proportion = new ArrayList<Integer>();
-        in.readList(this.GOD_Proportion, Integer.class.getClassLoader());
+        this.GOD_Proportion = new ArrayList<Double>();
+        in.readList(this.GOD_Proportion, Double.class.getClassLoader());
         this.EM_NameList = in.readString();
         this.num = in.readDouble();
         this.chosePosion = in.readInt();
