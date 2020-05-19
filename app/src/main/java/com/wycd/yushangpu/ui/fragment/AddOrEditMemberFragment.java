@@ -955,7 +955,8 @@ public class AddOrEditMemberFragment extends BaseFragment {
                     p.setPayMoney(smPayMoney);
                     p.setPayName("扫码支付");
                     result.setPayTypeList(typeList);
-                    String OrderCode = "202041215117";
+//                    String OrderCode = "202041215117";
+                    String OrderCode = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
                     saomaDialog.saomaPay(response.toString(), smPayMoney + "", OrderCode, OrderCode, result,
                             JiesuanBFragment.OrderType.ADDO_MEMBER, new InterfaceBack() {
                                 @Override

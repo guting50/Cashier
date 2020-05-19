@@ -1,5 +1,6 @@
 package com.wycd.yushangpu.ui.fragment;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
@@ -704,76 +705,80 @@ public class CashierFragment extends BaseFragment {
         mShopLeftAdapter.notifyDataSetChanged();
     }
 
-    private void showGoodsModelDialog(List<ShopMsg> sllist, double addnum) {
-        if (ModelList != null) {
-            //初始化
-            for (int i = 0; i < ModelList.size(); i++) {
-                ModelList.get(i).setChecked(false);
-                ModelList.get(i).setEnable(false);
-            }
-            //将商品有的规格设置成可点击
-            for (ShopMsg shopMsg : sllist) {
-                if (!TextUtils.isEmpty(shopMsg.getPM_Modle())) {
-                    for (String str : shopMsg.getPM_Modle().split("\\|")) {
-                        for (GoodsModelBean modelBean : ModelList) {
-                            if (str.equals(modelBean.getPM_Properties())) {
-                                modelBean.setEnable(true);
-                            }
-                        }
-                    }
-                }
-            }
-            modelList.clear();
+    Dialog modelDialog;
 
-            //组装规格数据
-            if (ModelList != null && ModelList.size() > 1) {
+    private void showGoodsModelDialog(List<ShopMsg> sllist, double addnum) {
+        if (modelDialog == null || !modelDialog.isShowing()) {
+            if (ModelList != null) {
+                //初始化
                 for (int i = 0; i < ModelList.size(); i++) {
-                    if (ModelList.get(i).getPM_Type() == 0) {
-                        List<GoodsModelBean> list = new ArrayList<>();
-                        list.add(ModelList.get(i));
-                        modelList.add(list);
-                    } else {
-                        for (int j = 0; j < modelList.size(); j++) {
-                            if (modelList.get(j).get(0).getPM_Name().equals(ModelList.get(i).getPM_Name())) {
-                                if (ModelList.get(i).isEnable()) {/*不可点击的不显示2020.4.11*/
-                                    modelList.get(j).add(ModelList.get(i));
+                    ModelList.get(i).setChecked(false);
+                    ModelList.get(i).setEnable(false);
+                }
+                //将商品有的规格设置成可点击
+                for (ShopMsg shopMsg : sllist) {
+                    if (!TextUtils.isEmpty(shopMsg.getPM_Modle())) {
+                        for (String str : shopMsg.getPM_Modle().split("\\|")) {
+                            for (GoodsModelBean modelBean : ModelList) {
+                                if (str.equals(modelBean.getPM_Properties())) {
+                                    modelBean.setEnable(true);
                                 }
                             }
                         }
                     }
                 }
-            }
-            //设置第一个默认选中
-            for (int i = 0; i < modelList.size(); i++) {
-                int num = 0;
-                for (int j = 0; j < modelList.get(i).size(); j++) {
-                    if (modelList.get(i).get(j).isEnable() && modelList.get(i).get(j).getPM_Type() != 0) {
-                        modelList.get(i).get(j).setChecked(true);
-                        num++;
-                        break;
+                modelList.clear();
+
+                //组装规格数据
+                if (ModelList != null && ModelList.size() > 1) {
+                    for (int i = 0; i < ModelList.size(); i++) {
+                        if (ModelList.get(i).getPM_Type() == 0) {
+                            List<GoodsModelBean> list = new ArrayList<>();
+                            list.add(ModelList.get(i));
+                            modelList.add(list);
+                        } else {
+                            for (int j = 0; j < modelList.size(); j++) {
+                                if (modelList.get(j).get(0).getPM_Name().equals(ModelList.get(i).getPM_Name())) {
+                                    if (ModelList.get(i).isEnable()) {/*不可点击的不显示2020.4.11*/
+                                        modelList.get(j).add(ModelList.get(i));
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
-                if (num == 0) {
-                    modelList.remove(i);
-                    i--;
-                } else {
-                    modelList.get(i).remove(0);
-                }
-            }
-
-            homeActivity.dialog.dismiss();
-            GoodsModelDialog.goodsModelDialog(homeActivity, 1, modelList, sllist,
-                    BasicEucalyptusPresnter.isZeroStock, new InterfaceBack() {
-                        @Override
-                        public void onResponse(Object response) {
-                            ShopMsg goodsitem = (ShopMsg) response;
-                            addShopLeftList(goodsitem, addnum);
+                //设置第一个默认选中
+                for (int i = 0; i < modelList.size(); i++) {
+                    int num = 0;
+                    for (int j = 0; j < modelList.get(i).size(); j++) {
+                        if (modelList.get(i).get(j).isEnable() && modelList.get(i).get(j).getPM_Type() != 0) {
+                            modelList.get(i).get(j).setChecked(true);
+                            num++;
+                            break;
                         }
-                    });
+                    }
+                    if (num == 0) {
+                        modelList.remove(i);
+                        i--;
+                    } else {
+                        modelList.get(i).remove(0);
+                    }
+                }
 
-        } else {
-            com.blankj.utilcode.util.ToastUtils.showShort("没有获取到规格列表，请稍后再尝试");
-            getProductModel();
+                homeActivity.dialog.dismiss();
+                modelDialog = GoodsModelDialog.goodsModelDialog(homeActivity, 1, modelList, sllist,
+                        BasicEucalyptusPresnter.isZeroStock, new InterfaceBack() {
+                            @Override
+                            public void onResponse(Object response) {
+                                ShopMsg goodsitem = (ShopMsg) response;
+                                addShopLeftList(goodsitem, addnum);
+                            }
+                        });
+
+            } else {
+                com.blankj.utilcode.util.ToastUtils.showShort("没有获取到规格列表，请稍后再尝试");
+                getProductModel();
+            }
         }
     }
 
