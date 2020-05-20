@@ -202,9 +202,10 @@ public class CashierFragment extends BaseFragment {
         qudanFragment.obtainGuadanList();
 
         rootView.findViewById(R.id.member_bg_layout).setEnabled(true);
-        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T214.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 1) {
-            rootView.findViewById(R.id.member_bg_layout).setEnabled(false);
-        }
+        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T214.getValueStr(), SysSwitchRes.CREATOR) != null)
+            if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T214.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 1) {
+                rootView.findViewById(R.id.member_bg_layout).setEnabled(false);
+            }
     }
 
     private void getProductModel() {

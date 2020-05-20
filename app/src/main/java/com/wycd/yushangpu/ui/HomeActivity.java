@@ -331,17 +331,9 @@ public class HomeActivity extends BaseActivity {
                 btn_houtai.setImageResource(R.mipmap.btn_houtai_false);
                 int version = (int) (1 + Math.random() * (1000000 - 1 + 1));
 
-//                showWebDialog("index.html");
-
-                //后台
-//                Intent intent = new Intent(ac, WebActivity.class);
-//                intent.putExtra("versionDownURL",  MyApplication.BASE_URL+"loginTSCash.html?URL=index.html&v=" +String.valueOf(version));
-//                //http://192.168.1.240:807/login.html
-//                startActivity(intent);
-
                 Intent intent = new Intent(ac, WebActivity.class);
-//                intent.putExtra("html_url", "https://pc.yunvip123.com/login.html");
-                intent.putExtra("html_url", "https://pc.yunvip123.com/loginTSCash.html");
+//                intent.putExtra("html_url", MyApplication.BASE_URL + "login.html");
+                intent.putExtra("html_url", MyApplication.BASE_URL + "loginTSCash.html?v=" + String.valueOf(version));
                 startActivity(intent);
                 break;
             case R.id.subsidiary_fragment:
