@@ -8,6 +8,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.SyncHttpClient;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.tools.ActivityManager;
 import com.wycd.yushangpu.tools.LogUtils;
@@ -30,9 +31,21 @@ public class AsyncHttpUtils {
     }
 
     public static void postHttp(String url, RequestParams map, CallBack back) {
-        AsyncHttpClient client = new AsyncHttpClient();
+        postHttp(new AsyncHttpClient(), url, map, back);
+    }
+
+    public static void postSyncHttp(String url, CallBack back) {
+        RequestParams params = new RequestParams();
+        postSyncHttp(url, params, back);
+    }
+
+    public static void postSyncHttp(String url, RequestParams map, CallBack back) {
+        postHttp(new SyncHttpClient(), url, map, back);
+    }
+
+    public static void postHttp(AsyncHttpClient httpClient, String url, RequestParams map, CallBack back) {
         final PersistentCookieStore myCookieStore = new PersistentCookieStore(MyApplication.getContext());
-        client.setCookieStore(myCookieStore);
+        httpClient.setCookieStore(myCookieStore);
         LogUtils.d(">>> ======== url    ======== >>>", url);
         Class clazz = map.getClass();
         try {
@@ -44,7 +57,7 @@ public class AsyncHttpUtils {
             e.printStackTrace();
             LogUtils.d(">>> ======== params ======== >>>", map.toString());
         }
-        client.post(url, map, new AsyncHttpResponseHandler() {
+        httpClient.post(url, map, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {

@@ -1,7 +1,5 @@
 package com.wycd.yushangpu.model;
 
-import android.annotation.SuppressLint;
-
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.Presenter.BasicEucalyptusPresnter;
 import com.wycd.yushangpu.bean.ReportMessageBean;
@@ -10,13 +8,10 @@ import com.wycd.yushangpu.http.BaseRes;
 import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.printutil.bean.PrintSetBean;
-import com.wycd.yushangpu.ui.fragment.CashierFragment;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 
 /**
@@ -26,18 +21,18 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ImpParamLoading {
     public static ReportMessageBean REPORT_BEAN = new ReportMessageBean();
+    public static Observable<String> observable;
 
     public static void preLoad() {
-        AsyncHttpUtils.postHttp(HttpAPI.API().PRE_LOAD, new CallBack() {
-            @SuppressLint("CheckResult")
+        //创建一个被观察者(发布者)
+        observable = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
-            public void onResponse(BaseRes response) {
-                REPORT_BEAN = response.getData(ReportMessageBean.class);
-                if (REPORT_BEAN != null) {
-                    //创建一个被观察者(发布者)
-                    Observable<String> observable = Observable.create(new ObservableOnSubscribe<String>() {
-                        @Override
-                        public void subscribe(ObservableEmitter<String> emitter) {
+            public void subscribe(ObservableEmitter<String> emitter) {
+                AsyncHttpUtils.postSyncHttp(HttpAPI.API().PRE_LOAD, new CallBack() {
+                    @Override
+                    public void onResponse(BaseRes response) {
+                        REPORT_BEAN = response.getData(ReportMessageBean.class);
+                        if (REPORT_BEAN != null) {
                             PrintSetBean printSetBean = REPORT_BEAN.getPrintSet();
                             MyApplication.LABEL_TYPE = printSetBean.getPS_TipPrintPaper();
                             if (printSetBean.getPS_IsEnabled() == 1) {
@@ -66,14 +61,11 @@ public class ImpParamLoading {
 //                            }
                             emitter.onNext("");
                         }
-                    });
-                    // 分发订阅信息
-                    observable.subscribeOn(Schedulers.io())//在当前线程执行subscribe()方法
-                            .observeOn(AndroidSchedulers.mainThread())//在UI线程执行观察者的方法
-                            .subscribe(CashierFragment.subscriber);
-                }
+                    }
+                });
             }
         });
-
     }
 }
+
+
