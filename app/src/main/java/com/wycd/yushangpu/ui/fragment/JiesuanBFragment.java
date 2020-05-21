@@ -341,54 +341,7 @@ public class JiesuanBFragment extends BaseFragment {
             }
         }
 
-        yhqDialog = YouhuiquanDialog.showDialog(context, zhMoney, mVipMsg, /*yhqMsgs*/null, 1, new InterfaceBack() {
-            @Override
-            public void onResponse(Object response) {
-                yhqMsgs = (List<YhqMsg>) response;
-                yhqDialog.dismiss();
-//                        if (yhqMsgs.size() <= 0) {
-//                            return;
-//                        }
-                LogUtils.d("xxyhq", new Gson().toJson(yhqMsgs));
 
-                double yhqmo = 0.0;
-                for (YhqMsg yhqMsg : yhqMsgs) {
-                    if (yhqMsg.getEC_DiscountType() == 1) {//代金券
-                        yhqmo = CommonUtils.add(Double.parseDouble(NullUtils.noNullHandle(yhqMsg.getEC_Discount()).toString()), yhqmo);
-                    } else {
-                        yhqmo = CommonUtils.add(yhqmo, CommonUtils.del(Double.parseDouble(zhMoney),
-                                CommonUtils.multiply(String.valueOf(CommonUtils.div(yhqMsg.getEC_Discount(), 100, 2)), zhMoney)));
-                    }
-                }
-                tvCouponMoney.setText("抵扣金额：" + yhqmo);
-                computeYsMoney();
-            }
-
-            @Override
-            public void onErrorResponse(Object msg) {
-                yhqDialog.dismiss();
-            }
-        });
-        promotionDialog = PromotionDialog.showDialog(context, zhMoney, promotionMsg, mVipMsg, 1, new InterfaceBack() {
-            @Override
-            public void onResponse(Object response) {
-                promotionDialog.dismiss();
-                promotionMsg = (ReportMessageBean.ActiveBean) response;
-                if (promotionMsg != null) {
-                    tvPromotion.setText(promotionMsg.getRP_Name());
-                    promotionMoney = computePromotionMoney(promotionMsg);
-                } else {
-                    promotionMoney = 0;
-                    tvPromotion.setText("");
-                }
-                computeYsMoney();
-            }
-
-            @Override
-            public void onErrorResponse(Object msg) {
-                promotionDialog.dismiss();
-            }
-        });
     }
 
     @OnClick({R.id.jiesuan_layout,
@@ -411,9 +364,57 @@ public class JiesuanBFragment extends BaseFragment {
                 numKeyboardUtils.getEditView().addNum(100);
                 break;
             case R.id.li_yhq:
+                yhqDialog = YouhuiquanDialog.showDialog(context, zhMoney, mVipMsg, /*yhqMsgs*/null, new InterfaceBack() {
+                    @Override
+                    public void onResponse(Object response) {
+                        yhqMsgs = (List<YhqMsg>) response;
+                        yhqDialog.dismiss();
+//                        if (yhqMsgs.size() <= 0) {
+//                            return;
+//                        }
+                        LogUtils.d("xxyhq", new Gson().toJson(yhqMsgs));
+
+                        double yhqmo = 0.0;
+                        for (YhqMsg yhqMsg : yhqMsgs) {
+                            if (yhqMsg.getEC_DiscountType() == 1) {//代金券
+                                yhqmo = CommonUtils.add(Double.parseDouble(NullUtils.noNullHandle(yhqMsg.getEC_Discount()).toString()), yhqmo);
+                            } else {
+                                yhqmo = CommonUtils.add(yhqmo, CommonUtils.del(Double.parseDouble(zhMoney),
+                                        CommonUtils.multiply(String.valueOf(CommonUtils.div(yhqMsg.getEC_Discount(), 100, 2)), zhMoney)));
+                            }
+                        }
+                        tvCouponMoney.setText("抵扣金额：" + yhqmo);
+                        computeYsMoney();
+                    }
+
+                    @Override
+                    public void onErrorResponse(Object msg) {
+                        yhqDialog.dismiss();
+                    }
+                });
                 yhqDialog.show();
                 break;
             case R.id.li_promotion:
+                promotionDialog = PromotionDialog.showDialog(context, zhMoney, promotionMsg, mVipMsg, new InterfaceBack() {
+                    @Override
+                    public void onResponse(Object response) {
+                        promotionDialog.dismiss();
+                        promotionMsg = (ReportMessageBean.ActiveBean) response;
+                        if (promotionMsg != null) {
+                            tvPromotion.setText(promotionMsg.getRP_Name());
+                            promotionMoney = computePromotionMoney(promotionMsg);
+                        } else {
+                            promotionMoney = 0;
+                            tvPromotion.setText("");
+                        }
+                        computeYsMoney();
+                    }
+
+                    @Override
+                    public void onErrorResponse(Object msg) {
+                        promotionDialog.dismiss();
+                    }
+                });
                 promotionDialog.show();
                 break;
             case R.id.li_xianjin:

@@ -3,10 +3,12 @@ package com.wycd.yushangpu.widget.dialog;
 import android.app.Activity;
 import android.app.Dialog;
 import android.text.TextUtils;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,6 +46,12 @@ public class FastCashierDialog {
 
         dialog.setContentView(view);
         Window window = dialog.getWindow();
+        WindowManager m = context.getWindowManager();
+        Display d = m.getDefaultDisplay(); //为获取屏幕宽、高
+        WindowManager.LayoutParams p = dialog.getWindow().getAttributes(); //获取对话框当前的参数值
+        p.width = (int) (d.getHeight() * 0.8); //宽度设置为屏幕的0.8
+        p.height = (int) (d.getHeight() * 0.8);
+        dialog.getWindow().setAttributes(p); //设置生效
         dialog.show();
 
         window.setGravity(Gravity.CENTER);

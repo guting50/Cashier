@@ -199,7 +199,7 @@ public class EditCashierGoodsFragment extends BaseFragment {
                 //提成员工
                 ShopDetailDialog.shopdetailDialog(getActivity(), shopBean,
                         null == homeActivity.cashierFragment.mVipMsg ? "" : homeActivity.cashierFragment.mVipMsg.getVG_GID(),
-                        shopBean.getEM_GIDList(), MyApplication.loginBean.getShopID(), 1, 1, new InterfaceBack() {
+                        shopBean.getEM_GIDList(), MyApplication.loginBean.getShopID(), 1, new InterfaceBack() {
                             @Override
                             public void onResponse(Object response) {
 

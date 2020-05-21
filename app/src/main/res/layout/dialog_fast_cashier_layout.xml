@@ -1,155 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_white"
+    android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="500dp"
-        android:layout_height="500dp"
-        android:background="@drawable/background_white"
+        android:id="@+id/rl_head"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:background="@drawable/shap_homeviptop">
+
+        <TextView
+            android:id="@+id/notice_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_18"
+            android:text="快速收银"
+            android:textColor="@color/textcolor"
+            android:textSize="@dimen/sp_20"  />
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_10"
+            android:padding="@dimen/dp_10"
+            android:src="@drawable/ty_close" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/rl_head"
+        android:background="@color/view_green_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/rl_head"
+        <com.wycd.yushangpu.widget.NumInputView
+            android:id="@+id/edit_view"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_40"
-            android:background="@drawable/shap_homeviptop">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="2"
+            android:background="@drawable/ysl_f_char"
+            android:gravity="right"
+            android:padding="10dp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1">
 
             <TextView
-                android:id="@+id/notice_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/dp_18"
-                android:text="快速收银"
+                android:layout_gravity="center_vertical"
+                android:text="收款"
                 android:textColor="@color/title_color"
-                android:textSize="@dimen/sp_16" />
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/iv_close"
-                android:layout_width="@dimen/dp_40"
-                android:layout_height="@dimen/dp_40"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/dp_10"
-                android:padding="@dimen/dp_10"
-                android:src="@drawable/ty_close" />
-        </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:text="0"
+                android:textColor="@color/title_color"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/rl_head"
-            android:background="@color/view_green_line" />
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="55dp"
-            android:orientation="vertical">
-
-            <com.wycd.yushangpu.widget.NumInputView
-                android:id="@+id/edit_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_weight="2"
-                android:background="@drawable/ysl_f_char"
-                android:gravity="right"
-                android:padding="10dp" />
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:orientation="horizontal">
 
             <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_weight="1">
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="收款"
-                    android:textColor="@color/title_color"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_total"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|right"
-                    android:text="0"
-                    android:textColor="@color/title_color"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
-
+                <include layout="@layout/include_num_keyboard_layout" />
             </FrameLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:orientation="horizontal">
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-                <FrameLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/num_keyboard_add"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="3">
-
-                    <include layout="@layout/include_num_keyboard_layout" />
-                </FrameLayout>
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_weight="3"
+                    android:background="@drawable/selected_keyboard_bg"
+                    android:gravity="center"
+                    android:text="+"
+                    android:textColor="@color/white"
+                    android:textSize="35sp" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:id="@+id/li_jiesuan"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="1dp"
                     android:layout_weight="1"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/num_keyboard_add"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="1dp"
-                        android:layout_marginBottom="1dp"
-                        android:layout_weight="3"
-                        android:background="@drawable/selected_keyboard_bg"
-                        android:gravity="center"
-                        android:text="+"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="确定"
                         android:textColor="@color/white"
-                        android:textSize="35sp" />
+                        android:textSize="28sp" />
 
-                    <LinearLayout
-                        android:id="@+id/li_jiesuan"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="1dp"
-                        android:layout_weight="1"
-                        android:background="@color/colorPrimary"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="确定"
-                            android:textColor="@color/white"
-                            android:textSize="28sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:text="[Enter]"
-                            android:textColor="@color/white" />
-
-                    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="[Enter]"
+                        android:textColor="@color/white" />
 
                 </LinearLayout>
-            </LinearLayout>
 
+            </LinearLayout>
         </LinearLayout>
 
-    </RelativeLayout>
-</FrameLayout>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -4,12 +4,10 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
-import android.view.Gravity;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -46,7 +44,7 @@ import butterknife.ButterKnife;
 public class YouhuiquanDialog {
 
     public static Dialog showDialog(final Activity context, final String payMoney, VipInfoMsg mVipInfoMsg, List<YhqMsg> yhqMsgs,
-                                    int showingLocation, final InterfaceBack back) {
+                                    final InterfaceBack back) {
         final Dialog dialog;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.dialog_youhuiquan, null);
@@ -59,11 +57,15 @@ public class YouhuiquanDialog {
         dialog = new Dialog(context, R.style.DialogNotitle1);
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
-        int screenWidth = ((WindowManager) context
-                .getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay()
-                .getWidth();
         dialog.setContentView(view);
-        Window window = dialog.getWindow();
+
+        WindowManager m = context.getWindowManager();
+        Display d = m.getDefaultDisplay(); //为获取屏幕宽、高
+        WindowManager.LayoutParams p = dialog.getWindow().getAttributes(); //获取对话框当前的参数值
+        p.width = (int) (d.getWidth() * 0.7); //宽度设置为屏幕的0.8
+        p.height = (int) (d.getHeight() * 0.8);
+        dialog.getWindow().setAttributes(p); //设置生效
+
 //        gridview.setSelector(new ColorDrawable(Color.TRANSPARENT));
 
         final Dialog loadingdialog = LoadingDialog.loadingDialog(context, 1);
@@ -132,30 +134,6 @@ public class YouhuiquanDialog {
             }
         });
 
-        switch (showingLocation) {
-            case 0:
-                window.setGravity(Gravity.TOP); // 此处可以设置dialog显示的位置
-                break;
-            case 1:
-                window.setGravity(Gravity.CENTER);
-                break;
-            case 2:
-                window.setGravity(Gravity.BOTTOM);
-                break;
-            case 3:
-                WindowManager.LayoutParams params = window.getAttributes();
-                dialog.onWindowAttributesChanged(params);
-                params.x = screenWidth - dip2px(context, 100);// 设置x坐标
-                params.gravity = Gravity.TOP;
-                params.y = dip2px(context, 45);// 设置y坐标
-                Log.d("xx", params.y + "");
-                window.setGravity(Gravity.TOP);
-                window.setAttributes(params);
-                break;
-            default:
-                window.setGravity(Gravity.CENTER);
-                break;
-        }
         return dialog;
     }
 

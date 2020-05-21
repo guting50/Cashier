@@ -1,288 +1,286 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/info_goods_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background_texte0">
 
-    <RelativeLayout
-        android:id="@+id/info_goods_layout"
+    <TextView
+        android:id="@+id/info_goods_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="商品名称"
+        android:textColor="@color/title_color"
+        android:textSize="26sp" />
+
+    <ImageView
+        android:id="@+id/iv_clone"
+        android:layout_width="60dp"
+        android:layout_height="68dp"
+        android:layout_alignParentRight="true"
+        android:padding="20dp"
+        android:src="@mipmap/ty_close" />
+
+    <View
+        android:id="@+id/divider_a"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background_texte0">
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/info_goods_name"
+        android:layout_marginTop="18dp"
+        android:background="#cec4cc" />
 
-        <TextView
-            android:id="@+id/info_goods_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:text="商品名称"
-            android:textColor="@color/title_color"
-            android:textSize="26sp" />
+    <TextView
+        android:id="@+id/goods_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divider_a"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="24dp"
+        android:text="条码：123456"
+        android:textColor="@color/title_color"
+        android:textSize="@dimen/sp_16" />
 
-        <ImageView
-            android:id="@+id/iv_clone"
-            android:layout_width="60dp"
-            android:layout_height="68dp"
-            android:layout_alignParentRight="true"
-            android:padding="20dp"
-            android:src="@mipmap/ty_close" />
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/goods_code"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="24dp"
+        android:text="售价：￥888"
+        android:textColor="@color/title_color"
+        android:textSize="@dimen/sp_16" />
 
-        <View
-            android:id="@+id/divider_a"
+    <com.gt.utils.widget.BgTextView
+        android:id="@+id/bn_edit_num"
+        android:layout_width="@dimen/dp_112"
+        android:layout_height="@dimen/dp_54"
+        android:layout_below="@+id/divider_a"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="15dp"
+        android:gravity="center"
+        android:text="数量"
+        android:textSize="@dimen/sp_20"
+        app:corners_radius="4dp"
+        app:solid_color="@color/white"
+        app:solid_color_checked="@color/yunpu"
+        app:stroke_color="@color/color_8492a6"
+        app:stroke_width="1dp"
+        app:stroke_width_checked="0dp"
+        app:textColor_checked="@color/white" />
+
+    <com.gt.utils.widget.BgTextView
+        android:id="@+id/bn_edit_price"
+        android:layout_width="@dimen/dp_112"
+        android:layout_height="@dimen/dp_54"
+        android:layout_below="@+id/divider_a"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/bn_edit_num"
+        android:gravity="center"
+        android:text="单价"
+        android:textSize="@dimen/sp_20"
+        app:corners_radius="4dp"
+        app:solid_color="@color/white"
+        app:solid_color_checked="@color/yunpu"
+        app:stroke_color="@color/color_8492a6"
+        app:stroke_width="1dp"
+        app:stroke_width_checked="0dp"
+        app:textColor_checked="@color/white" />
+
+    <com.gt.utils.widget.BgTextView
+        android:id="@+id/bn_edit_give"
+        android:layout_width="@dimen/dp_112"
+        android:layout_height="@dimen/dp_54"
+        android:layout_below="@+id/divider_a"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/bn_edit_price"
+        android:gravity="center"
+        android:text="赠送"
+        android:textSize="@dimen/sp_20"
+        app:corners_radius="4dp"
+        app:solid_color="@color/white"
+        app:solid_color_checked="@color/yunpu"
+        app:stroke_color="@color/color_8492a6"
+        app:stroke_width="1dp"
+        app:stroke_width_checked="0dp"
+        app:textColor_checked="@color/white" />
+
+    <com.gt.utils.widget.BgTextView
+        android:id="@+id/bn_edit_subtotal"
+        android:layout_width="@dimen/dp_112"
+        android:layout_height="@dimen/dp_54"
+        android:layout_below="@+id/bn_edit_num"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:gravity="center"
+        android:text="小计"
+        android:textSize="@dimen/sp_20"
+        app:corners_radius="4dp"
+        app:solid_color="@color/white"
+        app:solid_color_checked="@color/yunpu"
+        app:stroke_color="@color/color_8492a6"
+        app:stroke_width="1dp"
+        app:stroke_width_checked="0dp"
+        app:textColor_checked="@color/white" />
+
+    <com.gt.utils.widget.BgTextView
+        android:id="@+id/bn_edit_discount"
+        android:layout_width="@dimen/dp_112"
+        android:layout_height="@dimen/dp_54"
+        android:layout_below="@+id/bn_edit_num"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/bn_edit_subtotal"
+        android:gravity="center"
+        android:text="折扣"
+        android:textSize="@dimen/sp_20"
+        app:corners_radius="4dp"
+        app:solid_color="@color/white"
+        app:solid_color_checked="@color/yunpu"
+        app:stroke_color="@color/color_8492a6"
+        app:stroke_width="1dp"
+        app:stroke_width_checked="0dp"
+        app:textColor_checked="@color/white" />
+
+    <com.gt.utils.widget.BgTextView
+        android:id="@+id/bn_edit_royalty"
+        android:layout_width="@dimen/dp_112"
+        android:layout_height="@dimen/dp_54"
+        android:layout_below="@+id/bn_edit_num"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/bn_edit_discount"
+        android:gravity="center"
+        android:text="提成"
+        android:textSize="@dimen/sp_20"
+        app:corners_radius="4dp"
+        app:solid_color="@color/white"
+        app:solid_color_checked="@color/yunpu"
+        app:solid_color_no_enabled="@color/enablenot"
+        app:stroke_color="@color/color_8492a6"
+        app:stroke_width="1dp"
+        app:stroke_width_checked="0dp"
+        app:textColor_checked="@color/white" />
+
+    <LinearLayout
+        android:id="@+id/edit_layout"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/bn_edit_royalty"
+        android:layout_marginLeft="90dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginRight="90dp"
+        android:layout_marginBottom="15dp"
+        android:orientation="horizontal">
+
+        <com.gt.utils.widget.BgTextView
+            android:id="@+id/edit_num_del"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:text="-"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:corners_radius="5dp"
+            app:solid_color="@color/textcc" />
+
+        <com.gt.utils.widget.BgLayout
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_below="@+id/info_goods_name"
-            android:layout_marginTop="18dp"
-            android:background="#cec4cc" />
-
-        <TextView
-            android:id="@+id/goods_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/divider_a"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="24dp"
-            android:text="条码：123456"
-            android:textColor="@color/title_color"
-            android:textSize="@dimen/sp_16" />
-
-        <TextView
-            android:id="@+id/tv_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/goods_code"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="24dp"
-            android:text="售价：￥888"
-            android:textColor="@color/title_color"
-            android:textSize="@dimen/sp_16" />
-
-        <com.gt.utils.widget.BgTextView
-            android:id="@+id/bn_edit_num"
-            android:layout_width="@dimen/dp_112"
-            android:layout_height="@dimen/dp_54"
-            android:layout_below="@+id/divider_a"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="24dp"
-            android:layout_marginRight="15dp"
-            android:gravity="center"
-            android:text="数量"
-            android:textSize="@dimen/sp_20"
-            app:corners_radius="4dp"
-            app:solid_color="@color/white"
-            app:solid_color_checked="@color/yunpu"
-            app:stroke_color="@color/color_8492a6"
-            app:stroke_width="1dp"
-            app:stroke_width_checked="0dp"
-            app:textColor_checked="@color/white" />
-
-        <com.gt.utils.widget.BgTextView
-            android:id="@+id/bn_edit_price"
-            android:layout_width="@dimen/dp_112"
-            android:layout_height="@dimen/dp_54"
-            android:layout_below="@+id/divider_a"
-            android:layout_marginTop="24dp"
+            android:layout_height="match_parent"
             android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/bn_edit_num"
-            android:gravity="center"
-            android:text="单价"
-            android:textSize="@dimen/sp_20"
-            app:corners_radius="4dp"
-            app:solid_color="@color/white"
-            app:solid_color_checked="@color/yunpu"
-            app:stroke_color="@color/color_8492a6"
-            app:stroke_width="1dp"
-            app:stroke_width_checked="0dp"
-            app:textColor_checked="@color/white" />
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            app:corners_radius="5dp"
+            app:stroke_color="@color/textgreen"
+            app:stroke_width="1dp">
 
-        <com.gt.utils.widget.BgTextView
-            android:id="@+id/bn_edit_give"
-            android:layout_width="@dimen/dp_112"
-            android:layout_height="@dimen/dp_54"
-            android:layout_below="@+id/divider_a"
-            android:layout_marginTop="24dp"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/bn_edit_price"
-            android:gravity="center"
-            android:text="赠送"
-            android:textSize="@dimen/sp_20"
-            app:corners_radius="4dp"
-            app:solid_color="@color/white"
-            app:solid_color_checked="@color/yunpu"
-            app:stroke_color="@color/color_8492a6"
-            app:stroke_width="1dp"
-            app:stroke_width_checked="0dp"
-            app:textColor_checked="@color/white" />
-
-        <com.gt.utils.widget.BgTextView
-            android:id="@+id/bn_edit_subtotal"
-            android:layout_width="@dimen/dp_112"
-            android:layout_height="@dimen/dp_54"
-            android:layout_below="@+id/bn_edit_num"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="15dp"
-            android:gravity="center"
-            android:text="小计"
-            android:textSize="@dimen/sp_20"
-            app:corners_radius="4dp"
-            app:solid_color="@color/white"
-            app:solid_color_checked="@color/yunpu"
-            app:stroke_color="@color/color_8492a6"
-            app:stroke_width="1dp"
-            app:stroke_width_checked="0dp"
-            app:textColor_checked="@color/white" />
-
-        <com.gt.utils.widget.BgTextView
-            android:id="@+id/bn_edit_discount"
-            android:layout_width="@dimen/dp_112"
-            android:layout_height="@dimen/dp_54"
-            android:layout_below="@+id/bn_edit_num"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/bn_edit_subtotal"
-            android:gravity="center"
-            android:text="折扣"
-            android:textSize="@dimen/sp_20"
-            app:corners_radius="4dp"
-            app:solid_color="@color/white"
-            app:solid_color_checked="@color/yunpu"
-            app:stroke_color="@color/color_8492a6"
-            app:stroke_width="1dp"
-            app:stroke_width_checked="0dp"
-            app:textColor_checked="@color/white" />
-
-        <com.gt.utils.widget.BgTextView
-            android:id="@+id/bn_edit_royalty"
-            android:layout_width="@dimen/dp_112"
-            android:layout_height="@dimen/dp_54"
-            android:layout_below="@+id/bn_edit_num"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/bn_edit_discount"
-            android:gravity="center"
-            android:text="提成"
-            android:textSize="@dimen/sp_20"
-            app:corners_radius="4dp"
-            app:solid_color="@color/white"
-            app:solid_color_checked="@color/yunpu"
-            app:solid_color_no_enabled="@color/enablenot"
-            app:stroke_color="@color/color_8492a6"
-            app:stroke_width="1dp"
-            app:stroke_width_checked="0dp"
-            app:textColor_checked="@color/white" />
-
-        <LinearLayout
-            android:id="@+id/edit_layout"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_above="@+id/keyboard_layout"
-            android:layout_marginLeft="90dp"
-            android:layout_marginRight="90dp"
-            android:layout_marginBottom="15dp"
-            android:orientation="horizontal">
-
-            <com.gt.utils.widget.BgTextView
-                android:id="@+id/edit_num_del"
-                android:layout_width="48dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:gravity="center"
-                android:text="-"
-                android:textColor="@color/white"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                app:corners_radius="5dp"
-                app:solid_color="@color/textcc" />
-
-            <com.gt.utils.widget.BgLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                app:corners_radius="5dp"
-                app:stroke_color="@color/textgreen"
-                app:stroke_width="1dp">
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/tv_edit_title_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="改数量："
+                    android:textColor="@color/title_color"
+                    android:textSize="20sp" />
+
+                <com.wycd.yushangpu.widget.NumInputView
+                    android:id="@+id/edit_text_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                    android:layout_above="@+id/edit_layout"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:textColor="@color/title_color"
+                    android:textSize="20sp" />
 
-                    <TextView
-                        android:id="@+id/tv_edit_title_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="改数量："
-                        android:textColor="@color/title_color"
-                        android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/discount_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:text="折"
+                    android:textColor="@color/title_color"
+                    android:textSize="20sp" />
+            </LinearLayout>
 
-                    <com.wycd.yushangpu.widget.NumInputView
-                        android:id="@+id/edit_text_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_above="@+id/edit_layout"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical|right"
-                        android:textColor="@color/title_color"
-                        android:textSize="20sp" />
+        </com.gt.utils.widget.BgLayout>
 
-                    <TextView
-                        android:id="@+id/discount_unit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="10dp"
-                        android:text="折"
-                        android:textColor="@color/title_color"
-                        android:textSize="20sp" />
-                </LinearLayout>
+        <com.gt.utils.widget.BgTextView
+            android:id="@+id/edit_num_add"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:text="+"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:corners_radius="5dp"
+            app:solid_color="@color/textgreen" />
 
-            </com.gt.utils.widget.BgLayout>
+        <com.gt.utils.widget.BgTextView
+            android:id="@+id/edit_confirm"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@color/white"
+            app:corners_radius="5dp"
+            app:solid_color="@color/textgreen" />
 
-            <com.gt.utils.widget.BgTextView
-                android:id="@+id/edit_num_add"
-                android:layout_width="48dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:gravity="center"
-                android:text="+"
-                android:textColor="@color/white"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                app:corners_radius="5dp"
-                app:solid_color="@color/textgreen" />
+        <View
+            android:id="@+id/edit_layout_place"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content" />
 
-            <com.gt.utils.widget.BgTextView
-                android:id="@+id/edit_confirm"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="确定"
-                android:textColor="@color/white"
-                app:corners_radius="5dp"
-                app:solid_color="@color/textgreen" />
+    </LinearLayout>
 
-            <View
-                android:id="@+id/edit_layout_place"
-                android:layout_width="48dp"
-                android:layout_height="wrap_content" />
+    <include
+        layout="@layout/include_num_keyboard_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bn_edit_royalty"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="90dp"
+        android:layout_marginTop="143dp"
+        android:layout_marginRight="90dp"
+        android:layout_marginBottom="15dp" />
 
-        </LinearLayout>
-
-        <include
-            layout="@layout/include_num_keyboard_layout"
-            android:layout_width="match_parent"
-            android:layout_height="339dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="90dp"
-            android:layout_marginRight="90dp"
-            android:layout_marginBottom="15dp" />
-
-    </RelativeLayout>
-</FrameLayout>
+</RelativeLayout>

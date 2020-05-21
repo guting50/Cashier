@@ -537,7 +537,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                 break;
             case R.id.et_select_EM_Name://选择人员
                 ShopDetailDialog.shopdetailDialog(getActivity(), null, "",
-                        null, MyApplication.loginBean.getShopID(), 1, true, 2, new InterfaceBack() {
+                        null, MyApplication.loginBean.getShopID(), true, 2, new InterfaceBack() {
                             @Override
                             public void onResponse(Object response) {
                                 List<EmplMsg> mEmplMsgList = (List<EmplMsg>) response;

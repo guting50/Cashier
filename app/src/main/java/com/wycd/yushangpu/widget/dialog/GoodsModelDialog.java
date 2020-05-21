@@ -4,11 +4,9 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Paint;
-import android.util.Log;
-import android.view.Gravity;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,8 +45,8 @@ public class GoodsModelDialog {
     private static List<ShopMsg> goodsList;
     private static ShopMsg goodsitem;
 
-    public static Dialog goodsModelDialog(final Activity context,
-                                          int showingLocation, final List<List<GoodsModelBean>> mmodelList, List<ShopMsg> msllist, final boolean isZeroStock, final InterfaceBack back) {
+    public static Dialog goodsModelDialog(final Activity context, final List<List<GoodsModelBean>> mmodelList,
+                                          List<ShopMsg> msllist, final boolean isZeroStock, final InterfaceBack back) {
         final Dialog dialog;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.layout_sm_goods_rule_pop, null);
@@ -91,13 +89,14 @@ public class GoodsModelDialog {
         dialog = new Dialog(context, R.style.DialogNotitle1);
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
-        int screenWidth = ((WindowManager) context
-                .getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay()
-                .getWidth();
         dialog.setContentView(view);
-        Window window = dialog.getWindow();
+        WindowManager m = context.getWindowManager();
+        Display d = m.getDefaultDisplay(); //为获取屏幕宽、高
+        WindowManager.LayoutParams p = dialog.getWindow().getAttributes(); //获取对话框当前的参数值
+        p.width = (int) (d.getHeight() * 0.8); //宽度设置为屏幕的0.8
+        p.height = (int) (d.getHeight() * 0.8);
+        dialog.getWindow().setAttributes(p); //设置生效
         dialog.show();
-
 
         initpop(context);
         tvSure.setOnClickListener(new View.OnClickListener() {
@@ -128,32 +127,6 @@ public class GoodsModelDialog {
                 dialog.dismiss();
             }
         });
-
-
-        switch (showingLocation) {
-            case 0:
-                window.setGravity(Gravity.TOP); // 此处可以设置dialog显示的位置
-                break;
-            case 1:
-                window.setGravity(Gravity.CENTER);
-                break;
-            case 2:
-                window.setGravity(Gravity.BOTTOM);
-                break;
-            case 3:
-                WindowManager.LayoutParams params = window.getAttributes();
-                dialog.onWindowAttributesChanged(params);
-                params.x = screenWidth - dip2px(context, 100);// 设置x坐标
-                params.gravity = Gravity.TOP;
-                params.y = dip2px(context, 45);// 设置y坐标
-                Log.d("xx", params.y + "");
-                window.setGravity(Gravity.TOP);
-                window.setAttributes(params);
-                break;
-            default:
-                window.setGravity(Gravity.CENTER);
-                break;
-        }
         return dialog;
     }
 

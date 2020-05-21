@@ -1,124 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shap_homesearch"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:background="@drawable/shap_homeviptop">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_18"
+            android:gravity="center_vertical"
+            android:text="优惠券"
+            android:textColor="@color/textcolor"
+            android:textSize="@dimen/sp_20" />
+    </RelativeLayout>
 
     <LinearLayout
-        android:layout_width="770dp"
-        android:layout_height="535dp"
+        android:layout_width="450dp"
+        android:layout_height="@dimen/dp_50"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_25"
         android:background="@drawable/shap_homesearch"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:orientation="vertical">
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_60"
-            android:background="@drawable/shap_homeviptop">
-
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/dp_18"
-                android:gravity="center_vertical"
-                android:text="优惠券"
-                android:textColor="@color/textcolor"
-                android:textSize="@dimen/sp_20" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="450dp"
-            android:layout_height="@dimen/dp_50"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/dp_25"
-            android:background="@drawable/shap_homesearch"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <com.wycd.yushangpu.widget.views.ClearEditText
-                android:id="@+id/et_search"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/dp_15"
-                android:layout_marginRight="@dimen/dp_12"
-                android:layout_weight="1"
-                android:background="@null"
-                android:drawableRight="@drawable/home_error"
-                android:hint="请输入优惠券名称"
-                android:stretchMode="spacingWidth"
-                android:textColor="@color/textcolor"
-                android:textColorHint="@color/textbb"
-                android:textSize="@dimen/sp_13" />
-
-            <View
-                android:layout_width="0.5dp"
-                android:layout_height="match_parent"
-                android:background="#bebebe" />
-
-            <LinearLayout
-                android:id="@+id/li_search"
-                android:layout_width="@dimen/dp_70"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/chosevip_search" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_2"
-                    android:text="查询"
-                    android:textColor="@color/textgreen"
-                    android:textSize="@dimen/sp_13" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/gridview"
-            android:layout_width="match_parent"
+        <com.wycd.yushangpu.widget.views.ClearEditText
+            android:id="@+id/et_search"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="@dimen/dp_8"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1" />
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginRight="@dimen/dp_12"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableRight="@drawable/home_error"
+            android:hint="请输入优惠券名称"
+            android:stretchMode="spacingWidth"
+            android:textColor="@color/textcolor"
+            android:textColorHint="@color/textbb"
+            android:textSize="@dimen/sp_13" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="#bebebe" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_80"
-            android:layout_alignParentBottom="true"
+            android:id="@+id/li_search"
+            android:layout_width="@dimen/dp_70"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/rl_confirm"
-                android:layout_width="@dimen/dp_100"
-                android:layout_height="@dimen/dp_45"
-                android:background="@drawable/shap_shopdetail_confirm"
-                android:gravity="center"
-                android:text="确定"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_18" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/chosevip_search" />
 
             <TextView
-                android:id="@+id/rl_cancle"
-                android:layout_width="@dimen/dp_100"
-                android:layout_height="@dimen/dp_45"
-                android:layout_marginLeft="@dimen/dp_60"
-                android:background="@drawable/shap_shopdetail_cancle"
-                android:gravity="center"
-                android:text="取消"
-                android:textColor="@color/text99"
-                android:textSize="@dimen/sp_18" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_2"
+                android:text="查询"
+                android:textColor="@color/textgreen"
+                android:textSize="@dimen/sp_13" />
         </LinearLayout>
-
     </LinearLayout>
 
-</FrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_80"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/rl_confirm"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_45"
+            android:background="@drawable/shap_shopdetail_confirm"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_18" />
+
+        <TextView
+            android:id="@+id/rl_cancle"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_45"
+            android:layout_marginLeft="@dimen/dp_60"
+            android:background="@drawable/shap_shopdetail_cancle"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/text99"
+            android:textSize="@dimen/sp_18" />
+    </LinearLayout>
+
+</LinearLayout>

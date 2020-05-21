@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.CacheDoubleUtils;
 import com.google.gson.reflect.TypeToken;
 import com.gt.utils.widget.BgLayout;
 import com.gt.utils.widget.FlowLayout;
@@ -144,7 +143,7 @@ public class MemberRechargeFragment extends BaseFragment {
                 break;
             case R.id.et_recharge_select_em_name://选择员工
                 ShopDetailDialog.shopdetailDialog(getActivity(), null, "",
-                        mStaffListGids, MyApplication.loginBean.getShopID(), 1, true, 3, new InterfaceBack() {
+                        mStaffListGids, MyApplication.loginBean.getShopID(), true, 3, new InterfaceBack() {
                             @Override
                             public void onResponse(Object response) {
                                 List<EmplMsg> mEmplMsgList = (List<EmplMsg>) response;

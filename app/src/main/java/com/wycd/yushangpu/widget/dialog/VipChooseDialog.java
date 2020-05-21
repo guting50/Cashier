@@ -3,7 +3,9 @@ package com.wycd.yushangpu.widget.dialog;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.google.gson.reflect.TypeToken;
@@ -110,6 +112,14 @@ public class VipChooseDialog extends Dialog {
         ButterKnife.bind(this);
         setCancelable(true);
         setCanceledOnTouchOutside(true);
+
+        WindowManager m = mContext.getWindowManager();
+        Display d = m.getDefaultDisplay(); //为获取屏幕宽、高
+        WindowManager.LayoutParams p = getWindow().getAttributes(); //获取对话框当前的参数值
+        p.width = (int) (d.getWidth() * 0.8); //宽度设置为屏幕的0.8
+        p.height = (int) (d.getHeight() * 0.8);
+        getWindow().setAttributes(p); //设置生效
+
         editTextLayout = (NumInputView) findViewById(R.id.edit_text_layout);
 
         new NumKeyboardUtils(mContext, getWindow().getDecorView(), editTextLayout);

@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
@@ -49,7 +48,6 @@ import com.wycd.yushangpu.tools.PreferenceHelper;
 import com.wycd.yushangpu.tools.StringUtil;
 import com.wycd.yushangpu.widget.dialog.FastCashierDialog;
 import com.wycd.yushangpu.widget.dialog.GoodsModelDialog;
-import com.wycd.yushangpu.widget.dialog.KeyboardDialog;
 import com.wycd.yushangpu.widget.dialog.NoticeDialog;
 import com.wycd.yushangpu.widget.dialog.VipChooseDialog;
 import com.wycd.yushangpu.widget.views.ClearEditText;
@@ -75,8 +73,6 @@ public class CashierFragment extends BaseFragment {
     TextView tv_ordernum;
     @BindView(R.id.tv_ordertime)
     TextView tv_ordertime;
-    @BindView(R.id.iv_search)
-    ImageView ivSearch;
     @BindView(R.id.vip_name_layout)
     BgTextView vipNameLayout;
     @BindView(R.id.et_login_account)
@@ -249,20 +245,6 @@ public class CashierFragment extends BaseFragment {
                     goodsListFragment.obtainHomeShop(mEtLoginAccount.getText().toString(), true);
                 }
                 return false;
-            }
-        });
-
-        ivSearch.setOnClickListener(new NoDoubleClickListener() {
-            @Override
-            protected void onNoDoubleClick(View view) {
-                KeyboardDialog.numchangeDialog(homeActivity, "商品搜索", mEtLoginAccount.getText().toString(), null, 1, new InterfaceBack() {
-
-                    @Override
-                    public void onResponse(Object response) {
-                        String search = (String) response;
-                        goodsListFragment.obtainHomeShop(search + "", true);
-                    }
-                });
             }
         });
 
@@ -783,7 +765,7 @@ public class CashierFragment extends BaseFragment {
                 }
 
                 homeActivity.dialog.dismiss();
-                modelDialog = GoodsModelDialog.goodsModelDialog(homeActivity, 1, modelList, sllist,
+                modelDialog = GoodsModelDialog.goodsModelDialog(homeActivity, modelList, sllist,
                         BasicEucalyptusPresnter.isZeroStock, new InterfaceBack() {
                             @Override
                             public void onResponse(Object response) {

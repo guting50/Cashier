@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,12 +69,12 @@ public class ShopDetailDialog {
     private static int mType = 0;//1:商品消费，2：会员开卡，3：会员充值
 
     public static Dialog shopdetailDialog(final Activity context, final ShopMsg mShopMsg, String VGID, List<String> mEmplGidList,
-                                          String SmGid, int showingLocation, int type, final InterfaceBack back) {
-        return shopdetailDialog(context, mShopMsg, VGID, mEmplGidList, SmGid, showingLocation, false, type, back);
+                                          String SmGid,  int type, final InterfaceBack back) {
+        return shopdetailDialog(context, mShopMsg, VGID, mEmplGidList, SmGid,  false, type, back);
     }
 
     public static Dialog shopdetailDialog(final Activity context, final ShopMsg mShopMsg, String VGID, List<String> mEmplGidList,
-                                          String SmGid, int showingLocation, boolean single, int type, final InterfaceBack back) {
+                                          String SmGid, boolean single, int type, final InterfaceBack back) {
         boolean allow = false;
         if (ImpParamLoading.REPORT_BEAN != null) {
             List<DeductRuleBean> deductRuleBeans = ImpParamLoading.REPORT_BEAN.getDeductRule();
@@ -133,11 +134,15 @@ public class ShopDetailDialog {
         dialog = new Dialog(context, R.style.DialogNotitle1);
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
-        int screenWidth = ((WindowManager) context
-                .getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay()
-                .getWidth();
         dialog.setContentView(view);
-        Window window = dialog.getWindow();
+
+        WindowManager m = context.getWindowManager();
+        Display d = m.getDefaultDisplay(); //为获取屏幕宽、高
+        WindowManager.LayoutParams p = dialog.getWindow().getAttributes(); //获取对话框当前的参数值
+        p.width = (int) (d.getWidth() * 0.8); //宽度设置为屏幕的0.8
+        p.height = (int) (d.getHeight() * 0.8);
+        dialog.getWindow().setAttributes(p); //设置生效
+
         dialog.show();
         obtainBumenList(loadingdialog, mShopMsg, VGID, mValiRuleMsgList, mEmplMsgList, yuangongAdapter);
 
@@ -263,30 +268,6 @@ public class ShopDetailDialog {
 
             }
         });
-        switch (showingLocation) {
-            case 0:
-                window.setGravity(Gravity.TOP); // 此处可以设置dialog显示的位置
-                break;
-            case 1:
-                window.setGravity(Gravity.CENTER);
-                break;
-            case 2:
-                window.setGravity(Gravity.BOTTOM);
-                break;
-            case 3:
-                WindowManager.LayoutParams params = window.getAttributes();
-                dialog.onWindowAttributesChanged(params);
-                params.x = screenWidth - dip2px(context, 100);// 设置x坐标
-                params.gravity = Gravity.TOP;
-                params.y = dip2px(context, 45);// 设置y坐标
-                Log.d("xx", params.y + "");
-                window.setGravity(Gravity.TOP);
-                window.setAttributes(params);
-                break;
-            default:
-                window.setGravity(Gravity.CENTER);
-                break;
-        }
         return dialog;
     }
 

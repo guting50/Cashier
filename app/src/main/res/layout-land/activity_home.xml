@@ -38,7 +38,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_18" />
 
-            <com.gt.utils.widget.BgFrameLayout
+            <com.gt.utils.widget.BgLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_store_name"
@@ -59,46 +59,57 @@
                     android:text="高级版"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_18" />
-            </com.gt.utils.widget.BgFrameLayout>
+            </com.gt.utils.widget.BgLayout>
         </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/btn_cashier"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_below="@+id/rl_out"
-            android:layout_marginTop="24dp"
-            android:src="@mipmap/btn_cashier_true" />
+            android:layout_marginBottom="80dp">
 
-        <ImageView
-            android:id="@+id/btn_member"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_cashier"
-            android:src="@mipmap/btn_member_false" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/btn_goods"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_member"
-            android:src="@mipmap/btn_goods_false"
-            android:visibility="gone" />
+                <ImageView
+                    android:id="@+id/btn_cashier"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:src="@mipmap/btn_cashier_true" />
 
-        <ImageView
-            android:id="@+id/btn_sale"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_goods"
-            android:src="@mipmap/btn_sale_false"
-            android:visibility="gone" />
+                <ImageView
+                    android:id="@+id/btn_member"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btn_cashier"
+                    android:src="@mipmap/btn_member_false" />
 
-        <ImageView
-            android:id="@+id/btn_home_set"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_sale"
-            android:src="@mipmap/btn_home_set_false" />
+                <ImageView
+                    android:id="@+id/btn_goods"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btn_member"
+                    android:src="@mipmap/btn_goods_false"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/btn_sale"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btn_goods"
+                    android:src="@mipmap/btn_sale_false"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/btn_home_set"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btn_sale"
+                    android:src="@mipmap/btn_home_set_false" />
+            </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
 
         <ImageView
             android:id="@+id/btn_houtai"
