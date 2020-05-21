@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.CacheDiskUtils;
 import com.gt.utils.widget.BgFrameLayout;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.Presenter.BasicEucalyptusPresnter;
@@ -13,6 +12,7 @@ import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.EmplMsg;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.bean.SysSwitchRes;
+import com.wycd.yushangpu.bean.SysSwitchType;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.NullUtils;
@@ -91,7 +91,7 @@ public class EditCashierGoodsFragment extends BaseFragment {
 
         bnEditRoyalty.setEnabled(false);
         //判断员工提成是否打开
-        if (CacheDiskUtils.getInstance().getParcelable("301", SysSwitchRes.CREATOR).getSS_State() == 1) {
+        if (SysSwitchRes.getSwitch(SysSwitchType.T301.getV()).getSS_State() == 1) {
             bnEditRoyalty.setEnabled(true);
         }
     }

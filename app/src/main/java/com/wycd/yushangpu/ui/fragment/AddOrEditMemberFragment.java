@@ -16,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.CacheDoubleUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -38,6 +37,7 @@ import com.wycd.yushangpu.bean.OrderPayResult;
 import com.wycd.yushangpu.bean.PayType;
 import com.wycd.yushangpu.bean.ReportMessageBean;
 import com.wycd.yushangpu.bean.SysSwitchRes;
+import com.wycd.yushangpu.bean.SysSwitchType;
 import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
 import com.wycd.yushangpu.http.BaseRes;
@@ -344,75 +344,58 @@ public class AddOrEditMemberFragment extends BaseFragment {
         ((ViewGroup) et_VIP_CellPhone.getParent()).getChildAt(1).setVisibility(View.INVISIBLE);
         et_VIP_FaceNumber.setEnabled(false);
         isCardNum = false;
-        List<SysSwitchRes> mSwitchEntity = ImpParamLoading.REPORT_BEAN.getGetSysSwitchList();
-        if (mSwitchEntity != null && mSwitchEntity.size() > 0) {
-            for (SysSwitchRes sysSwitchListBean : mSwitchEntity) {
-                switch (sysSwitchListBean.getSS_Code()) {
-                    case 201://会员卡号同手机号
-                        if (sysSwitchListBean.getSS_State() == 1) {
-                            mCardContactPhone = true;
-                            et_VCH_Card.setEnabled(false);
-                        }
-                        break;
-                    case 211://是否必填手机号
-                        if (sysSwitchListBean.getSS_State() == 1) {
-                            mIsfilltel = true;
-                            ((ViewGroup) et_VIP_CellPhone.getParent()).getChildAt(1).setVisibility(View.VISIBLE);
-                        }
-                        break;
-                    case 208://卡面号码
-                        if (sysSwitchListBean.getSS_State() == 1) {
-                            et_VIP_FaceNumber.setEnabled(true);
-                            ((ViewGroup) et_VIP_FaceNumber.getParent()).getChildAt(1).setVisibility(View.VISIBLE);
-                            isCardNum = true;
-                        }
-                        break;
-                    case 202://初始密码
-                        if (vipInfoMsg == null && sysSwitchListBean.getSS_State() == 1) {
-                            et_VCH_Pwd.setText(sysSwitchListBean.getSS_Value());
-                            et_VCH_Pwd_Confirm.setText(sysSwitchListBean.getSS_Value());
-                        }
-                        break;
-                    case 103://银联支付
-                        if (sysSwitchListBean.getSS_State() == 1) {
-                            mPayWayList.add("银联支付");
-                        }
-                        break;
-                    case 101://现金支付
-                        if (sysSwitchListBean.getSS_State() == 1) {
+        
+        //会员卡号同手机号
+        if (SysSwitchRes.getSwitch(SysSwitchType.T201.getV()).getSS_State() == 1) {
+            mCardContactPhone = true;
+            et_VCH_Card.setEnabled(false);
+        }
+        //是否必填手机号
+        if (SysSwitchRes.getSwitch(SysSwitchType.T211.getV()).getSS_State() == 1) {
+            mIsfilltel = true;
+            ((ViewGroup) et_VIP_CellPhone.getParent()).getChildAt(1).setVisibility(View.VISIBLE);
+        }
+        //卡面号码
+        if (SysSwitchRes.getSwitch(SysSwitchType.T208.getV()).getSS_State() == 1) {
+            et_VIP_FaceNumber.setEnabled(true);
+            ((ViewGroup) et_VIP_FaceNumber.getParent()).getChildAt(1).setVisibility(View.VISIBLE);
+            isCardNum = true;
+        }
+        //初始密码
+        if (vipInfoMsg == null && SysSwitchRes.getSwitch(SysSwitchType.T202.getV()).getSS_State() == 1) {
+            et_VCH_Pwd.setText(SysSwitchRes.getSwitch(SysSwitchType.T202.getV()).getSS_Value());
+            et_VCH_Pwd_Confirm.setText(SysSwitchRes.getSwitch(SysSwitchType.T202.getV()).getSS_Value());
+        }
+        //银联支付
+        if (SysSwitchRes.getSwitch(SysSwitchType.T103.getV()).getSS_State() == 1) {
+            mPayWayList.add("银联支付");
+        }
+        //现金支付
+        if (SysSwitchRes.getSwitch(SysSwitchType.T101.getV()).getSS_State() == 1) {
 //                            mPayWayList.add("现金支付");
-                        }
-                        break;
-                    case 106://支付宝记账
-                        if (sysSwitchListBean.getSS_State() == 1) {
-                            mPayWayList.add("支付宝记账");
-                        }
-                        break;
-                    case 105://微信记账
-                        if (sysSwitchListBean.getSS_State() == 1) {
-                            mPayWayList.add("微信记账");
-                        }
-                        break;
-                    case 111://扫码支付
-                        if (sysSwitchListBean.getSS_State() == 1) {
-                            mPayWayList.add("扫码支付");
-                        }
-                        break;
-                    case 113://其他支付
-                        if (sysSwitchListBean.getSS_State() == 1) {
-                            mPayWayList.add("其他支付");
-                        }
-                        break;
-                    case 301: //员工提成
-                        if (vipInfoMsg == null && sysSwitchListBean.getSS_State() == 1) {
-                            rootView.findViewById(R.id.et_select_EM_Name).setEnabled(true);
-                            rootView.findViewById(R.id.et_select_EM_Name).setSelected(true);
-                            ((TextView) rootView.findViewById(R.id.et_select_EM_Name))
-                                    .setTextColor(homeActivity.getResources().getColor(R.color.white));
-                        }
-                        break;
-                }
-            }
+        }
+        //支付宝记账
+        if (SysSwitchRes.getSwitch(SysSwitchType.T106.getV()).getSS_State() == 1) {
+            mPayWayList.add("支付宝记账");
+        }
+        //微信记账
+        if (SysSwitchRes.getSwitch(SysSwitchType.T105.getV()).getSS_State() == 1) {
+            mPayWayList.add("微信记账");
+        }
+        //扫码支付
+        if (SysSwitchRes.getSwitch(SysSwitchType.T111.getV()).getSS_State() == 1) {
+            mPayWayList.add("扫码支付");
+        }
+        //其他支付
+        if (SysSwitchRes.getSwitch(SysSwitchType.T113.getV()).getSS_State() == 1) {
+            mPayWayList.add("其他支付");
+        }
+        //员工提成
+        if (vipInfoMsg == null && SysSwitchRes.getSwitch(SysSwitchType.T301.getV()).getSS_State() == 1) {
+            rootView.findViewById(R.id.et_select_EM_Name).setEnabled(true);
+            rootView.findViewById(R.id.et_select_EM_Name).setSelected(true);
+            ((TextView) rootView.findViewById(R.id.et_select_EM_Name))
+                    .setTextColor(homeActivity.getResources().getColor(R.color.white));
         }
 
         tv_select_Pay_Way.setText(mPayTypeName);
@@ -1301,29 +1284,29 @@ public class AddOrEditMemberFragment extends BaseFragment {
     }
 
     private void showAttr() {
-        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T451.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//会员生日
+        if (SysSwitchRes.getSwitch(SysSwitchType.T451.getV()).getSS_State() == 0) {//会员生日
             rootView.findViewById(R.id.ly_VIP_Birthday).setVisibility(View.GONE);
         }
-        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T452.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//电子邮箱
+        if (SysSwitchRes.getSwitch(SysSwitchType.T452.getV()).getSS_State() == 0) {//电子邮箱
         }
-        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T453.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//身份证号
+        if (SysSwitchRes.getSwitch(SysSwitchType.T453.getV()).getSS_State() == 0) {//身份证号
             rootView.findViewById(R.id.ly_VIP_ICCard).setVisibility(View.GONE);
         }
-        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T454.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {////固定电话
+        if (SysSwitchRes.getSwitch(SysSwitchType.T454.getV()).getSS_State() == 0) {////固定电话
         }
-        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T455.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//推荐人
+        if (SysSwitchRes.getSwitch(SysSwitchType.T455.getV()).getSS_State() == 0) {//推荐人
             rootView.findViewById(R.id.ly_VIP_Referee).setVisibility(View.GONE);
         }
-        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T456.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//开卡人
+        if (SysSwitchRes.getSwitch(SysSwitchType.T456.getV()).getSS_State() == 0) {//开卡人
             rootView.findViewById(R.id.ly_EM_Name).setVisibility(View.GONE);
         }
-        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T457.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//会员标签
+        if (SysSwitchRes.getSwitch(SysSwitchType.T457.getV()).getSS_State() == 0) {//会员标签
             rootView.findViewById(R.id.ly_VIP_Label).setVisibility(View.GONE);
         }
-        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T458.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//会员地址
+        if (SysSwitchRes.getSwitch(SysSwitchType.T458.getV()).getSS_State() == 0) {//会员地址
             rootView.findViewById(R.id.ly_VIP_Addr).setVisibility(View.GONE);
         }
-        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T459.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//备注信息
+        if (SysSwitchRes.getSwitch(SysSwitchType.T459.getV()).getSS_State() == 0) {//备注信息
             rootView.findViewById(R.id.ly_VIP_Remark).setVisibility(View.GONE);
         }
     }

@@ -1,9 +1,5 @@
 package com.wycd.yushangpu.model;
 
-import android.app.Activity;
-
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.bean.ShopInfoBean;
 import com.wycd.yushangpu.http.AsyncHttpUtils;

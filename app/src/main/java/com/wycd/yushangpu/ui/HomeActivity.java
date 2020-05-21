@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -24,7 +25,6 @@ import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpShopInfo;
-import com.wycd.yushangpu.printutil.GetPrintSet;
 import com.wycd.yushangpu.tools.ActivityManager;
 import com.wycd.yushangpu.tools.CacheData;
 import com.wycd.yushangpu.tools.DeviceConnFactoryManager;
@@ -122,7 +122,7 @@ public class HomeActivity extends BaseActivity {
 
     private void initPrint() {
         String ReceiptUSBName = (String) CacheData.restoreObject("ReceiptUSBName");
-        if (ReceiptUSBName != null && !"".equals(ReceiptUSBName)) {
+        if (!TextUtils.isEmpty(ReceiptUSBName)) {
             myBinder.ConnectUsbPort(this, ReceiptUSBName, new TaskCallback() {
                 @Override
                 public void OnSucceed() {
@@ -139,7 +139,7 @@ public class HomeActivity extends BaseActivity {
             String BlueToothAddress = (String) CacheData.restoreObject("BlueToothAddress");
             bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             //判断是否打开蓝牙设备
-            if (bluetoothAdapter.isEnabled() && BlueToothAddress != null && !"".equals(BlueToothAddress)) {
+            if (bluetoothAdapter.isEnabled() && !TextUtils.isEmpty(BlueToothAddress)) {
                 myBinder.ConnectBtPort(BlueToothAddress, new TaskCallback() {
                     @Override
                     public void OnSucceed() {
@@ -155,7 +155,7 @@ public class HomeActivity extends BaseActivity {
             }
         }
         String LabelUSBName = (String) CacheData.restoreObject("LabelUSBName");
-        if (LabelUSBName != null && !"".equals(LabelUSBName)) {
+        if (!TextUtils.isEmpty(LabelUSBName)) {
             UsbDevice usbDevice = Utils.getUsbDeviceFromName(HomeActivity.this, LabelUSBName);
             new DeviceConnFactoryManager.Build()
                     .setId(id)
@@ -187,13 +187,13 @@ public class HomeActivity extends BaseActivity {
                         switch (action) {
                             //Usb连接断开广播
                             case ACTION_USB_DEVICE_DETACHED:
-                                UsbDevice usbDevice = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                                UsbDevice usbDevice = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
                                 String ReceiptUSBName = (String) CacheData.restoreObject("ReceiptUSBName");
-                                if (ReceiptUSBName != null && ReceiptUSBName.equals(usbDevice.getDeviceName())) {
+                                if (TextUtils.equals(ReceiptUSBName, usbDevice.getDeviceName())) {
                                     ISCONNECT = false;
                                 }
                                 String LabelUSBName = (String) CacheData.restoreObject("LabelUSBName");
-                                if (LabelUSBName.equals(usbDevice.getDeviceName())) {
+                                if (TextUtils.equals(LabelUSBName, usbDevice.getDeviceName())) {
                                     ISLABELCONNECT = false;
                                 }
                                 break;
@@ -234,7 +234,6 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void initData() {
-        GetPrintSet.getPrintSet();
         getShopInfo();
 
         PreferenceHelper.write(ac, "yunshangpu", "vip", false);
@@ -383,8 +382,7 @@ public class HomeActivity extends BaseActivity {
     ShopInfoBean shopInfoBean;
 
     public void getShopInfo() {
-        ImpShopInfo impShopInfo = new ImpShopInfo();
-        impShopInfo.shopInfo(new InterfaceBack<ShopInfoBean>() {
+        new ImpShopInfo().shopInfo(new InterfaceBack<ShopInfoBean>() {
             @Override
             public void onResponse(ShopInfoBean response) {
                 shopInfoBean = response;

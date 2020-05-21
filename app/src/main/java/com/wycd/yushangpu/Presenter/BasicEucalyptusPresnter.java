@@ -1,14 +1,10 @@
 package com.wycd.yushangpu.Presenter;
 
-import com.blankj.utilcode.util.CacheDiskUtils;
-import com.google.gson.reflect.TypeToken;
-import com.wycd.yushangpu.bean.SysSwitchRes;
-import com.wycd.yushangpu.http.AsyncHttpUtils;
-import com.wycd.yushangpu.http.BaseRes;
-import com.wycd.yushangpu.http.CallBack;
-import com.wycd.yushangpu.http.HttpAPI;
+import android.util.Log;
 
-import java.lang.reflect.Type;
+import com.blankj.utilcode.util.CacheDoubleUtils;
+import com.wycd.yushangpu.bean.SysSwitchRes;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,23 +18,7 @@ public class BasicEucalyptusPresnter {
     public static int mChangeDiscount = 0;//修改折扣
     public static int mChangeSubtotal = 0; //修改小计
 
-    static {
-        init();
-    }
-
-    public static void init() {
-        String url = HttpAPI.API().GET_SWITCH_LIST;
-        AsyncHttpUtils.postHttp(url, new CallBack() {
-            @Override
-            public void onResponse(BaseRes response) {
-                Type listType = new TypeToken<List<SysSwitchRes>>() {
-                }.getType();
-                handleSystem(response.getData(listType));
-            }
-        });
-    }
-
-    private static void handleSystem(List<SysSwitchRes> sllist) {
+    public static void handleSystem(List<SysSwitchRes> sllist) {
         payModeList.clear();
         for (SysSwitchRes p : sllist) {
             switch (p.getSS_Name()) {
@@ -80,7 +60,8 @@ public class BasicEucalyptusPresnter {
             }
 
             //保存到本地缓存
-            CacheDiskUtils.getInstance().put(p.getSS_Code() + "", p);
+            CacheDoubleUtils.getInstance().put(p.getSS_Code() + "", p);
+            Log.e("==========", "T" + p.getSS_Code() + "(" + p.getSS_Code() + "),//" + p.getSS_Name() + "==>" + p.getSS_State());
         }
     }
 }

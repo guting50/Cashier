@@ -19,6 +19,7 @@ import com.wycd.yushangpu.bean.DiscountTypeBean;
 import com.wycd.yushangpu.bean.EmplMsg;
 import com.wycd.yushangpu.bean.OrderCanshu;
 import com.wycd.yushangpu.bean.SysSwitchRes;
+import com.wycd.yushangpu.bean.SysSwitchType;
 import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
 import com.wycd.yushangpu.http.BaseRes;
@@ -317,7 +318,7 @@ public class MemberRechargeFragment extends BaseFragment {
                 fl_recharge_amount.addView(view);
                 viewRoot.setEnabled(true);
                 ed_RechargeMoney.setEnabled(true);
-                if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T219.getValueStr(), SysSwitchRes.CREATOR).getSS_State() != 1) {
+                if (SysSwitchRes.getSwitch(SysSwitchType.T219.getV()).getSS_State() != 1) {
                     viewRoot.setEnabled(false);
                     ed_RechargeMoney.setEnabled(false);
                 }

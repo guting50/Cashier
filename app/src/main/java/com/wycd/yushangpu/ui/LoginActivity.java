@@ -153,7 +153,6 @@ public class LoginActivity extends BaseActivity {
                             finish();
 
                             ImpParamLoading.preLoad();
-                            BasicEucalyptusPresnter.init();
                         }
 
                         @Override

@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 
-import com.blankj.utilcode.util.CacheDoubleUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.google.gson.reflect.TypeToken;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -13,6 +12,7 @@ import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.adapter.SearchVipPopAdapter;
 import com.wycd.yushangpu.bean.SysSwitchRes;
+import com.wycd.yushangpu.bean.SysSwitchType;
 import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.http.BasePageRes;
 import com.wycd.yushangpu.http.InterfaceBack;
@@ -149,8 +149,7 @@ public class VipChooseDialog extends Dialog {
             searchVipPopAdapter.getList().clear();
         }
         ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
-        String SM_GID = CacheDoubleUtils.getInstance().
-                getParcelable(SysSwitchRes.Type.T210.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0 ? MyApplication.loginBean.getShopID() : "";
+        String SM_GID = SysSwitchRes.getSwitch(SysSwitchType.T210.getV()).getSS_State() == 0 ? MyApplication.loginBean.getShopID() : "";
         onlyVipMsg.vipMsgs(editTextLayout.getText().toString(), pageIndex, 20, SM_GID, new InterfaceBack<BasePageRes>() {
             @Override
             public void onResponse(BasePageRes response) {

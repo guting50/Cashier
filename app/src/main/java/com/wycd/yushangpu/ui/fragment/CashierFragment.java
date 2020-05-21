@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.CacheDoubleUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.reflect.TypeToken;
 import com.gt.utils.GsonUtils;
 import com.gt.utils.widget.BgTextView;
@@ -26,6 +26,7 @@ import com.wycd.yushangpu.bean.OrderCanshu;
 import com.wycd.yushangpu.bean.RevokeGuaDanBean;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.bean.SysSwitchRes;
+import com.wycd.yushangpu.bean.SysSwitchType;
 import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
 import com.wycd.yushangpu.http.BaseRes;
@@ -61,6 +62,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 
 import static com.wycd.yushangpu.MyApplication.ISLABELCONNECT;
 import static com.wycd.yushangpu.MyApplication.LABELPRINT_IS_OPEN;
@@ -114,6 +116,8 @@ public class CashierFragment extends BaseFragment {
     private int mPD_Discount = 0;
     private List<GoodsModelBean> ModelList;
     private List<List<GoodsModelBean>> modelList = new ArrayList<>();
+    public static Consumer<String> subscriber;
+    private static Timer timer;
 
     @Override
     public int getContentView() {
@@ -126,7 +130,11 @@ public class CashierFragment extends BaseFragment {
         getProductModel();
 
         //更新订单时间
-        new Timer().schedule(new TimerTask() {
+        if (timer != null) {
+            timer.cancel();
+        }
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 long sysTime = System.currentTimeMillis();
@@ -202,15 +210,18 @@ public class CashierFragment extends BaseFragment {
         qudanFragment.obtainGuadanList();
 
         rootView.findViewById(R.id.member_bg_layout).setEnabled(true);
-        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T214.getValueStr(), SysSwitchRes.CREATOR) != null)
-            if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T214.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 1) {
+
+        //创建一个观察者
+        subscriber = s -> {
+            if (SysSwitchRes.getSwitch(SysSwitchType.T214.getV()).getSS_State() == 1) {
                 rootView.findViewById(R.id.member_bg_layout).setEnabled(false);
             }
+        };
+
     }
 
     private void getProductModel() {
-        String url = HttpAPI.API().GOODSMODEL;
-        AsyncHttpUtils.postHttp(url, new CallBack() {
+        AsyncHttpUtils.postHttp(HttpAPI.API().GOODSMODEL, new CallBack() {
             @Override
             public void onResponse(BaseRes response) {
                 Type listType = new TypeToken<List<GoodsModelBean>>() {
@@ -313,12 +324,12 @@ public class CashierFragment extends BaseFragment {
                         public void onResponse(Object response) {
 //                            homeActivity.dialog.show();
                             ImpSubmitOrder_Guazhang submitOrder = new ImpSubmitOrder_Guazhang();
-                            submitOrder.submitOrder(homeActivity, order, ordertime.toString(), null == mVipMsg ? "00000" : mVipMsg.getVCH_Card(), mShopLeftList, true, new InterfaceBack() {
+                            submitOrder.submitOrder(order, ordertime.toString(), null == mVipMsg ? "00000" : mVipMsg.getVCH_Card(), mShopLeftList, true, new InterfaceBack() {
                                 @Override
                                 public void onResponse(Object response) {
                                     homeActivity.dialog.dismiss();
 //                                    ToastUtils.showToast(homeActivity, "挂账成功");
-                                    com.blankj.utilcode.util.ToastUtils.showShort("挂账成功");
+                                    ToastUtils.showLong("挂账成功");
 
                                     resetCashier();
                                 }
@@ -337,7 +348,7 @@ public class CashierFragment extends BaseFragment {
                     });
                 } else {
 //                    ToastUtils.showToast(homeActivity, "请选择商品");
-                    com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
+                    ToastUtils.showLong("请选择商品");
                 }
             }
         });
@@ -346,7 +357,7 @@ public class CashierFragment extends BaseFragment {
             @Override
             protected void onNoDoubleClick(View view) {
                 if (mShopLeftList.size() == 0 && qudanFragment.getListCount() == 0) {
-                    com.blankj.utilcode.util.ToastUtils.showShort("请选择商品");
+                    ToastUtils.showLong("请选择商品");
                     return;
                 }
                 qudanFragment.show(homeActivity, R.id.fragment_content);
@@ -375,7 +386,7 @@ public class CashierFragment extends BaseFragment {
                                 public void onResponse(Object response) {
                                     homeActivity.dialog.dismiss();
 //                                    ToastUtils.showToast(homeActivity, "挂单成功");
-                                    com.blankj.utilcode.util.ToastUtils.showShort("挂单成功");
+                                    ToastUtils.showLong("挂单成功");
 
                                     resetCashier();
                                     qudanFragment.obtainGuadanList();
@@ -631,7 +642,7 @@ public class CashierFragment extends BaseFragment {
             return;
         }
         if (shopMsg.getStock_Number() <= 0 && BasicEucalyptusPresnter.isZeroStock && shopMsg.getPM_IsService() == 0) {
-            com.blankj.utilcode.util.ToastUtils.showShort("当前库存不足");
+            ToastUtils.showLong("当前库存不足");
             return;
         }
         double addnum = 1;
@@ -777,7 +788,7 @@ public class CashierFragment extends BaseFragment {
                         });
 
             } else {
-                com.blankj.utilcode.util.ToastUtils.showShort("没有获取到规格列表，请稍后再尝试");
+                ToastUtils.showLong("没有获取到规格列表，请稍后再尝试");
                 getProductModel();
             }
         }
@@ -799,7 +810,7 @@ public class CashierFragment extends BaseFragment {
                         vipNameLayout.setVisibility(View.VISIBLE);
                         vipNameLayout.setText(mVipMsg.getVIP_Name().substring(0, 1));
                     } else {
-                        com.blankj.utilcode.util.ToastUtils.showShort("会员名为空");
+                        ToastUtils.showLong("会员名为空");
                     }
                 }
             }
@@ -963,7 +974,7 @@ public class CashierFragment extends BaseFragment {
                 vipNameLayout.setVisibility(View.VISIBLE);
                 vipNameLayout.setText(mVipMsg.getVIP_Name().substring(0, 1));
             } else {
-//                com.blankj.utilcode.util.ToastUtils.showShort("会员名为空");
+//                ToastUtils.showLong("会员名为空");
                 vipNameLayout.setVisibility(View.VISIBLE);
                 vipNameLayout.setText(mVipMsg.getVCH_Card().substring(0, 1) + "");
             }

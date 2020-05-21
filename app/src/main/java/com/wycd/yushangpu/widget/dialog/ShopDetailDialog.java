@@ -20,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.CacheDiskUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.reflect.TypeToken;
 import com.gt.utils.widget.BgFrameLayout;
@@ -32,6 +31,7 @@ import com.wycd.yushangpu.bean.DeductRuleBean;
 import com.wycd.yushangpu.bean.EmplMsg;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.bean.SysSwitchRes;
+import com.wycd.yushangpu.bean.SysSwitchType;
 import com.wycd.yushangpu.bean.ValiRuleMsg;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
 import com.wycd.yushangpu.http.BasePageRes;
@@ -196,9 +196,9 @@ public class ShopDetailDialog {
             @Override
             protected void onNoDoubleClick(View view) {
                 //员工提成按比例分成
-                SysSwitchRes switchRes302 = CacheDiskUtils.getInstance().getParcelable("302", SysSwitchRes.CREATOR);
+                SysSwitchRes switchRes302 = SysSwitchRes.getSwitch(SysSwitchType.T302.getV());
                 //员工提成按固定
-                SysSwitchRes switchRes303 = CacheDiskUtils.getInstance().getParcelable("303", SysSwitchRes.CREATOR);
+                SysSwitchRes switchRes303 = SysSwitchRes.getSwitch(SysSwitchType.T303.getV());
 
                 List<EmplMsg> mEmplMsgList2 = new ArrayList<>();
                 for (EmplMsg emp : mEmplMsgList) {

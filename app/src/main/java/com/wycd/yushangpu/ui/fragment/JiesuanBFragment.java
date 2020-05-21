@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.blankj.utilcode.util.CacheDoubleUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -33,6 +32,7 @@ import com.wycd.yushangpu.bean.PayType;
 import com.wycd.yushangpu.bean.ReportMessageBean;
 import com.wycd.yushangpu.bean.SmsSwitch;
 import com.wycd.yushangpu.bean.SysSwitchRes;
+import com.wycd.yushangpu.bean.SysSwitchType;
 import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.bean.YhqMsg;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
@@ -145,8 +145,6 @@ public class JiesuanBFragment extends BaseFragment {
     private PayModeListAdapter payModeListAdapter;
 
     private InterfaceBack back;
-    private List<SysSwitchRes> payModeList;
-    private SysSwitchRes defaultMode;
     private boolean isMember;
     //            原价总金额，折后金额  , 总共优惠金额 ， 应收金额
     private String totalMoney, zhMoney, totalYhMoney, ysMoney;
@@ -228,8 +226,6 @@ public class JiesuanBFragment extends BaseFragment {
         this.mVipMsg = vipMsg;
         this.GID = orderCanshu.getGID();
         this.CO_OrderCode = orderCanshu.getCO_OrderCode();
-        this.defaultMode = BasicEucalyptusPresnter.defaultMode;
-        this.payModeList = BasicEucalyptusPresnter.payModeList;
         this.orderType = orderType;
         this.back = back;
         super.setData();
@@ -317,12 +313,11 @@ public class JiesuanBFragment extends BaseFragment {
                         }
                     }
                 }
-            for (SysSwitchRes bean : ImpParamLoading.REPORT_BEAN.getGetSysSwitchList()) {
-                if (bean.getSS_Code() == 204 && bean.getSS_State() == 1) {// 消费密码验证
-                    consumeCheck = 1;
-                } else if (bean.getSS_Code() == 217 && bean.getSS_State() == 1) { //消费短信验证码验证
-                    consumeCheck = 2;
-                }
+
+            if (SysSwitchRes.getSwitch(SysSwitchType.T204.getV()).getSS_State() == 1) {// 消费密码验证
+                consumeCheck = 1;
+            } else if (SysSwitchRes.getSwitch(SysSwitchType.T217.getV()).getSS_State() == 1) { //消费短信验证码验证
+                consumeCheck = 2;
             }
         }
 
@@ -330,7 +325,7 @@ public class JiesuanBFragment extends BaseFragment {
         tvDiscount.setText(StringUtil.twoNum(discount));
         tvBillCount.setText(StringUtil.twoNum(totalMoney));
 
-        setDefaultPayMode(defaultMode);
+        setDefaultPayMode(BasicEucalyptusPresnter.defaultMode);
         resetPayModeList();
         computeYsMoney();
 
@@ -340,7 +335,7 @@ public class JiesuanBFragment extends BaseFragment {
             et_moling.setVisibility(View.GONE);
             rootView.findViewById(R.id.li_moling).setEnabled(false);
         } else {
-            if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T801.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 1) {//自由抹零
+            if (SysSwitchRes.getSwitch(SysSwitchType.T801.getV()).getSS_State() == 1) {//自由抹零
                 rootView.findViewById(R.id.li_moling).setEnabled(true);
                 et_moling.setVisibility(View.VISIBLE);
             }
@@ -731,13 +726,13 @@ public class JiesuanBFragment extends BaseFragment {
         tempTotalYhMoney = CommonUtils.add(tempTotalYhMoney, getCouponMoney()); // + 优惠券
         tempTotalYhMoney = CommonUtils.add(tempTotalYhMoney, promotionMoney); // + 优惠活动
         double ysMoney_ = CommonUtils.del(Double.parseDouble(totalMoney), tempTotalYhMoney);
-        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T802.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 1) {//四舍五入到“角”
+        if (SysSwitchRes.getSwitch(SysSwitchType.T802.getV()).getSS_State() == 1) {//四舍五入到“角”
             tv_moling.setText(StringUtil.twoNum(CommonUtils.del(ysMoney_, CommonUtils.div(ysMoney_, 1, 1, BigDecimal.ROUND_HALF_UP)) + ""));
-        } else if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T803.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 1) {//四舍五入到“元”
+        } else if (SysSwitchRes.getSwitch(SysSwitchType.T803.getV()).getSS_State() == 1) {//四舍五入到“元”
             tv_moling.setText(StringUtil.twoNum(CommonUtils.del(ysMoney_, CommonUtils.div(ysMoney_, 1, 0, BigDecimal.ROUND_HALF_UP)) + ""));
-        } else if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T804.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 1) {//直接舍弃“角”
+        } else if (SysSwitchRes.getSwitch(SysSwitchType.T804.getV()).getSS_State() == 1) {//直接舍弃“角”
             tv_moling.setText(StringUtil.twoNum(CommonUtils.del(ysMoney_, CommonUtils.div(ysMoney_, 1, 0, BigDecimal.ROUND_DOWN)) + ""));
-        } else if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T805.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 1) {//直接舍弃“分”
+        } else if (SysSwitchRes.getSwitch(SysSwitchType.T805.getV()).getSS_State() == 1) {//直接舍弃“分”
             tv_moling.setText(StringUtil.twoNum(CommonUtils.del(ysMoney_, CommonUtils.div(ysMoney_, 1, 1, BigDecimal.ROUND_DOWN)) + ""));
         }
         tempTotalYhMoney = CommonUtils.add(tempTotalYhMoney, getMoling());// + 抹零
@@ -782,70 +777,58 @@ public class JiesuanBFragment extends BaseFragment {
      * 判断支付是否开启
      */
     private void resetPayModeList() {
-        for (SysSwitchRes msg : payModeList) {
-            switch (NullUtils.noNullHandle(msg.getSS_Code()).toString()) {
-                case "101"://现金
-                    mLiXianjin.setEnabled(true);
-                    if (msg.getSS_State() != 1) {
-                        mLiXianjin.setBackgroundResource(R.drawable.shap_enable_not);
-                        mLiXianjin.setEnabled(false);
-                    }
-                    break;
-                case "102"://余额
-                    mLiYue.setEnabled(true);
-                    if (msg.getSS_State() != 1 || !isMember || orderType == MEM_RECHARGE_PAY) {
-                        mLiYue.setBackgroundResource(R.drawable.shap_enable_not);
-                        mLiYue.setEnabled(false);
-                    }
-                    yuePayXz = NullUtils.noNullHandle(msg.getSS_Value()).toString();
-                    break;
-                case "103"://银联
-                    mLiYinlian.setEnabled(true);
-                    if (msg.getSS_State() != 1) {
-                        mLiYinlian.setBackgroundResource(R.drawable.shap_enable_not);
-                        mLiYinlian.setEnabled(false);
-                    }
-                    break;
-                case "105"://微信
-                    mLiWx.setEnabled(true);
-                    if (msg.getSS_State() != 1) {
-                        mLiWx.setBackgroundResource(R.drawable.shap_enable_not);
-                        mLiWx.setEnabled(false);
-                    }
-                    break;
-                case "106"://支付宝
-                    mLiAli.setEnabled(true);
-                    if (msg.getSS_State() != 1) {
-                        mLiAli.setBackgroundResource(R.drawable.shap_enable_not);
-                        mLiAli.setEnabled(false);
-                    }
-                    break;
-                case "107"://积分支付
-                    mLiJifen.setEnabled(true);
-                    if (msg.getSS_State() != 1 || !isMember || orderType == MEM_RECHARGE_PAY) {
-                        mLiJifen.setBackgroundResource(R.drawable.shap_enable_not);
-                        mLiJifen.setEnabled(false);
-                    }
-                    jifendk = NullUtils.noNullHandle(msg.getSS_Value()).toString();
-                    break;
-                case "109"://积分支付限制
-                    jinfenzfxz = NullUtils.noNullHandle(msg.getSS_Value()).toString();
-                    break;
-                case "111"://扫码支付
-                    mLiSaoma.setEnabled(true);
-                    if (msg.getSS_State() != 1) {
-                        mLiSaoma.setBackgroundResource(R.drawable.shap_enable_not);
-                        mLiSaoma.setEnabled(false);
-                    }
-                    break;
-                case "113"://其它支付
-                    li_qita.setEnabled(true);
-                    if (msg.getSS_State() != 1) {
-                        li_qita.setBackgroundResource(R.drawable.shap_enable_not);
-                        li_qita.setEnabled(false);
-                    }
-                    break;
-            }
+        mLiXianjin.setEnabled(true);
+        if (SysSwitchRes.getSwitch(SysSwitchType.T101.getV()).getSS_State() != 1) {
+            mLiXianjin.setBackgroundResource(R.drawable.shap_enable_not);
+            mLiXianjin.setEnabled(false);
+        }
+        //余额
+        mLiYue.setEnabled(true);
+        if (SysSwitchRes.getSwitch(SysSwitchType.T102.getV()).getSS_State() != 1
+                || !isMember || orderType == MEM_RECHARGE_PAY) {
+            mLiYue.setBackgroundResource(R.drawable.shap_enable_not);
+            mLiYue.setEnabled(false);
+        }
+        yuePayXz = NullUtils.noNullHandle(SysSwitchRes.getSwitch(SysSwitchType.T101.getV()).getSS_Value()).toString();
+        //银联
+        mLiYinlian.setEnabled(true);
+        if (SysSwitchRes.getSwitch(SysSwitchType.T103.getV()).getSS_State() != 1) {
+            mLiYinlian.setBackgroundResource(R.drawable.shap_enable_not);
+            mLiYinlian.setEnabled(false);
+        }
+        //微信
+        mLiWx.setEnabled(true);
+        if (SysSwitchRes.getSwitch(SysSwitchType.T105.getV()).getSS_State() != 1) {
+            mLiWx.setBackgroundResource(R.drawable.shap_enable_not);
+            mLiWx.setEnabled(false);
+        }
+        //支付宝
+        mLiAli.setEnabled(true);
+        if (SysSwitchRes.getSwitch(SysSwitchType.T106.getV()).getSS_State() != 1) {
+            mLiAli.setBackgroundResource(R.drawable.shap_enable_not);
+            mLiAli.setEnabled(false);
+        }
+        //积分支付
+        mLiJifen.setEnabled(true);
+        if (SysSwitchRes.getSwitch(SysSwitchType.T107.getV()).getSS_State() != 1
+                || !isMember || orderType == MEM_RECHARGE_PAY) {
+            mLiJifen.setBackgroundResource(R.drawable.shap_enable_not);
+            mLiJifen.setEnabled(false);
+        }
+        jifendk = NullUtils.noNullHandle(SysSwitchRes.getSwitch(SysSwitchType.T107.getV()).getSS_Value()).toString();
+        //积分支付限制
+        jinfenzfxz = NullUtils.noNullHandle(SysSwitchRes.getSwitch(SysSwitchType.T109.getV()).getSS_Value()).toString();
+        //扫码支付
+        mLiSaoma.setEnabled(true);
+        if (SysSwitchRes.getSwitch(SysSwitchType.T111.getV()).getSS_State() != 1) {
+            mLiSaoma.setBackgroundResource(R.drawable.shap_enable_not);
+            mLiSaoma.setEnabled(false);
+        }
+        //其它支付
+        li_qita.setEnabled(true);
+        if (SysSwitchRes.getSwitch(SysSwitchType.T113.getV()).getSS_State() != 1) {
+            li_qita.setBackgroundResource(R.drawable.shap_enable_not);
+            li_qita.setEnabled(false);
         }
     }
 
@@ -949,76 +932,66 @@ public class JiesuanBFragment extends BaseFragment {
 
     private List<PayType> payWay() {
         List<PayType> typeList = new ArrayList<>();
-        for (SysSwitchRes m : payModeList) {
-            for (PayModeListAdapter.MyPayMode payMode : payModeListAdapter.getData()) {
-                PayType p = new PayType();
-                String name = payMode.getPayName();
-                double modeMoney = payMode.getValue();
-                if (TextUtils.equals(name, PayMode.XJZF.getStr())
-                        && m.getSS_Name().equals("现金支付")) {
-                    p.setGID(new String[0]);
-                    p.setPayCode("XJZF");
-                    p.setPayMoney(modeMoney);
-                    p.setPayName(m.getSS_Name());
-                    p.setPayPoint(0.00);
-                } else if (TextUtils.equals(name, PayMode.YEZF.getStr())
-                        && m.getSS_Name().equals("余额支付")) {
-                    p.setGID(new String[0]);
-                    p.setPayCode("YEZF");
-                    p.setPayMoney(modeMoney);
-                    p.setPayName(m.getSS_Name());
-                    p.setPayPoint(0.00);
-                    yueMoney = modeMoney;
-                } else if (TextUtils.equals(name, PayMode.YLZF.getStr())
-                        && m.getSS_Name().equals("银联支付")) {
-                    p.setGID(new String[0]);
-                    p.setPayCode("YLZF");
-                    p.setPayMoney(modeMoney);
-                    p.setPayName(m.getSS_Name());
-                    p.setPayPoint(0.00);
-                } else if (TextUtils.equals(name, PayMode.WXJZ.getStr())
-                        && m.getSS_Name().equals("微信记账")) {
-                    p.setGID(new String[0]);
-                    p.setPayCode("WX_JZ");
-                    p.setPayMoney(modeMoney);
-                    p.setPayName(m.getSS_Name());
-                    p.setPayPoint(0.00);
-                } else if (TextUtils.equals(name, PayMode.ZFBJZ.getStr())
-                        && m.getSS_Name().equals("支付宝记账")) {
-                    p.setGID(new String[0]);
-                    p.setPayCode("ZFB_JZ");
-                    p.setPayMoney(modeMoney);
-                    p.setPayName(m.getSS_Name());
-                    p.setPayPoint(0.00);
-                } else if (TextUtils.equals(name, PayMode.JFZF.getStr())
-                        && m.getSS_Name().equals("积分支付")) {
-                    p.setGID(new String[0]);
-                    p.setPayCode("JFZF");
-                    p.setPayMoney(modeMoney);
-                    p.setPayName(m.getSS_Name());
-                    String jifenm = String.valueOf(modeMoney);
-                    String jifennumber = CommonUtils.multiply(jifenm, TextUtils.isEmpty(jifendk) ? "0" : jifendk) + "";
-                    p.setPayPoint(Double.parseDouble(jifennumber));
-                } else if (TextUtils.equals(name, PayMode.QTZF.getStr())
-                        && m.getSS_Name().equals("其他支付")) {
-                    p.setGID(new String[0]);
-                    p.setPayCode("QTZF");
-                    p.setPayMoney(modeMoney);
-                    p.setPayName(m.getSS_Name());
-                    p.setPayPoint(0.00);
-                } else if (TextUtils.equals(name, PayMode.SMZF.getStr())
-                        && m.getSS_Name().equals("扫码支付")) {
-                    p.setGID(new String[0]);
-                    p.setPayCode("SMZF");
-                    p.setPayMoney(modeMoney);
-                    p.setPayName(m.getSS_Name());
-                    p.setPayPoint(0.00);
-                } else {
-                    p = null;
-                }
-                if (p != null)
-                    typeList.add(p);
+        for (PayModeListAdapter.MyPayMode payMode : payModeListAdapter.getData()) {
+            PayType p = new PayType();
+            String name = payMode.getPayName();
+            double modeMoney = payMode.getValue();
+            if (TextUtils.equals(name, PayMode.XJZF.getStr())) {
+                p.setGID(new String[0]);
+                p.setPayCode("XJZF");
+                p.setPayMoney(modeMoney);
+                p.setPayName("现金支付");
+                p.setPayPoint(0.00);
+            } else if (TextUtils.equals(name, PayMode.YEZF.getStr())) {
+                p.setGID(new String[0]);
+                p.setPayCode("YEZF");
+                p.setPayMoney(modeMoney);
+                p.setPayName("余额支付");
+                p.setPayPoint(0.00);
+                yueMoney = modeMoney;
+            } else if (TextUtils.equals(name, PayMode.YLZF.getStr())) {
+                p.setGID(new String[0]);
+                p.setPayCode("YLZF");
+                p.setPayMoney(modeMoney);
+                p.setPayName("银联支付");
+                p.setPayPoint(0.00);
+            } else if (TextUtils.equals(name, PayMode.WXJZ.getStr())) {
+                p.setGID(new String[0]);
+                p.setPayCode("WX_JZ");
+                p.setPayMoney(modeMoney);
+                p.setPayName("微信记账");
+                p.setPayPoint(0.00);
+            } else if (TextUtils.equals(name, PayMode.ZFBJZ.getStr())) {
+                p.setGID(new String[0]);
+                p.setPayCode("ZFB_JZ");
+                p.setPayMoney(modeMoney);
+                p.setPayName("支付宝记账");
+                p.setPayPoint(0.00);
+            } else if (TextUtils.equals(name, PayMode.JFZF.getStr())) {
+                p.setGID(new String[0]);
+                p.setPayCode("JFZF");
+                p.setPayMoney(modeMoney);
+                p.setPayName("积分支付");
+                String jifenm = String.valueOf(modeMoney);
+                String jifennumber = CommonUtils.multiply(jifenm, TextUtils.isEmpty(jifendk) ? "0" : jifendk) + "";
+                p.setPayPoint(Double.parseDouble(jifennumber));
+            } else if (TextUtils.equals(name, PayMode.QTZF.getStr())) {
+                p.setGID(new String[0]);
+                p.setPayCode("QTZF");
+                p.setPayMoney(modeMoney);
+                p.setPayName("其他支付");
+                p.setPayPoint(0.00);
+            } else if (TextUtils.equals(name, PayMode.SMZF.getStr())) {
+                p.setGID(new String[0]);
+                p.setPayCode("SMZF");
+                p.setPayMoney(modeMoney);
+                p.setPayName("扫码支付");
+                p.setPayPoint(0.00);
+            } else {
+                p = null;
             }
+            if (p != null)
+                typeList.add(p);
         }
 
         return typeList;

@@ -28,7 +28,7 @@ public class WebActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_layout);
         ButterKnife.bind(this);
-//        dialog.show();
+        dialog.show();
 
         webView.setWebViewClient(new WebViewClient() {
             @Override

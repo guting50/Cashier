@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.CacheDoubleUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -22,6 +21,7 @@ import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.LabelBean;
 import com.wycd.yushangpu.bean.SysSwitchRes;
+import com.wycd.yushangpu.bean.SysSwitchType;
 import com.wycd.yushangpu.bean.VipInfoMsg;
 import com.wycd.yushangpu.http.BasePageRes;
 import com.wycd.yushangpu.http.ImgUrlTools;
@@ -157,8 +157,7 @@ public class VipMemberFragment extends BaseFragment {
             memberAdapter.getList().clear();
         }
         ImpOnlyVipMsg onlyVipMsg = new ImpOnlyVipMsg();
-        String SM_GID = CacheDoubleUtils.getInstance().
-                getParcelable(SysSwitchRes.Type.T210.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0 ? MyApplication.loginBean.getShopID() : "";
+        String SM_GID = SysSwitchRes.getSwitch(SysSwitchType.T210.getV()).getSS_State() == 0 ? MyApplication.loginBean.getShopID() : "";
         onlyVipMsg.vipMsgs(editTextLayout.getText().toString(), pageIndex, 20, SM_GID, new InterfaceBack<BasePageRes>() {
             @Override
             public void onResponse(BasePageRes response) {
@@ -331,35 +330,35 @@ public class VipMemberFragment extends BaseFragment {
 
 
     private void showAttr() {
-        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T451.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//会员生日
+        if (SysSwitchRes.getSwitch(SysSwitchType.T451.getV()).getSS_State() == 0) {//会员生日
             rootView.findViewById(R.id.tv_birthday).setVisibility(View.GONE);
             rootView.findViewById(R.id.tv_birthday_title).setVisibility(View.GONE);
         }
-        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T452.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//电子邮箱
+        if (SysSwitchRes.getSwitch(SysSwitchType.T452.getV()).getSS_State() == 0) {//电子邮箱
         }
-        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T453.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//身份证号
+        if (SysSwitchRes.getSwitch(SysSwitchType.T453.getV()).getSS_State() == 0) {//身份证号
             rootView.findViewById(R.id.tv_ic_card).setVisibility(View.GONE);
             rootView.findViewById(R.id.tv_ic_card_title).setVisibility(View.GONE);
         }
-        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T454.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//固定电话
+        if (SysSwitchRes.getSwitch(SysSwitchType.T454.getV()).getSS_State() == 0) {//固定电话
         }
-        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T455.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//推荐人
+        if (SysSwitchRes.getSwitch(SysSwitchType.T455.getV()).getSS_State() == 0) {//推荐人
             rootView.findViewById(R.id.tv_referee).setVisibility(View.GONE);
             rootView.findViewById(R.id.tv_referee_title).setVisibility(View.GONE);
         }
-        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T456.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//开卡人
+        if (SysSwitchRes.getSwitch(SysSwitchType.T456.getV()).getSS_State() == 0) {//开卡人
             rootView.findViewById(R.id.tv_em_name).setVisibility(View.GONE);
             rootView.findViewById(R.id.tv_em_name_title).setVisibility(View.GONE);
         }
-        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T457.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//会员标签
+        if (SysSwitchRes.getSwitch(SysSwitchType.T457.getV()).getSS_State() == 0) {//会员标签
             rootView.findViewById(R.id.tv_label).setVisibility(View.GONE);
             rootView.findViewById(R.id.tv_label_title).setVisibility(View.GONE);
         }
-        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T458.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//会员地址
+        if (SysSwitchRes.getSwitch(SysSwitchType.T458.getV()).getSS_State() == 0) {//会员地址
             rootView.findViewById(R.id.tv_addr).setVisibility(View.GONE);
             rootView.findViewById(R.id.tv_addr_title).setVisibility(View.GONE);
         }
-        if (CacheDoubleUtils.getInstance().getParcelable(SysSwitchRes.Type.T459.getValueStr(), SysSwitchRes.CREATOR).getSS_State() == 0) {//备注信息
+        if (SysSwitchRes.getSwitch(SysSwitchType.T459.getV()).getSS_State() == 0) {//备注信息
         }
     }
 }

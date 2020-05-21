@@ -661,7 +661,73 @@ public class PrintSetFragment extends BaseFragment {
 //        filter.addAction(ACTION_QUERY_PRINTER_STATE);//查询打印机缓冲区状态广播，用于一票一控
         filter.addAction(DeviceConnFactoryManager.ACTION_CONN_STATE);//与打印机连接状态
         filter.addAction(ACTION_USB_DEVICE_ATTACHED);//USB线插入
-        getActivity().registerReceiver(receiver, filter);
+        getActivity().registerReceiver(new BroadcastReceiver() {
+
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+                switch (action) {
+                    //USB请求访问权限
+                    case ACTION_USB_PERMISSION:
+                        synchronized (getActivity()) {
+                            UsbDevice device = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                            if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
+                                if (device != null) {//用户点击授权
+                                    switch (rbType) {
+                                        case 0:
+                                            connectUSB(usbDev);
+                                            break;
+                                        case 1:
+                                            closeport();
+                                            connectLabelUSB(device);
+                                            break;
+                                    }
+                                }
+                            } else {//用户点击不授权,则无权限访问USB
+                                Log.e(TAG, "No access to USB");
+                            }
+                        }
+                        break;
+                    //Usb连接断开广播
+                    case ACTION_USB_DEVICE_DETACHED:
+                        UsbDevice usbDevice = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                        String ReceiptUSBName = (String) CacheData.restoreObject("ReceiptUSBName");
+                        if (TextUtils.equals(ReceiptUSBName, usbDevice.getDeviceName()) && rbType == 0) {
+                            mTvConnect.setText("未连接");
+                        }
+                        String LabelUSBName = (String) CacheData.restoreObject("LabelUSBName");
+                        if (TextUtils.equals(LabelUSBName, usbDevice.getDeviceName()) && rbType == 1) {
+                            mTvConnect.setText("未连接");
+                        }
+                        break;
+                    case DeviceConnFactoryManager.ACTION_CONN_STATE:
+                        int state = intent.getIntExtra(DeviceConnFactoryManager.STATE, -1);
+                        int deviceId = intent.getIntExtra(DeviceConnFactoryManager.DEVICE_ID, -1);
+                        switch (state) {
+                            case DeviceConnFactoryManager.CONN_STATE_DISCONNECT:
+                                if (id == deviceId) {
+                                    Log.e(TAG, "connection is lost");
+                                }
+                                break;
+                            case DeviceConnFactoryManager.CONN_STATE_CONNECTING:
+                                mTvConnect.setText("连接中");
+                                break;
+                            case DeviceConnFactoryManager.CONN_STATE_CONNECTED:
+                                ISLABELCONNECT = true;
+                                CacheData.saveObject("LabelUSBName", usbDev);
+                                mTvConnect.setText(getString(R.string.con_success));
+                                break;
+                            case DeviceConnFactoryManager.CONN_STATE_FAILED:
+                                ISLABELCONNECT = false;
+                                mTvConnect.setText(getString(R.string.con_failed));
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                }
+            }
+        }, filter);
     }
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
