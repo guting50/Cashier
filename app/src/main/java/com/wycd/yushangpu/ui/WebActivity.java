@@ -104,7 +104,7 @@ public class WebActivity extends BaseActivity {
     public class JsInteration {
         @JavascriptInterface
         public String ts_getLoginApiData() {
-            return GsonUtils.getGson().toJson(MyApplication.loginBean);
+            return MyApplication.getLoginBean();
         }
 
         @JavascriptInterface

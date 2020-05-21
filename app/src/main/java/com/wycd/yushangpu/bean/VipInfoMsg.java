@@ -1,5 +1,7 @@
 package com.wycd.yushangpu.bean;
 
+import com.wycd.yushangpu.MyApplication;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -78,7 +80,7 @@ public class VipInfoMsg implements Serializable {
     }
 
     public String getVIP_HeadImg() {
-        return VIP_HeadImg == null ? "http://pc.yunvip123.com/img/nohead.png" : VIP_HeadImg;
+        return VIP_HeadImg == null ? MyApplication.IMAGE_URL +  "/img/nohead.png" : VIP_HeadImg;
     }
 
     public void setVIP_HeadImg(String VIP_HeadImg) {

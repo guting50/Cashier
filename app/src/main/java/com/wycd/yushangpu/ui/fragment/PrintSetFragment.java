@@ -8,8 +8,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.text.Editable;
@@ -697,11 +695,11 @@ public class PrintSetFragment extends BaseFragment {
                 case ACTION_USB_DEVICE_DETACHED:
                     UsbDevice usbDevice = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
                     String ReceiptUSBName = (String) CacheData.restoreObject("ReceiptUSBName");
-                    if (ReceiptUSBName.equals(usbDevice.getDeviceName()) && rbType == 0) {
+                    if (TextUtils.equals(ReceiptUSBName, usbDevice.getDeviceName()) && rbType == 0) {
                         mTvConnect.setText("未连接");
                     }
                     String LabelUSBName = (String) CacheData.restoreObject("LabelUSBName");
-                    if (LabelUSBName.equals(usbDevice.getDeviceName()) && rbType == 1) {
+                    if (TextUtils.equals(LabelUSBName, usbDevice.getDeviceName()) && rbType == 1) {
                         mTvConnect.setText("未连接");
                     }
                     break;

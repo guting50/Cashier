@@ -2,6 +2,7 @@ package com.wycd.yushangpu.http;
 
 import android.content.Intent;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.gt.utils.GsonUtils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -60,7 +61,7 @@ public class AsyncHttpUtils {
                             Intent intent = new Intent(MyApplication.getContext(), LoginActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             MyApplication.getContext().startActivity(intent);
-                            com.blankj.utilcode.util.ToastUtils.showShort(baseRes.getMsg());
+                            ToastUtils.showLong(baseRes.getMsg());
                             return;
                         }
                         back.onErrorResponse(baseRes);
@@ -79,7 +80,7 @@ public class AsyncHttpUtils {
                 } catch (Exception e) {
                     LogUtils.e("======== Error ========", e.getMessage());
                     e.printStackTrace();
-                    com.blankj.utilcode.util.ToastUtils.showShort("服务异常，请稍后再试");
+                    ToastUtils.showLong("服务异常，请稍后再试");
                 }
             }
         });

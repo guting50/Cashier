@@ -193,7 +193,8 @@ public class GoodsListFragment extends BaseFragment {
                 }.getType();
                 List<ShopMsg> sllist = response.getData(listType);
 
-                homeActivity.cashierFragment.mEtLoginAccount.setText("");
+                if (homeActivity.cashierFragment.mEtLoginAccount != null)
+                    homeActivity.cashierFragment.mEtLoginAccount.setText("");
 //                if (PageIndex == 1)
                 adapter.getShopMsgList().clear();
                 adapter.addShopMsgList(sllist);

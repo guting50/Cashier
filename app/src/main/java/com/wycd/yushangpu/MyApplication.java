@@ -307,7 +307,7 @@ public class MyApplication extends MultiDexApplication {
             List<Cookie> cookies = myCookieStore.getCookies();
 
             for (int i = 0; i < cookies.size(); i++) {
-                if (cookies.get(i).getName().equals("ASP.NET_SessionId") && cookies.get(i).getDomain().equals("192.168.1.240")) {//.yunvip123.com
+                if (cookies.get(i).getName().equals("ASP.NET_SessionId") && BASE_URL.contains(cookies.get(i).getDomain())) {//.yunvip123.com
                     JSESSIONID = cookies.get(i).getValue();
                 }
             }

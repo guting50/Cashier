@@ -36,15 +36,28 @@
             android:textColor="@color/text66"
             android:textSize="@dimen/sp_16" />
 
-        <ImageView
+        <FrameLayout
             android:id="@+id/im_clear"
-            android:layout_width="@dimen/dp_60"
-            android:layout_height="@dimen/dp_40"
+            android:layout_width="@dimen/dp_65"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="@dimen/dp_10"
-            android:padding="@dimen/dp_3"
-            android:src="@mipmap/qingkong" />
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="@dimen/dp_10">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="@dimen/dp_5"
+                android:src="@mipmap/qingkong" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical|right"
+                android:text="清空"
+                android:textColor="@color/text66"
+                android:textSize="@dimen/sp_17" />
+        </FrameLayout>
 
         <ImageView
             android:id="@+id/iv_search"
