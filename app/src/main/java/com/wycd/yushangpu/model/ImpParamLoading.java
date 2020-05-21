@@ -34,13 +34,13 @@ public class ImpParamLoading {
                         REPORT_BEAN = response.getData(ReportMessageBean.class);
                         if (REPORT_BEAN != null) {
                             PrintSetBean printSetBean = REPORT_BEAN.getPrintSet();
-                            MyApplication.LABEL_TYPE = printSetBean.getPS_TipPrintPaper();
-                            if (printSetBean.getPS_IsEnabled() == 1) {
-                                MyApplication.PRINT_IS_OPEN = true;
-                            } else {
-                                MyApplication.PRINT_IS_OPEN = false;
-                            }
                             if (printSetBean != null && printSetBean.getPrintTimesList() != null) {
+                                MyApplication.LABEL_TYPE = printSetBean.getPS_TipPrintPaper();
+                                if (printSetBean.getPS_IsEnabled() == 1) {
+                                    MyApplication.PRINT_IS_OPEN = true;
+                                } else {
+                                    MyApplication.PRINT_IS_OPEN = false;
+                                }
                                 for (int i = 0; i < printSetBean.getPrintTimesList().size(); i++) {
                                     PrintSetBean.PrintTimesListBean bean = printSetBean.getPrintTimesList().get(i);
                                     if ("SPXF".equals(bean.getPT_Code())) {
