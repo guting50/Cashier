@@ -1,11 +1,10 @@
 package com.wycd.yushangpu.ui.fragment;
 
-import android.graphics.Color;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.gt.utils.widget.BgFrameLayout;
+import com.gt.utils.widget.BgTextView;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.Presenter.BasicEucalyptusPresnter;
 import com.wycd.yushangpu.R;
@@ -36,27 +35,27 @@ public class EditCashierGoodsFragment extends BaseFragment {
     @BindView(R.id.tv_price)
     TextView tvPrice;
     @BindView(R.id.bn_edit_num)
-    BgFrameLayout bnEditNum;
+    BgTextView bnEditNum;
     @BindView(R.id.bn_edit_price)
-    BgFrameLayout bnEditPrice;
+    BgTextView bnEditPrice;
     @BindView(R.id.bn_edit_give)
-    BgFrameLayout bnEditGive;
+    BgTextView bnEditGive;
     @BindView(R.id.bn_edit_subtotal)
-    BgFrameLayout bnEditSubtotal;
+    BgTextView bnEditSubtotal;
     @BindView(R.id.bn_edit_discount)
-    BgFrameLayout bnEditDiscount;
+    BgTextView bnEditDiscount;
     @BindView(R.id.discount_unit)
     TextView discountUnit;
     @BindView(R.id.bn_edit_royalty)
-    BgFrameLayout bnEditRoyalty;
+    BgTextView bnEditRoyalty;
     @BindView(R.id.tv_edit_title_view)
     TextView tvEditTitleView;
     @BindView(R.id.edit_layout)
     LinearLayout editLayout;
     @BindView(R.id.edit_num_del)
-    BgFrameLayout editNumDel;
+    BgTextView editNumDel;
     @BindView(R.id.edit_num_add)
-    BgFrameLayout ediNumAdd;
+    BgTextView ediNumAdd;
     @BindView(R.id.edit_layout_place)
     View editLayoutPlace;
     @BindView(R.id.keyboard_layout)
@@ -108,11 +107,13 @@ public class EditCashierGoodsFragment extends BaseFragment {
         }
     }
 
-    BgFrameLayout currentSelectedBn;
+    BgTextView currentSelectedBn;
 
     @OnClick({R.id.bn_edit_num, R.id.bn_edit_price, R.id.bn_edit_give, R.id.bn_edit_subtotal, R.id.bn_edit_discount,
             R.id.bn_edit_royalty})
     public void onViewClickedBn(View view) {
+        BgTextView textView = (BgTextView) view;
+        textView.setChecked(false);
         switch (view.getId()) {
             case R.id.bn_edit_num:
                 resetBnEdit(view);
@@ -306,30 +307,13 @@ public class EditCashierGoodsFragment extends BaseFragment {
     }
 
     public void resetBnEdit(View view) {
-        bnEditNum.setSolidColor(Color.alpha(R.color.white));
-        bnEditNum.setStrokeWidth(1);
-        ((TextView) bnEditNum.getChildAt(0)).setTextColor(getResources().getColor(R.color.title_color));
-        bnEditPrice.setSolidColor(Color.alpha(R.color.white));
-        bnEditPrice.setStrokeWidth(1);
-        ((TextView) bnEditPrice.getChildAt(0)).setTextColor(getResources().getColor(R.color.title_color));
-        bnEditGive.setSolidColor(Color.alpha(R.color.white));
-        bnEditGive.setStrokeWidth(1);
-        ((TextView) bnEditGive.getChildAt(0)).setTextColor(getResources().getColor(R.color.title_color));
-        bnEditSubtotal.setSolidColor(Color.alpha(R.color.white));
-        bnEditSubtotal.setStrokeWidth(1);
-        ((TextView) bnEditSubtotal.getChildAt(0)).setTextColor(getResources().getColor(R.color.title_color));
-        bnEditDiscount.setSolidColor(Color.alpha(R.color.white));
-        bnEditDiscount.setStrokeWidth(1);
-        ((TextView) bnEditDiscount.getChildAt(0)).setTextColor(getResources().getColor(R.color.title_color));
-        bnEditRoyalty.setSolidColor(Color.alpha(R.color.white));
-        bnEditRoyalty.setStrokeWidth(1);
-        ((TextView) bnEditRoyalty.getChildAt(0)).setTextColor(getResources().getColor(R.color.title_color));
-
-        currentSelectedBn = (BgFrameLayout) view;
         if (currentSelectedBn != null) {
-            currentSelectedBn.setSolidColor(getResources().getColor(R.color.yunpu));
-            currentSelectedBn.setStrokeWidth(0);
-            ((TextView) currentSelectedBn.getChildAt(0)).setTextColor(getResources().getColor(R.color.color_f3));
+            currentSelectedBn.setChecked(false);
+        }
+
+        currentSelectedBn = (BgTextView) view;
+        if (currentSelectedBn != null) {
+            currentSelectedBn.setChecked(true);
         }
 
         editLayout.setVisibility(View.GONE);

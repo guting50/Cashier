@@ -1,5 +1,6 @@
 package com.wycd.yushangpu.ui;
 
+import android.content.Intent;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.webkit.JavascriptInterface;
@@ -10,9 +11,10 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.gt.utils.GsonUtils;
+import com.blankj.utilcode.util.ActivityUtils;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
+import com.wycd.yushangpu.model.ImpParamLoading;
 
 import androidx.annotation.Nullable;
 import butterknife.BindView;
@@ -93,12 +95,15 @@ public class WebActivity extends BaseActivity {
     public void onBackPressed() {
         if (webView.canGoBack()) {
             webView.goBack();
-        } else
+        } else {
             super.onBackPressed();
+        }
     }
 
     public void onBack() {
-        finish();
+        ImpParamLoading.preLoad();
+        startActivity(new Intent(ac, HomeActivity.class));
+        ActivityUtils.finishAllActivitiesExceptNewest();
     }
 
     public class JsInteration {

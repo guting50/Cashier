@@ -23,7 +23,6 @@ public class LogUtils {
     public static void d(String tag, String msg) {
         if (LEVEL <= DEBUG) {
             Log.d(tag, msg);
-            System.out.println(tag + " : " + msg);
             //LogsUtils.writeInfoLog(MyApplication.getContext(), MyApplication.loginBean == null ? "" : MyApplication.loginBean.getUM_Acount(), tag + msg);
         }
     }
@@ -43,7 +42,6 @@ public class LogUtils {
     public static void e(String tag, String msg) {
         if (LEVEL <= ERROR) {
             Log.e(tag, msg);
-            System.out.println(tag + " : " + msg);
         }
         LogsUtils.writeEooroLog(MyApplication.getContext(), MyApplication.loginBean == null ? "" : MyApplication.loginBean.getUM_Acount(), tag + msg);
     }

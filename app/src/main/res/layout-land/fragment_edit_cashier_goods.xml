@@ -58,7 +58,7 @@
             android:textColor="@color/title_color"
             android:textSize="@dimen/sp_16" />
 
-        <com.gt.utils.widget.BgFrameLayout
+        <com.gt.utils.widget.BgTextView
             android:id="@+id/bn_edit_num"
             android:layout_width="@dimen/dp_112"
             android:layout_height="@dimen/dp_54"
@@ -66,21 +66,18 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="24dp"
             android:layout_marginRight="15dp"
+            android:gravity="center"
+            android:text="数量"
+            android:textSize="@dimen/sp_20"
             app:corners_radius="4dp"
             app:solid_color="@color/white"
+            app:solid_color_checked="@color/yunpu"
             app:stroke_color="@color/color_8492a6"
-            app:stroke_width="1dp">
+            app:stroke_width="1dp"
+            app:stroke_width_checked="0dp"
+            app:textColor_checked="@color/white" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="数量"
-                android:textSize="@dimen/sp_20" />
-
-        </com.gt.utils.widget.BgFrameLayout>
-
-        <com.gt.utils.widget.BgFrameLayout
+        <com.gt.utils.widget.BgTextView
             android:id="@+id/bn_edit_price"
             android:layout_width="@dimen/dp_112"
             android:layout_height="@dimen/dp_54"
@@ -88,21 +85,18 @@
             android:layout_marginTop="24dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/bn_edit_num"
+            android:gravity="center"
+            android:text="单价"
+            android:textSize="@dimen/sp_20"
             app:corners_radius="4dp"
             app:solid_color="@color/white"
+            app:solid_color_checked="@color/yunpu"
             app:stroke_color="@color/color_8492a6"
-            app:stroke_width="1dp">
+            app:stroke_width="1dp"
+            app:stroke_width_checked="0dp"
+            app:textColor_checked="@color/white" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="单价"
-                android:textSize="@dimen/sp_20" />
-
-        </com.gt.utils.widget.BgFrameLayout>
-
-        <com.gt.utils.widget.BgFrameLayout
+        <com.gt.utils.widget.BgTextView
             android:id="@+id/bn_edit_give"
             android:layout_width="@dimen/dp_112"
             android:layout_height="@dimen/dp_54"
@@ -110,21 +104,18 @@
             android:layout_marginTop="24dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/bn_edit_price"
+            android:gravity="center"
+            android:text="赠送"
+            android:textSize="@dimen/sp_20"
             app:corners_radius="4dp"
             app:solid_color="@color/white"
+            app:solid_color_checked="@color/yunpu"
             app:stroke_color="@color/color_8492a6"
-            app:stroke_width="1dp">
+            app:stroke_width="1dp"
+            app:stroke_width_checked="0dp"
+            app:textColor_checked="@color/white" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="赠送"
-                android:textSize="@dimen/sp_20" />
-
-        </com.gt.utils.widget.BgFrameLayout>
-
-        <com.gt.utils.widget.BgFrameLayout
+        <com.gt.utils.widget.BgTextView
             android:id="@+id/bn_edit_subtotal"
             android:layout_width="@dimen/dp_112"
             android:layout_height="@dimen/dp_54"
@@ -132,21 +123,18 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="15dp"
             android:layout_marginRight="15dp"
+            android:gravity="center"
+            android:text="小计"
+            android:textSize="@dimen/sp_20"
             app:corners_radius="4dp"
             app:solid_color="@color/white"
+            app:solid_color_checked="@color/yunpu"
             app:stroke_color="@color/color_8492a6"
-            app:stroke_width="1dp">
+            app:stroke_width="1dp"
+            app:stroke_width_checked="0dp"
+            app:textColor_checked="@color/white" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="小计"
-                android:textSize="@dimen/sp_20" />
-
-        </com.gt.utils.widget.BgFrameLayout>
-
-        <com.gt.utils.widget.BgFrameLayout
+        <com.gt.utils.widget.BgTextView
             android:id="@+id/bn_edit_discount"
             android:layout_width="@dimen/dp_112"
             android:layout_height="@dimen/dp_54"
@@ -154,21 +142,18 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/bn_edit_subtotal"
+            android:gravity="center"
+            android:text="折扣"
+            android:textSize="@dimen/sp_20"
             app:corners_radius="4dp"
             app:solid_color="@color/white"
+            app:solid_color_checked="@color/yunpu"
             app:stroke_color="@color/color_8492a6"
-            app:stroke_width="1dp">
+            app:stroke_width="1dp"
+            app:stroke_width_checked="0dp"
+            app:textColor_checked="@color/white" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="折扣"
-                android:textSize="@dimen/sp_20" />
-
-        </com.gt.utils.widget.BgFrameLayout>
-
-        <com.gt.utils.widget.BgFrameLayout
+        <com.gt.utils.widget.BgTextView
             android:id="@+id/bn_edit_royalty"
             android:layout_width="@dimen/dp_112"
             android:layout_height="@dimen/dp_54"
@@ -176,19 +161,17 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/bn_edit_discount"
+            android:gravity="center"
+            android:text="提成"
+            android:textSize="@dimen/sp_20"
             app:corners_radius="4dp"
             app:solid_color="@color/white"
+            app:solid_color_checked="@color/yunpu"
+            app:solid_color_no_enabled="@color/enablenot"
             app:stroke_color="@color/color_8492a6"
-            app:stroke_width="1dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="提成"
-                android:textSize="@dimen/sp_20" />
-
-        </com.gt.utils.widget.BgFrameLayout>
+            app:stroke_width="1dp"
+            app:stroke_width_checked="0dp"
+            app:textColor_checked="@color/white" />
 
         <LinearLayout
             android:id="@+id/edit_layout"
@@ -200,26 +183,20 @@
             android:layout_marginBottom="15dp"
             android:orientation="horizontal">
 
-            <com.gt.utils.widget.BgFrameLayout
+            <com.gt.utils.widget.BgTextView
                 android:id="@+id/edit_num_del"
                 android:layout_width="48dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:text="-"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold"
                 app:corners_radius="5dp"
-                app:solid_color="@color/textcc">
+                app:solid_color="@color/textcc" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="-"
-                    android:textColor="@color/white"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
-
-            </com.gt.utils.widget.BgFrameLayout>
-
-            <com.gt.utils.widget.BgFrameLayout
+            <com.gt.utils.widget.BgLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="10dp"
@@ -251,9 +228,9 @@
                         android:layout_height="match_parent"
                         android:layout_above="@+id/edit_layout"
                         android:layout_weight="1"
+                        android:gravity="center_vertical|right"
                         android:textColor="@color/title_color"
-                        android:textSize="20sp"
-                        android:gravity="center_vertical|right" />
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/discount_unit"
@@ -261,47 +238,35 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="10dp"
+                        android:text="折"
                         android:textColor="@color/title_color"
-                        android:textSize="20sp"
-                        android:text="折" />
+                        android:textSize="20sp" />
                 </LinearLayout>
 
-            </com.gt.utils.widget.BgFrameLayout>
+            </com.gt.utils.widget.BgLayout>
 
-            <com.gt.utils.widget.BgFrameLayout
+            <com.gt.utils.widget.BgTextView
                 android:id="@+id/edit_num_add"
                 android:layout_width="48dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:text="+"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold"
                 app:corners_radius="5dp"
-                app:solid_color="@color/textgreen">
+                app:solid_color="@color/textgreen" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="+"
-                    android:textColor="@color/white"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
-
-            </com.gt.utils.widget.BgFrameLayout>
-
-            <com.gt.utils.widget.BgFrameLayout
+            <com.gt.utils.widget.BgTextView
                 android:id="@+id/edit_confirm"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="确定"
+                android:textColor="@color/white"
                 app:corners_radius="5dp"
-                app:solid_color="@color/textgreen">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="确定"
-                    android:textColor="@color/white" />
-
-            </com.gt.utils.widget.BgFrameLayout>
+                app:solid_color="@color/textgreen" />
 
             <View
                 android:id="@+id/edit_layout_place"
