@@ -48,7 +48,7 @@ public class SaomaDialog {
         ImageView iv_clone = (ImageView) view.findViewById(R.id.iv_clone);
         TextView tv_money = (TextView) view.findViewById(R.id.tv_money);
         View on_open_saoma = (View) view.findViewById(R.id.on_open_saoma);
-        dialog = new Dialog(context, R.style.DialogNotitle1) {
+        dialog = new Dialog(context, R.style.ActionSheetDialogStyle) {
             public void dismiss() {
                 super.dismiss();
                 back.onErrorResponse(null);

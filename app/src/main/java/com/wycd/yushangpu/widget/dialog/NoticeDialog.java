@@ -42,7 +42,7 @@ public class NoticeDialog {
         notice_title.setText(title);
         tv_content.setText(value);
 
-        dialog = new Dialog(context, R.style.DialogNotitle1);
+        dialog = new Dialog(context, R.style.ActionSheetDialogStyle);
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
         int screenWidth = ((WindowManager) context

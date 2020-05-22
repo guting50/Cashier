@@ -43,10 +43,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
             android:layout_marginTop="23dp"
+            android:layout_marginRight="200dp"
             android:layout_marginBottom="50dp">
 
             <LinearLayout
-                android:layout_width="900dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
@@ -411,27 +412,21 @@
 
         </androidx.core.widget.NestedScrollView>
 
-        <com.gt.utils.widget.BgFrameLayout
+        <com.gt.utils.widget.BgTextView
             android:id="@+id/fl_cancel"
             android:layout_width="100dp"
             android:layout_height="48dp"
             android:layout_gravity="bottom|right"
             android:layout_marginRight="150dp"
             android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/white"
+            android:textSize="22sp"
             app:corners_radius="4dp"
-            app:solid_color="@color/textcc">
+            app:solid_color="@color/textcc" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="取消"
-                android:textColor="@color/white"
-                android:textSize="22sp" />
-
-        </com.gt.utils.widget.BgFrameLayout>
-
-        <com.gt.utils.widget.BgFrameLayout
+        <com.gt.utils.widget.BgTextView
             android:id="@+id/fl_submit"
             android:layout_width="100dp"
             android:layout_height="48dp"
@@ -440,18 +435,12 @@
             android:layout_gravity="bottom|right"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:textSize="22sp"
             app:corners_radius="4dp"
-            app:solid_color="@color/color_149f4a">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="确定"
-                android:textColor="@color/white"
-                android:textSize="22sp" />
-
-        </com.gt.utils.widget.BgFrameLayout>
+            app:solid_color="@color/color_149f4a" />
     </FrameLayout>
 
 </LinearLayout>

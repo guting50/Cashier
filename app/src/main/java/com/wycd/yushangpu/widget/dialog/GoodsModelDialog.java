@@ -86,7 +86,7 @@ public class GoodsModelDialog {
 
         tvStork = (TextView) view.findViewById(R.id.tv_item_goods_stock);
 
-        dialog = new Dialog(context, R.style.DialogNotitle1);
+        dialog = new Dialog(context, R.style.ActionSheetDialogStyle);
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
         dialog.setContentView(view);

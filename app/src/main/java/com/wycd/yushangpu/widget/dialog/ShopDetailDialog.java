@@ -21,7 +21,8 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.reflect.TypeToken;
-import com.gt.utils.widget.BgFrameLayout;
+import com.gt.utils.widget.BgLayout;
+import com.gt.utils.widget.BgTextView;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
@@ -103,15 +104,15 @@ public class ShopDetailDialog {
         final Dialog dialog;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.dialog_shopdetail, null);
-        ListView listView = (ListView) view.findViewById(R.id.listview);
-        BgFrameLayout rl_confirm = (BgFrameLayout) view.findViewById(R.id.rl_confirm);
-        ImageView rl_cancle = (ImageView) view.findViewById(R.id.rl_cancle);
-        NumInputView editTextLayout = (NumInputView) view.findViewById(R.id.edit_text_layout);
+        ListView listView = view.findViewById(R.id.listview);
+        BgTextView rl_confirm = view.findViewById(R.id.rl_confirm);
+        ImageView rl_cancle = view.findViewById(R.id.rl_cancle);
+        NumInputView editTextLayout = view.findViewById(R.id.edit_text_layout);
         FrameLayout flProportionLayout = view.findViewById(R.id.flProportionLayout);
         TextView tv_title_proportion = view.findViewById(R.id.tv_title_proportion);
         RecyclerView recyclerProportion = view.findViewById(R.id.recycler_proportion);
 
-        BgFrameLayout li_search = (BgFrameLayout) view.findViewById(R.id.li_search);
+        BgLayout li_search = view.findViewById(R.id.li_search);
 
         new NumKeyboardUtils(context, view, editTextLayout);
 
@@ -129,7 +130,7 @@ public class ShopDetailDialog {
         //员工适配器
         final YuangongAdapter yuangongAdapter = new YuangongAdapter(context, mEmplMsgList);
         listView.setAdapter(yuangongAdapter);
-        dialog = new Dialog(context, R.style.DialogNotitle1);
+        dialog = new Dialog(context, R.style.ActionSheetDialogStyle);
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
         dialog.setContentView(view);
@@ -443,20 +444,15 @@ public class ShopDetailDialog {
                 holder.etTcValue.setInputType(0x00002002);
             }
             holder.etTcValue.addTextChangedListener(new TextWatcher() {
-                CharSequence before;
+                String mBefore;
 
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                    before = s;
+                    mBefore = s.toString();
                 }
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
                     double val = 0;
                     if (!TextUtils.isEmpty(s)) {
                         try {
@@ -468,16 +464,19 @@ public class ShopDetailDialog {
                     }
                     if (type == 1) {
                         if (val > 100) {
-                            holder.etTcValue.setText(before);
+                            holder.etTcValue.setText(mBefore);
                             ToastUtils.showLong("比例不能大于 100");
-                            return;
                         }
                     } else if (type == 2)
                         if (val > 999999.99) {
-                            holder.etTcValue.setText(before);
+                            holder.etTcValue.setText(mBefore);
                             ToastUtils.showLong("金额不能大于 999999.99");
-                            return;
                         }
+                    holder.etTcValue.setSelection(holder.etTcValue.getText().length());
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
                     item.setStaffProportion(s.toString());
                 }
             });

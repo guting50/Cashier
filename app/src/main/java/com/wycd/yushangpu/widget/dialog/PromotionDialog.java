@@ -49,7 +49,7 @@ public class PromotionDialog {
         gridView.setLayoutManager(new GridLayoutManager(context, 3));
         gridView.setAdapter(adapter);
 
-        dialog = new Dialog(context, R.style.DialogNotitle1) {
+        dialog = new Dialog(context, R.style.ActionSheetDialogStyle) {
             @Override
             public void show() {
                 super.show();

@@ -54,7 +54,7 @@ public class YouhuiquanDialog {
         ClearEditText et_search = (ClearEditText) view.findViewById(R.id.et_search);
 
         LinearLayout li_search = (LinearLayout) view.findViewById(R.id.li_search);
-        dialog = new Dialog(context, R.style.DialogNotitle1);
+        dialog = new Dialog(context, R.style.ActionSheetDialogStyle);
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
         dialog.setContentView(view);

@@ -57,7 +57,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <com.gt.utils.widget.BgFrameLayout
+                    <com.gt.utils.widget.BgLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -77,9 +77,9 @@
                             android:gravity="center_vertical"
                             android:hint="员工工号" />
 
-                    </com.gt.utils.widget.BgFrameLayout>
+                    </com.gt.utils.widget.BgLayout>
 
-                    <com.gt.utils.widget.BgFrameLayout
+                    <com.gt.utils.widget.BgLayout
                         android:id="@+id/li_search"
                         android:layout_width="@dimen/dp_70"
                         android:layout_height="match_parent"
@@ -94,7 +94,7 @@
                             android:layout_gravity="center"
                             android:src="@mipmap/search" />
 
-                    </com.gt.utils.widget.BgFrameLayout>
+                    </com.gt.utils.widget.BgLayout>
 
                 </LinearLayout>
 
@@ -115,42 +115,32 @@
                     android:layout_marginTop="14dp"
                     android:orientation="horizontal">
 
-                    <com.gt.utils.widget.BgFrameLayout
+                    <com.gt.utils.widget.BgTextView
                         android:id="@+id/bgReset"
                         android:layout_width="80dp"
                         android:layout_height="@dimen/dp_40"
                         android:layout_below="@+id/tv_ordernum"
                         android:layout_marginRight="15dp"
+                        android:gravity="center"
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
+                        android:text="清除"
+                        android:textColor="@color/white"
                         app:corners_radius="3dp"
-                        app:solid_color="@color/text0050">
+                        app:solid_color="@color/text0050" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="清除"
-                            android:textColor="@color/white" />
-                    </com.gt.utils.widget.BgFrameLayout>
-
-                    <com.gt.utils.widget.BgFrameLayout
+                    <com.gt.utils.widget.BgTextView
                         android:id="@+id/rl_confirm"
                         android:layout_width="80dp"
                         android:layout_height="@dimen/dp_40"
                         android:layout_below="@+id/tv_ordernum"
+                        android:gravity="center"
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
+                        android:text="确认"
+                        android:textColor="@color/white"
                         app:corners_radius="3dp"
-                        app:solid_color="@color/colorPrimary">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="确认"
-                            android:textColor="@color/white" />
-                    </com.gt.utils.widget.BgFrameLayout>
+                        app:solid_color="@color/colorPrimary" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -220,42 +210,32 @@
                 android:layout_marginBottom="15dp"
                 android:orientation="horizontal">
 
-                <com.gt.utils.widget.BgFrameLayout
+                <com.gt.utils.widget.BgTextView
                     android:id="@+id/bg_cancle_proportion"
                     android:layout_width="80dp"
                     android:layout_height="@dimen/dp_40"
                     android:layout_below="@+id/tv_ordernum"
                     android:layout_marginRight="15dp"
+                    android:gravity="center"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
+                    android:text="取消"
+                    android:textColor="@color/white"
                     app:corners_radius="3dp"
-                    app:solid_color="@color/text0050">
+                    app:solid_color="@color/text0050" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="取消"
-                        android:textColor="@color/white" />
-                </com.gt.utils.widget.BgFrameLayout>
-
-                <com.gt.utils.widget.BgFrameLayout
+                <com.gt.utils.widget.BgTextView
                     android:id="@+id/bg_confirm_proportion"
                     android:layout_width="80dp"
                     android:layout_height="@dimen/dp_40"
                     android:layout_below="@+id/tv_ordernum"
+                    android:gravity="center"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
+                    android:text="确认"
+                    android:textColor="@color/white"
                     app:corners_radius="3dp"
-                    app:solid_color="@color/colorPrimary">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="确认"
-                        android:textColor="@color/white" />
-                </com.gt.utils.widget.BgFrameLayout>
+                    app:solid_color="@color/colorPrimary" />
             </LinearLayout>
         </FrameLayout>
     </FrameLayout>

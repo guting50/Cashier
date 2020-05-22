@@ -23,7 +23,7 @@ public class LoadingDialog {
         final Dialog dialog;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.dialog_loading, null);
-        dialog = new Dialog(context, R.style.DialogNotitle1) {
+        dialog = new Dialog(context, R.style.DialogNotitle) {
             @Override
             public void show() {
                 try {

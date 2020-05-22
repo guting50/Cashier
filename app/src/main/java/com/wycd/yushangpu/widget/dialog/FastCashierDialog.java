@@ -40,7 +40,7 @@ public class FastCashierDialog {
 
         NumKeyboardUtils numKeyboardUtils = new NumKeyboardUtils(context, view, edit_view);
 
-        dialog = new Dialog(context, R.style.DialogNotitle1);
+        dialog = new Dialog(context, R.style.ActionSheetDialogStyle);
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
 
