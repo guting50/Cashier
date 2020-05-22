@@ -42,6 +42,15 @@ public class WebActivity extends BaseActivity {
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
                 handler.proceed();
             }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                view.loadUrl("javascript:var meta = document.createElement('meta');" +
+                        "meta.content='width=device-width,user-scalable=yes,initial-scale=1.0,minimum-scale=0.5,maximum-scale=1';" +
+                        "meta.name='viewport';" +
+                        "document.getElementsByTagName('head')[0].appendChild(meta)");
+            }
         });
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
