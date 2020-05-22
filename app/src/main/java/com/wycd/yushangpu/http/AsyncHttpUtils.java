@@ -51,12 +51,17 @@ public class AsyncHttpUtils {
         try {
             Field field = clazz.getDeclaredField("urlParams");
             field.setAccessible(true);
-            ConcurrentHashMap hashMap = (ConcurrentHashMap) field.get(map);
+            ConcurrentHashMap hashMap = GsonUtils.getGson().fromJson(GsonUtils.getGson().toJson(field.get(map)), ConcurrentHashMap.class);
+
+            field = clazz.getDeclaredField("urlParamsWithObjects");
+            field.setAccessible(true);
+            hashMap.putAll((ConcurrentHashMap) field.get(map));
             LogUtils.d(">>> ======== params ======== >>>", GsonUtils.getGson().toJson(hashMap));
         } catch (Exception e) {
             e.printStackTrace();
             LogUtils.d(">>> ======== params ======== >>>", map.toString());
         }
+
         httpClient.post(url, map, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
