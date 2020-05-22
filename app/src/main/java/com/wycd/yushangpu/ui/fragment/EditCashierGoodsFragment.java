@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.gt.utils.widget.BgTextView;
 import com.wycd.yushangpu.MyApplication;
-import com.wycd.yushangpu.Presenter.BasicEucalyptusPresnter;
+import com.wycd.yushangpu.model.BasicEucalyptusPresnter;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.EmplMsg;
 import com.wycd.yushangpu.bean.ShopMsg;

@@ -11,7 +11,8 @@ import android.widget.TextView;
 import com.gt.utils.widget.OnNoDoubleClickListener;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.ShopMsg;
-import com.wycd.yushangpu.http.InterfaceThreeBack;
+import com.wycd.yushangpu.http.BaseRes;
+import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.StringUtil;
@@ -29,9 +30,9 @@ import butterknife.ButterKnife;
 public class ShopLeftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<ShopMsg> list;
     private Context context;
-    InterfaceThreeBack back;
+    CallBack back;
 
-    public ShopLeftAdapter(Context context, List<ShopMsg> list, InterfaceThreeBack back) {
+    public ShopLeftAdapter(Context context, List<ShopMsg> list, CallBack back) {
         this.list = list;
         this.context = context;
         this.back = back;
@@ -131,7 +132,9 @@ public class ShopLeftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             @Override
             protected void onNoDoubleClick(View view) {
                 if (!TextUtils.isEmpty(ts.getGID())) {
-                    back.onThreeResponse(i);
+                    BaseRes baseRes = new BaseRes();
+                    baseRes.setCode(i + "");
+                    back.onResponse(baseRes);
                 }
             }
         });

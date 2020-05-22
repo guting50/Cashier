@@ -1,7 +1,6 @@
 package com.wycd.yushangpu.model;
 
 import com.wycd.yushangpu.MyApplication;
-import com.wycd.yushangpu.Presenter.BasicEucalyptusPresnter;
 import com.wycd.yushangpu.bean.ReportMessageBean;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
 import com.wycd.yushangpu.http.BaseRes;

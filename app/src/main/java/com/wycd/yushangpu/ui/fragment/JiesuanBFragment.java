@@ -16,15 +16,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.CacheDoubleUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.gt.utils.GsonUtils;
 import com.gt.utils.widget.BgTextView;
 import com.gt.utils.widget.OnNoDoubleClickListener;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
-import com.wycd.yushangpu.Presenter.BasicEucalyptusPresnter;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.OrderCanshu;
 import com.wycd.yushangpu.bean.OrderPayResult;
@@ -41,9 +42,9 @@ import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
+import com.wycd.yushangpu.model.BasicEucalyptusPresnter;
 import com.wycd.yushangpu.model.ImpOrderPay;
 import com.wycd.yushangpu.model.ImpParamLoading;
-import com.wycd.yushangpu.tools.CacheData;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.DateTimeUtil;
 import com.wycd.yushangpu.tools.LogUtils;
@@ -199,7 +200,7 @@ public class JiesuanBFragment extends BaseFragment {
 
     @Override
     public int getContentView() {
-        return R.layout.dialog_jiesuan_new;
+        return R.layout.fragment_jiesuan;
     }
 
     @Override
@@ -1051,7 +1052,7 @@ public class JiesuanBFragment extends BaseFragment {
                         }
                     }
                 }
-                CacheData.saveObject("shortmessage", bean);//缓存短信开关到本地
+                CacheDoubleUtils.getInstance().put("shortmessage", GsonUtils.getGson().toJson(bean));
             }
         });
     }
@@ -1221,7 +1222,7 @@ public class JiesuanBFragment extends BaseFragment {
                             if (name.contains(PayMode.YEZF.getStr())) {
                                 if (value > yueLimit) {
                                     myHolder.etValue.setText(StringUtil.onlyTwoNum(yueLimit + ""));
-//                                    com.blankj.utilcode.util.ToastUtils.showShort("超过余额支付限制");
+//                                    ToastUtils.showLong("超过余额支付限制");
                                     return;
                                 }
                             }
@@ -1229,7 +1230,7 @@ public class JiesuanBFragment extends BaseFragment {
                             if (name.contains(PayMode.JFZF.getStr())) {
                                 if (value > dkmoney) {
                                     myHolder.etValue.setText(StringUtil.onlyTwoNum(dkmoney + ""));
-//                                    com.blankj.utilcode.util.ToastUtils.showShort("超过积分支付限制");
+//                                    ToastUtils.showLong("超过积分支付限制");
                                     return;
                                 }
                             }

@@ -90,16 +90,6 @@
         <!-- android:resource="@xml/device_filter"></meta-data> -->
         <!-- android:screenOrientation="portrait" -->
         <activity
-            android:name=".web.WebActivity"
-            android:exported="false"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".ui.HtmlActivity"
-            android:exported="false"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
             android:name=".ui.WebActivity"
             android:exported="false"
             android:screenOrientation="landscape"
@@ -109,24 +99,11 @@
             android:exported="true"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.alipay.sdk.app.H5PayActivity"
-            android:configChanges="orientation|keyboardHidden|navigation"
-            android:exported="false"
-            android:screenOrientation="behind" />
-        <activity
-            android:name="com.alipay.sdk.auth.AuthActivity"
-            android:configChanges="orientation|keyboardHidden|navigation"
-            android:exported="false"
-            android:screenOrientation="behind" />
-        <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" /> <!-- 友盟分享 -->
-        <meta-data
-            android:name="UMENG_APPKEY"
-            android:value="5c7a2520203657a911000e9a" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
     </application>
 
 </manifest>

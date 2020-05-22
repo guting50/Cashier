@@ -191,9 +191,6 @@ public class ShopDetailDialog {
             @Override
             protected void onNoDoubleClick(View view) {
                 dialog.dismiss();
-                /*HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
-                event.setMsg("Change_color");
-                EventBus.getDefault().post(event);*/
             }
         });
 
@@ -228,9 +225,6 @@ public class ShopDetailDialog {
                 } else {
                     dialog.dismiss();
                     back.onResponse(mEmplMsgList2);
-                   /* HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
-                    event.setMsg("Change_color");
-                    EventBus.getDefault().post(event);*/
                 }
             }
         });
@@ -322,9 +316,6 @@ public class ShopDetailDialog {
             public void onErrorResponse(Object msg) {
                 super.onErrorResponse(msg);
                 loadingdialog.dismiss();
-                /*HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
-                event.setMsg("Change_color");
-                EventBus.getDefault().post(event);*/
             }
         });
     }
@@ -344,17 +335,11 @@ public class ShopDetailDialog {
                 }.getType();
                 List<EmplMsg> sllist = response.getData(BasePageRes.class).getData(listType);
                 choseEmplList(valiRuleMsg, sllist, emplMsgList, yuangongAdapter);
-                /*HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
-                event.setMsg("Change_color");
-                EventBus.getDefault().post(event);*/
             }
 
             @Override
             public void onErrorResponse(Object msg) {
                 loadingdialog.dismiss();
-                /*HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
-                event.setMsg("Change_color");
-                EventBus.getDefault().post(event);*/
             }
         });
     }

@@ -13,11 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wycd.yushangpu.R;
-import com.wycd.yushangpu.bean.event.HomeButtonColorChangeEvent;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
-
-import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by ZPH on 2019-08-07.
@@ -82,9 +79,6 @@ public class NoticeDialog {
             @Override
             protected void onNoDoubleClick(View view) {
                 dialog.dismiss();
-                HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
-                event.setMsg("Change_color");
-                EventBus.getDefault().post(event);
             }
         });
 
@@ -92,9 +86,6 @@ public class NoticeDialog {
             @Override
             protected void onNoDoubleClick(View view) {
                 dialog.dismiss();
-                HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
-                event.setMsg("Change_color");
-                EventBus.getDefault().post(event);
             }
         });
 
@@ -105,10 +96,6 @@ public class NoticeDialog {
             protected void onNoDoubleClick(View view) {
                 back.onResponse("");
                 dialog.dismiss();
-                HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
-                event.setMsg("Change_color");
-                EventBus.getDefault().post(event);
-
             }
         });
 

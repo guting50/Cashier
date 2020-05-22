@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.reflect.TypeToken;
 import com.gt.utils.widget.BgFrameLayout;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -16,7 +17,6 @@ import com.wycd.yushangpu.bean.OrderCanshu;
 import com.wycd.yushangpu.bean.RevokeGuaDanBean;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.bean.VipInfoMsg;
-import com.wycd.yushangpu.bean.event.HomeButtonColorChangeEvent;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
 import com.wycd.yushangpu.http.BasePageRes;
 import com.wycd.yushangpu.http.BaseRes;
@@ -30,8 +30,6 @@ import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.StringUtil;
 import com.wycd.yushangpu.ui.HomeActivity;
 import com.wycd.yushangpu.widget.dialog.NoticeDialog;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -75,7 +73,7 @@ public class QudanFragment extends BaseFragment {
 
     @Override
     public int getContentView() {
-        return R.layout.dialog_gualist;
+        return R.layout.fragment_gualist;
     }
 
     public void onCreated() {
@@ -226,9 +224,6 @@ public class QudanFragment extends BaseFragment {
             @Override
             protected void onNoDoubleClick(View view) {
                 back.onErrorResponse(null);
-                HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
-                event.setMsg("Change_color");
-                EventBus.getDefault().post(event);
             }
         });
 
@@ -247,8 +242,7 @@ public class QudanFragment extends BaseFragment {
                     obtainGuadanList(refreshnum);
                     refreshnum++;
                 } else {
-//                    ToastUtils.showToast(context,"没有更多数据了");
-                    com.blankj.utilcode.util.ToastUtils.showShort("没有更多数据了");
+                    ToastUtils.showLong("没有更多数据了");
                     listview.setLoadingMoreEnabled(false);
                 }
             }
@@ -393,9 +387,6 @@ public class QudanFragment extends BaseFragment {
                         public void onResponse(BaseRes response) {
                             homeActivity.dialog.dismiss();
                             back.onResponse(response.getData(RevokeGuaDanBean.class));
-                            HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
-                            event.setMsg("Change_color");
-                            EventBus.getDefault().post(event);
                             list.remove(guadanList);
                         }
 
@@ -403,9 +394,6 @@ public class QudanFragment extends BaseFragment {
                         public void onErrorResponse(Object msg) {
                             super.onErrorResponse(msg);
                             homeActivity.dialog.dismiss();
-                            HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
-                            event.setMsg("Change_color");
-                            EventBus.getDefault().post(event);
                         }
                     });
                 } else if (guadanList.getCO_IdentifyingState().equals("8")) {//挂账
@@ -419,9 +407,6 @@ public class QudanFragment extends BaseFragment {
                                 mVipMsg = response;
                                 homeActivity.dialog.dismiss();
                                 jiesuan(guadanList, mVipMsg);
-                                HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
-                                event.setMsg("Change_color");
-                                EventBus.getDefault().post(event);
                                 list.remove(guadanList);
                             }
 

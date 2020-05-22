@@ -344,8 +344,8 @@ public class ESCUtil {
         bytes1[2] = 0x30;
         bytes1[3] = 0x00;
 
-        byte[] bytes2 = BytesUtil.getBytesFromBitMap(bitmap);
-        return BytesUtil.byteMerger(bytes1, bytes2);
+        byte[] bytes2 = getBytesFromBitMap(bitmap);
+        return byteMerger(bytes1, bytes2);
     }
     /**
      * 居中对齐
@@ -392,5 +392,44 @@ public class ESCUtil {
         Bitmap newbm = Bitmap.createBitmap(bitmap1, 0, 0, width, height, matrix,
                 true);
         return newbm;
+    }
+
+
+    /**
+     * 将bitmap图转换为头四位有宽高的光栅位图
+     */
+    private static byte[] getBytesFromBitMap(Bitmap bitmap) {
+
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        int bw = (width - 1) / 8 +1;
+
+        byte[] rv = new byte[height * bw + 4];
+        rv[0] = (byte) bw;//xL
+        rv[1] = (byte) (bw >> 8);//xH
+        rv[2] = (byte) height;
+        rv[3] = (byte) (height >> 8);
+
+        int[] pixels = new int[width * height];
+        bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
+
+
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                int clr = pixels[width * i + j];
+                int red = (clr & 0x00ff0000) >> 16;
+                int green = (clr & 0x0000ff00) >> 8;
+                int blue = clr & 0x000000ff;
+                byte gray = (RGB2Gray(red, green, blue));
+                rv[(width * i + j) / 8 + 4] = (byte) (rv[(width * i + j) / 8 + 4] | (gray << (7 - ((width * i + j) % 8))));
+            }
+        }
+
+        return rv;
+    }
+
+    private static byte RGB2Gray(int r, int g, int b) {
+        return (false ? ((int) (0.29900 * r + 0.58700 * g + 0.11400 * b) > 200)
+                : ((int) (0.29900 * r + 0.58700 * g + 0.11400 * b) < 200)) ? (byte) 1 : (byte) 0;
     }
 }

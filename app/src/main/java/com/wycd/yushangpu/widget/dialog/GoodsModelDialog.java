@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.adapter.ShopRulesAdapter;
@@ -106,8 +107,7 @@ public class GoodsModelDialog {
 
                 if (goodsitem != null) {
                     if (isZeroStock && goodsitem.getStock_Number() <= 0 && goodsitem.getPM_IsService() == 0) {
-//                        ToastUtils.showToast(context,"当前库存不足");
-                        com.blankj.utilcode.util.ToastUtils.showShort("当前库存不足");
+                        ToastUtils.showLong("当前库存不足");
                     } else {
                         back.onResponse(goodsitem);
                     }

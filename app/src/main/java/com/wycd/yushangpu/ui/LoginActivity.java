@@ -18,7 +18,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.gt.utils.base64.BASE64Decoder;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
-import com.wycd.yushangpu.Presenter.BasicEucalyptusPresnter;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.LoginBean;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
@@ -31,7 +30,7 @@ import com.wycd.yushangpu.tools.GlideTransform;
 import com.wycd.yushangpu.tools.KeyBoardHelper;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.PreferenceHelper;
-import com.wycd.yushangpu.tools.ShadowUtils;
+import com.wycd.yushangpu.widget.views.ShadowUtils;
 import com.yanzhenjie.permission.AndPermission;
 
 import java.io.IOException;
@@ -57,9 +56,7 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.login_cb)
     CheckBox cb;
 
-    private int screenHeight;
     private View layout_content;
-    private View layout_bottom;
     private int bottomHeight;
     private KeyBoardHelper boardHelper;
 
@@ -99,7 +96,6 @@ public class LoginActivity extends BaseActivity {
 
     private void initEvent() {
         layout_content = findViewById(R.id.layout_content);
-        layout_bottom = findViewById(R.id.layout_bottom);
 
         boardHelper = new KeyBoardHelper(this);
         boardHelper.onCreate();

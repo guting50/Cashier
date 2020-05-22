@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -51,7 +52,6 @@ import com.wycd.yushangpu.tools.DateTimeUtil;
 import com.wycd.yushangpu.tools.Decima2KeeplUtil;
 import com.wycd.yushangpu.tools.GlideTransform;
 import com.wycd.yushangpu.tools.NullUtils;
-import com.wycd.yushangpu.tools.RegexUtil;
 import com.wycd.yushangpu.widget.MaxHeightRecyclerView;
 import com.wycd.yushangpu.widget.calendarselecter.CalendarSelector;
 import com.wycd.yushangpu.widget.calendarselecter.DateUtil;
@@ -721,7 +721,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
         mPhoneNum = et_VIP_CellPhone.getText().toString();
         if (mIsfilltel) {
             if (!TextUtils.isEmpty(et_VIP_CellPhone.getText())) {
-                if (!RegexUtil.isTelPhoneNumber(mPhoneNum)) {
+                if (!RegexUtils.isMobileSimple(mPhoneNum)) {
                     mPhoneNum = "";
                     warnDialog("【手机号码】格式不正确");
                     return false;
@@ -798,7 +798,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
         }
         if (!TextUtils.isEmpty(et_VIP_ICCard.getText())) {
             mId = et_VIP_ICCard.getText().toString();
-            if (!RegexUtil.isLegalId(mId)) {
+            if (!RegexUtils.isIDCard18Exact(mId)) {
                 warnDialog("【身份证号】格式不正确");
                 mId = "";
                 return false;

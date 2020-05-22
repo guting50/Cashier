@@ -14,7 +14,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.gyf.barlibrary.ImmersionBar;
-import com.wycd.yushangpu.tools.ActivityManager;
 import com.wycd.yushangpu.widget.dialog.LoadingDialog;
 
 import java.util.ArrayList;
@@ -42,14 +41,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-//        SystemUIUtils.setStickFullScreen(getWindow().getDecorView());
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dialog = LoadingDialog.loadingDialog(BaseActivity.this, 1);
-        ActivityManager.getInstance().addActivity(this);
         ac = this;
 //        setNavigationBar();
         res = getResources();
@@ -109,7 +106,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         // 必须调用该方法，防止内存泄漏
         ImmersionBar.with(this).destroy();
-        ActivityManager.getInstance().removeActivity(this);
     }
 
     /**

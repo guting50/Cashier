@@ -1,5 +1,8 @@
 package com.wycd.yushangpu.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
 /**
@@ -7,7 +10,7 @@ import java.io.Serializable;
  * 短信开关bean
  */
 
-public class SmsSwitch implements Serializable {
+public class SmsSwitch implements Serializable, Parcelable {
     /**
      * ST_State : null
      * GID : 1
@@ -139,4 +142,53 @@ public class SmsSwitch implements Serializable {
     public void setST_AuditMessage(String ST_AuditMessage) {
         this.ST_AuditMessage = ST_AuditMessage;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.ST_State);
+        dest.writeString(this.GID);
+        dest.writeString(this.ST_Code);
+        dest.writeString(this.ST_Name);
+        dest.writeString(this.ST_Content);
+        dest.writeString(this.ST_Wildcard);
+        dest.writeString(this.CY_GID);
+        dest.writeString(this.ST_CreateTime);
+        dest.writeInt(this.ST_Sort);
+        dest.writeInt(this.ST_AuditState);
+        dest.writeString(this.ST_AuditMessage);
+    }
+
+    public SmsSwitch() {
+    }
+
+    protected SmsSwitch(Parcel in) {
+        this.ST_State = in.readString();
+        this.GID = in.readString();
+        this.ST_Code = in.readString();
+        this.ST_Name = in.readString();
+        this.ST_Content = in.readString();
+        this.ST_Wildcard = in.readString();
+        this.CY_GID = in.readString();
+        this.ST_CreateTime = in.readString();
+        this.ST_Sort = in.readInt();
+        this.ST_AuditState = in.readInt();
+        this.ST_AuditMessage = in.readString();
+    }
+
+    public static final Parcelable.Creator<SmsSwitch> CREATOR = new Parcelable.Creator<SmsSwitch>() {
+        @Override
+        public SmsSwitch createFromParcel(Parcel source) {
+            return new SmsSwitch(source);
+        }
+
+        @Override
+        public SmsSwitch[] newArray(int size) {
+            return new SmsSwitch[size];
+        }
+    };
 }

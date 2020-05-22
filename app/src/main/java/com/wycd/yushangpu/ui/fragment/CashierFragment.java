@@ -18,7 +18,7 @@ import com.gt.utils.GsonUtils;
 import com.gt.utils.widget.BgTextView;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
-import com.wycd.yushangpu.Presenter.BasicEucalyptusPresnter;
+import com.wycd.yushangpu.model.BasicEucalyptusPresnter;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.adapter.ShopLeftAdapter;
 import com.wycd.yushangpu.bean.GoodsModelBean;
@@ -33,7 +33,6 @@ import com.wycd.yushangpu.http.BaseRes;
 import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.http.InterfaceThreeBack;
 import com.wycd.yushangpu.model.ImpOnlyVipMsg;
 import com.wycd.yushangpu.model.ImpParamLoading;
 import com.wycd.yushangpu.model.ImpSubmitOrder;
@@ -154,13 +153,7 @@ public class CashierFragment extends BaseFragment {
     public void initView() {
         order = CreateOrder.createOrder("SP");
         tv_ordernum.setText(order);
-        mShopLeftAdapter = new ShopLeftAdapter(homeActivity, mShopLeftList, new InterfaceThreeBack() {
-
-            //加减
-            @Override
-            public void onResponse(Object response) {
-
-            }
+        mShopLeftAdapter = new ShopLeftAdapter(homeActivity, mShopLeftList, new CallBack() {
 
             //移除
             @Override
@@ -184,8 +177,8 @@ public class CashierFragment extends BaseFragment {
 
             //选中
             @Override
-            public void onThreeResponse(Object object) {
-                final int i = (int) object;
+            public void onResponse(BaseRes object) {
+                final int i = Integer.valueOf(object.getCode());
                 leftpos = i;
                 for (int j = 0; j < mShopLeftList.size(); j++) {
                     mShopLeftList.get(j).setCheck(false);
@@ -315,7 +308,6 @@ public class CashierFragment extends BaseFragment {
                                 @Override
                                 public void onResponse(Object response) {
                                     homeActivity.dialog.dismiss();
-//                                    ToastUtils.showToast(homeActivity, "挂账成功");
                                     ToastUtils.showLong("挂账成功");
 
                                     resetCashier();
@@ -334,7 +326,6 @@ public class CashierFragment extends BaseFragment {
                         }
                     });
                 } else {
-//                    ToastUtils.showToast(homeActivity, "请选择商品");
                     ToastUtils.showLong("请选择商品");
                 }
             }
@@ -372,7 +363,6 @@ public class CashierFragment extends BaseFragment {
                                 @Override
                                 public void onResponse(Object response) {
                                     homeActivity.dialog.dismiss();
-//                                    ToastUtils.showToast(homeActivity, "挂单成功");
                                     ToastUtils.showLong("挂单成功");
 
                                     resetCashier();

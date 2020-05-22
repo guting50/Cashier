@@ -51,7 +51,7 @@ public class YuangongAdapter extends BaseAdapter {
     public View getView(final int i, View view, ViewGroup viewGroup) {
         final ViewHolder holder1;
         if (view == null) {
-            view = inflater.inflate(R.layout.item_shopdetail_yuangong, null);
+            view = inflater.inflate(R.layout.item_shopdetail_yuangong, viewGroup, false);
             holder1 = new ViewHolder(view);
             view.setTag(holder1);
         } else {

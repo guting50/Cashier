@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.mcxtzhang.swipemenulib.SwipeMenuLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true">
@@ -29,18 +30,19 @@
                 android:textColor="@color/title_color"
                 android:textSize="@dimen/sp_18" />
 
-            <TextView
+            <com.gt.utils.widget.BgTextView
                 android:id="@+id/tv_zeng"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_marginTop="@dimen/dp_13"
                 android:layout_toRightOf="@id/tv_name"
-                android:background="@drawable/background_red"
                 android:gravity="center"
                 android:paddingBottom="1dp"
                 android:text="赠"
                 android:textColor="@color/white"
-                android:textSize="@dimen/dp_13" />
+                android:textSize="@dimen/dp_13"
+                app:corners_radius="3dp"
+                app:solid_color="@color/textred" />
 
             <TextView
                 android:id="@+id/tv_staff"
@@ -52,8 +54,8 @@
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="提成员工"
-                android:textSize="@dimen/dp_14"
-                android:textColor="@color/yunpu" />
+                android:textColor="@color/yunpu"
+                android:textSize="@dimen/dp_14" />
 
             <LinearLayout
                 android:layout_width="match_parent"

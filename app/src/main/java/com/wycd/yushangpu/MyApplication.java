@@ -17,11 +17,9 @@ import com.google.gson.Gson;
 import com.loopj.android.http.PersistentCookieStore;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-import com.tencent.smtt.sdk.QbSdk;
 import com.wycd.yushangpu.bean.LoginBean;
 import com.wycd.yushangpu.tools.AppLanguageUtils;
 import com.wycd.yushangpu.tools.CrashHandler;
-import com.wycd.yushangpu.tools.LogUtils;
 import com.wycd.yushangpu.tools.PreferenceHelper;
 import com.wycd.yushangpu.wxapi.Constants;
 
@@ -239,22 +237,7 @@ public class MyApplication extends MultiDexApplication {
         mWxApi = WXAPIFactory.createWXAPI(this, Constants.APP_ID, false);
         // 将该app注册到微信
         mWxApi.registerApp(Constants.APP_ID);
-        QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
 
-            @Override
-            public void onViewInitFinished(boolean arg0) {
-                // TODO Auto-generated method stub
-                //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
-                LogUtils.d("xxapp", " onViewInitFinished is " + arg0);
-            }
-
-            @Override
-            public void onCoreInitFinished() {
-                // TODO Auto-generated method stub
-            }
-        };
-        //x5内核初始化接口
-        QbSdk.initX5Environment(getApplicationContext(), cb);
         Intent intent = new Intent(this, PosprinterService.class);
         bindService(intent, mSerconnection, BIND_AUTO_CREATE);
 

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.VipInfoMsg;
@@ -97,8 +98,7 @@ public class YouhuiquanDialog {
             @Override
             protected void onNoDoubleClick(View view) {
                 if (et_search.getText().toString().equals("")) {
-//                    ToastUtils.showToast(context, "请输入优惠券名称");
-                    com.blankj.utilcode.util.ToastUtils.showShort("请输入优惠券名称");
+                    ToastUtils.showLong("请输入优惠券名称");
                 } else {
                     loadingdialog.show();
                     RequestParams params = new RequestParams();

@@ -3,6 +3,7 @@ package com.wycd.yushangpu.model;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.bean.OrderPayResult;
 import com.wycd.yushangpu.bean.PayType;
+import com.wycd.yushangpu.bean.SPXFSuccessBean;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
 import com.wycd.yushangpu.http.BaseRes;
 import com.wycd.yushangpu.http.CallBack;

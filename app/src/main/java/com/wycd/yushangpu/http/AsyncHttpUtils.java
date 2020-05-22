@@ -2,6 +2,7 @@ package com.wycd.yushangpu.http;
 
 import android.content.Intent;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.gt.utils.GsonUtils;
 import com.loopj.android.http.AsyncHttpClient;
@@ -10,7 +11,6 @@ import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.SyncHttpClient;
 import com.wycd.yushangpu.MyApplication;
-import com.wycd.yushangpu.tools.ActivityManager;
 import com.wycd.yushangpu.tools.LogUtils;
 import com.wycd.yushangpu.ui.LoginActivity;
 
@@ -75,7 +75,7 @@ public class AsyncHttpUtils {
                     } else {
                         if (baseRes.getCode() != null &&
                                 (baseRes.getCode().equals("RemoteLogin") || baseRes.getCode().equals("LoginTimeout"))) {
-                            ActivityManager.getInstance().exit();
+                            ActivityUtils.finishAllActivitiesExceptNewest();
                             Intent intent = new Intent(MyApplication.getContext(), LoginActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             MyApplication.getContext().startActivity(intent);

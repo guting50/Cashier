@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#d0000000"
+    tools:ignore="MissingDefaultResource">
+
+    <LinearLayout
+        android:layout_width="800dp"
+        android:layout_height="@dimen/dp_500"
+        android:layout_gravity="center"
+        android:background="@drawable/background_white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60"
+            android:background="@drawable/shap_homeviptop">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:text="订单列表"
+                android:textColor="@color/textcolor"
+                android:textSize="@dimen/sp_20" />
+
+            <ImageView
+                android:id="@+id/iv_close"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_5"
+                android:padding="@dimen/dp_10"
+                android:src="@drawable/ty_close" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/view_green_line" />
+
+        <com.gt.utils.widget.BgFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="@dimen/dp_15"
+            app:corners_radius="4dp"
+            app:solid_color="#ecfcf1"
+            app:stroke_color="#b3e4c6"
+            app:stroke_width="1dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/icon_warning" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="40dp"
+                android:text="挂单有效期为24小时，过期自动删除。"
+                android:textColor="#149f4a"
+                android:textSize="18sp" />
+
+        </com.gt.utils.widget.BgFrameLayout>
+
+        <com.jcodecraeer.xrecyclerview.XRecyclerView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_12"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:background="@drawable/shap_homesearch"
+            android:splitMotionEvents="false"
+            app:above_wave_color="@color/graeen_botton"
+            app:blow_wave_color="@color/graeen_botton" />
+    </LinearLayout>
+
+</FrameLayout>

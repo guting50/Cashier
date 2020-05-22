@@ -11,17 +11,6 @@
         <!--<item name="android:windowIsTranslucent">true</item>-->
     </style>
 
-    <style name="AppThemeTranslucent" parent="AppTheme">
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <!-- Note that we use the base animation style here (that is no
-             animations) because we really have no idea how this kind of
-             activity will be used. -->
-        <item name="android:windowAnimationStyle">@android:style/Animation</item>
-
-    </style>
-
     <style name="LogoTheme" parent="AppTheme">
         <item name="android:windowBackground">@drawable/iv_login</item>
     </style>
@@ -31,13 +20,6 @@
         <attr name="border_color" format="color" />
         <attr name="border_overlay" format="boolean" />
     </declare-styleable>
-
-    <style name="text_white">
-        <item name="android:textSize">@dimen/sp_14</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
 
     <!--RadioGroup
 
@@ -88,86 +70,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!--设置dialog全屏-->
-    <style name="Dialog_Fullscreen" parent="@android:style/Theme.Dialog">
-        <!--   背景颜色及透明程度 -->
-        <item name="android:windowBackground">@color/white_loading</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowNoTitle">true</item>
-        <!--   是否浮现在activity之上 -->
-        <item name="android:windowIsFloating">true</item>
-        <!--   是否模糊 -->
-        <item name="android:backgroundDimEnabled">true</item>
-        <item name="android:windowFrame">@null</item>
-        <!--透明度-->
-        <item name="android:backgroundDimAmount">0.1</item>
-        <!-- Dialog进入及退出动画 -->
-        <item name="android:windowAnimationStyle">@style/ActionSheetDialogAnimation</item>
-    </style>
-
     <!-- ActionSheet进出动画 -->
     <style name="ActionSheetDialogAnimation" parent="@android:style/Animation.Dialog">
         <item name="android:windowEnterAnimation">@anim/actionsheet_dialog_in</item>
         <item name="android:windowExitAnimation">@anim/actionsheet_dialog_out</item>
-    </style>
-
-    <!--数字键盘样式-->
-    <style name="NumButton">
-        <item name="android:gravity">center</item>
-        <item name="android:onClick">onClick</item>
-        <item name="android:textSize">28dp</item>
-        <item name="android:textColor">@color/textnumbtt</item>
-        <item name="android:layout_marginTop">@dimen/dp_5</item>
-        <item name="android:layout_marginLeft">@dimen/dp_5</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@drawable/selector_clicked_view</item>
-    </style>
-
-    <style name="ButtonText">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">#ffffff</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:shadowColor">#000000</item>
-        <item name="android:shadowDx">1</item>
-        <item name="android:shadowDy">1</item>
-        <item name="android:shadowRadius">2</item>
-        <item name="android:background">@drawable/customer_button_selector</item>
-    </style>
-
-    <style name="NumButton1">
-        <item name="android:gravity">center</item>
-        <item name="android:onClick">onClick</item>
-        <item name="android:textSize">28dp</item>
-        <item name="android:textColor">@color/textnumbtt</item>
-        <item name="android:layout_marginTop">@dimen/dp_5</item>
-        <item name="android:layout_marginLeft">@dimen/dp_5</item>
-        <item name="android:layout_weight">2</item>
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@drawable/selector_clicked_view</item>
-    </style>
-
-    <!--  这个是加入的代码 -->
-    <style name="pop_show_style">
-        <item name="android:windowEnterAnimation">@anim/pop_show_in</item>
-        <!-- 指定显示的动画xml -->
-
-        <item name="android:windowExitAnimation">@anim/pop_show_out</item>
-        <!-- 指定消失的动画xml -->
-    </style>
-
-    <!--强制输入标记-->
-    <style name="Flag">
-        <item name="android:layout_width">14dp</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/textred</item>
-        <item name="android:text">*</item>
-        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="tab_layout">

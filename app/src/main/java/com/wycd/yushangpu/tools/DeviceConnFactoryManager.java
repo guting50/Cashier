@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.Vector;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 import static com.wycd.yushangpu.tools.DeviceConnFactoryManager.CONN_METHOD.USB;
@@ -123,6 +124,9 @@ public class DeviceConnFactoryManager {
      * CPCL指令查询打印机实时状态 打印机开盖状态
      */
     private static final int CPCL_STATE_COVER_OPEN = 0x02;
+
+
+    public static final int ABNORMAL_DISCONNECTION = 0x011;//异常断开
 
     private byte[] sendCommand;
     /**
@@ -419,7 +423,7 @@ public class DeviceConnFactoryManager {
         try {
             this.mPort.writeDataImmediately(data, 0, data.size());
         } catch (Exception e) {//异常中断发送
-            mHandler.obtainMessage(Constant.abnormal_Disconnection).sendToTarget();
+            mHandler.obtainMessage(ABNORMAL_DISCONNECTION).sendToTarget();
             e.printStackTrace();
             LogUtils.e("======== Error ========", e.getMessage());
         }
@@ -437,7 +441,7 @@ public class DeviceConnFactoryManager {
                 this.mPort.writeDataImmediately(datas, 0, datas.size());
             } catch (IOException e) {//异常中断发送
                 e.printStackTrace();
-                mHandler.obtainMessage(Constant.abnormal_Disconnection).sendToTarget();
+                mHandler.obtainMessage(ABNORMAL_DISCONNECTION).sendToTarget();
                 LogUtils.e("======== Error ========", e.getMessage());
             }
         }
@@ -547,7 +551,7 @@ public class DeviceConnFactoryManager {
             } catch (Exception e) {//异常断开
                 if (deviceConnFactoryManagers[id] != null) {
                     closePort(id);
-                    mHandler.obtainMessage(Constant.abnormal_Disconnection).sendToTarget();
+                    mHandler.obtainMessage(ABNORMAL_DISCONNECTION).sendToTarget();
                 }
                 LogUtils.e("======== Error ========", e.getMessage());
                 e.printStackTrace();
@@ -563,11 +567,11 @@ public class DeviceConnFactoryManager {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case Constant.abnormal_Disconnection://异常断开连接
-//                    Utils.toast(MyApplication.getContext(),MyApplication.getContext().getString(R.string.str_disconnect));
+                case ABNORMAL_DISCONNECTION://异常断开连接
+//                    USBUtils.toast(MyApplication.getContext(),MyApplication.getContext().getString(R.string.str_disconnect));
                     break;
                 case DEFAUIT_COMMAND://默认模式
-//                    Utils.toast(MyApplication.getContext(),MyApplication.getContext().getString(R.string.default_mode));
+//                    USBUtils.toast(MyApplication.getContext(),MyApplication.getContext().getString(R.string.default_mode));
                     break;
                 case READ_DATA:
                     int cnt = msg.getData().getInt(READ_DATA_CNT); //数据长度 >0;
@@ -583,7 +587,7 @@ public class DeviceConnFactoryManager {
                         if (currentPrinterCommand == null) {
                             currentPrinterCommand = PrinterCommand.ESC;
                             sendStateBroadcast(CONN_STATE_CONNECTED);
-//                            Utils.toast(MyApplication.getContext(),MyApplication.getContext().getString(R.string.str_escmode));
+//                            USBUtils.toast(MyApplication.getContext(),MyApplication.getContext().getString(R.string.str_escmode));
                         } else {//查询打印机状态
                             if (result == 0) {//打印机状态查询
                                 Intent intent = new Intent(ACTION_QUERY_PRINTER_STATE);
@@ -601,7 +605,7 @@ public class DeviceConnFactoryManager {
                                 }
                                 System.out.println(MyApplication.getContext().getString(R.string.str_state) + status);
 //                                String mode=MyApplication.getContext().getString(R.string.str_printer_printmode_esc);
-//                                Utils.toast(MyApplication.getContext(), mode+" "+status);
+//                                USBUtils.toast(MyApplication.getContext(), mode+" "+status);
                             }
                         }
                     } else if (sendCommand == tsc) {
@@ -609,7 +613,7 @@ public class DeviceConnFactoryManager {
                         if (currentPrinterCommand == null) {
                             currentPrinterCommand = PrinterCommand.TSC;
                             sendStateBroadcast(CONN_STATE_CONNECTED);
-//                            Utils.toast(MyApplication.getContext(),MyApplication.getContext().getString(R.string.str_tscmode));
+//                            USBUtils.toast(MyApplication.getContext(),MyApplication.getContext().getString(R.string.str_tscmode));
                         } else {
                             if (cnt == 1) {//查询打印机实时状态
                                 if ((buffer[0] & TSC_STATE_PAPER_ERR) > 0) {//缺纸
@@ -623,7 +627,7 @@ public class DeviceConnFactoryManager {
                                 }
                                 System.out.println(MyApplication.getContext().getString(R.string.str_state) + status);
 //                                String mode=MyApplication.getContext().getString(R.string.str_printer_printmode_tsc);
-//                                Utils.toast(MyApplication.getContext(), status);
+//                                USBUtils.toast(MyApplication.getContext(), status);
                             } else {//打印机状态查询
                                 Intent intent = new Intent(ACTION_QUERY_PRINTER_STATE);
                                 intent.putExtra(DEVICE_ID, id);
@@ -634,7 +638,7 @@ public class DeviceConnFactoryManager {
                         if (currentPrinterCommand == null) {
                             currentPrinterCommand = PrinterCommand.CPCL;
                             sendStateBroadcast(CONN_STATE_CONNECTED);
-//                            Utils.toast(MyApplication.getContext(),MyApplication.getContext().getString(R.string.str_cpclmode));
+//                            USBUtils.toast(MyApplication.getContext(),MyApplication.getContext().getString(R.string.str_cpclmode));
                         } else {
                             if (cnt == 1) {
                                 System.out.println(MyApplication.getContext().getString(R.string.str_state) + status);
@@ -645,7 +649,7 @@ public class DeviceConnFactoryManager {
                                     status += " " + MyApplication.getContext().getString(R.string.str_printer_open_cover);
                                 }
 //                                String mode=MyApplication.getContext().getString(R.string.str_printer_printmode_cpcl);
-//                                Utils.toast(MyApplication.getContext(), mode+" "+status);
+//                                USBUtils.toast(MyApplication.getContext(), mode+" "+status);
                             } else {//打印机状态查询
                                 Intent intent = new Intent(ACTION_QUERY_PRINTER_STATE);
                                 intent.putExtra(DEVICE_ID, id);
@@ -679,5 +683,21 @@ public class DeviceConnFactoryManager {
         return (byte) ((r & FLAG) >> 4);
     }
 
+    class ThreadFactoryBuilder implements ThreadFactory {
 
+        private String name;
+        private int counter;
+
+        public ThreadFactoryBuilder(String name) {
+            this.name = name;
+            counter = 1;
+        }
+
+        @Override
+        public Thread newThread(Runnable runnable) {
+            Thread thread = new Thread(runnable, name);
+            thread.setName("ThreadFactoryBuilder_" + name + "_" + counter);
+            return thread;
+        }
+    }
 }

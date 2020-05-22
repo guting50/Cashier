@@ -13,14 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wycd.yushangpu.R;
-import com.wycd.yushangpu.bean.event.HomeButtonColorChangeEvent;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.widget.NumInputView;
 import com.wycd.yushangpu.widget.NumKeyboardUtils;
-
-import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by ZPH on 2019-08-07.
@@ -60,9 +57,6 @@ public class FastCashierDialog {
             @Override
             protected void onNoDoubleClick(View view) {
                 dialog.dismiss();
-                HomeButtonColorChangeEvent event = new HomeButtonColorChangeEvent();
-                event.setMsg("Change_color");
-                EventBus.getDefault().post(event);
             }
         });
         numKeyboardUtils.setOnDelClickListener(new NumKeyboardUtils.OnDelClickListener() {

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Looper;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.gt.utils.LogsUtils;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.ui.BaseActivity;
@@ -71,7 +72,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             }
             //退出程序
             android.os.Process.killProcess(android.os.Process.myPid());
-            ActivityManager.getInstance().exit();
+                                ActivityUtils.finishAllActivitiesExceptNewest();
             System.exit(1);*/
         }
     }
@@ -101,7 +102,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                                 android.os.Process.killProcess(android.os.Process.myPid());
-                                ActivityManager.getInstance().exit();
+                                ActivityUtils.finishAllActivitiesExceptNewest();
                                 System.exit(1);
                             }
                         })
