@@ -46,17 +46,30 @@
             android:layout_centerInParent="true"
             android:background="#c0c4cc" />
 
-        <TextView
-            android:id="@+id/tv_costomfields"
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_toRightOf="@+id/view_line_o"
-            android:gravity="center"
-            android:paddingLeft="11dp"
-            android:paddingRight="11dp"
-            android:text="自定义信息"
-            android:textColor="@color/color_999999"
-            android:textSize="20sp" />
+            android:layout_toRightOf="@+id/view_line_o">
+
+            <TextView
+                android:id="@+id/tv_costomfields"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="11dp"
+                android:paddingRight="11dp"
+                android:text="自定义信息"
+                android:textColor="@color/color_999999"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/isFill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:text="*"
+                android:textColor="@color/textred" />
+        </FrameLayout>
 
         <View
             android:layout_width="match_parent"

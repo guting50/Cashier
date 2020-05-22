@@ -166,18 +166,24 @@ public class ShopDetailDialog {
             }
         });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            int aaa = -1;
+
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (isSingle) {
+                    rl_confirm.performClick();
+                    if (aaa >= 0) {
+                        mEmplMsgList.get(aaa).setIschose(false);
+                    }
+                }
                 mEmplMsgList.get(i).setStaffProportion("0");
                 if (mEmplMsgList.get(i).isIschose()) {
                     mEmplMsgList.get(i).setIschose(false);
                 } else {
                     mEmplMsgList.get(i).setIschose(true);
+                    aaa = i;
                 }
                 yuangongAdapter.notifyDataSetChanged();
-                if (isSingle) {
-                    rl_confirm.performClick();
-                }
             }
         });
 
@@ -453,6 +459,10 @@ public class ShopDetailDialog {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
                     double val = 0;
                     if (!TextUtils.isEmpty(s)) {
                         try {
@@ -462,22 +472,16 @@ public class ShopDetailDialog {
                             ToastUtils.showLong("只能输入数字");
                         }
                     }
-                    if (type == 1) {
-                        if (val > 100) {
-                            holder.etTcValue.setText(mBefore);
-                            ToastUtils.showLong("比例不能大于 100");
-                        }
-                    } else if (type == 2)
-                        if (val > 999999.99) {
-                            holder.etTcValue.setText(mBefore);
-                            ToastUtils.showLong("金额不能大于 999999.99");
-                        }
+                    if (type == 1 && val > 100) {
+                        holder.etTcValue.setText(mBefore);
+                        ToastUtils.showLong("比例不能大于 100");
+                    } else if (type == 2 && val > 999999.99) {
+                        holder.etTcValue.setText(mBefore);
+                        ToastUtils.showLong("金额不能大于 999999.99");
+                    } else {
+                        item.setStaffProportion(s.toString());
+                    }
                     holder.etTcValue.setSelection(holder.etTcValue.getText().length());
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-                    item.setStaffProportion(s.toString());
                 }
             });
         }

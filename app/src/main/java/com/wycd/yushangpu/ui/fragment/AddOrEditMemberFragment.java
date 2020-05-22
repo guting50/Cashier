@@ -344,7 +344,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
         ((ViewGroup) et_VIP_CellPhone.getParent()).getChildAt(1).setVisibility(View.INVISIBLE);
         et_VIP_FaceNumber.setEnabled(false);
         isCardNum = false;
-        
+
         //会员卡号同手机号
         if (SysSwitchRes.getSwitch(SysSwitchType.T201.getV()).getSS_State() == 1) {
             mCardContactPhone = true;
@@ -434,6 +434,14 @@ public class AddOrEditMemberFragment extends BaseFragment {
         });
 
         onClick(rootView.findViewById(R.id.tv_basic_data));
+
+        rootView.findViewById(R.id.isFill).setVisibility(View.GONE);
+        for (ReportMessageBean.GetCustomFieldsVIPBean vipBean : costomfields) {
+            if (vipBean.getCF_Required().equals("是")) {
+                rootView.findViewById(R.id.isFill).setVisibility(View.VISIBLE);
+                break;
+            }
+        }
     }
 
     private void initCostomfieldsAdapter() {
@@ -819,7 +827,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
 
     private String mCardNum, mPhoneNum, mMemberName, mcardId, mInitMoney, mInitPoint, mOverdueDate,
             mId, mAddress, mRemark, calaryMonth, isLunar, mBirthday, mRecommendCardNum, mStaffListGid,
-            mGradeGid, mPayTypeCode, mPayTypeName, mMemberPhotoAddress = "/img/nohead.png",mStaffListPercent;
+            mGradeGid, mPayTypeCode, mPayTypeName, mMemberPhotoAddress = "/img/nohead.png", mStaffListPercent;
     private double mMoney;
     private int mIsForver, mSex;
 
