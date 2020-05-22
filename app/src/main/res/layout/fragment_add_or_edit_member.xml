@@ -69,42 +69,48 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="85dp">
 
-            <ImageView
-                android:id="@+id/iv_edit_head_img"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginLeft="70dp"
-                android:layout_marginTop="48dp"
-                android:src="@mipmap/member_head_nohead" />
-
-            <com.gt.utils.widget.BgTextView
-                android:id="@+id/bg_upload_img"
-                android:layout_width="138dp"
-                android:layout_height="42dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="76dp"
-                android:layout_marginTop="228dp"
-                android:gravity="center"
-                android:text="点击上传"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                app:corners_radius="5dp"
-                app:solid_color="@color/color_149f4a" />
-
-            <androidx.core.widget.NestedScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="300dp">
+                android:layout_height="match_parent">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="48dp"
+                    android:layout_weight="3.8">
+
+                    <ImageView
+                        android:id="@+id/iv_edit_head_img"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/member_head_nohead" />
+
+                    <com.gt.utils.widget.BgTextView
+                        android:id="@+id/bg_upload_img"
+                        android:layout_width="138dp"
+                        android:layout_height="42dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="180dp"
+                        android:gravity="center"
+                        android:text="点击上传"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        app:corners_radius="5dp"
+                        app:solid_color="@color/color_149f4a" />
+                </FrameLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="23dp"
-                    android:layout_marginRight="30dp">
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="1">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -619,7 +625,7 @@
 
                     <View
                         android:id="@+id/view_line_1"
-                        android:layout_width="88dp"
+                        android:layout_width="70dp"
                         android:layout_height="1dp"
                         android:layout_centerHorizontal="true" />
 
@@ -1122,22 +1128,22 @@
                     </RelativeLayout>
 
                 </RelativeLayout>
-                
-            </androidx.core.widget.NestedScrollView>
 
-        </RelativeLayout>
+            </LinearLayout>
 
+        </androidx.core.widget.NestedScrollView>
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/fl_costomfields_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="85dp"
+            android:background="@color/white"
+            android:visibility="gone">
 
             <RelativeLayout
-                android:id="@+id/fl_costomfields_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:visibility="gone">
+                android:layout_height="match_parent">
 
                 <TextView
                     android:layout_width="wrap_content"
