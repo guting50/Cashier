@@ -4,15 +4,13 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Display;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -69,8 +67,8 @@ public class ShopDetailDialog {
     private static int mType = 0;//1:商品消费，2：会员开卡，3：会员充值
 
     public static Dialog shopdetailDialog(final Activity context, final ShopMsg mShopMsg, String VGID, List<String> mEmplGidList,
-                                          String SmGid,  int type, final InterfaceBack back) {
-        return shopdetailDialog(context, mShopMsg, VGID, mEmplGidList, SmGid,  false, type, back);
+                                          String SmGid, int type, final InterfaceBack back) {
+        return shopdetailDialog(context, mShopMsg, VGID, mEmplGidList, SmGid, false, type, back);
     }
 
     public static Dialog shopdetailDialog(final Activity context, final ShopMsg mShopMsg, String VGID, List<String> mEmplGidList,
@@ -169,7 +167,7 @@ public class ShopDetailDialog {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                mEmplMsgList.get(i).setStaffProportion(0);
+                mEmplMsgList.get(i).setStaffProportion("0");
                 if (mEmplMsgList.get(i).isIschose()) {
                     mEmplMsgList.get(i).setIschose(false);
                 } else {
@@ -405,7 +403,7 @@ public class ShopDetailDialog {
         if (mEmplMsgList3 != null && mEmplMsgList3.size() > 0) {
             for (int i = 0; i < mEmplMsgList3.size(); i++) {
                 for (int j = 0; j < emplMsgList.size(); j++) {
-                    emplMsgList.get(j).setStaffProportion(0);
+                    emplMsgList.get(j).setStaffProportion("0");
                     if (mEmplMsgList3.get(i).equals(emplMsgList.get(j).getGID())) {
                         emplMsgList.get(j).setIschose(true);
                         emplMsgList.get(j).setStaffProportion(emplMsgList.get(i).getStaffProportion());
@@ -439,8 +437,10 @@ public class ShopDetailDialog {
             holder.tvTcName.setText(item.getEM_Name());
             if (type == 1) {
                 holder.tvTcType.setText("%提成");
+                holder.etTcValue.setInputType(InputType.TYPE_CLASS_NUMBER);
             } else if (type == 2) {
                 holder.tvTcType.setText("元");
+                holder.etTcValue.setInputType(0x00002002);
             }
             holder.etTcValue.addTextChangedListener(new TextWatcher() {
                 CharSequence before;
@@ -478,7 +478,7 @@ public class ShopDetailDialog {
                             ToastUtils.showLong("金额不能大于 999999.99");
                             return;
                         }
-                    item.setStaffProportion(val);
+                    item.setStaffProportion(s.toString());
                 }
             });
         }
@@ -509,7 +509,7 @@ public class ShopDetailDialog {
             if (type == 1) {
                 double total = 0;
                 for (EmplMsg item : data) {
-                    total = CommonUtils.add(total, item.getStaffProportion());
+                    total = CommonUtils.add(total, Double.valueOf(item.getStaffProportion()));
                 }
                 if (total == 100) {
                     return true;
@@ -518,7 +518,7 @@ public class ShopDetailDialog {
                 return false;
             } else {
                 for (EmplMsg item : data) {
-                    if (item.getStaffProportion() == 0) {
+                    if (Double.valueOf(item.getStaffProportion()) == 0) {
                         ToastUtils.showLong("请输入金额");
                         return false;
                     }

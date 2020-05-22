@@ -189,7 +189,7 @@ public class ImpSubmitOrder {
      */
     public void submitRechargeOrder(String mOrderNo, String OrderTime, String VCH_Card,
                                     String mDiscountActivityGid, String mRechargeMoney, String mGiveMoney,
-                                    double mGetPoints, List<String> mStaffListGid, List<Double> staffProportion, String remark, final InterfaceBack back) {
+                                    double mGetPoints, List<String> mStaffListGid, List<String> staffProportion, String remark, final InterfaceBack back) {
         // TODO 自动生成的方法存根
         RequestParams params = new RequestParams();
         //订单号
@@ -210,7 +210,7 @@ public class ImpSubmitOrder {
         if (mStaffListGid != null) {
             for (int j = 0; j < mStaffListGid.size(); j++) {
                 params.put("EM_GIDList[]", mStaffListGid.get(j));
-                params.put("ProportionList[]", staffProportion.get(j).intValue());
+                params.put("ProportionList[]", staffProportion.get(j));
             }
         }
         //备注

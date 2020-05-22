@@ -819,8 +819,8 @@ public class AddOrEditMemberFragment extends BaseFragment {
 
     private String mCardNum, mPhoneNum, mMemberName, mcardId, mInitMoney, mInitPoint, mOverdueDate,
             mId, mAddress, mRemark, calaryMonth, isLunar, mBirthday, mRecommendCardNum, mStaffListGid,
-            mGradeGid, mPayTypeCode, mPayTypeName, mMemberPhotoAddress = "/img/nohead.png";
-    private double mStaffListPercent, mMoney;
+            mGradeGid, mPayTypeCode, mPayTypeName, mMemberPhotoAddress = "/img/nohead.png",mStaffListPercent;
+    private double mMoney;
     private int mIsForver, mSex;
 
     private void addMemberPost() {
@@ -860,7 +860,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
         }
         if (!TextUtils.isEmpty(mStaffListGid)) {//提成员工GID
             params.put("EM_GIDList[]", mStaffListGid);
-            params.put("VIP_Percent[]", mStaffListPercent + "");
+            params.put("VIP_Percent[]", mStaffListPercent);
         }
 
         String url = HttpAPI.API().ADDUSER;
