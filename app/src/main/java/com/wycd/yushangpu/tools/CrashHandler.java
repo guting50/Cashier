@@ -7,7 +7,6 @@ import android.os.Looper;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.gt.utils.LogsUtils;
 import com.wycd.yushangpu.MyApplication;
-import com.wycd.yushangpu.ui.BaseActivity;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -93,7 +92,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             public void run() {
                 Looper.prepare();
                 //Toast.makeText(mContext, "很抱歉,程序出现异常,即将退出.哈哈哈", Toast.LENGTH_LONG).show();
-                AlertDialog.Builder builder = new AlertDialog.Builder(BaseActivity.ac);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ActivityUtils.getTopActivity());
                 String msg = exceptionToString(ex);
                 LogsUtils.writeEooroLog(MyApplication.getContext(), MyApplication.loginBean == null ? "" : MyApplication.loginBean.getUM_Acount(), msg);
                 builder.setTitle("程序出现异常").setMessage(msg)

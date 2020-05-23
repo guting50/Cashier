@@ -19,7 +19,7 @@ public abstract class BaseFragment extends Fragment {
     protected HomeActivity homeActivity;
     protected FragmentManager fragmentManager;
     protected View rootView;
-    private boolean isInit;
+    public boolean isInit;
 
     public void show(FragmentActivity fragmentActivity, int containerViewId) {
         fragmentManager = fragmentActivity.getSupportFragmentManager();

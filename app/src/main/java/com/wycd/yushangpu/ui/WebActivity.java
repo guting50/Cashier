@@ -111,8 +111,7 @@ public class WebActivity extends BaseActivity {
 
     public void onBack() {
         ImpParamLoading.preLoad();
-        startActivity(new Intent(ac, HomeActivity.class));
-        ActivityUtils.finishAllActivitiesExceptNewest();
+        finish();
     }
 
     public class JsInteration {

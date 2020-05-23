@@ -18,7 +18,6 @@ import com.gt.utils.GsonUtils;
 import com.gt.utils.widget.BgTextView;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
-import com.wycd.yushangpu.model.BasicEucalyptusPresnter;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.adapter.ShopLeftAdapter;
 import com.wycd.yushangpu.bean.GoodsModelBean;
@@ -33,6 +32,7 @@ import com.wycd.yushangpu.http.BaseRes;
 import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.InterfaceBack;
+import com.wycd.yushangpu.model.BasicEucalyptusPresnter;
 import com.wycd.yushangpu.model.ImpOnlyVipMsg;
 import com.wycd.yushangpu.model.ImpParamLoading;
 import com.wycd.yushangpu.model.ImpSubmitOrder;
@@ -124,7 +124,6 @@ public class CashierFragment extends BaseFragment {
     public void onCreated() {
         initView();
         initEvent();
-        getProductModel();
 
         //更新订单时间
         if (timer != null) {
@@ -149,7 +148,24 @@ public class CashierFragment extends BaseFragment {
         }, 1000, 1000);
     }
 
+    @Override
     @SuppressLint("CheckResult")
+    protected void updateData() {
+        super.updateData();
+
+        getProductModel();
+
+        //创建一个观察者
+        ImpParamLoading.observable.subscribeOn(Schedulers.io())//在当前线程执行subscribe()方法
+                .observeOn(AndroidSchedulers.mainThread())//在UI线程执行观察者的方法
+                .subscribe(s -> {
+                    rootView.findViewById(R.id.member_bg_layout).setEnabled(true);
+                    if (SysSwitchRes.getSwitch(SysSwitchType.T214.getV()).getSS_State() == 1) {
+                        rootView.findViewById(R.id.member_bg_layout).setEnabled(false);
+                    }
+                });
+    }
+
     public void initView() {
         order = CreateOrder.createOrder("SP");
         tv_ordernum.setText(order);
@@ -202,15 +218,6 @@ public class CashierFragment extends BaseFragment {
         qudanFragment.obtainGuadanList();
 
         rootView.findViewById(R.id.member_bg_layout).setEnabled(true);
-
-        //创建一个观察者
-        ImpParamLoading.observable.subscribeOn(Schedulers.io())//在当前线程执行subscribe()方法
-                .observeOn(AndroidSchedulers.mainThread())//在UI线程执行观察者的方法
-                .subscribe(s -> {
-                    if (SysSwitchRes.getSwitch(SysSwitchType.T214.getV()).getSS_State() == 1) {
-                        rootView.findViewById(R.id.member_bg_layout).setEnabled(false);
-                    }
-                });
 
     }
 

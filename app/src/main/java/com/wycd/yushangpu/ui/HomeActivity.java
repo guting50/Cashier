@@ -22,11 +22,8 @@ import com.blankj.utilcode.util.CacheDoubleUtils;
 import com.bumptech.glide.Glide;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
-import com.wycd.yushangpu.bean.ShopInfoBean;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.http.ImgUrlTools;
-import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.model.ImpShopInfo;
 import com.wycd.yushangpu.tools.DeviceConnFactoryManager;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.NullUtils;
@@ -41,6 +38,7 @@ import com.wycd.yushangpu.ui.fragment.VipMemberFragment;
 
 import net.posprinter.posprinterface.TaskCallback;
 
+import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -79,21 +77,6 @@ public class HomeActivity extends BaseActivity {
     private boolean isFirstLaunch = false;
 
     private BluetoothAdapter bluetoothAdapter;
-    //    private static BluetoothAdapter mBluetoothAdapter;//蓝牙适配器
-//    private static final UUID BLUETOOTH_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");//串口全局唯一标识符
-//    private static BluetoothDevice mDevice;//蓝牙设备
-//    private static BluetoothSocket mBluetoothSocket;//蓝牙通信端口
-//    private OutputStream mOutputStream;//输出数据流
-//
-//    private byte[] mData;//接受打印小票数据的字节码
-//    private int recepits_num;//存在本地的循环打印次数
-//    private SharedPreferences mSharedPreferences;
-//    private static SharedPreferences.Editor mEditor;
-//
-//    private static List<Map<String, String>> list_bluedevice = new ArrayList<>();
-//    private static List<String> list_device_name = new ArrayList<>();//蓝牙名称列表
-//    private static Map<String, String> map_bluedevice = new HashMap<>();//蓝牙名称、mac地址集合
-//    private String mBluetoothName;//已经连接的蓝牙设备名称
 
     //usb连接相关
     private BroadcastReceiver receiver;
@@ -105,11 +88,10 @@ public class HomeActivity extends BaseActivity {
         isFirstLaunch = true;
         ButterKnife.bind(this);
 
-        initBroadcast();
-
-        initData();
+        initView();
         initEvent();
 
+        initBroadcast();
         initPrint();
     }
 
@@ -226,9 +208,7 @@ public class HomeActivity extends BaseActivity {
         cashierFragment.show(this, R.id.subsidiary_fragment);
     }
 
-    private void initData() {
-        getShopInfo();
-
+    private void initView() {
         PreferenceHelper.write(ac, "yunshangpu", "vip", false);
 
         if (MyApplication.loginBean != null) {
@@ -298,7 +278,6 @@ public class HomeActivity extends BaseActivity {
                 break;
             case R.id.btn_home_set:
                 btn_home_set.setImageResource(R.mipmap.btn_home_set_true);
-                printSetFragment.setData(shopInfoBean);
                 printSetFragment.show(this, R.id.subsidiary_fragment);
                 break;
             case R.id.btn_member:
@@ -324,7 +303,7 @@ public class HomeActivity extends BaseActivity {
                 Intent intent = new Intent(ac, WebActivity.class);
 //                intent.putExtra("html_url", MyApplication.BASE_URL + "login.html");
                 intent.putExtra("html_url", MyApplication.BASE_URL + "loginTSCash.html?v=" + String.valueOf(version));
-                startActivity(intent);
+                startActivityForResult(intent, 500);
                 break;
             case R.id.subsidiary_fragment:
                 break;
@@ -334,9 +313,11 @@ public class HomeActivity extends BaseActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        ac = HomeActivity.this;
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 500) {
+            cashierFragment.isInit = printSetFragment.isInit = vipMemberFragment.isInit = false;
+        }
     }
 
     @Override
@@ -349,17 +330,6 @@ public class HomeActivity extends BaseActivity {
                 initFragment();
             }
         }
-    }
-
-    ShopInfoBean shopInfoBean;
-
-    public void getShopInfo() {
-        new ImpShopInfo().shopInfo(new InterfaceBack<ShopInfoBean>() {
-            @Override
-            public void onResponse(ShopInfoBean response) {
-                shopInfoBean = response;
-            }
-        });
     }
 
     /**

@@ -29,10 +29,9 @@ import androidx.appcompat.app.AppCompatActivity;
 public abstract class BaseActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
 
-    public static Dialog dialog;
+    public Dialog dialog;
     public Resources res;
-    public static Activity ac;
-    public static boolean mRegisterTag = false;
+    public Activity ac;
     /**
      * 小键盘
      */
@@ -79,18 +78,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onPause();
         dialog.dismiss();
     }
-
-    public static void setNavigationBar() {
-        View decorView = ac.getWindow().getDecorView();
-        //显示NavigationBar
-        int option = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-        decorView.setSystemUiVisibility(option);
-
-    }
-
 
     /*防止系统字体影响到app的字体*/
     public Resources getResources() {

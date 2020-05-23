@@ -73,7 +73,6 @@ public class VipMemberFragment extends BaseFragment {
         memberAdapter = new MemberAdapter();
         searchList.setAdapter(memberAdapter);
 
-        obtainVipList();
         searchList.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
@@ -90,10 +89,18 @@ public class VipMemberFragment extends BaseFragment {
         showAttr();
     }
 
+    @Override
+    protected void updateData() {
+        super.updateData();
+        reset();
+    }
+
     public void reset() {
         obtainVipList();
         memberHeadInfoLayout.setVisibility(View.GONE);
         memberInfoLayout.setVisibility(View.GONE);
+        addOrEditMemberFragment.hide();
+        memberRechargeFragment.hide();
     }
 
     @OnClick({R.id.li_search, R.id.iv_clone, R.id.iv_add_member, R.id.ly_vip_recharge, R.id.ly_goods_consume, R.id.ly_update_info})
