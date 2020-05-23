@@ -91,8 +91,13 @@ public class HomeActivity extends BaseActivity {
         initView();
         initEvent();
 
-        initBroadcast();
-        initPrint();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                initBroadcast();
+                initPrint();
+            }
+        }).start();
     }
 
     private void initPrint() {
