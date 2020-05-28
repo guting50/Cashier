@@ -147,7 +147,7 @@ public class MemberRechargeFragment extends BaseFragment {
                             @Override
                             public void onResponse(Object response) {
                                 List<EmplMsg> mEmplMsgList = (List<EmplMsg>) response;
-                                if (mEmplMsgList != null && mEmplMsgList.size() == 1) {
+                                if (mEmplMsgList != null) {
                                     StringBuilder mStaffName = new StringBuilder("");//提成员工姓名
                                     mStaffListGids.clear();
                                     staffProportionList.clear();

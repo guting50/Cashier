@@ -170,18 +170,20 @@ public class ShopDetailDialog {
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                mEmplMsgList.get(i).setStaffProportion("0");
                 if (isSingle) {
-                    rl_confirm.performClick();
                     if (aaa >= 0) {
                         mEmplMsgList.get(aaa).setIschose(false);
                     }
-                }
-                mEmplMsgList.get(i).setStaffProportion("0");
-                if (mEmplMsgList.get(i).isIschose()) {
-                    mEmplMsgList.get(i).setIschose(false);
-                } else {
                     mEmplMsgList.get(i).setIschose(true);
                     aaa = i;
+                    rl_confirm.performClick();
+                } else {
+                    if (mEmplMsgList.get(i).isIschose()) {
+                        mEmplMsgList.get(i).setIschose(false);
+                    } else {
+                        mEmplMsgList.get(i).setIschose(true);
+                    }
                 }
                 yuangongAdapter.notifyDataSetChanged();
             }

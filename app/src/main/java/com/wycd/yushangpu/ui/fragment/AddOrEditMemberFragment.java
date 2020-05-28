@@ -549,7 +549,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                             @Override
                             public void onResponse(Object response) {
                                 List<EmplMsg> mEmplMsgList = (List<EmplMsg>) response;
-                                if (mEmplMsgList != null && mEmplMsgList.size() == 1) {
+                                if (mEmplMsgList != null) {
                                     et_EM_Name.setText(mEmplMsgList.get(0).getEM_Name());
                                     et_EM_Name.setTag(mEmplMsgList.get(0).getGID());
                                     mStaffListGid = mEmplMsgList.get(0).getGID();
