@@ -2,7 +2,6 @@ package com.wycd.yushangpu.widget.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -65,7 +64,7 @@ public class ShopDetailDialog {
     private static List<String> mEmplMsgList3;// 已选员工列表
     private static String mSmGid;
     private static boolean isSingle;
-    private static int mType = 0;//1:商品消费，2：会员开卡，3：会员充值
+    private static int mType = 0;//提成类型 10售卡提成20充值提成30充次提成40快速消费提成50商品消费提成60计次提成80计时提成 90房台消费提成
 
     public static Dialog shopdetailDialog(final Activity context, final ShopMsg mShopMsg, String VGID, List<String> mEmplGidList,
                                           String SmGid, int type, final InterfaceBack back) {
@@ -74,26 +73,14 @@ public class ShopDetailDialog {
 
     public static Dialog shopdetailDialog(final Activity context, final ShopMsg mShopMsg, String VGID, List<String> mEmplGidList,
                                           String SmGid, boolean single, int type, final InterfaceBack back) {
+        mType = type;
         boolean allow = false;
         if (ImpParamLoading.REPORT_BEAN != null) {
             List<DeductRuleBean> deductRuleBeans = ImpParamLoading.REPORT_BEAN.getDeductRule();
             for (DeductRuleBean bean : deductRuleBeans) {
-                switch (type) {
-                    case 1:
-                        if (bean.getSS_Type() == 50) {
-                            allow = true;
-                        }
-                        break;
-                    case 2:
-                        if (bean.getSS_Type() == 10) {
-                            allow = true;
-                        }
-                        break;
-                    case 3:
-                        if (bean.getSS_Type() == 20) {
-                            allow = true;
-                        }
-                        break;
+                if (bean.getSS_Type() == mType) {
+                    allow = true;
+                    break;
                 }
             }
         }
@@ -118,14 +105,11 @@ public class ShopDetailDialog {
 
         Dialog loadingdialog = LoadingDialog.loadingDialog(context, 1);
 
-        //部门列表
-        final List<ValiRuleMsg> mValiRuleMsgList = new ArrayList<>();
         //员工列表
         final List<EmplMsg> mEmplMsgList = new ArrayList<>();
         mEmplMsgList3 = mEmplGidList;
         mSmGid = SmGid;
         isSingle = single;
-        mType = type;
 
         //员工适配器
         final YuangongAdapter yuangongAdapter = new YuangongAdapter(context, mEmplMsgList);
@@ -143,7 +127,7 @@ public class ShopDetailDialog {
         dialog.getWindow().setAttributes(p); //设置生效
 
         dialog.show();
-        obtainBumenList(loadingdialog, mShopMsg, VGID, mValiRuleMsgList, mEmplMsgList, yuangongAdapter);
+        obtainBumenList(loadingdialog, mShopMsg, VGID, mEmplMsgList, yuangongAdapter);
 
         li_search.setOnClickListener(new NoDoubleClickListener() {
             @Override
@@ -170,7 +154,7 @@ public class ShopDetailDialog {
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                mEmplMsgList.get(i).setStaffProportion("0");
+                mEmplMsgList.get(i).setStaffProportion("100");
                 if (isSingle) {
                     if (aaa >= 0) {
                         mEmplMsgList.get(aaa).setIschose(false);
@@ -272,34 +256,17 @@ public class ShopDetailDialog {
         return dialog;
     }
 
-    /**
-     * 将dip或dp值转换为px值，保证尺寸大小不变
-     *
-     * @param dipValue （DisplayMetrics类中属性density）
-     * @return
-     */
-    public static int dip2px(Context context, float dipValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dipValue * scale + 0.5f);
-    }
-
     private static void obtainBumenList(Dialog loadingdialog, ShopMsg mShopMsg, String VGID,
-                                        List<ValiRuleMsg> valiRuleMsg, List<EmplMsg> emplMsgList, YuangongAdapter yuangongAdapter) {
+                                        List<EmplMsg> emplMsgList, YuangongAdapter yuangongAdapter) {
         loadingdialog.show();
 
-        if (mShopMsg == null) {
-            obtainEmpList(loadingdialog, null, emplMsgList, yuangongAdapter);
-            return;
-        }
-
         RequestParams params = new RequestParams();
-//        Type	提成类型	int	否
-//        VGID	等级GID	string	是
-//        PGID	商品GID	string	是
-        params.put("Type", 50);
+        params.put("Type", mType);
         params.put("VGID", VGID);
-        params.put("PGID", mShopMsg.getGID());
-        params.put("PTGID", mShopMsg.getPT_ID());
+        if (mShopMsg != null) {
+            params.put("PGID", mShopMsg.getGID());
+            params.put("PTGID", mShopMsg.getPT_ID());
+        }
         if (VGID.equals("")) {
             params.put("VIP_Card", "00000");
         }
@@ -310,8 +277,7 @@ public class ShopDetailDialog {
                 Type listType = new TypeToken<List<ValiRuleMsg>>() {
                 }.getType();
                 List<ValiRuleMsg> mValiRuleMsgList = response.getData(listType);
-                valiRuleMsg.addAll(mValiRuleMsgList);
-                obtainEmpList(loadingdialog, valiRuleMsg, emplMsgList, yuangongAdapter);
+                obtainEmpList(loadingdialog, mValiRuleMsgList, emplMsgList, yuangongAdapter);
             }
 
             @Override
@@ -355,21 +321,22 @@ public class ShopDetailDialog {
         }
         List<EmplMsg> first = new ArrayList<>();
         emplist.clear();
+        //提成类型 10售卡提成20充值提成30充次提成40快速消费提成50商品消费提成60计次提成80计时提成 90房台消费提成
         for (EmplMsg emplMsg : sllist) {
             switch (mType) {
-                case 1:
+                case 50:
 //                  过滤调没有开启商品消费提成的员工
                     if (emplMsg.getEM_TipGoodsConsume() > 0) {
                         first.add(emplMsg);
                     }
                     break;
-                case 2:
+                case 10:
 //                  过滤调没有开启售卡提成的员工
                     if (emplMsg.getEM_TipCard() > 0) {
                         first.add(emplMsg);
                     }
                     break;
-                case 3:
+                case 20:
 //                  过滤调没有开启充值提成的员工
                     if (emplMsg.getEM_TipRecharge() > 0) {
                         first.add(emplMsg);

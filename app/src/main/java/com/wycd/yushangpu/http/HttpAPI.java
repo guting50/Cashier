@@ -154,7 +154,7 @@ public class HttpAPI {
         //获取用户信息
         public static final String USER_INFORMATION = MyApplication.BASE_URL + "api/UserManager/UserInformation";
 
-        //获取部门列表
+        //获取有效提成规则
         public static final String GET_VALIDRULE = MyApplication.BASE_URL + "api/StaffCommission/GetValidRule";
 
         //会员列表
