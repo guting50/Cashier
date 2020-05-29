@@ -109,6 +109,12 @@ public class MemberRechargeFragment extends BaseFragment {
         et_recharge_total.setText("");
         et_recharge_integral.setText("");
 
+        rootView.findViewById(R.id.et_recharge_select_em_name).setEnabled(false);
+        //员工提成
+        if (SysSwitchRes.getSwitch(SysSwitchType.T301.getV()).getSS_State() == 1) {
+            rootView.findViewById(R.id.et_recharge_select_em_name).setEnabled(true);
+        }
+
         getDiscountActivity();
     }
 

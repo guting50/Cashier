@@ -208,10 +208,8 @@ public class ImpSubmitOrder {
         params.put("MR_Integral", (int) mGetPoints);
         //提成员工
         if (mStaffListGid != null) {
-            for (int j = 0; j < mStaffListGid.size(); j++) {
-                params.put("EM_GIDList[]", mStaffListGid.get(j));
-                params.put("ProportionList[]", staffProportion.get(j));
-            }
+            params.put("EM_GIDList[]", mStaffListGid);
+            params.put("ProportionList[]", staffProportion);
         }
         //备注
         params.put("MR_Remark", remark);
