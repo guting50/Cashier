@@ -5,8 +5,8 @@ android {
         applicationId "com.wycd.yunshangpu"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 9
-        versionName "3.010"
+        versionCode 11
+        versionName "3.011"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
@@ -39,6 +39,12 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "app_${defaultConfig.versionName}-${defaultConfig.versionCode}.apk"
+        }
+    }
 }
 
 dependencies {

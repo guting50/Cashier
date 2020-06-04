@@ -743,6 +743,10 @@ public class AddOrEditMemberFragment extends BaseFragment {
             warnDialog("【姓名】不能为空");
             return false;
         }
+        if (TextUtils.isEmpty(mGradeGid)) {
+            ToastUtils.showLong("请设置会员等级");
+            return false;
+        }
 
         if (!TextUtils.isEmpty(et_VCH_Card.getText())) {
             mCardNum = et_VCH_Card.getText().toString();
@@ -1269,7 +1273,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
         public void show(View viewParent, int verb, int subject) {
             this.viewParent = viewParent;
             viewParent.setVisibility(View.VISIBLE);
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(324, ViewGroup.LayoutParams.WRAP_CONTENT);
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(375, ViewGroup.LayoutParams.WRAP_CONTENT);
             layoutParams.setMargins(0, 3, 0, -3);
             if (subject > 0) {
                 layoutParams.addRule(verb, subject);

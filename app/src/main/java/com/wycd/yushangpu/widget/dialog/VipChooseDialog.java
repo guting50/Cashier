@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.KeyboardUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.reflect.TypeToken;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wycd.yushangpu.MyApplication;
@@ -167,6 +168,9 @@ public class VipChooseDialog extends Dialog {
                 Type listType = new TypeToken<List<VipInfoMsg>>() {
                 }.getType();
                 List<VipInfoMsg> vipDengjiMsg = response.getData(listType);
+                if (vipDengjiMsg == null || vipDengjiMsg.size() == 0) {
+                    ToastUtils.showLong("未找到该会员");
+                }
                 for (VipInfoMsg vipInfoMsg : vipDengjiMsg) {
                     if (!DateTimeUtil.isOverTime(vipInfoMsg.getVCH_CreateTime())) {
                         searchVipPopAdapter.addList(vipInfoMsg);

@@ -87,8 +87,8 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
-            android:layout_marginBottom="80dp">
+            android:layout_marginBottom="80dp"
+            android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -1125,10 +1125,21 @@
                         </LinearLayout>
 
                         <FrameLayout
-                            android:layout_width="324dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/selector_edit_green_gray"
+                            android:minHeight="48dp"
                             android:visibility="gone">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="48dp"
+                                android:layout_marginLeft="15dp"
+                                android:gravity="center_vertical"
+                                android:maxLines="1"
+                                android:text="设置会员等级"
+                                android:textColor="@color/title_color"
+                                android:textSize="17sp" />
 
                             <com.wycd.yushangpu.widget.MaxHeightRecyclerView
                                 android:id="@+id/select_recycler_view"
@@ -1152,10 +1163,10 @@
         <androidx.core.widget.NestedScrollView
             android:id="@+id/fl_costomfields_layout"
             android:layout_width="match_parent"
-            android:fillViewport="true"
             android:layout_height="match_parent"
             android:layout_marginBottom="80dp"
             android:background="@color/white"
+            android:fillViewport="true"
             android:visibility="gone">
 
             <RelativeLayout
