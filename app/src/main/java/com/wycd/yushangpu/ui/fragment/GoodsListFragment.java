@@ -32,8 +32,6 @@ import com.wycd.yushangpu.tools.StringUtil;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -182,7 +180,12 @@ public class GoodsListFragment extends BaseFragment {
         obtainHomeShop(PM_CodeOrNameOrSimpleCode, PageIndex, isShowDialog);
     }
 
+
     public void obtainHomeShop(String PM_CodeOrNameOrSimpleCode, int pageIndex, boolean isShowDialog) {
+        obtainHomeShop(PM_CodeOrNameOrSimpleCode, pageIndex, isShowDialog, false);
+    }
+
+    public void obtainHomeShop(String PM_CodeOrNameOrSimpleCode, int pageIndex, boolean isShowDialog, boolean onClick) {
         if (isShowDialog)
             homeActivity.dialog.show();
         ImpShopHome shopHome = new ImpShopHome();
@@ -193,8 +196,6 @@ public class GoodsListFragment extends BaseFragment {
                 }.getType();
                 List<ShopMsg> sllist = response.getData(listType);
 
-                if (homeActivity.cashierFragment.mEtLoginAccount != null)
-                    homeActivity.cashierFragment.mEtLoginAccount.setText("");
 //                if (PageIndex == 1)
                 adapter.getShopMsgList().clear();
                 adapter.addShopMsgList(sllist);
@@ -204,7 +205,7 @@ public class GoodsListFragment extends BaseFragment {
 //                        adapter.getShopMsgList().remove(msg);
 //                    }
 //                }
-                adapter.notifyDataSetChanged();
+                adapter.notifyChanged(onClick);
                 emptyStateLayout.setVisibility(View.GONE);
                 if (adapter.getShopMsgList().size() <= 0) {
                     emptyStateLayout.setVisibility(View.VISIBLE);
@@ -217,17 +218,7 @@ public class GoodsListFragment extends BaseFragment {
                 } else {
                     goodsList.setLoadingMoreEnabled(true);
                 }
-                new Timer().schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        homeActivity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                homeActivity.dialog.dismiss();
-                            }
-                        });
-                    }
-                }, 500);
+                homeActivity.dialog.dismiss();
             }
 
             @Override
@@ -242,6 +233,7 @@ public class GoodsListFragment extends BaseFragment {
     class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         List<ShopMsg> shopMsgList = new ArrayList<>();
+        boolean onClick = false;
         int spanCount = 15;
 
         @NonNull
@@ -305,6 +297,10 @@ public class GoodsListFragment extends BaseFragment {
                     homeActivity.cashierFragment.addCashierList(ts);
                 }
             });
+            if (onClick && shopMsgList.size() == 1) {
+                myHolder.rootView.performClick();
+            }
+            onClick = false;
         }
 
         public List<ShopMsg> getShopMsgList() {
@@ -319,6 +315,11 @@ public class GoodsListFragment extends BaseFragment {
         public int getItemCount() {
 //            return shopMsgList.size();
             return shopMsgList.size() % spanCount == 0 ? shopMsgList.size() / spanCount : shopMsgList.size() / spanCount + 1;
+        }
+
+        public void notifyChanged(boolean onClick) {
+            this.onClick = onClick;
+            notifyDataSetChanged();
         }
     }
 

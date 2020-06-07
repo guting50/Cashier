@@ -568,10 +568,8 @@ public class DeviceConnFactoryManager {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case ABNORMAL_DISCONNECTION://异常断开连接
-//                    USBUtils.toast(MyApplication.getContext(),MyApplication.getContext().getString(R.string.str_disconnect));
                     break;
                 case DEFAUIT_COMMAND://默认模式
-//                    USBUtils.toast(MyApplication.getContext(),MyApplication.getContext().getString(R.string.default_mode));
                     break;
                 case READ_DATA:
                     int cnt = msg.getData().getInt(READ_DATA_CNT); //数据长度 >0;
@@ -587,7 +585,6 @@ public class DeviceConnFactoryManager {
                         if (currentPrinterCommand == null) {
                             currentPrinterCommand = PrinterCommand.ESC;
                             sendStateBroadcast(CONN_STATE_CONNECTED);
-//                            USBUtils.toast(MyApplication.getContext(),MyApplication.getContext().getString(R.string.str_escmode));
                         } else {//查询打印机状态
                             if (result == 0) {//打印机状态查询
                                 Intent intent = new Intent(ACTION_QUERY_PRINTER_STATE);
@@ -605,7 +602,6 @@ public class DeviceConnFactoryManager {
                                 }
                                 System.out.println(MyApplication.getContext().getString(R.string.str_state) + status);
 //                                String mode=MyApplication.getContext().getString(R.string.str_printer_printmode_esc);
-//                                USBUtils.toast(MyApplication.getContext(), mode+" "+status);
                             }
                         }
                     } else if (sendCommand == tsc) {
@@ -613,7 +609,6 @@ public class DeviceConnFactoryManager {
                         if (currentPrinterCommand == null) {
                             currentPrinterCommand = PrinterCommand.TSC;
                             sendStateBroadcast(CONN_STATE_CONNECTED);
-//                            USBUtils.toast(MyApplication.getContext(),MyApplication.getContext().getString(R.string.str_tscmode));
                         } else {
                             if (cnt == 1) {//查询打印机实时状态
                                 if ((buffer[0] & TSC_STATE_PAPER_ERR) > 0) {//缺纸
@@ -627,7 +622,6 @@ public class DeviceConnFactoryManager {
                                 }
                                 System.out.println(MyApplication.getContext().getString(R.string.str_state) + status);
 //                                String mode=MyApplication.getContext().getString(R.string.str_printer_printmode_tsc);
-//                                USBUtils.toast(MyApplication.getContext(), status);
                             } else {//打印机状态查询
                                 Intent intent = new Intent(ACTION_QUERY_PRINTER_STATE);
                                 intent.putExtra(DEVICE_ID, id);
@@ -638,7 +632,6 @@ public class DeviceConnFactoryManager {
                         if (currentPrinterCommand == null) {
                             currentPrinterCommand = PrinterCommand.CPCL;
                             sendStateBroadcast(CONN_STATE_CONNECTED);
-//                            USBUtils.toast(MyApplication.getContext(),MyApplication.getContext().getString(R.string.str_cpclmode));
                         } else {
                             if (cnt == 1) {
                                 System.out.println(MyApplication.getContext().getString(R.string.str_state) + status);
@@ -649,7 +642,6 @@ public class DeviceConnFactoryManager {
                                     status += " " + MyApplication.getContext().getString(R.string.str_printer_open_cover);
                                 }
 //                                String mode=MyApplication.getContext().getString(R.string.str_printer_printmode_cpcl);
-//                                USBUtils.toast(MyApplication.getContext(), mode+" "+status);
                             } else {//打印机状态查询
                                 Intent intent = new Intent(ACTION_QUERY_PRINTER_STATE);
                                 intent.putExtra(DEVICE_ID, id);

@@ -21,6 +21,7 @@ import com.wycd.yushangpu.http.BasePageRes;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpOnlyVipMsg;
 import com.wycd.yushangpu.tools.DateTimeUtil;
+import com.wycd.yushangpu.tools.MyOnEditorActionListener;
 import com.wycd.yushangpu.widget.NumInputView;
 import com.wycd.yushangpu.widget.NumKeyboardUtils;
 
@@ -124,6 +125,13 @@ public class VipChooseDialog extends Dialog {
         editTextLayout = (NumInputView) findViewById(R.id.edit_text_layout);
 
         new NumKeyboardUtils(mContext, getWindow().getDecorView(), editTextLayout);
+
+        editTextLayout.setOnEditorActionListener(new MyOnEditorActionListener(mContext) {
+            @Override
+            public void onEditorAction(String text) {
+                findViewById(R.id.li_search).performClick();
+            }
+        });
     }
 
     @OnClick({R.id.iv_close, R.id.li_search, R.id.rl_confirm, R.id.rl_delete})

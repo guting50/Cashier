@@ -49,7 +49,9 @@
                             android:layout_gravity="center"
                             android:background="@color/transparent"
                             android:gravity="center_vertical"
-                            android:hint="会员卡号/姓名/手机号/卡面号" />
+                            android:hint="会员卡号/姓名/手机号/卡面号"
+                            android:imeOptions="actionSearch"
+                            android:singleLine="true" />
 
                     </com.gt.utils.widget.BgLayout>
 

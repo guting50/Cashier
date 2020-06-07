@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
@@ -223,6 +224,10 @@ public class LoginActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         boardHelper.onDestory();
+    }
 
+    @Override
+    public void onBackPressed() {
+        ActivityUtils.finishAllActivities();
     }
 }

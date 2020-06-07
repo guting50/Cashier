@@ -169,13 +169,13 @@ public class NumInputView extends RelativeLayout {
                     lastText = list[list.length - 1];
                 }
 
-                if(lastText.equals(".")){
+                if (lastText.equals(".")) {
                     s = text.substring(0, text.length() - 1) + "0.";
                     setText(s.toString());
-                }else if (StringUtil.countString(lastText,".") > 1) {
+                } else if (StringUtil.countString(lastText, ".") > 1) {
                     s = text.substring(0, text.length() - 1);
                     setText(s.toString());
-                }else if (!StringUtil.isTwoPoint(lastText)) {
+                } else if (!StringUtil.isTwoPoint(lastText)) {
                     com.blankj.utilcode.util.ToastUtils.showShort("只能输入两位小数");
                     s = text.substring(0, text.length() - 1);
                     setText(s.toString());
@@ -375,4 +375,7 @@ public class NumInputView extends RelativeLayout {
         this.textWatcher = textWatcher;
     }
 
+    public void setOnEditorActionListener(TextView.OnEditorActionListener l) {
+        editText.setOnEditorActionListener(l);
+    }
 }

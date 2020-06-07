@@ -1,15 +1,7 @@
 package com.wycd.yushangpu.ui;
 
-import android.bluetooth.BluetoothAdapter;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.hardware.usb.UsbDevice;
-import android.hardware.usb.UsbManager;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,39 +10,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.CacheDoubleUtils;
 import com.bumptech.glide.Glide;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
-import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.http.ImgUrlTools;
-import com.wycd.yushangpu.tools.DeviceConnFactoryManager;
+import com.wycd.yushangpu.printutil.ConnectPrinter;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.PreferenceHelper;
-import com.wycd.yushangpu.tools.PrintContent;
-import com.wycd.yushangpu.tools.ThreadPool;
-import com.wycd.yushangpu.tools.USBUtils;
 import com.wycd.yushangpu.ui.fragment.CashierFragment;
 import com.wycd.yushangpu.ui.fragment.JiesuanBFragment;
 import com.wycd.yushangpu.ui.fragment.PrintSetFragment;
 import com.wycd.yushangpu.ui.fragment.VipMemberFragment;
-
-import net.posprinter.posprinterface.TaskCallback;
 
 import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static android.hardware.usb.UsbManager.ACTION_USB_DEVICE_ATTACHED;
-import static android.hardware.usb.UsbManager.ACTION_USB_DEVICE_DETACHED;
-import static com.wycd.yushangpu.MyApplication.ISBULETOOTHCONNECT;
-import static com.wycd.yushangpu.MyApplication.ISCONNECT;
-import static com.wycd.yushangpu.MyApplication.ISLABELCONNECT;
-import static com.wycd.yushangpu.MyApplication.myBinder;
-import static com.wycd.yushangpu.tools.DeviceConnFactoryManager.PrinterCommand.TSC;
 
 public class HomeActivity extends BaseActivity {
 
@@ -67,19 +44,11 @@ public class HomeActivity extends BaseActivity {
 
     private long firstTime = 0;
 
-    private static final int CONN_PRINTER = 0x12;
-    private int id = 0;
-
     public CashierFragment cashierFragment = new CashierFragment();
     public JiesuanBFragment jiesuanBFragment = new JiesuanBFragment();
     public PrintSetFragment printSetFragment = new PrintSetFragment();
     public VipMemberFragment vipMemberFragment = new VipMemberFragment();
     private boolean isFirstLaunch = false;
-
-    private BluetoothAdapter bluetoothAdapter;
-
-    //usb连接相关
-    private BroadcastReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,119 +63,9 @@ public class HomeActivity extends BaseActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                initBroadcast();
-                initPrint();
+                ConnectPrinter.connect(ac);
             }
         }).start();
-    }
-
-    private void initPrint() {
-        String ReceiptUSBName = CacheDoubleUtils.getInstance().getString("ReceiptUSBName");
-        if (!TextUtils.isEmpty(ReceiptUSBName)) {
-            myBinder.ConnectUsbPort(this, ReceiptUSBName, new TaskCallback() {
-                @Override
-                public void OnSucceed() {
-                    ISCONNECT = true;
-                    ISBULETOOTHCONNECT = false;
-                }
-
-                @Override
-                public void OnFailed() {
-                    ISCONNECT = false;
-                }
-            });
-        } else {
-            String BlueToothAddress = CacheDoubleUtils.getInstance().getString("BlueToothAddress");
-            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-            //判断是否打开蓝牙设备
-            if (bluetoothAdapter.isEnabled() && !TextUtils.isEmpty(BlueToothAddress)) {
-                myBinder.ConnectBtPort(BlueToothAddress, new TaskCallback() {
-                    @Override
-                    public void OnSucceed() {
-                        ISBULETOOTHCONNECT = true;
-                        ISCONNECT = false;
-                    }
-
-                    @Override
-                    public void OnFailed() {
-                        ISBULETOOTHCONNECT = false;
-                    }
-                });
-            }
-        }
-        String LabelUSBName = CacheDoubleUtils.getInstance().getString("LabelUSBName");
-        if (!TextUtils.isEmpty(LabelUSBName)) {
-            UsbDevice usbDevice = USBUtils.getUsbDeviceFromName(HomeActivity.this, LabelUSBName);
-            new DeviceConnFactoryManager.Build()
-                    .setId(id)
-                    .setConnMethod(DeviceConnFactoryManager.CONN_METHOD.USB)
-                    .setUsbDevice(usbDevice)
-                    .setContext(this)
-                    .build();
-            DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id].openPort();
-        }
-    }
-
-    /**
-     * 注册广播
-     * Registration broadcast
-     */
-    private void initBroadcast() {
-        try {
-            IntentFilter filter = new IntentFilter("com.android.example.USB_PERMISSION");//USB访问权限广播
-            filter.addAction(ACTION_USB_DEVICE_DETACHED);//USB线拔出
-//        filter.addAction(ACTION_QUERY_PRINTER_STATE);//查询打印机缓冲区状态广播，用于一票一控
-            filter.addAction(DeviceConnFactoryManager.ACTION_CONN_STATE);//与打印机连接状态
-            filter.addAction(ACTION_USB_DEVICE_ATTACHED);//USB线插入
-            registerReceiver(receiver = new BroadcastReceiver() {
-
-                @Override
-                public void onReceive(Context context, Intent intent) {
-                    try {
-                        String action = intent.getAction();
-                        switch (action) {
-                            //Usb连接断开广播
-                            case ACTION_USB_DEVICE_DETACHED:
-                                UsbDevice usbDevice = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
-                                String ReceiptUSBName = CacheDoubleUtils.getInstance().getString("ReceiptUSBName");
-                                if (TextUtils.equals(ReceiptUSBName, usbDevice.getDeviceName())) {
-                                    ISCONNECT = false;
-                                }
-                                String LabelUSBName = CacheDoubleUtils.getInstance().getString("LabelUSBName");
-                                if (TextUtils.equals(LabelUSBName, usbDevice.getDeviceName())) {
-                                    ISLABELCONNECT = false;
-                                }
-                                break;
-                            case DeviceConnFactoryManager.ACTION_CONN_STATE:
-                                int state = intent.getIntExtra(DeviceConnFactoryManager.STATE, -1);
-                                int deviceId = intent.getIntExtra(DeviceConnFactoryManager.DEVICE_ID, -1);
-                                switch (state) {
-                                    case DeviceConnFactoryManager.CONN_STATE_DISCONNECT:
-                                        if (id == deviceId) {
-                                            Log.e(TAG, "connection is lost");
-                                        }
-                                        break;
-                                    case DeviceConnFactoryManager.CONN_STATE_CONNECTING:
-                                        break;
-                                    case DeviceConnFactoryManager.CONN_STATE_CONNECTED:
-                                        ISLABELCONNECT = true;
-                                        break;
-                                    case DeviceConnFactoryManager.CONN_STATE_FAILED:
-                                        ISLABELCONNECT = false;
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                break;
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }, filter);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private void initFragment() {
@@ -337,28 +196,9 @@ public class HomeActivity extends BaseActivity {
         }
     }
 
-    /**
-     * 打印标签
-     */
-    public void labelPrint(final ShopMsg shopMsg) {
-        ThreadPool.getInstantiation().addSerialTask(new Runnable() {
-            @Override
-            public void run() {
-                if (DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id] == null ||
-                        !DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id].getConnState()) {
-//                    cashierFragment.obtainMessage(CONN_PRINTER).sendToTarget();
-                    return;
-                }
-                if (DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id].getCurrentPrinterCommand() == TSC) {
-                    DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id].sendDataImmediately(PrintContent.getLabel(shopMsg));
-                }
-            }
-        });
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(receiver);
+        ConnectPrinter.unregisterReceiver(this);
     }
 }

@@ -9,8 +9,6 @@ import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.printutil.bean.PrintSetBean;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 
 
 /**
@@ -24,9 +22,7 @@ public class ImpParamLoading {
 
     public static void preLoad() {
         //创建一个被观察者(发布者)
-        observable = Observable.create(new ObservableOnSubscribe<String>() {
-            @Override
-            public void subscribe(ObservableEmitter<String> emitter) {
+        observable = Observable.create(emitter ->
                 AsyncHttpUtils.postSyncHttp(HttpAPI.API().PRE_LOAD, new CallBack() {
                     @Override
                     public void onResponse(BaseRes response) {
@@ -61,9 +57,7 @@ public class ImpParamLoading {
                             emitter.onNext("");
                         }
                     }
-                });
-            }
-        });
+                }));
     }
 }
 

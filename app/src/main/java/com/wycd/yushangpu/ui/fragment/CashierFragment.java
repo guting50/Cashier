@@ -2,13 +2,9 @@ package com.wycd.yushangpu.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.Context;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -37,10 +33,12 @@ import com.wycd.yushangpu.model.ImpOnlyVipMsg;
 import com.wycd.yushangpu.model.ImpParamLoading;
 import com.wycd.yushangpu.model.ImpSubmitOrder;
 import com.wycd.yushangpu.model.ImpSubmitOrder_Guazhang;
+import com.wycd.yushangpu.printutil.ConnectPrinter;
 import com.wycd.yushangpu.printutil.GetPrintSet;
 import com.wycd.yushangpu.printutil.HttpGetPrintContents;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.CreateOrder;
+import com.wycd.yushangpu.tools.MyOnEditorActionListener;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.PreferenceHelper;
@@ -61,7 +59,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.wycd.yushangpu.MyApplication.ISLABELCONNECT;
@@ -75,7 +75,7 @@ public class CashierFragment extends BaseFragment {
     @BindView(R.id.vip_name_layout)
     BgTextView vipNameLayout;
     @BindView(R.id.et_login_account)
-    public ClearEditText mEtLoginAccount;
+    ClearEditText mEtLoginAccount;
     @BindView(R.id.recyclerview_shoplist)
     RecyclerView mRecyclerviewShoplist;
     @BindView(R.id.tv_num_total)
@@ -233,18 +233,10 @@ public class CashierFragment extends BaseFragment {
     }
 
     private void initEvent() {
-        mEtLoginAccount.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        mEtLoginAccount.setOnEditorActionListener(new MyOnEditorActionListener(homeActivity) {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-//                    homeActivity.dialog.show();
-                    InputMethodManager imm = (InputMethodManager) homeActivity.getSystemService(Context.INPUT_METHOD_SERVICE); //得到InputMethodManager的实例
-                    if (imm.isActive()) {//如果开启
-                        imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_NOT_ALWAYS);//关闭软键盘，开启方法相同，这个方法是切换开启与关闭状态的
-                    }
-                    goodsListFragment.obtainHomeShop(mEtLoginAccount.getText().toString(), true);
-                }
-                return false;
+            public void onEditorAction(String text) {
+                goodsListFragment.obtainHomeShop(text, 1, true, true);
             }
         });
 
@@ -860,7 +852,7 @@ public class CashierFragment extends BaseFragment {
 
                     if (ISLABELCONNECT && LABELPRINT_IS_OPEN) {
                         for (int i = 0; i < mShopLeftList.size(); i++) {
-                            homeActivity.labelPrint(mShopLeftList.get(i));
+                            ConnectPrinter.labelPrint(mShopLeftList.get(i));
                         }
                     }
                     resetCashier();

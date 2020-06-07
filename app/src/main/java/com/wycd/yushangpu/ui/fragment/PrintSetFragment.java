@@ -1,15 +1,10 @@
 package com.wycd.yushangpu.ui.fragment;
 
 import android.app.AlertDialog;
-import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.hardware.usb.UsbDevice;
-import android.hardware.usb.UsbManager;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -46,12 +41,11 @@ import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpOutLogin;
 import com.wycd.yushangpu.model.ImpParamLoading;
 import com.wycd.yushangpu.model.ImpShopInfo;
+import com.wycd.yushangpu.printutil.ConnectPrinter;
 import com.wycd.yushangpu.printutil.bean.PrintSetBean;
-import com.wycd.yushangpu.tools.DeviceConnFactoryManager;
 import com.wycd.yushangpu.tools.DeviceReceiver;
 import com.wycd.yushangpu.tools.LogUtils;
 import com.wycd.yushangpu.tools.NullUtils;
-import com.wycd.yushangpu.tools.USBUtils;
 import com.wycd.yushangpu.tools.UpdateAppVersion;
 import com.wycd.yushangpu.ui.LoginActivity;
 import com.wycd.yushangpu.ui.LogoActivity;
@@ -69,12 +63,10 @@ import java.util.Set;
 
 import androidx.appcompat.widget.SwitchCompat;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 
-import static android.hardware.usb.UsbManager.ACTION_USB_DEVICE_ATTACHED;
-import static android.hardware.usb.UsbManager.ACTION_USB_DEVICE_DETACHED;
 import static com.wycd.yushangpu.MyApplication.ISBULETOOTHCONNECT;
 import static com.wycd.yushangpu.MyApplication.ISCONNECT;
-import static com.wycd.yushangpu.MyApplication.ISLABELCONNECT;
 import static com.wycd.yushangpu.MyApplication.LABELPRINT_IS_OPEN;
 import static com.wycd.yushangpu.MyApplication.myBinder;
 
@@ -106,8 +98,6 @@ public class PrintSetFragment extends BaseFragment {
 
     private int paperType = 2;
 
-    private int rbType = 0;
-
     //蓝牙连接相关
     private List<String> btList = new ArrayList<>();
     private ArrayList<String> btFoundList = new ArrayList<>();
@@ -126,10 +116,6 @@ public class PrintSetFragment extends BaseFragment {
     private List<String> usbList;
     private ListView lv_usb;
     private ArrayAdapter<String> adapter3;
-    String usbDev = "";
-    private int id = 0;
-    private UsbManager usbManager;
-    private PendingIntent mPermissionIntent;
 
     @Override
     public int getContentView() {
@@ -138,11 +124,8 @@ public class PrintSetFragment extends BaseFragment {
 
     @Override
     public void onCreated() {
-        usbManager = (UsbManager) getActivity().getSystemService(Context.USB_SERVICE);
-
         initView();
         setListener();
-        initBroadcast();
     }
 
     private void initView() {
@@ -203,6 +186,9 @@ public class PrintSetFragment extends BaseFragment {
         mTvPrint.setText("请选择打印机");
         mTvConnect.setText("未连接");
 
+        ConnectPrinter.consumer = (Consumer<String>) s -> {
+            mTvConnect.setText(s);
+        };
     }
 
     public void updateData() {
@@ -375,11 +361,11 @@ public class PrintSetFragment extends BaseFragment {
                 String name = "";
                 switch (checkedId) {
                     case R.id.rb_printer_selected_usb:
-                        rbType = 0;
+                        ConnectPrinter.rbType = 0;
                         name = CacheDoubleUtils.getInstance().getString("ReceiptUSBName");
                         break;
                     case R.id.rb_printer_selected_bluetooth:
-                        rbType = 2;
+                        ConnectPrinter.rbType = 2;
                         name = CacheDoubleUtils.getInstance().getString("BlueToothName");
                         break;
                 }
@@ -465,7 +451,7 @@ public class PrintSetFragment extends BaseFragment {
         mTvPrint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (rbType) {
+                switch (ConnectPrinter.rbType) {
                     case 0:
                     case 1:
                         setUSB();
@@ -529,7 +515,7 @@ public class PrintSetFragment extends BaseFragment {
                 break;
             case R.id.rb_printer_label_set:
                 settingLayout.setVisibility(View.VISIBLE);
-                rbType = 1;
+                ConnectPrinter.rbType = 1;
                 llPrintSetSwitch.setVisibility(View.GONE);
                 llPrintSet.setVisibility(View.GONE);
                 break;
@@ -537,10 +523,10 @@ public class PrintSetFragment extends BaseFragment {
                 settingLayout.setVisibility(View.VISIBLE);
                 switch (rgPrinterSelect.getCheckedRadioButtonId()) {
                     case R.id.rb_printer_selected_usb:
-                        rbType = 0;
+                        ConnectPrinter.rbType = 0;
                         break;
                     case R.id.rb_printer_selected_bluetooth:
-                        rbType = 2;
+                        ConnectPrinter.rbType = 2;
                         break;
                 }
                 llPrintSetSwitch.setVisibility(View.VISIBLE);
@@ -581,156 +567,12 @@ public class PrintSetFragment extends BaseFragment {
         lv_usb.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                usbDev = usbList.get(i);
-                mTvPrint.setText(usbDev);
-                //通过USB设备名找到USB设备
-                UsbDevice usbDevice = USBUtils.getUsbDeviceFromName(getActivity(), usbDev);
-                //判断USB设备是否有权限
-                if (usbManager.hasPermission(usbDevice)) {
-                    switch (rbType) {
-                        case 0:
-                            connectUSB(usbDev);
-                            break;
-                        case 1:
-                            closeport();
-                            connectLabelUSB(usbDevice);
-                            break;
-                    }
-                } else {//请求权限
-                    mPermissionIntent = PendingIntent.getBroadcast(getActivity(), 0, new Intent("com.android.example.USB_PERMISSION"), 0);
-                    usbManager.requestPermission(usbDevice, mPermissionIntent);
-                }
+                mTvPrint.setText(usbList.get(i));
+                ConnectPrinter.authorizationConnectUSB(homeActivity, usbList.get(i));
                 dialog.cancel();
-                Log.e("usbDev: ", usbDev);
             }
         });
     }
-
-    /**
-     * USB连接标签打印机
-     */
-    public void connectLabelUSB(UsbDevice usbDevice) {
-        new DeviceConnFactoryManager.Build()
-                .setId(id)
-                .setConnMethod(DeviceConnFactoryManager.CONN_METHOD.USB)
-                .setUsbDevice(usbDevice)
-                .setContext(getActivity())
-                .build();
-        DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id].openPort();
-    }
-
-    /**
-     * 连接usb
-     */
-    public void connectUSB(final String usbAddress) {
-        myBinder.ConnectUsbPort(getActivity(), usbAddress, new TaskCallback() {
-            @Override
-            public void OnSucceed() {
-                ISCONNECT = true;
-                ISBULETOOTHCONNECT = false;
-                CacheDoubleUtils.getInstance().put("ReceiptUSBName", usbAddress);
-                mTvConnect.setText(getString(R.string.con_success));
-            }
-
-            @Override
-            public void OnFailed() {
-                ISCONNECT = false;
-                mTvConnect.setText(getString(R.string.con_failed));
-            }
-        });
-    }
-
-    /**
-     * 重新连接回收上次连接的对象，避免内存泄漏
-     */
-    private void closeport() {
-        if (DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id] != null && DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id].mPort != null) {
-            DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id].reader.cancel();
-            DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id].mPort.closePort();
-            DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id].mPort = null;
-        }
-    }
-
-    /**
-     * 注册广播
-     * Registration broadcast
-     */
-    private void initBroadcast() {
-        IntentFilter filter = new IntentFilter("com.android.example.USB_PERMISSION");//USB访问权限广播
-        filter.addAction(ACTION_USB_DEVICE_DETACHED);//USB线拔出
-//        filter.addAction(ACTION_QUERY_PRINTER_STATE);//查询打印机缓冲区状态广播，用于一票一控
-        filter.addAction(DeviceConnFactoryManager.ACTION_CONN_STATE);//与打印机连接状态
-        filter.addAction(ACTION_USB_DEVICE_ATTACHED);//USB线插入
-        getActivity().registerReceiver(receiver, filter);
-    }
-
-    private BroadcastReceiver receiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            switch (action) {
-                //USB请求访问权限
-                case "com.android.example.USB_PERMISSION":
-                    synchronized (getActivity()) {
-                        UsbDevice device = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
-                        if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
-                            if (device != null) {//用户点击授权
-                                switch (rbType) {
-                                    case 0:
-                                        connectUSB(usbDev);
-                                        break;
-                                    case 1:
-                                        closeport();
-                                        connectLabelUSB(device);
-                                        break;
-                                }
-                            }
-                        } else {//用户点击不授权,则无权限访问USB
-                            Log.e(TAG, "No access to USB");
-                        }
-                    }
-                    break;
-                //Usb连接断开广播
-                case ACTION_USB_DEVICE_DETACHED:
-                    UsbDevice usbDevice = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
-                    String ReceiptUSBName = CacheDoubleUtils.getInstance().getString("ReceiptUSBName");
-                    if (TextUtils.equals(ReceiptUSBName, usbDevice.getDeviceName()) && rbType == 0) {
-                        mTvConnect.setText("未连接");
-                    }
-                    String LabelUSBName = CacheDoubleUtils.getInstance().getString("LabelUSBName");
-                    if (TextUtils.equals(LabelUSBName, usbDevice.getDeviceName()) && rbType == 1) {
-                        mTvConnect.setText("未连接");
-                    }
-                    break;
-                case DeviceConnFactoryManager.ACTION_CONN_STATE:
-                    int state = intent.getIntExtra(DeviceConnFactoryManager.STATE, -1);
-                    int deviceId = intent.getIntExtra(DeviceConnFactoryManager.DEVICE_ID, -1);
-                    switch (state) {
-                        case DeviceConnFactoryManager.CONN_STATE_DISCONNECT:
-                            if (id == deviceId) {
-                                Log.e(TAG, "connection is lost");
-                            }
-                            break;
-                        case DeviceConnFactoryManager.CONN_STATE_CONNECTING:
-                            mTvConnect.setText("连接中");
-                            break;
-                        case DeviceConnFactoryManager.CONN_STATE_CONNECTED:
-                            ISLABELCONNECT = true;
-                            CacheDoubleUtils.getInstance().put("LabelUSBName", usbDev);
-                            mTvConnect.setText(getString(R.string.con_success));
-                            break;
-                        case DeviceConnFactoryManager.CONN_STATE_FAILED:
-                            ISLABELCONNECT = false;
-                            mTvConnect.setText(getString(R.string.con_failed));
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-            }
-        }
-    };
 
     /**
      * 选择蓝牙设备
@@ -891,10 +733,5 @@ public class PrintSetFragment extends BaseFragment {
         super.onDestroy();
         i = 0;
         mPrintMap.clear();
-        getActivity().unregisterReceiver(receiver);
-        if (usbManager != null) {
-            usbManager = null;
-        }
     }
-
 }

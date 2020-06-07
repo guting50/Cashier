@@ -172,6 +172,10 @@ public class AddOrEditMemberFragment extends BaseFragment {
                     et_VIP_Overdue.setTag("");
                     et_VIP_Overdue.setEnabled(false);
                 } else {
+                    if (vipInfoMsg != null) {
+                        et_VIP_Overdue.setText(vipInfoMsg.getVIP_Overdue());
+                        et_VIP_Overdue.setTag(vipInfoMsg.getVIP_Overdue());
+                    }
                     et_VIP_Overdue.setEnabled(true);
                 }
             }
@@ -459,18 +463,18 @@ public class AddOrEditMemberFragment extends BaseFragment {
         et_VCH_Fee.setText(vipGradeListBean.getVG_CardAmount() + "");//售卡金额
         mInitPoint = (int) vipGradeListBean.getVG_InitialIntegral() + "";//初始积分
         et_MA_AvailableIntegral.setText(mInitPoint + "");
+        et_VIP_Overdue.setText("");
+        et_VIP_Overdue.setTag("");
+        et_VIP_Overdue.setEnabled(false);
         if (vipGradeListBean.getVG_IsTime() == 1 && vipGradeListBean.getVG_IsTimeNum() != null) {
             et_VIP_Overdue.setText(addTime(vipGradeListBean.getVG_IsTimeUnit(), Double.parseDouble(vipGradeListBean.getVG_IsTimeNum() + "")));
-            et_VIP_Overdue.setEnabled(false);
             rootView.findViewById(R.id.cb_is_perpetual).setEnabled(false);
         } else if (vipGradeListBean.getVG_IsTime() == 1 && vipGradeListBean.getVG_IsTimeNum() == null) {
             rootView.findViewById(R.id.cb_is_perpetual).setEnabled(false);
             ((CheckBox) rootView.findViewById(R.id.cb_is_perpetual)).setChecked(true);
-            et_VIP_Overdue.setEnabled(false);
         } else {
             rootView.findViewById(R.id.cb_is_perpetual).setEnabled(true);
             ((CheckBox) rootView.findViewById(R.id.cb_is_perpetual)).setChecked(true);
-            et_VIP_Overdue.setEnabled(false);
         }
     }
 
@@ -790,15 +794,13 @@ public class AddOrEditMemberFragment extends BaseFragment {
         } else {
             mInitPoint = "0";
         }
-
-        if (!TextUtils.isEmpty(et_VIP_Overdue.getText())) {//过期时间存在，不为永久会员
-            mOverdueDate = et_VIP_Overdue.getText().toString();
-            mIsForver = 0;
-        } else {//过期时间不存在，则为永久会员
-            if (((CheckBox) rootView.findViewById(R.id.cb_is_perpetual)).isChecked()) {
-
-            }
+        if (((CheckBox) rootView.findViewById(R.id.cb_is_perpetual)).isChecked()) {
             mIsForver = 1;
+        } else {
+            if (!TextUtils.isEmpty(et_VIP_Overdue.getText())) {//过期时间存在，不为永久会员
+                mOverdueDate = et_VIP_Overdue.getText().toString();
+                mIsForver = 0;
+            }
         }
         if (!TextUtils.isEmpty(et_VIP_ICCard.getText())) {
             mId = et_VIP_ICCard.getText().toString();
@@ -856,7 +858,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
         params.put("VIP_Addr", mAddress);
         params.put("VIP_Remark", mRemark);
         params.put("VIP_FaceNumber", mcardId);//卡面号码
-        params.put("VIP_Overdue", mOverdueDate == null ? "" : (mOverdueDate + " 23:59:59"));//过期日期
+        params.put("VIP_Overdue", mOverdueDate == null ? "" : (mOverdueDate.split(" ")[0] + " 23:59:59"));//过期日期
         params.put("VCH_CreateTime", et_VCH_CreateTime.getTag());//开发日期
         for (int i = 0; i < costomfields.size(); i++) {//自定义属性
             params.put("FildsId[]", costomfields.get(i).getCF_GID());
@@ -1076,8 +1078,9 @@ public class AddOrEditMemberFragment extends BaseFragment {
                         switch (getItemViewType(position)) {
                             case TYPE_3:
                                 MaxHeightRecyclerView recyclerView = rootView.findViewById(R.id.select_recycler_costomfields_view);
-                                View viewParent = (View) recyclerView.getParent();
+                                View viewParent = (View) recyclerView.getParent().getParent();
                                 if (viewParent.getVisibility() == View.GONE) {
+                                    viewParent.setVisibility(View.VISIBLE);
                                     SelectAdapter selectAdapter = new SelectAdapter();
                                     recyclerView.setLayoutManager(new LinearLayoutManager(homeActivity));
                                     recyclerView.setAdapter(selectAdapter);
@@ -1088,7 +1091,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                                                 public void onResponse(Object response) {
                                                     selectHolder.et_costomfields_value.setText(selectAdapter.data.get((int) response));
                                                 }
-                                            }).show(viewParent, RelativeLayout.CENTER_IN_PARENT, -1);
+                                            }).show((View) recyclerView.getParent(), RelativeLayout.CENTER_IN_PARENT, -1);
                                 } else {
                                     viewParent.setVisibility(View.GONE);
                                 }
@@ -1244,6 +1247,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                     selectedHolser.tv_select_lable.setTextColor(homeActivity.getResources().getColor(R.color.white));
                     selectedHolser.tv_select_lable.setBackgroundResource(R.color.color_149f4a);
                     viewParent.setVisibility(View.GONE);
+                    ((View)viewParent.getParent()).setVisibility(View.GONE);
                     back.onResponse(position);
                 }
             });

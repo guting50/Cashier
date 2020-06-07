@@ -29,6 +29,7 @@ import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpOnlyVipMsg;
 import com.wycd.yushangpu.tools.DateTimeUtil;
 import com.wycd.yushangpu.tools.GlideTransform;
+import com.wycd.yushangpu.tools.MyOnEditorActionListener;
 import com.wycd.yushangpu.tools.NullUtils;
 
 import java.lang.reflect.Type;
@@ -87,6 +88,12 @@ public class VipMemberFragment extends BaseFragment {
             }
         });
         showAttr();
+        editTextLayout.setOnEditorActionListener(new MyOnEditorActionListener(homeActivity) {
+            @Override
+            public void onEditorAction(String text) {
+                obtainVipList();
+            }
+        });
     }
 
     @Override

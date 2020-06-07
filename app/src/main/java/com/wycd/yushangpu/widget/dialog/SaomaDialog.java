@@ -3,11 +3,8 @@ package com.wycd.yushangpu.widget.dialog;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -16,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.reflect.TypeToken;
 import com.wycd.yushangpu.MyApplication;
@@ -24,7 +22,7 @@ import com.wycd.yushangpu.bean.OrderPayResult;
 import com.wycd.yushangpu.http.BaseRes;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpSaoma;
-import com.wycd.yushangpu.tools.LogUtils;
+import com.wycd.yushangpu.tools.MyOnEditorActionListener;
 import com.wycd.yushangpu.ui.fragment.JiesuanBFragment;
 import com.wycd.yushangpu.widget.views.ClearEditText;
 
@@ -73,43 +71,14 @@ public class SaomaDialog {
         if (MyApplication.loginBean.getShopList().get(0).getSaoBei_State() == 0) {
             on_open_saoma.setVisibility(View.VISIBLE);
         } else {
+            et_saoma.requestFocus();
             on_open_saoma.setVisibility(View.GONE);
             tv_money.setText("￥" + money);
 
-            et_saoma.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            et_saoma.setOnEditorActionListener(new MyOnEditorActionListener(context) {
                 @Override
-                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                    String s = textView.getText().toString().trim();
-                    //拿到数据后做其他操作
-                    LogUtils.d("xxsaomiao", s);
-                    if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
-                        //扫描到的数据
-
-
-                    }
-                    return true;
-                }
-            });
-            et_saoma.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-                    if (editable.toString().equals("")) {
-
-                    } else {
-                        if (editable.toString().length() == 18) {
-                            back.onResponse(editable.toString());
-                        }
-                    }
+                public void onEditorAction(String text) {
+                    back.onResponse(text);
                 }
             });
             switch (showingLocation) {
@@ -137,7 +106,7 @@ public class SaomaDialog {
                     break;
             }
         }
-        et_saoma.requestFocus();
+        KeyboardUtils.hideSoftInput(context);
     }
 
     public boolean isShowing() {

@@ -161,6 +161,7 @@
                                 android:background="@drawable/selector_edit_green_gray"
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
+                                android:singleLine="true"
                                 android:textColor="@color/text66"
                                 android:textSize="17sp" />
 
@@ -198,6 +199,7 @@
                                 android:background="@drawable/selector_edit_green_gray"
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
+                                android:singleLine="true"
                                 android:textColor="@color/text66"
                                 android:textSize="17sp" />
 
@@ -273,6 +275,7 @@
                                 android:background="@drawable/selector_edit_green_gray"
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
+                                android:singleLine="true"
                                 android:textColor="@color/text66"
                                 android:textSize="17sp" />
 
@@ -378,6 +381,7 @@
                                 android:background="@drawable/selector_edit_green_gray"
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
+                                android:singleLine="true"
                                 android:textColor="@color/text66"
                                 android:textSize="17sp" />
 
@@ -416,6 +420,7 @@
                                 android:background="@drawable/selector_edit_green_gray"
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
+                                android:singleLine="true"
                                 android:textColor="@color/text66"
                                 android:textSize="17sp" />
 
@@ -678,6 +683,7 @@
                                 android:background="@drawable/selector_edit_green_gray"
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
+                                android:singleLine="true"
                                 android:textColor="@color/text66"
                                 android:textSize="17sp" />
 
@@ -763,6 +769,7 @@
                                 android:inputType="textPassword"
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
+                                android:singleLine="true"
                                 android:textColor="@color/text66"
                                 android:textSize="17sp" />
 
@@ -799,6 +806,7 @@
                                 android:inputType="textPassword"
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
+                                android:singleLine="true"
                                 android:textColor="@color/text66"
                                 android:textSize="17sp" />
 
@@ -906,6 +914,7 @@
                                 android:background="@drawable/selector_edit_green_gray"
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
+                                android:singleLine="true"
                                 android:textColor="@color/text66"
                                 android:textSize="17sp" />
 
@@ -1136,7 +1145,7 @@
                                 android:layout_height="48dp"
                                 android:layout_marginLeft="15dp"
                                 android:gravity="center_vertical"
-                                android:maxLines="1"
+                                android:singleLine="true"
                                 android:text="设置会员等级"
                                 android:textColor="@color/title_color"
                                 android:textSize="17sp" />
@@ -1191,23 +1200,30 @@
                     android:paddingTop="23dp"
                     android:paddingRight="160dp" />
 
-                <FrameLayout
-                    android:layout_width="324dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/selector_edit_green_gray"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#60000000"
                     android:visibility="gone">
 
-                    <com.wycd.yushangpu.widget.MaxHeightRecyclerView
-                        android:id="@+id/select_recycler_costomfields_view"
-                        android:layout_width="match_parent"
+                    <FrameLayout
+                        android:layout_width="324dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="1dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginRight="1dp"
-                        android:layout_marginBottom="5dp"
-                        app:maxHeight="200dp" />
+                        android:background="@drawable/selector_edit_green_gray"
+                        android:visibility="gone">
 
-                </FrameLayout>
+                        <com.wycd.yushangpu.widget.MaxHeightRecyclerView
+                            android:id="@+id/select_recycler_costomfields_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="1dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="1dp"
+                            android:layout_marginBottom="5dp"
+                            app:maxHeight="200dp" />
+
+                    </FrameLayout>
+                </RelativeLayout>
             </RelativeLayout>
 
         </androidx.core.widget.NestedScrollView>

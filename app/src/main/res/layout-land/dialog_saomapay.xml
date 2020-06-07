@@ -4,14 +4,14 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:ignore="MissingDefaultResource">
 
     <RelativeLayout
         android:layout_width="700dp"
         android:layout_height="@dimen/dp_500"
-        android:background="@drawable/background_white"
-        android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:background="@drawable/background_white">
 
         <TextView
             android:layout_width="match_parent"
@@ -120,8 +120,6 @@
             android:background="@color/white"
             android:gravity="center"
             android:orientation="vertical"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:visibility="gone">
 
             <ImageView

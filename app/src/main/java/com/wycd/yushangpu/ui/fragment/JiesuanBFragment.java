@@ -233,17 +233,7 @@ public class JiesuanBFragment extends BaseFragment {
     }
 
     public void updateData() {
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                homeActivity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        homeActivity.dialog.dismiss();
-                    }
-                });
-            }
-        }, 500);
+        homeActivity.dialog.dismiss();
 
         setCbShortMessage("011");
 
