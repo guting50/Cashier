@@ -83,7 +83,7 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(null);//usb拔插会重新走onCreate 此时savedInstanceState不为null
         setContentView(R.layout.activity_home);
         isFirstLaunch = true;
         ButterKnife.bind(this);
