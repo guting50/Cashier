@@ -3,7 +3,9 @@ package com.wycd.yushangpu.printutil;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.wycd.yushangpu.MyApplication;
+import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.printutil.bean.CK_Success_Bean;
 import com.wycd.yushangpu.printutil.bean.HandDutyBean;
 import com.wycd.yushangpu.printutil.bean.Print_HYCC_Bean;
@@ -711,12 +713,12 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
         myBinder.writeDataByUSB(new TaskCallback() {
             @Override
             public void OnSucceed() {
-//                    Toast.makeText(MyApplication.getContext(),getString(R.string.con_success),Toast.LENGTH_SHORT).show();
+//                ToastUtils.showLong("打印完成");
             }
 
             @Override
             public void OnFailed() {
-//                    Toast.makeText(MyApplication.getContext(),getString(R.string.con_failed),Toast.LENGTH_SHORT).show();
+//                ToastUtils.showLong("打印失败");
             }
         }, new ProcessData() {
             @Override

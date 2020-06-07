@@ -2,8 +2,10 @@ package com.wycd.yushangpu.printutil;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,18 +14,34 @@ import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.CacheDoubleUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.gt.utils.PermissionUtils;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.tools.DeviceConnFactoryManager;
+import com.wycd.yushangpu.tools.DeviceReceiver;
+import com.wycd.yushangpu.tools.LogUtils;
 import com.wycd.yushangpu.tools.PrintContent;
 import com.wycd.yushangpu.tools.ThreadPool;
 
 import net.posprinter.posprinterface.TaskCallback;
+import net.posprinter.utils.PosPrinterDev;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -306,6 +324,179 @@ public class ConnectPrinter {
         UsbManager usbManager = (UsbManager) context.getSystemService(Context.USB_SERVICE);
         HashMap<String, UsbDevice> usbDeviceList = usbManager.getDeviceList();
         return usbDeviceList.get(usbName);
+    }
+
+
+    /**
+     * 获取标签USB列表
+     */
+    public static void setUSB(Activity activity, TextView mTvPrint) {
+        LayoutInflater inflater = LayoutInflater.from(activity);
+        View dialogView3 = inflater.inflate(R.layout.usb_link, null);
+        TextView tv_usb = (TextView) dialogView3.findViewById(R.id.textView1);
+        ListView lv_usb = (ListView) dialogView3.findViewById(R.id.listView1);
+
+        List<String> usbList = PosPrinterDev.GetUsbPathNames(activity);
+        if (usbList == null) {
+            usbList = new ArrayList<>();
+        }
+
+        tv_usb.setText(activity.getString(R.string.usb_pre_con) + usbList.size());
+        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1, usbList);
+        lv_usb.setAdapter(adapter3);
+
+        AlertDialog dialog = new AlertDialog.Builder(activity)
+                .setView(dialogView3).create();
+        dialog.show();
+
+        lv_usb.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                mTvPrint.setText(adapter3.getItem(i));
+                ConnectPrinter.authorizationConnectUSB(activity, adapter3.getItem(i));
+                dialog.cancel();
+            }
+        });
+    }
+
+    /**
+     * 选择蓝牙设备
+     */
+    public static void setBluetooth(Activity activity, TextView mTvPrint) {
+        List<String> btList = new ArrayList<>();
+        ArrayList<String> btFoundList = new ArrayList<>();
+
+        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        //判断是否打开蓝牙设备
+        if (!bluetoothAdapter.isEnabled()) {
+            bluetoothAdapter.enable();
+            setBluetooth(activity, mTvPrint);
+            return;
+        }
+        if (!bluetoothAdapter.isDiscovering()) {
+            bluetoothAdapter.startDiscovery();
+        }
+        PermissionUtils.requestPermission(activity, PermissionUtils.ACCESS_COARSE_LOCATION, new PermissionUtils.PermissionGrant() {
+            @Override
+            public void onPermissionGranted(int... requestCode) {
+                PermissionUtils.requestPermission(activity, PermissionUtils.ACCESS_FINE_LOCATION, new PermissionUtils.PermissionGrant() {
+                    @Override
+                    public void onPermissionGranted(int... requestCode) {
+                        LayoutInflater inflater = LayoutInflater.from(activity);
+                        View BtDialogView = inflater.inflate(R.layout.printer_list, null);
+                        ArrayAdapter<String> btBoudAdapter = new ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1, btList);
+                        ListView btBoundLv = (ListView) BtDialogView.findViewById(R.id.listView1);
+                        Button btScan = (Button) BtDialogView.findViewById(R.id.btn_scan);
+                        LinearLayout ll_BtFound = (LinearLayout) BtDialogView.findViewById(R.id.ll1);
+                        ListView btFoundLv = (ListView) BtDialogView.findViewById(R.id.listView2);
+                        ArrayAdapter<String> btfoundAdapter = new ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1, btFoundList);
+                        btBoundLv.setAdapter(btBoudAdapter);
+                        btFoundLv.setAdapter(btfoundAdapter);
+                        AlertDialog btdialog = new AlertDialog.Builder(activity).setView(BtDialogView).create();
+                        btdialog.show();
+
+                        DeviceReceiver btReciever = new DeviceReceiver(btFoundList, btfoundAdapter, btFoundLv);
+
+                        //注册蓝牙广播接收者
+                        IntentFilter filterStart = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+                        IntentFilter filterEnd = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+                        activity.registerReceiver(btReciever, filterStart);
+                        activity.registerReceiver(btReciever, filterEnd);
+
+                        btScan.setOnClickListener(v -> {
+                            // TODO Auto-generated method stub
+                            ll_BtFound.setVisibility(View.VISIBLE);
+                        });
+                        //已配对的设备的点击连接
+                        btBoundLv.setOnItemClickListener((arg0, arg1, arg2, arg3) -> {
+                            // TODO Auto-generated method stub
+                            try {
+                                if (bluetoothAdapter != null && bluetoothAdapter.isDiscovering()) {
+                                    bluetoothAdapter.cancelDiscovery();
+                                }
+                                String mac = btList.get(arg2);
+                                mTvPrint.setText(mac.substring(0, mac.indexOf("\n")));
+                                connectState = "连接中";
+                                observable.subscribe(consumer);
+                                btdialog.cancel();
+                                connectBT(activity, mac.substring(0, mac.indexOf("\n")), mac.substring(mac.length() - 17));
+                            } catch (Exception e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                                LogUtils.e("======== Error ========", e.getMessage());
+                            }
+                        });
+                        //未配对的设备，点击，配对，再连接
+                        btFoundLv.setOnItemClickListener((arg0, arg1, arg2, arg3) -> {
+                            // TODO Auto-generated method stub
+                            try {
+                                if (bluetoothAdapter != null && bluetoothAdapter.isDiscovering()) {
+                                    bluetoothAdapter.cancelDiscovery();
+                                }
+                                String msg = btFoundList.get(arg2);
+                                mTvPrint.setText(msg.substring(0, msg.indexOf("\n")));
+                                connectState = "连接中";
+                                observable.subscribe(consumer);
+                                btdialog.cancel();
+                                connectBT(activity, msg.substring(0, msg.indexOf("\n")), msg.substring(msg.length() - 17));
+                                Log.i("TAG", "mac=" + msg);
+                            } catch (Exception e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                                LogUtils.e("======== Error ========", e.getMessage());
+                            }
+                        });
+                        //获取可配对蓝牙设备
+                        Set<BluetoothDevice> device = bluetoothAdapter.getBondedDevices();
+
+                        btList.clear();
+                        if (bluetoothAdapter != null && bluetoothAdapter.isDiscovering()) {
+                            btBoudAdapter.notifyDataSetChanged();
+                        }
+                        if (device.size() > 0) {
+                            //存在已经配对过的蓝牙设备
+                            for (Iterator<BluetoothDevice> it = device.iterator(); it.hasNext(); ) {
+                                BluetoothDevice btd = it.next();
+                                btList.add(btd.getName() + '\n' + btd.getAddress());
+                                btBoudAdapter.notifyDataSetChanged();
+                            }
+                        } else {  //不存在已经配对过的蓝牙设备
+                            btList.add("不存在已经配对过的蓝牙设备");
+                            btBoudAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * 连接蓝牙
+     */
+    public static void connectBT(Activity activity, final String btName, final String btAddress) {
+        if (btAddress.equals("")) {
+            connectState = activity.getString(R.string.con_failed);
+            observable.subscribe(consumer);
+        } else {
+            myBinder.ConnectBtPort(btAddress, new TaskCallback() {
+                @Override
+                public void OnSucceed() {
+                    ISBULETOOTHCONNECT = true;
+                    ISCONNECT = false;
+                    CacheDoubleUtils.getInstance().put("BlueToothName", btName);
+                    CacheDoubleUtils.getInstance().put("BlueToothAddress", btAddress);
+                    connectState = activity.getString(R.string.con_success);
+                    observable.subscribe(consumer);
+                }
+
+                @Override
+                public void OnFailed() {
+                    ISBULETOOTHCONNECT = false;
+                    connectState = activity.getString(R.string.con_failed);
+                    observable.subscribe(consumer);
+                }
+            });
+        }
     }
 
     public static void unregisterReceiver(Activity activity) {

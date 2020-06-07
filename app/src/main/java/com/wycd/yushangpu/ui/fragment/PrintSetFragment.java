@@ -1,25 +1,15 @@
 package com.wycd.yushangpu.ui.fragment;
 
-import android.app.AlertDialog;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -43,23 +33,15 @@ import com.wycd.yushangpu.model.ImpParamLoading;
 import com.wycd.yushangpu.model.ImpShopInfo;
 import com.wycd.yushangpu.printutil.ConnectPrinter;
 import com.wycd.yushangpu.printutil.bean.PrintSetBean;
-import com.wycd.yushangpu.tools.DeviceReceiver;
-import com.wycd.yushangpu.tools.LogUtils;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.UpdateAppVersion;
 import com.wycd.yushangpu.ui.LoginActivity;
 import com.wycd.yushangpu.ui.LogoActivity;
 import com.wycd.yushangpu.widget.dialog.NoticeDialog;
 
-import net.posprinter.posprinterface.TaskCallback;
-import net.posprinter.utils.PosPrinterDev;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import androidx.appcompat.widget.SwitchCompat;
 import butterknife.OnClick;
@@ -68,11 +50,8 @@ import io.reactivex.functions.Consumer;
 import static com.wycd.yushangpu.MyApplication.ISBULETOOTHCONNECT;
 import static com.wycd.yushangpu.MyApplication.ISCONNECT;
 import static com.wycd.yushangpu.MyApplication.LABELPRINT_IS_OPEN;
-import static com.wycd.yushangpu.MyApplication.myBinder;
 
 public class PrintSetFragment extends BaseFragment {
-
-    private String TAG = "PrintSetFragment";
 
     private TextView mTvPrint, mTvConnect;
     private RadioGroup rgPrinterSelect;
@@ -97,25 +76,6 @@ public class PrintSetFragment extends BaseFragment {
     private PrintSetBean mPrintSetBean;
 
     private int paperType = 2;
-
-    //蓝牙连接相关
-    private List<String> btList = new ArrayList<>();
-    private ArrayList<String> btFoundList = new ArrayList<>();
-    private ArrayAdapter<String> BtBoudAdapter, BtfoundAdapter;
-    private View BtDialogView;
-    private ListView BtBoundLv, BtFoundLv;
-    private LinearLayout ll_BtFound;
-    private AlertDialog btdialog;
-    private Button btScan;
-    private DeviceReceiver BtReciever;
-    private BluetoothAdapter bluetoothAdapter;
-
-    //usb连接相关
-    View dialogView3;
-    private TextView tv_usb;
-    private List<String> usbList;
-    private ListView lv_usb;
-    private ArrayAdapter<String> adapter3;
 
     @Override
     public int getContentView() {
@@ -454,10 +414,10 @@ public class PrintSetFragment extends BaseFragment {
                 switch (ConnectPrinter.rbType) {
                     case 0:
                     case 1:
-                        setUSB();
+                        ConnectPrinter.setUSB(homeActivity, mTvPrint);
                         break;
                     case 2:
-                        setBluetooth();
+                        ConnectPrinter.setBluetooth(homeActivity, mTvPrint);
                         break;
                 }
             }
@@ -535,196 +495,6 @@ public class PrintSetFragment extends BaseFragment {
             case R.id.rb_software_info:
                 softwareInfoLayout.setVisibility(View.VISIBLE);
                 break;
-        }
-    }
-
-    /**
-     * 获取标签USB列表
-     */
-    private void setUSB() {
-        LayoutInflater inflater = LayoutInflater.from(getActivity());
-        dialogView3 = inflater.inflate(R.layout.usb_link, null);
-        tv_usb = (TextView) dialogView3.findViewById(R.id.textView1);
-        lv_usb = (ListView) dialogView3.findViewById(R.id.listView1);
-
-        usbList = PosPrinterDev.GetUsbPathNames(getActivity());
-        if (usbList == null) {
-            usbList = new ArrayList<>();
-        }
-
-        tv_usb.setText(getString(R.string.usb_pre_con) + usbList.size());
-        adapter3 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, usbList);
-        lv_usb.setAdapter(adapter3);
-
-        AlertDialog dialog = new AlertDialog.Builder(getActivity())
-                .setView(dialogView3).create();
-        dialog.show();
-
-        setUsbLisener(dialog);
-    }
-
-    private void setUsbLisener(final AlertDialog dialog) {
-        lv_usb.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                mTvPrint.setText(usbList.get(i));
-                ConnectPrinter.authorizationConnectUSB(homeActivity, usbList.get(i));
-                dialog.cancel();
-            }
-        });
-    }
-
-    /**
-     * 选择蓝牙设备
-     */
-    private void setBluetooth() {
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        //判断是否打开蓝牙设备
-        if (!bluetoothAdapter.isEnabled()) {
-            //请求用户开启
-            Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(intent, 1);
-        } else {
-            showblueboothlist();
-        }
-    }
-
-    private void showblueboothlist() {
-        if (!bluetoothAdapter.isDiscovering()) {
-            bluetoothAdapter.startDiscovery();
-        }
-        LayoutInflater inflater = LayoutInflater.from(getActivity());
-        BtDialogView = inflater.inflate(R.layout.printer_list, null);
-        BtBoudAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, btList);
-        BtBoundLv = (ListView) BtDialogView.findViewById(R.id.listView1);
-        btScan = (Button) BtDialogView.findViewById(R.id.btn_scan);
-        ll_BtFound = (LinearLayout) BtDialogView.findViewById(R.id.ll1);
-        BtFoundLv = (ListView) BtDialogView.findViewById(R.id.listView2);
-        BtfoundAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, btFoundList);
-        BtBoundLv.setAdapter(BtBoudAdapter);
-        BtFoundLv.setAdapter(BtfoundAdapter);
-        btdialog = new AlertDialog.Builder(getActivity()).setView(BtDialogView).create();
-        btdialog.show();
-
-        BtReciever = new DeviceReceiver(btFoundList, BtfoundAdapter, BtFoundLv);
-
-        //注册蓝牙广播接收者
-        IntentFilter filterStart = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-        IntentFilter filterEnd = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
-        getActivity().registerReceiver(BtReciever, filterStart);
-        getActivity().registerReceiver(BtReciever, filterEnd);
-
-        setDlistener();
-        findAvalibleDevice();
-    }
-
-    private void setDlistener() {
-        // TODO Auto-generated method stub
-        btScan.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                ll_BtFound.setVisibility(View.VISIBLE);
-            }
-        });
-        //已配对的设备的点击连接
-        BtBoundLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                    long arg3) {
-                // TODO Auto-generated method stub
-                try {
-                    if (bluetoothAdapter != null && bluetoothAdapter.isDiscovering()) {
-                        bluetoothAdapter.cancelDiscovery();
-                    }
-                    String mac = btList.get(arg2);
-                    mTvPrint.setText(mac.substring(0, mac.indexOf("\n")));
-                    mTvConnect.setText("连接中");
-                    btdialog.cancel();
-                    connectBT(mac.substring(0, mac.indexOf("\n")), mac.substring(mac.length() - 17));
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                    LogUtils.e("======== Error ========", e.getMessage());
-                }
-            }
-        });
-        //未配对的设备，点击，配对，再连接
-        BtFoundLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                    long arg3) {
-                // TODO Auto-generated method stub
-                try {
-                    if (bluetoothAdapter != null && bluetoothAdapter.isDiscovering()) {
-                        bluetoothAdapter.cancelDiscovery();
-                    }
-                    String msg = btFoundList.get(arg2);
-                    mTvPrint.setText(msg.substring(0, msg.indexOf("\n")));
-                    mTvConnect.setText("连接中");
-                    btdialog.cancel();
-                    connectBT(msg.substring(0, msg.indexOf("\n")), msg.substring(msg.length() - 17));
-                    Log.i("TAG", "mac=" + msg);
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                    LogUtils.e("======== Error ========", e.getMessage());
-                }
-            }
-        });
-    }
-
-    /*
-    找可连接的蓝牙设备
-     */
-    private void findAvalibleDevice() {
-        // TODO Auto-generated method stub
-        //获取可配对蓝牙设备
-        Set<BluetoothDevice> device = bluetoothAdapter.getBondedDevices();
-
-        btList.clear();
-        if (bluetoothAdapter != null && bluetoothAdapter.isDiscovering()) {
-            BtBoudAdapter.notifyDataSetChanged();
-        }
-        if (device.size() > 0) {
-            //存在已经配对过的蓝牙设备
-            for (Iterator<BluetoothDevice> it = device.iterator(); it.hasNext(); ) {
-                BluetoothDevice btd = it.next();
-                btList.add(btd.getName() + '\n' + btd.getAddress());
-                BtBoudAdapter.notifyDataSetChanged();
-            }
-        } else {  //不存在已经配对过的蓝牙设备
-            btList.add("不存在已经配对过的蓝牙设备");
-            BtBoudAdapter.notifyDataSetChanged();
-        }
-    }
-
-    /**
-     * 连接蓝牙
-     */
-    private void connectBT(final String btName, final String btAddress) {
-        if (btAddress.equals("")) {
-            mTvConnect.setText(getString(R.string.con_failed));
-        } else {
-            myBinder.ConnectBtPort(btAddress, new TaskCallback() {
-                @Override
-                public void OnSucceed() {
-                    ISBULETOOTHCONNECT = true;
-                    ISCONNECT = false;
-                    CacheDoubleUtils.getInstance().put("BlueToothName", btName);
-                    CacheDoubleUtils.getInstance().put("BlueToothAddress", btAddress);
-                    mTvConnect.setText(getString(R.string.con_success));
-                }
-
-                @Override
-                public void OnFailed() {
-                    ISBULETOOTHCONNECT = false;
-                    mTvConnect.setText(getString(R.string.con_failed));
-                }
-            });
         }
     }
 

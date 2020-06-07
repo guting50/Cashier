@@ -515,6 +515,7 @@
                             <RadioButton
                                 android:id="@+id/rb_printer_selected_usb"
                                 style="@style/RadioButton"
+                                android:checked="true"
                                 android:gravity="center"
                                 android:text="usb"
                                 android:textColor="@color/color_main_text_black" />

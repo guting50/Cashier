@@ -61,9 +61,6 @@ public class DeviceReceiver extends BroadcastReceiver {
                     LogUtils.e("======== Error ========", e.getMessage());
                 }
             }
-
-
         }
-
     }
 }
