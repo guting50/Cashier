@@ -16,5 +16,6 @@ public class TestPresentation extends Presentation {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.presentation_test);
+        
     }
 }
