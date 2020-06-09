@@ -718,7 +718,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
 
             @Override
             public void OnFailed() {
-//                ToastUtils.showLong("打印失败");
+                ToastUtils.showLong("打印失败");
             }
         }, new ProcessData() {
             @Override
