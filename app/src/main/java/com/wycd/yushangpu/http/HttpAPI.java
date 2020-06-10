@@ -79,7 +79,7 @@ public class HttpAPI {
         //查询商品组合
         public static final String GROUPGOODS_LIST = MyApplication.BASE_URL + "api/ProductManger/GetGroupGoodsList";
 
-        //查询商品列表
+        //查询消费订单列表
         public static final String QUERYALL_LIST = MyApplication.BASE_URL + "api/ConsumeOrder/QueryAllOrderList";
 
         //登陆

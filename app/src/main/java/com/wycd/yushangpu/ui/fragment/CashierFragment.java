@@ -59,9 +59,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.wycd.yushangpu.MyApplication.ISLABELCONNECT;
@@ -187,7 +185,7 @@ public class CashierFragment extends BaseFragment {
                     mShopLeftAdapter.notifyItemRangeChanged(po, mShopLeftAdapter.getItemCount());
                     jisuanAllPrice();
 
-                    updateBttGetOrder();
+                    updateBntGetOrder();
                 }
             }
 
@@ -283,7 +281,8 @@ public class CashierFragment extends BaseFragment {
                             shopMsg.setPM_UnitPrice(Double.parseDouble(mone));
                             shopMsg.setJisuanPrice(Double.parseDouble(mone));
                             shopMsg.setStock_Number(1);
-                            shopMsg.setPM_IsService(1);
+                            shopMsg.setPM_IsService(0);
+                            shopMsg.setGroupCount("1");
                             shopMsg.setPM_Name("快速收银商品");
                             addCashierList(shopMsg);
                         }
@@ -401,13 +400,13 @@ public class CashierFragment extends BaseFragment {
                                 mShopLeftAdapter.notifyDataSetChanged();
                                 jisuanAllPrice(false);
                             }
-                            updateBttGetOrder();
+                            updateBntGetOrder();
                         }
 
                         @Override
                         public void onErrorResponse(Object msg) {
                             qudanFragment.hide();
-                            updateBttGetOrder();
+                            updateBntGetOrder();
                         }
                     });
                 }
@@ -617,22 +616,23 @@ public class CashierFragment extends BaseFragment {
             //如果有快速收银商品 ，就不在添加其他的商品
             return;
         }
-        if (shopMsg.getStock_Number() <= 0 && BasicEucalyptusPresnter.isZeroStock && shopMsg.getPM_IsService() == 0) {
-            ToastUtils.showLong("当前库存不足");
-            return;
-        }
         double addnum = 1;
         if (BasicEucalyptusPresnter.isZeroStock && shopMsg.getPM_IsService() == 0) {//禁止0库存销售的普通商品
-            if (shopMsg.getStock_Number() - 1 >= 0) { //库存大于等于1
-                addnum = 1;
-            } else {//库存大于0小于1
+            if (shopMsg.getStock_Number() <= 0) {
+                ToastUtils.showLong("当前库存不足");
+                return;
+            }
+            if (shopMsg.getStock_Number() < 1) { //库存大于0小于1
                 addnum = shopMsg.getStock_Number();
             }
-        } else {
-            addnum = 1;
         }
-
-        if (!TextUtils.isEmpty(shopMsg.getPM_GroupGID())/* && Integer.parseInt(shopMsg.getGroupCount()) > 1*/) {
+//        1.若果是 套餐 的话  直接加进去
+//        2.若果是 商品 且GroupCount==1  直接加进去
+//        2.若果是 商品 且GroupCount！=1  需要你根据PM_GroupGID到本地数据库查询
+        if (shopMsg.getPM_IsService() == 3 ||
+                (shopMsg.getPM_IsService() == 0 && Double.valueOf(shopMsg.getGroupCount()) == 1)) {
+            addShopLeftList(shopMsg, addnum);
+        } else if (shopMsg.getPM_IsService() == 0 && Double.valueOf(shopMsg.getGroupCount()) != 1) {
             homeActivity.dialog.show();
             final double finalAddnum = addnum;
             String url = HttpAPI.API().GROUPGOODS_LIST;
@@ -652,44 +652,34 @@ public class CashierFragment extends BaseFragment {
                     }
                 }
             });
-        } else {
-            addShopLeftList(shopMsg, addnum);
         }
     }
 
     private void addShopLeftList(ShopMsg shopMsg, double addnum) {
+        //深拷贝
         shopMsg = GsonUtils.getGson().fromJson(GsonUtils.getGson().toJson(shopMsg), ShopMsg.class);
 
         double num = 0;
-        int pos = 0;
 
-        for (int j = 0; j < mShopLeftList.size(); j++) {
-            if (shopMsg.getGID().equals(mShopLeftList.get(j).getGID()) && !mShopLeftList.get(j).isIsgive()) {
-                num = mShopLeftList.get(j).getNum();
-                pos = j;
+        for (ShopMsg item : mShopLeftList) {//如果添加的商品已存在，就在不再新增一条，只修改数量
+            item.setCheck(false);
+            if (shopMsg.getGID().equals(item.getGID()) && !item.isIsgive()) {
+                num = item.getNum();
+                leftpos = mShopLeftList.indexOf(item);
+                item.setCheck(true);
             }
         }
         shopMsg.setNum(num + addnum);
-        if (num == 0) {
-            shopMsg.setCheck(false);
-            mShopLeftList.add(0, shopMsg);
-            if (leftpos != -1) {
-                leftpos += 1;
-            }
 
-            updateBttGetOrder();
+        if (num == 0) {// 表示新增的商品在列表中没有
+            shopMsg.setCheck(true);
+            mShopLeftList.add(0, shopMsg);
+
+            updateBntGetOrder();
         } else {
-            mShopLeftList.get(pos).setNum(num + addnum);
+            mShopLeftList.get(leftpos).setNum(num + addnum);
         }
         jisuanAllPrice();
-        for (int i = 0; i < mShopLeftList.size(); i++) {
-            if (shopMsg.getGID().equals(mShopLeftList.get(i).getGID()) && !mShopLeftList.get(i).isIsgive()) {
-                mShopLeftList.get(i).setCheck(true);
-                leftpos = i;
-            } else {
-                mShopLeftList.get(i).setCheck(false);
-            }
-        }
         mShopLeftAdapter.notifyDataSetChanged();
     }
 
@@ -828,7 +818,7 @@ public class CashierFragment extends BaseFragment {
                 }
                 newmsg.setTotalPrice(CommonUtils.multiply(msg.getPM_OriginalPrice(), msg.getPM_Number()));
                 mShopLeftList.add(newmsg);
-                updateBttGetOrder();
+                updateBntGetOrder();
             }
         }
     }
@@ -861,7 +851,7 @@ public class CashierFragment extends BaseFragment {
         });
     }
 
-    public void updateBttGetOrder() {
+    public void updateBntGetOrder() {
         orderCountLayout.setVisibility(View.GONE);
         if (mShopLeftList.size() > 0) {
             bttGetOrder.setText("挂单[F1]");
@@ -884,7 +874,7 @@ public class CashierFragment extends BaseFragment {
         tvShoukuan.setTag(0);
         tvShoukuan.setText("快速收银[Enter]");
         tvNumTotal.setText("0");
-        updateBttGetOrder();
+        updateBntGetOrder();
 
         editCashierGoodsFragment.hide();
     }
@@ -904,7 +894,7 @@ public class CashierFragment extends BaseFragment {
                 tvNumTotal.setText("0");
                 leftpos = -1;
 
-                updateBttGetOrder();
+                updateBntGetOrder();
 
                 editCashierGoodsFragment.hide();
                 break;

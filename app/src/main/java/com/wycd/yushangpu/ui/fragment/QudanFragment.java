@@ -198,7 +198,7 @@ public class QudanFragment extends BaseFragment {
                     }
                 }
                 upData();
-                homeActivity.cashierFragment.updateBttGetOrder();
+                homeActivity.cashierFragment.updateBntGetOrder();
             }
 
             @Override

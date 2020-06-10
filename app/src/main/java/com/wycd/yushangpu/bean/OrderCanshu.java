@@ -39,7 +39,7 @@ public class OrderCanshu implements Parcelable {
     private String SM_Name;//		店铺名称	string
     private String SM_Contacter;//		联系人	string
     private String CO_Identifying; //订单状态名
-    private String CO_IdentifyingState; //订单状态码 1 挂单  8挂账
+    private int CO_IdentifyingState; //订单状态码 1 挂单  8挂账
 
     public String getCO_Identifying() {
         return CO_Identifying;
@@ -50,10 +50,10 @@ public class OrderCanshu implements Parcelable {
     }
 
     public String getCO_IdentifyingState() {
-        return CO_IdentifyingState;
+        return CO_IdentifyingState + "";
     }
 
-    public void setCO_IdentifyingState(String CO_IdentifyingState) {
+    public void setCO_IdentifyingState(int CO_IdentifyingState) {
         this.CO_IdentifyingState = CO_IdentifyingState;
     }
 
@@ -501,6 +501,9 @@ public class OrderCanshu implements Parcelable {
         }
     }
 
+    public OrderCanshu() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -538,10 +541,7 @@ public class OrderCanshu implements Parcelable {
         dest.writeString(this.SM_Name);
         dest.writeString(this.SM_Contacter);
         dest.writeString(this.CO_Identifying);
-        dest.writeString(this.CO_IdentifyingState);
-    }
-
-    public OrderCanshu() {
+        dest.writeInt(this.CO_IdentifyingState);
     }
 
     protected OrderCanshu(Parcel in) {
@@ -576,7 +576,7 @@ public class OrderCanshu implements Parcelable {
         this.SM_Name = in.readString();
         this.SM_Contacter = in.readString();
         this.CO_Identifying = in.readString();
-        this.CO_IdentifyingState = in.readString();
+        this.CO_IdentifyingState = in.readInt();
     }
 
     public static final Creator<OrderCanshu> CREATOR = new Creator<OrderCanshu>() {
