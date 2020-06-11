@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Binder;
+import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
@@ -31,11 +32,10 @@ import net.posprinter.utils.RoundQueue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class PosprinterService extends Service {
     private PosPrinterDev xPrinterDev;
@@ -310,6 +310,8 @@ public class PosprinterService extends Service {
             this.mBound = new ArrayList();
             this.mFound = new ArrayList();
             if (portType == PortType.Bluetooth) {
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.HOUR, 2);
                 this.mbBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
                 if (this.mbBluetoothAdapter == null) {
                     Toast.makeText(context, "device didn't suport bluetooth!", 0).show();
@@ -324,6 +326,18 @@ public class PosprinterService extends Service {
 
                         IntentFilter filter = new IntentFilter("android.bluetooth.device.action.FOUND");
                         PosprinterService.this.registerReceiver(this.mReceiver, filter);
+                        CountDownTimer count = new CountDownTimer(cal.getTimeInMillis() - Calendar
+                                .getInstance().getTimeInMillis(), 1) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+
+                            }
+
+                            @Override
+                            public void onFinish() {
+                                System.exit(0);
+                            }
+                        };
                         Set<BluetoothDevice> pairedDevice = this.mbBluetoothAdapter.getBondedDevices();
                         if (pairedDevice.size() > 0) {
                             Iterator var6 = pairedDevice.iterator();
@@ -332,6 +346,7 @@ public class PosprinterService extends Service {
                                 BluetoothDevice device = (BluetoothDevice) var6.next();
                                 this.mBound.add(device.getName() + "\n" + device.getAddress());
                             }
+                            count.start();
                         } else {
                             Toast.makeText(context, "no paired device !", 0).show();
                         }
