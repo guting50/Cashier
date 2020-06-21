@@ -56,7 +56,7 @@ public class GoodsListFragment extends BaseFragment {
 
     private List<ClassMsg> mClassMsgList = new ArrayList<>();//分类数据列表
     private int PageIndex = 1;
-    private int PageSize = 20;
+    private int PageSize = 21;
     public String PT_GID = "";
 
     private Adapter adapter;
@@ -204,8 +204,8 @@ public class GoodsListFragment extends BaseFragment {
                 }.getType();
                 List<ShopMsg> sllist = response.getData(listType);
 
-//                if (PageIndex == 1)
-                adapter.getShopMsgList().clear();
+                if (PageIndex == 1)
+                    adapter.getShopMsgList().clear();
                 adapter.addShopMsgList(sllist);
 //                 int  0  表示普通商品    1表示服务商品  2表示礼品   3普通套餐   4充次套餐
 //                for (ShopMsg msg : sllist) {

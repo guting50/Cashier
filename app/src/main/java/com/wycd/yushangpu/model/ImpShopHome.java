@@ -28,7 +28,7 @@ public class ImpShopHome {
                          final InterfaceBack back) {
         // TODO 自动生成的方法存根
         if (cacheList.size() > 0) {
-            getShopCacheList(PT_GID, PM_CodeOrNameOrSimpleCode, back);
+            getShopCacheList(PT_GID, PM_CodeOrNameOrSimpleCode, PageIndex, PageSize, back);
             return;
         }
         RequestParams params = new RequestParams();
@@ -58,7 +58,7 @@ public class ImpShopHome {
 
     public static List<ShopMsg> cacheList = new ArrayList<>();
 
-    public void getShopCacheList(final String PT_GID, final String PM_CodeOrNameOrSimpleCode, InterfaceBack back) {
+    public void getShopCacheList(final String PT_GID, final String PM_CodeOrNameOrSimpleCode, int PageIndex, final int PageSize, InterfaceBack back) {
         Type listType = new TypeToken<List<ShopMsg>>() {
         }.getType();
         List<ShopMsg> tempList = GsonUtils.getGson().fromJson(GsonUtils.getGson().toJson(cacheList), listType);
@@ -89,7 +89,8 @@ public class ImpShopHome {
             }
         }
         basePageRes.setDataCount(newList.size());
-        basePageRes.setDataList(newList);
+        int toIndex = PageIndex * PageSize + 1;
+        basePageRes.setDataList(newList.subList((PageIndex - 1) * PageSize, toIndex > newList.size() ? newList.size() : toIndex));
         back.onResponse(basePageRes);
     }
 

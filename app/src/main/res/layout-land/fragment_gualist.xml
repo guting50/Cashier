@@ -50,6 +50,7 @@
             android:layout_marginLeft="@dimen/dp_15"
             android:layout_marginTop="10dp"
             android:layout_marginRight="@dimen/dp_15"
+            android:visibility="gone"
             app:corners_radius="4dp"
             app:solid_color="#ecfcf1"
             app:stroke_color="#b3e4c6"
