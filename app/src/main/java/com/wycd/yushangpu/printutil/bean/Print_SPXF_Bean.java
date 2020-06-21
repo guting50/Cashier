@@ -75,6 +75,8 @@ public class Print_SPXF_Bean {
     private double RechargeTotal;
     private double ExchangeNum;
     private String EMName;
+    private String PayInfo;
+    private List<GoodsListBean> GoodsList;
 
     public String getEMName() {
         return EMName;
@@ -131,9 +133,6 @@ public class Print_SPXF_Bean {
     public void setPayInfo(String payInfo) {
         PayInfo = payInfo;
     }
-
-    private String PayInfo;
-    private List<GoodsListBean> GoodsList;
 
     public String getCashier() {
         return Cashier;

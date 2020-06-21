@@ -1,7 +1,7 @@
 package com.wycd.yushangpu.printutil;
 
 
-import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.google.gson.reflect.TypeToken;
@@ -13,10 +13,11 @@ import com.wycd.yushangpu.http.BaseRes;
 import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.printutil.bean.PrintParamSetBean;
-import com.wycd.yushangpu.printutil.bean.PrintSetBean;
 
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -28,26 +29,114 @@ import cz.msebera.android.httpclient.Header;
 
 public class GetPrintSet {
 
-    private static Context mContext;
+    /**
+     * 会员充次
+     */
+    public static Map<String, String> mTimesRechargeMap = new HashMap<>();
+    /**
+     * 会员充值
+     */
+    public static Map<String, String> mRechargeMap = new HashMap<>();
+    /**
+     * 商品消费
+     */
+    public static Map<String, String> mGoodsConsumeMap = new HashMap<>();
+    /**
+     * 计次消费
+     */
+    public static Map<String, String> mTimesConsumeMap = new HashMap<>();
+    /**
+     * 积分兑换
+     */
+    public static Map<String, String> mIntegralExchangeMap = new HashMap<>();
+    /**
+     * 快速消费
+     */
+    public static Map<String, String> mFastConsumeMap = new HashMap<>();
+    /**
+     * 套餐消费
+     */
+    public static Map<String, String> mTCConsumeMap = new HashMap<>();
+    /**
+     * 会员开卡
+     */
+    public static Map<String, String> mCardOpenMap = new HashMap<>();
+
+    /**
+     * 商品入库
+     */
+    public static Map<String, String> mGoodsIn = new HashMap<>();
+
+    /**
+     * 商品出库
+     */
+    public static Map<String, String> mGoodsOut = new HashMap<>();
+
+    /**
+     * 商品退货
+     */
+    public static Map<String, String> mReTureOrder = new HashMap<>();
+
+    /**
+     * 交班
+     */
+    public static Map<String, String> mHandOverMap = new HashMap<>();
+
+    /**
+     * logo
+     */
+    public static Bitmap HYCZ_LOGO, HYCC_LOGO, SPXF_LOGO, KSXF_LOGO, JCXF_LOGO, JFDH_LOGO,
+            SPTH_LOGO, JB_LOGO, FTXF_LOGO, HYSK_LOGO, TCXF_LOGO, OPENCARD_LOGO, RK_LOGO, CK_LOGO;
+    /**
+     * 二维码
+     */
+    public static Bitmap HYCZ_QR, HYCC_QR, SPXF_QR, KSXF_QR, JCXF_QR, JFDH_QR,
+            SPTH_QR, JB_QR, FTXF_QR, HYSK_QR, TCXF_QR, OPENCARD_QR, RK_QR, CK_QR;
+
+
+    /**
+     * 打印是否开启
+     */
+    public static boolean PRINT_IS_OPEN = false;
+
+    /**
+     * 标签打印是否开启
+     */
+    public static boolean LABELPRINT_IS_OPEN = false;
+
+    /**
+     * 标签打印是否开启
+     */
+    public static int LABEL_TYPE = 0;
+
+    /**
+     * 小票打印份数
+     */
+    public static int SPXF_PRINT_TIMES = 1;
+    public static int KSXF_PRINT_TIMES = 1;
+    public static int HYKK_PRINT_TIMES = 1;
+    public static int JB_PRINT_TIMES = 1;
+
+    public static boolean ISLABELCONNECT = false;//USB标签打印机
+    public static boolean ISBULETOOTHCONNECT = false;//蓝牙小票打印机
+    public static boolean ISCONNECT = false;//USB小票打印机
 
     /**
      * 获取打印设置
      */
     public static void getPrintParamSet() {
-        MyApplication.mTimesRechargeMap.clear();
-        MyApplication.mRechargeMap.clear();
-        MyApplication.mGoodsConsumeMap.clear();
-        MyApplication.mTimesConsumeMap.clear();
-        MyApplication.mIntegralExchangeMap.clear();
-        MyApplication.mFastConsumeMap.clear();
-        MyApplication.mTCConsumeMap.clear();
-        MyApplication.mCardOpenMap.clear();
-        MyApplication.mHandOverMap.clear();
-        MyApplication.mGoodsIn.clear();
-        MyApplication.mGoodsOut.clear();
-        MyApplication.mReTureOrder.clear();
-
-        mContext = MyApplication.getContext();
+        mTimesRechargeMap.clear();
+        mRechargeMap.clear();
+        mGoodsConsumeMap.clear();
+        mTimesConsumeMap.clear();
+        mIntegralExchangeMap.clear();
+        mFastConsumeMap.clear();
+        mTCConsumeMap.clear();
+        mCardOpenMap.clear();
+        mHandOverMap.clear();
+        mGoodsIn.clear();
+        mGoodsOut.clear();
+        mReTureOrder.clear();
 
         String url = HttpAPI.API().GET_PRINT_TEMP;
         AsyncHttpUtils.postHttp(url, new CallBack() {
@@ -78,7 +167,7 @@ public class GetPrintSet {
                                                 "HYCC", false);
                                     }
                                 }
-                                MyApplication.mTimesRechargeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
+                                mTimesRechargeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
                             }
                         }
                         //会员充值
@@ -100,7 +189,7 @@ public class GetPrintSet {
                                                 "HYCZ", false);
                                     }
                                 }
-                                MyApplication.mRechargeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
+                                mRechargeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
                             }
                         }
                         //商品消费
@@ -122,7 +211,7 @@ public class GetPrintSet {
                                                 "SPXF", false);
                                     }
                                 }
-                                MyApplication.mGoodsConsumeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
+                                mGoodsConsumeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
                             }
                         }
                         //计次消费
@@ -144,7 +233,7 @@ public class GetPrintSet {
                                                 "JCXF", false);
                                     }
                                 }
-                                MyApplication.mTimesConsumeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
+                                mTimesConsumeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
                             }
                         }
                         //积分兑换
@@ -166,7 +255,7 @@ public class GetPrintSet {
                                                 "JFDH", false);
                                     }
                                 }
-                                MyApplication.mIntegralExchangeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
+                                mIntegralExchangeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
                             }
                         }
                         //快速消费
@@ -188,7 +277,7 @@ public class GetPrintSet {
                                                 "KSXF", false);
                                     }
                                 }
-                                MyApplication.mFastConsumeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
+                                mFastConsumeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
                             }
                         }
                         //套餐消费
@@ -210,7 +299,7 @@ public class GetPrintSet {
                                                 "TCXF", false);
                                     }
                                 }
-                                MyApplication.mTCConsumeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
+                                mTCConsumeMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
                             }
                         }
 
@@ -233,7 +322,7 @@ public class GetPrintSet {
                                                 "HYKK", false);
                                     }
                                 }
-                                MyApplication.mCardOpenMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
+                                mCardOpenMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
                             }
                         }
 
@@ -256,7 +345,7 @@ public class GetPrintSet {
                                                 "JB", false);
                                     }
                                 }
-                                MyApplication.mHandOverMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
+                                mHandOverMap.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
                             }
                         }
 
@@ -279,7 +368,7 @@ public class GetPrintSet {
                                                 "RK", false);
                                     }
                                 }
-                                MyApplication.mGoodsIn.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
+                                mGoodsIn.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
                             }
                         }
 
@@ -302,7 +391,7 @@ public class GetPrintSet {
                                                 "CK", false);
                                     }
                                 }
-                                MyApplication.mGoodsOut.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
+                                mGoodsOut.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
                             }
                         }
                         //商品退货
@@ -324,7 +413,7 @@ public class GetPrintSet {
                                                 "SPTH", false);
                                     }
                                 }
-                                MyApplication.mReTureOrder.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
+                                mReTureOrder.put(itemsBean.get(j).getItemName(), itemsBean.get(j).getItemValue());
                             }
                         }
 
@@ -335,42 +424,6 @@ public class GetPrintSet {
             @Override
             public void onErrorResponse(Object msg) {
                 com.blankj.utilcode.util.ToastUtils.showShort("获取打印模板失败");
-            }
-        });
-    }
-
-    /**
-     * 获取打印设置
-     */
-    public static void getPrintSet() {
-        String url = HttpAPI.API().GET_PRINT_SET;
-        AsyncHttpUtils.postHttp(url, new CallBack() {
-            @Override
-            public void onResponse(BaseRes response) {
-                PrintSetBean printSetBean = response.getData(PrintSetBean.class);
-                MyApplication.LABEL_TYPE = printSetBean.getPS_TipPrintPaper();
-                if (printSetBean.getPS_IsEnabled() == 1) {
-                    MyApplication.PRINT_IS_OPEN = true;
-                } else {
-                    MyApplication.PRINT_IS_OPEN = false;
-                }
-                if (printSetBean != null && printSetBean.getPrintTimesList() != null) {
-                    for (int i = 0; i < printSetBean.getPrintTimesList().size(); i++) {
-                        PrintSetBean.PrintTimesListBean bean = printSetBean.getPrintTimesList().get(i);
-                        if ("SPXF".equals(bean.getPT_Code())) {
-                            MyApplication.SPXF_PRINT_TIMES = bean.getPT_Times();
-                        }
-                        if ("JB".equals(bean.getPT_Code())) {
-                            MyApplication.JB_PRINT_TIMES = bean.getPT_Times();
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onErrorResponse(Object msg) {
-                super.onErrorResponse(msg);
-                MyApplication.PRINT_IS_OPEN = false;
             }
         });
     }
@@ -391,105 +444,105 @@ public class GetPrintSet {
                     //会员充值
                     case "HYCZ":
                         if (b) {
-                            MyApplication.HYCZ_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.HYCZ_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
                         } else {
-                            MyApplication.HYCZ_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.HYCZ_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
                         }
                         break;
                     //会员充次
                     case "HYCC":
                         if (b) {
-                            MyApplication.HYCC_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.HYCC_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
                         } else {
-                            MyApplication.HYCC_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.HYCC_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
                         }
                         break;
                     // 商品消费
                     case "SPXF":
                         if (b) {
-                            MyApplication.SPXF_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.SPXF_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
                         } else {
-                            MyApplication.SPXF_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.SPXF_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
                         }
                         break;
                     //快速消费
                     case "KSXF":
                         if (b) {
-                            MyApplication.KSXF_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.KSXF_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
                         } else {
-                            MyApplication.KSXF_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.KSXF_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
                         }
                         break;
                     //计次消费
                     case "JCXF":
                         if (b) {
-                            MyApplication.JCXF_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.JCXF_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
                         } else {
-                            MyApplication.JCXF_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.JCXF_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
                         }
                         break;
                     //积分兑换
                     case "JFDH":
                         if (b) {
-                            MyApplication.JFDH_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.JFDH_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
                         } else {
-                            MyApplication.JFDH_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.JFDH_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
                         }
                         break;
                     //商品退货
                     case "SPTH":
                         if (b) {
-                            MyApplication.SPTH_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.SPTH_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
                         } else {
-                            MyApplication.SPTH_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.SPTH_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
                         }
                         break;
                     //交班
                     case "JB":
                         if (b) {
-                            MyApplication.JB_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.JB_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
                         } else {
-                            MyApplication.JB_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.JB_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
                         }
                         break;
                     //房台消费
                     case "FTXF":
                         if (b) {
-                            MyApplication.FTXF_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.FTXF_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
                         } else {
-                            MyApplication.FTXF_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.FTXF_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
                         }
                         break;
                     //刷卡登记
                     case "HYDJ":
                         if (b) {
-                            MyApplication.HYSK_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.HYSK_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
                         } else {
-                            MyApplication.HYSK_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.HYSK_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
                         }
                         break;
                     //套餐消费
                     case "TCXF":
                         if (b) {
-                            MyApplication.TCXF_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.TCXF_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
                         } else {
-                            MyApplication.TCXF_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.TCXF_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
                         }
                         break;
                     //商品入库
                     case "RK":
                         if (b) {
-                            MyApplication.RK_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.RK_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
                         } else {
-                            MyApplication.RK_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.RK_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
                         }
                         break;
                     //商品出库
                     case "CK":
                         if (b) {
-                            MyApplication.CK_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.CK_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
                         } else {
-                            MyApplication.CK_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                            GetPrintSet.CK_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
                         }
                         break;
                     default:

@@ -1246,8 +1246,6 @@
             android:id="@+id/fl_submit"
             android:layout_width="100dp"
             android:layout_height="48dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
             android:layout_gravity="bottom|right"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="15dp"
@@ -1257,6 +1255,17 @@
             android:textSize="22sp"
             app:corners_radius="4dp"
             app:solid_color="@color/color_149f4a" />
+
+        <CheckBox
+            android:id="@+id/cb_small_ticket"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_gravity="bottom|right"
+            android:layout_marginRight="280dp"
+            android:layout_marginBottom="15dp"
+            android:gravity="center"
+            android:text="小票"
+            android:textSize="22sp" />
     </FrameLayout>
 
 </LinearLayout>

@@ -48,16 +48,16 @@ public class ImpOrderPay {
 
         String url = HttpAPI.API().GOODS_CONSUME_PAY;
         switch (orderType) {
-            case CONSUM_ORDER:
+            case SPXF:
                 url = HttpAPI.API().GOODS_CONSUME_PAY;
                 break;
-            case CELERITY_ORDER:
+            case KSXF:
                 url = HttpAPI.API().GOODS_CELERITY_PAY;
                 break;
             case GUAZHANG_ORDER:
                 url = HttpAPI.API().GUAZHANG;
                 break;
-            case MEM_RECHARGE_PAY:
+            case HYCZ:
                 url = HttpAPI.API().MEM_RECHARGE_PAY;
                 break;
         }

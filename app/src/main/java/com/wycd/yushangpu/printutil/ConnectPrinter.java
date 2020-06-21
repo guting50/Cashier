@@ -49,10 +49,10 @@ import io.reactivex.functions.Consumer;
 
 import static android.hardware.usb.UsbManager.ACTION_USB_DEVICE_ATTACHED;
 import static android.hardware.usb.UsbManager.ACTION_USB_DEVICE_DETACHED;
-import static com.wycd.yushangpu.MyApplication.ISBULETOOTHCONNECT;
-import static com.wycd.yushangpu.MyApplication.ISCONNECT;
-import static com.wycd.yushangpu.MyApplication.ISLABELCONNECT;
 import static com.wycd.yushangpu.MyApplication.myBinder;
+import static com.wycd.yushangpu.printutil.GetPrintSet.ISBULETOOTHCONNECT;
+import static com.wycd.yushangpu.printutil.GetPrintSet.ISCONNECT;
+import static com.wycd.yushangpu.printutil.GetPrintSet.ISLABELCONNECT;
 import static com.wycd.yushangpu.tools.DeviceConnFactoryManager.PrinterCommand.TSC;
 
 @SuppressLint("CheckResult")
@@ -500,6 +500,10 @@ public class ConnectPrinter {
     }
 
     public static void unregisterReceiver(Activity activity) {
-        activity.unregisterReceiver(receiver);
+        try {
+            activity.unregisterReceiver(receiver);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

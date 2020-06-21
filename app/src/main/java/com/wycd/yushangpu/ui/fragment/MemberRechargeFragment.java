@@ -184,7 +184,7 @@ public class MemberRechargeFragment extends BaseFragment {
     private void toJieSuan(OrderCanshu jso) {
         homeActivity.jiesuanBFragment.show(homeActivity, R.id.fragment_content);
         homeActivity.jiesuanBFragment.setData(rechargeMoney, rechargeMoney, vipInfoMsg, jso,
-                JiesuanBFragment.OrderType.MEM_RECHARGE_PAY, new InterfaceBack() {
+                JiesuanBFragment.OrderType.HYCZ, new InterfaceBack() {
                     @Override
                     public void onResponse(Object response) {
                         homeActivity.jiesuanBFragment.hide();

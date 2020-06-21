@@ -47,6 +47,7 @@ import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpParamLoading;
+import com.wycd.yushangpu.printutil.GetPrintSet;
 import com.wycd.yushangpu.printutil.HttpGetPrintContents;
 import com.wycd.yushangpu.tools.DateTimeUtil;
 import com.wycd.yushangpu.tools.Decima2KeeplUtil;
@@ -128,6 +129,8 @@ public class AddOrEditMemberFragment extends BaseFragment {
     RecyclerView recycler_view_costomfields;
     @BindView(R.id.iv_edit_head_img)
     ImageView iv_edit_head_img;
+    @BindView(R.id.cb_small_ticket)
+    CheckBox cb_small_ticket;
 
     @BindView(R.id.select_recycler_view)
     RecyclerView select_recycler_view;
@@ -898,7 +901,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
             params.put("MA_AggregateAmount", "");
             params.put("EM_Name", "");
         }
-
+        GetPrintSet.PRINT_IS_OPEN = cb_small_ticket.isChecked();
 
         homeActivity.dialog.show();
         AsyncHttpUtils.postHttp(url, params, new CallBack() {
@@ -907,7 +910,10 @@ public class AddOrEditMemberFragment extends BaseFragment {
             @Override
             public void onResponse(BaseRes response) {
                 homeActivity.dialog.dismiss();
-                new HttpGetPrintContents().HYKK(homeActivity, new Gson().toJson(response));
+                if (GetPrintSet.PRINT_IS_OPEN) {
+                    VipInfoMsg vipInfoMsg = response.getData(VipInfoMsg.class);
+                    new HttpGetPrintContents().HYKK(homeActivity, vipInfoMsg.getGID());
+                }
                 warnDialog(msgStr + "成功");
                 homeActivity.vipMemberFragment.reset();
                 hide();
@@ -955,7 +961,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
 //                    String OrderCode = "202041215117";
                     String OrderCode = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
                     saomaDialog.saomaPay(response.toString(), smPayMoney + "", OrderCode, OrderCode, result,
-                            JiesuanBFragment.OrderType.ADDO_MEMBER, new InterfaceBack() {
+                            JiesuanBFragment.OrderType.HYKK, new InterfaceBack() {
                                 @Override
                                 public void onResponse(Object response) {
                                     saomaDialog.dismiss();
@@ -1247,7 +1253,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                     selectedHolser.tv_select_lable.setTextColor(homeActivity.getResources().getColor(R.color.white));
                     selectedHolser.tv_select_lable.setBackgroundResource(R.color.color_149f4a);
                     viewParent.setVisibility(View.GONE);
-                    ((View)viewParent.getParent()).setVisibility(View.GONE);
+                    ((View) viewParent.getParent()).setVisibility(View.GONE);
                     back.onResponse(position);
                 }
             });

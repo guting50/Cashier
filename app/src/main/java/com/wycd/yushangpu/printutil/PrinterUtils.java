@@ -2,7 +2,6 @@ package com.wycd.yushangpu.printutil;
 
 
 import android.app.Activity;
-import android.content.Context;
 
 import com.wycd.yushangpu.printutil.bean.CK_Success_Bean;
 import com.wycd.yushangpu.printutil.bean.HandDutyBean;
@@ -17,6 +16,7 @@ import com.wycd.yushangpu.printutil.bean.Print_SPXF_Bean;
 import com.wycd.yushangpu.printutil.bean.RK_Success_Bean;
 import com.wycd.yushangpu.ui.BlueToothActivity;
 
+import java.util.List;
 
 
 /**
@@ -43,94 +43,58 @@ public class PrinterUtils {
     }
 
 
-
     /**
      * 打印小票
      */
     public void print() {
-
+        List<byte[]> byteList = null;
+        byte[] bytes = new byte[0];
         switch (mIsConsumeName) {
             //快速消费
             case "KSXF":
-
-
-                    byte[] bytes = mPrinterSetContents.printBlueTooth_KSXF((Print_KSXF_Bean) mPrintBean);
-                    //发送小票格式数据开始打印
-                    mBlueToothActivity.send(bytes, mReceitsNum, mContext.getSharedPreferences("bluetooth_address", 0));
+                byteList = mPrinterSetContents.printBlueTooth_KSXF((Print_KSXF_Bean) mPrintBean);
                 break;
             //会员充值
             case "HYCZ":
-
-
-                    //配置【会员充值】非拉卡拉、世麦POS机器的小票格式
-                     bytes = mPrinterSetContents.printBlueTooth_HYCZ((Print_HYCZ_Bean) mPrintBean);
-                    //发送小票格式数据开始打印
-                    mBlueToothActivity.send(bytes, mReceitsNum, mContext.getSharedPreferences("bluetooth_address", 0));
+                //配置【会员充值】非拉卡拉、世麦POS机器的小票格式
+                bytes = mPrinterSetContents.printBlueTooth_HYCZ((Print_HYCZ_Bean) mPrintBean);
                 break;
             //会员充次
             case "HYCC":
-
-                    //配置【会员充次】非拉卡拉、世麦POS机器的小票格式
-                     bytes = mPrinterSetContents.printBlueTooth_HYCC((Print_HYCC_Bean) mPrintBean);
-                    //发送小票格式数据开始打印
-                    mBlueToothActivity.send(bytes, mReceitsNum, mContext.getSharedPreferences("bluetooth_address", 0));
+                //配置【会员充次】非拉卡拉、世麦POS机器的小票格式
+                bytes = mPrinterSetContents.printBlueTooth_HYCC((Print_HYCC_Bean) mPrintBean);
                 break;
             //计次消费
             case "JCXF":
-                //世麦POS机器
-
-                    //配置【计次消费】非拉卡拉、世麦POS机器的小票格式
-                     bytes = mPrinterSetContents.printBlueTooth_JCXF((Print_JCXF_Bean) mPrintBean);
-                    //发送小票格式数据开始打印
-                    mBlueToothActivity.send(bytes, mReceitsNum, mContext.getSharedPreferences("bluetooth_address", 0));
-
+                //配置【计次消费】非拉卡拉、世麦POS机器的小票格式
+                bytes = mPrinterSetContents.printBlueTooth_JCXF((Print_JCXF_Bean) mPrintBean);
                 break;
             //商品消费
             case "SPXF":
-                mPrinterSetContents.printBlueTooth_SPXF((Print_SPXF_Bean) mPrintBean);
-                    //发送小票格式数据开始打印
-//                if (!ISCONNECT){
-//                    mBlueToothActivity.send(bytes, mReceitsNum, mContext.getSharedPreferences("bluetooth_address", 0));
-//                }
-
+                byteList = mPrinterSetContents.printBlueTooth_SPXF((Print_SPXF_Bean) mPrintBean);
                 break;
             //积分兑换
             case "JFDH":
-                 bytes = mPrinterSetContents.printBlueTooth_JFDH((Print_JFDH_Bean) mPrintBean);
-                    //发送小票格式数据开始打印
-                    mBlueToothActivity.send(bytes, mReceitsNum, mContext.getSharedPreferences("bluetooth_address", 0));
+                bytes = mPrinterSetContents.printBlueTooth_JFDH((Print_JFDH_Bean) mPrintBean);
                 break;
-
             case "HYKK":
-
-                 bytes = mPrinterSetContents.printBlueTooth_HYKK((Print_HYKK_Bean) mPrintBean);
-                //发送小票格式数据开始打印
-                mBlueToothActivity.send(bytes, mReceitsNum, mContext.getSharedPreferences("bluetooth_address", 0));
+                byteList = mPrinterSetContents.printBlueTooth_HYKK((Print_HYKK_Bean) mPrintBean);
                 break;
-
             case "RK":
                 bytes = mPrinterSetContents.printBlueTooth_RK((RK_Success_Bean) mPrintBean);
-                //发送小票格式数据开始打印
-                mBlueToothActivity.send(bytes, mReceitsNum, mContext.getSharedPreferences("bluetooth_address", 0));
                 break;
             case "CK":
                 bytes = mPrinterSetContents.printBlueTooth_CK((CK_Success_Bean) mPrintBean);
-                //发送小票格式数据开始打印
-                mBlueToothActivity.send(bytes, mReceitsNum, mContext.getSharedPreferences("bluetooth_address", 0));
                 break;
-
             case "JB":
                 bytes = mPrinterSetContents.printBlueTooth_JB((HandDutyBean) mPrintBean);
-//                发送小票格式数据开始打印
-                mBlueToothActivity.send(bytes, mReceitsNum, mContext.getSharedPreferences("bluetooth_address", 0));
                 break;
-
             case "SPTH":
                 bytes = mPrinterSetContents.printBlueTooth_SPTH((Print_SPTH_Bean) mPrintBean);
-                //发送小票格式数据开始打印
-                mBlueToothActivity.send(bytes,mReceitsNum, mContext.getSharedPreferences("bluetooth_address", 0));
                 break;
-
         }
+//        mBlueToothActivity.send(bytes, mReceitsNum, mContext.getSharedPreferences("bluetooth_address", 0));
+
+        mPrinterSetContents.printBlueTooth(byteList, mReceitsNum);
     }
 }

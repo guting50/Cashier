@@ -92,6 +92,7 @@ public class AsyncHttpUtils {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                LogUtils.e("======== Error ========", error.getMessage());
                 try {
                     String errorMsg = new String(responseBody, "UTF-8");
                     back.onErrorResponse(errorMsg + error.getMessage());

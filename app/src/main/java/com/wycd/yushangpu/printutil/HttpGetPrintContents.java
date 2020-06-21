@@ -5,7 +5,6 @@ import android.app.Activity;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.loopj.android.http.RequestParams;
-import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
 import com.wycd.yushangpu.http.BaseRes;
 import com.wycd.yushangpu.http.CallBack;
@@ -13,6 +12,7 @@ import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.printutil.bean.HandDutyBean;
 import com.wycd.yushangpu.printutil.bean.Print_HYCZ_Bean;
 import com.wycd.yushangpu.printutil.bean.Print_HYKK_Bean;
+import com.wycd.yushangpu.printutil.bean.Print_KSXF_Bean;
 import com.wycd.yushangpu.printutil.bean.Print_SPXF_Bean;
 import com.wycd.yushangpu.tools.LogUtils;
 
@@ -31,24 +31,33 @@ public class HttpGetPrintContents {
     private static int mPrintNum = 1;
 
 
-//    /**
-//     * 进行快速消费的打印
-//     */
-//    public static void KSXF(Activity mContext, String responseString) {
-//
-//        try {
-//            Print_KSXF_Bean print_ksxf_bean = gson.fromJson(responseString, Print_KSXF_Bean.class);
-//            //打印小票
-//            PrinterUtils printerUtils = new PrinterUtils(mContext, mPrintNum, print_ksxf_bean, "KSXF");
-//            printerUtils.print();
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return;
-//        }
-//
-//
-//    }
+    /**
+     * 进行快速消费的打印
+     */
+    public static void KSXF(Activity mContext, String GID) {
+        RequestParams params = new RequestParams();
+        params.put("OrderGID", GID);
+
+        LogUtils.d("======== url ======== >>", HttpAPI.API().GET_GOODS_PRINT_DATA);
+        LogUtils.d("======== params ======== >>", params.toString());
+        AsyncHttpUtils.postHttp(HttpAPI.API().GET_GOODS_PRINT_DATA, params, new CallBack() {
+            @Override
+            public void onResponse(BaseRes response) {
+                Print_KSXF_Bean print_ksxf_bean = response.getData(Print_KSXF_Bean.class);
+                //打印小票
+                PrinterUtils printerUtils = new PrinterUtils(mContext, GetPrintSet.KSXF_PRINT_TIMES, print_ksxf_bean, "KSXF");
+                printerUtils.print();
+            }
+
+            @Override
+            public void onErrorResponse(Object msg) {
+                super.onErrorResponse(msg);
+                ToastUtils.showLong("获取快速消费打印参数失败");
+            }
+
+        });
+
+    }
 
     /**
      * 进行商品消费的打印
@@ -65,7 +74,7 @@ public class HttpGetPrintContents {
             public void onResponse(BaseRes response) {
                 Print_SPXF_Bean print_spxf_bean = response.getData(Print_SPXF_Bean.class);
                 //打印小票
-                PrinterUtils printerUtils = new PrinterUtils(mContext, MyApplication.SPXF_PRINT_TIMES, print_spxf_bean, "SPXF");
+                PrinterUtils printerUtils = new PrinterUtils(mContext, GetPrintSet.SPXF_PRINT_TIMES, print_spxf_bean, "SPXF");
                 printerUtils.print();
             }
 
@@ -151,15 +160,28 @@ public class HttpGetPrintContents {
 //    /**
 //     * 进行会员开卡的打印
 //     */
-    public static void HYKK(Activity mContext, String responseString) {
-        try {
-            Print_HYKK_Bean bean = gson.fromJson(responseString, Print_HYKK_Bean.class);
-            PrinterUtils printerUtils = new PrinterUtils(mContext, mPrintNum, bean, "HYKK");
-            printerUtils.print();
+    public static void HYKK(Activity mContext, String GID) {
+        RequestParams params = new RequestParams();
+        params.put("OrderGID", GID);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        LogUtils.d("======== url ======== >>", HttpAPI.API().GET_GOODS_PRINT_DATA);
+        LogUtils.d("======== params ======== >>", params.toString());
+        AsyncHttpUtils.postHttp(HttpAPI.API().PRINT_VIP_OPEN_CARD, params, new CallBack() {
+            @Override
+            public void onResponse(BaseRes response) {
+                Print_HYKK_Bean print_spxf_bean = response.getData(Print_HYKK_Bean.class);
+                //打印小票
+                PrinterUtils printerUtils = new PrinterUtils(mContext, GetPrintSet.HYKK_PRINT_TIMES, print_spxf_bean, "HYKK");
+                printerUtils.print();
+            }
+
+            @Override
+            public void onErrorResponse(Object msg) {
+                super.onErrorResponse(msg);
+                ToastUtils.showLong("获取商品消费打印参数失败");
+            }
+
+        });
     }
 //
 //
@@ -222,7 +244,7 @@ public class HttpGetPrintContents {
     public static void JB(Activity mContext, String responseString) {
         try {
             HandDutyBean bean = gson.fromJson(responseString, HandDutyBean.class);
-            PrinterUtils printerUtils = new PrinterUtils(mContext, MyApplication.JB_PRINT_TIMES, bean, "JB");
+            PrinterUtils printerUtils = new PrinterUtils(mContext, GetPrintSet.JB_PRINT_TIMES, bean, "JB");
             printerUtils.print();
         } catch (Exception e) {
             e.printStackTrace();

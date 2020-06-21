@@ -32,6 +32,7 @@ import com.wycd.yushangpu.model.ImpOutLogin;
 import com.wycd.yushangpu.model.ImpParamLoading;
 import com.wycd.yushangpu.model.ImpShopInfo;
 import com.wycd.yushangpu.printutil.ConnectPrinter;
+import com.wycd.yushangpu.printutil.GetPrintSet;
 import com.wycd.yushangpu.printutil.bean.PrintSetBean;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.UpdateAppVersion;
@@ -46,10 +47,6 @@ import java.util.Map;
 import androidx.appcompat.widget.SwitchCompat;
 import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
-
-import static com.wycd.yushangpu.MyApplication.ISBULETOOTHCONNECT;
-import static com.wycd.yushangpu.MyApplication.ISCONNECT;
-import static com.wycd.yushangpu.MyApplication.LABELPRINT_IS_OPEN;
 
 public class PrintSetFragment extends BaseFragment {
 
@@ -136,9 +133,9 @@ public class PrintSetFragment extends BaseFragment {
         tv_phone = (TextView) rootView.findViewById(R.id.tv_phone);
         tv_remarks = (TextView) rootView.findViewById(R.id.tv_remarks);
 
-        if (ISBULETOOTHCONNECT)
+        if (GetPrintSet.ISBULETOOTHCONNECT)
             rgPrinterSelect.check(rgPrinterSelectedBluetooth.getId());
-        if (ISCONNECT)
+        if (GetPrintSet.ISCONNECT)
             rgPrinterSelect.check(rgPrinterSelectedUsb.getId());
         rgPrinterSelectLabelSize.check(rgPrinterSelectLabelSmall.getId());
         mEtGoodsConsume.setText("1");
@@ -153,11 +150,11 @@ public class PrintSetFragment extends BaseFragment {
 
     public void updateData() {
         mEtGoodsConsume.requestFocus();
-        if (LABELPRINT_IS_OPEN) {
+        if (GetPrintSet.LABELPRINT_IS_OPEN) {
             rbPrinterLabel.setVisibility(View.VISIBLE);
         }
         String ReceiptUSBName = CacheDoubleUtils.getInstance().getString("ReceiptUSBName");
-        if (ReceiptUSBName != null && !"".equals(ReceiptUSBName) && ISCONNECT) {
+        if (ReceiptUSBName != null && !"".equals(ReceiptUSBName) && GetPrintSet.ISCONNECT) {
             mTvPrint.setText(ReceiptUSBName);
             mTvConnect.setText(getString(R.string.con_success));
         }
@@ -329,7 +326,7 @@ public class PrintSetFragment extends BaseFragment {
                         name = CacheDoubleUtils.getInstance().getString("BlueToothName");
                         break;
                 }
-                if (name != null && !"".equals(name) && ISBULETOOTHCONNECT) {
+                if (name != null && !"".equals(name) && GetPrintSet.ISBULETOOTHCONNECT) {
                     mTvPrint.setText(name);
                     mTvConnect.setText(getString(R.string.con_success));
                 } else {

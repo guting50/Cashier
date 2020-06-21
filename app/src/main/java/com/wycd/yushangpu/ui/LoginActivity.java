@@ -27,6 +27,7 @@ import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.model.ImpParamLoading;
 import com.wycd.yushangpu.model.ImpShopHome;
+import com.wycd.yushangpu.printutil.GetPrintSet;
 import com.wycd.yushangpu.tools.GlideTransform;
 import com.wycd.yushangpu.tools.KeyBoardHelper;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
@@ -142,7 +143,7 @@ public class LoginActivity extends BaseActivity {
                             PreferenceHelper.write(ac, "yunshangpu", "PassWord", mEtLoginPassword.getText().toString());
 
                             if (MyApplication.loginBean.getShopList().get(0).getSM_Type() == 3009) {
-                                MyApplication.LABELPRINT_IS_OPEN = true;
+                                GetPrintSet.LABELPRINT_IS_OPEN = true;
                             }
                             MyApplication.SHOP_NAME = MyApplication.loginBean.getSM_Name();
                             ImpShopHome.cacheList.clear();

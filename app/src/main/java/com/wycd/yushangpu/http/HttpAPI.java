@@ -147,6 +147,8 @@ public class HttpAPI {
 
         //获取商品消费打印参数
         public static final String GET_GOODS_PRINT_DATA = MyApplication.BASE_URL + "api/PrintTemplate/PrintConsumeOrder";
+        //会员开卡打印参数
+        public static final String PRINT_VIP_OPEN_CARD = MyApplication.BASE_URL + "api/PrintTemplate/PrintVipOpenCard";
 
         //参数开关
         public static final String GET_SWITCH_LIST = MyApplication.BASE_URL + "api/SetSwitch/GetSysSwitchList";

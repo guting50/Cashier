@@ -45,6 +45,7 @@ import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.BasicEucalyptusPresnter;
 import com.wycd.yushangpu.model.ImpOrderPay;
 import com.wycd.yushangpu.model.ImpParamLoading;
+import com.wycd.yushangpu.printutil.GetPrintSet;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.DateTimeUtil;
 import com.wycd.yushangpu.tools.LogUtils;
@@ -77,7 +78,7 @@ import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.wycd.yushangpu.MyApplication.shortMessage;
-import static com.wycd.yushangpu.ui.fragment.JiesuanBFragment.OrderType.MEM_RECHARGE_PAY;
+import static com.wycd.yushangpu.ui.fragment.JiesuanBFragment.OrderType.HYCZ;
 
 public class JiesuanBFragment extends BaseFragment {
 
@@ -170,11 +171,11 @@ public class JiesuanBFragment extends BaseFragment {
     private NumKeyboardUtils numKeyboardUtils;
 
     public enum OrderType {
-        CONSUM_ORDER, //商品消费订单
-        CELERITY_ORDER, // 快速消费订单
+        SPXF, //商品消费订单
+        KSXF, // 快速消费订单
         GUAZHANG_ORDER, //挂账订单
-        MEM_RECHARGE_PAY,//会员充值
-        ADDO_MEMBER,//新增会员
+        HYCZ,//会员充值
+        HYKK,//新增会员
     }
 
     public enum PayMode {
@@ -260,7 +261,7 @@ public class JiesuanBFragment extends BaseFragment {
         mTvVipname.setText("散客");
         tvBlance.setText("余额:0.00");
         tvIntegral.setText("积分:0");
-        cbSmallTicket.setChecked(MyApplication.PRINT_IS_OPEN);
+        cbSmallTicket.setChecked(GetPrintSet.PRINT_IS_OPEN);
 
         if (mVipMsg != null) {
             this.yue = mVipMsg.getMA_AvailableBalance() + "";
@@ -279,12 +280,12 @@ public class JiesuanBFragment extends BaseFragment {
                     couponCount++;
                 }
             }
-            if (orderType != MEM_RECHARGE_PAY) // 会员充值不能使用优惠券
+            if (orderType != HYCZ) // 会员充值不能使用优惠券
                 tvCouponMoney.setHint("有" + couponCount + "张优惠券可用");
         }
 
         if (ImpParamLoading.REPORT_BEAN != null && ImpParamLoading.REPORT_BEAN != null) {
-            if (orderType != MEM_RECHARGE_PAY)
+            if (orderType != HYCZ && ImpParamLoading.REPORT_BEAN.getActiveOth() != null)
                 for (ReportMessageBean.ActiveBean active : ImpParamLoading.REPORT_BEAN.getActiveOth()) {
                     // 会员充值不能使用优惠活动
                     if (active.getRP_Type() != 1 && Double.parseDouble(zhMoney) >= active.getRP_RechargeMoney()) {
@@ -320,7 +321,7 @@ public class JiesuanBFragment extends BaseFragment {
         resetPayModeList();
         computeYsMoney();
 
-        if (orderType == MEM_RECHARGE_PAY) {// 会员充值不能使用优惠券\优惠活动\抹零
+        if (orderType == HYCZ) {// 会员充值不能使用优惠券\优惠活动\抹零
             rootView.findViewById(R.id.li_yhq).setEnabled(false);
             rootView.findViewById(R.id.li_promotion).setEnabled(false);
             et_moling.setVisibility(View.GONE);
@@ -679,7 +680,7 @@ public class JiesuanBFragment extends BaseFragment {
         result.setDisMoney(Double.parseDouble(ysMoney));
         result.setMolingMoney(getMoling());
         result.setPayTypeList(typeList);
-        result.setPrint(MyApplication.PRINT_IS_OPEN = cbSmallTicket.isChecked());
+        result.setPrint(GetPrintSet.PRINT_IS_OPEN = cbSmallTicket.isChecked());
         result.setYhqList(yhqMsgs);
         result.setActive(promotionMsg);
     }
@@ -777,7 +778,7 @@ public class JiesuanBFragment extends BaseFragment {
         //余额
         mLiYue.setEnabled(true);
         if (SysSwitchRes.getSwitch(SysSwitchType.T102.getV()).getSS_State() != 1
-                || !isMember || orderType == MEM_RECHARGE_PAY) {
+                || !isMember || orderType == HYCZ) {
             mLiYue.setBackgroundResource(R.drawable.shap_enable_not);
             mLiYue.setEnabled(false);
         }
@@ -803,7 +804,7 @@ public class JiesuanBFragment extends BaseFragment {
         //积分支付
         mLiJifen.setEnabled(true);
         if (SysSwitchRes.getSwitch(SysSwitchType.T107.getV()).getSS_State() != 1
-                || !isMember || orderType == MEM_RECHARGE_PAY) {
+                || !isMember || orderType == HYCZ) {
             mLiJifen.setBackgroundResource(R.drawable.shap_enable_not);
             mLiJifen.setEnabled(false);
         }
@@ -854,7 +855,7 @@ public class JiesuanBFragment extends BaseFragment {
                 name = PayMode.XJZF.getStr();
                 break;
             case "YEZF"://余额
-                if (isMember && orderType != MEM_RECHARGE_PAY) {
+                if (isMember && orderType != HYCZ) {
                     view = mLiYue;
                     name = PayMode.YEZF.getStr();
                 } else {
@@ -876,7 +877,7 @@ public class JiesuanBFragment extends BaseFragment {
                 name = PayMode.ZFBJZ.getStr();
                 break;
             case "JFZF"://积分支付
-                if (isMember && orderType != MEM_RECHARGE_PAY) {
+                if (isMember && orderType != HYCZ) {
                     view = mLiJifen;
                     name = PayMode.JFZF.getStr();
                 } else {

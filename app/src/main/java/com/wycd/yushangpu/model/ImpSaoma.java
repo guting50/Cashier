@@ -40,16 +40,16 @@ public class ImpSaoma {
         params.put("OrderGID", OrderGID);
         //10商品消费 15会员开卡 20充次 30计时消费 40 充值 50 套餐消费 60快速消费 70:一键加油
         switch (orderType) {
-            case CONSUM_ORDER:
+            case SPXF:
                 params.put("OrderType", 10);
                 break;
-            case ADDO_MEMBER:
+            case HYKK:
                 params.put("OrderType", 15);
                 break;
-            case MEM_RECHARGE_PAY:
+            case HYCZ:
                 params.put("OrderType", 40);
                 break;
-            case CELERITY_ORDER:
+            case KSXF:
                 params.put("OrderType", 60);
                 break;
         }

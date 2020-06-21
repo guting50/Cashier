@@ -13,7 +13,6 @@ import com.google.gson.reflect.TypeToken;
 import com.gt.utils.GsonUtils;
 import com.gt.utils.widget.BgTextView;
 import com.loopj.android.http.RequestParams;
-import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.adapter.ShopLeftAdapter;
 import com.wycd.yushangpu.bean.GoodsModelBean;
@@ -61,9 +60,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-
-import static com.wycd.yushangpu.MyApplication.ISLABELCONNECT;
-import static com.wycd.yushangpu.MyApplication.LABELPRINT_IS_OPEN;
 
 public class CashierFragment extends BaseFragment {
     @BindView(R.id.tv_ordernum)
@@ -250,7 +246,7 @@ public class CashierFragment extends BaseFragment {
                                 null == mVipMsg ? "00000" : mVipMsg.getVCH_Card(), allmoney, new InterfaceBack<OrderCanshu>() {
                                     @Override
                                     public void onResponse(OrderCanshu response) {
-                                        toJieSuan(response, JiesuanBFragment.OrderType.CELERITY_ORDER);
+                                        toJieSuan(response, JiesuanBFragment.OrderType.KSXF);
                                     }
 
                                     @Override
@@ -263,7 +259,7 @@ public class CashierFragment extends BaseFragment {
                                 mShopLeftList, new InterfaceBack<OrderCanshu>() {
                                     @Override
                                     public void onResponse(OrderCanshu response) {
-                                        toJieSuan(response, JiesuanBFragment.OrderType.CONSUM_ORDER);
+                                        toJieSuan(response, JiesuanBFragment.OrderType.SPXF);
                                     }
 
                                     @Override
@@ -833,14 +829,22 @@ public class CashierFragment extends BaseFragment {
                     String gid = (String) response;
 
                     //打印小票
-                    if (MyApplication.PRINT_IS_OPEN) {
-                        if (MyApplication.mGoodsConsumeMap.isEmpty()) {
-                            GetPrintSet.getPrintParamSet();
+                    if (GetPrintSet.PRINT_IS_OPEN) {
+                        switch (orderType) {
+                            case SPXF:
+                                new HttpGetPrintContents().SPXF(homeActivity, gid);
+                                break;
+                            case HYKK:
+                                break;
+                            case HYCZ:
+                                break;
+                            case KSXF:
+                                new HttpGetPrintContents().KSXF(homeActivity, gid);
+                                break;
                         }
-                        new HttpGetPrintContents().SPXF(homeActivity, gid);
                     }
 
-                    if (ISLABELCONNECT && LABELPRINT_IS_OPEN) {
+                    if (GetPrintSet.ISLABELCONNECT && GetPrintSet.LABELPRINT_IS_OPEN) {
                         for (int i = 0; i < mShopLeftList.size(); i++) {
                             ConnectPrinter.labelPrint(mShopLeftList.get(i));
                         }

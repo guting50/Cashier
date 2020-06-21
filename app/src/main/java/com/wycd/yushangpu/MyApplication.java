@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -26,11 +25,9 @@ import com.wycd.yushangpu.wxapi.Constants;
 import net.posprinter.posprinterface.IMyBinder;
 import net.posprinter.service.PosprinterService;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 
 import androidx.multidex.MultiDexApplication;
@@ -69,119 +66,19 @@ public class MyApplication extends MultiDexApplication {
 //    public static  String IMAGE_URL = "http://pcbeta.yunvip123.com";
 //    public static  String CTMONEY_URL = "http://admin.znheqi.com/";
 
-
-    /**
-     * logo
-     */
-    public static Bitmap HYCZ_LOGO, HYCC_LOGO, SPXF_LOGO, KSXF_LOGO, JCXF_LOGO, JFDH_LOGO,
-            SPTH_LOGO, JB_LOGO, FTXF_LOGO, HYSK_LOGO, TCXF_LOGO, OPENCARD_LOGO, RK_LOGO, CK_LOGO;
-    /**
-     * 二维码
-     */
-    public static Bitmap HYCZ_QR, HYCC_QR, SPXF_QR, KSXF_QR, JCXF_QR, JFDH_QR,
-            SPTH_QR, JB_QR, FTXF_QR, HYSK_QR, TCXF_QR, OPENCARD_QR, RK_QR, CK_QR;
-
-    /**
-     * 会员充次
-     */
-    public static Map<String, String> mTimesRechargeMap;
-    /**
-     * 会员充值
-     */
-    public static Map<String, String> mRechargeMap;
-    /**
-     * 商品消费
-     */
-    public static Map<String, String> mGoodsConsumeMap;
-    /**
-     * 计次消费
-     */
-    public static Map<String, String> mTimesConsumeMap;
-    /**
-     * 积分兑换
-     */
-    public static Map<String, String> mIntegralExchangeMap;
-    /**
-     * 快速消费
-     */
-    public static Map<String, String> mFastConsumeMap;
-    /**
-     * 套餐消费
-     */
-    public static Map<String, String> mTCConsumeMap;
-    /**
-     * 会员开卡
-     */
-    public static Map<String, String> mCardOpenMap;
-
-    /**
-     * 商品入库
-     */
-    public static Map<String, String> mGoodsIn;
-
-    /**
-     * 商品出库
-     */
-    public static Map<String, String> mGoodsOut;
-
-    /**
-     * 商品退货
-     */
-    public static Map<String, String> mReTureOrder;
-
-    /**
-     * 交班
-     */
-    public static Map<String, String> mHandOverMap;
-
-    /**
-     * 打印是否开启
-     */
-    public static boolean PRINT_IS_OPEN = false;
-
-    /**
-     * 标签打印是否开启
-     */
-    public static boolean LABELPRINT_IS_OPEN = false;
-
-    /**
-     * 标签打印是否开启
-     */
-    public static int LABEL_TYPE = 0;
-
-    /**
-     * 蓝牙打印机列表
-     */
-    public static List<String> mPrintList;
-
     /**
      * 是否发送短信
      */
     public static boolean shortMessage;
 
     /**
-     * 是否是弹窗
-     * 1是 0否
-     */
-    public static String isDialog = "0";
-
-    /**
      * 店铺名称
      */
     public static String SHOP_NAME = "";
 
-    /**
-     * 小票打印份数
-     */
-    public static int SPXF_PRINT_TIMES = 1;
-    public static int JB_PRINT_TIMES = 1;
-
     public static LoginBean loginBean;//登录数据
 
     public static IMyBinder myBinder;
-    public static boolean ISLABELCONNECT = false;//USB标签打印机
-    public static boolean ISBULETOOTHCONNECT = false;//蓝牙小票打印机
-    public static boolean ISCONNECT = false;//USB小票打印机
 
 
     public static MyApplication getInstance() {
@@ -208,19 +105,6 @@ public class MyApplication extends MultiDexApplication {
 
         homeApplication = this;
         sContext = this;
-
-        mTimesRechargeMap = new HashMap<>();
-        mRechargeMap = new HashMap<>();
-        mGoodsConsumeMap = new HashMap<>();
-        mTimesConsumeMap = new HashMap<>();
-        mIntegralExchangeMap = new HashMap<>();
-        mFastConsumeMap = new HashMap<>();
-        mTCConsumeMap = new HashMap<>();
-        mCardOpenMap = new HashMap<>();
-        mHandOverMap = new HashMap<>();
-        mGoodsIn = new HashMap<>();
-        mGoodsOut = new HashMap<>();
-        mReTureOrder = new HashMap<>();
 
         //全局异常捕获
         CrashHandler.getInstance().init(this);

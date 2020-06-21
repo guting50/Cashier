@@ -13,6 +13,8 @@ import com.wycd.yushangpu.printutil.bean.Print_SPTH_Bean;
 import com.wycd.yushangpu.printutil.bean.Print_SPXF_Bean;
 import com.wycd.yushangpu.printutil.bean.RK_Success_Bean;
 
+import java.util.List;
+
 /**
  * 打印小票接口
  * iauthor：Yc
@@ -25,8 +27,7 @@ public interface IPrinterSetContents {
     /**
      * 蓝牙打印sunmi机器
      */
-    byte[] printBlueTooth_KSXF(Print_KSXF_Bean printBean);
-
+    List<byte[]> printBlueTooth_KSXF(Print_KSXF_Bean printBean);
 
 
     /********************商品消费*******************/
@@ -34,9 +35,7 @@ public interface IPrinterSetContents {
     /**
      * 蓝牙打印sunmi机器
      */
-    byte[] printBlueTooth_SPXF(Print_SPXF_Bean printBean);
-
-
+    List<byte[]> printBlueTooth_SPXF(Print_SPXF_Bean printBean);
 
 
     /********************会员充值*******************/
@@ -47,14 +46,12 @@ public interface IPrinterSetContents {
     byte[] printBlueTooth_HYCZ(Print_HYCZ_Bean printBean);
 
 
-
     /********************会员充次*******************/
 
     /**
      * 蓝牙打印sunmi机器
      */
     byte[] printBlueTooth_HYCC(Print_HYCC_Bean printBean);
-
 
 
     /********************计次消费*******************/
@@ -65,7 +62,6 @@ public interface IPrinterSetContents {
     byte[] printBlueTooth_JCXF(Print_JCXF_Bean printBean);
 
 
-
     /********************积分兑换*******************/
 
     /**
@@ -74,13 +70,11 @@ public interface IPrinterSetContents {
     byte[] printBlueTooth_JFDH(Print_JFDH_Bean printBean);
 
 
-
-
     /********************会员开卡*******************/
     /**
      * 蓝牙打印sunmi机器
      */
-    byte[] printBlueTooth_HYKK(Print_HYKK_Bean printBean);
+    List<byte[]> printBlueTooth_HYKK(Print_HYKK_Bean printBean);
 
     /********************商品入库*******************/
     /**

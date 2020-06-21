@@ -5,8 +5,7 @@ package com.wycd.yushangpu.printutil.bean;
  * date: 2017/8/2 19:49
  * email：jasoncheng9111@gmail.com
  */
-public class Print_KSXF_Bean
-{
+public class Print_KSXF_Bean {
     /**
      * Cashier : 18986810706
      * CheckoutDate : 2017-08-02 19:24:57
@@ -64,6 +63,7 @@ public class Print_KSXF_Bean
     public void setEMName(String EMName) {
         this.EMName = EMName;
     }
+
     public String getVIP_FaceNumber() {
         return VIP_FaceNumber;
     }
@@ -71,6 +71,7 @@ public class Print_KSXF_Bean
     public void setVIP_FaceNumber(String VIP_FaceNumber) {
         this.VIP_FaceNumber = VIP_FaceNumber;
     }
+
     public String getRemark() {
         return Remark;
     }
@@ -91,91 +92,179 @@ public class Print_KSXF_Bean
 
     private String PayInfo;
 
-    public String getCashier() { return Cashier;}
+    public String getCashier() {
+        return Cashier;
+    }
 
-    public void setCashier(String Cashier) { this.Cashier = Cashier;}
+    public void setCashier(String Cashier) {
+        this.Cashier = Cashier;
+    }
 
-    public String getCheckoutDate() { return CheckoutDate;}
+    public String getCheckoutDate() {
+        return CheckoutDate;
+    }
 
-    public void setCheckoutDate(String CheckoutDate) { this.CheckoutDate = CheckoutDate;}
+    public void setCheckoutDate(String CheckoutDate) {
+        this.CheckoutDate = CheckoutDate;
+    }
 
-    public String getOrderCode() { return OrderCode;}
+    public String getOrderCode() {
+        return OrderCode;
+    }
 
-    public void setOrderCode(String OrderCode) { this.OrderCode = OrderCode;}
+    public void setOrderCode(String OrderCode) {
+        this.OrderCode = OrderCode;
+    }
 
-    public Object getActivityName() { return ActivityName;}
+    public Object getActivityName() {
+        return ActivityName;
+    }
 
-    public void setActivityName(Object ActivityName) { this.ActivityName = ActivityName;}
+    public void setActivityName(Object ActivityName) {
+        this.ActivityName = ActivityName;
+    }
 
-    public String getActivityValue() { return ActivityValue;}
+    public String getActivityValue() {
+        return ActivityValue;
+    }
 
-    public void setActivityValue(String ActivityValue) { this.ActivityValue = ActivityValue;}
+    public void setActivityValue(String ActivityValue) {
+        this.ActivityValue = ActivityValue;
+    }
 
-    public double getIntegralAdd() { return IntegralAdd;}
+    public double getIntegralAdd() {
+        return IntegralAdd;
+    }
 
-    public void setIntegralAdd(double IntegralAdd) { this.IntegralAdd = IntegralAdd;}
+    public void setIntegralAdd(double IntegralAdd) {
+        this.IntegralAdd = IntegralAdd;
+    }
 
-    public double getIntegralDeduct() { return IntegralDeduct;}
+    public double getIntegralDeduct() {
+        return IntegralDeduct;
+    }
 
-    public void setIntegralDeduct(double IntegralDeduct) { this.IntegralDeduct = IntegralDeduct;}
+    public void setIntegralDeduct(double IntegralDeduct) {
+        this.IntegralDeduct = IntegralDeduct;
+    }
 
-    public double getYSMoney() { return YSMoney;}
+    public double getYSMoney() {
+        return YSMoney;
+    }
 
-    public void setYSMoney(double YSMoney) { this.YSMoney = YSMoney;}
+    public void setYSMoney(double YSMoney) {
+        this.YSMoney = YSMoney;
+    }
 
-    public double getSSMoney() { return SSMoney;}
+    public double getSSMoney() {
+        return SSMoney;
+    }
 
-    public void setSSMoney(double SSMoney) { this.SSMoney = SSMoney;}
+    public void setSSMoney(double SSMoney) {
+        this.SSMoney = SSMoney;
+    }
 
-    public double getZLMoney() { return ZLMoney;}
+    public double getZLMoney() {
+        return ZLMoney;
+    }
 
-    public void setZLMoney(double ZLMoney) { this.ZLMoney = ZLMoney;}
+    public void setZLMoney(double ZLMoney) {
+        this.ZLMoney = ZLMoney;
+    }
 
-    public String getVCH_Card() { return VCH_Card;}
+    public String getVCH_Card() {
+        return VCH_Card;
+    }
 
-    public void setVCH_Card(String VCH_Card) { this.VCH_Card = VCH_Card;}
+    public void setVCH_Card(String VCH_Card) {
+        this.VCH_Card = VCH_Card;
+    }
 
-    public String getVIP_Name() { return VIP_Name;}
+    public String getVIP_Name() {
+        return VIP_Name;
+    }
 
-    public void setVIP_Name(String VIP_Name) { this.VIP_Name = VIP_Name;}
+    public void setVIP_Name(String VIP_Name) {
+        this.VIP_Name = VIP_Name;
+    }
 
-    public double getVCH_Money() { return VCH_Money;}
+    public double getVCH_Money() {
+        return VCH_Money;
+    }
 
-    public void setVCH_Money(double VCH_Money) { this.VCH_Money = VCH_Money;}
+    public void setVCH_Money(double VCH_Money) {
+        this.VCH_Money = VCH_Money;
+    }
 
-    public double getVCH_Point() { return VCH_Point;}
+    public double getVCH_Point() {
+        return VCH_Point;
+    }
 
-    public void setVCH_Point(double VCH_Point) { this.VCH_Point = VCH_Point;}
+    public void setVCH_Point(double VCH_Point) {
+        this.VCH_Point = VCH_Point;
+    }
 
-    public Object getGoodsList() { return GoodsList;}
+    public Object getGoodsList() {
+        return GoodsList;
+    }
 
-    public void setGoodsList(Object GoodsList) { this.GoodsList = GoodsList;}
+    public void setGoodsList(Object GoodsList) {
+        this.GoodsList = GoodsList;
+    }
 
-    public Object getServiceList() { return ServiceList;}
+    public Object getServiceList() {
+        return ServiceList;
+    }
 
-    public void setServiceList(Object ServiceList) { this.ServiceList = ServiceList;}
+    public void setServiceList(Object ServiceList) {
+        this.ServiceList = ServiceList;
+    }
 
-    public Object getGiftList() { return GiftList;}
+    public Object getGiftList() {
+        return GiftList;
+    }
 
-    public void setGiftList(Object GiftList) { this.GiftList = GiftList;}
+    public void setGiftList(Object GiftList) {
+        this.GiftList = GiftList;
+    }
 
-    public double getConsumeMoney() { return ConsumeMoney;}
+    public double getConsumeMoney() {
+        return ConsumeMoney;
+    }
 
-    public void setConsumeMoney(double ConsumeMoney) { this.ConsumeMoney = ConsumeMoney;}
+    public void setConsumeMoney(double ConsumeMoney) {
+        this.ConsumeMoney = ConsumeMoney;
+    }
 
-    public double getDiscount() { return Discount;}
+    public double getDiscount() {
+        return Discount;
+    }
 
-    public void setDiscount(double Discount) { this.Discount = Discount;}
+    public void setDiscount(double Discount) {
+        this.Discount = Discount;
+    }
 
-    public double getGiveMoney() { return GiveMoney;}
+    public double getGiveMoney() {
+        return GiveMoney;
+    }
 
-    public void setGiveMoney(double GiveMoney) { this.GiveMoney = GiveMoney;}
+    public void setGiveMoney(double GiveMoney) {
+        this.GiveMoney = GiveMoney;
+    }
 
-    public double getRechargeTotal() { return RechargeTotal;}
+    public double getRechargeTotal() {
+        return RechargeTotal;
+    }
 
-    public void setRechargeTotal(int RechargeTotal) { this.RechargeTotal = RechargeTotal;}
+    public void setRechargeTotal(int RechargeTotal) {
+        this.RechargeTotal = RechargeTotal;
+    }
 
-    public int getExchangeNum() { return ExchangeNum;}
+    public int getExchangeNum() {
+        return ExchangeNum;
+    }
 
-    public void setExchangeNum(int ExchangeNum) { this.ExchangeNum = ExchangeNum;}
+    public void setExchangeNum(int ExchangeNum) {
+        this.ExchangeNum = ExchangeNum;
+    }
 }
