@@ -3,7 +3,6 @@ package com.wycd.yushangpu.model;
 import android.text.TextUtils;
 
 import com.google.gson.reflect.TypeToken;
-import com.gt.utils.GsonUtils;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.http.AsyncHttpUtils;
@@ -59,16 +58,12 @@ public class ImpShopHome {
     public static List<ShopMsg> cacheList = new ArrayList<>();
 
     public void getShopCacheList(final String PT_GID, final String PM_CodeOrNameOrSimpleCode, int PageIndex, final int PageSize, InterfaceBack back) {
-        Type listType = new TypeToken<List<ShopMsg>>() {
-        }.getType();
-        List<ShopMsg> tempList = GsonUtils.getGson().fromJson(GsonUtils.getGson().toJson(cacheList), listType);
-
         BasePageRes basePageRes = new BasePageRes();
         List<ShopMsg> newList = new ArrayList<>();
         if (TextUtils.isEmpty(PT_GID) && TextUtils.isEmpty(PM_CodeOrNameOrSimpleCode)) {
-            newList = tempList;
+            newList = cacheList;
         } else {
-            for (ShopMsg shopMsg : tempList) {
+            for (ShopMsg shopMsg : cacheList) {
                 if (!TextUtils.isEmpty(PT_GID) && !TextUtils.isEmpty(PM_CodeOrNameOrSimpleCode)) {
                     if (TextUtils.equals(shopMsg.getPT_ID(), PT_GID) &&
                             (TextUtils.equals(shopMsg.getPM_Code(), PM_CodeOrNameOrSimpleCode) ||
@@ -91,6 +86,7 @@ public class ImpShopHome {
         basePageRes.setDataCount(newList.size());
         int toIndex = PageIndex * PageSize + 1;
         basePageRes.setDataList(newList.subList((PageIndex - 1) * PageSize, toIndex > newList.size() ? newList.size() : toIndex));
+
         back.onResponse(basePageRes);
     }
 

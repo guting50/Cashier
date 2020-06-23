@@ -1,5 +1,6 @@
 package com.wycd.yushangpu.ui.fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ import com.wycd.yushangpu.tools.StringUtil;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -197,36 +199,14 @@ public class GoodsListFragment extends BaseFragment {
         if (isShowDialog)
             homeActivity.dialog.show();
         ImpShopHome shopHome = new ImpShopHome();
+        aaa = new Date().getTime();
         shopHome.shoplist(pageIndex, PageSize, PT_GID, PM_CodeOrNameOrSimpleCode, new InterfaceBack<BasePageRes>() {
             @Override
             public void onResponse(BasePageRes response) {
                 Type listType = new TypeToken<List<ShopMsg>>() {
                 }.getType();
                 List<ShopMsg> sllist = response.getData(listType);
-
-                if (PageIndex == 1)
-                    adapter.getShopMsgList().clear();
-                adapter.addShopMsgList(sllist);
-//                 int  0  表示普通商品    1表示服务商品  2表示礼品   3普通套餐   4充次套餐
-//                for (ShopMsg msg : sllist) {
-//                    if (NullUtils.noNullHandle(msg.getPM_IsService()).toString().equals("2")) {
-//                        adapter.getShopMsgList().remove(msg);
-//                    }
-//                }
-                adapter.notifyChanged(onClick);
-                emptyStateLayout.setVisibility(View.GONE);
-                if (adapter.getShopMsgList().size() <= 0) {
-                    emptyStateLayout.setVisibility(View.VISIBLE);
-                }
-                goodsList.refreshComplete();
-                goodsList.loadMoreComplete();
-
-                if (response.getDataCount() <= adapter.getShopMsgList().size()) {
-                    goodsList.setLoadingMoreEnabled(false);
-                } else {
-                    goodsList.setLoadingMoreEnabled(true);
-                }
-                homeActivity.dialog.dismiss();
+                loadAdapter(sllist, response.getDataCount(), onClick);
             }
 
             @Override
@@ -238,11 +218,39 @@ public class GoodsListFragment extends BaseFragment {
         });
     }
 
+    long aaa = new Date().getTime();
+
+    private void loadAdapter(List<ShopMsg> sllist, int dataCount, boolean onClick) {
+        if (PageIndex == 1)
+            adapter.getShopMsgList().clear();
+        adapter.addShopMsgList(sllist);
+//                 int  0  表示普通商品    1表示服务商品  2表示礼品   3普通套餐   4充次套餐
+//                for (ShopMsg msg : sllist) {
+//                    if (NullUtils.noNullHandle(msg.getPM_IsService()).toString().equals("2")) {
+//                        adapter.getShopMsgList().remove(msg);
+//                    }
+//                }
+        adapter.notifyChanged(onClick);
+        emptyStateLayout.setVisibility(View.GONE);
+        if (adapter.getShopMsgList().size() <= 0) {
+            emptyStateLayout.setVisibility(View.VISIBLE);
+        }
+        goodsList.refreshComplete();
+        goodsList.loadMoreComplete();
+
+        if (dataCount <= adapter.getShopMsgList().size()) {
+            goodsList.setLoadingMoreEnabled(false);
+        } else {
+            goodsList.setLoadingMoreEnabled(true);
+        }
+        homeActivity.dialog.dismiss();
+    }
+
     class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         List<ShopMsg> shopMsgList = new ArrayList<>();
         boolean onClick = false;
-        int spanCount = 15;
+        int spanCount = 9;
 
         @NonNull
         @Override
