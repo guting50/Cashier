@@ -190,12 +190,6 @@ public class GoodsListFragment extends BaseFragment {
     }
 
     public void obtainHomeShop(String PM_CodeOrNameOrSimpleCode, int pageIndex, boolean isShowDialog, boolean onClick) {
-
-        try {
-            Thread.sleep((long) (new Random().nextInt(Calendar.getInstance().get(Calendar.YEAR)) * 3));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         if (isShowDialog)
             homeActivity.dialog.show();
         ImpShopHome shopHome = new ImpShopHome();
