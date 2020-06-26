@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#88000000"
+    android:orientation="horizontal"
+    android:padding="80dp"
+    tools:ignore="MissingDefaultResource">
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <com.gt.utils.widget.BgLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0.5"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        app:corners_radius="6dp"
+        app:solid_color="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="客显图片"
+                android:textColor="#ff333333"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view_line1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/linecolor"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                app:layout_constraintTop_toBottomOf="@+id/view_line1" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <com.gt.utils.widget.BgTextView
+                    android:id="@+id/bgTextView1"
+                    android:layout_width="100dp"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginRight="15dp"
+                    android:gravity="center"
+                    android:text="取消"
+                    android:textColor="#ff666666"
+                    android:textSize="15sp"
+                    app:corners_radius="3dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/bgTextView2"
+                    app:solid_color="#f3f3f3" />
+
+                <com.gt.utils.widget.BgTextView
+                    android:id="@+id/bgTextView2"
+                    android:layout_width="100dp"
+                    android:layout_height="44dp"
+                    android:gravity="center"
+                    android:text="确定"
+                    android:textColor="#ffffffff"
+                    android:textSize="13sp"
+                    app:corners_radius="3dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/bgTextView1"
+                    app:layout_constraintLeft_toRightOf="@+id/bgTextView1"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/bgTextView1"
+                    app:solid_color="@color/colorPrimary" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </com.gt.utils.widget.BgLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+</LinearLayout>

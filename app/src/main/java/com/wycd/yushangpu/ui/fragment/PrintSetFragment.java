@@ -12,12 +12,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.CacheDoubleUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.gt.utils.widget.BgLayout;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
@@ -38,6 +40,7 @@ import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.UpdateAppVersion;
 import com.wycd.yushangpu.ui.LoginActivity;
 import com.wycd.yushangpu.ui.LogoActivity;
+import com.wycd.yushangpu.ui.popwin.PopWinSetImage;
 import com.wycd.yushangpu.widget.dialog.NoticeDialog;
 
 import java.util.HashMap;
@@ -59,13 +62,16 @@ public class PrintSetFragment extends BaseFragment {
     private EditText mEtGoodsConsume, mEtHandDutyTime;
     private LinearLayout llPrintSetSwitch, llPrintSet;
     private SwitchCompat scPrintSwitch;
-    private View aboutShopLayout, settingLayout, softwareInfoLayout;
+    private View aboutShopLayout, settingLayout, assistantScreenSetLayout, softwareInfoLayout;
     private TextView tv_version_number;
     private View upgrade, upgradeSign;
 
     ImageView sm_picture;
     TextView tv_sm_edition, tv_sersion_life, tv_create_time, tv_end_time, tv_shop_users, tv_shop_mbers, tv_shop_goods,
             tv_shop_name, tv_contacter, tv_industry, tv_address, tv_range, tv_phone, tv_remarks;
+
+    Switch switch1, switch2, switch3;
+    BgLayout timeLayout;
 
     private int mPrintSwitch = 1;
     private HashMap<String, String> mPrintMap = new HashMap<>();
@@ -107,8 +113,13 @@ public class PrintSetFragment extends BaseFragment {
         scPrintSwitch = (SwitchCompat) rootView.findViewById(R.id.sc_print_switch);
 
         aboutShopLayout = rootView.findViewById(R.id.about_shop_layout);
+        aboutShopLayout.setVisibility(View.VISIBLE);
         settingLayout = rootView.findViewById(R.id.setting_layout);
+        settingLayout.setVisibility(View.GONE);
+        assistantScreenSetLayout = rootView.findViewById(R.id.assistant_screen_set_layout);
+        assistantScreenSetLayout.setVisibility(View.GONE);
         softwareInfoLayout = rootView.findViewById(R.id.software_info_layout);
+        softwareInfoLayout.setVisibility(View.GONE);
 
         tv_version_number = rootView.findViewById(R.id.tv_version_number);
         upgrade = rootView.findViewById(R.id.upgrade);
@@ -132,6 +143,11 @@ public class PrintSetFragment extends BaseFragment {
         tv_range = (TextView) rootView.findViewById(R.id.tv_range);
         tv_phone = (TextView) rootView.findViewById(R.id.tv_phone);
         tv_remarks = (TextView) rootView.findViewById(R.id.tv_remarks);
+
+        switch1 = rootView.findViewById(R.id.switch1);
+        switch2 = rootView.findViewById(R.id.switch2);
+        switch3 = rootView.findViewById(R.id.switch3);
+        timeLayout = rootView.findViewById(R.id.timeLayout);
 
         if (GetPrintSet.ISBULETOOTHCONNECT)
             rgPrinterSelect.check(rgPrinterSelectedBluetooth.getId());
@@ -218,7 +234,10 @@ public class PrintSetFragment extends BaseFragment {
             }
         });
         rbAboutShop.performClick();
-
+        switch1.setChecked(TextUtils.equals("true", CacheDoubleUtils.getInstance().getString("showBill")));
+        switch2.setChecked(TextUtils.equals("true", CacheDoubleUtils.getInstance().getString("guestShow")));
+        switch3.setChecked(TextUtils.equals("true", CacheDoubleUtils.getInstance().getString("showVoice")));
+        ((TextView) rootView.findViewById(R.id.timeVal)).setText(CacheDoubleUtils.getInstance().getString("timeInterval"));
     }
 
     private void setListener() {
@@ -459,12 +478,35 @@ public class PrintSetFragment extends BaseFragment {
                 }
             });
         }
+
+        switch1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            CacheDoubleUtils.getInstance().put("showBill", isChecked + "");
+        });
+        switch2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            CacheDoubleUtils.getInstance().put("guestShow", isChecked + "");
+        });
+        switch3.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            CacheDoubleUtils.getInstance().put("showVoice", isChecked + "");
+        });
+
+        LinearLayout layout = rootView.findViewById(R.id.timeLayout1);
+        for (int i = 0; i < layout.getChildCount(); i++) {
+            View view = layout.getChildAt(i);
+            if (view instanceof TextView) {
+                view.setOnClickListener(v -> {
+                    CacheDoubleUtils.getInstance().put("timeInterval", ((TextView) view).getText().toString());
+                    ((TextView) rootView.findViewById(R.id.timeVal)).setText(CacheDoubleUtils.getInstance().getString("timeInterval"));
+                    timeLayout.setVisibility(View.GONE);
+                });
+            }
+        }
     }
 
-    @OnClick({R.id.rb_about_shop, R.id.rb_printer_label_set, R.id.rb_printer_device_set, R.id.rb_software_info})
+    @OnClick({R.id.rb_about_shop, R.id.rb_printer_label_set, R.id.rb_printer_device_set, R.id.rb_assistant_screen_set, R.id.rb_software_info})
     public void onTabClick(View view) {
         aboutShopLayout.setVisibility(View.GONE);
         settingLayout.setVisibility(View.GONE);
+        assistantScreenSetLayout.setVisibility(View.GONE);
         softwareInfoLayout.setVisibility(View.GONE);
         switch (view.getId()) {
             case R.id.rb_about_shop:
@@ -489,8 +531,26 @@ public class PrintSetFragment extends BaseFragment {
                 llPrintSetSwitch.setVisibility(View.VISIBLE);
                 llPrintSet.setVisibility(View.VISIBLE);
                 break;
+            case R.id.rb_assistant_screen_set:
+                assistantScreenSetLayout.setVisibility(View.VISIBLE);
+                break;
             case R.id.rb_software_info:
                 softwareInfoLayout.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+    @OnClick({R.id.setImage, R.id.textView3})
+    public void onViewClick(View view) {
+        switch (view.getId()) {
+            case R.id.setImage:
+                new PopWinSetImage().show(homeActivity, view);
+                break;
+            case R.id.textView3:
+                if (timeLayout.getVisibility() == View.GONE)
+                    timeLayout.setVisibility(View.VISIBLE);
+                else
+                    timeLayout.setVisibility(View.GONE);
                 break;
         }
     }
