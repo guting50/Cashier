@@ -199,7 +199,6 @@ public class GoodsListFragment extends BaseFragment {
         if (isShowDialog)
             homeActivity.dialog.show();
         ImpShopHome shopHome = new ImpShopHome();
-        aaa = new Date().getTime();
         shopHome.shoplist(pageIndex, PageSize, PT_GID, PM_CodeOrNameOrSimpleCode, new InterfaceBack<BasePageRes>() {
             @Override
             public void onResponse(BasePageRes response) {
@@ -217,8 +216,6 @@ public class GoodsListFragment extends BaseFragment {
             }
         });
     }
-
-    long aaa = new Date().getTime();
 
     private void loadAdapter(List<ShopMsg> sllist, int dataCount, boolean onClick) {
         if (PageIndex == 1)
