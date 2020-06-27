@@ -20,6 +20,7 @@ import com.gt.utils.GsonUtils;
 import com.gt.utils.PermissionUtils;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.tools.GlideTransform;
+import com.wycd.yushangpu.ui.BaseActivity;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class PopWinSetImage {
     Context context;
     MyAdapter adapter;
 
-    public void show(Context context, View v) {
+    public void show(BaseActivity context, View v) {
         this.context = context;
         View contentView = LayoutInflater.from(context).inflate(R.layout.popwin_set_image, null);
         PopupWindow popupWindow = new PopupWindow(contentView, LinearLayout.LayoutParams.MATCH_PARENT,
@@ -56,6 +57,7 @@ public class PopWinSetImage {
         });
         contentView.findViewById(R.id.bgTextView2).setOnClickListener(v1 -> {
             CacheDoubleUtils.getInstance().put("setImages", GsonUtils.getGson().toJson(adapter.data));
+            context.guestShowPresentation.reload();
             popupWindow.dismiss();
         });
     }

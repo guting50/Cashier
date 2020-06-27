@@ -2,6 +2,9 @@ package com.wycd.yushangpu.ui.Presentation;
 
 import android.app.Activity;
 import android.app.Presentation;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Display;
@@ -25,6 +28,7 @@ import com.wycd.yushangpu.tools.GlideTransform;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.StringUtil;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +76,6 @@ public class GuestShowPresentation extends Presentation {
     public void reload() {
         String showBillStr = CacheDoubleUtils.getInstance().getString("showBill");
         String guestShowStr = CacheDoubleUtils.getInstance().getString("guestShow");
-        String showVoiceStr = CacheDoubleUtils.getInstance().getString("showVoice");
         String timeStr = CacheDoubleUtils.getInstance().getString("timeInterval");
         int timeInterval = Integer.parseInt(timeStr == null ? "3" : timeStr);
         String dataStr = CacheDoubleUtils.getInstance().getString("setImages");
@@ -81,6 +84,10 @@ public class GuestShowPresentation extends Presentation {
         List<String> data = GsonUtils.getGson().fromJson(dataStr, type);
 
         billLayout.setVisibility(View.GONE);
+
+//        if (!TextUtils.equals("true", guestShowStr) && !TextUtils.equals("true", showBillStr)) {
+//            dismiss();
+//        }
         if (TextUtils.equals("true", showBillStr)) {
             billLayout.setVisibility(View.VISIBLE);
         }
@@ -113,6 +120,23 @@ public class GuestShowPresentation extends Presentation {
         priceView.setText(allmoney);
         countView.setText("共" + data.size() + "件商品");
         adapter.setData(data);
+    }
+
+    public void playAudio() {
+        String showVoiceStr = CacheDoubleUtils.getInstance().getString("showVoice");
+        if (TextUtils.equals("true", showVoiceStr)) {
+            AssetManager assetManager;
+            MediaPlayer player = new MediaPlayer();
+            assetManager = getResources().getAssets();
+            try {
+                AssetFileDescriptor fileDescriptor = assetManager.openFd("9586.mp3");
+                player.setDataSource(fileDescriptor.getFileDescriptor(), fileDescriptor.getStartOffset(), fileDescriptor.getStartOffset());
+                player.prepare();
+                player.start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder> {

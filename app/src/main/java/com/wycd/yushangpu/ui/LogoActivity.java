@@ -5,7 +5,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.TextUtils;
 
+import com.blankj.utilcode.util.CacheDoubleUtils;
 import com.gt.utils.PermissionUtils;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;

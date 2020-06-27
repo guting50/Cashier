@@ -1098,15 +1098,11 @@ public class JiesuanBFragment extends BaseFragment {
 
     private void paySuccess() {
         homeActivity.imgPaySuccess.setVisibility(View.VISIBLE);
+        homeActivity.guestShowPresentation.playAudio();
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                homeActivity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        homeActivity.imgPaySuccess.setVisibility(View.GONE);
-                    }
-                });
+                homeActivity.runOnUiThread(() -> homeActivity.imgPaySuccess.setVisibility(View.GONE));
             }
         }, 2000);
         dialog.dismiss();

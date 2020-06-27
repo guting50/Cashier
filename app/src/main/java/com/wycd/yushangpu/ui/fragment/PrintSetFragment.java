@@ -481,12 +481,15 @@ public class PrintSetFragment extends BaseFragment {
 
         switch1.setOnCheckedChangeListener((buttonView, isChecked) -> {
             CacheDoubleUtils.getInstance().put("showBill", isChecked + "");
+            homeActivity.guestShowPresentation.reload();
         });
         switch2.setOnCheckedChangeListener((buttonView, isChecked) -> {
             CacheDoubleUtils.getInstance().put("guestShow", isChecked + "");
+            homeActivity.guestShowPresentation.reload();
         });
         switch3.setOnCheckedChangeListener((buttonView, isChecked) -> {
             CacheDoubleUtils.getInstance().put("showVoice", isChecked + "");
+            homeActivity.guestShowPresentation.reload();
         });
 
         LinearLayout layout = rootView.findViewById(R.id.timeLayout1);
@@ -497,6 +500,7 @@ public class PrintSetFragment extends BaseFragment {
                     CacheDoubleUtils.getInstance().put("timeInterval", ((TextView) view).getText().toString());
                     ((TextView) rootView.findViewById(R.id.timeVal)).setText(CacheDoubleUtils.getInstance().getString("timeInterval"));
                     timeLayout.setVisibility(View.GONE);
+                    homeActivity.guestShowPresentation.reload();
                 });
             }
         }
