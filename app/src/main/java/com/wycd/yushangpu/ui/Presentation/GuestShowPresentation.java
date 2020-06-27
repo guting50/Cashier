@@ -137,7 +137,7 @@ public class GuestShowPresentation extends Presentation {
             notifyDataSetChanged();
         }
 
-        class MyHolder extends RecyclerView.ViewHolder {
+        class MyHolder extends RecyclerView.ViewHolder { 
 
             @BindView(R.id.imageView)
             ImageView imageView;
