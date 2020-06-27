@@ -15,11 +15,15 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.CacheDoubleUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.google.gson.reflect.TypeToken;
 import com.gt.utils.GsonUtils;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.ShopMsg;
+import com.wycd.yushangpu.http.ImgUrlTools;
+import com.wycd.yushangpu.tools.GlideTransform;
 import com.wycd.yushangpu.tools.NullUtils;
+import com.wycd.yushangpu.tools.StringUtil;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -123,8 +127,14 @@ public class GuestShowPresentation extends Presentation {
         @Override
         public void onBindViewHolder(@NonNull MyHolder holder, int position) {
             ShopMsg item = data.get(position);
+            Glide.with(getContext()).load(ImgUrlTools.obtainUrl(NullUtils.noNullHandle(item.getPM_BigImg()).toString()))
+                    .placeholder(R.mipmap.messge_nourl)
+                    .transform(new CenterCrop(getContext()), new GlideTransform.GlideCornersTransform(getContext(), 4))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(holder.imageView);
             holder.countView.setText("x " + item.getNum() + "");
             holder.goodsNameView.setText(NullUtils.noNullHandle(item.getPM_Name()).toString() + "  " + NullUtils.noNullHandle(item.getPM_Modle()).toString());
+            holder.priceView.setText("￥" + StringUtil.twoNum(item.getAllprice() + ""));
         }
 
         @Override
