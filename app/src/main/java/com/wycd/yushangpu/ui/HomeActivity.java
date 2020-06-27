@@ -1,16 +1,12 @@
 package com.wycd.yushangpu.ui;
 
-import android.content.Context;
 import android.content.Intent;
-import android.hardware.display.DisplayManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,7 +21,6 @@ import com.wycd.yushangpu.printutil.ConnectPrinter;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.PreferenceHelper;
-import com.wycd.yushangpu.ui.Presentation.TestPresentation;
 import com.wycd.yushangpu.ui.fragment.CashierFragment;
 import com.wycd.yushangpu.ui.fragment.JiesuanBFragment;
 import com.wycd.yushangpu.ui.fragment.PrintSetFragment;
@@ -74,15 +69,6 @@ public class HomeActivity extends BaseActivity {
                 ConnectPrinter.connect(ac);
             }
         }).start();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (Settings.canDrawOverlays(this)) {
-                showPresentation();
-            } else {
-                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-                intent.setData(Uri.parse("package:" + getPackageName()));
-                startActivityForResult(intent, 100);
-            }
-        }
     }
 
     private void initFragment() {
@@ -198,24 +184,6 @@ public class HomeActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 500) {
             cashierFragment.isInit = printSetFragment.isInit = vipMemberFragment.isInit = false;
-        } else if (requestCode == 100) {
-            showPresentation();
-        }
-    }
-
-    public void showPresentation() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (Settings.canDrawOverlays(this)) {
-                DisplayManager mDisplayManager = (DisplayManager) getSystemService(Context.DISPLAY_SERVICE);
-                Display[] displays = mDisplayManager.getDisplays();
-                if (displays.length > 1) {
-                    TestPresentation mPresentation = new TestPresentation(ac, displays[1]);//displays[1]是副屏
-                    mPresentation.getWindow().setType(WindowManager.LayoutParams.TYPE_PHONE);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                        mPresentation.getWindow().setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
-                    mPresentation.show();
-                }
-            }
         }
     }
 

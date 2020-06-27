@@ -3,22 +3,30 @@ package com.wycd.yushangpu.ui;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.hardware.display.DisplayManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.provider.Settings;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.wycd.yushangpu.ui.Presentation.GuestShowPresentation;
 import com.wycd.yushangpu.widget.dialog.LoadingDialog;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -173,6 +181,35 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (token != null) {
             InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             im.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100) {
+            showPresentation();
+        }
+    }
+
+    public static GuestShowPresentation guestShowPresentation;
+
+    public void showPresentation() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Settings.canDrawOverlays(this)) {
+                DisplayManager mDisplayManager = (DisplayManager) getSystemService(Context.DISPLAY_SERVICE);
+                Display[] displays = mDisplayManager.getDisplays();
+                if (displays.length > 1) {
+                    if (guestShowPresentation == null) {
+                        guestShowPresentation = new GuestShowPresentation(ac, displays[1]);//displays[1]是副屏
+                        guestShowPresentation.getWindow().setType(WindowManager.LayoutParams.TYPE_PHONE);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                            guestShowPresentation.getWindow().setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
+                    }
+                    guestShowPresentation.show();
+                }
+            }
         }
     }
 }

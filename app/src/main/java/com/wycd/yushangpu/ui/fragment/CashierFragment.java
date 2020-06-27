@@ -528,6 +528,8 @@ public class CashierFragment extends BaseFragment {
         }
 
         mShopLeftAdapter.notifyDataSetChanged();
+
+        homeActivity.guestShowPresentation.loadData(mShopLeftAdapter.getList(), allmoney);
     }
 
     private void jisuanDiscount(ShopMsg ts) {
@@ -867,20 +869,28 @@ public class CashierFragment extends BaseFragment {
     }
 
     private void resetCashier() {
+        mVipMsg = null;
+        vipNameLayout.setVisibility(View.GONE);
+        PreferenceHelper.write(homeActivity, "yunshangpu", "vip", false);
+
+        resetGoodsList();
+    }
+
+    private void resetGoodsList() {
         mShopLeftList.clear();
         mShopLeftAdapter.notifyDataSetChanged();
         order = CreateOrder.createOrder("SP");
         tv_ordernum.setText(order);
-        mVipMsg = null;
-        vipNameLayout.setVisibility(View.GONE);
-        PreferenceHelper.write(homeActivity, "yunshangpu", "vip", false);
         mTvHeji.setText("0.00");
         tvShoukuan.setTag(0);
         tvShoukuan.setText("快速收银[Enter]");
         tvNumTotal.setText("0");
+        leftpos = -1;
         updateBntGetOrder();
 
         editCashierGoodsFragment.hide();
+
+        homeActivity.guestShowPresentation.loadData(new ArrayList<>(), "0.00");
     }
 
     @OnClick({R.id.im_clear, R.id.member_bg_layout})
@@ -888,19 +898,7 @@ public class CashierFragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.im_clear:
                 //清空
-                mShopLeftList.clear();
-                mShopLeftAdapter.notifyDataSetChanged();
-                order = CreateOrder.createOrder("SP");
-                tv_ordernum.setText(order);
-                mTvHeji.setText("0.00");
-                tvShoukuan.setTag(0);
-                tvShoukuan.setText("快速收银[Enter]");
-                tvNumTotal.setText("0");
-                leftpos = -1;
-
-                updateBntGetOrder();
-
-                editCashierGoodsFragment.hide();
+                resetGoodsList();
                 break;
             case R.id.member_bg_layout:
                 VipChooseDialog vipChooseDialog = new VipChooseDialog(homeActivity, mVipMsg, new InterfaceBack() {

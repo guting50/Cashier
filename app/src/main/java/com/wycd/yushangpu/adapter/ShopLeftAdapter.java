@@ -17,6 +17,7 @@ import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.StringUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,7 +29,7 @@ import butterknife.ButterKnife;
  */
 
 public class ShopLeftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<ShopMsg> list;
+    private List<ShopMsg> list = new ArrayList<>();
     private Context context;
     CallBack back;
 
@@ -159,6 +160,10 @@ public class ShopLeftAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public List<ShopMsg> getList() {
+        return list;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
