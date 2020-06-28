@@ -83,36 +83,35 @@ public class GuestShowPresentation extends Presentation {
         }.getType();
         List<String> data = GsonUtils.getGson().fromJson(dataStr, type);
 
-        billLayout.setVisibility(View.GONE);
-
-//        if (!TextUtils.equals("true", guestShowStr) && !TextUtils.equals("true", showBillStr)) {
-//            dismiss();
-//        }
-        if (TextUtils.equals("true", showBillStr)) {
-            billLayout.setVisibility(View.VISIBLE);
-        }
 
         if (timer != null) {
             timer.cancel();
         }
-        if (data != null) {
-            timer = new Timer();
-            timer.schedule(new TimerTask() {
-                int i = 0;
+        bgImage.setImageResource(R.drawable.presentation_bg);
+        if (TextUtils.equals("true", guestShowStr)) {
+            if (data != null) {
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    int i = 0;
 
-                @Override
-                public void run() {
-                    getOwnerActivity().runOnUiThread(() -> {
-                        Glide.with(getContext()).load(data.get(i))
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                .into(bgImage);
-                        i++;
-                        if (i >= data.size()) {
-                            i = 0;
-                        }
-                    });
-                }
-            }, timeInterval * 1000, timeInterval * 1000);
+                    @Override
+                    public void run() {
+                        getOwnerActivity().runOnUiThread(() -> {
+                            Glide.with(getContext()).load(data.get(i))
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                    .into(bgImage);
+                            i++;
+                            if (i >= data.size()) {
+                                i = 0;
+                            }
+                        });
+                    }
+                }, timeInterval * 1000, timeInterval * 1000);
+            }
+        }
+        billLayout.setVisibility(View.GONE);
+        if (TextUtils.equals("true", showBillStr)) {
+            billLayout.setVisibility(View.VISIBLE);
         }
     }
 
