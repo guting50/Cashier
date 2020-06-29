@@ -628,6 +628,7 @@ public class CashierFragment extends BaseFragment {
 //        1.若果是 套餐 的话  直接加进去
 //        2.若果是 商品 且GroupCount==1  直接加进去
 //        2.若果是 商品 且GroupCount！=1  需要你根据PM_GroupGID到本地数据库查询
+//        PM_IsService;//	商品类型	int  0  表示普通商品    1表示服务商品  2表示礼品   3普通套餐   4充次套餐
         if (shopMsg.getPM_IsService() == 3 ||
                 (shopMsg.getPM_IsService() == 0 && Double.valueOf(shopMsg.getGroupCount()) == 1)) {
             addShopLeftList(shopMsg, addnum);
