@@ -21,6 +21,7 @@ import com.gt.utils.PermissionUtils;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.tools.GlideTransform;
 import com.wycd.yushangpu.ui.BaseActivity;
+import com.wycd.yushangpu.ui.Presentation.GuestShowPresentation;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class PopWinSetImage {
         });
         contentView.findViewById(R.id.bgTextView2).setOnClickListener(v1 -> {
             CacheDoubleUtils.getInstance().put("setImages", GsonUtils.getGson().toJson(adapter.data));
-            context.guestShowPresentation.reload();
+            GuestShowPresentation.reload();
             popupWindow.dismiss();
         });
     }

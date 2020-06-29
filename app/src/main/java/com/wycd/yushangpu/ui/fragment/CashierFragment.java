@@ -42,6 +42,7 @@ import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.PreferenceHelper;
 import com.wycd.yushangpu.tools.StringUtil;
+import com.wycd.yushangpu.ui.Presentation.GuestShowPresentation;
 import com.wycd.yushangpu.widget.dialog.FastCashierDialog;
 import com.wycd.yushangpu.widget.dialog.GoodsModelDialog;
 import com.wycd.yushangpu.widget.dialog.NoticeDialog;
@@ -529,7 +530,7 @@ public class CashierFragment extends BaseFragment {
 
         mShopLeftAdapter.notifyDataSetChanged();
 
-        homeActivity.guestShowPresentation.loadData(mShopLeftAdapter.getList(), allmoney);
+        GuestShowPresentation.loadData(mShopLeftAdapter.getList(), allmoney);
     }
 
     private void jisuanDiscount(ShopMsg ts) {
@@ -890,7 +891,7 @@ public class CashierFragment extends BaseFragment {
 
         editCashierGoodsFragment.hide();
 
-        homeActivity.guestShowPresentation.loadData(new ArrayList<>(), "0.00");
+        GuestShowPresentation.loadData(new ArrayList<>(), "0.00");
     }
 
     @OnClick({R.id.im_clear, R.id.member_bg_layout})

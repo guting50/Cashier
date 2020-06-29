@@ -56,6 +56,8 @@ public class GuestShowPresentation extends Presentation {
     MyAdapter adapter;
     Timer timer;
 
+    public static GuestShowPresentation guestShowPresentation;
+
     public GuestShowPresentation(Activity outerContext, Display display) {
         super(outerContext, display);
         setOwnerActivity(outerContext);
@@ -73,7 +75,10 @@ public class GuestShowPresentation extends Presentation {
         recyclerView.setAdapter(adapter = new MyAdapter());
     }
 
-    public void reload() {
+    public static void reload() {
+        if (guestShowPresentation == null) {
+            return;
+        }
         String showBillStr = CacheDoubleUtils.getInstance().getString("showBill");
         String guestShowStr = CacheDoubleUtils.getInstance().getString("guestShow");
         String timeStr = CacheDoubleUtils.getInstance().getString("timeInterval");
@@ -84,22 +89,22 @@ public class GuestShowPresentation extends Presentation {
         List<String> data = GsonUtils.getGson().fromJson(dataStr, type);
 
 
-        if (timer != null) {
-            timer.cancel();
+        if (guestShowPresentation.timer != null) {
+            guestShowPresentation.timer.cancel();
         }
-        bgImage.setImageResource(R.drawable.presentation_bg);
+        guestShowPresentation.bgImage.setImageResource(R.drawable.presentation_bg);
         if (TextUtils.equals("true", guestShowStr)) {
             if (data != null) {
-                timer = new Timer();
-                timer.schedule(new TimerTask() {
+                guestShowPresentation.timer = new Timer();
+                guestShowPresentation.timer.schedule(new TimerTask() {
                     int i = 0;
 
                     @Override
                     public void run() {
-                        getOwnerActivity().runOnUiThread(() -> {
-                            Glide.with(getContext()).load(data.get(i))
+                        guestShowPresentation.getOwnerActivity().runOnUiThread(() -> {
+                            Glide.with(guestShowPresentation.getContext()).load(data.get(i))
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                    .into(bgImage);
+                                    .into(guestShowPresentation.bgImage);
                             i++;
                             if (i >= data.size()) {
                                 i = 0;
@@ -109,24 +114,30 @@ public class GuestShowPresentation extends Presentation {
                 }, timeInterval * 1000, timeInterval * 1000);
             }
         }
-        billLayout.setVisibility(View.GONE);
+        guestShowPresentation.billLayout.setVisibility(View.GONE);
         if (TextUtils.equals("true", showBillStr)) {
-            billLayout.setVisibility(View.VISIBLE);
+            guestShowPresentation.billLayout.setVisibility(View.VISIBLE);
         }
     }
 
-    public void loadData(List<ShopMsg> data, String allmoney) {
-        priceView.setText(allmoney);
-        countView.setText("共" + data.size() + "件商品");
-        adapter.setData(data);
+    public static void loadData(List<ShopMsg> data, String allmoney) {
+        if (guestShowPresentation == null) {
+            return;
+        }
+        guestShowPresentation.priceView.setText(allmoney);
+        guestShowPresentation.countView.setText("共" + data.size() + "件商品");
+        guestShowPresentation.adapter.setData(data);
     }
 
-    public void playAudio() {
+    public static void playAudio() {
+        if (guestShowPresentation == null) {
+            return;
+        }
         String showVoiceStr = CacheDoubleUtils.getInstance().getString("showVoice");
         if (TextUtils.equals("true", showVoiceStr)) {
             AssetManager assetManager;
             MediaPlayer player = new MediaPlayer();
-            assetManager = getResources().getAssets();
+            assetManager = guestShowPresentation.getResources().getAssets();
             try {
                 AssetFileDescriptor fileDescriptor = assetManager.openFd("9586.mp3");
                 player.setDataSource(fileDescriptor.getFileDescriptor(), fileDescriptor.getStartOffset(), fileDescriptor.getStartOffset());

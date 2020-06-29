@@ -193,21 +193,19 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public static GuestShowPresentation guestShowPresentation;
-
     public void showPresentation() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (Settings.canDrawOverlays(this)) {
                 DisplayManager mDisplayManager = (DisplayManager) getSystemService(Context.DISPLAY_SERVICE);
                 Display[] displays = mDisplayManager.getDisplays();
                 if (displays.length > 1) {
-                    if (guestShowPresentation == null) {
-                        guestShowPresentation = new GuestShowPresentation(ac, displays[1]);//displays[1]是副屏
-                        guestShowPresentation.getWindow().setType(WindowManager.LayoutParams.TYPE_PHONE);
+                    if (GuestShowPresentation.guestShowPresentation == null) {
+                        GuestShowPresentation.guestShowPresentation = new GuestShowPresentation(ac, displays[1]);//displays[1]是副屏
+                        GuestShowPresentation.guestShowPresentation.getWindow().setType(WindowManager.LayoutParams.TYPE_PHONE);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                            guestShowPresentation.getWindow().setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
+                            GuestShowPresentation.guestShowPresentation.getWindow().setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
                     }
-                    guestShowPresentation.show();
+                    GuestShowPresentation.guestShowPresentation.show();
                 }
             }
         }

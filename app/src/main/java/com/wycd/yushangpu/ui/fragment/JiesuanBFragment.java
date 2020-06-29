@@ -53,6 +53,7 @@ import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.StringUtil;
 import com.wycd.yushangpu.tools.YSLUtils;
+import com.wycd.yushangpu.ui.Presentation.GuestShowPresentation;
 import com.wycd.yushangpu.widget.NumInputView;
 import com.wycd.yushangpu.widget.NumKeyboardUtils;
 import com.wycd.yushangpu.widget.dialog.LoadingDialog;
@@ -1098,7 +1099,7 @@ public class JiesuanBFragment extends BaseFragment {
 
     private void paySuccess() {
         homeActivity.imgPaySuccess.setVisibility(View.VISIBLE);
-        homeActivity.guestShowPresentation.playAudio();
+        GuestShowPresentation.playAudio();
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {

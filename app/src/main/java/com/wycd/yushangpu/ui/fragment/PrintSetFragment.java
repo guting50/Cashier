@@ -40,6 +40,7 @@ import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.UpdateAppVersion;
 import com.wycd.yushangpu.ui.LoginActivity;
 import com.wycd.yushangpu.ui.LogoActivity;
+import com.wycd.yushangpu.ui.Presentation.GuestShowPresentation;
 import com.wycd.yushangpu.ui.popwin.PopWinSetImage;
 import com.wycd.yushangpu.widget.dialog.NoticeDialog;
 
@@ -481,15 +482,15 @@ public class PrintSetFragment extends BaseFragment {
 
         switch1.setOnCheckedChangeListener((buttonView, isChecked) -> {
             CacheDoubleUtils.getInstance().put("showBill", isChecked + "");
-            homeActivity.guestShowPresentation.reload();
+            GuestShowPresentation.reload();
         });
         switch2.setOnCheckedChangeListener((buttonView, isChecked) -> {
             CacheDoubleUtils.getInstance().put("guestShow", isChecked + "");
-            homeActivity.guestShowPresentation.reload();
+            GuestShowPresentation.reload();
         });
         switch3.setOnCheckedChangeListener((buttonView, isChecked) -> {
             CacheDoubleUtils.getInstance().put("showVoice", isChecked + "");
-            homeActivity.guestShowPresentation.reload();
+            GuestShowPresentation.reload();
         });
 
         LinearLayout layout = rootView.findViewById(R.id.timeLayout1);
@@ -500,7 +501,7 @@ public class PrintSetFragment extends BaseFragment {
                     CacheDoubleUtils.getInstance().put("timeInterval", ((TextView) view).getText().toString());
                     ((TextView) rootView.findViewById(R.id.timeVal)).setText(CacheDoubleUtils.getInstance().getString("timeInterval"));
                     timeLayout.setVisibility(View.GONE);
-                    homeActivity.guestShowPresentation.reload();
+                    GuestShowPresentation.reload();
                 });
             }
         }
