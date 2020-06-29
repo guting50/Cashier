@@ -771,6 +771,7 @@ public class JiesuanBFragment extends BaseFragment {
      * 判断支付是否开启
      */
     private void resetPayModeList() {
+        //现金
         mLiXianjin.setEnabled(true);
         if (SysSwitchRes.getSwitch(SysSwitchType.T101.getV()).getSS_State() != 1) {
             mLiXianjin.setBackgroundResource(R.drawable.shap_enable_not);
@@ -783,7 +784,7 @@ public class JiesuanBFragment extends BaseFragment {
             mLiYue.setBackgroundResource(R.drawable.shap_enable_not);
             mLiYue.setEnabled(false);
         }
-        yuePayXz = NullUtils.noNullHandle(SysSwitchRes.getSwitch(SysSwitchType.T101.getV()).getSS_Value()).toString();
+        yuePayXz = NullUtils.noNullHandle(SysSwitchRes.getSwitch(SysSwitchType.T102.getV()).getSS_Value()).toString();
         //银联
         mLiYinlian.setEnabled(true);
         if (SysSwitchRes.getSwitch(SysSwitchType.T103.getV()).getSS_State() != 1) {

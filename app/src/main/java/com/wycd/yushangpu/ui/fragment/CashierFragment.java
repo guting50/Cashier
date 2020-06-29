@@ -631,7 +631,7 @@ public class CashierFragment extends BaseFragment {
         if (shopMsg.getPM_IsService() == 3 ||
                 (shopMsg.getPM_IsService() == 0 && Double.valueOf(shopMsg.getGroupCount()) == 1)) {
             addShopLeftList(shopMsg, addnum);
-        } else if (shopMsg.getPM_IsService() == 0 && Double.valueOf(shopMsg.getGroupCount()) != 1) {
+        } else /*if (shopMsg.getPM_IsService() == 0 && Double.valueOf(shopMsg.getGroupCount()) != 1)*/ {
             homeActivity.dialog.show();
             final double finalAddnum = addnum;
             String url = HttpAPI.API().GROUPGOODS_LIST;
