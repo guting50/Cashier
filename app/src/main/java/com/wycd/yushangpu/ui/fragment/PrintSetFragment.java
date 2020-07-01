@@ -57,7 +57,7 @@ public class PrintSetFragment extends BaseFragment {
     private TextView mTvPrint, mTvConnect;
     private RadioGroup rgPrinterSelect;
     private RadioGroup rgPrinterSelectLabelSize;
-    private TextView rbAboutShop, rbPrinterLabel, rbPrinterDevice, rbSoftwareInfo;
+    private TextView rbAboutShop, rbPrinterLabel, rbPrinterDevice, rbAssistantScreenSet, rbSoftwareInfo;
     private RadioButton rgPrinterSelectedUsb, rgPrinterSelectedBluetooth;
     private RadioButton rgPrinterSelectLabelSmall, rgPrinterSelectLabelLarge;
     private EditText mEtGoodsConsume, mEtHandDutyTime;
@@ -101,6 +101,7 @@ public class PrintSetFragment extends BaseFragment {
         rbAboutShop = (TextView) rootView.findViewById(R.id.rb_about_shop);
         rbPrinterLabel = (TextView) rootView.findViewById(R.id.rb_printer_label_set);
         rbPrinterDevice = (TextView) rootView.findViewById(R.id.rb_printer_device_set);
+        rbAssistantScreenSet = (TextView) rootView.findViewById(R.id.rb_assistant_screen_set);
         rbSoftwareInfo = (TextView) rootView.findViewById(R.id.rb_software_info);
 
         rgPrinterSelect = (RadioGroup) rootView.findViewById(R.id.rb_printer_select);
@@ -513,6 +514,13 @@ public class PrintSetFragment extends BaseFragment {
         settingLayout.setVisibility(View.GONE);
         assistantScreenSetLayout.setVisibility(View.GONE);
         softwareInfoLayout.setVisibility(View.GONE);
+        rbAboutShop.setBackgroundResource(R.color.white);
+        rbPrinterLabel.setBackgroundResource(R.color.white);
+        rbPrinterDevice.setBackgroundResource(R.color.white);
+        rbAssistantScreenSet.setBackgroundResource(R.color.white);
+        rbSoftwareInfo.setBackgroundResource(R.color.white);
+        view.setBackgroundResource(R.color.item_bg);
+
         switch (view.getId()) {
             case R.id.rb_about_shop:
                 aboutShopLayout.setVisibility(View.VISIBLE);

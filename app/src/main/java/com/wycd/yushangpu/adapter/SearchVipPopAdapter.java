@@ -69,6 +69,10 @@ public class SearchVipPopAdapter extends RecyclerView.Adapter {
         vh.tvCardnum.setText("卡号：" + NullUtils.noNullHandle(ts.getVCH_Card()) + "");
         vh.tvPhone.setText(NullUtils.noNullHandle(ts.getVIP_CellPhone()) + "");
 
+        if (getItemCount() == 1) {
+            vh.rootView.setBackgroundResource(R.color.texted);
+        }
+
         vh.rootView.setOnClickListener(new OnNoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
