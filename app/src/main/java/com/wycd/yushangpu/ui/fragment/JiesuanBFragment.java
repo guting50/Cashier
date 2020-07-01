@@ -851,51 +851,52 @@ public class JiesuanBFragment extends BaseFragment {
 
         String name = PayMode.XJZF.getStr();
         View view = mLiXianjin;
-        switch (NullUtils.noNullHandle(msg.getSS_Value()).toString()) {
-            case "XJZF"://现金
-                view = mLiXianjin;
-                name = PayMode.XJZF.getStr();
-                break;
-            case "YEZF"://余额
-                if (isMember && orderType != HYCZ) {
-                    view = mLiYue;
-                    name = PayMode.YEZF.getStr();
-                } else {
-                    //默认余额支付时为非会员 改为默认现金支付
+        if (msg != null)
+            switch (NullUtils.noNullHandle(msg.getSS_Value()).toString()) {
+                case "XJZF"://现金
                     view = mLiXianjin;
                     name = PayMode.XJZF.getStr();
-                }
-                break;
-            case "YLZF"://银联
-                view = mLiYinlian;
-                name = PayMode.YLZF.getStr();
-                break;
-            case "WXJZ"://微信
-                view = mLiWx;
-                name = PayMode.WXJZ.getStr();
-                break;
-            case "ZFBJZ"://支付宝
-                view = mLiAli;
-                name = PayMode.ZFBJZ.getStr();
-                break;
-            case "JFZF"://积分支付
-                if (isMember && orderType != HYCZ) {
-                    view = mLiJifen;
-                    name = PayMode.JFZF.getStr();
-                } else {
-                    view = mLiXianjin;
-                    name = PayMode.XJZF.getStr();
-                }
-                break;
-            case "SMZF"://扫码支付
-                view = mLiSaoma;
-                name = PayMode.SMZF.getStr();
-                break;
-            case "QTZF"://其它支付
-                view = li_qita;
-                name = PayMode.QTZF.getStr();
-                break;
-        }
+                    break;
+                case "YEZF"://余额
+                    if (isMember && orderType != HYCZ) {
+                        view = mLiYue;
+                        name = PayMode.YEZF.getStr();
+                    } else {
+                        //默认余额支付时为非会员 改为默认现金支付
+                        view = mLiXianjin;
+                        name = PayMode.XJZF.getStr();
+                    }
+                    break;
+                case "YLZF"://银联
+                    view = mLiYinlian;
+                    name = PayMode.YLZF.getStr();
+                    break;
+                case "WXJZ"://微信
+                    view = mLiWx;
+                    name = PayMode.WXJZ.getStr();
+                    break;
+                case "ZFBJZ"://支付宝
+                    view = mLiAli;
+                    name = PayMode.ZFBJZ.getStr();
+                    break;
+                case "JFZF"://积分支付
+                    if (isMember && orderType != HYCZ) {
+                        view = mLiJifen;
+                        name = PayMode.JFZF.getStr();
+                    } else {
+                        view = mLiXianjin;
+                        name = PayMode.XJZF.getStr();
+                    }
+                    break;
+                case "SMZF"://扫码支付
+                    view = mLiSaoma;
+                    name = PayMode.SMZF.getStr();
+                    break;
+                case "QTZF"://其它支付
+                    view = li_qita;
+                    name = PayMode.QTZF.getStr();
+                    break;
+            }
 
         view.setTag(true);
         view.setBackgroundResource(R.drawable.bg_edittext_focused);

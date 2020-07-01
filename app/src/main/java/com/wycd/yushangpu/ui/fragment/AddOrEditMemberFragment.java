@@ -864,8 +864,8 @@ public class AddOrEditMemberFragment extends BaseFragment {
         params.put("VIP_Overdue", mOverdueDate == null ? "" : (mOverdueDate.split(" ")[0] + " 23:59:59"));//过期日期
         params.put("VCH_CreateTime", et_VCH_CreateTime.getTag());//开发日期
         for (int i = 0; i < costomfields.size(); i++) {//自定义属性
-            params.put("FildsId[]", costomfields.get(i).getCF_GID());
-            params.put("FildsValue[]", costomfields.get(i).getM_ItemsValue() == null ? ""
+            params.put("FildsId[" + i + "]", costomfields.get(i).getCF_GID());
+            params.put("FildsValue[" + i + "]", costomfields.get(i).getM_ItemsValue() == null ? ""
                     : costomfields.get(i).getM_ItemsValue());
         }
         params.put("Smsg", 1);
@@ -1084,20 +1084,21 @@ public class AddOrEditMemberFragment extends BaseFragment {
                         switch (getItemViewType(position)) {
                             case TYPE_3:
                                 MaxHeightRecyclerView recyclerView = rootView.findViewById(R.id.select_recycler_costomfields_view);
+                                rootView.findViewById(R.id.dialogLayout).setOnClickListener(view -> {
+                                });
                                 View viewParent = (View) recyclerView.getParent().getParent();
                                 if (viewParent.getVisibility() == View.GONE) {
-                                    viewParent.setVisibility(View.VISIBLE);
                                     SelectAdapter selectAdapter = new SelectAdapter();
                                     recyclerView.setLayoutManager(new LinearLayoutManager(homeActivity));
                                     recyclerView.setAdapter(selectAdapter);
-                                    selectAdapter.setData(vipBean.getCF_ItemsValue().split("\\,"),
+                                    selectAdapter.setData(vipBean.getCF_ItemsValue().split("\\|"),
                                             selectHolder.et_costomfields_value.getText().toString(), new InterfaceBack() {
 
                                                 @Override
                                                 public void onResponse(Object response) {
                                                     selectHolder.et_costomfields_value.setText(selectAdapter.data.get((int) response));
                                                 }
-                                            }).show((View) recyclerView.getParent(), RelativeLayout.CENTER_IN_PARENT, -1);
+                                            }).show(viewParent);
                                 } else {
                                     viewParent.setVisibility(View.GONE);
                                 }
@@ -1253,7 +1254,6 @@ public class AddOrEditMemberFragment extends BaseFragment {
                     selectedHolser.tv_select_lable.setTextColor(homeActivity.getResources().getColor(R.color.white));
                     selectedHolser.tv_select_lable.setBackgroundResource(R.color.color_149f4a);
                     viewParent.setVisibility(View.GONE);
-                    ((View) viewParent.getParent()).setVisibility(View.GONE);
                     back.onResponse(position);
                 }
             });
@@ -1291,6 +1291,11 @@ public class AddOrEditMemberFragment extends BaseFragment {
             } else
                 layoutParams.addRule(verb);
             viewParent.setLayoutParams(layoutParams);
+        }
+
+        public void show(View viewParent) {
+            this.viewParent = viewParent;
+            viewParent.setVisibility(View.VISIBLE);
         }
 
         class Holder extends RecyclerView.ViewHolder {

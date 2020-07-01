@@ -1201,6 +1201,7 @@
                     android:paddingRight="160dp" />
 
                 <RelativeLayout
+                    android:id="@+id/dialogLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="#60000000"
@@ -1209,8 +1210,8 @@
                     <FrameLayout
                         android:layout_width="324dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/selector_edit_green_gray"
-                        android:visibility="gone">
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/selector_edit_green_gray">
 
                         <com.wycd.yushangpu.widget.MaxHeightRecyclerView
                             android:id="@+id/select_recycler_costomfields_view"

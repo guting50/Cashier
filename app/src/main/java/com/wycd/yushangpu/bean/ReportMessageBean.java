@@ -1003,7 +1003,7 @@ public class ReportMessageBean implements Serializable {
             private String PT_GID;
             private String PT_Name;
             private String PT_Type;
-            private int PD_Discount;
+            private double PD_Discount;
             private double VS_CMoney;
             private double VS_Number;
             private String SM_GID;
@@ -1051,11 +1051,11 @@ public class ReportMessageBean implements Serializable {
                 this.PT_Type = PT_Type;
             }
 
-            public int getPD_Discount() {
+            public double getPD_Discount() {
                 return PD_Discount;
             }
 
-            public void setPD_Discount(int PD_Discount) {
+            public void setPD_Discount(double PD_Discount) {
                 this.PD_Discount = PD_Discount;
             }
 

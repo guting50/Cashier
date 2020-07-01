@@ -1,10 +1,7 @@
 package com.wycd.yushangpu.ui;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -63,12 +60,7 @@ public class HomeActivity extends BaseActivity {
         initView();
         initEvent();
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                ConnectPrinter.connect(ac);
-            }
-        }).start();
+        new Thread(() -> ConnectPrinter.connect(ac)).start();
     }
 
     private void initFragment() {

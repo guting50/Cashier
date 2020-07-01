@@ -911,7 +911,7 @@
                         android:background="@drawable/rb_background_print_set"
                         android:gravity="center_vertical"
                         android:paddingLeft="35dp"
-                        android:text="副品广告"
+                        android:text="副屏广告"
                         android:textColor="@color/textcolor"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"

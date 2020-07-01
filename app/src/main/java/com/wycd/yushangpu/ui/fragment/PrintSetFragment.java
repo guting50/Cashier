@@ -238,7 +238,7 @@ public class PrintSetFragment extends BaseFragment {
         switch1.setChecked(TextUtils.equals("true", CacheDoubleUtils.getInstance().getString("showBill")));
         switch2.setChecked(TextUtils.equals("true", CacheDoubleUtils.getInstance().getString("guestShow")));
         switch3.setChecked(TextUtils.equals("true", CacheDoubleUtils.getInstance().getString("showVoice")));
-        ((TextView) rootView.findViewById(R.id.timeVal)).setText(CacheDoubleUtils.getInstance().getString("timeInterval"));
+        ((TextView) rootView.findViewById(R.id.timeVal)).setText(CacheDoubleUtils.getInstance().getString("timeInterval") + "S");
     }
 
     private void setListener() {
@@ -499,7 +499,7 @@ public class PrintSetFragment extends BaseFragment {
             if (view instanceof TextView) {
                 view.setOnClickListener(v -> {
                     CacheDoubleUtils.getInstance().put("timeInterval", ((TextView) view).getText().toString());
-                    ((TextView) rootView.findViewById(R.id.timeVal)).setText(CacheDoubleUtils.getInstance().getString("timeInterval"));
+                    ((TextView) rootView.findViewById(R.id.timeVal)).setText(CacheDoubleUtils.getInstance().getString("timeInterval") + "S");
                     timeLayout.setVisibility(View.GONE);
                     GuestShowPresentation.reload();
                 });
