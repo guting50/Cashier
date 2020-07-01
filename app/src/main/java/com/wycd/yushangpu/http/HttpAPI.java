@@ -188,7 +188,7 @@ public class HttpAPI {
         //添加会员
         public static final String ADDUSER = MyApplication.BASE_URL + "api/VIP/AddVIP";
         //修改会员信息
-        public static final String EDIVIP = MyApplication.BASE_URL + "api/VIP/EditVIP";
+        public static final String EDITIP = MyApplication.BASE_URL + "api/VIP/EditVIP";
         //上传会员头像
         public static final String UPLOAD_MEMBER_PHOTO = MyApplication.BASE_URL + "api/RecvImage/UploadImg";
         //获取有效优惠活动

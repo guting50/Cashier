@@ -140,7 +140,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
     private boolean isCardNum;
     private SelectAdapter selectAdapter;
     private List<ReportMessageBean.VIPGradeListBean> mMemberGrade;
-    private List<ReportMessageBean.GetCustomFieldsVIPBean> costomfields;
+    private List<ReportMessageBean.GetCustomFieldsVIPBean> customFields;
     private List<MemberLabel> mModelLabel;
     private List<String> mGradeNameList = new ArrayList<>();//会员等级名称集合
     private List<String> mModelLabelList = new ArrayList<>();
@@ -225,7 +225,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
 
     protected void updateData() {
         mMemberGrade = ImpParamLoading.REPORT_BEAN.getVIPGradeList();
-        costomfields = ImpParamLoading.REPORT_BEAN.getGetCustomFieldsVIP();
+        customFields = ImpParamLoading.REPORT_BEAN.getGetCustomFieldsVIP();
         mPayWayList.clear();
         mPayWayList.add("现金支付");
         showAttr();
@@ -329,11 +329,12 @@ public class AddOrEditMemberFragment extends BaseFragment {
             et_VIP_Label.setText(mLabName);
             et_VIP_Remark.setText(vipInfoMsg.getVIP_Remark());
 
-            for (int i = 0; i < costomfields.size(); i++) {
-                if (vipInfoMsg.getCustomeFieldList() != null && vipInfoMsg.getCustomeFieldList().size() > 0) {
+            if (vipInfoMsg.getCustomeFieldList() != null && vipInfoMsg.getCustomeFieldList().size() > 0) {
+                for (int i = 0; i < customFields.size(); i++) {
                     for (int j = 0; j < vipInfoMsg.getCustomeFieldList().size(); j++) {
-                        if (costomfields.get(i).getCF_FieldName().equals(vipInfoMsg.getCustomeFieldList().get(j).getCF_FieldName())) {
-                            costomfields.get(i).setM_ItemsValue(vipInfoMsg.getCustomeFieldList().get(j).getCF_Value());
+                        if (customFields.get(i).getCF_FieldName().equals(vipInfoMsg.getCustomeFieldList().get(j).getCF_FieldName())) {
+                            customFields.get(i).setCF_Value(vipInfoMsg.getCustomeFieldList().get(j).getCF_Value());
+                            customFields.get(i).setCF_GID(vipInfoMsg.getCustomeFieldList().get(j).getCF_GID());
                         }
                     }
                 }
@@ -443,7 +444,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
         onClick(rootView.findViewById(R.id.tv_basic_data));
 
         rootView.findViewById(R.id.isFill).setVisibility(View.GONE);
-        for (ReportMessageBean.GetCustomFieldsVIPBean vipBean : costomfields) {
+        for (ReportMessageBean.GetCustomFieldsVIPBean vipBean : customFields) {
             if (vipBean.getCF_Required().equals("是")) {
                 rootView.findViewById(R.id.isFill).setVisibility(View.VISIBLE);
                 break;
@@ -537,10 +538,10 @@ public class AddOrEditMemberFragment extends BaseFragment {
                 VipChooseDialog vipChooseDialog = new VipChooseDialog(homeActivity, null, new InterfaceBack() {
                     @Override
                     public void onResponse(Object response) {
-                        VipInfoMsg vipInfoMsg = (VipInfoMsg) response;
-                        et_VIP_Referee.setText(vipInfoMsg.getVIP_Name());
-                        et_VIP_Referee.setTag(vipInfoMsg.getVCH_Card());
-                        mRecommendCardNum = vipInfoMsg.getVCH_Card();
+                        VipInfoMsg infoMsg = (VipInfoMsg) response;
+                        et_VIP_Referee.setText(infoMsg.getVIP_Name());
+                        et_VIP_Referee.setTag(infoMsg.getVCH_Card());
+                        mRecommendCardNum = infoMsg.getVCH_Card();
                     }
 
                     @Override
@@ -824,10 +825,10 @@ public class AddOrEditMemberFragment extends BaseFragment {
             warnDialog("请选择支付方式！");
             return false;
         }
-        for (int i = 0; i < costomfields.size(); i++) {
-            if (costomfields.get(i).getCF_Required().equals("是")
-                    && (costomfields.get(i).getM_ItemsValue() == null || costomfields.get(i).getM_ItemsValue().equals(""))) {
-                warnDialog("请填写" + costomfields.get(i).getCF_FieldName() + "!");
+        for (int i = 0; i < customFields.size(); i++) {
+            if (customFields.get(i).getCF_Required().equals("是")
+                    && (customFields.get(i).getCF_Value() == null || customFields.get(i).getCF_Value().equals(""))) {
+                warnDialog("请填写" + customFields.get(i).getCF_FieldName() + "!");
                 return false;
             }
         }
@@ -863,11 +864,6 @@ public class AddOrEditMemberFragment extends BaseFragment {
         params.put("VIP_FaceNumber", mcardId);//卡面号码
         params.put("VIP_Overdue", mOverdueDate == null ? "" : (mOverdueDate.split(" ")[0] + " 23:59:59"));//过期日期
         params.put("VCH_CreateTime", et_VCH_CreateTime.getTag());//开发日期
-        for (int i = 0; i < costomfields.size(); i++) {//自定义属性
-            params.put("FildsId[" + i + "]", costomfields.get(i).getCF_GID());
-            params.put("FildsValue[" + i + "]", costomfields.get(i).getM_ItemsValue() == null ? ""
-                    : costomfields.get(i).getM_ItemsValue());
-        }
         params.put("Smsg", 1);
 
         if (mMemberPhotoAddress != null) {
@@ -894,12 +890,17 @@ public class AddOrEditMemberFragment extends BaseFragment {
             params.put("IS_Sms", true);
             params.put("VIP_RegSource", 5);
         } else {
-            url = HttpAPI.API().EDIVIP;
+            url = HttpAPI.API().EDITIP;
             params.put("GID", vipInfoMsg.getGID());
             params.put("VIP_State", 0);
             params.put("MA_AvailableIntegral", "");
             params.put("MA_AggregateAmount", "");
             params.put("EM_Name", "");
+        }
+        for (int i = 0; i < customFields.size(); i++) {//自定义属性
+            params.put("FildsId[" + i + "]", customFields.get(i).getCF_GID());
+            params.put("FildsValue[" + i + "]", customFields.get(i).getCF_Value() == null ? ""
+                    : customFields.get(i).getCF_Value());
         }
         GetPrintSet.PRINT_IS_OPEN = cb_small_ticket.isChecked();
 
@@ -911,8 +912,8 @@ public class AddOrEditMemberFragment extends BaseFragment {
             public void onResponse(BaseRes response) {
                 homeActivity.dialog.dismiss();
                 if (GetPrintSet.PRINT_IS_OPEN) {
-                    VipInfoMsg vipInfoMsg = response.getData(VipInfoMsg.class);
-                    new HttpGetPrintContents().HYKK(homeActivity, vipInfoMsg.getGID());
+                    VipInfoMsg infoMsg = response.getData(VipInfoMsg.class);
+                    new HttpGetPrintContents().HYKK(homeActivity, infoMsg.getGID());
                 }
                 warnDialog(msgStr + "成功");
                 homeActivity.vipMemberFragment.reset();
@@ -1039,16 +1040,15 @@ public class AddOrEditMemberFragment extends BaseFragment {
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            ReportMessageBean.GetCustomFieldsVIPBean vipBean = costomfields.get(position);
+            ReportMessageBean.GetCustomFieldsVIPBean vipBean = customFields.get(position);
             CostomfieldsHolder myHolder = (CostomfieldsHolder) holder;
             myHolder.tv_costomfields_name.setText(vipBean.getCF_FieldName());
+            myHolder.isFill.setVisibility(View.GONE);
             if (vipBean.getCF_Required().equals("是")) {
                 myHolder.isFill.setVisibility(View.VISIBLE);
-            } else if (vipBean.getCF_Required().equals("否")) {
-                myHolder.isFill.setVisibility(View.GONE);
             }
-            if (vipBean.getM_ItemsValue() != null && !vipBean.getM_ItemsValue().equals("null")) {
-                myHolder.et_costomfields_value.setText(vipBean.getM_ItemsValue());
+            if (vipBean.getCF_Value() != null && !vipBean.getCF_Value().equals("null")) {
+                myHolder.et_costomfields_value.setText(vipBean.getCF_Value());
             } else {
                 myHolder.et_costomfields_value.setText("");
             }
@@ -1065,7 +1065,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    vipBean.setM_ItemsValue(s.toString());
+                    vipBean.setCF_Value(s.toString());
                 }
             });
 
@@ -1105,13 +1105,8 @@ public class AddOrEditMemberFragment extends BaseFragment {
                                 break;
                             case TYPE_4:
                                 CalendarSelector mCalendarSelector = new CalendarSelector(homeActivity, 0,
-                                        new CalendarSelector.ICalendarSelectorCallBack() {
-                                            @Override
-                                            public void transmitPeriod(HashMap<String, String> result) {
-                                                selectHolder.et_costomfields_value.setText(
-                                                        result.get("yearval") + "-" + result.get("monthval") + "-" + result.get("dayval"));
-                                            }
-                                        });
+                                        result -> selectHolder.et_costomfields_value.setText(
+                                                result.get("yearval") + "-" + result.get("monthval") + "-" + result.get("dayval")));
                                 mCalendarSelector.show(selectHolder.et_costomfields_value);
                                 if (TextUtils.isEmpty(selectHolder.et_costomfields_value.getText().toString())) {
                                     mCalendarSelector.setPosition(DateUtil.getDateForString(DateTimeUtil.getNowDate()), "0", "0");
@@ -1161,12 +1156,12 @@ public class AddOrEditMemberFragment extends BaseFragment {
 
         @Override
         public int getItemCount() {
-            return costomfields == null ? 0 : costomfields.size();
+            return customFields == null ? 0 : customFields.size();
         }
 
         @Override
         public int getItemViewType(int position) {
-            String type = costomfields.get(position).getCF_FieldType();
+            String type = customFields.get(position).getCF_FieldType();
             if (type.contains("文本"))
                 return TYPE_1;
             else if (type.contains("数字"))

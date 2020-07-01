@@ -123,20 +123,12 @@ public class VipMemberFragment extends BaseFragment {
                     memberAdapter.selectedHolder.rootView.setBackgroundResource(R.color.white);
                 break;
             case R.id.iv_add_member://新增会员
-                addOrEditMemberFragment.setData(null);
                 addOrEditMemberFragment.show(homeActivity, R.id.fragment_vip_content);
+                addOrEditMemberFragment.setData(null);
                 break;
             case R.id.ly_update_info://修改资料
                 addOrEditMemberFragment.show(homeActivity, R.id.fragment_vip_content);
-                homeActivity.dialog.show();
-                onlyVipMsg.vipMsg(infoMsg.getVCH_Card(), new InterfaceBack<VipInfoMsg>() {
-                    @Override
-                    public void onResponse(VipInfoMsg response) {
-                        homeActivity.dialog.dismiss();
-                        infoMsg = response;
-                        addOrEditMemberFragment.setData(infoMsg);
-                    }
-                });
+                addOrEditMemberFragment.setData(infoMsg);
                 break;
             case R.id.ly_vip_recharge://会员充值
                 memberRechargeFragment.show(homeActivity, R.id.fragment_vip_content);
@@ -145,8 +137,7 @@ public class VipMemberFragment extends BaseFragment {
                     @Override
                     public void onResponse(VipInfoMsg response) {
                         homeActivity.dialog.dismiss();
-                        infoMsg = response;
-                        memberRechargeFragment.setData(infoMsg);
+                        memberRechargeFragment.setData(response);
                     }
                 });
                 break;
@@ -157,8 +148,7 @@ public class VipMemberFragment extends BaseFragment {
                     @Override
                     public void onResponse(VipInfoMsg response) {
                         homeActivity.dialog.dismiss();
-                        infoMsg = response;
-                        homeActivity.cashierFragment.selectedVIP(infoMsg);
+                        homeActivity.cashierFragment.selectedVIP(response);
                     }
                 });
                 break;

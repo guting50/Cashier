@@ -280,7 +280,7 @@ public class ReportMessageBean implements Serializable {
         private String CF_GID;
         private String CF_FieldName;
         private String CF_FieldType;
-        private String CF_ItemsValue;
+        private String CF_ItemsValue;//下拉框数据集合
         private String CF_Value;
         private String CF_Required;
         private String CY_GID;
@@ -289,16 +289,6 @@ public class ReportMessageBean implements Serializable {
         private String CF_CreateTime;
         private int CF_Order;
         private int CF_IsShowVIP;
-
-        public String getM_ItemsValue() {
-            return M_ItemsValue;
-        }
-
-        public void setM_ItemsValue(String m_ItemsValue) {
-            M_ItemsValue = m_ItemsValue;
-        }
-
-        private String M_ItemsValue;
 
         public String getCF_GID() {
             return CF_GID;
