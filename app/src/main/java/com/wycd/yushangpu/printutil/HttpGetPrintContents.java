@@ -81,7 +81,7 @@ public class HttpGetPrintContents {
             @Override
             public void onErrorResponse(Object msg) {
                 super.onErrorResponse(msg);
-                ToastUtils.showLong("获取商品消费打印参数失败");
+                ToastUtils.showLong("获取快速消费打印参数失败");
             }
 
         });
@@ -178,7 +178,7 @@ public class HttpGetPrintContents {
             @Override
             public void onErrorResponse(Object msg) {
                 super.onErrorResponse(msg);
-                ToastUtils.showLong("获取商品消费打印参数失败");
+                ToastUtils.showLong("获取打印参数失败");
             }
 
         });

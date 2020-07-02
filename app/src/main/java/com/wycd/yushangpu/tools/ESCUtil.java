@@ -347,6 +347,7 @@ public class ESCUtil {
         byte[] bytes2 = getBytesFromBitMap(bitmap);
         return byteMerger(bytes1, bytes2);
     }
+
     /**
      * 居中对齐
      *
@@ -386,7 +387,7 @@ public class ESCUtil {
         float scaleWidth = ((float) newWidth) / width;
         // 取得想要缩放的matrix参数
         Matrix matrix = new Matrix();
-        // matrix.postScale(scaleWidth, 1);
+//        matrix.postScale(scaleWidth, 1);
         matrix.postScale(2, 2);
         // 得到新的图片
         Bitmap newbm = Bitmap.createBitmap(bitmap1, 0, 0, width, height, matrix,
@@ -402,7 +403,7 @@ public class ESCUtil {
 
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
-        int bw = (width - 1) / 8 +1;
+        int bw = (width - 1) / 8 + 1;
 
         byte[] rv = new byte[height * bw + 4];
         rv[0] = (byte) bw;//xL

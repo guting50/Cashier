@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:focusable="true"
     android:focusableInTouchMode="true"
+    android:orientation="vertical"
     tools:ignore="MissingDefaultResource">
 
     <RelativeLayout
@@ -103,8 +103,10 @@
                 android:layout_height="@dimen/dp_45"
                 android:background="@drawable/shap_saoma_edit"
                 android:hint="请扫描客户付款码"
+                android:imeOptions="actionDone"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
+                android:singleLine="true"
                 android:textColor="@color/textcolor"
                 android:textColorHint="@color/textbb"
                 android:textSize="@dimen/sp_14" />

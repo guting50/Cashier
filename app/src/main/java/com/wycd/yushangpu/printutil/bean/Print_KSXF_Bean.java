@@ -1,5 +1,7 @@
 package com.wycd.yushangpu.printutil.bean;
 
+import android.text.TextUtils;
+
 /**
  * iauthor：Cheng
  * date: 2017/8/2 19:49
@@ -55,6 +57,42 @@ public class Print_KSXF_Bean {
     private int ExchangeNum;
     private String VIP_FaceNumber;
     private String EMName;
+    private double DiscountAmount;
+    private String DiscountAmountDetail;
+    private String VIPAddress;
+    private double ConsumeTotal;
+
+    public double getConsumeTotal() {
+        return ConsumeTotal;
+    }
+
+    public void setConsumeTotal(double consumeTotal) {
+        ConsumeTotal = consumeTotal;
+    }
+
+    public double getDiscountAmount() {
+        return DiscountAmount;
+    }
+
+    public void setDiscountAmount(double discountAmount) {
+        DiscountAmount = discountAmount;
+    }
+
+    public String getDiscountAmountDetail() {
+        return TextUtils.isEmpty(DiscountAmountDetail) ? "" : DiscountAmountDetail;
+    }
+
+    public String getVIPAddress() {
+        return TextUtils.isEmpty(VIPAddress) ? "" : VIPAddress;
+    }
+
+    public void setVIPAddress(String VIPAddress) {
+        this.VIPAddress = VIPAddress;
+    }
+
+    public void setDiscountAmountDetail(String discountAmountDetail) {
+        DiscountAmountDetail = discountAmountDetail;
+    }
 
     public String getEMName() {
         return EMName;

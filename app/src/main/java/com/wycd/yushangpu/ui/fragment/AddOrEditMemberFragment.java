@@ -46,6 +46,7 @@ import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
+import com.wycd.yushangpu.model.ImpOnlyVipMsg;
 import com.wycd.yushangpu.model.ImpParamLoading;
 import com.wycd.yushangpu.printutil.GetPrintSet;
 import com.wycd.yushangpu.printutil.HttpGetPrintContents;
@@ -737,6 +738,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
             } else {
                 warnDialog("【手机号】不能为空");
                 mPhoneNum = "";
+                return false;
             }
         } else {
             if (mCardContactPhone && TextUtils.isEmpty(et_VIP_CellPhone.getText())) {
@@ -907,17 +909,16 @@ public class AddOrEditMemberFragment extends BaseFragment {
         homeActivity.dialog.show();
         AsyncHttpUtils.postHttp(url, params, new CallBack() {
             String msgStr = vipInfoMsg == null ? "添加会员" : "修改会员";
-
+            String GID = "";
             @Override
             public void onResponse(BaseRes response) {
                 homeActivity.dialog.dismiss();
-                if (GetPrintSet.PRINT_IS_OPEN) {
-                    VipInfoMsg infoMsg = response.getData(VipInfoMsg.class);
-                    new HttpGetPrintContents().HYKK(homeActivity, infoMsg.getGID());
-                }
                 warnDialog(msgStr + "成功");
                 homeActivity.vipMemberFragment.reset();
                 hide();
+                VipInfoMsg infoMsg = response.getData(VipInfoMsg.class);
+                GID = infoMsg.getGID();
+                finallyFunction();
             }
 
             @Override
@@ -926,13 +927,24 @@ public class AddOrEditMemberFragment extends BaseFragment {
                 if (msg.toString().contains("SmsSign")) {
                     warnDialog(msgStr + "成功,短信未发送，未设置默认签名！");
                     homeActivity.vipMemberFragment.reset();
+                    GID = ((BaseRes)msg).getData().toString();
+                    finallyFunction();
                 } else if (msg.toString().contains("BuySms")) {
                     warnDialog(msgStr + "成功，短信未发送，短信库存不足！");
                     homeActivity.vipMemberFragment.reset();
+                    GID = ((BaseRes)msg).getData().toString();
+                    finallyFunction();
                 } else if (msg.toString().contains("UpgradeShop")) {
                     warnDialog("会员数已达上限,请升级店铺！");
                 } else {
                     warnDialog(((BaseRes) msg).getMsg());
+                }
+            }
+
+            @Override
+            public void finallyFunction() {
+                if (GetPrintSet.PRINT_IS_OPEN) {
+                    new HttpGetPrintContents().HYKK(homeActivity, GID);
                 }
             }
         });

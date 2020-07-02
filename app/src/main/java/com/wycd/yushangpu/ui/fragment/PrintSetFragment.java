@@ -239,7 +239,7 @@ public class PrintSetFragment extends BaseFragment {
         switch1.setChecked(TextUtils.equals("true", CacheDoubleUtils.getInstance().getString("showBill")));
         switch2.setChecked(TextUtils.equals("true", CacheDoubleUtils.getInstance().getString("guestShow")));
         switch3.setChecked(TextUtils.equals("true", CacheDoubleUtils.getInstance().getString("showVoice")));
-        ((TextView) rootView.findViewById(R.id.timeVal)).setText(CacheDoubleUtils.getInstance().getString("timeInterval") + "S");
+        ((TextView) rootView.findViewById(R.id.timeVal)).setText(CacheDoubleUtils.getInstance().getString("timeInterval") + " S");
     }
 
     private void setListener() {
@@ -470,6 +470,7 @@ public class PrintSetFragment extends BaseFragment {
             }
         });
 
+        upgrade.setVisibility(View.GONE);
         if (!TextUtils.isEmpty(LogoActivity.VERSION_ADDRESS)) {
             upgrade.setVisibility(View.VISIBLE);
             upgradeSign.setVisibility(View.VISIBLE);

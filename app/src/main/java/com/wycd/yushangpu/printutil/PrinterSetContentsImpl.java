@@ -472,6 +472,11 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                     list.add(titlesmall);
                 }
                 list.add(nextLine1);
+                if (GetPrintSet.mFastConsumeMap.containsKey("排队")) {
+                    list.add(nextLine1);
+                    list.add(left);
+                    list.add(("排    队:" + "").getBytes("gb2312"));
+                }
                 if (GetPrintSet.mFastConsumeMap.containsKey("收银员")) {
                     list.add(nextLine1);
                     list.add(left);
@@ -493,38 +498,27 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
 
                 list.add(nextLine1);
                 list.add(left);
-                list.add(("消费金额:" + "￥" + Decima2KeeplUtil.stringToDecimal(String.valueOf(printBean.getConsumeMoney())))
+                list.add(("消费金额:" + "￥" + Decima2KeeplUtil.stringToDecimal(String.valueOf(printBean.getConsumeTotal())))
                         .getBytes("gb2312"));
-
-                list.add(nextLine1);
-                list.add(left);
-                list.add(("会员折扣:" + discount).getBytes("gb2312"));
-                list.add(nextLine1);
-                list.add(left);
-                list.add(("折后金额:" + "￥" + Decima2KeeplUtil.stringToDecimal(String.valueOf(printBean
-                        .getYSMoney()))).getBytes("gb2312"));
-
-                String str1 = printBean.getActivityName() == null ? "无" : printBean.getActivityName() + "";
-                if (GetPrintSet.mFastConsumeMap.containsKey("优惠活动")) {
-                    list.add(nextLine1);
-                    list.add(left);
-                    list.add(("优惠活动:" + str1).getBytes("gb2312"));
-                }
 
                 if (GetPrintSet.mFastConsumeMap.containsKey("赠送积分")) {
                     list.add(nextLine1);
                     list.add(left);
-                    list.add(("赠送积分:" + Decima2KeeplUtil.stringToDecimal(String.valueOf(printBean
+                    list.add(("本单积分:" + Decima2KeeplUtil.stringToDecimal(String.valueOf(printBean
                             .getIntegralAdd()))).getBytes("gb2312"));
                 }
-
 
                 if (GetPrintSet.mFastConsumeMap.containsKey("优惠金额")) {
                     list.add(nextLine1);
                     list.add(left);
-                    list.add(("优惠金额:" + Decima2KeeplUtil.stringToDecimal(String.valueOf(printBean.getConsumeMoney() - printBean
-                            .getYSMoney()
-                    ))).getBytes("gb2312"));
+                    list.add(("优惠金额:￥" + Decima2KeeplUtil.stringToDecimal(String.valueOf(printBean.
+                            getDiscountAmount()))).getBytes("gb2312"));
+                }
+
+                if (GetPrintSet.mFastConsumeMap.containsKey("优惠详情")) {
+                    list.add(nextLine1);
+                    list.add(left);
+                    list.add(("优惠详情:" + printBean.getDiscountAmountDetail()).getBytes("gb2312"));
                 }
 
                 list.add(nextLine1);
@@ -607,20 +601,25 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                     list.add(left);
                     list.add(("卡内积分:" + printBean.getVCH_Point()).getBytes("gb2312"));
                 }
+                if (GetPrintSet.mFastConsumeMap.containsKey("会员地址")) {
+                    list.add(nextLine1);
+                    list.add(left);
+                    list.add(("会员地址:" + printBean.getVIPAddress()).getBytes("gb2312"));
+                }
                 if (GetPrintSet.mFastConsumeMap.containsKey("打印时间")) {
                     list.add(nextLine1);
                     list.add(left);
                     list.add(("打印时间:" + mConsumeTime.format(new Date())).getBytes("gb2312"));
                 }
-                if (GetPrintSet.mFastConsumeMap.containsKey("联系电话")) {
+                if (GetPrintSet.mFastConsumeMap.containsKey("商户电话")) {
                     list.add(nextLine1);
                     list.add(left);
-                    list.add(("联系电话:" + GetPrintSet.mFastConsumeMap.get("联系电话")).getBytes("gb2312"));
+                    list.add(("商户电话:" + GetPrintSet.mFastConsumeMap.get("商户电话")).getBytes("gb2312"));
                 }
-                if (GetPrintSet.mFastConsumeMap.containsKey("联系地址")) {
+                if (GetPrintSet.mFastConsumeMap.containsKey("商户地址")) {
                     list.add(nextLine1);
                     list.add(left);
-                    list.add(("联系地址:" + GetPrintSet.mFastConsumeMap.get("联系地址")).getBytes("gb2312"));
+                    list.add(("商户地址:" + GetPrintSet.mFastConsumeMap.get("商户地址")).getBytes("gb2312"));
                 }
                 if (GetPrintSet.mFastConsumeMap.containsKey("脚注")) {
                     list.add(nextLine2);
@@ -1855,8 +1854,8 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
         try {
             List<byte[]> list = new ArrayList<>();
             if (!GetPrintSet.mCardOpenMap.isEmpty()) {
-                if (GetPrintSet.mCardOpenMap.containsKey("LOGO") && GetPrintSet.HYCC_LOGO != null) {
-                    Bitmap bitmap = ESCUtil.scaleImage(GetPrintSet.HYCC_LOGO);
+                if (GetPrintSet.mCardOpenMap.containsKey("LOGO") && GetPrintSet.HYKK_LOGO != null) {
+                    Bitmap bitmap = ESCUtil.scaleImage(GetPrintSet.HYKK_LOGO);
                     list.add(nextLine1);
                     list.add(center);
                     list.add(ESCUtil.printBitmap(bitmap));
@@ -1883,7 +1882,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 if (GetPrintSet.mCardOpenMap.containsKey("结账日期")) {
                     list.add(nextLine1);
                     list.add(left);
-                    list.add(("结账日期:" + printBean.getCheckoutDate()).getBytes("gb2312"));
+                    list.add(("结账日期:" + printBean.getCheckoutDate().split(" ")[0]).getBytes("gb2312"));
                 }
 
                 if (GetPrintSet.mCardOpenMap.containsKey("开卡单号")) {
@@ -1906,7 +1905,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 if (GetPrintSet.mCardOpenMap.containsKey("初始金额")) {
                     list.add(nextLine1);
                     list.add(left);
-                    list.add(("初始金额:" + printBean.getInitialAmount()).getBytes("gb2312"));
+                    list.add(("初始金额:￥" + printBean.getInitialAmount()).getBytes("gb2312"));
                 }
                 if (GetPrintSet.mCardOpenMap.containsKey("初始积分")) {
                     list.add(nextLine1);
@@ -1961,21 +1960,26 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                     list.add(left);
                     list.add(("会员姓名:" + memName).getBytes("gb2312"));
                 }
+                if (GetPrintSet.mCardOpenMap.containsKey("会员地址")) {
+                    list.add(nextLine1);
+                    list.add(left);
+                    list.add(("会员地址:" + printBean.getVIPAddress()).getBytes("gb2312"));
+                }
 
                 if (GetPrintSet.mCardOpenMap.containsKey("打印时间")) {
                     list.add(nextLine1);
                     list.add(left);
                     list.add(("打印时间:" + mConsumeTime.format(new Date())).getBytes("gb2312"));
                 }
-                if (GetPrintSet.mCardOpenMap.containsKey("联系电话")) {
+                if (GetPrintSet.mCardOpenMap.containsKey("商户电话")) {
                     list.add(nextLine1);
                     list.add(left);
-                    list.add(("联系电话:" + GetPrintSet.mCardOpenMap.get("联系电话")).getBytes("gb2312"));
+                    list.add(("商户电话:" + GetPrintSet.mCardOpenMap.get("商户电话")).getBytes("gb2312"));
                 }
-                if (GetPrintSet.mCardOpenMap.containsKey("联系地址")) {
+                if (GetPrintSet.mCardOpenMap.containsKey("商户地址")) {
                     list.add(nextLine1);
                     list.add(left);
-                    list.add(("联系地址:" + GetPrintSet.mCardOpenMap.get("联系地址")).getBytes("gb2312"));
+                    list.add(("商户地址:" + GetPrintSet.mCardOpenMap.get("商户地址")).getBytes("gb2312"));
                 }
                 if (GetPrintSet.mCardOpenMap.containsKey("脚注")) {
                     list.add(nextLine2);
@@ -1986,8 +1990,8 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                     list.add(center);
                     list.add("谢谢惠顾,欢迎下次光临！".getBytes("gb2312"));
                 }
-                if (GetPrintSet.mCardOpenMap.containsKey("二维码") && GetPrintSet.HYCC_QR != null) {
-                    Bitmap bitmap = ESCUtil.scaleImage(GetPrintSet.HYCC_QR);
+                if (GetPrintSet.mCardOpenMap.containsKey("二维码") && GetPrintSet.HYKK_QR != null) {
+                    Bitmap bitmap = ESCUtil.scaleImage(GetPrintSet.HYKK_QR);
                     list.add(nextLine1);
                     list.add(center);
                     list.add(ESCUtil.printBitmap(bitmap));

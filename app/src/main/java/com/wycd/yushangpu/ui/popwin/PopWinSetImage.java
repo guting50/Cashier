@@ -113,6 +113,7 @@ public class PopWinSetImage {
                                     intent.setMaxTotal(9);
                                     intent.setSelectedPaths(data);
                                     intent.gotoPhotoPickerActivity(context, resultList -> {
+                                        data.clear();
                                         data.addAll(resultList);
                                         notifyDataSetChanged();
                                     });

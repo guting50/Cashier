@@ -3,6 +3,7 @@ package com.wycd.yushangpu.printutil;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
@@ -85,12 +86,12 @@ public class GetPrintSet {
     /**
      * logo
      */
-    public static Bitmap HYCZ_LOGO, HYCC_LOGO, SPXF_LOGO, KSXF_LOGO, JCXF_LOGO, JFDH_LOGO,
+    public static Bitmap HYKK_LOGO, HYCZ_LOGO, HYCC_LOGO, SPXF_LOGO, KSXF_LOGO, JCXF_LOGO, JFDH_LOGO,
             SPTH_LOGO, JB_LOGO, FTXF_LOGO, HYSK_LOGO, TCXF_LOGO, OPENCARD_LOGO, RK_LOGO, CK_LOGO;
     /**
      * 二维码
      */
-    public static Bitmap HYCZ_QR, HYCC_QR, SPXF_QR, KSXF_QR, JCXF_QR, JFDH_QR,
+    public static Bitmap HYKK_QR, HYCZ_QR, HYCC_QR, SPXF_QR, KSXF_QR, JCXF_QR, JFDH_QR,
             SPTH_QR, JB_QR, FTXF_QR, HYSK_QR, TCXF_QR, OPENCARD_QR, RK_QR, CK_QR;
 
 
@@ -152,7 +153,7 @@ public class GetPrintSet {
                         if ("HYCC".equals(beanList.get(i).getPT_Code())) {
                             for (int j = 0; j < itemsBean.size(); j++) {
                                 if ("LOGO".equals(itemsBean.get(j).getItemName())) {
-                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                    if (itemsBean.get(j).getItemValue().contains("http") || itemsBean.get(j).getItemValue().contains("https")) {
                                         getBitmap(itemsBean.get(j).getItemValue(), "HYCC", true);
                                     } else {
                                         getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
@@ -160,7 +161,7 @@ public class GetPrintSet {
                                     }
                                 }
                                 if ("二维码".equals(itemsBean.get(j).getItemName())) {
-                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                    if (itemsBean.get(j).getItemValue().contains("http") || itemsBean.get(j).getItemValue().contains("https")) {
                                         getBitmap(itemsBean.get(j).getItemValue(), "HYCC", false);
                                     } else {
                                         getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
@@ -174,7 +175,7 @@ public class GetPrintSet {
                         if ("HYCZ".equals(beanList.get(i).getPT_Code())) {
                             for (int j = 0; j < itemsBean.size(); j++) {
                                 if ("LOGO".equals(itemsBean.get(j).getItemName())) {
-                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                    if (itemsBean.get(j).getItemValue().contains("http") || itemsBean.get(j).getItemValue().contains("https")) {
                                         getBitmap(itemsBean.get(j).getItemValue(), "HYCZ", true);
                                     } else {
                                         getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
@@ -182,7 +183,7 @@ public class GetPrintSet {
                                     }
                                 }
                                 if ("二维码".equals(itemsBean.get(j).getItemName())) {
-                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                    if (itemsBean.get(j).getItemValue().contains("http") || itemsBean.get(j).getItemValue().contains("https")) {
                                         getBitmap(itemsBean.get(j).getItemValue(), "HYCZ", false);
                                     } else {
                                         getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
@@ -196,7 +197,7 @@ public class GetPrintSet {
                         if ("SPXF".equals(beanList.get(i).getPT_Code())) {
                             for (int j = 0; j < itemsBean.size(); j++) {
                                 if ("LOGO".equals(itemsBean.get(j).getItemName())) {
-                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                    if (itemsBean.get(j).getItemValue().contains("http") || itemsBean.get(j).getItemValue().contains("https")) {
                                         getBitmap(itemsBean.get(j).getItemValue(), "SPXF", true);
                                     } else {
                                         getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
@@ -204,7 +205,7 @@ public class GetPrintSet {
                                     }
                                 }
                                 if ("二维码".equals(itemsBean.get(j).getItemName())) {
-                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                    if (itemsBean.get(j).getItemValue().contains("http") || itemsBean.get(j).getItemValue().contains("https")) {
                                         getBitmap(itemsBean.get(j).getItemValue(), "SPXF", false);
                                     } else {
                                         getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
@@ -218,7 +219,7 @@ public class GetPrintSet {
                         if ("JCXF".equals(beanList.get(i).getPT_Code())) {
                             for (int j = 0; j < itemsBean.size(); j++) {
                                 if ("LOGO".equals(itemsBean.get(j).getItemName())) {
-                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                    if (itemsBean.get(j).getItemValue().contains("http") || itemsBean.get(j).getItemValue().contains("https")) {
                                         getBitmap(itemsBean.get(j).getItemValue(), "JCXF", true);
                                     } else {
                                         getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
@@ -226,7 +227,7 @@ public class GetPrintSet {
                                     }
                                 }
                                 if ("二维码".equals(itemsBean.get(j).getItemName())) {
-                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                    if (itemsBean.get(j).getItemValue().contains("http") || itemsBean.get(j).getItemValue().contains("https")) {
                                         getBitmap(itemsBean.get(j).getItemValue(), "JCXF", false);
                                     } else {
                                         getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
@@ -240,7 +241,7 @@ public class GetPrintSet {
                         if ("JFDH".equals(beanList.get(i).getPT_Code())) {
                             for (int j = 0; j < itemsBean.size(); j++) {
                                 if ("LOGO".equals(itemsBean.get(j).getItemName())) {
-                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                    if (itemsBean.get(j).getItemValue().contains("http") || itemsBean.get(j).getItemValue().contains("https")) {
                                         getBitmap(itemsBean.get(j).getItemValue(), "JFDH", true);
                                     } else {
                                         getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
@@ -248,7 +249,7 @@ public class GetPrintSet {
                                     }
                                 }
                                 if ("二维码".equals(itemsBean.get(j).getItemName())) {
-                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                    if (itemsBean.get(j).getItemValue().contains("http") || itemsBean.get(j).getItemValue().contains("https")) {
                                         getBitmap(itemsBean.get(j).getItemValue(), "JFDH", false);
                                     } else {
                                         getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
@@ -262,7 +263,7 @@ public class GetPrintSet {
                         if ("KSXF".equals(beanList.get(i).getPT_Code())) {
                             for (int j = 0; j < itemsBean.size(); j++) {
                                 if ("LOGO".equals(itemsBean.get(j).getItemName())) {
-                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                    if (itemsBean.get(j).getItemValue().contains("http") || itemsBean.get(j).getItemValue().contains("https")) {
                                         getBitmap(itemsBean.get(j).getItemValue(), "KSXF", true);
                                     } else {
                                         getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
@@ -270,7 +271,7 @@ public class GetPrintSet {
                                     }
                                 }
                                 if ("二维码".equals(itemsBean.get(j).getItemName())) {
-                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                    if (itemsBean.get(j).getItemValue().contains("http") || itemsBean.get(j).getItemValue().contains("https")) {
                                         getBitmap(itemsBean.get(j).getItemValue(), "KSXF", false);
                                     } else {
                                         getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
@@ -284,7 +285,7 @@ public class GetPrintSet {
                         if ("TCXF".equals(beanList.get(i).getPT_Code())) {
                             for (int j = 0; j < itemsBean.size(); j++) {
                                 if ("LOGO".equals(itemsBean.get(j).getItemName())) {
-                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                    if (itemsBean.get(j).getItemValue().contains("http") || itemsBean.get(j).getItemValue().contains("https")) {
                                         getBitmap(itemsBean.get(j).getItemValue(), "TCXF", true);
                                     } else {
                                         getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
@@ -292,7 +293,7 @@ public class GetPrintSet {
                                     }
                                 }
                                 if ("二维码".equals(itemsBean.get(j).getItemName())) {
-                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                    if (itemsBean.get(j).getItemValue().contains("http") || itemsBean.get(j).getItemValue().contains("https")) {
                                         getBitmap(itemsBean.get(j).getItemValue(), "TCXF", false);
                                     } else {
                                         getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
@@ -307,15 +308,15 @@ public class GetPrintSet {
                         if ("HYKK".equals(beanList.get(i).getPT_Code())) {
                             for (int j = 0; j < itemsBean.size(); j++) {
                                 if ("LOGO".equals(itemsBean.get(j).getItemName())) {
-                                    if (itemsBean.get(j).getItemValue().contains("http")) {
-                                        getBitmap(itemsBean.get(j).getItemValue(), "KYKK", true);
+                                    if (itemsBean.get(j).getItemValue().contains("http") || itemsBean.get(j).getItemValue().contains("https")) {
+                                        getBitmap(itemsBean.get(j).getItemValue(), "HYKK", true);
                                     } else {
                                         getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
                                                 "HYKK", true);
                                     }
                                 }
                                 if ("二维码".equals(itemsBean.get(j).getItemName())) {
-                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                    if (itemsBean.get(j).getItemValue().contains("http") || itemsBean.get(j).getItemValue().contains("https")) {
                                         getBitmap(itemsBean.get(j).getItemValue(), "HYKK", false);
                                     } else {
                                         getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
@@ -330,7 +331,7 @@ public class GetPrintSet {
                         if ("JB".equals(beanList.get(i).getPT_Code())) {
                             for (int j = 0; j < itemsBean.size(); j++) {
                                 if ("LOGO".equals(itemsBean.get(j).getItemName())) {
-                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                    if (itemsBean.get(j).getItemValue().contains("http") || itemsBean.get(j).getItemValue().contains("https")) {
                                         getBitmap(itemsBean.get(j).getItemValue(), "JB", true);
                                     } else {
                                         getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
@@ -338,7 +339,7 @@ public class GetPrintSet {
                                     }
                                 }
                                 if ("二维码".equals(itemsBean.get(j).getItemName())) {
-                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                    if (itemsBean.get(j).getItemValue().contains("http") || itemsBean.get(j).getItemValue().contains("https")) {
                                         getBitmap(itemsBean.get(j).getItemValue(), "JB", false);
                                     } else {
                                         getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
@@ -353,7 +354,7 @@ public class GetPrintSet {
                         if ("RKJLXQ".equals(beanList.get(i).getPT_Code())) {
                             for (int j = 0; j < itemsBean.size(); j++) {
                                 if ("LOGO".equals(itemsBean.get(j).getItemName())) {
-                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                    if (itemsBean.get(j).getItemValue().contains("http") || itemsBean.get(j).getItemValue().contains("https")) {
                                         getBitmap(itemsBean.get(j).getItemValue(), "RK", true);
                                     } else {
                                         getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
@@ -361,7 +362,7 @@ public class GetPrintSet {
                                     }
                                 }
                                 if ("二维码".equals(itemsBean.get(j).getItemName())) {
-                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                    if (itemsBean.get(j).getItemValue().contains("http") || itemsBean.get(j).getItemValue().contains("https")) {
                                         getBitmap(itemsBean.get(j).getItemValue(), "RK", false);
                                     } else {
                                         getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
@@ -376,7 +377,7 @@ public class GetPrintSet {
                         if ("CKJLXQ".equals(beanList.get(i).getPT_Code())) {
                             for (int j = 0; j < itemsBean.size(); j++) {
                                 if ("LOGO".equals(itemsBean.get(j).getItemName())) {
-                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                    if (itemsBean.get(j).getItemValue().contains("http") || itemsBean.get(j).getItemValue().contains("https")) {
                                         getBitmap(itemsBean.get(j).getItemValue(), "CK", true);
                                     } else {
                                         getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
@@ -384,7 +385,7 @@ public class GetPrintSet {
                                     }
                                 }
                                 if ("二维码".equals(itemsBean.get(j).getItemName())) {
-                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                    if (itemsBean.get(j).getItemValue().contains("http") || itemsBean.get(j).getItemValue().contains("https")) {
                                         getBitmap(itemsBean.get(j).getItemValue(), "CK", false);
                                     } else {
                                         getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
@@ -398,7 +399,7 @@ public class GetPrintSet {
                         if ("SPTH".equals(beanList.get(i).getPT_Code())) {
                             for (int j = 0; j < itemsBean.size(); j++) {
                                 if ("LOGO".equals(itemsBean.get(j).getItemName())) {
-                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                    if (itemsBean.get(j).getItemValue().contains("http") || itemsBean.get(j).getItemValue().contains("https")) {
                                         getBitmap(itemsBean.get(j).getItemValue(), "SPTH", true);
                                     } else {
                                         getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
@@ -406,7 +407,7 @@ public class GetPrintSet {
                                     }
                                 }
                                 if ("二维码".equals(itemsBean.get(j).getItemName())) {
-                                    if (itemsBean.get(j).getItemValue().contains("http")) {
+                                    if (itemsBean.get(j).getItemValue().contains("http") || itemsBean.get(j).getItemValue().contains("https")) {
                                         getBitmap(itemsBean.get(j).getItemValue(), "SPTH", false);
                                     } else {
                                         getBitmap(MyApplication.IMAGE_URL + itemsBean.get(j).getItemValue(),
@@ -441,6 +442,13 @@ public class GetPrintSet {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] result) {
                 switch (type) {
+                    case "HYKK":
+                        if (b) {
+                            GetPrintSet.HYKK_LOGO = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        } else {
+                            GetPrintSet.HYKK_QR = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        }
+                        break;
                     //会员充值
                     case "HYCZ":
                         if (b) {
@@ -552,7 +560,7 @@ public class GetPrintSet {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] binaryData, Throwable error) {
-
+                Log.e(type + "==" + b, str + "-----> ERROR:" + error.getMessage());
             }
         });
     }

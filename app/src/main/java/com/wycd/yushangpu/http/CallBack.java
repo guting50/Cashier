@@ -18,4 +18,8 @@ public abstract class CallBack<T extends BaseRes> {
         } else
             ToastUtils.showLong(new Gson().toJson(msg));
     }
+
+    public void finallyFunction(){
+
+    }
 }

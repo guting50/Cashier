@@ -1,5 +1,7 @@
 package com.wycd.yushangpu.printutil.bean;
 
+import android.text.TextUtils;
+
 /**
  * Created by YSL on 2018-10-09.
  */
@@ -77,6 +79,15 @@ public class Print_HYKK_Bean {
     private double InitialIntegral;
     private String Remark;
     private String EMName;
+    private String VIPAddress;
+
+    public String getVIPAddress() {
+        return TextUtils.isEmpty(VIPAddress) ? "" : VIPAddress;
+    }
+
+    public void setVIPAddress(String VIPAddress) {
+        this.VIPAddress = VIPAddress;
+    }
 
     public String getEMName() {
         return EMName;
