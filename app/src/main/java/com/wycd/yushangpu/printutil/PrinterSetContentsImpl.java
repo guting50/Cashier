@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.printutil.bean.CK_Success_Bean;
 import com.wycd.yushangpu.printutil.bean.HandDutyBean;
 import com.wycd.yushangpu.printutil.bean.Print_HYCC_Bean;
@@ -19,6 +20,7 @@ import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.Decima2KeeplUtil;
 import com.wycd.yushangpu.tools.ESCUtil;
 import com.wycd.yushangpu.tools.LogUtils;
+import com.wycd.yushangpu.tools.PreferenceHelper;
 
 import net.posprinter.posprinterface.ProcessData;
 import net.posprinter.posprinterface.TaskCallback;
@@ -28,6 +30,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -134,6 +137,14 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                     list.add(titlebigger);
                     list.add("欢迎光临".getBytes("gb2312"));
                     list.add(titlesmall);
+                }
+                if (GetPrintSet.mGoodsConsumeMap.containsKey("排队")) {
+                    Calendar cal = Calendar.getInstance();
+                    String key = "" + cal.get(Calendar.YEAR) + (cal.get(Calendar.MONTH) + 1) + cal.get(Calendar.DATE);
+                    int value = PreferenceHelper.readInt(MyApplication.getContext(), "yunshangpu", key + "SPXF", 0);
+                    list.add(nextLine1);
+                    list.add(left);
+                    list.add(("排    队:" + value).getBytes("gb2312"));
                 }
                 list.add(nextLine1);
                 if (GetPrintSet.mGoodsConsumeMap.containsKey("收银员")) {
@@ -268,7 +279,6 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                     list.add(left);
                     list.add(("会员卡号:" + printBean.getVCH_Card()).getBytes("gb2312"));
                 }
-                String facenum = printBean.getVIP_FaceNumber() == null ? "无" : printBean.getVIP_FaceNumber();
                 if (GetPrintSet.mGoodsConsumeMap.containsKey("卡面卡号")) {
                     list.add(nextLine1);
                     list.add(left);
@@ -473,9 +483,12 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 }
                 list.add(nextLine1);
                 if (GetPrintSet.mFastConsumeMap.containsKey("排队")) {
+                    Calendar cal = Calendar.getInstance();
+                    String key = "" + cal.get(Calendar.YEAR) + (cal.get(Calendar.MONTH) + 1) + cal.get(Calendar.DATE);
+                    int value = PreferenceHelper.readInt(MyApplication.getContext(), "yunshangpu", key + "KSXF", 0);
                     list.add(nextLine1);
                     list.add(left);
-                    list.add(("排    队:" + "").getBytes("gb2312"));
+                    list.add(("排    队:" + value).getBytes("gb2312"));
                 }
                 if (GetPrintSet.mFastConsumeMap.containsKey("收银员")) {
                     list.add(nextLine1);
@@ -1882,7 +1895,7 @@ public class PrinterSetContentsImpl implements IPrinterSetContents {
                 if (GetPrintSet.mCardOpenMap.containsKey("结账日期")) {
                     list.add(nextLine1);
                     list.add(left);
-                    list.add(("结账日期:" + printBean.getCheckoutDate().split(" ")[0]).getBytes("gb2312"));
+                    list.add(("结账日期:" + printBean.getCheckoutDate()).getBytes("gb2312"));
                 }
 
                 if (GetPrintSet.mCardOpenMap.containsKey("开卡单号")) {

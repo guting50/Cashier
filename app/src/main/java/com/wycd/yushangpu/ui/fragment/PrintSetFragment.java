@@ -239,58 +239,55 @@ public class PrintSetFragment extends BaseFragment {
         switch1.setChecked(TextUtils.equals("true", CacheDoubleUtils.getInstance().getString("showBill")));
         switch2.setChecked(TextUtils.equals("true", CacheDoubleUtils.getInstance().getString("guestShow")));
         switch3.setChecked(TextUtils.equals("true", CacheDoubleUtils.getInstance().getString("showVoice")));
-        ((TextView) rootView.findViewById(R.id.timeVal)).setText(CacheDoubleUtils.getInstance().getString("timeInterval") + " S");
+        ((TextView) rootView.findViewById(R.id.timeVal)).setText(CacheDoubleUtils.getInstance().getString("timeInterval", "0 S"));
     }
 
     private void setListener() {
         //保存设置
-        rootView.findViewById(R.id.tv_print_set_save).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RequestParams params = new RequestParams();
-                params.put("PS_IsEnabled", mPrintSwitch);
-                params.put("PS_IsPreview", 0);
+        rootView.findViewById(R.id.tv_print_set_save).setOnClickListener(v -> {
+            RequestParams params = new RequestParams();
+            params.put("PS_IsEnabled", mPrintSwitch);
+            params.put("PS_IsPreview", 0);
 
-                if (mPrintSetBean == null) {
-                    params.put("PS_PaperType", paperType);
-                    params.put("PS_PrinterName", "XP-58");
-                    params.put("PS_StylusPrintingName:", "XP-58");
-                } else {
-                    params.put("PS_PaperType", paperType);
-                    params.put("PS_PrinterName", mPrintSetBean.getPS_PrinterName());
-                    params.put("PS_StylusPrintingName:", mPrintSetBean.getPS_StylusPrintingName());
-                }
-
-                if (mPrintMap.size() > 0) {
-                    Iterator iterator = mPrintMap.entrySet().iterator();
-                    while (iterator.hasNext()) {
-                        Map.Entry entry = (Map.Entry) iterator.next();
-                        Object key = entry.getKey();
-                        Object value = entry.getValue();
-                        params.put("PrintTimesList[" + i + "][PT_Code]", key);
-                        params.put("PrintTimesList[" + i + "][PT_Times]", value);
-                        i++;
-                    }
-
-                    AsyncHttpUtils.postHttp(HttpAPI.API().EDIT_PRINT_SET, params, new CallBack() {
-                        @Override
-                        public void onResponse(BaseRes response) {
-                            ImpParamLoading.preLoad();
-                            NoticeDialog.noticeDialog(getActivity(), "设置", "打印设置保存成功!", 1, new InterfaceBack() {
-                                @Override
-                                public void onResponse(Object response) {
-                                    i = 0;
-                                }
-
-                                @Override
-                                public void onErrorResponse(Object msg) {
-                                }
-                            });
-                        }
-                    });
-                }
-
+            if (mPrintSetBean == null) {
+                params.put("PS_PaperType", paperType);
+                params.put("PS_PrinterName", "XP-58");
+                params.put("PS_StylusPrintingName:", "XP-58");
+            } else {
+                params.put("PS_PaperType", paperType);
+                params.put("PS_PrinterName", mPrintSetBean.getPS_PrinterName());
+                params.put("PS_StylusPrintingName:", mPrintSetBean.getPS_StylusPrintingName());
             }
+
+            if (mPrintMap.size() > 0) {
+                Iterator iterator = mPrintMap.entrySet().iterator();
+                while (iterator.hasNext()) {
+                    Map.Entry entry = (Map.Entry) iterator.next();
+                    Object key = entry.getKey();
+                    Object value = entry.getValue();
+                    params.put("PrintTimesList[" + i + "][PT_Code]", key);
+                    params.put("PrintTimesList[" + i + "][PT_Times]", value);
+                    i++;
+                }
+
+                AsyncHttpUtils.postHttp(HttpAPI.API().EDIT_PRINT_SET, params, new CallBack() {
+                    @Override
+                    public void onResponse(BaseRes response) {
+                        ImpParamLoading.preLoad();
+                        NoticeDialog.noticeDialog(getActivity(), "设置", "打印设置保存成功!", 1, new InterfaceBack() {
+                            @Override
+                            public void onResponse(Object response) {
+                                i = 0;
+                            }
+
+                            @Override
+                            public void onErrorResponse(Object msg) {
+                            }
+                        });
+                    }
+                });
+            }
+
         });
 
         //输入框监听
@@ -501,7 +498,7 @@ public class PrintSetFragment extends BaseFragment {
             if (view instanceof TextView) {
                 view.setOnClickListener(v -> {
                     CacheDoubleUtils.getInstance().put("timeInterval", ((TextView) view).getText().toString());
-                    ((TextView) rootView.findViewById(R.id.timeVal)).setText(CacheDoubleUtils.getInstance().getString("timeInterval") + "S");
+                    ((TextView) rootView.findViewById(R.id.timeVal)).setText(CacheDoubleUtils.getInstance().getString("timeInterval", "0 S"));
                     timeLayout.setVisibility(View.GONE);
                     GuestShowPresentation.reload();
                 });
