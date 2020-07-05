@@ -51,6 +51,7 @@ import com.wycd.yushangpu.tools.DateTimeUtil;
 import com.wycd.yushangpu.tools.LogUtils;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.NullUtils;
+import com.wycd.yushangpu.tools.PreferenceHelper;
 import com.wycd.yushangpu.tools.StringUtil;
 import com.wycd.yushangpu.tools.YSLUtils;
 import com.wycd.yushangpu.ui.Presentation.GuestShowPresentation;
@@ -64,6 +65,7 @@ import com.wycd.yushangpu.widget.dialog.YouhuiquanDialog;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -652,7 +654,7 @@ public class JiesuanBFragment extends BaseFragment {
         orderPay.orderpay(GID, result, orderType, new InterfaceBack<String>() {
             @Override
             public void onResponse(String response) {
-                paySuccess();
+                paySuccess(orderType);
                 back.onResponse(response);
             }
 
@@ -661,7 +663,7 @@ public class JiesuanBFragment extends BaseFragment {
                 dialog.dismiss();
                 if (msg instanceof BaseRes && ((BaseRes) msg).getMsg().contains("BuySms")) {
                     ToastUtils.showLong("支付成功，但短信发送失败，企业短信库存不足");
-                    paySuccess();
+                    paySuccess(orderType);
                     back.onResponse(((BaseRes) msg).getData());
                 } else {
                     super.onErrorResponse(msg);
@@ -1070,7 +1072,7 @@ public class JiesuanBFragment extends BaseFragment {
                             orderType, new InterfaceBack() {
                                 @Override
                                 public void onResponse(Object response) {
-                                    paySuccess();
+                                    paySuccess(orderType);
                                     saomaDialog.dismiss();
                                     back.onResponse(response);
 
@@ -1099,7 +1101,25 @@ public class JiesuanBFragment extends BaseFragment {
         }
     }
 
-    private void paySuccess() {
+    private void paySuccess(OrderType type) {
+        Calendar cal = Calendar.getInstance();
+        String key = "" + cal.get(Calendar.YEAR) + (cal.get(Calendar.MONTH) + 1) + cal.get(Calendar.DATE);
+        switch (type) {
+            case SPXF: //商品消费订单
+                PreferenceHelper.write(homeActivity, "yunshangpu", key + "SPXF",
+                        PreferenceHelper.readInt(homeActivity, "yunshangpu", key + "SPXF", 0) + 1
+                );
+                break;
+            case KSXF: // 快速消费订单
+                PreferenceHelper.write(homeActivity, "yunshangpu", key + "KSXF",
+                        PreferenceHelper.readInt(homeActivity, "yunshangpu", key + "KSXF", 0) + 1
+                );
+                break;
+        }
+        cal.add(Calendar.DATE, -1);
+        key = "" + cal.get(Calendar.YEAR) + (cal.get(Calendar.MONTH) + 1) + cal.get(Calendar.DATE);
+        PreferenceHelper.remove(homeActivity, "yunshangpu", key);
+
         homeActivity.imgPaySuccess.setVisibility(View.VISIBLE);
         GuestShowPresentation.playAudio();
         new Timer().schedule(new TimerTask() {

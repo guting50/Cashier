@@ -134,12 +134,7 @@ public class CashierFragment extends BaseFragment {
                         .format("MM/dd  HH:mm:ss", sysTime);
                 ordertime = DateFormat
                         .format("yyyy-MM-dd HH:mm:ss", sysTime);
-                homeActivity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        tv_ordertime.setText("" + ordertime2);
-                    }
-                });
+                homeActivity.runOnUiThread(() -> tv_ordertime.setText("" + ordertime2));
             }
         }, 1000, 1000);
     }
