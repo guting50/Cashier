@@ -46,7 +46,6 @@ public class MyApplication extends MultiDexApplication {
 
     private static MyApplication homeApplication;
 
-
     /**
      * 正式版
      **/
