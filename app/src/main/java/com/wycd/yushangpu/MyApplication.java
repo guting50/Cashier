@@ -56,7 +56,6 @@ public class MyApplication extends MultiDexApplication {
     public static String CTMONEY_URL = "http://core.yunvip123.com/";
 //    public static String CTMONEY_URL = "http://corebeta.yunvip123.com/";
 
-
     /***
      *测试版
      *
