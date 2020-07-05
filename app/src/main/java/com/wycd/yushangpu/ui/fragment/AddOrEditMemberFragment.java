@@ -2,7 +2,6 @@ package com.wycd.yushangpu.ui.fragment;
 
 import android.net.Uri;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -513,12 +512,14 @@ public class AddOrEditMemberFragment extends BaseFragment implements GtEditText.
                 ((TextView) rootView.findViewById(R.id.tv_basic_data)).setTextColor(homeActivity.getResources().getColor(R.color.color_149f4a));
                 ((TextView) rootView.findViewById(R.id.tv_costomfields)).setTextColor(homeActivity.getResources().getColor(R.color.color_999999));
                 rootView.findViewById(R.id.fl_costomfields_layout).setVisibility(View.GONE);
+                rootView.findViewById(R.id.fl_layout).setVisibility(View.VISIBLE);
                 setFocusable(et_VCH_Card);
                 break;
             case R.id.tv_costomfields:
                 ((TextView) rootView.findViewById(R.id.tv_basic_data)).setTextColor(homeActivity.getResources().getColor(R.color.color_999999));
                 ((TextView) rootView.findViewById(R.id.tv_costomfields)).setTextColor(homeActivity.getResources().getColor(R.color.color_149f4a));
                 rootView.findViewById(R.id.fl_costomfields_layout).setVisibility(View.VISIBLE);
+                rootView.findViewById(R.id.fl_layout).setVisibility(View.GONE);
                 setFocusable(costomTextView);
                 break;
             case R.id.tv_VIP_Sex_0://男
@@ -1060,15 +1061,6 @@ public class AddOrEditMemberFragment extends BaseFragment implements GtEditText.
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             ReportMessageBean.GetCustomFieldsVIPBean vipBean = customFields.get(position);
             CostomfieldsHolder myHolder = (CostomfieldsHolder) holder;
-            if (myHolder.et_costomfields_value instanceof GtEditText) {
-                if (!gtCostomfieldsEditTexts.contains(myHolder.et_costomfields_value))
-                    gtCostomfieldsEditTexts.add(myHolder.et_costomfields_value);
-                ((GtEditText) myHolder.et_costomfields_value).setKeyEventCallback(AddOrEditMemberFragment.this);
-                if (costomTextView == null) {
-                    costomTextView = myHolder.et_costomfields_value;
-                    setFocusable(costomTextView);
-                }
-            }
             myHolder.tv_costomfields_name.setText(vipBean.getCF_FieldName());
             myHolder.isFill.setVisibility(View.GONE);
             if (vipBean.getCF_Required().equals("是")) {
@@ -1079,13 +1071,6 @@ public class AddOrEditMemberFragment extends BaseFragment implements GtEditText.
             } else {
                 myHolder.et_costomfields_value.setText("");
             }
-            myHolder.et_costomfields_value.setOnFocusChangeListener((v, hasFocus) -> {
-                if (hasFocus) {
-                    if (!v.equals(gtEditText)) {
-                        setFocusable(gtEditText);
-                    }
-                }
-            });
             myHolder.et_costomfields_value.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -1099,6 +1084,31 @@ public class AddOrEditMemberFragment extends BaseFragment implements GtEditText.
 
                 @Override
                 public void afterTextChanged(Editable s) {
+                    if (getItemViewType(position) == TYPE_2) {
+                        if (!TextUtils.isEmpty(s.toString())) {
+                            InputHolder inputHolder = (InputHolder) holder;
+                            try {
+                                Double.parseDouble(s.toString());
+                                String ss = s.toString();
+                                if (s.toString().length() > 1)
+                                    ss = s.toString().substring(s.toString().length() - 1);
+                                if (ss.equalsIgnoreCase("d") || ss.equalsIgnoreCase("f")) {
+                                    String sss = s.toString().substring(0, s.toString().length() - 1);
+                                    inputHolder.et_costomfields_value.setText(sss);
+                                    inputHolder.et_costomfields_value.setSelection(sss.length());
+                                    return;
+                                }
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
+                                String ss = "";
+                                if (s.toString().length() > 1)
+                                    ss = s.toString().substring(0, s.toString().length() - 1);
+                                inputHolder.et_costomfields_value.setText(ss);
+                                inputHolder.et_costomfields_value.setSelection(ss.length());
+                                return;
+                            }
+                        }
+                    }
                     vipBean.setCF_Value(s.toString());
                 }
             });
@@ -1106,10 +1116,6 @@ public class AddOrEditMemberFragment extends BaseFragment implements GtEditText.
             if (holder instanceof InputHolder) {
                 InputHolder inputHolder = (InputHolder) holder;
                 inputHolder.et_costomfields_value.setHint("请输入" + vipBean.getCF_FieldName());
-                inputHolder.et_costomfields_value.setInputType(InputType.TYPE_CLASS_TEXT);
-                if (getItemViewType(position) == TYPE_2) {
-                    inputHolder.et_costomfields_value.setInputType(InputType.TYPE_CLASS_NUMBER);
-                }
             } else if (holder instanceof SelectHolder) {
                 SelectHolder selectHolder = (SelectHolder) holder;
                 selectHolder.et_costomfields_value.setOnClickListener(new OnNoDoubleClickListener() {
@@ -1184,6 +1190,16 @@ public class AddOrEditMemberFragment extends BaseFragment implements GtEditText.
                         }
                     }
                 });
+            }
+
+            if (myHolder.et_costomfields_value instanceof GtEditText) {
+                if (!gtCostomfieldsEditTexts.contains(myHolder.et_costomfields_value))
+                    gtCostomfieldsEditTexts.add(myHolder.et_costomfields_value);
+                ((GtEditText) myHolder.et_costomfields_value).setKeyEventCallback(AddOrEditMemberFragment.this);
+                if (costomTextView == null) {
+                    costomTextView = myHolder.et_costomfields_value;
+                    setFocusable(costomTextView);
+                }
             }
         }
 
@@ -1409,11 +1425,8 @@ public class AddOrEditMemberFragment extends BaseFragment implements GtEditText.
         }
     }
 
-    View gtEditText;
-
     private void setFocusable(View view) {
         if (view != null) {
-            gtEditText = view;
             view.setFocusable(true);
             view.setFocusableInTouchMode(true);
             view.requestFocus();
@@ -1431,7 +1444,7 @@ public class AddOrEditMemberFragment extends BaseFragment implements GtEditText.
             if (rootView.findViewById(R.id.fl_costomfields_layout).getVisibility() == View.VISIBLE) {
                 editTexts = gtCostomfieldsEditTexts;
             }
-            int index = editTexts.indexOf(gtEditText);
+            int index = editTexts.indexOf(homeActivity.getCurrentFocus());
             if (index == -1) {
                 index = 0;
             }
