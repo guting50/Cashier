@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
@@ -76,13 +78,10 @@ public class LoginActivity extends BaseActivity {
             mEtLoginPassword.setText(PreferenceHelper.readString(ac, "lottery", "pwd", ""));
         }
 
-        cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        cb.setOnCheckedChangeListener((compoundButton, b) -> {
 //                if (b) {
-                PreferenceHelper.write(ac, "lottery", "remember", b);
+            PreferenceHelper.write(ac, "lottery", "remember", b);
 
-            }
         });
 //        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -102,23 +101,20 @@ public class LoginActivity extends BaseActivity {
         boardHelper = new KeyBoardHelper(this);
         boardHelper.onCreate();
         boardHelper.setOnKeyBoardStatusChangeListener(onKeyBoardStatusChangeListener);
-        layout_content.post(new Runnable() {
-            @Override
-            public void run() {
-                int[] location = new int[2];
-                layout_content.getLocationInWindow(location);
-                layout_content.getLocationOnScreen(location);
-                bottomHeight = ((View) layout_content.getParent()).getHeight() - location[1] - layout_content.getHeight();
-            }
+        layout_content.post(() -> {
+            int[] location = new int[2];
+            layout_content.getLocationInWindow(location);
+            layout_content.getLocationOnScreen(location);
+            bottomHeight = ((View) layout_content.getParent()).getHeight() - location[1] - layout_content.getHeight();
         });
 
         mRlLogin.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
                 if (mEtLoginAccount.getText().toString().equals("")) {
-                    com.blankj.utilcode.util.ToastUtils.showShort(res.getString(R.string.enter_email_mobile));
+                    ToastUtils.showShort(res.getString(R.string.enter_email_mobile));
                 } else if (mEtLoginPassword.getText().toString().equals("")) {
-                    com.blankj.utilcode.util.ToastUtils.showShort(res.getString(R.string.enter_password));
+                    ToastUtils.showShort(res.getString(R.string.enter_password));
                 } else {
                     dialog.show();
 
@@ -230,5 +226,14 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         ActivityUtils.finishAllActivities();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_ENTER) {
+            mRlLogin.performClick();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

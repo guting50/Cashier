@@ -13,15 +13,16 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.tools.StringUtil;
+import com.wycd.yushangpu.widget.views.GtEditText;
 
 import java.lang.reflect.Field;
 import java.util.Timer;
@@ -32,7 +33,7 @@ import androidx.annotation.Nullable;
 public class NumInputView extends RelativeLayout {
 
     private View rootView;
-    private EditText editText;
+    private GtEditText editText;
     private TextView editTextHint;
     private View textCursor;
     private Context context;
@@ -42,6 +43,7 @@ public class NumInputView extends RelativeLayout {
     private int drawablesSize;
     private OnFocusChangeListener focusChangeListener;
     private TextWatcher textWatcher;
+    private GtEditText.KeyEventCallback keyEventCallback;
 
     public NumInputView(Context context) {
         this(context, null);
@@ -87,7 +89,7 @@ public class NumInputView extends RelativeLayout {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         rootView = inflater.inflate(R.layout.item_edit_layout, this, true);
 
-        editText = (EditText) rootView.findViewById(R.id.edit_text);
+        editText = rootView.findViewById(R.id.edit_text);
         editTextHint = (TextView) rootView.findViewById(R.id.edit_text_hint);
         textCursor = (View) rootView.findViewById(R.id.edit_text_cursor);
 
@@ -192,27 +194,41 @@ public class NumInputView extends RelativeLayout {
                     editTextHint.setVisibility(View.GONE);
                 if (textWatcher != null)
                     textWatcher.afterTextChanged(s);
+                editText.setSelection(editText.getText().length());
             }
         });
 
-        editText.setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (focusChangeListener != null)
-                    focusChangeListener.onFocusChange(view, b);
-                if (!b) {
-                    showCursor(false);
-                    cleanSelectAll();
-                } else {
-                    showCursor(true);
-                    if (numKeyboardUtils != null)
-                        numKeyboardUtils.setEditView(numInputView);
-                }
+        editText.setOnFocusChangeListener((view, b) -> {
+            if (focusChangeListener != null)
+                focusChangeListener.onFocusChange(view, b);
+            if (!b) {
+                showCursor(false);
+                cleanSelectAll();
+            } else {
+                showCursor(true);
+                if (numKeyboardUtils != null)
+                    numKeyboardUtils.setEditView(numInputView);
             }
         });
 
         editText.setOnTouchListener(touchListener);
         rootView.setOnTouchListener(touchListener);
+
+        editText.setKeyEventCallback((keyCode, event) -> {
+            keyCode = event.getKeyCode();
+            if ((keyCode >= 7 && keyCode <= 16)//只能是数字
+                    || keyCode == KeyEvent.KEYCODE_PERIOD) {//或者小数点
+                return true;
+            }
+            if (keyCode == KeyEvent.KEYCODE_DEL) {
+                numKeyboardUtils.keyboardDel(0);
+                numKeyboardUtils.keyboardDel(1);
+            }
+            if (keyEventCallback != null) {
+                return keyEventCallback.onKeyDown(keyCode, event);
+            }
+            return false;
+        });
     }
 
     OnTouchListener touchListener = new OnTouchListener() {
@@ -377,5 +393,9 @@ public class NumInputView extends RelativeLayout {
 
     public void setOnEditorActionListener(TextView.OnEditorActionListener l) {
         editText.setOnEditorActionListener(l);
+    }
+
+    public void setKeyEventCallback(GtEditText.KeyEventCallback keyEventCallback) {
+        this.keyEventCallback = keyEventCallback;
     }
 }

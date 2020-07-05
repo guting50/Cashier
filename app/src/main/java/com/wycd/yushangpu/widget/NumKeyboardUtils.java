@@ -18,9 +18,10 @@ public class NumKeyboardUtils {
     private NumInputView numInputView;
     private Activity activity;
     private OnDelClickListener onDelClickListener;
+    private View keyboardViewLayout;
 
     public NumKeyboardUtils(Activity activity, View rootView, NumInputView editViewLayout) {
-        View keyboardViewLayout = rootView.findViewById(R.id.keyboard_layout);
+        keyboardViewLayout = rootView.findViewById(R.id.keyboard_layout);
         ButterKnife.bind(this, keyboardViewLayout);
         this.activity = activity;
 
@@ -56,39 +57,7 @@ public class NumKeyboardUtils {
             R.id.num_keyboard_3, R.id.num_keyboard_0, R.id.num_keyboard_dot, R.id.num_keyboard_delete})
     public boolean onViewTouchKeyboard(View view, MotionEvent event) {
         if (view.getId() == R.id.num_keyboard_delete) {
-            Timer timer = (Timer) view.getTag();
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    String result = numInputView.popBack();
-                    if (onDelClickListener != null) {
-                        onDelClickListener.popBack(result);
-                    }
-                    if (timer == null) {
-                        timer = new Timer();
-                        view.setTag(timer);
-                        timer.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                activity.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        String result = numInputView.popBack();
-                                        if (onDelClickListener != null) {
-                                            onDelClickListener.popBack(result);
-                                        }
-                                    }
-                                });
-                            }
-                        }, 500, 100);
-                    }
-                    break;
-                case MotionEvent.ACTION_UP:
-                    if (timer != null) {
-                        timer.cancel();
-                        view.setTag(null);
-                    }
-                    break;
-            }
+            keyboardDel(event.getAction());
         }
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -137,5 +106,39 @@ public class NumKeyboardUtils {
                 break;
         }
         return true;
+    }
+
+    public void keyboardDel(int action) {
+        View view = keyboardViewLayout.findViewById(R.id.num_keyboard_delete);
+        Timer timer = (Timer) view.getTag();
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                String result = numInputView.popBack();
+                if (onDelClickListener != null) {
+                    onDelClickListener.popBack(result);
+                }
+                if (timer == null) {
+                    timer = new Timer();
+                    view.setTag(timer);
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            activity.runOnUiThread(() -> {
+                                String result1 = numInputView.popBack();
+                                if (onDelClickListener != null) {
+                                    onDelClickListener.popBack(result1);
+                                }
+                            });
+                        }
+                    }, 500, 100);
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                if (timer != null) {
+                    timer.cancel();
+                    view.setTag(null);
+                }
+                break;
+        }
     }
 }

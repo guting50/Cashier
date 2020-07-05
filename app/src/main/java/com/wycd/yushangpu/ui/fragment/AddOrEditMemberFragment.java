@@ -6,12 +6,12 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -46,7 +46,6 @@ import com.wycd.yushangpu.http.CallBack;
 import com.wycd.yushangpu.http.HttpAPI;
 import com.wycd.yushangpu.http.ImgUrlTools;
 import com.wycd.yushangpu.http.InterfaceBack;
-import com.wycd.yushangpu.model.ImpOnlyVipMsg;
 import com.wycd.yushangpu.model.ImpParamLoading;
 import com.wycd.yushangpu.printutil.GetPrintSet;
 import com.wycd.yushangpu.printutil.HttpGetPrintContents;
@@ -58,8 +57,9 @@ import com.wycd.yushangpu.widget.MaxHeightRecyclerView;
 import com.wycd.yushangpu.widget.calendarselecter.CalendarSelector;
 import com.wycd.yushangpu.widget.calendarselecter.DateUtil;
 import com.wycd.yushangpu.widget.dialog.SaomaDialog;
-import com.wycd.yushangpu.widget.dialog.ShopDetailDialog;
+import com.wycd.yushangpu.widget.dialog.StaffChooseDialog;
 import com.wycd.yushangpu.widget.dialog.VipChooseDialog;
+import com.wycd.yushangpu.widget.views.GtEditText;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -82,20 +82,20 @@ import butterknife.OnClick;
 /**
  * 添加或编辑会员
  */
-public class AddOrEditMemberFragment extends BaseFragment {
+public class AddOrEditMemberFragment extends BaseFragment implements GtEditText.KeyEventCallback {
 
     @BindView(R.id.et_VCH_Card)
-    EditText et_VCH_Card;
+    GtEditText et_VCH_Card;
     @BindView(R.id.et_VIP_Name)
-    EditText et_VIP_Name;
+    GtEditText et_VIP_Name;
     @BindView(R.id.et_VIP_FaceNumber)
-    EditText et_VIP_FaceNumber;
+    GtEditText et_VIP_FaceNumber;
     @BindView(R.id.et_VIP_Overdue)
     TextView et_VIP_Overdue;
     @BindView(R.id.et_VIP_ICCard)
-    EditText et_VIP_ICCard;
+    GtEditText et_VIP_ICCard;
     @BindView(R.id.et_MA_AggregateAmount)
-    EditText et_MA_AggregateAmount;
+    GtEditText et_MA_AggregateAmount;
     @BindView(R.id.et_VIP_Referee)
     TextView et_VIP_Referee;
     @BindView(R.id.et_EM_Name)
@@ -103,27 +103,27 @@ public class AddOrEditMemberFragment extends BaseFragment {
     @BindView(R.id.et_VCH_CreateTime)
     TextView et_VCH_CreateTime;
     @BindView(R.id.et_VIP_Addr)
-    EditText et_VIP_Addr;
+    GtEditText et_VIP_Addr;
     @BindView(R.id.et_VIP_CellPhone)
-    EditText et_VIP_CellPhone;
+    GtEditText et_VIP_CellPhone;
     @BindView(R.id.et_VG_GID)
     TextView et_VG_GID;
     @BindView(R.id.et_VCH_Pwd)
-    EditText et_VCH_Pwd;
+    GtEditText et_VCH_Pwd;
     @BindView(R.id.et_VCH_Pwd_Confirm)
-    EditText et_VCH_Pwd_Confirm;
+    GtEditText et_VCH_Pwd_Confirm;
     @BindView(R.id.et_VIP_Birthday)
     TextView et_VIP_Birthday;
     @BindView(R.id.et_MA_AvailableIntegral)
-    EditText et_MA_AvailableIntegral;
+    GtEditText et_MA_AvailableIntegral;
     @BindView(R.id.et_SM_Name)
     TextView et_SM_Name;
     @BindView(R.id.et_VCH_Fee)
-    EditText et_VCH_Fee;
+    GtEditText et_VCH_Fee;
     @BindView(R.id.et_VIP_Label)
     TextView et_VIP_Label;
     @BindView(R.id.et_VIP_Remark)
-    EditText et_VIP_Remark;
+    GtEditText et_VIP_Remark;
     @BindView(R.id.tv_select_Pay_Way)
     TextView tv_select_Pay_Way;
     @BindView(R.id.recycler_view_costomfields)
@@ -229,7 +229,6 @@ public class AddOrEditMemberFragment extends BaseFragment {
         customFields = ImpParamLoading.REPORT_BEAN.getGetCustomFieldsVIP();
         mPayWayList.clear();
         mPayWayList.add("现金支付");
-        showAttr();
         rootView.findViewById(R.id.et_select_EM_Name).setEnabled(false);
         rootView.findViewById(R.id.et_select_EM_Name).setSelected(false);
         ((TextView) rootView.findViewById(R.id.et_select_EM_Name))
@@ -451,6 +450,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                 break;
             }
         }
+        showAttr();
     }
 
     private void initCostomfieldsAdapter() {
@@ -513,11 +513,13 @@ public class AddOrEditMemberFragment extends BaseFragment {
                 ((TextView) rootView.findViewById(R.id.tv_basic_data)).setTextColor(homeActivity.getResources().getColor(R.color.color_149f4a));
                 ((TextView) rootView.findViewById(R.id.tv_costomfields)).setTextColor(homeActivity.getResources().getColor(R.color.color_999999));
                 rootView.findViewById(R.id.fl_costomfields_layout).setVisibility(View.GONE);
+                setFocusable(et_VCH_Card);
                 break;
             case R.id.tv_costomfields:
                 ((TextView) rootView.findViewById(R.id.tv_basic_data)).setTextColor(homeActivity.getResources().getColor(R.color.color_999999));
                 ((TextView) rootView.findViewById(R.id.tv_costomfields)).setTextColor(homeActivity.getResources().getColor(R.color.color_149f4a));
                 rootView.findViewById(R.id.fl_costomfields_layout).setVisibility(View.VISIBLE);
+                setFocusable(costomTextView);
                 break;
             case R.id.tv_VIP_Sex_0://男
                 rootView.findViewById(R.id.tv_VIP_Sex_1).setSelected(false);
@@ -553,7 +555,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
                 vipChooseDialog.show();
                 break;
             case R.id.et_select_EM_Name://选择人员
-                ShopDetailDialog.shopdetailDialog(getActivity(), null, "",
+                StaffChooseDialog.shopdetailDialog(getActivity(), null, "",
                         null, MyApplication.loginBean.getShopID(), true, 10, new InterfaceBack() {
                             @Override
                             public void onResponse(Object response) {
@@ -727,6 +729,13 @@ public class AddOrEditMemberFragment extends BaseFragment {
      * 获取文本框中的值
      */
     private boolean getTextValue() {
+        if (!TextUtils.isEmpty(et_VCH_Card.getText())) {
+            mCardNum = et_VCH_Card.getText().toString();
+        } else {
+            warnDialog("【卡号】不能为空");
+            return false;
+        }
+
         mPhoneNum = et_VIP_CellPhone.getText().toString();
         if (mIsfilltel) {
             if (!TextUtils.isEmpty(et_VIP_CellPhone.getText())) {
@@ -755,13 +764,6 @@ public class AddOrEditMemberFragment extends BaseFragment {
         }
         if (TextUtils.isEmpty(mGradeGid)) {
             ToastUtils.showLong("请设置会员等级");
-            return false;
-        }
-
-        if (!TextUtils.isEmpty(et_VCH_Card.getText())) {
-            mCardNum = et_VCH_Card.getText().toString();
-        } else {
-            warnDialog("【卡号】不能为空");
             return false;
         }
 
@@ -910,6 +912,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
         AsyncHttpUtils.postHttp(url, params, new CallBack() {
             String msgStr = vipInfoMsg == null ? "添加会员" : "修改会员";
             String GID = "";
+
             @Override
             public void onResponse(BaseRes response) {
                 homeActivity.dialog.dismiss();
@@ -927,12 +930,12 @@ public class AddOrEditMemberFragment extends BaseFragment {
                 if (msg.toString().contains("SmsSign")) {
                     warnDialog(msgStr + "成功,短信未发送，未设置默认签名！");
                     homeActivity.vipMemberFragment.reset();
-                    GID = ((BaseRes)msg).getData().toString();
+                    GID = ((BaseRes) msg).getData().toString();
                     finallyFunction();
                 } else if (msg.toString().contains("BuySms")) {
                     warnDialog(msgStr + "成功，短信未发送，短信库存不足！");
                     homeActivity.vipMemberFragment.reset();
-                    GID = ((BaseRes)msg).getData().toString();
+                    GID = ((BaseRes) msg).getData().toString();
                     finallyFunction();
                 } else if (msg.toString().contains("UpgradeShop")) {
                     warnDialog("会员数已达上限,请升级店铺！");
@@ -1024,6 +1027,8 @@ public class AddOrEditMemberFragment extends BaseFragment {
         });
     }
 
+    TextView costomTextView;
+
     class CostomfieldsAdapter extends RecyclerView.Adapter {
         final int TYPE_1 = 0;
         final int TYPE_2 = 1;
@@ -1054,6 +1059,15 @@ public class AddOrEditMemberFragment extends BaseFragment {
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             ReportMessageBean.GetCustomFieldsVIPBean vipBean = customFields.get(position);
             CostomfieldsHolder myHolder = (CostomfieldsHolder) holder;
+            if (myHolder.et_costomfields_value instanceof GtEditText) {
+                if (!gtCostomfieldsEditTexts.contains(myHolder.et_costomfields_value))
+                    gtCostomfieldsEditTexts.add(myHolder.et_costomfields_value);
+                ((GtEditText) myHolder.et_costomfields_value).setKeyEventCallback(AddOrEditMemberFragment.this);
+                if (costomTextView == null) {
+                    costomTextView = myHolder.et_costomfields_value;
+                    setFocusable(costomTextView);
+                }
+            }
             myHolder.tv_costomfields_name.setText(vipBean.getCF_FieldName());
             myHolder.isFill.setVisibility(View.GONE);
             if (vipBean.getCF_Required().equals("是")) {
@@ -1064,6 +1078,13 @@ public class AddOrEditMemberFragment extends BaseFragment {
             } else {
                 myHolder.et_costomfields_value.setText("");
             }
+            myHolder.et_costomfields_value.setOnFocusChangeListener((v, hasFocus) -> {
+                if (hasFocus) {
+                    if (!v.equals(gtEditText)) {
+                        setFocusable(gtEditText);
+                    }
+                }
+            });
             myHolder.et_costomfields_value.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -1163,7 +1184,6 @@ public class AddOrEditMemberFragment extends BaseFragment {
                     }
                 });
             }
-
         }
 
         @Override
@@ -1205,7 +1225,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
         class InputHolder extends CostomfieldsHolder {
 
             @BindView(R.id.et_costomfields_value)
-            EditText et_costomfields_value;
+            GtEditText et_costomfields_value;
 
             public InputHolder(@NonNull View itemView) {
                 super(itemView);
@@ -1317,7 +1337,47 @@ public class AddOrEditMemberFragment extends BaseFragment {
         }
     }
 
+    List<View> gtEditTexts = new ArrayList<>();
+    List<View> gtCostomfieldsEditTexts = new ArrayList<>();
+
     private void showAttr() {
+        gtEditTexts.clear();
+        et_VCH_Card.setKeyEventCallback(this);
+        if (et_VCH_Card.isEnabled())
+            gtEditTexts.add(et_VCH_Card);
+        et_VIP_CellPhone.setKeyEventCallback(this);
+        if (et_VIP_CellPhone.isEnabled())
+            gtEditTexts.add(et_VIP_CellPhone);
+        et_VIP_Name.setKeyEventCallback(this);
+        if (et_VIP_Name.isEnabled())
+            gtEditTexts.add(et_VIP_Name);
+        et_VIP_FaceNumber.setKeyEventCallback(this);
+        if (et_VIP_FaceNumber.isEnabled())
+            gtEditTexts.add(et_VIP_FaceNumber);
+        et_VCH_Pwd.setKeyEventCallback(this);
+        if (et_VCH_Pwd.isEnabled())
+            gtEditTexts.add(et_VCH_Pwd);
+        et_VCH_Pwd_Confirm.setKeyEventCallback(this);
+        if (et_VCH_Pwd_Confirm.isEnabled())
+            gtEditTexts.add(et_VCH_Pwd_Confirm);
+        et_VIP_ICCard.setKeyEventCallback(this);
+        if (et_VIP_ICCard.isEnabled())
+            gtEditTexts.add(et_VIP_ICCard);
+        et_MA_AggregateAmount.setKeyEventCallback(this);
+        if (et_MA_AggregateAmount.isEnabled())
+            gtEditTexts.add(et_MA_AggregateAmount);
+        et_MA_AvailableIntegral.setKeyEventCallback(this);
+        if (et_MA_AvailableIntegral.isEnabled())
+            gtEditTexts.add(et_MA_AvailableIntegral);
+        et_VCH_Fee.setKeyEventCallback(this);
+        if (et_VCH_Fee.isEnabled())
+            gtEditTexts.add(et_VCH_Fee);
+        et_VIP_Addr.setKeyEventCallback(this);
+        if (et_VIP_Addr.isEnabled())
+            gtEditTexts.add(et_VIP_Addr);
+        et_VIP_Remark.setKeyEventCallback(this);
+        if (et_VIP_Remark.isEnabled())
+            gtEditTexts.add(et_VIP_Remark);
         if (SysSwitchRes.getSwitch(SysSwitchType.T451.getV()).getSS_State() == 0) {//会员生日
             rootView.findViewById(R.id.ly_VIP_Birthday).setVisibility(View.GONE);
         }
@@ -1325,6 +1385,7 @@ public class AddOrEditMemberFragment extends BaseFragment {
         }
         if (SysSwitchRes.getSwitch(SysSwitchType.T453.getV()).getSS_State() == 0) {//身份证号
             rootView.findViewById(R.id.ly_VIP_ICCard).setVisibility(View.GONE);
+            gtEditTexts.remove(et_VIP_ICCard);
         }
         if (SysSwitchRes.getSwitch(SysSwitchType.T454.getV()).getSS_State() == 0) {////固定电话
         }
@@ -1339,9 +1400,47 @@ public class AddOrEditMemberFragment extends BaseFragment {
         }
         if (SysSwitchRes.getSwitch(SysSwitchType.T458.getV()).getSS_State() == 0) {//会员地址
             rootView.findViewById(R.id.ly_VIP_Addr).setVisibility(View.GONE);
+            gtEditTexts.remove(et_VIP_Addr);
         }
         if (SysSwitchRes.getSwitch(SysSwitchType.T459.getV()).getSS_State() == 0) {//备注信息
             rootView.findViewById(R.id.ly_VIP_Remark).setVisibility(View.GONE);
+            gtEditTexts.remove(et_VIP_Remark);
         }
+    }
+
+    View gtEditText;
+
+    private void setFocusable(View view) {
+        if (view != null) {
+            gtEditText = view;
+            view.setFocusable(true);
+            view.setFocusableInTouchMode(true);
+            view.requestFocus();
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+            rootView.findViewById(R.id.fl_submit).performClick();
+            return false;
+        }
+        if (event.getKeyCode() == KeyEvent.KEYCODE_TAB) {
+            List<View> editTexts = gtEditTexts;
+            if (rootView.findViewById(R.id.fl_costomfields_layout).getVisibility() == View.VISIBLE) {
+                editTexts = gtCostomfieldsEditTexts;
+            }
+            int index = editTexts.indexOf(gtEditText);
+            if (index == -1) {
+                index = 0;
+            }
+            if (index + 1 == editTexts.size()) {
+                index = 0;
+            } else
+                index++;
+            setFocusable(editTexts.get(index));
+            return false;
+        }
+        return true;
     }
 }

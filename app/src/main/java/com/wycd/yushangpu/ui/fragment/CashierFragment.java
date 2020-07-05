@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -522,10 +523,10 @@ public class CashierFragment extends BaseFragment {
         tvNumTotal.setText(num + "");
         if (num != 0) {
             tvShoukuan.setTag(1);
-            tvShoukuan.setText("结账[Enter]");
+            tvShoukuan.setText("结账[Space]");
         } else {
             tvShoukuan.setTag(0);
-            tvShoukuan.setText("快速收银[Enter]");
+            tvShoukuan.setText("快速收银[Space]");
         }
 
         mShopLeftAdapter.notifyDataSetChanged();
@@ -885,7 +886,7 @@ public class CashierFragment extends BaseFragment {
         tv_ordernum.setText(order);
         mTvHeji.setText("0.00");
         tvShoukuan.setTag(0);
-        tvShoukuan.setText("快速收银[Enter]");
+        tvShoukuan.setText("快速收银[Space]");
         tvNumTotal.setText("0");
         leftpos = -1;
         updateBntGetOrder();
@@ -961,5 +962,20 @@ public class CashierFragment extends BaseFragment {
         return PD_Discount;
     }
 
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_F1) {
+            bttGetOrder.performClick();
+            return true;
+        }
+        if (keyCode == KeyEvent.KEYCODE_F2) {
+            rootView.findViewById(R.id.member_bg_layout).performClick();
+            return true;
+        }
+        if (keyCode == KeyEvent.KEYCODE_SPACE) {
+            tvShoukuan.performClick();
+            return true;
+        }
+        return false;
+    }
 }
 

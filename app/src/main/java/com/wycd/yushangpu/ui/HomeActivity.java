@@ -80,23 +80,6 @@ public class HomeActivity extends BaseActivity {
         }
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // TODO Auto-generated method stub
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            long secndTime = System.currentTimeMillis();
-            if (secndTime - firstTime > 3000) {
-                firstTime = secndTime;
-                Toast.makeText(ac, "再按一次退出", Toast.LENGTH_LONG)
-                        .show();
-            } else {
-                ActivityUtils.finishAllActivities();
-            }
-            return true;
-        }
-        return false;
-    }
-
     private void initEvent() {
         mRlJiaoban.setOnClickListener(new NoDoubleClickListener() {
             @Override
@@ -195,5 +178,25 @@ public class HomeActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         ConnectPrinter.unregisterReceiver(this);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            long secndTime = System.currentTimeMillis();
+            if (secndTime - firstTime > 3000) {
+                firstTime = secndTime;
+                Toast.makeText(ac, "再按一次退出", Toast.LENGTH_LONG)
+                        .show();
+            } else {
+                ActivityUtils.finishAllActivities();
+            }
+            return true;
+        }
+        if (cashierFragment.onKeyDown(keyCode, event)) {
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -1,25 +1,28 @@
 package com.wycd.yushangpu.ui.fragment;
 
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.gt.utils.widget.BgTextView;
 import com.wycd.yushangpu.MyApplication;
-import com.wycd.yushangpu.model.BasicEucalyptusPresnter;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.bean.EmplMsg;
 import com.wycd.yushangpu.bean.ShopMsg;
 import com.wycd.yushangpu.bean.SysSwitchRes;
 import com.wycd.yushangpu.bean.SysSwitchType;
 import com.wycd.yushangpu.http.InterfaceBack;
+import com.wycd.yushangpu.model.BasicEucalyptusPresnter;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.StringUtil;
 import com.wycd.yushangpu.widget.NumInputView;
 import com.wycd.yushangpu.widget.NumKeyboardUtils;
 import com.wycd.yushangpu.widget.dialog.NoticeDialog;
-import com.wycd.yushangpu.widget.dialog.ShopDetailDialog;
+import com.wycd.yushangpu.widget.dialog.StaffChooseDialog;
+import com.wycd.yushangpu.widget.views.GtEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +76,17 @@ public class EditCashierGoodsFragment extends BaseFragment {
     @Override
     public void onCreated() {
         new NumKeyboardUtils(getActivity(), rootView, editTextLayout);
+        editTextLayout.setKeyEventCallback(new GtEditText.KeyEventCallback() {
+            int frontKeyCode;
+
+            @Override
+            public boolean onKeyDown(int keyCode, KeyEvent event) {
+                if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                    rootView.findViewById(R.id.edit_confirm).performClick();
+                }
+                return false;
+            }
+        });
     }
 
     public void setData(ShopMsg shopBean) {
@@ -127,11 +141,11 @@ public class EditCashierGoodsFragment extends BaseFragment {
                 break;
             case R.id.bn_edit_price:
                 if (BasicEucalyptusPresnter.mModifyPrice == 0 || BasicEucalyptusPresnter.mChangePrice == 0) {
-                    com.blankj.utilcode.util.ToastUtils.showShort("请开启 商品消费改单价 后再操作");
+                    ToastUtils.showShort("请开启 商品消费改单价 后再操作");
                     return;
                 }
                 if (NullUtils.noNullHandle(shopBean.getPM_IsService()).toString().equals("3")) {
-                    com.blankj.utilcode.util.ToastUtils.showShort("套餐不能修改单价");
+                    ToastUtils.showShort("套餐不能修改单价");
                     return;
                 }
                 resetBnEdit(view);
@@ -142,11 +156,11 @@ public class EditCashierGoodsFragment extends BaseFragment {
                 break;
             case R.id.bn_edit_subtotal:
                 if (BasicEucalyptusPresnter.mModifyPrice == 0 || BasicEucalyptusPresnter.mChangeSubtotal == 0) {
-                    com.blankj.utilcode.util.ToastUtils.showShort("请开启 商品消费改小计 后再操作");
+                    ToastUtils.showShort("请开启 商品消费改小计 后再操作");
                     return;
                 }
                 if (shopBean.isIsgive()) {
-                    com.blankj.utilcode.util.ToastUtils.showShort("赠送商品不能改小计");
+                    ToastUtils.showShort("赠送商品不能改小计");
                     return;
                 }
                 resetBnEdit(view);
@@ -159,11 +173,11 @@ public class EditCashierGoodsFragment extends BaseFragment {
                 break;
             case R.id.bn_edit_discount:
                 if (BasicEucalyptusPresnter.mModifyPrice == 0 || BasicEucalyptusPresnter.mChangeDiscount == 0) {
-                    com.blankj.utilcode.util.ToastUtils.showShort("请开启 商品消费改折扣 后再操作");
+                    ToastUtils.showShort("请开启 商品消费改折扣 后再操作");
                     return;
                 }
                 if (shopBean.isIsgive()) {
-                    com.blankj.utilcode.util.ToastUtils.showShort("赠送商品不能改折扣");
+                    ToastUtils.showShort("赠送商品不能改折扣");
                     return;
                 }
                 resetBnEdit(view);
@@ -197,7 +211,7 @@ public class EditCashierGoodsFragment extends BaseFragment {
                 resetBnEdit(view);
                 editLayout.setVisibility(View.GONE);
                 //提成员工
-                ShopDetailDialog.shopdetailDialog(getActivity(), shopBean,
+                StaffChooseDialog.shopdetailDialog(getActivity(), shopBean,
                         null == homeActivity.cashierFragment.mVipMsg ? "" : homeActivity.cashierFragment.mVipMsg.getVG_GID(),
                         shopBean.getEM_GIDList(), MyApplication.loginBean.getShopID(), 50, new InterfaceBack() {
                             @Override
@@ -247,11 +261,11 @@ public class EditCashierGoodsFragment extends BaseFragment {
                 break;
             case R.id.edit_confirm:
                 if (editTextLayout.getText().toString().equals("") || "0.0".equals(editTextLayout.getText().toString())) {
-                    com.blankj.utilcode.util.ToastUtils.showShort("请输入数字");
+                    ToastUtils.showShort("请输入数字");
                     return;
                 }
                 if (!StringUtil.isTwoPoint(editTextLayout.getText().toString())) {
-                    com.blankj.utilcode.util.ToastUtils.showShort("只能输入两位小数");
+                    ToastUtils.showShort("只能输入两位小数");
                     return;
                 }
                 if (currentSelectedBn != null) {
@@ -261,7 +275,7 @@ public class EditCashierGoodsFragment extends BaseFragment {
                             if (shopBean != null && (shopBean.getPM_IsService() == 1 || shopBean.getPM_IsService() == 3)) {
                                 String[] strs = editTextLayout.getText().toString().split("\\.");
                                 if (strs.length == 2 && Integer.parseInt(strs[1]) > 0) {
-                                    com.blankj.utilcode.util.ToastUtils.showShort("服务或套餐的数量不能为小数");
+                                    ToastUtils.showShort("服务或套餐的数量不能为小数");
                                     return;
                                 }
                             }
@@ -286,7 +300,7 @@ public class EditCashierGoodsFragment extends BaseFragment {
                             break;
                         case R.id.bn_edit_discount:
                             if (editValue > 1) {
-                                com.blankj.utilcode.util.ToastUtils.showShort("输入数字不正确");
+                                ToastUtils.showShort("输入数字不正确");
                                 return;
                             }
                             shopBean.setIschanged(true);

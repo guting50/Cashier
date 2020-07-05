@@ -1,6 +1,7 @@
 package com.wycd.yushangpu.ui.fragment;
 
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import com.wycd.yushangpu.tools.DateTimeUtil;
 import com.wycd.yushangpu.tools.GlideTransform;
 import com.wycd.yushangpu.tools.MyOnEditorActionListener;
 import com.wycd.yushangpu.tools.NullUtils;
+import com.wycd.yushangpu.widget.views.GtEditText;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -47,7 +49,7 @@ public class VipMemberFragment extends BaseFragment {
     @BindView(R.id.search_list)
     XRecyclerView searchList;
     @BindView(R.id.edit_text_layout)
-    EditText editTextLayout;
+    GtEditText editTextLayout;
     @BindView(R.id.tv_member_count)
     TextView tvMemberCount;
     @BindView(R.id.member_head_info_layout)
@@ -93,6 +95,12 @@ public class VipMemberFragment extends BaseFragment {
             public void onEditorAction(String text) {
                 obtainVipList();
             }
+        });
+        editTextLayout.setKeyEventCallback((keyCode, event) -> {
+            if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                obtainVipList();
+            }
+            return true;
         });
     }
 
@@ -331,7 +339,6 @@ public class VipMemberFragment extends BaseFragment {
             rootView = itemView;
         }
     }
-
 
     private void showAttr() {
         if (SysSwitchRes.getSwitch(SysSwitchType.T451.getV()).getSS_State() == 0) {//会员生日

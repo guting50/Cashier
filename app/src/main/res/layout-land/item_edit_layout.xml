@@ -6,7 +6,7 @@
     android:layout_gravity="center_vertical"
     tools:ignore="MissingDefaultResource">
 
-    <EditText
+    <com.wycd.yushangpu.widget.views.GtEditText
         android:id="@+id/edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

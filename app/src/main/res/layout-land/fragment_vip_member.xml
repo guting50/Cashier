@@ -42,7 +42,7 @@
                         app:stroke_color="@color/colorPrimary"
                         app:stroke_width="1dp">
 
-                        <EditText
+                        <com.wycd.yushangpu.widget.views.GtEditText
                             android:id="@+id/edit_text_layout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"

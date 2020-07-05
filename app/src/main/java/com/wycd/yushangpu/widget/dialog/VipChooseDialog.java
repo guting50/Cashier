@@ -2,18 +2,23 @@ package com.wycd.yushangpu.widget.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.reflect.TypeToken;
+import com.gt.utils.widget.OnNoDoubleClickListener;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
-import com.wycd.yushangpu.adapter.SearchVipPopAdapter;
 import com.wycd.yushangpu.bean.SysSwitchRes;
 import com.wycd.yushangpu.bean.SysSwitchType;
 import com.wycd.yushangpu.bean.VipInfoMsg;
@@ -22,13 +27,17 @@ import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpOnlyVipMsg;
 import com.wycd.yushangpu.tools.DateTimeUtil;
 import com.wycd.yushangpu.tools.MyOnEditorActionListener;
+import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.widget.NumInputView;
 import com.wycd.yushangpu.widget.NumKeyboardUtils;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -132,6 +141,12 @@ public class VipChooseDialog extends Dialog {
                 findViewById(R.id.li_search).performClick();
             }
         });
+        editTextLayout.setKeyEventCallback((keyCode, event) -> {
+            if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                findViewById(R.id.li_search).performClick();
+            }
+            return false;
+        });
     }
 
     @OnClick({R.id.iv_close, R.id.li_search, R.id.rl_confirm, R.id.rl_delete})
@@ -193,6 +208,7 @@ public class VipChooseDialog extends Dialog {
                 }
                 searchList.loadMoreComplete();
                 searchList.refreshComplete();
+                editTextLayout.setFocusable(true);
             }
 
             @Override
@@ -202,5 +218,86 @@ public class VipChooseDialog extends Dialog {
                 searchList.refreshComplete();
             }
         });
+    }
+
+    class SearchVipPopAdapter extends RecyclerView.Adapter {
+        private List<VipInfoMsg> list = new ArrayList<>();
+        private Context context;
+        private InterfaceBack back;
+
+        public SearchVipPopAdapter(Context context, InterfaceBack back) {
+            this.context = context;
+            this.back = back;
+        }
+
+        public void addList(VipInfoMsg list) {
+            this.list.add(list);
+        }
+
+        public void addAllList(List<VipInfoMsg> list) {
+            this.list.addAll(list);
+        }
+
+        public void setList(List<VipInfoMsg> list) {
+            this.list = list;
+        }
+
+        public List<VipInfoMsg> getList() {
+            return list;
+        }
+
+        @NonNull
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(context).inflate(R.layout.item_pop_vip_search, parent, false);
+            return new Holder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+
+            Holder vh = (Holder) holder;
+            final VipInfoMsg ts = list.get(position);
+
+            vh.tvGid.setText(NullUtils.noNullHandle(ts.getGID()) + "");
+            vh.tvName.setText(NullUtils.noNullHandle(ts.getVIP_Name()) + "");
+            vh.tvCardnum.setText("卡号：" + NullUtils.noNullHandle(ts.getVCH_Card()) + "");
+            vh.tvPhone.setText(NullUtils.noNullHandle(ts.getVIP_CellPhone()) + "");
+
+            if (getItemCount() == 1) {
+                vh.rootView.setBackgroundResource(R.color.texted);
+            }
+
+            vh.rootView.setOnClickListener(new OnNoDoubleClickListener() {
+                @Override
+                public void onNoDoubleClick(View v) {
+                    back.onResponse(ts);
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        class Holder extends RecyclerView.ViewHolder {
+
+            View rootView;
+            @BindView(R.id.tv_gid)
+            TextView tvGid;
+            @BindView(R.id.tv_name)
+            TextView tvName;
+            @BindView(R.id.tv_cardnum)
+            TextView tvCardnum;
+            @BindView(R.id.tv_phone)
+            TextView tvPhone;
+
+            public Holder(@NonNull View itemView) {
+                super(itemView);
+                ButterKnife.bind(this, itemView);
+                rootView = itemView;
+            }
+        }
     }
 }

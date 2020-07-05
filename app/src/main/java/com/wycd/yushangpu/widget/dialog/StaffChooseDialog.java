@@ -2,16 +2,19 @@ package com.wycd.yushangpu.widget.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -25,7 +28,6 @@ import com.gt.utils.widget.BgTextView;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
 import com.wycd.yushangpu.R;
-import com.wycd.yushangpu.adapter.YuangongAdapter;
 import com.wycd.yushangpu.bean.DeductRuleBean;
 import com.wycd.yushangpu.bean.EmplMsg;
 import com.wycd.yushangpu.bean.ShopMsg;
@@ -41,6 +43,7 @@ import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.model.ImpParamLoading;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
+import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.widget.NumInputView;
 import com.wycd.yushangpu.widget.NumKeyboardUtils;
 
@@ -59,7 +62,7 @@ import butterknife.ButterKnife;
  * Created by songxiaotao on 2017/12/21.
  */
 
-public class ShopDetailDialog {
+public class StaffChooseDialog {
     private static List<EmplMsg> emplist = new ArrayList<>();
     private static List<String> mEmplMsgList3;// 已选员工列表
     private static String mSmGid;
@@ -90,7 +93,7 @@ public class ShopDetailDialog {
         }
         final Dialog dialog;
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.dialog_shopdetail, null);
+        View view = inflater.inflate(R.layout.dialog_choose_staff, null);
         ListView listView = view.findViewById(R.id.listview);
         BgTextView rl_confirm = view.findViewById(R.id.rl_confirm);
         ImageView rl_cancle = view.findViewById(R.id.rl_cancle);
@@ -102,6 +105,7 @@ public class ShopDetailDialog {
         BgLayout li_search = view.findViewById(R.id.li_search);
 
         new NumKeyboardUtils(context, view, editTextLayout);
+        editTextLayout.setFocusable(true);
 
         Dialog loadingdialog = LoadingDialog.loadingDialog(context, 1);
 
@@ -112,7 +116,7 @@ public class ShopDetailDialog {
         isSingle = single;
 
         //员工适配器
-        final YuangongAdapter yuangongAdapter = new YuangongAdapter(context, mEmplMsgList);
+        final YuangongAdapter yuangongAdapter = new YuangongAdapter(context, mEmplMsgList, editTextLayout);
         listView.setAdapter(yuangongAdapter);
         dialog = new Dialog(context, R.style.ActionSheetDialogStyle);
         dialog.setCancelable(true);
@@ -146,7 +150,6 @@ public class ShopDetailDialog {
                     mEmplMsgList.addAll(emplist);
                     yuangongAdapter.notifyDataSetChanged();
                 }
-
             }
         });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -215,43 +218,42 @@ public class ShopDetailDialog {
             }
         });
         //清除
-        view.findViewById(R.id.bgReset).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                back.onResponse(new ArrayList<>());
-            }
+        view.findViewById(R.id.bgReset).setOnClickListener(v -> {
+            dialog.dismiss();
+            back.onResponse(new ArrayList<>());
         });
         //关闭提成框 右上角关闭按钮
-        view.findViewById(R.id.iv_cancle_proportion).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                flProportionLayout.setVisibility(View.GONE);
-            }
-        });
+        view.findViewById(R.id.iv_cancle_proportion).setOnClickListener(v -> flProportionLayout.setVisibility(View.GONE));
         //关闭提成框 取消按钮
-        view.findViewById(R.id.bg_cancle_proportion).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                flProportionLayout.setVisibility(View.GONE);
-            }
-        });
+        view.findViewById(R.id.bg_cancle_proportion).setOnClickListener(v -> flProportionLayout.setVisibility(View.GONE));
         // 输入提成后的确定
-        view.findViewById(R.id.bg_confirm_proportion).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (adapter.check()) {
-                    flProportionLayout.setVisibility(View.GONE);
-                    dialog.dismiss();
-                    back.onResponse(adapter.getData());
-                }
+        view.findViewById(R.id.bg_confirm_proportion).setOnClickListener(v -> {
+            if (adapter.check()) {
+                flProportionLayout.setVisibility(View.GONE);
+                dialog.dismiss();
+                back.onResponse(adapter.getData());
             }
         });
-        flProportionLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        flProportionLayout.setOnClickListener(v -> {
 
+        });
+
+        editTextLayout.setKeyEventCallback((keyCode, event) -> {
+            if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                List<EmplMsg> mEmplMsgList2 = new ArrayList<>();
+                for (EmplMsg emp : mEmplMsgList) {
+                    if (emp.isIschose()) {
+                        mEmplMsgList2.add(emp);
+                    }
+                }
+                if (mEmplMsgList2.size() > 0) {
+                    rl_confirm.performClick();
+                } else {
+                    li_search.performClick();
+                }
+                editTextLayout.setFocusable(true);
             }
+            return false;
         });
         return dialog;
     }
@@ -374,6 +376,72 @@ public class ShopDetailDialog {
         }
         yuangongAdapter.notifyDataSetChanged();
 
+    }
+
+    static class YuangongAdapter extends BaseAdapter {
+        private List<EmplMsg> list;
+        private Context context;
+        private NumInputView editTextLayout;
+
+        public YuangongAdapter(Context context, List<EmplMsg> list, NumInputView editTextLayout) {
+            this.list = list;
+            this.context = context;
+            this.editTextLayout = editTextLayout;
+        }
+
+        @Override
+        public int getCount() {
+            return list.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return list.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public View getView(final int i, View view, ViewGroup viewGroup) {
+            final ViewHolder holder1;
+            if (view == null) {
+                view = LayoutInflater.from(context).inflate(R.layout.item_shopdetail_yuangong, viewGroup, false);
+                holder1 = new ViewHolder(view);
+                view.setTag(holder1);
+            } else {
+                holder1 = (ViewHolder) view.getTag();
+            }
+            final EmplMsg vipMsg = list.get(i);
+            holder1.tv_ygname.setText(NullUtils.noNullHandle(vipMsg.getEM_Name()).toString());
+            holder1.tv_ygcode.setText(NullUtils.noNullHandle(vipMsg.getEM_Code()).toString());
+//        holder1.tv_ygsex.setText(Integer.parseInt(NullUtils.noNullHandle(vipMsg.getEM_Sex()).toString()) == 1 ? "男" : "女");
+            holder1.tv_ygsex.setText(NullUtils.noNullHandle(vipMsg.getDM_Name()).toString());
+            if (vipMsg.isIschose()) {
+                holder1.iv_chose.setBackgroundResource(R.drawable.emp_chose);
+            } else {
+                holder1.iv_chose.setBackgroundResource(R.drawable.emp_not);
+            }
+            editTextLayout.setFocusable(true);
+            return view;
+        }
+
+        class ViewHolder {
+            @BindView(R.id.tv_ygname)
+            TextView tv_ygname;
+            @BindView(R.id.tv_ygcode)
+            TextView tv_ygcode;
+            @BindView(R.id.tv_ygsex)
+            TextView tv_ygsex;
+            @BindView(R.id.iv_chose)
+            ImageView iv_chose;
+
+            ViewHolder(View view) {
+                ButterKnife.bind(this, view);
+            }
+        }
     }
 
     static class ProportionAdapter extends RecyclerView.Adapter<ProportionAdapter.ProportionHolder> {

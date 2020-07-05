@@ -30,7 +30,7 @@ import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.CreateOrder;
 import com.wycd.yushangpu.tools.DateTimeUtil;
 import com.wycd.yushangpu.tools.StringUtil;
-import com.wycd.yushangpu.widget.dialog.ShopDetailDialog;
+import com.wycd.yushangpu.widget.dialog.StaffChooseDialog;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -148,7 +148,7 @@ public class MemberRechargeFragment extends BaseFragment {
                         });
                 break;
             case R.id.et_recharge_select_em_name://选择员工
-                ShopDetailDialog.shopdetailDialog(getActivity(), null, "",
+                StaffChooseDialog.shopdetailDialog(getActivity(), null, "",
                         mStaffListGids, MyApplication.loginBean.getShopID(), 20, new InterfaceBack() {
                             @Override
                             public void onResponse(Object response) {

@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -129,5 +130,13 @@ public class ClearEditText extends AppCompatEditText {
         //使用代码设置该控件left, title_myaction, right, and bottom处的图标
         setCompoundDrawables(getCompoundDrawables()[0], getCompoundDrawables()[1],
                 rightDrawable, getCompoundDrawables()[3]);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_SPACE) {
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

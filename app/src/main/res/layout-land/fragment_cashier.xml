@@ -262,7 +262,7 @@
             android:layout_toRightOf="@+id/btt_hung_order"
             android:gravity="center"
             android:tag="0"
-            android:text="快速收银[Enter]"
+            android:text="快速收银[Space]"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_22"
             android:textStyle="bold"
