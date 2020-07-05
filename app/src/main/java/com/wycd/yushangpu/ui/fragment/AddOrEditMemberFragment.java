@@ -973,6 +973,7 @@ public class AddOrEditMemberFragment extends BaseFragment implements GtEditText.
                     p.setPayCode("SMZF");
                     p.setPayMoney(smPayMoney);
                     p.setPayName("扫码支付");
+                    typeList.add(p);
                     result.setPayTypeList(typeList);
 //                    String OrderCode = "202041215117";
                     String OrderCode = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
