@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.http.InterfaceBack;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by ZPH on 2019-08-07.
@@ -39,7 +42,16 @@ public class NoticeDialog {
         notice_title.setText(title);
         tv_content.setText(value);
 
-        dialog = new Dialog(context, R.style.ActionSheetDialogStyle);
+        dialog = new Dialog(context, R.style.ActionSheetDialogStyle) {
+            @Override
+            public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) {
+                    tv_confirm.performClick();
+                    return true;
+                }
+                return super.onKeyDown(keyCode, event);
+            }
+        };
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
         int screenWidth = ((WindowManager) context

@@ -90,6 +90,7 @@ public class LoginActivity extends BaseActivity {
                         Manifest.permission.WRITE_EXTERNAL_STORAGE
                 )
                 .send();
+        showPresentation();
     }
 
 

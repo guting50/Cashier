@@ -227,13 +227,19 @@ public class CashierFragment extends BaseFragment {
         mEtLoginAccount.setOnEditorActionListener(new MyOnEditorActionListener(homeActivity) {
             @Override
             public void onEditorAction(String text) {
-                goodsListFragment.obtainHomeShop(text, 1, true, true);
+                if (!TextUtils.isEmpty(mEtLoginAccount.getText().toString())) {
+                    goodsListFragment.obtainHomeShop(text, 1, true, true);
+                    mEtLoginAccount.setText("");
+                }
             }
         });
         mEtLoginAccount.setOnKeyListener((v, keyCode, event) -> {
             homeActivity.addLog("aaa:" + keyCode);
             if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) {
-                goodsListFragment.obtainHomeShop(mEtLoginAccount.getText().toString(), 1, true, true);
+                if (!TextUtils.isEmpty(mEtLoginAccount.getText().toString())) {
+                    goodsListFragment.obtainHomeShop(mEtLoginAccount.getText().toString(), 1, true, true);
+                    mEtLoginAccount.setText("");
+                }
                 return true;
             }
             if (keyCode == KeyEvent.KEYCODE_SPACE) {
