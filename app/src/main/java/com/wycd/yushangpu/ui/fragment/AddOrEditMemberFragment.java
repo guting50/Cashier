@@ -1435,7 +1435,7 @@ public class AddOrEditMemberFragment extends BaseFragment implements GtEditText.
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+        if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) {
             rootView.findViewById(R.id.fl_submit).performClick();
             return false;
         }

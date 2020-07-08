@@ -142,7 +142,7 @@ public class VipChooseDialog extends Dialog {
             }
         });
         editTextLayout.setKeyEventCallback((keyCode, event) -> {
-            if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+            if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) {
                 findViewById(R.id.li_search).performClick();
             }
             return false;

@@ -63,12 +63,7 @@ public class SaomaDialog {
         Window window = dialog.getWindow();
         dialog.show();
 
-        iv_clone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+        iv_clone.setOnClickListener(view1 -> dialog.dismiss());
 
         if (MyApplication.loginBean.getShopList().get(0).getSaoBei_State() == 0) {
             on_open_saoma.setVisibility(View.VISIBLE);

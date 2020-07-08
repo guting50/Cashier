@@ -8,24 +8,30 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.hardware.display.DisplayManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.ui.Presentation.GuestShowPresentation;
 import com.wycd.yushangpu.widget.dialog.LoadingDialog;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -40,6 +46,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public Dialog dialog;
     public Resources res;
     public Activity ac;
+    private TextView logTv;
     /**
      * 小键盘
      */
@@ -69,6 +76,18 @@ public abstract class BaseActivity extends AppCompatActivity {
 //        WindowManager.LayoutParams params = _window.getAttributes();
 //        params.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE;
 //        _window.setAttributes(params);
+    }
+
+    @Override
+    public void setContentView(@LayoutRes int layoutResID) {
+        super.setContentView(R.layout.activity_base);
+        FrameLayout contentLayout = findViewById(R.id.contentLayout);
+        contentLayout.addView(LayoutInflater.from(this).inflate(layoutResID, contentLayout, false));
+        logTv = findViewById(R.id.logTv);
+        logTv.setOnLongClickListener(v -> {
+            logTv.setText("");
+            return false;
+        });
     }
 
     protected void init() {
@@ -101,6 +120,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         // 必须调用该方法，防止内存泄漏
         ImmersionBar.with(this).destroy();
+    }
+
+    public void addLog(String log) {
+        logTv.setText(logTv.getText().toString() + "\n" + log);
     }
 
     /**
@@ -189,25 +212,35 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100) {
-            showPresentation();
+            showPres();
         }
     }
 
     public void showPresentation() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (Settings.canDrawOverlays(this)) {
-                DisplayManager mDisplayManager = (DisplayManager) getSystemService(Context.DISPLAY_SERVICE);
-                Display[] displays = mDisplayManager.getDisplays();
-                if (displays.length > 1) {
-                    if (GuestShowPresentation.guestShowPresentation == null) {
-                        GuestShowPresentation.guestShowPresentation = new GuestShowPresentation(ac, displays[1]);//displays[1]是副屏
-                        GuestShowPresentation.guestShowPresentation.getWindow().setType(WindowManager.LayoutParams.TYPE_PHONE);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                            GuestShowPresentation.guestShowPresentation.getWindow().setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
-                    }
-                    GuestShowPresentation.guestShowPresentation.show();
-                }
+                showPres();
+            } else {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                intent.setData(Uri.parse("package:" + getPackageName()));
+                startActivityForResult(intent, 100);
             }
+        } else {
+            showPres();
+        }
+    }
+
+    private void showPres() {
+        DisplayManager mDisplayManager = (DisplayManager) getSystemService(Context.DISPLAY_SERVICE);
+        Display[] displays = mDisplayManager.getDisplays();
+        if (displays.length > 1) {
+            if (GuestShowPresentation.guestShowPresentation == null) {
+                GuestShowPresentation.guestShowPresentation = new GuestShowPresentation(ac, displays[1]);//displays[1]是副屏
+                GuestShowPresentation.guestShowPresentation.getWindow().setType(WindowManager.LayoutParams.TYPE_PHONE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                    GuestShowPresentation.guestShowPresentation.getWindow().setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
+            }
+            GuestShowPresentation.guestShowPresentation.show();
         }
     }
 }

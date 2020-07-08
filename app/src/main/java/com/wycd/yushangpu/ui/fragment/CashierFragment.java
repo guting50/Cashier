@@ -230,6 +230,18 @@ public class CashierFragment extends BaseFragment {
                 goodsListFragment.obtainHomeShop(text, 1, true, true);
             }
         });
+        mEtLoginAccount.setOnKeyListener((v, keyCode, event) -> {
+            homeActivity.addLog("aaa:" + keyCode);
+            if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) {
+                goodsListFragment.obtainHomeShop(mEtLoginAccount.getText().toString(), 1, true, true);
+                return true;
+            }
+            if (keyCode == KeyEvent.KEYCODE_SPACE) {
+                tvShoukuan.performClick();
+                return true;
+            }
+            return false;
+        });
 
         tvShoukuan.setOnClickListener(new NoDoubleClickListener() {
             @Override

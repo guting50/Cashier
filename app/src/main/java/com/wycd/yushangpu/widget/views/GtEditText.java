@@ -7,6 +7,9 @@ import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.widget.EditText;
 
+import com.blankj.utilcode.util.ActivityUtils;
+import com.wycd.yushangpu.ui.BaseActivity;
+
 import androidx.annotation.RequiresApi;
 
 @SuppressLint({"ViewConstructor", "AppCompatCustomView"})
@@ -37,6 +40,10 @@ public class GtEditText extends EditText {
                 return true;
             }
         }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public boolean onGtKeyDown(int keyCode, KeyEvent event) {
         return super.onKeyDown(keyCode, event);
     }
 

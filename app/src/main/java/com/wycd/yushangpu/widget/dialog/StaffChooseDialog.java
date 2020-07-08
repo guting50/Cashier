@@ -239,7 +239,7 @@ public class StaffChooseDialog {
         });
 
         editTextLayout.setKeyEventCallback((keyCode, event) -> {
-            if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+            if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) {
                 List<EmplMsg> mEmplMsgList2 = new ArrayList<>();
                 for (EmplMsg emp : mEmplMsgList) {
                     if (emp.isIschose()) {

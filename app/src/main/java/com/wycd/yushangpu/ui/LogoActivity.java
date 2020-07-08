@@ -1,13 +1,8 @@
 package com.wycd.yushangpu.ui;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.text.TextUtils;
 
-import com.blankj.utilcode.util.CacheDoubleUtils;
 import com.gt.utils.PermissionUtils;
 import com.loopj.android.http.RequestParams;
 import com.wycd.yushangpu.MyApplication;
@@ -30,15 +25,8 @@ public class LogoActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (Settings.canDrawOverlays(this)) {
-                showPresentation();
-            } else {
-                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-                intent.setData(Uri.parse("package:" + getPackageName()));
-                startActivityForResult(intent, 100);
-            }
-        }
+        showPresentation();
+
         RequestParams params = new RequestParams();
         params.put("Type", 3);
         AsyncHttpUtils.postHttp(HttpAPI.API().GET_NEWS_VERSION, params, new CallBack() {

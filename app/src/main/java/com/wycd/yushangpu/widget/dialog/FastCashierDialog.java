@@ -31,15 +31,41 @@ public class FastCashierDialog {
         final Dialog dialog;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.dialog_fast_cashier_layout, null);
-        ImageView iv_close = (ImageView) view.findViewById(R.id.iv_close);
-        NumInputView edit_view = (NumInputView) view.findViewById(R.id.edit_view);
-        TextView num_keyboard_add = (TextView) view.findViewById(R.id.num_keyboard_add);
-        View li_jiesuan = (View) view.findViewById(R.id.li_jiesuan);
-        TextView tv_total = (TextView) view.findViewById(R.id.tv_total);
+        ImageView iv_close = view.findViewById(R.id.iv_close);
+        NumInputView edit_view = view.findViewById(R.id.edit_view);
+        TextView num_keyboard_add = view.findViewById(R.id.num_keyboard_add);
+        View li_jiesuan = view.findViewById(R.id.li_jiesuan);
+        TextView tv_total = view.findViewById(R.id.tv_total);
 
         NumKeyboardUtils numKeyboardUtils = new NumKeyboardUtils(context, view, edit_view);
 
-        dialog = new Dialog(context, R.style.ActionSheetDialogStyle);
+        dialog = new Dialog(context, R.style.ActionSheetDialogStyle) {
+            int frontKeyCode;
+
+            @Override
+            public boolean onKeyDown(int keyCode, KeyEvent event) {
+                boolean result = false;
+                if (event.getKeyCode() == KeyEvent.KEYCODE_EQUALS) {
+                    if (frontKeyCode == KeyEvent.KEYCODE_SHIFT_LEFT) {
+                        num_keyboard_add.performClick();
+                        result = true;
+                    }
+                }
+                if (keyCode == KeyEvent.KEYCODE_NUMPAD_ADD) {
+                    num_keyboard_add.performClick();
+                    result = true;
+                }
+                frontKeyCode = event.getKeyCode();
+                if (frontKeyCode == KeyEvent.KEYCODE_ENTER || frontKeyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) {
+                    li_jiesuan.performClick();
+                    result = true;
+                }
+                if (result) {
+                    return false;
+                }
+                return edit_view.onGtKeyDown(keyCode, event);
+            }
+        };
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
 
@@ -60,6 +86,13 @@ public class FastCashierDialog {
             protected void onNoDoubleClick(View view) {
                 dialog.dismiss();
             }
+        });
+        iv_close.setOnKeyListener((v, keyCode, event) -> {
+            if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) {
+                li_jiesuan.performClick();
+                return true;
+            }
+            return false;
         });
         numKeyboardUtils.setOnDelClickListener(str -> {
             edit_view.setText("");
@@ -102,13 +135,17 @@ public class FastCashierDialog {
                         num_keyboard_add.performClick();
                     }
                 }
+                if (keyCode == KeyEvent.KEYCODE_NUMPAD_ADD) {
+                    num_keyboard_add.performClick();
+                }
                 frontKeyCode = event.getKeyCode();
-                if (frontKeyCode == KeyEvent.KEYCODE_ENTER) {
+                if (frontKeyCode == KeyEvent.KEYCODE_ENTER || frontKeyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) {
                     li_jiesuan.performClick();
                 }
                 return false;
             }
         });
+        edit_view.setFocusable(true);
 
         return dialog;
     }

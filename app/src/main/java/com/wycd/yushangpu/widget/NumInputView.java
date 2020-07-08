@@ -20,8 +20,10 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.tools.StringUtil;
+import com.wycd.yushangpu.ui.BaseActivity;
 import com.wycd.yushangpu.widget.views.GtEditText;
 
 import java.lang.reflect.Field;
@@ -216,8 +218,7 @@ public class NumInputView extends RelativeLayout {
 
         editText.setKeyEventCallback((keyCode, event) -> {
             keyCode = event.getKeyCode();
-            if ((keyCode >= 7 && keyCode <= 16)//只能是数字
-                    || keyCode == KeyEvent.KEYCODE_PERIOD) {//或者小数点
+            if (isNumber(keyCode)) {
                 return true;
             }
             if (keyCode == KeyEvent.KEYCODE_DEL) {
@@ -253,6 +254,7 @@ public class NumInputView extends RelativeLayout {
             editText.setFocusable(true);
             editText.setFocusableInTouchMode(true);
             editText.requestFocus();
+            editText.requestFocusFromTouch();
         }
     }
 
@@ -298,14 +300,11 @@ public class NumInputView extends RelativeLayout {
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    textCursor.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (textCursor.getVisibility() == View.VISIBLE) {
-                                textCursor.setVisibility(View.INVISIBLE);
-                            } else {
-                                textCursor.setVisibility(View.VISIBLE);
-                            }
+                    textCursor.post(() -> {
+                        if (textCursor.getVisibility() == View.VISIBLE) {
+                            textCursor.setVisibility(View.INVISIBLE);
+                        } else {
+                            textCursor.setVisibility(View.VISIBLE);
                         }
                     });
                 }
@@ -397,5 +396,22 @@ public class NumInputView extends RelativeLayout {
 
     public void setKeyEventCallback(GtEditText.KeyEventCallback keyEventCallback) {
         this.keyEventCallback = keyEventCallback;
+    }
+
+    public boolean onGtKeyDown(int keyCode, KeyEvent event) {
+        if (isNumber(keyCode)) {
+            return editText.onGtKeyDown(keyCode, event);
+        }
+        return false;
+    }
+
+    public boolean isNumber(int keyCode) {
+        if ((keyCode >= KeyEvent.KEYCODE_0 && keyCode <= KeyEvent.KEYCODE_9)//只能是数字
+                || keyCode == KeyEvent.KEYCODE_PERIOD//或者小数点
+                || (keyCode >= KeyEvent.KEYCODE_NUMPAD_0 && keyCode <= KeyEvent.KEYCODE_NUMPAD_9)
+                || keyCode == KeyEvent.KEYCODE_FORWARD_DEL) {
+            return true;
+        }
+        return false;
     }
 }

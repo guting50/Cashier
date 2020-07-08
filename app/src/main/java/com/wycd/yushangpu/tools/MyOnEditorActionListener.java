@@ -22,18 +22,16 @@ public abstract class MyOnEditorActionListener implements TextView.OnEditorActio
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         KeyboardUtils.hideSoftInput(v);
-        if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+        if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE
+                || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
 //                    homeActivity.dialog.show();
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (!TextUtils.isEmpty(v.getText().toString())) {
-                                onEditorAction(v.getText().toString());
-                                v.setText("");
-                            }
+                    activity.runOnUiThread(() -> {
+                        if (!TextUtils.isEmpty(v.getText().toString())) {
+                            onEditorAction(v.getText().toString());
+                            v.setText("");
                         }
                     });
                 }

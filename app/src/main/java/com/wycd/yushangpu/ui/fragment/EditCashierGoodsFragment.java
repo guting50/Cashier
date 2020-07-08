@@ -76,16 +76,11 @@ public class EditCashierGoodsFragment extends BaseFragment {
     @Override
     public void onCreated() {
         new NumKeyboardUtils(getActivity(), rootView, editTextLayout);
-        editTextLayout.setKeyEventCallback(new GtEditText.KeyEventCallback() {
-            int frontKeyCode;
-
-            @Override
-            public boolean onKeyDown(int keyCode, KeyEvent event) {
-                if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                    rootView.findViewById(R.id.edit_confirm).performClick();
-                }
-                return false;
+        editTextLayout.setKeyEventCallback((keyCode, event) -> {
+            if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) {
+                rootView.findViewById(R.id.edit_confirm).performClick();
             }
+            return false;
         });
     }
 

@@ -4,7 +4,9 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.google.android.material.textfield.TextInputEditText;
+import com.wycd.yushangpu.ui.BaseActivity;
 
 public class GtTextInputEditText extends TextInputEditText {
     public GtTextInputEditText(Context context) {
@@ -21,7 +23,7 @@ public class GtTextInputEditText extends TextInputEditText {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_ENTER) {
+        if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) {
             return false;
         }
         return super.onKeyDown(keyCode, event);

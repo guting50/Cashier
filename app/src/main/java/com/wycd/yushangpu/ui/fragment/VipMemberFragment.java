@@ -5,7 +5,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -97,7 +96,7 @@ public class VipMemberFragment extends BaseFragment {
             }
         });
         editTextLayout.setKeyEventCallback((keyCode, event) -> {
-            if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+            if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) {
                 obtainVipList();
             }
             return true;
@@ -178,6 +177,9 @@ public class VipMemberFragment extends BaseFragment {
                 }.getType();
                 List<VipInfoMsg> vipDengjiMsg = response.getData(listType);
 
+                if (pageIndex == 1) {
+                    memberAdapter.getList().clear();
+                }
                 memberAdapter.addAllList(vipDengjiMsg);
                 memberAdapter.notifyDataSetChanged();
                 if (response.getDataCount() <= memberAdapter.getList().size()) {
