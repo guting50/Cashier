@@ -44,6 +44,7 @@ import com.wycd.yushangpu.model.ImpParamLoading;
 import com.wycd.yushangpu.tools.CommonUtils;
 import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.NullUtils;
+import com.wycd.yushangpu.ui.BaseActivity;
 import com.wycd.yushangpu.widget.NumInputView;
 import com.wycd.yushangpu.widget.NumKeyboardUtils;
 
@@ -118,7 +119,27 @@ public class StaffChooseDialog {
         //员工适配器
         final YuangongAdapter yuangongAdapter = new YuangongAdapter(context, mEmplMsgList, editTextLayout);
         listView.setAdapter(yuangongAdapter);
-        dialog = new Dialog(context, R.style.ActionSheetDialogStyle);
+        dialog = new Dialog(context, R.style.ActionSheetDialogStyle) {
+            @Override
+            public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) {
+                    List<EmplMsg> mEmplMsgList2 = new ArrayList<>();
+                    for (EmplMsg emp : mEmplMsgList) {
+                        if (emp.isIschose()) {
+                            mEmplMsgList2.add(emp);
+                        }
+                    }
+                    if (mEmplMsgList2.size() > 0) {
+                        rl_confirm.performClick();
+                    } else {
+                        li_search.performClick();
+                    }
+                    editTextLayout.setFocusable(true);
+                    return true;
+                }
+                return editTextLayout.onGtKeyDown(keyCode, event);
+            }
+        };
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
         dialog.setContentView(view);
@@ -252,6 +273,24 @@ public class StaffChooseDialog {
                     li_search.performClick();
                 }
                 editTextLayout.setFocusable(true);
+            }
+            return false;
+        });
+        rl_cancle.setOnKeyListener((v, keyCode, event) -> {
+            if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) {
+                List<EmplMsg> mEmplMsgList2 = new ArrayList<>();
+                for (EmplMsg emp : mEmplMsgList) {
+                    if (emp.isIschose()) {
+                        mEmplMsgList2.add(emp);
+                    }
+                }
+                if (mEmplMsgList2.size() > 0) {
+                    rl_confirm.performClick();
+                } else {
+                    li_search.performClick();
+                }
+                editTextLayout.setFocusable(true);
+                return true;
             }
             return false;
         });

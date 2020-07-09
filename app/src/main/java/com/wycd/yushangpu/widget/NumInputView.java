@@ -266,6 +266,10 @@ public class NumInputView extends RelativeLayout {
         this.numKeyboardUtils = numKeyboardUtils;
     }
 
+    public NumKeyboardUtils getNumKeyboardUtils() {
+        return numKeyboardUtils;
+    }
+
     public void selectAll() {
         editText.requestFocus();
         editText.selectAll();

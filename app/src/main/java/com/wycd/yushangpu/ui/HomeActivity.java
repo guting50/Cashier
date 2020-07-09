@@ -61,6 +61,15 @@ public class HomeActivity extends BaseActivity {
         initEvent();
 
         new Thread(() -> ConnectPrinter.connect(ac)).start();
+
+        findViewById(R.id.rl_out).setOnKeyListener((v, keyCode, event) -> {
+            if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) {
+                if (cashierFragment.onKeyDown(keyCode, event)) {
+                    return true;
+                }
+            }
+            return false;
+        });
     }
 
     private void initFragment() {
@@ -182,8 +191,6 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        addLog("activity:" + keyCode);
-        // TODO Auto-generated method stub
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             long secndTime = System.currentTimeMillis();
             if (secndTime - firstTime > 3000) {

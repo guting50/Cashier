@@ -93,6 +93,16 @@ public class NoticeDialog {
                 dialog.dismiss();
             }
         });
+        iv_close.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) {
+                    tv_confirm.performClick();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         tv_cancel.setOnClickListener(new NoDoubleClickListener() {
             @Override

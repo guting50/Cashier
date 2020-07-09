@@ -43,6 +43,7 @@ import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.PreferenceHelper;
 import com.wycd.yushangpu.tools.StringUtil;
+import com.wycd.yushangpu.ui.BaseActivity;
 import com.wycd.yushangpu.ui.Presentation.GuestShowPresentation;
 import com.wycd.yushangpu.widget.dialog.FastCashierDialog;
 import com.wycd.yushangpu.widget.dialog.GoodsModelDialog;
@@ -234,7 +235,6 @@ public class CashierFragment extends BaseFragment {
             }
         });
         mEtLoginAccount.setOnKeyListener((v, keyCode, event) -> {
-            homeActivity.addLog("aaa:" + keyCode);
             if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) {
                 if (!TextUtils.isEmpty(mEtLoginAccount.getText().toString())) {
                     goodsListFragment.obtainHomeShop(mEtLoginAccount.getText().toString(), 1, true, true);
@@ -252,6 +252,7 @@ public class CashierFragment extends BaseFragment {
         tvShoukuan.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View view) {
+                mEtLoginAccount.setText("");
                 if (mShopLeftList.size() > 0) {
                     homeActivity.dialog.show();
                     ImpSubmitOrder submitOrder = new ImpSubmitOrder();
@@ -976,6 +977,10 @@ public class CashierFragment extends BaseFragment {
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (!editCashierGoodsFragment.isHidden()) {
+            editCashierGoodsFragment.onKeyDown(keyCode, event);
+            return true;
+        }
         if (keyCode == KeyEvent.KEYCODE_F1) {
             bttGetOrder.performClick();
             return true;

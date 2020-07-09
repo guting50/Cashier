@@ -131,7 +131,7 @@ public class VipChooseDialog extends Dialog {
         p.height = (int) (d.getHeight() * 0.8);
         getWindow().setAttributes(p); //设置生效
 
-        editTextLayout = (NumInputView) findViewById(R.id.edit_text_layout);
+        editTextLayout = findViewById(R.id.edit_text_layout);
 
         new NumKeyboardUtils(mContext, getWindow().getDecorView(), editTextLayout);
 
@@ -147,6 +147,23 @@ public class VipChooseDialog extends Dialog {
             }
             return false;
         });
+        findViewById(R.id.iv_close).setOnKeyListener((v, keyCode, event) -> {
+            if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) {
+                findViewById(R.id.li_search).performClick();
+                return true;
+            }
+            return false;
+        });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
+        editTextLayout.onGtKeyDown(keyCode, event);
+        if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) {
+            findViewById(R.id.li_search).performClick();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @OnClick({R.id.iv_close, R.id.li_search, R.id.rl_confirm, R.id.rl_delete})

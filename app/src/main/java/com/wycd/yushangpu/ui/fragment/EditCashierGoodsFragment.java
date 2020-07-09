@@ -22,7 +22,6 @@ import com.wycd.yushangpu.widget.NumInputView;
 import com.wycd.yushangpu.widget.NumKeyboardUtils;
 import com.wycd.yushangpu.widget.dialog.NoticeDialog;
 import com.wycd.yushangpu.widget.dialog.StaffChooseDialog;
-import com.wycd.yushangpu.widget.views.GtEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -334,5 +333,18 @@ public class EditCashierGoodsFragment extends BaseFragment {
 
     public ShopMsg getShopBean() {
         return shopBean;
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER) {
+            rootView.findViewById(R.id.edit_confirm).performClick();
+            return true;
+        }
+        if (keyCode == KeyEvent.KEYCODE_DEL) {
+            editTextLayout.getNumKeyboardUtils().keyboardDel(0);
+            editTextLayout.getNumKeyboardUtils().keyboardDel(1);
+            return true;
+        }
+        return editTextLayout.onGtKeyDown(keyCode, event);
     }
 }
