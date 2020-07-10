@@ -345,6 +345,8 @@ public class EditCashierGoodsFragment extends BaseFragment {
             editTextLayout.getNumKeyboardUtils().keyboardDel(1);
             return true;
         }
-        return editTextLayout.onGtKeyDown(keyCode, event);
+        if (editTextLayout != null)
+            return editTextLayout.onGtKeyDown(keyCode, event);
+        return false;
     }
 }

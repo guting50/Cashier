@@ -94,7 +94,7 @@ public class GuestShowPresentation extends Presentation {
         }
         guestShowPresentation.bgImage.setImageResource(R.drawable.presentation_bg);
         if (TextUtils.equals("true", guestShowStr)) {
-            if (data != null) {
+            if (data != null && data.size() > 0) {
                 guestShowPresentation.timer = new Timer();
                 guestShowPresentation.timer.schedule(new TimerTask() {
                     int i = 0;
