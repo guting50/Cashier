@@ -341,9 +341,11 @@ public class EditCashierGoodsFragment extends BaseFragment {
             return true;
         }
         if (keyCode == KeyEvent.KEYCODE_DEL) {
-            editTextLayout.getNumKeyboardUtils().keyboardDel(0);
-            editTextLayout.getNumKeyboardUtils().keyboardDel(1);
-            return true;
+            if (editTextLayout != null) {
+                editTextLayout.getNumKeyboardUtils().keyboardDel(0);
+                editTextLayout.getNumKeyboardUtils().keyboardDel(1);
+                return true;
+            }
         }
         if (editTextLayout != null)
             return editTextLayout.onGtKeyDown(keyCode, event);

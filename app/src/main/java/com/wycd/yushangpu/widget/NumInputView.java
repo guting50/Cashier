@@ -20,10 +20,9 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.wycd.yushangpu.R;
 import com.wycd.yushangpu.tools.StringUtil;
-import com.wycd.yushangpu.ui.BaseActivity;
 import com.wycd.yushangpu.widget.views.GtEditText;
 
 import java.lang.reflect.Field;
@@ -166,6 +165,12 @@ public class NumInputView extends RelativeLayout {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (textWatcher != null)
+                    textWatcher.onTextChanged(s, start, before, count);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
                 String text = s.toString(), lastText = s.toString();
 
                 if (text.contains("+")) {
@@ -173,30 +178,23 @@ public class NumInputView extends RelativeLayout {
                     lastText = list[list.length - 1];
                 }
 
-                if (lastText.equals(".")) {
-                    s = text.substring(0, text.length() - 1) + "0.";
-                    setText(s.toString());
+                if (lastText.length() == 2 && TextUtils.equals("00", lastText)) {
+                    setText("0.0");
+                } else if (lastText.equals(".")) {
+                    setText(text.substring(0, text.length() - 1) + "0.");
                 } else if (StringUtil.countString(lastText, ".") > 1) {
-                    s = text.substring(0, text.length() - 1);
-                    setText(s.toString());
+                    setText(text.substring(0, text.length() - 1));
                 } else if (!StringUtil.isTwoPoint(lastText)) {
-                    com.blankj.utilcode.util.ToastUtils.showShort("只能输入两位小数");
-                    s = text.substring(0, text.length() - 1);
-                    setText(s.toString());
+                    ToastUtils.showShort("只能输入两位小数");
+                    setText(text.substring(0, text.length() - 1));
+                } else {
+                    editTextHint.setVisibility(View.VISIBLE);
+                    if (text.length() > 0)
+                        editTextHint.setVisibility(View.GONE);
+                    if (textWatcher != null)
+                        textWatcher.afterTextChanged(s);
+                    editText.setSelection(editText.getText().length());
                 }
-
-                if (textWatcher != null)
-                    textWatcher.onTextChanged(s, start, before, count);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                editTextHint.setVisibility(View.VISIBLE);
-                if (s.toString().length() > 0)
-                    editTextHint.setVisibility(View.GONE);
-                if (textWatcher != null)
-                    textWatcher.afterTextChanged(s);
-                editText.setSelection(editText.getText().length());
             }
         });
 

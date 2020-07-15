@@ -244,6 +244,7 @@ public class JiesuanBFragment extends BaseFragment {
         et_moling.setText("");
         tv_moling.setText("");
         tv_zhaoling.setText("");
+        tv_zhaoling.setTag("");
         tvCouponMoney.setText("");
         tvCouponMoney.setHint("请选择优惠券");
         tvPromotion.setText("");
@@ -739,7 +740,8 @@ public class JiesuanBFragment extends BaseFragment {
         mEtYsMoney.setText(ysMoney);
 
         double zlMoney = CommonUtils.del(0, CommonUtils.del(Double.parseDouble(ysMoney), payTotal));
-        tv_zhaoling.setText(StringUtil.twoNum(zlMoney + ""));
+        tv_zhaoling.setText(StringUtil.twoNum(zlMoney < 0 ? "0" : (zlMoney + "")));
+        tv_zhaoling.setTag(StringUtil.twoNum(zlMoney + ""));
     }
 
     private double getMoling() {
@@ -758,7 +760,7 @@ public class JiesuanBFragment extends BaseFragment {
     }
 
     private double getZhaoling() {
-        return tv_zhaoling.getText().toString().equals("") ? 0.00 : Double.parseDouble(tv_zhaoling.getText().toString());
+        return tv_zhaoling.getTag().toString().equals("") ? 0.00 : Double.parseDouble(tv_zhaoling.getTag().toString());
     }
 
     private double getPayTotal() {

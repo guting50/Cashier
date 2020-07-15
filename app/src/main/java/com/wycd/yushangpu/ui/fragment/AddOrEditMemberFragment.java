@@ -440,8 +440,6 @@ public class AddOrEditMemberFragment extends BaseFragment implements GtEditText.
             }
         });
 
-        onClick(rootView.findViewById(R.id.tv_basic_data));
-
         rootView.findViewById(R.id.isFill).setVisibility(View.GONE);
         for (ReportMessageBean.GetCustomFieldsVIPBean vipBean : customFields) {
             if (vipBean.getCF_Required().equals("是")) {
@@ -450,6 +448,8 @@ public class AddOrEditMemberFragment extends BaseFragment implements GtEditText.
             }
         }
         showAttr();
+
+        onClick(rootView.findViewById(R.id.tv_basic_data));
     }
 
     private void initCostomfieldsAdapter() {
@@ -513,14 +513,16 @@ public class AddOrEditMemberFragment extends BaseFragment implements GtEditText.
                 ((TextView) rootView.findViewById(R.id.tv_costomfields)).setTextColor(homeActivity.getResources().getColor(R.color.color_999999));
                 rootView.findViewById(R.id.fl_costomfields_layout).setVisibility(View.GONE);
                 rootView.findViewById(R.id.fl_layout).setVisibility(View.VISIBLE);
-                setFocusable(et_VCH_Card);
+                if (!gtEditTexts.isEmpty())
+                    setFocusable(gtEditTexts.get(0));
                 break;
             case R.id.tv_costomfields:
                 ((TextView) rootView.findViewById(R.id.tv_basic_data)).setTextColor(homeActivity.getResources().getColor(R.color.color_999999));
                 ((TextView) rootView.findViewById(R.id.tv_costomfields)).setTextColor(homeActivity.getResources().getColor(R.color.color_149f4a));
                 rootView.findViewById(R.id.fl_costomfields_layout).setVisibility(View.VISIBLE);
                 rootView.findViewById(R.id.fl_layout).setVisibility(View.GONE);
-                setFocusable(costomTextView);
+                if (!gtCostomfieldsEditTexts.isEmpty())
+                    setFocusable(gtCostomfieldsEditTexts.get(0));
                 break;
             case R.id.tv_VIP_Sex_0://男
                 rootView.findViewById(R.id.tv_VIP_Sex_1).setSelected(false);

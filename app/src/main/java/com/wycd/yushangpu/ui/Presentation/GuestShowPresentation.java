@@ -82,7 +82,7 @@ public class GuestShowPresentation extends Presentation {
         String showBillStr = CacheDoubleUtils.getInstance().getString("showBill");
         String guestShowStr = CacheDoubleUtils.getInstance().getString("guestShow");
         String timeStr = CacheDoubleUtils.getInstance().getString("timeInterval");
-        int timeInterval = Integer.parseInt(timeStr == null ? "3" : timeStr);
+        int timeInterval = Integer.parseInt(timeStr == null ? "3" : timeStr.split(" ")[0]);
         String dataStr = CacheDoubleUtils.getInstance().getString("setImages");
         Type type = new TypeToken<List<String>>() {
         }.getType();
