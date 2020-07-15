@@ -154,7 +154,6 @@ public class NumInputView extends RelativeLayout {
             }
         }
 
-
         editText.setInputType(InputType.TYPE_NULL);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
