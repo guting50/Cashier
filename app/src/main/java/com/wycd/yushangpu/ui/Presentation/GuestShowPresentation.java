@@ -111,7 +111,7 @@ public class GuestShowPresentation extends Presentation {
                             }
                         });
                     }
-                }, timeInterval * 1000, timeInterval * 1000);
+                }, 1, timeInterval * 1000);
             }
         }
         guestShowPresentation.billLayout.setVisibility(View.GONE);
