@@ -83,11 +83,8 @@ public class QudanFragment extends BaseFragment {
         setView();
         obtainGuadanList();
 
-        rootView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        rootView.setOnClickListener(view -> {
 
-            }
         });
     }
 

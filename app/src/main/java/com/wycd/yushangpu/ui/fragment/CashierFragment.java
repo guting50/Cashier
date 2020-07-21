@@ -43,7 +43,6 @@ import com.wycd.yushangpu.tools.NoDoubleClickListener;
 import com.wycd.yushangpu.tools.NullUtils;
 import com.wycd.yushangpu.tools.PreferenceHelper;
 import com.wycd.yushangpu.tools.StringUtil;
-import com.wycd.yushangpu.ui.BaseActivity;
 import com.wycd.yushangpu.ui.Presentation.GuestShowPresentation;
 import com.wycd.yushangpu.widget.dialog.FastCashierDialog;
 import com.wycd.yushangpu.widget.dialog.GoodsModelDialog;
@@ -242,11 +241,7 @@ public class CashierFragment extends BaseFragment {
                 }
                 return true;
             }
-            if (keyCode == KeyEvent.KEYCODE_SPACE) {
-                tvShoukuan.performClick();
-                return true;
-            }
-            return false;
+            return onKeyDown(keyCode, event);
         });
 
         tvShoukuan.setOnClickListener(new NoDoubleClickListener() {
@@ -977,7 +972,7 @@ public class CashierFragment extends BaseFragment {
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (!editCashierGoodsFragment.isHidden()) {
+        if (editCashierGoodsFragment.isShow()) {
             editCashierGoodsFragment.onKeyDown(keyCode, event);
             return true;
         }
@@ -986,8 +981,10 @@ public class CashierFragment extends BaseFragment {
             return true;
         }
         if (keyCode == KeyEvent.KEYCODE_F2) {
-            rootView.findViewById(R.id.member_bg_layout).performClick();
-            return true;
+            if (!qudanFragment.isShow()) {
+                rootView.findViewById(R.id.member_bg_layout).performClick();
+                return true;
+            }
         }
         if (keyCode == KeyEvent.KEYCODE_SPACE) {
             tvShoukuan.performClick();

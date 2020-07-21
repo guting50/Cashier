@@ -19,7 +19,7 @@ public abstract class BaseFragment extends Fragment {
     protected HomeActivity homeActivity;
     protected FragmentManager fragmentManager;
     protected View rootView;
-    public boolean isInit;
+    public boolean isInit, isShow;
 
     public void show(FragmentActivity fragmentActivity, int containerViewId) {
         fragmentManager = fragmentActivity.getSupportFragmentManager();
@@ -28,11 +28,13 @@ public abstract class BaseFragment extends Fragment {
         } else {
             fragmentManager.beginTransaction().show(this).commit();
         }
+        isShow = true;
     }
 
     public void hide() {
         if (fragmentManager != null)
             fragmentManager.beginTransaction().hide(this).commit();
+        isShow = false;
     }
 
     @Nullable
@@ -71,5 +73,9 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void updateData() {
+    }
+
+    public boolean isShow() {
+        return isShow;
     }
 }
