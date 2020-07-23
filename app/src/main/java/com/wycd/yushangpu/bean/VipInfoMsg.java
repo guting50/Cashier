@@ -7,6 +7,7 @@ import java.util.List;
 
 public class VipInfoMsg implements Serializable {
     private String GID;//	会员GID	string
+    private String OA_OrderNo;
     private String VIP_HeadImg;//	头像地址	string
     private String VCH_Card;//	会员卡号	string
     private String VIP_Name;//	会员姓名	string
@@ -33,7 +34,7 @@ public class VipInfoMsg implements Serializable {
     private int MCA_HowMany;//	剩余充次总数	int
     private double VCH_Fee; //开卡费
     private String VCH_Fee_PayTypeText;//支付方式
-    private Object SM_GID;//开卡店铺
+    private String SM_GID;//开卡店铺
     private String SM_Name;
     private String EM_Name; //办卡人员
     private double MA_AggregateAmount;//初始金额
@@ -44,7 +45,7 @@ public class VipInfoMsg implements Serializable {
     private String VIP_OpenID;
     private int VIP_InterCalaryMonth;
     private Object MCA_HowManyDetail;
-    private Object CY_GID;
+    private String CY_GID;
     private String VIP_UpdateTime;
     private int VG_IsAccount;
     private int VG_IsIntegral;
@@ -113,6 +114,14 @@ public class VipInfoMsg implements Serializable {
 
     public String getVCH_CreateTime() {
         return VCH_CreateTime;
+    }
+
+    public String getOA_OrderNo() {
+        return OA_OrderNo;
+    }
+
+    public void setOA_OrderNo(String OA_OrderNo) {
+        this.OA_OrderNo = OA_OrderNo;
     }
 
     public void setVCH_CreateTime(String VCH_CreateTime) {
@@ -311,11 +320,11 @@ public class VipInfoMsg implements Serializable {
         this.SM_Name = SM_Name;
     }
 
-    public Object getSM_GID() {
+    public String getSM_GID() {
         return SM_GID;
     }
 
-    public void setSM_GID(Object SM_GID) {
+    public void setSM_GID(String SM_GID) {
         this.SM_GID = SM_GID;
     }
 
@@ -359,11 +368,11 @@ public class VipInfoMsg implements Serializable {
         this.MCA_HowManyDetail = MCA_HowManyDetail;
     }
 
-    public Object getCY_GID() {
+    public String getCY_GID() {
         return CY_GID;
     }
 
-    public void setCY_GID(Object CY_GID) {
+    public void setCY_GID(String CY_GID) {
         this.CY_GID = CY_GID;
     }
 

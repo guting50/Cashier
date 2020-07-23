@@ -719,10 +719,7 @@ public class AddOrEditMemberFragment extends BaseFragment implements GtEditText.
                 break;
             case R.id.fl_submit://提交
                 if (getTextValue()) {
-                    if ("SMZF".equals(mPayTypeCode)) {
-                        showSaomaDialog(mMoney);
-                    } else
-                        addMemberPost();
+                    addMemberPost();
                 }
                 break;
         }
@@ -904,6 +901,10 @@ public class AddOrEditMemberFragment extends BaseFragment implements GtEditText.
             params.put("MA_AggregateAmount", "");
             params.put("EM_Name", "");
         }
+        if ("SMZF".equals(mPayTypeCode)) {
+            url = HttpAPI.API().SUBMIT_VIP;
+        }
+
         for (int i = 0; i < customFields.size(); i++) {//自定义属性
             params.put("FildsId[" + i + "]", customFields.get(i).getCF_GID());
             params.put("FildsValue[" + i + "]", customFields.get(i).getCF_Value() == null ? ""
@@ -919,11 +920,15 @@ public class AddOrEditMemberFragment extends BaseFragment implements GtEditText.
             @Override
             public void onResponse(BaseRes response) {
                 homeActivity.dialog.dismiss();
-                warnDialog(msgStr + "成功");
                 homeActivity.vipMemberFragment.reset();
-                hide();
                 VipInfoMsg infoMsg = response.getData(VipInfoMsg.class);
                 GID = infoMsg.getGID();
+                if ("SMZF".equals(mPayTypeCode)) {
+                    showSaomaDialog(infoMsg, mMoney);
+                    return;
+                }
+                warnDialog(msgStr + "成功");
+                hide();
                 finallyFunction();
             }
 
@@ -958,7 +963,7 @@ public class AddOrEditMemberFragment extends BaseFragment implements GtEditText.
 
     SaomaDialog saomaDialog;
 
-    private void showSaomaDialog(final double smPayMoney) {
+    private void showSaomaDialog(final VipInfoMsg infoMsg, double smPayMoney) {
         if (saomaDialog == null || !saomaDialog.isShowing()) {
             saomaDialog = new SaomaDialog(homeActivity, smPayMoney + "", 1, new InterfaceBack() {
 
@@ -966,7 +971,6 @@ public class AddOrEditMemberFragment extends BaseFragment implements GtEditText.
                 public void onResponse(Object response) {
                     homeActivity.dialog.show();
                     OrderPayResult result = new OrderPayResult();
-                    result = new OrderPayResult();
                     //找零
                     result.setGiveChange(0);
                     result.setPayTotalMoney(smPayMoney);
@@ -978,14 +982,15 @@ public class AddOrEditMemberFragment extends BaseFragment implements GtEditText.
                     p.setPayName("扫码支付");
                     typeList.add(p);
                     result.setPayTypeList(typeList);
-//                    String OrderCode = "202041215117";
-                    String OrderCode = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-                    saomaDialog.saomaPay(response.toString(), smPayMoney + "", OrderCode, OrderCode, result,
+                    saomaDialog.saomaPay(response.toString(), smPayMoney + "", infoMsg.getGID(), infoMsg.getOA_OrderNo(), result,
                             JiesuanBFragment.OrderType.HYKK, new InterfaceBack() {
                                 @Override
                                 public void onResponse(Object response) {
                                     saomaDialog.dismiss();
-                                    addMemberPost();
+                                    hide();
+                                    if (GetPrintSet.PRINT_IS_OPEN) {
+                                        new HttpGetPrintContents().HYKK(homeActivity, infoMsg.getGID());
+                                    }
 
                                     homeActivity.dialog.dismiss();
                                 }

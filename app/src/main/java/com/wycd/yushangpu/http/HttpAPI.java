@@ -187,6 +187,7 @@ public class HttpAPI {
         public static final String MEMBER_LABEL = MyApplication.BASE_URL + "api/MemberLabel/QueryDataList";
         //添加会员
         public static final String ADDUSER = MyApplication.BASE_URL + "api/VIP/AddVIP";
+        public static final String SUBMIT_VIP = MyApplication.BASE_URL + "api/VIP/SubmitVIP";
         //修改会员信息
         public static final String EDITIP = MyApplication.BASE_URL + "api/VIP/EditVIP";
         //上传会员头像
