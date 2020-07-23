@@ -219,7 +219,7 @@ public class VipMemberFragment extends BaseFragment {
         ((TextView) rootView.findViewById(R.id.tv_info_phone)).setText(info.getVIP_CellPhone());
         ((TextView) rootView.findViewById(R.id.tv_info_vg_Name)).setText("Lv." + info.getVG_Name());
         ((TextView) rootView.findViewById(R.id.tv_info_card)).setText(info.getVCH_Card());
-        ((TextView) rootView.findViewById(R.id.tv_create_time)).setText(info.getVCH_CreateTime());
+        ((TextView) rootView.findViewById(R.id.tv_create_time)).setText(info.getVCH_CreateTime().split(" ")[0]);
         ((TextView) rootView.findViewById(R.id.tv_referee)).setText(info.getVIP_Referee());
         ((TextView) rootView.findViewById(R.id.tv_birthday)).setText(info.getVIP_Birthday());
         ((TextView) rootView.findViewById(R.id.tv_email)).setText(info.getVIP_Email());
@@ -257,7 +257,7 @@ public class VipMemberFragment extends BaseFragment {
         if (info.getVIP_IsForver() == 1) {
             ((TextView) rootView.findViewById(R.id.tv_overdue)).setText("永久");
         } else
-            ((TextView) rootView.findViewById(R.id.tv_overdue)).setText(info.getVIP_Overdue());
+            ((TextView) rootView.findViewById(R.id.tv_overdue)).setText(info.getVIP_Overdue().split(" ")[0]);
         ((TextView) rootView.findViewById(R.id.tv_face_number)).setText(info.getVIP_FaceNumber());
         ((TextView) rootView.findViewById(R.id.tv_ic_card)).setText(info.getVIP_ICCard());
         ((TextView) rootView.findViewById(R.id.tv_g_id)).setText(info.getSM_Name());
